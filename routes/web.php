@@ -17,4 +17,10 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Route::get('auth/google', 'Auth\GoogleController@redirectToProvider');
+Route::get('auth/google/callback', 'Auth\GoogleController@handleProviderCallback');
+
+Route::get('auth/facebook', 'Auth\FacebookController@redirectToProvider');
+Route::get('auth/facebook/callback', 'Auth\FacebookController@handleProviderCallback');
+
 Route::get('/home', 'HomeController@index');

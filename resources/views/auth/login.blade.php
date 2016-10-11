@@ -59,6 +59,18 @@
                                 </a>
                             </div>
                         </div>
+
+                        <div class="form-group">
+                            <div class="col-md-8 col-md-offset-4">
+                                <a class="btn btn-default" href="{{ url('/auth/google') }}">
+                                    Google
+                                </a>
+
+                                <a class="btn btn-default" href="{{ url('/auth/facebook') }}">
+                                    Facebook
+                                </a>
+                            </div>
+                        </div>
                     </form>
                 </div>
             </div>
