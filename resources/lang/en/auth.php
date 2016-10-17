@@ -18,6 +18,7 @@ return [
     'login' => [
         'form' => [
             'heading' => 'Login',
+            'text' => 'Jaunt through the zoo and collect pieces of a puzzle. If you get a complete picture, you can redeem it for discounts in the zoo shops and the entrance',
             'email' => 'E-Mail Address',
             'password' => 'Password',
             'remember' => 'Remember Me',
