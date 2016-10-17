@@ -8,10 +8,22 @@ use Illuminate\Support\Facades\Auth;
 
 use App\User;
 
+use App\SocialAccountService;
+
 use Socialite;
 
 class FacebookController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('guest');
+    }
+
     /**
      * Redirect the user to the Google authentication page.
      *
@@ -27,14 +39,11 @@ class FacebookController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback()
+    public function handleProviderCallback(SocialAccountService $service)
     {
-        // TODO Need to handle exceptions
-        $socialiteUser = Socialite::driver('facebook')->user();
+        $user = $service->createOrGetUser(Socialite::driver('facebook'));
 
-        $user = User::findOrCreateSocialite($socialiteUser);
-
-        Auth::login($user, true);
+        auth()->login($user, true);
 
         return redirect('home');
     }
