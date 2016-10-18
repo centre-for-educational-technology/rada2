@@ -17,3 +17,15 @@ This tool set includes:
 - Create the database as needed (according to configuration provided)
 - Run **php artisan migrate** from terminal (this should create database and more)
   - Running **php artisan serve** would serve the app in development (or configure the server of your choice)
+
+## Development
+
+### Working with compiled assets
+Working with JS and SASS requires [Node.js](https://nodejs.org) and [Gulp](http://gulpjs.com/) or compilation, generation and management purposes.
+More information could be found on [Laravel Elixir](https://laravel.com/docs/5.3/elixir) documentation pages.
+
+If all the dependencies are installed, then one would only need to run one of the tasks:
+
+ - **gulp** would run all tasks
+ - **gulp --production** would run  all tasks and enforce minification and uglification
+ - **gulp watch** would run the tasks and keep watching for changes (CTRL + C to cancel the task in terminal)
