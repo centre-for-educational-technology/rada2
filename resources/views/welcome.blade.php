@@ -37,11 +37,11 @@
 
         <!-- Controls -->
         <a class="left carousel-control" href="#sz-landing-carousel" role="button" data-slide="prev">
-            <i class="glyphicon mdi mdi-chevron-left" aria-hidden="true"></i>
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
             <span class="sr-only">Previous</span>
         </a>
         <a class="right carousel-control" href="#sz-landing-carousel" role="button" data-slide="next">
-            <i class="glyphicon mdi mdi-chevron-right" aria-hidden="true"></i>
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
             <span class="sr-only">Next</span>
         </a>
     </div>
