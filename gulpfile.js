@@ -16,5 +16,10 @@ require('laravel-elixir-vue-2');
 elixir(mix => {
     mix.sass('app.scss')
        .webpack('app.js')
+       .scripts([
+           'geolocation.js',
+           'map.js'
+       ], 'public/js/activity.js')
+       //.copy('resources/assets/js/activity.js', 'public/js/activity.js')
        .copy('node_modules/bootstrap-sass/assets/fonts', 'public/fonts');
 });

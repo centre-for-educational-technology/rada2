@@ -24,3 +24,4 @@ Route::get('auth/facebook', 'Auth\FacebookController@redirectToProvider');
 Route::get('auth/facebook/callback', 'Auth\FacebookController@handleProviderCallback');
 
 Route::get('/home', 'HomeController@index');
+Route::get('/activity', 'ActivityController@index');
