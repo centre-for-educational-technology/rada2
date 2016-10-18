@@ -82,7 +82,7 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <a class="btn btn-default col-xs-12" href="{{ url('/auth/google') }}">
+                                <a class="btn btn-default google-sign-in col-xs-12" href="{{ url('/auth/google') }}">
                                     <i class="mdi mdi-google" aria-hidden="true"></i>
                                     {{ trans('auth.login.form.btn.google') }}
                                 </a>
@@ -91,7 +91,7 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                <a class="btn btn-default col-xs-12" href="{{ url('/auth/facebook') }}">
+                                <a class="btn btn-default facebook-sign-in col-xs-12" href="{{ url('/auth/facebook') }}">
                                     <i class="mdi mdi-facebook-box" aria-hidden="true"></i>
                                     {{ trans('auth.login.form.btn.facebook') }}
                                 </a>
