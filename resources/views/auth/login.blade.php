@@ -15,7 +15,7 @@
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                            <label for="email" class="col-md-4 control-label">{{ trans('auth.login.form.email') }}</label>
+                            <label for="email" class="col-md-4 control-label">{{ trans('auth.general.email') }}</label>
 
                             <div class="col-md-6">
                                 <div class="input-group">
@@ -34,7 +34,7 @@
                         </div>
 
                         <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                            <label for="password" class="col-md-4 control-label">{{ trans('auth.login.form.password') }}</label>
+                            <label for="password" class="col-md-4 control-label">{{ trans('auth.general.password') }}</label>
 
                             <div class="col-md-6">
                                 <div class="input-group">
@@ -76,7 +76,7 @@
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
-                                {{ trans('auth.login.form.social_networks') }}:
+                                <strong>{{ trans('auth.login.form.social-networks') }}:</strong>
                             </div>
                         </div>
 
