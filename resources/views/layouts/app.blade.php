@@ -37,7 +37,7 @@
 
                     <!-- Branding Image -->
                     <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'SmartZoos') }}
+                        <img alt="{{ config('app.name', 'SmartZoos') }}" src="{{ asset('img/logos/logo.png') }}" class="sz-navbar-brand-logo">
                     </a>
                 </div>
 

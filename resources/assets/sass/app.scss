@@ -11,6 +11,15 @@
 // MaterialDesignIcons
 @import "mdi";
 
+.navbar-header {
+  .navbar-brand {
+    img.sz-navbar-brand-logo {
+      width: 108px;
+      height: 36px;
+    }
+  }
+}
+
 .facebook-sign-in {
     background: #4c69ba;
     background: linear-gradient(#4c69ba, #3b55a0);

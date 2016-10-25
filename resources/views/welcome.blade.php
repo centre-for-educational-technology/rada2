@@ -13,21 +13,21 @@
         <!-- Wrapper for slides -->
         <div class="carousel-inner" role="listbox">
             <div class="item active">
-                <img src="{{ asset('img/logo.png') }}" alt="slide">
+                <img src="{{ asset('img/logos/logo.png') }}" alt="slide">
                 <div class="carousel-caption">
                     <h3>First slide label</h3>
                     <p>...</p>
                 </div>
             </div>
             <div class="item">
-                <img src="{{ asset('img/logo.png') }}" alt="slide">
+                <img src="{{ asset('img/logos/logo.png') }}" alt="slide">
                 <div class="carousel-caption">
                     <h3>Second slide label</h3>
                     <p>...</p>
                 </div>
             </div>
             <div class="item">
-                <img src="{{ asset('img/logo.png') }}" alt="slide">
+                <img src="{{ asset('img/logos/logo.png') }}" alt="slide">
                 <div class="carousel-caption">
                     <h3>Third slide label</h3>
                     <p>...</p>
@@ -55,22 +55,22 @@
     <div class="row">
         <div class="col-xs-6 col-md-3">
             <a href="#" class="thumbnail">
-                <img src="{{ asset('img/logo.png') }}" alt="logo">
+                <img src="{{ asset('img/logos/korkeasaari.jpg') }}" alt="Korkeasaari">
             </a>
         </div>
         <div class="col-xs-6 col-md-3">
             <a href="#" class="thumbnail">
-                <img src="{{ asset('img/logo.png') }}" alt="logo">
+                <img src="{{ asset('img/logos/logo.png') }}" alt="logo">
             </a>
         </div>
         <div class="col-xs-6 col-md-3">
             <a href="#" class="thumbnail">
-                <img src="{{ asset('img/logo.png') }}" alt="logo">
+                <img src="{{ asset('img/logos/logo.png') }}" alt="logo">
             </a>
         </div>
         <div class="col-xs-6 col-md-3">
             <a href="#" class="thumbnail">
-                <img src="{{ asset('img/logo.png') }}" alt="logo">
+                <img src="{{ asset('img/logos/logo.png') }}" alt="logo">
             </a>
         </div>
     </div>
