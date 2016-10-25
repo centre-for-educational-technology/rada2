@@ -46,6 +46,21 @@
         </a>
     </div>
 
+    <div class="row">
+        <div class="jumbotron col-md-6 col-md-offset-3">
+            <h1 style="text-align:center;">{{ trans('pages.welcome.jumbotron.heading') }}</h1>
+            <p style="text-aling:center;">
+                Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua.
+            </p>
+            <p class="row">
+                <p class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
+                    <a class="btn btn-primary btn-sm" href="{{ url('/register') }}" role="button">{{ trans('auth.register.form.btn.register') }}</a>
+                    <a class="btn btn-primary btn-sm" href="{{ url('/login') }}" role="button">{{ trans('auth.login.form.btn.login') }}</a>
+                </p>
+            </p>
+        </div>
+    </div>
+
     <!-- 16:9 aspect ratio -->
     <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/mXLSDd6AkPo?controls=0&showinfo=0" allowfullscreen></iframe>
