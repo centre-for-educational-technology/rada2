@@ -54,3 +54,8 @@
         color: #fff;
     }
 }
+
+.form-group.required .control-label:after {
+   content: "*";
+   color: #a94442;
+}

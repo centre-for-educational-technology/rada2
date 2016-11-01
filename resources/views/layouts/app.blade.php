@@ -14,12 +14,16 @@
     <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
     <link href="/css/app.css" rel="stylesheet">
 
+    @yield('header-styles')
+
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+
+    @yield('header-scripts')
 </head>
 <body>
     <div id="app">

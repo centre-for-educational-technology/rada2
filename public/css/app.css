@@ -5871,4 +5871,8 @@ button.mdi::before {
     text-shadow: 0 1px rgba(0, 0, 0, 0.3);
     color: #fff; }
 
+.form-group.required .control-label:after {
+  content: "*";
+  color: #a94442; }
+
 /*# sourceMappingURL=app.css.map */
