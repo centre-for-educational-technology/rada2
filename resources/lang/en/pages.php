@@ -14,6 +14,7 @@ return [
     'welcome' => [
         'jumbotron' => [
             'heading' => 'What is SmartZoos?',
+            'content' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
         ],
     ],
 
