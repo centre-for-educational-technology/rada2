@@ -12,9 +12,11 @@
                         </div>
 
                         <div class="col-xs-2">
-                            <a href="{!! route('activity.create') !!}" class="btn btn-primary pull-right">
-                                <i class="mdi mdi-plus" aria-hidden="true"></i>
-                            </a>
+                            @if (Auth::check())
+                                <a href="{!! route('activity.create') !!}" class="btn btn-primary pull-right">
+                                    <i class="mdi mdi-plus" aria-hidden="true"></i>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
@@ -29,11 +31,22 @@
                             </div>
                             <div class="media-body">
                                 <h4 class="media-heading">
-                                    <a href="{!! route('activity.show', [ 'id' => $activity->id ]) !!}">
+                                    <a href="{!! route('activity.show', ['id' => $activity->id]) !!}">
                                         {{ $activity->title }}
                                     </a>
                                 </h4>
                                 <p>{{$activity->description}}</p>
+                                @if ($activity->canEdit())
+                                    <div class="pull-right">
+                                        <a href="{!! route('activity.edit', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm">
+                                            <i class="mdi mdi-pencil"></i>
+                                        </a>
+                                        <!-- TODO This should become a spoofed form with check for user approval -->
+                                        <a href="#" class="btn btn-danger btn-sm">
+                                            <i class="mdi mdi-delete"></i>
+                                        </a>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     @endforeach

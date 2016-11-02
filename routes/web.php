@@ -17,32 +17,29 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('auth/google', 'Auth\GoogleController@redirectToProvider');
-Route::get('auth/google/callback', 'Auth\GoogleController@handleProviderCallback');
+Route::group(['prefix' => 'auth'], function() {
+    // Google SSO Routes
+    Route::get('google', 'Auth\GoogleController@redirectToProvider');
+    Route::get('google/callback', 'Auth\GoogleController@handleProviderCallback');
 
-Route::get('auth/facebook', 'Auth\FacebookController@redirectToProvider');
-Route::get('auth/facebook/callback', 'Auth\FacebookController@handleProviderCallback');
+    // Facebook SSO Routes
+    Route::get('facebook', 'Auth\FacebookController@redirectToProvider');
+    Route::get('facebook/callback', 'Auth\FacebookController@handleProviderCallback');
+});
 
 Route::get('home', 'HomeController@index');
 
-Route::get('activities', [
-    'uses' => 'ActivityController@index',
-    'as' => 'activity.index',
-]);
-Route::get('activities/create', [
-    'uses' => 'ActivityController@create',
-    'as' => 'activity.create',
-])->middleware('auth');
-Route::post('activities', 'ActivityController@store')->middleware('auth');
-Route::get('activities/{id}', [
-    'uses' => 'ActivityController@show',
-    'as' => 'activity.show',
-]);
-/*
-Route::get('activities/{id}/edit', [
-    'uses' => 'ActivityController@edit',
-    'as' => 'activity.edit',
-]);
-Route::put('activities/{id}', 'ActivityController@update')->middleware('auth');
-Route::delete('activities/{id}', 'ActivityController@destroy')->middleware('auth');
-*/
+// Activity Routes
+Route::group(['prefix' => 'activities'], function() {
+    Route::get('/', 'ActivityController@index')->name('activity.index');
+
+    Route::get('create', 'ActivityController@create')->name('activity.create');
+    Route::post('/', 'ActivityController@store');
+
+    Route::get('{activity}', 'ActivityController@show')->name('activity.show');
+
+    Route::get('{activity}/edit', 'ActivityController@edit')->name('activity.edit');
+    Route::put('{activity}', 'ActivityController@update');
+
+    Route::delete('{activity}', 'ActivityController@destroy');
+});

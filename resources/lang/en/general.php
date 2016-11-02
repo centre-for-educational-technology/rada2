@@ -48,6 +48,7 @@ return [
        ],
        'buttons' => [
            'create' => 'Create',
+           'save' => 'Save',
            'cancel' => 'Cancel',
        ],
    ],
