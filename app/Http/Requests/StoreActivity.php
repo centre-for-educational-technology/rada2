@@ -20,7 +20,7 @@ class StoreActivity extends FormRequest
         if ( $activity ) {
             return $activity && $this->user()->can('update', $activity);
         } else {
-            return $this->use()->can('create', Activity::class);
+            return $this->user()->can('create', Activity::class);
         }
     }
 

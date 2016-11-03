@@ -34,6 +34,23 @@ class ActivityController extends Controller
     }
 
     /**
+     * Process uploaded image as needed and move to a correct location.
+     * @param  \App\Http\Requests\StoreActivity $request
+     * @return string                                    Image file name
+     */
+    private function processFeaturedImage(&$request) {
+        $originalExtension = $request->file('featured_image')->getClientOriginalExtension();
+        $fileName = sha1(uniqid('featured_image_', true)) . '.' . $originalExtension;
+
+        $image = Image::make($request->file('featured_image')->getRealPath());
+        // TODO Might only need to resize big images
+        // Current solution resizes smaller images to bigger dimensions
+        $image->resize(800, 800)->save(public_path('uploads/images/' . $fileName));
+
+        return $fileName;
+    }
+
+    /**
      * Display a listing of activities..
      *
      * @return \Illuminate\Http\Response
@@ -74,8 +91,7 @@ class ActivityController extends Controller
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
         if ( $request->hasFile('featured_image') ) {
-            $originalExtension = $request->file('featured_image')->getClientOriginalExtension();
-            $fileName = sha1(uniqid('featured_image_', true)) . '.' . $originalExtension;
+            $fileName = $this->processFeaturedImage($request);
             $activity->featured_image = $fileName;
         }
         $activity->zoo = $request->zoo;
@@ -83,15 +99,6 @@ class ActivityController extends Controller
         $activity->user()->associate( auth()->user() );
 
         $activity->save();
-
-        if ( $request->hasFile('featured_image') ) {
-            // XXX This could fail
-            // Might want to remove entry from the database in that case
-            $image = Image::make($request->file('featured_image')->getRealPath());
-            // TODO Might only need to resize big images
-            // Current ssolution resizes smaller images to bigger dimensions
-            $image->resize(800, 800)->save(public_path('uploads/images/' . $activity->featured_image));
-        }
 
         return redirect()->route('activity.show', [ 'id' => $activity->id ]);
     }
@@ -140,26 +147,18 @@ class ActivityController extends Controller
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
         if ( $request->hasFile('featured_image') ) {
-            File::delete(public_path('uploads/images/' . $activity->featured_image));
+            $originalFeaturedImage = $activity->featured_image;
 
-            $originalExtension = $request->file('featured_image')->getClientOriginalExtension();
-            $fileName = sha1(uniqid('featured_image_', true)) . '.' . $originalExtension;
+            $fileName = $this->processFeaturedImage($request);
             $activity->featured_image = $fileName;
+
+            if ( $originalFeaturedImage ) {
+                File::delete(public_path('uploads/images/' . $originalFeaturedImage));
+            }
         }
         $activity->zoo = $request->zoo;
 
-        $activity->user()->associate( auth()->user() );
-
         $activity->save();
-
-        if ( $request->hasFile('featured_image') ) {
-            // XXX This could fail
-            // Might want to remove entry from the database in that case
-            $image = Image::make($request->file('featured_image')->getRealPath());
-            // TODO Might only need to resize big images
-            // Current ssolution resizes smaller images to bigger dimensions
-            $image->resize(800, 800)->save(public_path('uploads/images/' . $activity->featured_image));
-        }
 
         return redirect()->route('activity.show', [ 'id' => $activity->id ]);
     }

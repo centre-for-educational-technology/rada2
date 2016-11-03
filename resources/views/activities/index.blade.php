@@ -30,12 +30,6 @@
                                 </a>
                             </div>
                             <div class="media-body">
-                                <h4 class="media-heading">
-                                    <a href="{!! route('activity.show', ['id' => $activity->id]) !!}">
-                                        {{ $activity->title }}
-                                    </a>
-                                </h4>
-                                <p>{{$activity->description}}</p>
                                 @if(Auth::check())
                                     <div class="pull-right">
                                         @can('update', $activity)
@@ -51,6 +45,12 @@
                                         @endcan
                                     </div>
                                 @endif
+                                <h4 class="media-heading">
+                                    <a href="{!! route('activity.show', ['id' => $activity->id]) !!}">
+                                        {{ $activity->title }}
+                                    </a>
+                                </h4>
+                                <p>{{$activity->description}}</p>
                             </div>
                         </div>
                     @endforeach
