@@ -89,7 +89,28 @@ function initMap() {
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControlsDiv);
     }
 
+    function getClosestMarker(markers, playerLatLng) {
+        var closestDistance;
+        var closestIndex;
+        for (var i=0; i<markers.length;i++) {
+            var currentDistance = google.maps.geometry.spherical.computeDistanceBetween(playerLatLng, markers[i].getPosition());
+            if ( closestDistance ) {
+                if ( closestDistance > currentDistance ) {
+                    closestDistance = currentDistance;
+                    closestIndex = i;
+                }
+            } else {
+                closestDistance = currentDistance;
+                closestIndex = i;
+            }
+        }
+
+        return markers[closestIndex];
+    }
+
     var mapOptions, map, playerMarker, infoWindow;
+    var markers = [];
+    var closestMarker;
 
     infoWindow = new google.maps.InfoWindow();
 
@@ -101,12 +122,14 @@ function initMap() {
             },
             zoom: 18,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
-            disableDefaultUI: true
+            disableDefaultUI: true,
+            disableDoubleClickZoom: true
         };
 
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
         playerMarker = initPlayerMarker(position, infoWindow, map);
+        google.maps.event.trigger(playerMarker, 'click');
 
         initGameControls(playerMarker, map);
 
@@ -117,5 +140,32 @@ function initMap() {
                 lng: position.coords.longitude
             });
         }, true);
+
+        google.maps.event.addListener(map, 'dblclick', function(ev) {
+            var newClosestMarker;
+            var marker = new google.maps.Marker({
+                title: 'Marker ' + (markers.length + 1),
+                position: ev.latLng,
+                map: map,
+                animation: google.maps.Animation.DROP
+            });
+            markers.push(marker);
+
+            marker.addListener('click', function() {
+                closeInfoWindow(infoWindow);
+                infoWindow.setContent(this.title);
+                infoWindow.open(map, this);
+            });
+
+            newClosestMarker = getClosestMarker(markers, playerMarker.getPosition());
+            if ( closestMarker && closestMarker !== newClosestMarker ) {
+                closestMarker.setIcon(null);
+                google.maps.event.trigger(newClosestMarker, 'click');
+            } else {
+                google.maps.event.trigger(newClosestMarker, 'click');
+            }
+            closestMarker = newClosestMarker;
+            closestMarker.setIcon('http://mt.google.com/vt/icon?psize=25&font=fonts/Roboto-Bold.ttf&color=ff135C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=44&ay=50&text=%E2%80%A2');
+        });
     });
 }

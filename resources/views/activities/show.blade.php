@@ -34,6 +34,7 @@
 
     <!-- Scripts -->
     <script src="{{ asset('js/activity.js') }}"></script>
-    <script src="//maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key')}}&amp;callback=initMap" async defer></script>
+    <script src="//maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&amp;callback=initMap&amp;libraries=geometry" async defer></script>
+
 </body>
 </html>
