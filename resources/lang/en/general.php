@@ -52,4 +52,9 @@ return [
            'cancel' => 'Cancel',
        ],
    ],
+   'actions' => [
+       'create' => 'Create',
+       'edit' => 'Edit',
+       'delete' => 'Delete',
+   ],
 ];

@@ -13,7 +13,7 @@
 
                         <div class="col-xs-2">
                             @if(Auth::user()->can('create', 'App\Activity'))
-                                <a href="{!! route('activity.create') !!}" class="btn btn-primary pull-right">
+                                <a href="{!! route('activity.create') !!}" class="btn btn-primary pull-right" title="{{ trans('general.actions.create') }}">
                                     <i class="mdi mdi-plus" aria-hidden="true"></i>
                                 </a>
                             @endif
@@ -33,13 +33,13 @@
                                 @if(Auth::check())
                                     <div class="pull-right">
                                         @can('update', $activity)
-                                            <a href="{!! route('activity.edit', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm">
+                                            <a href="{!! route('activity.edit', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.edit') }}">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
                                         @endcan
                                         @can('delete', $activity)
                                             <!-- TODO This should become a spoofed form with check for user approval -->
-                                            <a href="#" class="btn btn-danger btn-sm">
+                                            <a href="#" class="btn btn-danger btn-sm" title="{{ trans('general.actions.delete') }}">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         @endcan
