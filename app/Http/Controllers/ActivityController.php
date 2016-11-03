@@ -12,6 +12,8 @@ use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\File;
 
+use App\Http\Requests\StoreActivity;
+
 class ActivityController extends Controller
 {
     /**
@@ -48,30 +50,19 @@ class ActivityController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Activity::class);
+
         return view('activities/create');
     }
 
     /**
      * Store newly created activity in database.
      *
-     * @param \Illuminate\Http\Request
+     * @param \App\Http\Requests\StoreActivity;
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(StoreActivity $request)
     {
-        $this->validate($request, [
-            'type' => 'required|integer|in:1,2',
-            'title' => 'required|max:255',
-            //'description' => '',
-            'difficulty_level_start' => 'required|integer|between:1,99',
-            'difficulty_level_end' => 'required|integer|between:1,99',
-            'playing_time' => 'integer|min:0',
-            'language' => 'required|in:en,et,ru,fi,swe',
-            'contact_information' => 'max:255',
-            'featured_image' => 'image|mimes:jpeg,jpg,png',
-            'zoo' => 'required|in:1,2,3',
-        ]);
-
         $activity = new Activity;
 
         $activity->type = $request->type;
@@ -113,6 +104,8 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
+        $this->authorize('view', $activity);
+
         return view('activities/show')->with('activity', $activity);
     }
 
@@ -124,10 +117,7 @@ class ActivityController extends Controller
      */
     public function edit(Activity $activity)
     {
-        // TODO Add permission check: author, connected zoo manager or main administrator
-        if (!$activity->canEdit()) {
-            return redirect()->route('activity.index');
-        }
+        $this->authorize('update', $activity);
 
         return view('activities/edit')->with('activity', $activity);
     }
@@ -135,30 +125,12 @@ class ActivityController extends Controller
     /**
      * Update the specified activity in database.
      *
-     * @param \Illuminate\Http\Request
+     * @param \App\Http\Requests\StoreActivity;
      * @param \App\Activity
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Activity $activity)
+    public function update(StoreActivity $request, Activity $activity)
     {
-        // TODO Add permission check: author, connected zoo manager or main administrator
-        if (!$activity->canEdit()) {
-            return redirect()->route('activity.index');
-        }
-
-        $this->validate($request, [
-            'type' => 'required|integer|in:1,2',
-            'title' => 'required|max:255',
-            //'description' => '',
-            'difficulty_level_start' => 'required|integer|between:1,99',
-            'difficulty_level_end' => 'required|integer|between:1,99',
-            'playing_time' => 'integer|min:0',
-            'language' => 'required|in:en,et,ru,fi,swe',
-            'contact_information' => 'max:255',
-            'featured_image' => 'image|mimes:jpeg,jpg,png',
-            'zoo' => 'required|in:1,2,3',
-        ]);
-
         $activity->type = $request->type;
         $activity->title = $request->title;
         $activity->description = $request->description;
@@ -200,7 +172,6 @@ class ActivityController extends Controller
      */
     public function destroy(Activity $activity)
     {
-        // TODO Add permission check: author, connected zoo manager or main administrator
-        // This is probably more complicated. Some games should not be removed (maybe use the soft_removal feature)
+        $this->authorize('delete', $activity);
     }
 }

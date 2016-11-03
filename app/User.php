@@ -26,4 +26,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Determined if current user is an administrator
+     * @return boolean
+     */
+    public function isAdmin() {
+        return false;
+    }
 }

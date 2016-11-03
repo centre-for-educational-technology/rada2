@@ -102,25 +102,4 @@ class Activity extends Model
 
         return asset('img/logos/logo-square.png');
     }
-
-    /**
-     * Checks if current user can edit activity or not
-     * @return bool
-     */
-    public function canEdit() {
-        if ( Auth::check() ) {
-            // TODO This one is missing the checks for additional roles
-            // Administrator should be able to edit or delete anything
-            // Zoo specific roles are a bit more problematic: one issue would arise
-            // if someone changes the zoo and suddenly same person who changed becomes
-            // locked out
-            $user = Auth::user();
-
-            if ( $user->id === $this->user_id) {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }

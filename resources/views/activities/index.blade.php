@@ -12,7 +12,7 @@
                         </div>
 
                         <div class="col-xs-2">
-                            @if (Auth::check())
+                            @if(Auth::user()->can('create', 'App\Activity'))
                                 <a href="{!! route('activity.create') !!}" class="btn btn-primary pull-right">
                                     <i class="mdi mdi-plus" aria-hidden="true"></i>
                                 </a>
@@ -36,15 +36,19 @@
                                     </a>
                                 </h4>
                                 <p>{{$activity->description}}</p>
-                                @if ($activity->canEdit())
+                                @if(Auth::check())
                                     <div class="pull-right">
-                                        <a href="{!! route('activity.edit', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm">
-                                            <i class="mdi mdi-pencil"></i>
-                                        </a>
-                                        <!-- TODO This should become a spoofed form with check for user approval -->
-                                        <a href="#" class="btn btn-danger btn-sm">
-                                            <i class="mdi mdi-delete"></i>
-                                        </a>
+                                        @can('update', $activity)
+                                            <a href="{!! route('activity.edit', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm">
+                                                <i class="mdi mdi-pencil"></i>
+                                            </a>
+                                        @endcan
+                                        @can('delete', $activity)
+                                            <!-- TODO This should become a spoofed form with check for user approval -->
+                                            <a href="#" class="btn btn-danger btn-sm">
+                                                <i class="mdi mdi-delete"></i>
+                                            </a>
+                                        @endcan
                                     </div>
                                 @endif
                             </div>
