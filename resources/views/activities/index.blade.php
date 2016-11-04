@@ -12,11 +12,11 @@
                         </div>
 
                         <div class="col-xs-2">
-                            @if(Auth::user()->can('create', 'App\Activity'))
+                            @can('create', 'App\Activity'))
                                 <a href="{!! route('activity.create') !!}" class="btn btn-primary pull-right" title="{{ trans('general.actions.create') }}">
                                     <i class="mdi mdi-plus" aria-hidden="true"></i>
                                 </a>
-                            @endif
+                            @endcan
                         </div>
                     </div>
                 </div>
