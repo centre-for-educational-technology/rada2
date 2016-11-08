@@ -27,12 +27,33 @@
     </style>
 
     <!-- Scripts -->
+    <script>
+        window.SmartZoos = <?php echo json_encode([
+            'config' => [
+                'base_url' => url('/'),
+                'map' => [
+                    'green_dotless_icon_url' => asset('img/map/spotlight-poi-dotless-green.png'),
+                ]
+            ]
+        ]);
+        ?>
+    </script>
 </head>
 <body>
+    <div id="overlay" style="position:fixed;top:0;left:0;z-index:9999;height:100%;width:100%;background-color:grey;text-align:center;">
+        <span style="display:inline-block;margin-top:150px;font-size:150%;">
+            Loading, please wait ...
+        </span>
+    </div>
     <div id="map">
     </div>
 
     <!-- Scripts -->
+    <script
+    src="//code.jquery.com/jquery-3.1.1.min.js"
+    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+    crossorigin="anonymous">
+    </script>
     <script src="{{ asset('js/activity.js') }}"></script>
     <script src="//maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&amp;callback=initMap&amp;libraries=geometry" async defer></script>
 

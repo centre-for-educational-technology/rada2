@@ -11,12 +11,30 @@ function GameControls(controlDiv, map, playerMarker) {
     controlUI.style.textAlign = 'center';
     controlDiv.appendChild(controlUI);
 
+    var navigationControlItem = document.createElement('i');
+    navigationControlItem.style.fontSize = '24px';
+    navigationControlItem.style.color = 'rgb(169,169,169)';
+    navigationControlItem.className = 'mdi mdi-navigation';
+    navigationControlItem.style.marginRight = '5px';
+    navigationControlItem.title = 'Enable or disable position tracking';
+    controlUI.appendChild(navigationControlItem);
+
+    navigationControlItem.addEventListener('click', function() {
+        if ( map.szTrackingEnabled ) {
+            map.szTrackingEnabled = false;
+            navigationControlItem.style.color = 'rgb(169,169,169)';
+        } else {
+            map.szTrackingEnabled = true;
+            navigationControlItem.style.color = 'rgb(0,0,255)';
+        }
+    });
+
     var currentPositionControlIcon = document.createElement('i');
     currentPositionControlIcon.style.fontSize = '24px';
     currentPositionControlIcon.style.color = 'rgb(25,25,25)';
     currentPositionControlIcon.className = 'mdi mdi-target';
     currentPositionControlIcon.style.marginRight = '5px';
-    currentPositionControlIcon.title = 'Center map to current position';
+    currentPositionControlIcon.title = 'Center map to current position (double click to enable tracking)';
     controlUI.appendChild(currentPositionControlIcon);
 
     currentPositionControlIcon.addEventListener('click', function() {
@@ -35,7 +53,7 @@ function GameControls(controlDiv, map, playerMarker) {
         var confirmation = confirm('Are you sure you want to exit the game?');
 
         if ( confirmation ) {
-            // TODO Navigate o home page or listing page
+            window.location = window.SmartZoos.config.base_url;
         }
     });
 }
@@ -108,13 +126,33 @@ function initMap() {
         return markers[closestIndex];
     }
 
+    function detectAndActivateClosestMarker(currentPosition, markers, currentClosestMarker) {
+        var newClosestMarker = getClosestMarker(markers, currentPosition);
+
+        if ( closestMarker && closestMarker !== newClosestMarker ) {
+            closestMarker.setIcon(null);
+            google.maps.event.trigger(newClosestMarker, 'click');
+        }
+
+        google.maps.event.trigger(newClosestMarker, 'click');
+
+        closestMarker = newClosestMarker;
+
+        closestMarker.setIcon({
+            labelOrigin: new google.maps.Point(11, 12),
+            url: window.SmartZoos.config.map.green_dotless_icon_url
+        });
+    }
+
     var mapOptions, map, playerMarker, infoWindow;
     var markers = [];
+    var lines = [];
     var closestMarker;
 
     infoWindow = new google.maps.InfoWindow();
 
     getLocation(function(position) {
+        $('#overlay').fadeOut();
         mapOptions = {
             center: {
                 lat: position.coords.latitude,
@@ -134,17 +172,20 @@ function initMap() {
         initGameControls(playerMarker, map);
 
         getLocation(function(position) {
-            closeInfoWindow(infoWindow);
             playerMarker.setPosition({
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             });
+            if ( map.szTrackingEnabled === true ) {
+                map.setCenter(playerMarker.getPosition());
+            }
+            detectAndActivateClosestMarker(playerMarker.getPosition(), markers, closestMarker);
         }, true);
 
         google.maps.event.addListener(map, 'dblclick', function(ev) {
-            var newClosestMarker;
             var marker = new google.maps.Marker({
                 title: 'Marker ' + (markers.length + 1),
+                label: (markers.length + 1).toString(),
                 position: ev.latLng,
                 map: map,
                 animation: google.maps.Animation.DROP
@@ -157,15 +198,29 @@ function initMap() {
                 infoWindow.open(map, this);
             });
 
-            newClosestMarker = getClosestMarker(markers, playerMarker.getPosition());
-            if ( closestMarker && closestMarker !== newClosestMarker ) {
-                closestMarker.setIcon(null);
-                google.maps.event.trigger(newClosestMarker, 'click');
-            } else {
-                google.maps.event.trigger(newClosestMarker, 'click');
+            if ( markers.length > 1 ) {
+                var line = new google.maps.Polyline({
+                    path: [
+                        markers[markers.length-2].getPosition(),
+                        markers[markers.length-1].getPosition()
+                    ],
+                    strokeWeight: 2,
+                    strokeOpacity: 0.5,
+                    icons: [{
+                        icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
+                        offset: '100%'
+                    }],
+                    geodesic: true,
+                    map: map
+                });
             }
-            closestMarker = newClosestMarker;
-            closestMarker.setIcon('http://mt.google.com/vt/icon?psize=25&font=fonts/Roboto-Bold.ttf&color=ff135C13&name=icons/spotlight/spotlight-waypoint-a.png&ax=44&ay=50&text=%E2%80%A2');
+
+            detectAndActivateClosestMarker(playerMarker.getPosition(), markers, closestMarker);
         });
+    }, false, function(error) {
+        document.getElementById('overlay').childNodes[1].innerHTML = 'ERROR: ' + error.message;
+        document.getElementById('overlay').childNodes[1].style.color = '#8B0000';
+
+        //$('#overlay > span').css('color', 'red');
     });
 }

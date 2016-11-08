@@ -1,8 +1,10 @@
 "use strict";
 
-function getLocation(callback, watch) {
-    function handleError(error) {
-        console.error('Geolocation error', error);
+function getLocation(callback, watch, handleError) {
+    if ( typeof handleError !== 'function' ) {
+        function handleError(error) {
+            console.error('Geolocation error', error);
+        }
     }
 
     if ( navigator.geolocation ) {
