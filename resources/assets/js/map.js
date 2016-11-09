@@ -152,6 +152,8 @@ function initMap() {
     infoWindow = new google.maps.InfoWindow();
 
     getLocation(function(position) {
+        // TODO Consider if CSS animation would do
+        // This is the only code piece using jQuery
         $('#overlay').fadeOut();
         mapOptions = {
             center: {
@@ -189,7 +191,9 @@ function initMap() {
             if ( map.szTrackingEnabled === true ) {
                 map.setCenter(playerMarker.getPosition());
             }
-            detectAndActivateClosestMarker(playerMarker.getPosition(), markers, closestMarker);
+            if ( markers.length > 0 ) {
+                detectAndActivateClosestMarker(playerMarker.getPosition(), markers, closestMarker);
+            }
         }, true);
 
         google.maps.event.addListener(map, 'dblclick', function(ev) {
@@ -230,7 +234,5 @@ function initMap() {
     }, false, function(error) {
         document.getElementById('overlay').childNodes[1].innerHTML = 'ERROR: ' + error.message;
         document.getElementById('overlay').childNodes[1].style.color = '#8B0000';
-
-        //$('#overlay > span').css('color', 'red');
     });
 }

@@ -3,7 +3,9 @@
 function getLocation(callback, watch, handleError) {
     if ( typeof handleError !== 'function' ) {
         function handleError(error) {
-            console.error('Geolocation error', error);
+            if ( console && console.error && typeof console.error === 'function' ) {
+                console.error('Geolocation error', error);
+            }
         }
     }
 
