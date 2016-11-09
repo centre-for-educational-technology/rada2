@@ -54,7 +54,7 @@ function GameControls(controlDiv, map, playerMarker) {
     currentPositionControlIcon.style.color = 'rgb(25,25,25)';
     currentPositionControlIcon.className = 'mdi mdi-target';
     currentPositionControlIcon.style.marginRight = '5px';
-    currentPositionControlIcon.title = 'Center map to current position (double click to enable tracking)';
+    currentPositionControlIcon.title = 'Center map to current position';
     controlUI.appendChild(currentPositionControlIcon);
 
     currentPositionControlIcon.addEventListener('click', function() {
@@ -151,10 +151,10 @@ function initMap() {
 
         if ( closestMarker && closestMarker !== newClosestMarker ) {
             closestMarker.setIcon(null);
-            google.maps.event.trigger(newClosestMarker, 'click');
+            //google.maps.event.trigger(newClosestMarker, 'click');
         }
 
-        google.maps.event.trigger(newClosestMarker, 'click');
+        //google.maps.event.trigger(newClosestMarker, 'click');
 
         closestMarker = newClosestMarker;
 
@@ -181,7 +181,17 @@ function initMap() {
             zoom: 18,
             mapTypeId: google.maps.MapTypeId.ROADMAP,
             disableDefaultUI: true,
-            disableDoubleClickZoom: true
+            disableDoubleClickZoom: true,
+            styles: [
+                {
+                    featureType: 'poi',
+                    stylers: [{visibility: 'off'}]
+                },
+                {
+                    featureType: 'transit.station',
+                    stylers: [{visibility: 'off'}]
+              },
+            ]
         };
 
         map = new google.maps.Map(document.getElementById('map'), mapOptions);
