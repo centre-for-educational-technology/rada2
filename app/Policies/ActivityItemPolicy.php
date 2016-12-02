@@ -3,14 +3,13 @@
 namespace App\Policies;
 
 use App\User;
-use App\Activity;
+use App\ActivityItem;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-use Illuminate\Support\Facades\Log;
-
-class ActivityPolicy
+class ActivityItemPolicy
 {
     use HandlesAuthorization;
+
     /**
      * Overrides permission checks for special users
      * @param  User   $user    User oject to check
@@ -25,19 +24,19 @@ class ActivityPolicy
     }
 
     /**
-     * Determine whether the user can view the Activity.
+     * Determine whether the user can view the ActivityItem.
      *
      * @param  App\User  $user
-     * @param  App\Activity  $activity
+     * @param  App\ActivityItem  $item
      * @return mixed
      */
-    public function view(User $user, Activity $activity)
+    public function view(User $user, ActivityItem $item)
     {
         return true;
     }
 
     /**
-     * Determine whether the user can create Activities.
+     * Determine whether the user can create ActivityItems.
      *
      * @param  App\User  $user
      * @return mixed
@@ -48,26 +47,26 @@ class ActivityPolicy
     }
 
     /**
-     * Determine whether the user can update the Activity.
+     * Determine whether the user can update the ActivityItem.
      *
      * @param  App\User  $user
-     * @param  App\Activity  $activity
+     * @param  App\ActivityItem  $item
      * @return mixed
      */
-    public function update(User $user, Activity $activity)
+    public function update(User $user, ActivityItem $item)
     {
-        return $user->id === $activity->user_id;
+        return $user->id === $item->user_id;
     }
 
     /**
-     * Determine whether the user can delete the Activity.
+     * Determine whether the user can delete the ActivityItem.
      *
      * @param  App\User  $user
-     * @param  App\Activity  $activity
+     * @param  App\ActivityItem  $item
      * @return mixed
      */
-    public function delete(User $user, Activity $activity)
+    public function delete(User $user, ActivityItem $item)
     {
-        return $user->id === $activity->user_id;
+        return $user->id === $item->user_id;
     }
 }
