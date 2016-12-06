@@ -121,17 +121,17 @@
                     'class' => 'col-md-4 control-label',
                 ]) !!}
                 <div class="col-md-6">
-                    <div class="input-group">
-                        {!! Form::text('latitude', null, [
+                    <div class="input-group col-xs-12">
+                        {!! Form::hidden('latitude', null, [
                             'class' => 'form-control',
                             'id' => 'latitude',
                         ]) !!}
-                        {!! Form::text('longitude', null, [
+                        {!! Form::hidden('longitude', null, [
                             'class' => 'form-control',
                             'id' => 'longitude',
                         ]) !!}
 
-                        <div id="map" style="width:320px;height:240px;"></div>
+                        <div id="map" style="width:100%;height:240px;"></div>
 
                         <p class="help-block">
                             {{ trans('general.forms.help.map') }}
