@@ -55,7 +55,7 @@
                             <a href="{{ url('/activities') }}">{{ trans('navbar.activities') }}</a>
                         </li>
                         <li class="{{ Request::is('activity_items')? 'active': '' }}">
-                            <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity_items') }}</a>
+                            <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
                         </li>
                         <li class="{{ Request::is('trading-market')? 'active': '' }}">
                             <a href="{{ url('/trading-market') }}">{{ trans('navbar.trading-market') }}</a>

@@ -8,7 +8,7 @@
                 <div class="panel-heading">
                     <div class="row">
                         <div class="col-xs-10">
-                            {{ trans('pages.activity_items.index.heading') }}
+                            {{ trans('pages.activity-items.index.heading') }}
                         </div>
 
                         <div class="col-xs-2">

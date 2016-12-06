@@ -19,7 +19,12 @@ return [
     ],
     'activities' => [
         'index' => [
-            'heading' => 'Activities',    
+            'heading' => 'Activities',
+        ],
+    ],
+    'activity-items' => [
+        'index' => [
+          'heading' => 'Activity Items',
         ],
     ],
 

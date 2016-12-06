@@ -13,6 +13,7 @@ return [
 
     'home' => 'Home',
     'activities'     => 'Activities',
+    'activity-items' => 'Activity Items',
     'trading-market' => 'Trading Market',
 
 ];
