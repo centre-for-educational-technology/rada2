@@ -157,7 +157,7 @@
                     {!! Form::submit(trans('general.forms.buttons.create'), [
                         'class' => 'btn btn-primary',
                     ])!!}
-                    {!! Html::link(route('activity.index'), trans('general.forms.buttons.cancel'), [
+                    {!! Html::link(route('activity_item.index'), trans('general.forms.buttons.cancel'), [
                         'class' => 'btn btn-default',
                     ]) !!}
                 </div>
