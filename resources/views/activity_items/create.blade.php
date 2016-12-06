@@ -131,7 +131,7 @@
                             'id' => 'longitude',
                         ]) !!}
 
-                        <div id="map" style="width:100%;height:240px;"></div>
+                        <div id="map" style="width:100%;height:320px;"></div>
 
                         <p class="help-block">
                             {{ trans('general.forms.help.map') }}

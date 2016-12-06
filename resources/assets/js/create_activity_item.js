@@ -9,9 +9,31 @@ window.$ = window.jQuery = require('jquery');
 require('bootstrap-sass');
 
 window.initMap = function() {
-    function setLatandLngValues(latLng) {
+    function setLatAndLngValues(latLng) {
         document.getElementById('latitude').value = ( typeof latLng.lat === 'function' ) ? latLng.lat() : latLng.lat;
         document.getElementById('longitude').value = ( typeof latLng.lng === 'function' ) ? latLng.lng() : latLng.lng;
+    }
+
+    function initializeMarker(map, latLng) {
+      var marker = new google.maps.Marker({
+          animation: google.maps.Animation.DROP,
+          title: '',
+          position: latLng,
+          map: map,
+          draggable: true,
+      });
+
+      marker.addListener('dragend', function(event) {
+          setLatAndLngValues(event.latLng);
+      });
+
+      return marker;
+    }
+
+    function removeMarker(marker) {
+      google.maps.event.clearListeners(marker, 'click');
+      marker.setMap(null);
+      marker = null;
     }
 
     var mapOptions, map, marker;
@@ -21,7 +43,7 @@ window.initMap = function() {
     mapOptions = {
         center: currentLatLng,
         zoom: 18,
-        mapTypeId: google.maps.MapTypeId.ROADMAP,
+        mapTypeId: google.maps.MapTypeId.HYBRID,
         disableDefaultUI: true,
         disableDoubleClickZoom: true,
         styles: [
@@ -38,26 +60,19 @@ window.initMap = function() {
 
     map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-    marker = new google.maps.Marker({
-        animation: google.maps.Animation.DROP,
-        title: '',
-        position: currentLatLng,
-        map: map,
-        draggable: true,
-    });
+    setLatAndLngValues(currentLatLng);
 
-    setLatandLngValues(currentLatLng);
-
-    marker.addListener('dragend', function(event) {
-        setLatandLngValues(event.latLng);
-    });
+    marker = initializeMarker(map, currentLatLng);
 
     $(document).find('select[name="zoo"]').on('change', function() {
         var value = $(this).val(),
             latLng = zooGeolocationOptions[value];
 
         map.setCenter(latLng);
-        marker.setPosition(latLng);
-        setLatandLngValues(latLng);
+        removeMarker(marker);
+        setLatAndLngValues(latLng);
+        setTimeout(function() {
+          marker = initializeMarker(map, latLng);
+        }, 250);
     });
 };
