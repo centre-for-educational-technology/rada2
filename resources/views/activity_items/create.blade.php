@@ -25,7 +25,7 @@
                     'class' => 'col-md-4 control-label',
                 ]) !!}
                 <div class="col-md-6">
-                    <div class="input-group">
+                    <div class="input-group col-xs-12">
                         {!! Form::text('title', null, [
                             'class' => 'form-control',
                         ]) !!}
@@ -44,7 +44,7 @@
                     'class' => 'col-md-4 control-label',
                 ]) !!}
                 <div class="col-md-6">
-                    <div class="input-group">
+                    <div class="input-group col-xs-12">
                         {!! Form::textarea('description', null, [
                             'class' => 'form-control',
                             'rows' => '3',
@@ -58,7 +58,7 @@
                     'class' => 'col-md-4 control-label',
                 ]) !!}
                 <div class="col-md-6">
-                    <div class="input-group">
+                    <div class="input-group col-xs-12">
                         {!! Form::select('type', App\ActivityItem::getQuestionTypeOptions(), null, [
                             'class' => 'form-control',
                         ]) !!}
@@ -77,7 +77,7 @@
                     'class' => 'col-md-4 control-label',
                 ]) !!}
                 <div class="col-md-6">
-                    <div class="input-group">
+                    <div class="input-group col-xs-12">
                         <span class="input-group-addon">
                             <i class="mdi mdi-map-marker" aria-hidden="true"></i>
                         </span>
@@ -99,7 +99,7 @@
                     'class' => 'col-md-4 control-label',
                 ]) !!}
                 <div class="col-md-6">
-                    <div class="input-group">
+                    <div class="input-group col-xs-12">
                         <span class="input-group-addon">
                             <i class="mdi mdi-translate" aria-hidden="true"></i>
                         </span>
