@@ -36,8 +36,7 @@ class ActivityItemController extends Controller
    */
   public function index()
   {
-      return view('activity_items/index')->with('activity_items', []);
-      //return view('activity_items/index')->with('activity_items', ActivityItem::all());
+      return view('activity_items/index')->with('activity_items', ActivityItem::all());
   }
 
   /**
@@ -60,7 +59,22 @@ class ActivityItemController extends Controller
    */
   public function store(StoreActivityItem $request)
   {
-      return response('Not implemented', 501);
+      $item = new ActivityItem;
+
+      $item->title = $request->title;
+      $item->description = $request->description;
+      $item->type = $request->type;
+      $item->question = ''; // TODO This one should be filled with JSON-encoded string
+      $item->zoo = $request->zoo;
+      $item->language = $request->language;
+      $item->latitude = $request->latitude;
+      $item->longitude = $request->longitude;
+
+      $item->user()->associate( auth()->user() );
+
+      $item->save();
+
+      return redirect()->route('activity_item.show', [ 'id' => $item->id ]);
   }
 
   /**
@@ -74,8 +88,7 @@ class ActivityItemController extends Controller
       // XXX This seems to fail for guests
       //$this->authorize('view', $activity_item);
 
-      return response('Not implemented', 501);
-      //return view('activity_items/show')->with('activity_item', $activity_item);
+      return view('activity_items/show')->with('activity_item', $activity_item);
   }
 
   /**

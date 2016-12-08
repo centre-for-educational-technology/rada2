@@ -17,7 +17,7 @@ This tool set includes:
   - Either create application key manually or do that with a command **php artisan key:generate**
   - Make sure that **APP_ENV=production** and **APP_DEBUG=false** for production environments (this should prevent unneeded error detailed data exposure)
   - Create and configure Google and Facebook apps, fill the needed environment variables
-    - Please make sure to activate the **Google Maps JavaScript API** and **Google+ API**, create the API key for Maps and OAuth credentials
+    - Please make sure to activate the **Google Maps JavaScript API**, **Google Static Maps API** and **Google+ API**, create the API key for Maps and OAuth credentials
     - Please make sure that Facebook App is set to **public** mode
     - The redirect URL addresses are in the form **BASE-URL/auth/PROVIDER-name/callback**.
 - Configure subject and title from sent email messages

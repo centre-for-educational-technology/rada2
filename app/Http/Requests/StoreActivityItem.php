@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-use App\Activity;
+use App\ActivityItem;
 
 class StoreActivityItem extends FormRequest
 {
@@ -32,7 +32,12 @@ class StoreActivityItem extends FormRequest
     public function rules()
     {
         return [
-            //
+            'title' => 'required|max:255',
+            'type' => 'required|integer|between:1,7',
+            'zoo' => 'required|integer|between:1,3',
+            'language' => 'required|in:en,et,ru,fi,swe',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
         ];
     }
 }

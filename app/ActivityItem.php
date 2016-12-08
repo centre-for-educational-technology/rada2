@@ -7,6 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 class ActivityItem extends Model
 {
     /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'user_id',
+    ];
+
+    /**
      * Returns ActivityItem Question Type options
      * @return array Options for ActivityItem Question Type select
      */
@@ -23,6 +32,25 @@ class ActivityItem extends Model
         ];
     }
 
+    /**
+     * Returns question type title
+     * @param  int    $id Question type key
+     * @return string     Question type title
+     */
+    public static function getQuestionType(int $id) {
+        $types = self::getQuestionTypeOptions();
+
+        if ( array_key_exists($id, $types) ) {
+            return $types[$id];
+        }
+
+        return $id;
+    }
+
+    /**
+     * Returns geolocaions for Zoos
+     * @return array Options for Zoos geolocation data
+     */
     public static function getZooGeolocationOptions() {
         return [
             1 => [
@@ -38,5 +66,13 @@ class ActivityItem extends Model
                 'lng' => 24.6595,
             ]
         ];
+    }
+
+    /**
+     * Get user account current social one belongs to.
+     * @return User Application local user account
+     */
+    public function user() {
+        return $this->belongsTo(User::class);
     }
 }

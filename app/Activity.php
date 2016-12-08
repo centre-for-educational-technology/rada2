@@ -31,6 +31,21 @@ class Activity extends Model
     }
 
     /**
+     * Returns Zoo title
+     * @param  int    $id Zoo key
+     * @return string     Zoo title
+     */
+    public static function getZoo(int $id) {
+        $zoos = self::getZooOptions();
+
+        if ( array_key_exists($id, $zoos) ) {
+            return $zoos[$id];
+        }
+
+        return $id;
+    }
+
+    /**
      * Returns Language options
      * @return array Options or Language select
      */

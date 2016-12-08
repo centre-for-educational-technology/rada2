@@ -6,7 +6,6 @@
  */
 
 window.$ = window.jQuery = require('jquery');
-require('bootstrap-sass');
 
 window.initMap = function() {
     function setLatAndLngValues(latLng) {

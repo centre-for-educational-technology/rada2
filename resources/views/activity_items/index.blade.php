@@ -25,8 +25,8 @@
                     @foreach($activity_items as $activity_item)
                         <div class="media">
                             <div class="media-left">
-                                <a href="{!! route('activity.show', [ 'id' => $activity->id ]) !!}">
-                                    <img class="media-object img-rounded" src="{{ $activity->getFeaturedImageUrl() }}" alt="featured-image" style="width:64px;height:64px;">
+                                <a href="{!! route('activity_item.show', [ 'id' => $activity_item->id ]) !!}">
+                                    <img class="media-object img-rounded" src="{{ asset('img/logos/logo-square.png') }}" alt="featured-image" style="width:64px;height:64px;">
                                 </a>
                             </div>
                             <div class="media-body">
@@ -46,7 +46,7 @@
                                     </div>
                                 @endif
                                 <h4 class="media-heading">
-                                    <a href="{!! route('activity_items.show', ['id' => $activity_item->id]) !!}">
+                                    <a href="{!! route('activity_item.show', ['id' => $activity_item->id]) !!}">
                                         {{ $activity_item->title }}
                                     </a>
                                 </h4>
