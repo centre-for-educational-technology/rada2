@@ -19,6 +19,8 @@
             'files' => true,
             'class' => 'form-horizontal',
             'role' => 'form',
+            'name' => 'create-activity-item',
+            'id' => 'create-activity-item',
         ]) !!}
             <div class="form-group required{{ $errors->has('title') ? ' has-error' : '' }}">
                 {!! Form::label('title', trans('general.forms.labels.title'), [
@@ -61,6 +63,7 @@
                     <div class="input-group col-xs-12">
                         {!! Form::select('type', App\ActivityItem::getQuestionTypeOptions(), null, [
                             'class' => 'form-control',
+                            'v-model' => 'questionType',
                         ]) !!}
                     </div>
 
@@ -69,6 +72,42 @@
                             <strong>{{ $errors->first('type') }}</strong>
                         </span>
                     @endif
+
+                    <div id="question-type-information" class="sz-question" v-if="questionType == 1">
+                        <span class="help-block">
+                            {{ trans('general.forms.help.question-types.information') }}
+                        </span>
+                    </div>
+
+                    <one-correct-answer v-if="questionType == 2"></one-correct-answer>
+
+                    <multiple-correct-answers v-if="questionType == 3"></multiple-correct-answers>
+
+                    <div id="question-type-freeform-answer" class="sz-question" v-if="questionType == 4">
+                        <span class="help-block">
+                            {{ trans('general.forms.help.question-types.freeform-answer') }}
+                        </span>
+                    </div>
+
+                    <match-pairs v-if="questionType == 5"></match-pairs>
+
+
+                    <div id="question-type-embedded-content" class="sz-question" v-if="questionType == 6">
+                        {!! Form::textarea('embedded-content', null, [
+                            'class' => 'form-control',
+                            'rows' => '3',
+                        ]) !!}
+
+                        <span class="help-block">
+                            {{ trans('general.forms.help.question-types.embedded-content') }}
+                        </span>
+                    </div>
+
+                    <div id="question-type-photo" class="sz-question" v-if="questionType == 7">
+                        <span class="help-block">
+                            {{ trans('general.forms.help.question-types.photo') }}
+                        </span>
+                    </div>
                 </div>
             </div>
 

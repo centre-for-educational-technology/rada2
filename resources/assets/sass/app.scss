@@ -63,3 +63,39 @@
 .fix-newline-display {
     white-space: pre-line;
 }
+
+.sz-question {
+    .row {
+        margin-top: 6px;
+        margin-bottom: 6px;
+
+        .btn {
+            &.sz-image-add {
+                color: grey;
+            }
+            &.sz-image-add.sz-option-has-image {
+                color: black;
+            }
+
+            &.sz-option-remove {
+                color: red;
+            }
+        }
+
+        .sz-btn-controls {
+            text-align: right;
+
+            .btn {
+                padding-left: 6px;
+                padding-right: 6px;
+            }
+        }
+
+        .input-group-addon {
+            .btn {
+                padding: 0;
+                border: 0;
+            }
+        }
+    }
+}

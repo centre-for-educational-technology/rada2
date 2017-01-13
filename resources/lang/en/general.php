@@ -57,6 +57,12 @@ return [
            'difficulty-level' => 'Choose a suitable range from available values. Defaults to all included.',
            'featured-image' => 'An image in JPEG or PNG format. Uploaded image will be resized to 800 by 800 pixels.',
            'map' => 'Please select the correct Zoo and drag the marker to the specific location.',
+           'question-types' => [
+               'information' => 'Description text will be displayed as an information for the location.',
+               'freeform-answer' => 'Input textarea will be displayed to the player.',
+               'embedded-content' => 'Embed code added into the textarea will be displayed to the player.',
+               'photo' => 'Player will be able to submit an existing photo or take one as an answer.',
+           ],
        ],
        'buttons' => [
            'create' => 'Create',

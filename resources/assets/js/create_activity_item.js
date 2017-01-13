@@ -5,8 +5,6 @@
  * code may be modified to fit the specific needs of your application.
  */
 
-window.$ = window.jQuery = require('jquery');
-
 window.initMap = function() {
     function setLatAndLngValues(latLng) {
         document.getElementById('latitude').value = ( typeof latLng.lat === 'function' ) ? latLng.lat() : latLng.lat;
@@ -75,3 +73,14 @@ window.initMap = function() {
         }, 250);
     });
 };
+
+Vue.component('one-correct-answer', require('./components/OneCorrectAnswer.vue'));
+Vue.component('multiple-correct-answers', require('./components/MultipleCorrectAnswers.vue'));
+Vue.component('match-pairs', require('./components/MatchPairs.vue'));
+
+const addActivityItemApp = new Vue({
+    el: 'form#create-activity-item',
+    data: {
+        questionType: 1
+    }
+});
