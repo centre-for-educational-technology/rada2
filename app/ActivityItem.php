@@ -48,6 +48,14 @@ class ActivityItem extends Model
     }
 
     /**
+     * Determines if question has type of embedded-content
+     * @return boolean
+     */
+    public function isEmbeddedContent() {
+        return (int)$this->type === 6;
+    }
+
+    /**
      * Returns geolocaions for Zoos
      * @return array Options for Zoos geolocation data
      */

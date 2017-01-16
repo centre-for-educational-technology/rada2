@@ -14,6 +14,9 @@
                     <p class="fix-newline-display">{{ $activity_item->description }}</p>
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>
                     <p>{{ $activity_item::getQuestionType($activity_item->type) }}</p>
+                    @if ( $activity_item->isEmbeddedContent() )
+                        <p>{!! html_entity_decode($activity_item->embedded_content) !!}</p>
+                    @endif
                     <h3>{{ trans('general.forms.labels.zoo') }}</h3>
                     <p>{{ Activity::getZoo($activity_item->zoo) }}</p>
                     <h3>{{ trans('general.forms.labels.language') }}</h3>

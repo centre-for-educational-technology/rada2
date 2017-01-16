@@ -64,7 +64,11 @@ class ActivityItemController extends Controller
       $item->title = $request->title;
       $item->description = $request->description;
       $item->type = $request->type;
-      $item->question = ''; // TODO This one should be filled with JSON-encoded string
+
+      if ( $item->isEmbeddedContent() && $request->{'embedded-content'} ) {
+          $item->embedded_content = $request->{'embedded-content'};
+      }
+
       $item->zoo = $request->zoo;
       $item->language = $request->language;
       $item->latitude = $request->latitude;

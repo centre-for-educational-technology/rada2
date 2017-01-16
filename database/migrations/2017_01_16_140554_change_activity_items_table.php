@@ -15,7 +15,7 @@ class ChangeActivityItemsTable extends Migration
     {
         Schema::table('activity_items', function (Blueprint $table) {
             $table->dropColumn('question');
-            $table->text('embedded_content')->after('type');
+            $table->text('embedded_content')->nullable()->after('type');
         });
     }
 
