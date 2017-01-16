@@ -7820,7 +7820,7 @@ button.mdi::before {
   color: #a94442;
 }
 
-.fix-newline-display {
+.sz-display-new-lines {
   white-space: pre-line;
 }
 

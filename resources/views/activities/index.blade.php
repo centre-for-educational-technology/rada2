@@ -22,6 +22,10 @@
                 </div>
 
                 <div class="panel-body">
+                    @if ( count($activities) === 0 )
+                        <div class="well">{{ trans('pages.activities.index.none-found') }}</div>
+                    @endif
+
                     @foreach($activities as $activity)
                         <div class="media">
                             <div class="media-left">
@@ -50,7 +54,7 @@
                                         {{ $activity->title }}
                                     </a>
                                 </h4>
-                                <p>{{$activity->description}}</p>
+                                <p class="sz-display-new-lines">{{$activity->description}}</p>
                             </div>
                         </div>
                     @endforeach

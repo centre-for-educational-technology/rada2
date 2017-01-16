@@ -11,7 +11,7 @@
 
                 <div class="panel-body">
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
-                    <p class="fix-newline-display">{{ $activity_item->description }}</p>
+                    <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>
                     <p>{{ $activity_item::getQuestionType($activity_item->type) }}</p>
                     @if ( $activity_item->isEmbeddedContent() )

@@ -20,11 +20,13 @@ return [
     'activities' => [
         'index' => [
             'heading' => 'Activities',
+            'none-found' => 'No Activities could be found.',
         ],
     ],
     'activity-items' => [
         'index' => [
           'heading' => 'Activity Items',
+          'none-found' => 'No Activity Items could be found.',
         ],
     ],
 
