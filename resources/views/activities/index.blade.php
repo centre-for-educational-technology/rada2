@@ -43,7 +43,7 @@
                                         @endcan
                                         @can('delete', $activity)
                                             <!-- TODO This should become a spoofed form with check for user approval -->
-                                            <a href="#" class="btn btn-danger btn-sm" title="{{ trans('general.actions.delete') }}">
+                                            <a href="#" class="btn btn-danger btn-sm disabled" title="{{ trans('general.actions.delete') }}">
                                                 <i class="mdi mdi-delete"></i>
                                             </a>
                                         @endcan

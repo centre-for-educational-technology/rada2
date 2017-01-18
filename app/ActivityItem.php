@@ -48,11 +48,44 @@ class ActivityItem extends Model
     }
 
     /**
+     * Determines if question is of certain type
+     * @param  int     $type Question type identifier
+     * @return boolean
+     */
+    private function isQuestionOfType(int $type) {
+        return (int)$this->type === $type;
+    }
+
+    /**
      * Determines if question has type of embedded-content
      * @return boolean
      */
     public function isEmbeddedContent() {
-        return (int)$this->type === 6;
+        return $this->isQuestionOfType(6);
+    }
+
+    /**
+     * Determines if question has type of one-correct-answer
+     * @return boolean
+     */
+    public function isOneCorrectAnswer() {
+        return $this->isQuestionOfType(2);
+    }
+
+    /**
+     * Determines if question has type of multiple-correct-answers
+     * @return boolean
+     */
+    public function isMultipleCorrectAnswers() {
+        return $this->isQuestionOfType(3);
+    }
+
+    /**
+     * Determines if question has type of match-pairs
+     * @return boolean [description]
+     */
+    public function isMatchPairs() {
+        return $this->isQuestionOfType(5);
     }
 
     /**
@@ -82,5 +115,38 @@ class ActivityItem extends Model
      */
     public function user() {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Get options that belong to current ActivityItem
+     * @return [type] [descripion]
+     */
+    public function options() {
+        return $this->hasMany(ActivityItemOption::class);
+    }
+
+    /**
+     * [pairs description]
+     * @return [type] [description]
+     */
+    public function pairs() {
+        return $this->hasMany(ActivityItemPair::class);
+    }
+
+    /**
+     * Returns storage path hash for the ActivityItem
+     * @return string SHA1 hash used for storage path
+     */
+    public function getStoragePath() {
+        return self::getStoragePathForId($this->id);
+    }
+
+    /**
+     * [getStoragePathForId description]
+     * @param  int    $id [description]
+     * @return [type]     [description]
+     */
+    public static function getStoragePathForId(int $id) {
+        return sha1( 'activity_item_' . $id ) . '/';
     }
 }

@@ -7830,7 +7830,7 @@ button.mdi::before {
 }
 
 .sz-question .row .btn.sz-image-add {
-  color: grey;
+  color: #777777;
 }
 
 .sz-question .row .btn.sz-image-add.sz-option-has-image {
@@ -7838,7 +7838,7 @@ button.mdi::before {
 }
 
 .sz-question .row .btn.sz-option-remove {
-  color: red;
+  color: #bf5329;
 }
 
 .sz-question .row .sz-btn-controls {
@@ -7853,6 +7853,27 @@ button.mdi::before {
 .sz-question .row .input-group-addon .btn {
   padding: 0;
   border: 0;
+}
+
+.sz-option-correct {
+  color: #2ab27b;
+}
+
+.sz-option-incorrect {
+  color: #bf5329;
+}
+
+.media-list.sz-options-list .media.sz-option img.media-object, .media-list.sz-options-list .list-group-item.sz-pair img.media-object, .list-group.sz-pairs-list .media.sz-option img.media-object, .list-group.sz-pairs-list .list-group-item.sz-pair img.media-object {
+  max-height: 64px;
+  max-width: 64px;
+}
+
+.media-list.sz-options-list .media.sz-option .media-body, .media-list.sz-options-list .list-group-item.sz-pair .media-body, .list-group.sz-pairs-list .media.sz-option .media-body, .list-group.sz-pairs-list .list-group-item.sz-pair .media-body {
+  vertical-align: middle;
+}
+
+.media-list.sz-options-list .media.sz-option .media-right, .media-list.sz-options-list .list-group-item.sz-pair .media-right, .list-group.sz-pairs-list .media.sz-option .media-right, .list-group.sz-pairs-list .list-group-item.sz-pair .media-right {
+  padding-top: 5px;
 }
 
 /*# sourceMappingURL=app.css.map */

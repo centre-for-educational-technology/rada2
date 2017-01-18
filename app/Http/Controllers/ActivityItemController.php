@@ -6,9 +6,17 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
+use Intervention\Image\Facades\Image;
+
+use Illuminate\Support\Facades\File;
+
 use App\ActivityItem;
 
 use App\Http\Requests\StoreActivityItem;
+
+use App\ActivityItemOption;
+
+use App\ActivityItemPair;
 
 class ActivityItemController extends Controller
 {
@@ -27,6 +35,36 @@ class ActivityItemController extends Controller
   public function __construct()
   {
       $this->middleware('auth', ['except' => ['index', 'show']]);
+  }
+
+  /**
+   * Process uploaded image as needed and move to a correct location.
+   * @param  \App\Http\Requests\StoreActivity $request
+   * @return string                                    Image file name
+   */
+  private function processUploadedOptionImage(&$request, $name, $path) {
+      $originalExtension = $request->file($name)->getClientOriginalExtension();
+      $fileName = sha1(uniqid('activity_item_image_', true)) . '.' . $originalExtension;
+
+      $image = Image::make($request->file($name)->getRealPath());
+
+      $image->resize(500, null, function($constraint) {
+          $constraint->upsize();
+          $constraint->aspectRatio();
+      });
+      $image->resize(null, 500, function($constraint) {
+          $constraint->upsize();
+          $constraint->aspectRatio();
+      });
+      
+      if ( !File::isDirectory( public_path('uploads/images/' . $path) ) ) {
+          File::makeDirectory( public_path('uploads/images/' . $path) );
+      }
+
+      $image->save(public_path('uploads/images/' . $path  . $fileName));
+
+
+      return $fileName;
   }
 
   /**
@@ -77,6 +115,77 @@ class ActivityItemController extends Controller
       $item->user()->associate( auth()->user() );
 
       $item->save();
+
+      $path = $item->getStoragePath();
+
+      // TODO It might make sense to move contents of these blocks to standalone
+      // functions, as they act after item has alreayd been created
+      if ( $item->isOneCorrectAnswer() ) {
+          $options = [];
+          $correct = -1;
+
+          if ( $request->has('correct') ) {
+              $correct = (int)$request->correct;
+          }
+
+          foreach ( $request->options as $key => $option ) {
+              $tmp =  new ActivityItemOption;
+
+              $tmp->option = $option;
+              $tmp->correct = (int)( $key === $correct );
+              if ( $request->hasFile('option-image-' . $key) ) {
+                  $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+              }
+
+              $options[] = $tmp;
+          }
+
+          $item->options()->saveMany($options);
+      }
+
+      if ( $item->isMultipleCorrectAnswers() ) {
+          $options = [];
+          $correct = [];
+
+          if ( $request->has('correct') ) {
+              $correct = $request->correct;
+          }
+          foreach ( $request->options as $key => $option ) {
+              $tmp = new ActivityItemOption;
+
+              $tmp->option = $option;
+              $tmp->correct = (int)in_array($key, $correct);
+              if ( $request->hasFile('option-image-' . $key) ) {
+                  $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+              }
+
+              $options[] = $tmp;
+          }
+
+          $item->options()->saveMany($options);
+      }
+
+      if ( $item->isMatchPairs() ) {
+          $pairs = [];
+
+          foreach ( $request->options as $key => $option ) {
+              $tmp = new ActivityItemPair;
+
+              $tmp->option = $option;
+              $tmp->option_match = $request->matches[$key];
+              if ( $request->hasFile('option-image-' . $key) ) {
+                  $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+              }
+              if ( $request->hasFile('option-match-image-' . $key) ) {
+                  $tmp->image_match = $this->processUploadedOptionImage($request, 'option-match-image-' . $key, $path);
+              }
+
+
+              $pairs[] = $tmp;
+          }
+
+          $item->pairs()->saveMany($pairs);
+      }
 
       return redirect()->route('activity_item.show', [ 'id' => $item->id ]);
   }

@@ -71,14 +71,14 @@
 
         .btn {
             &.sz-image-add {
-                color: grey;
+                color: $gray-light;
             }
             &.sz-image-add.sz-option-has-image {
                 color: black;
             }
 
             &.sz-option-remove {
-                color: red;
+                color: $brand-danger;
             }
         }
 
@@ -96,6 +96,31 @@
                 padding: 0;
                 border: 0;
             }
+        }
+    }
+}
+
+.sz-option-correct {
+    color: $brand-success;
+}
+
+.sz-option-incorrect {
+    color: $brand-danger;
+}
+
+.media-list.sz-options-list, .list-group.sz-pairs-list {
+    .media.sz-option, .list-group-item.sz-pair {
+        img.media-object {
+            max-height: 64px;
+            max-width: 64px;
+        }
+
+        .media-body {
+            vertical-align: middle;
+        }
+
+        .media-right {
+            padding-top: 5px;
         }
     }
 }
