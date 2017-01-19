@@ -57,7 +57,7 @@
                         <li class="{{ Request::is('activity_items')? 'active': '' }}">
                             <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
                         </li>
-                        <li class="{{ Request::is('trading-market')? 'active': '' }}">
+                        <li class="{{ Request::is('trading-market')? 'active': '' }} disabled">
                             <a href="{{ url('/trading-market') }}">{{ trans('navbar.trading-market') }}</a>
                         </li>
                     </ul>

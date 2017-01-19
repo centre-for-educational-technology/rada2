@@ -99,6 +99,16 @@ class Activity extends Model
     }
 
     /**
+     * [activityItems description]
+     * @return [type] [description]
+     */
+    public function activityItems() {
+        return $this->belongsToMany(ActivityItem::class)
+            ->withPivot('position')
+            ->withTimestamps();
+    }
+
+    /**
      * Determines if activity has own Featured Image
      * @return boolean
      */

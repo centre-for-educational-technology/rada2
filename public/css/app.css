@@ -7824,6 +7824,10 @@ button.mdi::before {
   white-space: pre-line;
 }
 
+.sz-question {
+  margin-top: 15px;
+}
+
 .sz-question .row {
   margin-top: 6px;
   margin-bottom: 6px;

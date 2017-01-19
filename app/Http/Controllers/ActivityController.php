@@ -100,6 +100,17 @@ class ActivityController extends Controller
 
         $activity->save();
 
+        /*
+        $activity->activityItems()->attach( 1, [ 'position' => 1 ] );
+
+        $activity->activityItems()->attach([
+            1 => [ 'position' => 1 ],
+            18 => [ 'position' => 2 ],
+            19 => [ 'position' => 3 ],
+            20 => [ 'position' => 4 ],
+        ]);
+         */
+
         return redirect()->route('activity.show', [ 'id' => $activity->id ]);
     }
 
@@ -160,6 +171,13 @@ class ActivityController extends Controller
         $activity->zoo = $request->zoo;
 
         $activity->save();
+
+        /*
+        $activity->activityItems()->sync([
+            19 => [ 'position' => 1 ],
+            20 => [ 'position' => 2 ],
+        ]);
+        */
 
         return redirect()->route('activity.show', [ 'id' => $activity->id ]);
     }
