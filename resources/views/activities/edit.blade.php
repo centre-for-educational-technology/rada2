@@ -5,52 +5,10 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/css/ion.rangeSlider.skinFlat.min.css" rel="stylesheet">
 @endsection
 
-@section('header-scripts')
+@section('footer-scripts')
+<script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.5.0-rc1/Sortable.min.js"></script>
-<script>
-    window.onload = function() {
-        $.getScript('https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js')
-            .done(function() {
-                $('#difficulty_level').ionRangeSlider({
-                    onChange: function(data) {
-                        $('input[name="difficulty_level_start"]').val(data.from);
-                        $('input[name="difficulty_level_end"]').val(data.to);
-                    }
-                });
-            });
-
-        $('[data-toggle="popover"]').popover()
-    };
-
-    // XXX This needs better solution
-    setTimeout(function() {
-        // XXX Has issue with cloned element popover (popover is only retained by one element)
-        // XXX Has issue with popover not removed after removal of the element
-        var sortableSource = Sortable.create(document.getElementById('activity-items'), {
-            group: {
-                name: 'activity-items',
-                pull: 'clone',
-                put: false
-            },
-            sort: false,
-            handle: '.sz-handle'
-        });
-        var sortableTarget = Sortable.create(document.getElementById('attached-activity-items'), {
-            group: {
-                name: 'activity-items',
-                pull: false,
-                put: true
-            },
-            sort: true,
-            handle: '.sz-handle',
-            onAdd: function(evt) {
-                var input = $(evt.item).find('input')[0];
-                input.name = input.name.replace(/tmp_/, "");
-                $(evt.item).find('i.sz-handle').after('<i class="mdi mdi-close-circle-outline pull-right" aria-hidden="true" onclick="$(this).parent().popover(\'destroy\');$(this).parent().remove();"></i>');
-            }
-        })
-    }, 100);
-</script>
+<script src="{{ asset('js/create_edit_activity.js') }}"></script>
 @endsection
 
 @section('content')

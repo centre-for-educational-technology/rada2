@@ -17,6 +17,7 @@ elixir(mix => {
     mix.sass('app.scss')
        .webpack('app.js')
        .webpack('create_activity_item.js')
+       .webpack('create_edit_activity.js')
        .scripts([
            'geolocation.js',
            'map.js'
