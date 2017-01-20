@@ -51,6 +51,7 @@ return [
            'zoo' => 'Zoo',
            'question-type' => 'Question Type',
            'location' => 'Location',
+           'activity-items' => 'Activity Items',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -74,5 +75,7 @@ return [
        'create' => 'Create',
        'edit' => 'Edit',
        'delete' => 'Delete',
+       'play' => 'Play',
    ],
+   'minutes' => 'minutes'
 ];

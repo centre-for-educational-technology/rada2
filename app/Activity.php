@@ -73,6 +73,21 @@ class Activity extends Model
     }
 
     /**
+     * Returns activity type title
+     * @param  int    $id Activity type key
+     * @return string     Activity type title or key
+     */
+    public static function getActivityType(int $id) {
+        $types = self::getActivityTypeOptions();
+
+        if ( array_key_exists($id, $types) ) {
+            return $types[$id];
+        }
+
+        return $id;
+    }
+
+    /**
      * Returns minimum value for Difficulty Level
      * @return int Value
      */

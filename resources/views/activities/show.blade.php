@@ -1,64 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <link rel="icon" sizes="200x200" href="{{ asset('img/logos/logo-square.png') }}">
+@extends('layouts.app')
 
-    <!-- CSRF Token -->
-    <meta name="csrf-token" content="{{ csrf_token() }}">
+@section('content')
+<div class="container">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    {{ $activity->title }}
+                </div>
 
-    <title>{{ config('app.name', 'SmartZoos') }}</title>
-
-    <!-- Styles -->
-    <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
-    <style>
-        html, body {
-            height: 100%;
-            width: 100%;
-            padding: 0;
-            margin: 0;
-        }
-
-        #map {
-            height: 100%;
-            width: 100%;
-        }
-    </style>
-
-    <!-- Scripts -->
-    <script>
-        window.SmartZoos = <?php echo json_encode([
-            'config' => [
-                'base_url' => url('/'),
-                'map' => [
-                    'green_dotless_icon_url' => asset('img/map/spotlight-poi-dotless-green.png'),
-                ]
-            ]
-        ]);
-        ?>
-    </script>
-</head>
-<body>
-    <div id="overlay" style="position:fixed;top:0;left:0;z-index:9999;height:100%;width:100%;background-color:grey;text-align:center;">
-        <span style="display:inline-block;margin-top:150px;font-size:150%;">
-            Loading, please wait ...
-        </span>
+                <div class="panel-body">
+                    <h3>{{ trans('general.forms.labels.description') }}</h3>
+                    <p class="sz-display-new-lines">{{ $activity->description }}</p>
+                    <h3>{{ trans('general.forms.labels.activity-type') }}</h3>
+                    <p>{{ $activity::getActivityType($activity->type) }}</p>
+                    <h3>{{ trans('general.forms.labels.difficulty-level') }}</h3>
+                    <p>{{ $activity->difficulty_level_start }} - {{ $activity->difficulty_level_end }}</p>
+                    <h3>{{ trans('general.forms.labels.playing-time') }}</h3>
+                    <p>{{ $activity->playing_time}} {{ trans('general.minutes')}}</p>
+                    <h3>{{ trans('general.forms.labels.language') }}</h3>
+                    <p>{{ trans('general.languages.' . $activity->language) }}</p>
+                    <h3>{{ trans('general.forms.labels.contact-information') }}</h3>
+                    <p>{{ $activity->contact_information }}</p>
+                    @if ($activity->hasFeaturedImage())
+                        <h3>{{ trans('general.forms.labels.featured-image') }}</h3>
+                        <p>
+                            <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded" style="height:64px;width:64px;">
+                        </p>
+                    @endif
+                    <h3>{{ trans('general.forms.labels.zoo') }}</h3>
+                    <p>{{ $activity::getZoo($activity->zoo) }}</p>
+                    <h3>{{ trans('general.forms.labels.activity-items') }}</h3>
+                    @if ( count($activity->activityItems) === 0 )
+                        <div class="well">{{ trans('pages.activity-items.index.none-found') }}</div>
+                    @else
+                        <ul class="list-group">
+                            @foreach( $activity->activityItems as $item )
+                                <li class="list-group-item">
+                                    <a href="{!! route('activity_item.show', ['id' => $item->id]) !!}">
+                                        <i class="mdi mdi-link pull-right"></i>
+                                    </a>
+                                    {{ $item->title }}
+                                </li>
+                            @endforeach
+                        </ul>
+                    @endif
+                </div>
+            </div>
+        </div>
     </div>
-    <div id="map">
-    </div>
-
-    <!-- Scripts -->
-    <script
-    src="//code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous">
-    </script>
-    <script src="{{ asset('js/activity.js') }}"></script>
-    <script src="//maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&amp;callback=initMap&amp;libraries=geometry" async defer></script>
-
-</body>
-</html>
+</div>
+@endsection

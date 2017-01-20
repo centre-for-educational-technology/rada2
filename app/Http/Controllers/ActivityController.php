@@ -132,6 +132,20 @@ class ActivityController extends Controller
     }
 
     /**
+     * Display game page for the specified activity.
+     *
+     * @param \App\Activity
+     * @return \Illuminate\Http\Response
+     */
+    public function play(Activity $activity)
+    {
+        // XXX This seems to fail for guests
+        //$this->authorize('view', $activity);
+
+        return view('activities/play')->with('activity', $activity);
+    }
+
+    /**
      * Show the form for editing the specified activity.
      *
      * @param \App\Activity

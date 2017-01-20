@@ -37,6 +37,7 @@ Route::group(['prefix' => 'activities'], function() {
     Route::post('/', 'ActivityController@store');
 
     Route::get('{activity}', 'ActivityController@show')->name('activity.show');
+    Route::get('{activity}/play', 'ActivityController@play')->name('activity.play');
 
     Route::get('{activity}/edit', 'ActivityController@edit')->name('activity.edit');
     Route::put('{activity}', 'ActivityController@update');

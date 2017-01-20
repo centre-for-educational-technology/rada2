@@ -242,7 +242,7 @@
             </div>
 
             <div class="form-group{{ $errors->has('items') ? ' has-error' : '' }}">
-                {!! Form::label('items', trans('general.forms.labels.items'), [
+                {!! Form::label('items', trans('general.forms.labels.activity-items'), [
                     'class' => 'col-md-4 control-label',
                 ]) !!}
                 <div class="col-md-6">
