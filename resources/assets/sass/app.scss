@@ -66,7 +66,7 @@
 
 .sz-question {
     margin-top: 15px;
-    
+
     .row {
         margin-top: 6px;
         margin-bottom: 6px;
@@ -124,5 +124,21 @@
         .media-right {
             padding-top: 5px;
         }
+    }
+}
+
+.sz-scrollable-list {
+    height: auto;
+    min-height: 100px;
+    max-height: 250px;
+    overflow-x: hidden;
+
+    .sz-handle {
+        cursor: move;
+    }
+
+    .mdi-close-circle-outline {
+        color: $brand-danger;
+        cursor: pointer;
     }
 }

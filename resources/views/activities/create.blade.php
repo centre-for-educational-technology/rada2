@@ -6,6 +6,7 @@
 @endsection
 
 @section('header-scripts')
+<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.5.0-rc1/Sortable.min.js"></script>
 <script>
     window.onload = function() {
         $.getScript('https://cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js')
@@ -17,7 +18,38 @@
                     }
                 });
             });
+
+            $('[data-toggle="popover"]').popover()
     };
+
+    // XXX This needs better solution
+    setTimeout(function() {
+        // XXX Has issue with cloned element popover (popover is only retained by one element)
+        // XXX Has issue with popover not removed after removal of the element
+        var sortableSource = Sortable.create(document.getElementById('activity-items'), {
+            group: {
+                name: 'activity-items',
+                pull: 'clone',
+                put: false
+            },
+            sort: false,
+            handle: '.sz-handle'
+        });
+        var sortableTarget = Sortable.create(document.getElementById('attached-activity-items'), {
+            group: {
+                name: 'activity-items',
+                pull: false,
+                put: true
+            },
+            sort: true,
+            handle: '.sz-handle',
+            onAdd: function(evt) {
+                var input = $(evt.item).find('input')[0];
+                input.name = input.name.replace(/tmp_/, "");
+                $(evt.item).find('i.sz-handle').after('<i class="mdi mdi-close-circle-outline pull-right" aria-hidden="true" onclick="$(this).parent().popover(\'destroy\');$(this).parent().remove();"></i>');
+            }
+        })
+    }, 100);
 </script>
 @endsection
 
@@ -248,6 +280,35 @@
                             <strong>{{ $errors->first('zoo') }}</strong>
                         </span>
                     @endif
+                </div>
+            </div>
+
+            <div class="form-group{{ $errors->has('items') ? ' has-error' : '' }}">
+                {!! Form::label('items', trans('general.forms.labels.items'), [
+                    'class' => 'col-md-4 control-label',
+                ]) !!}
+                <div class="col-md-6">
+                    <div class="input-group col-xs-12">
+                        <div class="row">
+                            <div class="col-xs-6">
+                                <ul class="list-group sz-scrollable-list" id="activity-items">
+                                    @foreach( $activity_items as $item)
+                                        <li class="list-group-item" data-toggle="popover" data-placement="top" data-title="{{ $item::getQuestionType($item->type) }}" data-content="{{ $item->description }}" data-trigger="hover">
+                                            <i class="mdi mdi-drag sz-handle" aria-hidden="true"></i>
+                                            {{ $item->title }}
+                                            {!! Form::hidden('tmp_activity_items[]', $item->id, [
+                                                'class' => 'form-control',
+                                            ]) !!}
+                                       </li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            <div class="col-xs-6">
+                                <ul class="list-group sz-scrollable-list" id="attached-activity-items">
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 

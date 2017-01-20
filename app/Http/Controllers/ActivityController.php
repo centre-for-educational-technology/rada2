@@ -8,6 +8,8 @@ use App\Http\Requests;
 
 use App\Activity;
 
+use App\ActivityItem;
+
 use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\File;
@@ -69,7 +71,7 @@ class ActivityController extends Controller
     {
         $this->authorize('create', Activity::class);
 
-        return view('activities/create');
+        return view('activities/create')->with('activity_items', ActivityItem::all());
     }
 
     /**
@@ -100,16 +102,17 @@ class ActivityController extends Controller
 
         $activity->save();
 
-        /*
-        $activity->activityItems()->attach( 1, [ 'position' => 1 ] );
+        if ( $request->has('activity_items') ) {
+            $items = [];
+            foreach( $request->activity_items as $index => $item ) {
+                $items[$item] = [ 'position' => $index + 1 ];
 
-        $activity->activityItems()->attach([
-            1 => [ 'position' => 1 ],
-            18 => [ 'position' => 2 ],
-            19 => [ 'position' => 3 ],
-            20 => [ 'position' => 4 ],
-        ]);
-         */
+            }
+
+            if ( $items && count($items) > 0 ) {
+                $activity->activityItems()->attach($items);
+            }
+        }
 
         return redirect()->route('activity.show', [ 'id' => $activity->id ]);
     }
@@ -138,7 +141,10 @@ class ActivityController extends Controller
     {
         $this->authorize('update', $activity);
 
-        return view('activities/edit')->with('activity', $activity);
+        return view('activities/edit')->with([
+            'activity' => $activity,
+            'activity_items' => ActivityItem::all(),
+        ]);
     }
 
     /**
@@ -172,12 +178,17 @@ class ActivityController extends Controller
 
         $activity->save();
 
-        /*
-        $activity->activityItems()->sync([
-            19 => [ 'position' => 1 ],
-            20 => [ 'position' => 2 ],
-        ]);
-        */
+        if ( $request->has('activity_items') ) {
+            $items = [];
+            foreach( $request->activity_items as $index => $item ) {
+                $items[$item] = [ 'position' => $index + 1 ];
+
+            }
+
+            $activity->activityItems()->sync($items);
+        } else {
+            $activity->activityItems()->detach();
+        }
 
         return redirect()->route('activity.show', [ 'id' => $activity->id ]);
     }

@@ -7880,4 +7880,20 @@ button.mdi::before {
   padding-top: 5px;
 }
 
+.sz-scrollable-list {
+  height: auto;
+  min-height: 100px;
+  max-height: 250px;
+  overflow-x: hidden;
+}
+
+.sz-scrollable-list .sz-handle {
+  cursor: move;
+}
+
+.sz-scrollable-list .mdi-close-circle-outline {
+  color: #bf5329;
+  cursor: pointer;
+}
+
 /*# sourceMappingURL=app.css.map */
