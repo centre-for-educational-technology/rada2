@@ -53,8 +53,8 @@
 <script>
     export default {
         mounted() {
-            if ( window.activityItemQuestionData && window.activityItemQuestionData.length > 0 ) {
-                this.options = window.activityItemQuestionData;
+            if ( this.$parent.hasQuestionData() ) {
+                this.options = this.$parent.getQuestionData();
             } else {
                 this.options = [
                     {

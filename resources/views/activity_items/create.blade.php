@@ -2,8 +2,8 @@
 
 @section('header-scripts')
 <script>
-    window.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
-    window.activityItemFormId = 'create-activity-item';
+    window.Laravel.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
+    window.Laravel.activityItemFormId = 'create-activity-item';
 </script>
 @endsection
 

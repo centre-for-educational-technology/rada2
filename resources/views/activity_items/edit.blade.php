@@ -2,10 +2,10 @@
 
 @section('header-scripts')
 <script>
-    window.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
-    window.activityItemQuestionData = <?php echo json_encode($activity_item->getQuestionData()); ?>;
-    window.activityItemFormId = 'edit-activity-item';
-    window.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
+    window.Laravel.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
+    window.Laravel.activityItemQuestionData = <?php echo json_encode($activity_item->getQuestionData()); ?>;
+    window.Laravel.activityItemFormId = 'edit-activity-item';
+    window.Laravel.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
 </script>
 @endsection
 

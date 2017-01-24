@@ -38,8 +38,8 @@
 <script>
     export default {
         mounted() {
-            if ( window.activityItemQuestionData && window.activityItemQuestionData.length > 0 ) {
-                this.options = window.activityItemQuestionData;
+            if ( this.$parent.hasQuestionData() ) {
+                this.options = this.$parent.getQuestionData();
                 this.checkedOption = _.findIndex(this.options, function(o) { return o.correct === 1; });
             } else {
                 this.options = [

@@ -43,7 +43,7 @@ window.initMap = function() {
             };
         }
 
-        return zooGeolocationOptions[$(document).find('select[name="zoo"]').val()];
+        return window.Laravel.zooGeolocationOptions[$(document).find('select[name="zoo"]').val()];
     }
 
     var mapOptions, map, marker;
@@ -76,7 +76,7 @@ window.initMap = function() {
 
     $(document).find('select[name="zoo"]').on('change', function() {
         var value = $(this).val(),
-            latLng = zooGeolocationOptions[value];
+            latLng = window.Laravel.zooGeolocationOptions[value];
 
         map.setCenter(latLng);
         removeMarker(marker);
@@ -92,19 +92,24 @@ Vue.component('multiple-correct-answers', require('./components/MultipleCorrectA
 Vue.component('match-pairs', require('./components/MatchPairs.vue'));
 
 const addActivityItemApp = new Vue({
-    el: 'form#' + window.activityItemFormId,
+    el: 'form#' + window.Laravel.activityItemFormId,
     data: {
         questionType: $('select[name="type"]').val()
     },
     methods: {
+        hasQuestionData: function() {
+            return window.Laravel.activityItemQuestionData && window.Laravel.activityItemQuestionData.length > 0;
+        },
+        getQuestionData: function() {
+            return window.Laravel.activityItemQuestionData;
+        },
         getOptionImageUrl: function(image) {
-            return window.activityItemAssetsBaseUrl + '/' + image;
+            return window.Laravel.activityItemAssetsBaseUrl + '/' + image;
         },
         hasPreview: function(option, imageKey, flagKey) {
             imageKey = imageKey || 'image';
             flagKey = flagKey || 'imagePreview';
-            // XXX Wrong image key for match
-            if ( option.id && option.image && option[flagKey] !== false ) {
+            if ( option.id && option[imageKey] && option[flagKey] !== false ) {
                 return true;
             }
 
