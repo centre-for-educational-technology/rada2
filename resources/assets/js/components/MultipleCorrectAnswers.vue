@@ -3,7 +3,8 @@
     <div class="row sz-option-row" v-for="(option, index) in options">
         <div class="col-xs-9">
             <div class="input-group">
-                <input type="text" class="form-control" name="options[]" v-model="option.text">
+                <input type="hidden" name="ids[]" v-model="option.id"
+                <input type="text" class="form-control" name="options[]" v-model="option.option">
                 <span class="input-group-addon">
                     <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct">
                 </span>
@@ -32,32 +33,40 @@
 <script>
     export default {
         mounted() {
-            console.log('MultipleCorrectAnswers Component ready.');
-        },
-        data() {
-            return  {
-                options: [
+            if ( window.activityItemQuestionData && window.activityItemQuestionData.length > 0 ) {
+                this.options = window.activityItemQuestionData;
+            } else {
+                this.options = [
                     {
-                        text: '',
+                        id: 0,
+                        option: '',
                         correct: false,
                         image: ''
                     },
                     {
-                        text: '',
+                        id: 0,
+                        option: '',
                         correct: false,
                         image: ''
                     },
                     {
-                        text: '',
+                        id: 0,
+                        option: '',
                         correct: false,
                         image: ''
                     },
                     {
-                        text: '',
+                        id: 0,
+                        option: '',
                         correct: false,
                         image: ''
                     }
-                ]
+                ];
+            }
+        },
+        data() {
+            return  {
+                options: []
             };
         },
         methods: {
@@ -73,7 +82,8 @@
             },
             addOption: function() {
                 this.options.push({
-                    text: '',
+                    id: 0,
+                    option: '',
                     correct: false,
                     image: ''
                 });

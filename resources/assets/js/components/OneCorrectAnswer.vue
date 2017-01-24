@@ -3,7 +3,8 @@
     <div class="row sz-option-row" v-for="(option, index) in options">
         <div class="col-xs-9">
             <div class="input-group">
-                <input type="text" class="form-control" name="options[]" v-model="option.text">
+                <input type="hidden" name="ids[]" v-model="option.id">
+                <input type="text" class="form-control" name="options[]" v-model="option.option">
                 <span class="input-group-addon">
                     <input type="radio" name="correct" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="checkedOption">
                 </span>
@@ -32,28 +33,37 @@
 <script>
     export default {
         mounted() {
-            console.log('OneCorrectAnswer Component ready.');
+            if ( window.activityItemQuestionData && window.activityItemQuestionData.length > 0 ) {
+                this.options = window.activityItemQuestionData;
+                this.checkedOption = _.findIndex(this.options, function(o) { return o.correct === 1; });
+            } else {
+                this.options = [
+                    {
+                        id: 0,
+                        option: '',
+                        image: ''
+                    },
+                    {
+                        id: 0,
+                        option: '',
+                        image: ''
+                    },
+                    {
+                        id: 0,
+                        option: '',
+                        image: ''
+                    },
+                    {
+                        id: 0,
+                        option: '',
+                        image: ''
+                    }
+                ];
+            }
         },
         data() {
             return  {
-                options: [
-                    {
-                        text: '',
-                        image: ''
-                    },
-                    {
-                        text: '',
-                        image: ''
-                    },
-                    {
-                        text: '',
-                        image: ''
-                    },
-                    {
-                        text: '',
-                        image: ''
-                    }
-                ],
+                options: [],
                 checkedOption: -1
             };
         },
@@ -76,7 +86,8 @@
             },
             addOption: function() {
                 this.options.push({
-                    text: '',
+                    id: 0,
+                    option: '',
                     image: ''
                 });
             },

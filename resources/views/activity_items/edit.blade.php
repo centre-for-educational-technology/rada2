@@ -3,7 +3,8 @@
 @section('header-scripts')
 <script>
     window.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
-    window.activityItemFormId = 'create-activity-item';
+    window.activityItemQuestionData = <?php echo json_encode($activity_item->getQuestionData()); ?>;
+    window.activityItemFormId = 'edit-activity-item';
 </script>
 @endsection
 
@@ -16,12 +17,13 @@
 <div class="container">
     <div class="row">
         {!! Form::open([
-            'url' => 'activity_items',
+            'url' => 'activity_items/' . $activity_item->id,
             'files' => true,
             'class' => 'form-horizontal',
             'role' => 'form',
-            'name' => 'create-activity-item',
-            'id' => 'create-activity-item',
+            'name' => 'edit-activity-item',
+            'id' => 'edit-activity-item',
+            'method' => 'put'
         ]) !!}
             <div class="form-group required{{ $errors->has('title') ? ' has-error' : '' }}">
                 {!! Form::label('title', trans('general.forms.labels.title'), [
@@ -29,7 +31,7 @@
                 ]) !!}
                 <div class="col-md-6">
                     <div class="input-group col-xs-12">
-                        {!! Form::text('title', null, [
+                        {!! Form::text('title', $activity_item->title, [
                             'class' => 'form-control',
                         ]) !!}
                     </div>
@@ -48,7 +50,7 @@
                 ]) !!}
                 <div class="col-md-6">
                     <div class="input-group col-xs-12">
-                        {!! Form::textarea('description', null, [
+                        {!! Form::textarea('description', $activity_item->description, [
                             'class' => 'form-control',
                             'rows' => '3',
                         ]) !!}
@@ -62,9 +64,9 @@
                 ]) !!}
                 <div class="col-md-6">
                     <div class="input-group col-xs-12">
-                        {!! Form::select('type', App\ActivityItem::getQuestionTypeOptions(), null, [
+                        {!! Form::select('type', App\ActivityItem::getQuestionTypeOptions(), $activity_item->type, [
                             'class' => 'form-control',
-                            'v-model' => 'questionType',
+                            'disabled' => 'disabled'
                         ]) !!}
                     </div>
 
@@ -94,7 +96,7 @@
 
 
                     <div id="question-type-embedded-content" class="sz-question" v-if="questionType == 6">
-                        {!! Form::textarea('embedded-content', null, [
+                        {!! Form::textarea('embedded-content', $activity_item->embedded_content, [
                             'class' => 'form-control',
                             'rows' => '3',
                         ]) !!}
@@ -121,7 +123,7 @@
                         <span class="input-group-addon">
                             <i class="mdi mdi-map-marker" aria-hidden="true"></i>
                         </span>
-                        {!! Form::select('zoo', Activity::getZooOptions(), null, [
+                        {!! Form::select('zoo', Activity::getZooOptions(), $activity_item->zoo, [
                             'class' => 'form-control',
                         ]) !!}
                     </div>
@@ -143,7 +145,7 @@
                         <span class="input-group-addon">
                             <i class="mdi mdi-translate" aria-hidden="true"></i>
                         </span>
-                        {!! Form::select('language', Activity::getLanguageOptions(), null, [
+                        {!! Form::select('language', Activity::getLanguageOptions(), $activity_item->language, [
                             'class' => 'form-control',
                         ]) !!}
                     </div>
@@ -162,11 +164,11 @@
                 ]) !!}
                 <div class="col-md-6">
                     <div class="input-group col-xs-12">
-                        {!! Form::hidden('latitude', null, [
+                        {!! Form::hidden('latitude', $activity_item->latitude, [
                             'class' => 'form-control',
                             'id' => 'latitude',
                         ]) !!}
-                        {!! Form::hidden('longitude', null, [
+                        {!! Form::hidden('longitude', $activity_item->longitude, [
                             'class' => 'form-control',
                             'id' => 'longitude',
                         ]) !!}
@@ -194,7 +196,7 @@
 
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-4">
-                    {!! Form::submit(trans('general.forms.buttons.create'), [
+                    {!! Form::submit(trans('general.forms.buttons.save'), [
                         'class' => 'btn btn-primary',
                     ])!!}
                     {!! Html::link(route('activity_item.index'), trans('general.forms.buttons.cancel'), [

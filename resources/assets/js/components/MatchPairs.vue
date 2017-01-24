@@ -3,7 +3,8 @@
     <div class="row sz-option-row" v-for="(option, index) in options">
         <div class="col-xs-5">
             <div class="input-group">
-                <input type="text" class="form-control" name="options[]" v-model="option.text">
+                <input type="hidden" name="ids[]" v-model="option.id"
+                <input type="text" class="form-control" name="options[]" v-model="option.option">
                 <span class="input-group-addon">
                     <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-image')" v-bind:class="{ 'sz-option-has-image': option.image }" v-bind:title="option.image" data-toggle="tooltip" data-placement="top" ref="add-image">
                         <i class="mdi mdi-camera" aria-hidden="true"></i>
@@ -14,9 +15,9 @@
         </div>
         <div class="col-xs-5">
             <div class="input-group">
-                <input type="text" class="form-control" name="matches[]" v-model="option.matchText">
+                <input type="text" class="form-control" name="matches[]" v-model="option.option_match">
                 <span class="input-group-addon">
-                    <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-match-image')" v-bind:class="{ 'sz-option-has-image': option.matchImage }" v-bind:title="option.matchImage" data-toggle="tooltip" data-placement="top" ref="add-match-image">
+                    <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-match-image')" v-bind:class="{ 'sz-option-has-image': option.image_match }" v-bind:title="option.image_match" data-toggle="tooltip" data-placement="top" ref="add-match-image">
                         <i class="mdi mdi-camera" aria-hidden="true"></i>
                     </a>
                     <input type="file" accept="image/*" capture="camera" style="display:none;" v-bind:name="'option-match-image-' + index" v-on:change="imageSelected(index, 'add-match-image')" ref="option-match-image">
@@ -42,36 +43,44 @@
 <script>
     export default {
         mounted() {
-            console.log('MatchPairs Component ready.');
+            if ( window.activityItemQuestionData && window.activityItemQuestionData.length > 0 ) {
+                this.options = window.activityItemQuestionData;
+            } else {
+                this.options = [
+                    {
+                        id: 0,
+                        option: '',
+                        image: '',
+                        option_match: '',
+                        image_match: ''
+                    },
+                    {
+                        id: 0,
+                        option: '',
+                        image: '',
+                        option_match: '',
+                        image_match: ''
+                    },
+                    {
+                        id: 0,
+                        option: '',
+                        image: '',
+                        option_match: '',
+                        image_match: ''
+                    },
+                    {
+                        id: 0,
+                        option: '',
+                        image: '',
+                        option_match: '',
+                        image_match: ''
+                    }
+                ];
+            }
         },
         data() {
             return  {
-                options: [
-                    {
-                        text: '',
-                        image: '',
-                        matchText: '',
-                        matchImage: ''
-                    },
-                    {
-                        text: '',
-                        image: '',
-                        matchText: '',
-                        matchImage: ''
-                    },
-                    {
-                        text: '',
-                        image: '',
-                        matchText: '',
-                        matchImage: ''
-                    },
-                    {
-                        text: '',
-                        image: '',
-                        matchText: '',
-                        matchImage: ''
-                    }
-                ]
+                options: []
             };
         },
         methods: {
@@ -87,17 +96,18 @@
             },
             addOption: function() {
                 this.options.push({
-                    text: '',
+                    id: 0,
+                    option: '',
                     image: '',
-                    matchText: '',
-                    matchImage: ''
+                    option_match: '',
+                    image_match: ''
                 });
             },
             imageSelected: function(index, ref) {
                 if ( !event.target.files.length > 0 ) return;
 
                 if ( ref === 'add-match-image' ) {
-                    this.options[index].matchImage = event.target.files[0].name;
+                    this.options[index].image_match = event.target.files[0].name;
                 } else {
                     this.options[index].image = event.target.files[0].name;
                 }

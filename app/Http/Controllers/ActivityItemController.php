@@ -56,7 +56,7 @@ class ActivityItemController extends Controller
           $constraint->upsize();
           $constraint->aspectRatio();
       });
-      
+
       if ( !File::isDirectory( public_path('uploads/images/' . $path) ) ) {
           File::makeDirectory( public_path('uploads/images/' . $path) );
       }
@@ -214,8 +214,7 @@ class ActivityItemController extends Controller
   {
       $this->authorize('update', $activity_item);
 
-      return response('Not implemented', 501);
-      //return view('activity_items/edit')->with('activity_item', $activity_item);
+      return view('activity_items/edit')->with('activity_item', $activity_item);
   }
 
   /**
@@ -227,6 +226,8 @@ class ActivityItemController extends Controller
    */
   public function update(StoreActivityItem $request, ActivityItem $activity_item)
   {
+      // TODO Get "detached" identifiers from the "sync" method
+      // This might require getting all the existing things at first, then delete images
       return response('Not implemented', 501);
       //return redirect()->route('activity.show', [ 'id' => $activity->id ]);
   }
@@ -241,6 +242,14 @@ class ActivityItemController extends Controller
   {
       $this->authorize('delete', $activity_item);
 
-      return response('Not implemented', 501);
+      $path = $activity_item->getStoragePath();
+
+      $activity_item->delete();
+
+      if ( !File::isDirectory( public_path('uploads/images/' . $path) ) ) {
+          File::deleteDirectory( public_path('uploads/images/' . $path) );
+      }
+
+      return redirect()->route('activity_item.index');
   }
 }

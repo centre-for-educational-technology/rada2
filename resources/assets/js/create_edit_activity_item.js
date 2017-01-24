@@ -33,9 +33,22 @@ window.initMap = function() {
       marker = null;
     }
 
+    function getInitialLatLng() {
+        var latitude = document.getElementById('latitude').value,
+            longitude = document.getElementById('longitude').value;
+        if ( latitude && longitude ) {
+            return {
+                lat: Number(latitude),
+                lng: Number(longitude)
+            };
+        }
+
+        return zooGeolocationOptions[$(document).find('select[name="zoo"]').val()];
+    }
+
     var mapOptions, map, marker;
 
-    var currentLatLng = zooGeolocationOptions[$(document).find('select[name="zoo"]').val()];
+    var currentLatLng = getInitialLatLng();
 
     mapOptions = {
         center: currentLatLng,
@@ -79,8 +92,8 @@ Vue.component('multiple-correct-answers', require('./components/MultipleCorrectA
 Vue.component('match-pairs', require('./components/MatchPairs.vue'));
 
 const addActivityItemApp = new Vue({
-    el: 'form#create-activity-item',
+    el: 'form#' + window.activityItemFormId,
     data: {
-        questionType: 1
+        questionType: $('select[name="type"]').val()
     }
 });

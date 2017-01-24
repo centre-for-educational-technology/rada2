@@ -37,7 +37,7 @@
                                 @if(Auth::check())
                                     <div class="pull-right">
                                         @can('update', $activity_item)
-                                            <a href="{!! route('activity_item.edit', ['id' => $activity_item->id]) !!}" class="btn btn-primary btn-sm disabled" title="{{ trans('general.actions.edit') }}">
+                                            <a href="{!! route('activity_item.edit', ['id' => $activity_item->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.edit') }}">
                                                 <i class="mdi mdi-pencil"></i>
                                             </a>
                                         @endcan

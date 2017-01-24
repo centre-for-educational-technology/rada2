@@ -149,4 +149,19 @@ class ActivityItem extends Model
     public static function getStoragePathForId(int $id) {
         return sha1( 'activity_item_' . $id ) . '/';
     }
+
+    /**
+     * Get question data if available, with limited selected columns.
+     * This method is useful for construction of edit form.
+     * @return array Array with data objects or an empty one
+     */
+    public function getQuestionData() {
+        if ( $this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers() ) {
+            return $this->options()->get(['id', 'option', 'correct', 'image']);
+        } else if ( $this->isMatchPairs() ) {
+            return $this->pairs()->get(['id', 'option', 'image', 'option_match', 'image_match']);
+        }
+
+        return [];
+    }
 }
