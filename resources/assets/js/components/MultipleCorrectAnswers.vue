@@ -3,6 +3,11 @@
     <div class="row sz-option-row" v-for="(option, index) in options">
         <div class="col-xs-9">
             <div class="input-group">
+                <span class="input-group-addon" v-if="$parent.hasPreview(option)">
+                    <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image)">
+                        <img class="sz-option-image-small" alt="option-image" v-bind:src="$parent.getOptionImageUrl(option.image)">
+                    </a>
+                </span>
                 <input type="hidden" name="ids[]" v-model="option.id"
                 <input type="text" class="form-control" name="options[]" v-model="option.option">
                 <span class="input-group-addon">
@@ -92,6 +97,7 @@
                 if ( !event.target.files.length > 0 ) return;
 
                 this.options[index].image = event.target.files[0].name;
+                this.options[index].imagePreview = false;
                 var element = $(this.$refs['add-image'][index]);
 
                 this.$nextTick(() => {

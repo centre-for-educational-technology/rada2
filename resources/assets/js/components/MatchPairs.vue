@@ -3,6 +3,11 @@
     <div class="row sz-option-row" v-for="(option, index) in options">
         <div class="col-xs-5">
             <div class="input-group">
+                <span class="input-group-addon" v-if="$parent.hasPreview(option)">
+                    <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image)">
+                        <img class="sz-option-image-small" alt="option-image" v-bind:src="$parent.getOptionImageUrl(option.image)">
+                    </a>
+                </span>
                 <input type="hidden" name="ids[]" v-model="option.id"
                 <input type="text" class="form-control" name="options[]" v-model="option.option">
                 <span class="input-group-addon">
@@ -15,6 +20,11 @@
         </div>
         <div class="col-xs-5">
             <div class="input-group">
+                <span class="input-group-addon" v-if="$parent.hasPreview(option, 'image_match', 'imageMatchPreview')">
+                    <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image_match)">
+                        <img class="sz-option-image-small" alt="option-match-image" v-bind:src="$parent.getOptionImageUrl(option.image_match)">
+                    </a>
+                </span>
                 <input type="text" class="form-control" name="matches[]" v-model="option.option_match">
                 <span class="input-group-addon">
                     <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-match-image')" v-bind:class="{ 'sz-option-has-image': option.image_match }" v-bind:title="option.image_match" data-toggle="tooltip" data-placement="top" ref="add-match-image">
@@ -52,21 +62,21 @@
                         option: '',
                         image: '',
                         option_match: '',
-                        image_match: ''
+                        image_match: '',
                     },
                     {
                         id: 0,
                         option: '',
                         image: '',
                         option_match: '',
-                        image_match: ''
+                        image_match: '',
                     },
                     {
                         id: 0,
                         option: '',
                         image: '',
                         option_match: '',
-                        image_match: ''
+                        image_match: '',
                     },
                     {
                         id: 0,
@@ -107,8 +117,10 @@
                 if ( !event.target.files.length > 0 ) return;
 
                 if ( ref === 'add-match-image' ) {
+                    this.options[index].imageMatchPreview = false;
                     this.options[index].image_match = event.target.files[0].name;
                 } else {
+                    this.options[index].imagePreview = false;
                     this.options[index].image = event.target.files[0].name;
                 }
                 var element = $(this.$refs[ref][index]);

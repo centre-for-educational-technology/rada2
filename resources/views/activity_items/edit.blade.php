@@ -5,6 +5,7 @@
     window.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
     window.activityItemQuestionData = <?php echo json_encode($activity_item->getQuestionData()); ?>;
     window.activityItemFormId = 'edit-activity-item';
+    window.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
 </script>
 @endsection
 

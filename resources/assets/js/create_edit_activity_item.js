@@ -95,5 +95,20 @@ const addActivityItemApp = new Vue({
     el: 'form#' + window.activityItemFormId,
     data: {
         questionType: $('select[name="type"]').val()
+    },
+    methods: {
+        getOptionImageUrl: function(image) {
+            return window.activityItemAssetsBaseUrl + '/' + image;
+        },
+        hasPreview: function(option, imageKey, flagKey) {
+            imageKey = imageKey || 'image';
+            flagKey = flagKey || 'imagePreview';
+            // XXX Wrong image key for match
+            if ( option.id && option.image && option[flagKey] !== false ) {
+                return true;
+            }
+
+            return false;
+        }
     }
 });
