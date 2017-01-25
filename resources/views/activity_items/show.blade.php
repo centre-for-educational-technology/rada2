@@ -10,6 +10,7 @@
                 </div>
 
                 <div class="panel-body">
+                    @include('activity_items.actions')
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>

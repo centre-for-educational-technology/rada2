@@ -43,6 +43,8 @@ $(document).ready(function() {
 
             form.appendTo('body');
             form.submit();
+        } else {
+            _this.trigger('blur');
         }
     });
 });
