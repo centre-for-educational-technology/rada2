@@ -4,6 +4,8 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Illuminate\Support\Facades\File;
+
 class ActivityItemOption extends Model
 {
     /**
@@ -26,5 +28,19 @@ class ActivityItemOption extends Model
         }
 
         return null;
+    }
+
+    /**
+     * [deleteImage description]
+     * @return [type] [description]
+     */
+    public function deleteImage() {
+        if ( $this->image ) {
+            $path = ActivityItem::getStoragePathForId($this->activity_item_id);
+
+            return File::delete( public_path('uploads/images/'. $path . $this->image) );
+        }
+
+        return false;
     }
 }

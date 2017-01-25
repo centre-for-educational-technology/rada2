@@ -65,6 +65,9 @@
                 ]) !!}
                 <div class="col-md-6">
                     <div class="input-group col-xs-12">
+                        {!! Form::hidden('type', $activity_item->type, [
+                            'class' => 'form-control',
+                        ]) !!}
                         {!! Form::select('type', App\ActivityItem::getQuestionTypeOptions(), $activity_item->type, [
                             'class' => 'form-control',
                             'disabled' => 'disabled'

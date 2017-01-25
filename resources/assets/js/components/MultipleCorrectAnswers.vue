@@ -8,7 +8,7 @@
                         <img class="sz-option-image-small" alt="option-image" v-bind:src="$parent.getOptionImageUrl(option.image)">
                     </a>
                 </span>
-                <input type="hidden" name="ids[]" v-model="option.id"
+                <input type="hidden" name="ids[]" v-model="option.id">
                 <input type="text" class="form-control" name="options[]" v-model="option.option">
                 <span class="input-group-addon">
                     <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct">

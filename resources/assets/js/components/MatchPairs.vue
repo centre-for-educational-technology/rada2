@@ -8,7 +8,7 @@
                         <img class="sz-option-image-small" alt="option-image" v-bind:src="$parent.getOptionImageUrl(option.image)">
                     </a>
                 </span>
-                <input type="hidden" name="ids[]" v-model="option.id"
+                <input type="hidden" name="ids[]" v-model="option.id">
                 <input type="text" class="form-control" name="options[]" v-model="option.option">
                 <span class="input-group-addon">
                     <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-image')" v-bind:class="{ 'sz-option-has-image': option.image }" v-bind:title="option.image" data-toggle="tooltip" data-placement="top" ref="add-image">

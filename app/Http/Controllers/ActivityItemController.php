@@ -68,6 +68,37 @@ class ActivityItemController extends Controller
   }
 
   /**
+   * [deleteRemovedOptions description]
+   * @param  [type] $request         [description]
+   * @param  [type] $current_options [description]
+   * @return [type]                  [description]
+   */
+  private function deleteRemovedOptions(&$request, &$current_options) {
+      foreach ( $current_options as $id => $option ) {
+          if ( !in_array($id, $request->ids) ) {
+              $option->deleteImage();
+              $option->delete();
+          }
+      }
+  }
+
+  /**
+   * [deleteRemovedPairs description]
+   * @param  [type] $request       [description]
+   * @param  [type] $current_pairs [description]
+   * @return [type]                [description]
+   */
+  private function deleteRemovedPairs(&$request, &$current_pairs) {
+      foreach ( $current_pairs as $id => $item ) {
+          if ( !in_array($id, $request->ids ) ) {
+              $item->deleteImage();
+              $item->deleteImageMatch();
+              $item->delete();
+          }
+      }
+  }
+
+  /**
    * Display a listing of ActivityItems.
    *
    * @return \Illuminate\Http\Response
@@ -226,10 +257,157 @@ class ActivityItemController extends Controller
    */
   public function update(StoreActivityItem $request, ActivityItem $activity_item)
   {
-      // TODO Get "detached" identifiers from the "sync" method
-      // This might require getting all the existing things at first, then delete images
-      return response('Not implemented', 501);
-      //return redirect()->route('activity.show', [ 'id' => $activity->id ]);
+      $activity_item->title = $request->title;
+      $activity_item->description = $request->description;
+
+      if ( $activity_item->isEmbeddedContent() ) {
+          $activity_item->embedded_content = $request->input('embedded-content', '');
+      }
+
+      $activity_item->zoo = $request->zoo;
+      $activity_item->language = $request->language;
+      $activity_item->latitude = $request->latitude;
+      $activity_item->longitude = $request->longitude;
+
+      $activity_item->save();
+
+      $path = $activity_item->getStoragePath();
+
+      // TODO It might make sense to move contents of these blocks to standalone
+      // functions, as they act after item has alreayd been created
+      if ( $activity_item->isOneCorrectAnswer() ) {
+          $current_options = $activity_item->options->getDictionary();
+          $options = [];
+          $correct = -1;
+
+
+          if ( $request->has('correct') ) {
+              $correct = (int)$request->correct;
+          }
+
+          foreach ( $request->options as $key => $option ) {
+              if ( $request->ids[$key] ) {
+                  $tmp = $current_options[$request->ids[$key]];
+
+                  $tmp->option = $option;
+                  $tmp->correct = (int)( $key === $correct );
+                  if ( $request->hasFile('option-image-' . $key) ) {
+                      if ( $tmp->image ) {
+                          $tmp->deleteImage();
+                          $tmp->image = null;
+                      }
+                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  }
+                  $options[] = $tmp;
+              } else {
+                  $tmp =  new ActivityItemOption;
+
+                  $tmp->option = $option;
+                  $tmp->correct = (int)( $key === $correct );
+                  if ( $request->hasFile('option-image-' . $key) ) {
+                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  }
+
+                  $options[] = $tmp;
+              }
+          }
+
+          $this->deleteRemovedOptions($request, $current_options);
+
+          $activity_item->options()->saveMany($options);
+      }
+
+      if ( $activity_item->isMultipleCorrectAnswers() ) {
+          $current_options = $activity_item->options->getDictionary();
+          $options = [];
+          $correct = [];
+
+          if ( $request->has('correct') ) {
+              $correct = $request->correct;
+          }
+          foreach ( $request->options as $key => $option ) {
+              if ( $request->ids[$key] ) {
+                  $tmp = $current_options[$request->ids[$key]];
+
+                  $tmp->option = $option;
+                  $tmp->correct = (int)in_array($key, $correct);
+                  if ( $request->hasFile('option-image-' . $key) ) {
+                      if ( $tmp->image ) {
+                          $tmp->deleteImage();
+                          $tmp->image = null;
+                      }
+                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  }
+
+                  $options[] = $tmp;
+              } else {
+                  $tmp = new ActivityItemOption;
+
+                  $tmp->option = $option;
+                  $tmp->correct = (int)in_array($key, $correct);
+                  if ( $request->hasFile('option-image-' . $key) ) {
+                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  }
+
+                  $options[] = $tmp;
+              }
+          }
+
+          $this->deleteRemovedOptions($request, $current_options);
+
+          $activity_item->options()->saveMany($options);
+      }
+
+      if ( $activity_item->isMatchPairs() ) {
+          $current_pairs = $activity_item->pairs->getDictionary();
+
+          $pairs = [];
+
+          foreach ( $request->options as $key => $option ) {
+              if ( $request->ids[$key] ) {
+                  $tmp = $current_pairs[$request->ids[$key]];
+
+                  $tmp->option = $option;
+                  $tmp->option_match = $request->matches[$key];
+
+                  if ( $request->hasFile('option-image-' . $key) ) {
+                      if ( $tmp->image ) {
+                          $tmp->deleteImage();
+                          $tmp->image = null;
+                      }
+                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  }
+                  if ( $request->hasFile('option-match-image-' . $key) ) {
+                      if ( $tmp->image_match ) {
+                          $tmp->deleteImageMatch();
+                          $tmp->image_match = null;
+                      }
+                      $tmp->image_match = $this->processUploadedOptionImage($request, 'option-match-image-' . $key, $path);
+                  }
+
+                  $pairs[] = $tmp;
+              } else {
+                  $tmp = new ActivityItemPair;
+
+                  $tmp->option = $option;
+                  $tmp->option_match = $request->matches[$key];
+                  if ( $request->hasFile('option-image-' . $key) ) {
+                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  }
+                  if ( $request->hasFile('option-match-image-' . $key) ) {
+                      $tmp->image_match = $this->processUploadedOptionImage($request, 'option-match-image-' . $key, $path);
+                  }
+
+                  $pairs[] = $tmp;
+              }
+          }
+
+          $this->deleteRemovedPairs($request, $current_pairs);
+
+          $activity_item->pairs()->saveMany($pairs);
+      }
+
+      return redirect()->route('activity_item.show', [ 'id' => $activity_item->id ]);
   }
 
   /**
