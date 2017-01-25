@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Support\Facades\File;
+
 class Activity extends Model
 {
     /**
@@ -137,9 +139,22 @@ class Activity extends Model
      */
     public function getFeaturedImageUrl() {
         if ( $this->hasFeaturedImage() ) {
-            return asset('uploads/images/'. $this->featured_image);
+            return asset('uploads/images/' . $this->featured_image);
         }
 
         return asset('img/logos/logo-square.png');
+    }
+
+    /**
+     * [deleteImage description]
+     * @return [type] [description]
+     */
+    public function deleteFeaturedImage() {
+        if ( $this->hasFeaturedImage() ) {
+
+            return File::delete( public_path('uploads/images/' . $this->featured_image) );
+        }
+
+        return false;
     }
 }

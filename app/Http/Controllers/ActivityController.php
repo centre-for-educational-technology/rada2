@@ -217,6 +217,9 @@ class ActivityController extends Controller
     {
         $this->authorize('delete', $activity);
 
-        return response('Not implemented', 501);
+        $activity->delete();
+        $activity->deleteFeaturedImage();
+
+        return redirect()->route('activity.index');
     }
 }

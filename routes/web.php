@@ -42,7 +42,7 @@ Route::group(['prefix' => 'activities'], function() {
     Route::get('{activity}/edit', 'ActivityController@edit')->name('activity.edit');
     Route::put('{activity}', 'ActivityController@update');
 
-    Route::delete('{activity}', 'ActivityController@destroy');
+    Route::delete('{activity}', 'ActivityController@destroy')->name('activity.delete');
 });
 
 // ActivityItem Routes
@@ -57,5 +57,5 @@ Route::group(['prefix' => 'activity_items'], function() {
   Route::get('{activity_item}/edit', 'ActivityItemController@edit')->name('activity_item.edit');
   Route::put('{activity_item}', 'ActivityItemController@update');
 
-  Route::delete('{activity_item}', 'ActivityItemController@destroy');
+  Route::delete('{activity_item}', 'ActivityItemController@destroy')->name('activity_item.delete');
 });

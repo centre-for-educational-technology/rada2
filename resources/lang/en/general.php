@@ -77,5 +77,8 @@ return [
        'delete' => 'Delete',
        'play' => 'Play',
    ],
-   'minutes' => 'minutes'
+   'minutes' => 'minutes',
+   'confirmations' => [
+       'delete' => 'Are you sure you want to delete this item?',
+   ],
 ];

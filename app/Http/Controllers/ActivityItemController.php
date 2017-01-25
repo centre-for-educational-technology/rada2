@@ -424,7 +424,7 @@ class ActivityItemController extends Controller
 
       $activity_item->delete();
 
-      if ( !File::isDirectory( public_path('uploads/images/' . $path) ) ) {
+      if ( File::isDirectory( public_path('uploads/images/' . $path) ) ) {
           File::deleteDirectory( public_path('uploads/images/' . $path) );
       }
 

@@ -18,3 +18,31 @@ require('./bootstrap');
 /*const app = new Vue({
     el: '#app'
 });*/
+
+$(document).ready(function() {
+    $('a[data-method="delete"]').on('click', function(e) {
+        e.preventDefault();
+        var _this = $(this);
+
+        if ( confirm( _this.data('confirm') ) ) {
+            var form = $('<form>', {
+                method: 'POST',
+                action: _this.data('action')
+            });
+
+            form.append($('<input>', {
+                type: 'hidden',
+                name: '_method',
+                value: 'DELETE'
+            }));
+            form.append($('<input>', {
+                type: 'hidden',
+                name: '_token',
+                value: window.Laravel.csrfToken
+            }));
+
+            form.appendTo('body');
+            form.submit();
+        }
+    });
+});
