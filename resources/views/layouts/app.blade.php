@@ -75,11 +75,13 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
-                                    <li>
-                                        <a href="{!! route('user.index') !!}">
-                                            {{ trans('pages.manage.users.index.heading') }}
-                                        </a>
-                                    </li>
+                                    @if ( Auth::user()->isAdmin() )
+                                        <li>
+                                            <a href="{!! route('user.index') !!}">
+                                                {{ trans('pages.manage.users.index.heading') }}
+                                            </a>
+                                        </li>
+                                    @endif
                                     <li>
                                         <a href="{{ url('/logout') }}"
                                             onclick="event.preventDefault();
