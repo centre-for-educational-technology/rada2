@@ -52,5 +52,12 @@ return [
             ],
         ],
     ],
+    'logout' => [
+        'form' => [
+            'btn' => [
+                'logout' => 'Logout',
+            ],
+        ],
+    ],
 
 ];

@@ -22,4 +22,29 @@ class SocialAccount extends Model
     public function user() {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * [checkProvider description]
+     * @param  string $provider [description]
+     * @return [type]           [description]
+     */
+    private function checkProvider(string $provider) {
+        return $this->provider === $provider;
+    }
+
+    /**
+     * [isGoogle description]
+     * @return boolean [description]
+     */
+    public function isGoogle() {
+        return $this->checkProvider('GoogleProvider');
+    }
+
+    /**
+     * [isFacebook description]
+     * @return boolean [description]
+     */
+    public function isFacebook() {
+        return $this->checkProvider('FacebookProvider');
+    }
 }

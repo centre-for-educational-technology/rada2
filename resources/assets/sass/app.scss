@@ -21,7 +21,7 @@
 }
 
 .facebook-sign-in {
-    background: #4c69ba;
+    background: $sz-facebook-background;
     background: linear-gradient(#4c69ba, #3b55a0);
     border-color: #4c69ba;
     border-radius: 2px; color:#fff;
@@ -40,7 +40,7 @@
 }
 
 .google-sign-in {
-    background-color: #4d90fe;
+    background-color: $sz-google-background;
     background-image: linear-gradient(to right top, #4d90fe, #4787ed);
     border: 1px solid #3079ed;
     text-shadow: 0 1px rgba(0,0,0,0.1);
@@ -147,4 +147,23 @@
 .sz-option-image-small {
     max-height: 22px;
     max-width: 22px;
+}
+
+.sz-account-types {
+    .mdi-google {
+        color: $sz-google-background;
+    }
+
+    .mdi-facebook-box {
+        color: $sz-facebook-background;
+    }
+
+    .mdi-account-key {
+        &.active {
+            color: $gray-dark;
+        }
+        &.inactive {
+            color: $gray-light;
+        }
+    }
 }

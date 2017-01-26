@@ -7901,4 +7901,20 @@ button.mdi::before {
   max-width: 22px;
 }
 
+.sz-account-types .mdi-google {
+  color: #4d90fe;
+}
+
+.sz-account-types .mdi-facebook-box {
+  color: #4c69ba;
+}
+
+.sz-account-types .mdi-account-key.active {
+  color: #333333;
+}
+
+.sz-account-types .mdi-account-key.inactive {
+  color: #777777;
+}
+
 /*# sourceMappingURL=app.css.map */

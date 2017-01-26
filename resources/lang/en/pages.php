@@ -29,5 +29,15 @@ return [
           'none-found' => 'No Activity Items could be found.',
         ],
     ],
+    'manage' => [
+        'users' => [
+            'index' => [
+                'heading' => 'Manage Users',
+                'none-found' => 'No User could be found',
+                'accounts' => 'Accounts',
+                'roles' => 'Roles',
+            ]
+        ],
+    ],
 
 ];

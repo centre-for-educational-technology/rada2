@@ -81,4 +81,14 @@ return [
    'confirmations' => [
        'delete' => 'Are you sure you want to delete this item?',
    ],
+   'date-time' => [
+       'formats' => [
+           'short' => 'F d, Y',
+           'medium' => 'F d, Y H:i',
+           'long' => 'F d, Y, H:i:s',
+       ],
+       'created-at' => 'Created at',
+       'updated-at' => 'Updated at',
+   ],
+
 ];

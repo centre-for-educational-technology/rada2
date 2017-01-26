@@ -59,3 +59,10 @@ Route::group(['prefix' => 'activity_items'], function() {
 
   Route::delete('{activity_item}', 'ActivityItemController@destroy')->name('activity_item.delete');
 });
+
+// Management routes
+Route::group(['prefix' => 'manage'], function() {
+    Route::group(['prefix' => 'users'], function() {
+        Route::get('/', 'UserController@index')->name('user.index');
+    });
+});

@@ -28,6 +28,14 @@ class User extends Authenticatable
     ];
 
     /**
+     * [pairs description]
+     * @return [type] [description]
+     */
+    public function social_accounts() {
+        return $this->hasMany(SocialAccount::class);
+    }
+
+    /**
      * Determined if current user is an administrator
      * @return boolean
      */
