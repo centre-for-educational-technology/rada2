@@ -16,7 +16,9 @@
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>
                     <p>{{ $activity_item::getQuestionType($activity_item->type) }}</p>
                     @if ( $activity_item->isEmbeddedContent() )
-                        <p>{!! html_entity_decode($activity_item->embedded_content) !!}</p>
+                        <p class="embed-responsive embed-responsive-16by9">
+                            {!! html_entity_decode($activity_item->embedded_content) !!}
+                        </p>
                     @elseif ( $activity_item->isOneCorrectAnswer() || $activity_item->isMultipleCorrectAnswers() )
                         <ul class="media-list sz-options-list">
                         @foreach( $activity_item->options as $option )
