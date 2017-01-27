@@ -38,12 +38,14 @@
         <div class="jumbotron col-md-6 col-md-offset-3">
             <h1 style="text-align:center;">{{ trans('pages.welcome.jumbotron.heading') }}</h1>
             <p style="text-align:center;">{{ trans('pages.welcome.jumbotron.content') }}</p>
-            <p class="row">
-                <p class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
-                    <a class="btn btn-primary btn-sm" href="{{ url('/register') }}" role="button">{{ trans('auth.register.form.btn.register') }}</a>
-                    <a class="btn btn-primary btn-sm" href="{{ url('/login') }}" role="button">{{ trans('auth.login.form.btn.login') }}</a>
+            @if (Auth::guest())
+                <p class="row">
+                    <p class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
+                        <a class="btn btn-primary btn-sm" href="{{ url('/register') }}" role="button">{{ trans('auth.register.form.btn.register') }}</a>
+                        <a class="btn btn-primary btn-sm" href="{{ url('/login') }}" role="button">{{ trans('auth.login.form.btn.login') }}</a>
+                    </p>
                 </p>
-            </p>
+            @endif
         </div>
     </div>
 
