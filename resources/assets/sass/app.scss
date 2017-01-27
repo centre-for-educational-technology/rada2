@@ -167,3 +167,13 @@
         }
     }
 }
+
+.sz-role-badge {
+    i.mdi {
+        cursor: pointer;
+
+        &::before {
+            font-size: 12px;
+        }
+    }
+}

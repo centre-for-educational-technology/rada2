@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Log;
 
 class User extends Authenticatable
 {
@@ -28,6 +29,16 @@ class User extends Authenticatable
     ];
 
     /**
+     * [roles description]
+     * @return [type] [description]
+     */
+    public function roles() {
+        return $this->belongsToMany(Role::class)
+            ->withPivot('zoo')
+            ->withTimestamps();
+    }
+
+    /**
      * [pairs description]
      * @return [type] [description]
      */
@@ -36,10 +47,48 @@ class User extends Authenticatable
     }
 
     /**
+     * [hasRole description]
+     * @param  string  $name [description]
+     * @param  [type]  $zoo  [description]
+     * @return boolean       [description]
+     */
+    private function hasRole(string $name, int $zoo = null) {
+        $rolesByName = $this->roles->keyBy('name');
+
+        if ( $rolesByName->has($name) ) {
+            if ( $zoo ) {
+                return (int)$rolesByName[$name]->zoo === (int)$zoo;
+            }
+
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
      * Determined if current user is an administrator
      * @return boolean
      */
     public function isAdmin() {
-        return false;
+        return $this->hasRole('admin');
+    }
+
+    /**
+     * [isZooAdmin description]
+     * @param  int     $zoo [description]
+     * @return boolean      [description]
+     */
+    public function isZooAdmin(int $zoo) {
+        return $this->hasRole('zooAdmin', $zoo);
+    }
+
+    /**
+     * [isZooMember description]
+     * @param  int     $zoo [description]
+     * @return boolean      [description]
+     */
+    public function isZooMember(int $zoo) {
+        return $this->hasRole('zooMember', $zoo);
     }
 }

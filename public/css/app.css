@@ -7917,4 +7917,12 @@ button.mdi::before {
   color: #777777;
 }
 
+.sz-role-badge i.mdi {
+  cursor: pointer;
+}
+
+.sz-role-badge i.mdi::before {
+  font-size: 12px;
+}
+
 /*# sourceMappingURL=app.css.map */

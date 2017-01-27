@@ -90,5 +90,10 @@ return [
        'created-at' => 'Created at',
        'updated-at' => 'Updated at',
    ],
+   'roles' => [
+       'admin' => 'Administartor',
+       'zooAdmin' => 'Administrator',
+       'zooMember' => 'Member',
+   ],
 
 ];

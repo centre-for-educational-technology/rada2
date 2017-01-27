@@ -1,5 +1,15 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+<script>
+    $(document).ready(function() {
+        $('.mdi-close-circle-outline').on('click', function() {
+            // TODO Add confirmation and call the action in question
+        });
+    });
+</script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -26,6 +36,7 @@
                                     <th>{{ trans('general.date-time.updated-at') }}</th>
                                     <th>{{ trans('pages.manage.users.index.accounts') }}</th>
                                     <th>{{ trans('pages.manage.users.index.roles') }}</th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -47,7 +58,24 @@
                                                 @endforeach
                                             @endif
                                         </td>
-                                        <td></td>
+                                        <td>
+                                            @if ( $user->roles )
+                                                @foreach ( $user->roles as $role)
+                                                    <span class="badge sz-role-badge">
+                                                        {{ trans('general.roles.' . $role->name) }}
+                                                        @if ( $role->pivot->zoo )
+                                                            ({{ $role->pivot->zoo ? App\Activity::getZoo($role->pivot->zoo) : '' }})
+                                                        @endif
+                                                        <i class="mdi mdi-close-circle-outline" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}"></i>
+                                                    </span>
+                                                @endforeach
+                                            @endif
+                                        </td>
+                                        <td>
+                                            <a href="#" class="btn btn-primary btn-xs">
+                                                <i class="mdi mdi-plus"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                             </tbody>
