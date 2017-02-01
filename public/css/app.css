@@ -7925,4 +7925,31 @@ button.mdi::before {
   font-size: 12px;
 }
 
+#sz-play-app {
+  height: 100%;
+  width: 100%;
+}
+
+#sz-play-app #loading {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  height: 100%;
+  width: 100%;
+  background-color: #eeeeee;
+  text-align: center;
+}
+
+#sz-play-app #loading span {
+  display: inline-block;
+  font-size: 150%;
+  margin-top: 250px;
+}
+
+#sz-play-app #map {
+  height: 100%;
+  width: 100%;
+}
+
 /*# sourceMappingURL=app.css.map */

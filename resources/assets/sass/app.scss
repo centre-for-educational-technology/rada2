@@ -177,3 +177,30 @@
         }
     }
 }
+
+#sz-play-app {
+    height: 100%;
+    width: 100%;
+
+    #loading {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 9999;
+        height: 100%;
+        width: 100%;
+        background-color: $gray-lighter;
+        text-align: center;
+
+        span {
+            display: inline-block;
+            font-size: 150%;
+            margin-top: 250px;
+        }
+    }
+
+    #map {
+        height: 100%;
+        width: 100%;
+    }
+}

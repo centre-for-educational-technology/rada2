@@ -142,6 +142,8 @@ class ActivityController extends Controller
         // XXX This seems to fail for guests
         //$this->authorize('view', $activity);
 
+        $activity->load('activityItems');
+
         return view('activities/play')->with('activity', $activity);
     }
 

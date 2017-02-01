@@ -15,17 +15,13 @@
 
     <!-- Styles -->
     <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
+    <link href="/css/app.css" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
             width: 100%;
             padding: 0;
             margin: 0;
-        }
-
-        #map {
-            height: 100%;
-            width: 100%;
         }
     </style>
 
@@ -36,29 +32,30 @@
                 'base_url' => url('/'),
                 'map' => [
                     'green_dotless_icon_url' => asset('img/map/spotlight-poi-dotless-green.png'),
+                    'key' => config('services.maps.google.api_key'),
                 ]
-            ]
+            ],
+            'data' => [
+                'activity' => $activity,
+            ],
         ]);
         ?>
     </script>
 </head>
 <body>
-    <div id="overlay" style="position:fixed;top:0;left:0;z-index:9999;height:100%;width:100%;background-color:grey;text-align:center;">
-        <span style="display:inline-block;margin-top:150px;font-size:150%;">
-            Loading, please wait ...
-        </span>
-    </div>
-    <div id="map">
+    <div id="sz-play-app">
+        <div id="loading" v-if="isLoading()">
+            <span>
+                {{ trans('game.loading') }}
+            </span>
+        </div>
+
+        <game-map v-if="!isLoading()" v-bind:latitude="latitude" v-bind:longitude="longitude"></game-map>
     </div>
 
     <!-- Scripts -->
-    <script
-    src="//code.jquery.com/jquery-3.1.1.min.js"
-    integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
-    crossorigin="anonymous">
-    </script>
-    <script src="{{ asset('js/activity.js') }}"></script>
-    <script src="//maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&amp;callback=initMap&amp;libraries=geometry" async defer></script>
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="{{ asset('js/play.js') }}"></script>
 
 </body>
 </html>
