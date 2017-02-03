@@ -1,54 +1,45 @@
 <template>
-    <div id="map">
+    <div style="height:100%;width:100%;">
+        <game-information-modal ref="informationModal" v-if="activity" v-bind:activity="activity"></game-information-modal>
+        <game-question-modal v-bind:question="question" v-if="question" ref="questionModal"></game-question-modal>
+        <div id="map">
+        </div>
     </div>
 </template>
 
 <script>
-    function GameControls(controlDiv, map, playerMarker) {
+    function GameControls(controlDiv, map, playerMarker, vm) {
         var controlUI = document.createElement('div');
-        controlUI.style.backgroundColor = '#fff';
-        controlUI.style.border = '2px solid #fff';
-        controlUI.style.borderRadius = '3px';
-        controlUI.style.boxShadow = '0 2px 6px rgba(0,0,0,.3)';
-        controlUI.style.cursor = 'pointer';
-        controlUI.style.marginBottom = '22px';
-        controlUI.style.textAlign = 'center';
+        controlUI.id = 'sz-map-controls'
         controlDiv.appendChild(controlUI);
 
+        var informationControlItem = document.createElement('i');
+        informationControlItem.className = 'mdi mdi-information-outline';
+        informationControlItem.title = 'Game Info';
+        controlUI.appendChild(informationControlItem);
+
+        informationControlItem.addEventListener('click', function() {
+            vm.$refs.informationModal.open();
+        });
+
         var navigationControlItem = document.createElement('i');
-        navigationControlItem.style.fontSize = '24px';
-        navigationControlItem.style.color = 'rgb(169,169,169)';
         navigationControlItem.className = 'mdi mdi-navigation';
-        navigationControlItem.style.marginRight = '5px';
         navigationControlItem.title = 'Enable or disable position tracking';
         controlUI.appendChild(navigationControlItem);
 
         navigationControlItem.addEventListener('click', function() {
             if ( map.szTrackingEnabled ) {
                 map.szTrackingEnabled = false;
-                navigationControlItem.style.color = 'rgb(169,169,169)';
+                navigationControlItem.className = 'mdi mdi-navigation';
             } else {
+                map.panTo(playerMarker.getPosition());
+                google.maps.event.trigger(playerMarker, 'click');
                 map.szTrackingEnabled = true;
-                navigationControlItem.style.color = 'rgb(0,0,255)';
+                navigationControlItem.className = 'mdi mdi-navigation active';
             }
         });
 
-        var currentPositionControlIcon = document.createElement('i');
-        currentPositionControlIcon.style.fontSize = '24px';
-        currentPositionControlIcon.style.color = 'rgb(25,25,25)';
-        currentPositionControlIcon.className = 'mdi mdi-target';
-        currentPositionControlIcon.style.marginRight = '5px';
-        currentPositionControlIcon.title = 'Center map to current position';
-        controlUI.appendChild(currentPositionControlIcon);
-
-        currentPositionControlIcon.addEventListener('click', function() {
-            google.maps.event.trigger(playerMarker, 'click');
-            map.setCenter(playerMarker.getPosition());
-        });
-
         var exitControlIcon = document.createElement('i');
-        exitControlIcon.style.fontSize = '24px';
-        exitControlIcon.style.color = 'rgb(25,25,25)';
         exitControlIcon.className = 'mdi mdi-exit-to-app';
         exitControlIcon.title = 'Exit the game';
         controlUI.appendChild(exitControlIcon);
@@ -64,8 +55,15 @@
     }
 
     export default {
+        components: {
+            'game-information-modal': require('./GameInformationModal.vue'),
+            'game-question-modal': require('./GameQuestionModal.vue')
+        },
         props: ['latitude', 'longitude'],
         mounted() {
+            // XXX This should be something smaller, attached items are not needed
+            this.activity = window.SmartZoos.data.activity;
+
             this.mapData = {};
             this.mapData.markers = [];
             this.mapData.mapOptions = {
@@ -89,6 +87,12 @@
             }
             this.initMap();
         },
+        data() {
+            return {
+                question: null,
+                activity: null
+            };
+        },
         methods: {
             initMap: function() {
                 var _this = this;
@@ -110,25 +114,25 @@
                         lng: position.coords.longitude
                     });
                     if ( map.szTrackingEnabled === true ) {
-                        map.setCenter(playerMarker.getPosition());
+                        map.panTo(playerMarker.getPosition());
                     }
                     /*if ( markers.length > 0 ) {
                         detectAndActivateClosestMarker(playerMarker.getPosition(), markers, closestMarker);
                     }*/
                 }, true);
 
-                if ( window.SmartZoos.data.activity.activity_items ) {
+                if ( window.SmartZoos.data.activity.questions ) {
                     var map = _this.mapData.map,
                         markers = _this.mapData.markers,
-                        infoWindow = _this.mapData.infoWindow;
+                        infoWindow = _this.mapData.infoWindow,
+                        playerMarker = _this.mapData.playerMarker;
 
-                    _.each(window.SmartZoos.data.activity.activity_items, function(item) {
+                    _.each(window.SmartZoos.data.activity.questions, function(question) {
                         var marker = new google.maps.Marker({
-                            title: item.title,
-                            //label: (markers.length + 1).toString(),
+                            title: question.title,
                             position: {
-                                lat: Number(item.latitude),
-                                lng: Number(item.longitude)
+                                lat: Number(question.latitude),
+                                lng: Number(question.longitude)
                             },
                             map: map,
                             animation: google.maps.Animation.DROP
@@ -136,18 +140,27 @@
                         markers.push(marker);
 
                         marker.addListener('click', function() {
-                            _this.closeInfoWindow();
-                            infoWindow.setContent(this.title);
-                            infoWindow.open(map, this);
+                            //var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
+                            // TODO Distance value should be global
+                            //if ( distance <= 25 ) {
+                                _this.question = question;
+                                _this.$nextTick(function() {
+                                    this.$refs.questionModal.open();
+                                });
+                            //}
                         });
                     });
                 }
+
+                this.$nextTick(function() {
+                    this.$refs.informationModal.open();
+                });
             },
             initGameControls: function() {
                 var map = this.mapData.map,
                     playerMarker = this.mapData.playerMarker,
                     gameControlsDiv = document.createElement('div'),
-                    gameControls = new GameControls(gameControlsDiv, map, playerMarker);
+                    gameControls = new GameControls(gameControlsDiv, map, playerMarker, this);
 
                 gameControls.index = 1;
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControlsDiv);
@@ -194,7 +207,7 @@
 
                 var activeDistanceCircle = new google.maps.Circle({
                     map: map,
-                    radius: 25,
+                    radius: 25, // TODO This should be global
                     fillColor: 'blue',
                     fillOpacity: 0.25,
                     strokeColor: 'blue',

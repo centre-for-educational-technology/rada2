@@ -36,7 +36,7 @@
                 ]
             ],
             'data' => [
-                'activity' => $activity,
+                'activity' => $game_data,
             ],
         ]);
         ?>
