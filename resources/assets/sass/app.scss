@@ -192,10 +192,27 @@
         background-color: $gray-lighter;
         text-align: center;
 
+        @keyframes loading {
+            0% { color: $gray-darker; }
+            25% { color: $gray-dark; }
+            50% { color: $gray; }
+            75% { color: $gray-light; }
+            100% { color: $gray-lighter; }
+        }
+
         span {
             display: inline-block;
             font-size: 150%;
             margin-top: 250px;
+            animation-name: loading;
+            animation-duration: 3s;
+            animation-iteration-count: infinite;
+        }
+
+        .sz-geolocation-error {
+            margin-top: 250px;
+            font-size: 200%;
+            color: $brand-danger;
         }
     }
 

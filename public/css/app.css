@@ -7941,10 +7941,58 @@ button.mdi::before {
   text-align: center;
 }
 
+@-webkit-keyframes loading {
+  0% {
+    color: #222222;
+  }
+  25% {
+    color: #333333;
+  }
+  50% {
+    color: #555555;
+  }
+  75% {
+    color: #777777;
+  }
+  100% {
+    color: #eeeeee;
+  }
+}
+
+@keyframes loading {
+  0% {
+    color: #222222;
+  }
+  25% {
+    color: #333333;
+  }
+  50% {
+    color: #555555;
+  }
+  75% {
+    color: #777777;
+  }
+  100% {
+    color: #eeeeee;
+  }
+}
+
 #sz-play-app #loading span {
   display: inline-block;
   font-size: 150%;
   margin-top: 250px;
+  -webkit-animation-name: loading;
+  animation-name: loading;
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
+  -webkit-animation-iteration-count: infinite;
+  animation-iteration-count: infinite;
+}
+
+#sz-play-app #loading .sz-geolocation-error {
+  margin-top: 250px;
+  font-size: 200%;
+  color: #bf5329;
 }
 
 #sz-play-app #map {

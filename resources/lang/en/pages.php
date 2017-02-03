@@ -39,5 +39,10 @@ return [
             ]
         ],
     ],
+    'play' => [
+        'game' => [
+            'loading' => 'Game Loading ...',
+        ],
+    ],
 
 ];

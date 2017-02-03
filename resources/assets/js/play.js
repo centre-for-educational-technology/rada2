@@ -12,7 +12,9 @@ const playGameApp = new Vue({
                 vm.latitude = position.coords.latitude;
                 vm.longitude = position.coords.longitude;
                 vm.mapInitialised = true;
-            }, false);
+            }, false, function(error) {
+                vm.geoLocationErrorMessage = error.message;
+            });
         };
 
         var script = document.createElement('script');
@@ -24,7 +26,8 @@ const playGameApp = new Vue({
         return {
             mapInitialised: false,
             latitude: undefined,
-            longitude: undefined
+            longitude: undefined,
+            geoLocationErrorMessage: null
         };
     },
     methods: {
@@ -49,6 +52,9 @@ const playGameApp = new Vue({
             } else {
                 throw 'Geolocation is unavailable!';
             }
+        },
+        hasGeoLocationError: function() {
+            return !!this.geoLocationErrorMessage;
         }
     }
 });
