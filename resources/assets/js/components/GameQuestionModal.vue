@@ -8,9 +8,7 @@
                 </div>
                 <div class="modal-body">
                     <h3>Question</h3>
-                    <p class="sz-display-new-lines">
-                        {{ description() }}
-                    </p>
+                    <p class="sz-display-new-lines">{{ description() }}</p>
 
                     <div v-if="isOneCorrectAnswer()">
                         <ul class="media-list">
@@ -20,9 +18,7 @@
                                 </div>
 
                                 <div class="media-body media-middle">
-                                    <h4 class="media-heading">
-                                        {{ option.option }}
-                                    </h4>
+                                    <h4 class="media-heading">{{ option.option }}</h4>
                                 </div>
 
                                 <div class="media-right media-middle">
@@ -42,9 +38,7 @@
                                 </div>
 
                                 <div class="media-body media-middle">
-                                    <h4 class="media-heading">
-                                        {{ option.option }}
-                                    </h4>
+                                    <h4 class="media-heading">{{ option.option }}</h4>
                                 </div>
 
                                 <div class="media-right media-middle">
@@ -55,49 +49,54 @@
                             </li>
                         </ul>
                     </div>
-                </div>
 
-                <div class="form-group" v-if="isFreeformAnswer()">
-                    <textarea class="form-control" v-model="textualAnswer"></textarea>
-                </div>
-
-                <div v-if="isMatchPairs()">
-                    <div class="alert alert-danger">
-                        <strong>This is just a preview, not a working match pairs!</strong>
-                    </div>
-
-                    <div class="row" v-for="(pair, index) in pairs()">
-                        <div class="col-xs-6">
-                            <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image" style="max-width:100%;height:auto;">
-                            <div>
-                                {{ pair.option }}
-                            </div>
-                        </div>
-
-                        <div class="col-xs-6">
-                            <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image" style="max-width:100%;height:auto;">
-                            <div>
-                                {{ pair.option_match }}
-                            </div>
+                    <div v-if="isFreeformAnswer()">
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Textual Answer ..." v-model="textualAnswer"></textarea>
                         </div>
                     </div>
-                </div>
 
-                <div v-if="isEmbeddedContent()">
-                    <div class="embed-responsive embed-responsive-16by9" v-html="embeddedContent()">
+                    <div v-if="isMatchPairs()">
+                        <div class="alert alert-danger">
+                            <strong>This is just a preview, not a working match pairs!</strong>
+                        </div>
+
+                        <div class="row" v-for="(pair, index) in pairs()">
+                            <div class="col-xs-6">
+                                <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image" style="max-width:100%;height:auto;">
+                                <div>
+                                    {{ pair.option }}
+                                </div>
+                            </div>
+
+                            <div class="col-xs-6">
+                                <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image" style="max-width:100%;height:auto;">
+                                <div>
+                                    {{ pair.option_match }}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
 
-                <div v-if="isPhoto()" style="text-align: center;">
-                    <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }" style="font-size: 96px;">
-                        <i class="mdi mdi-camera" aria-hidden="true"></i>
-                    </a>
-                    <input type="file" accept="image/*" capture="camera" style="display:none;" name="image" ref="image" v-on:change="imageSelected()">
+                    <div v-if="isEmbeddedContent()">
+                        <div class="form-group">
+                            <textarea class="form-control" placeholder="Textual Answer ..." v-model="textualAnswer"></textarea>
+                        </div>
+
+                        <div class="embed-responsive embed-responsive-16by9" v-html="embeddedContent()"></div>
+                    </div>
+
+                    <div v-if="isPhoto()" style="text-align: center;">
+                        <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }" style="font-size: 96px;">
+                            <i class="mdi mdi-camera" aria-hidden="true"></i>
+                        </a>
+                        <input type="file" accept="image/*" capture="camera" style="display:none;" name="image" ref="image" v-on:change="imageSelected()">
+                    </div>
                 </div>
 
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" v-on:click="close()">Close</button>
-                    <button type="button" class="btn btn-primary">Save changes</button>
+                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit()" v-on:click="submit()">Submit</button>
                 </div>
             </div>
         </div>
@@ -118,17 +117,22 @@
         },
         methods: {
             open() {
-                this.$nextTick(function() {
+                this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
                 });
             },
             close() {
-                this.$nextTick(function() {
+                this.$nextTick(() => {
                     $(this.$refs.modal).modal('hide');
                     this.selectedOptions = [];
                     this.textualAnswer = '';
                     this.hasImageSelected = false;
                 });
+            },
+            submit() {
+                console.log('Implement question submit');
+                // TODO Make sure that modal can not be closed until resolved
+                this.close();
             },
             title() {
                 return this.question ? this.question.title : '';
@@ -144,6 +148,9 @@
             },
             pairs() {
                 return ( this.question && this.question.pairs ) ? this.question.pairs : [];
+            },
+            isInformation() {
+                return this.question ? this.question.type == 1 : false;
             },
             isOneCorrectAnswer() {
                 return this.question ? this.question.type == 2 : false;
@@ -180,6 +187,26 @@
                 // TODO It might be needed to do something with the file selected
                 console.log('File selected', event.target.files[0]);
                 this.hasImageSelected = true;
+            },
+            canSubmit() {
+                if ( this.isInformation() ) {
+                    return true;
+                } else if ( this.isOneCorrectAnswer() || this.isMultipleCorrectAnswers() ) {
+                    if ( typeof this.selectedOptions === 'object' ) {
+                        return this.selectedOptions.length > 0;
+                    } else {
+                        return !!this.selectedOptions;
+                    }
+                    return !!this.selectedOptions;
+                } else if ( this.isFreeformAnswer() || this.isEmbeddedContent() ) {
+                    return !!this.textualAnswer.trim();
+                } else if ( this.isMatchPairs() ) {
+                    return false; // TODO Add condition once matcher logic is in place
+                } else if ( this.isPhoto() ) {
+                    return this.hasImageSelected;
+                }
+
+                return false;
             }
         }
     }
