@@ -42,13 +42,13 @@
                                         @if ( $activity_item->isOneCorrectAnswer() )
                                             <i class="mdi mdi-radiobox-marked sz-option-correct" aria-hidden="true"></i>
                                         @elseif ( $activity_item->isMultipleCorrectAnswers() )
-                                            <i class="mdi mdi-checkbox-marked-circle-outline sz-option-correct" aria-hidden="true"></i>
+                                            <i class="mdi mdi-checkbox-marked-outline sz-option-correct" aria-hidden="true"></i>
                                         @endif
                                     @else
                                         @if ( $activity_item->isOneCorrectAnswer() )
                                             <i class="mdi mdi-radiobox-blank sz-option-incorrect" aria-hidden="true"></i>
                                         @elseif ( $activity_item->isMultipleCorrectAnswers() )
-                                            <i class="mdi mdi-checkbox-blank-circle-outline sz-option-incorrect" aria-hidden="true"></i>
+                                            <i class="mdi mdi-checkbox-blank-outline sz-option-incorrect" aria-hidden="true"></i>
                                         @endif
                                     @endif
                               </div>

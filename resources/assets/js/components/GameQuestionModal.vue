@@ -43,8 +43,8 @@
 
                                 <div class="media-right media-middle">
                                     <input type="checkbox" name="options[]" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option" style="display:none;">
-                                    <i class="mdi mdi-checkbox-blank-circle-outline" v-if="!isSelectedOption(option.id)" v-on:click="triggerOptionClick(index)"></i>
-                                    <i class="mdi mdi-checkbox-marked-circle-outline" v-if="isSelectedOption(option.id)" v-on:click="triggerOptionClick(index)"></i>
+                                    <i class="mdi mdi-checkbox-blank-outline" v-if="!isSelectedOption(option.id)" v-on:click="triggerOptionClick(index)"></i>
+                                    <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id)" v-on:click="triggerOptionClick(index)"></i>
                                 </div>
                             </li>
                         </ul>
