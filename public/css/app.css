@@ -8047,4 +8047,19 @@ button.mdi::before {
   font-size: 96px;
 }
 
+#sz-play-app .sz-match-pairs.row {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+#sz-play-app .sz-match-pairs .chosen {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+#sz-play-app .sz-match-pairs .matched {
+  color: #2ab27b;
+}
+
 /*# sourceMappingURL=app.css.map */

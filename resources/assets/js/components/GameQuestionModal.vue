@@ -57,23 +57,15 @@
                     </div>
 
                     <div v-if="isMatchPairs()">
-                        <div class="alert alert-danger">
-                            <strong>This is just a preview, not a working match pairs!</strong>
-                        </div>
-
-                        <div class="row" v-for="(pair, index) in pairs()">
-                            <div class="col-xs-6">
-                                <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image" style="max-width:100%;height:auto;">
-                                <div>
-                                    {{ pair.option }}
-                                </div>
+                        <div class="row sz-match-pairs" v-for="(pair, index) in pairs()">
+                            <div class="col-xs-6" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }">
+                                <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
+                                <div>{{ pair.option }}</div>
                             </div>
 
-                            <div class="col-xs-6">
-                                <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image" style="max-width:100%;height:auto;">
-                                <div>
-                                    {{ pair.option_match }}
-                                </div>
+                            <div class="col-xs-6" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }">
+                                <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
+                                <div>{{ pair.option_match }}</div>
                             </div>
                         </div>
                     </div>
@@ -120,7 +112,12 @@
                 selectedOptions: [],
                 textualAnswer: '',
                 hasImageSelected: false,
-                imageSrc: null
+                imageSrc: null,
+                chosenPair: {
+                    option: null,
+                    match: null
+                },
+                matchedPairs: []
             };
         },
         methods: {
@@ -136,6 +133,9 @@
                     this.textualAnswer = '';
                     this.hasImageSelected = false;
                     this.imageSrc = null;
+                    this.chosenPair.option = null;
+                    this.chosenPair.mathc = null;
+                    this.matchedPairs = [];
                 });
             },
             submit() {
@@ -223,12 +223,50 @@
                 } else if ( this.isFreeformAnswer() || this.isEmbeddedContent() ) {
                     return !!this.textualAnswer.trim();
                 } else if ( this.isMatchPairs() ) {
-                    return false; // TODO Add condition once matcher logic is in place
+                    return this.matchedPairs.length === this.pairs().length;
                 } else if ( this.isPhoto() ) {
                     return this.hasImageSelected;
                 }
 
                 return false;
+            },
+            resetChosenPair() {
+                this.$nextTick(() => {
+                    var vm = this;
+                    setTimeout(() => {
+                        vm.chosenPair.option = null;
+                        vm.chosenPair.match = null;
+                    }, 250);
+                });
+            },
+            choose(type, pair) {
+                if ( this.isMatchedPair(pair) ) {
+                    return;
+                }
+
+                this.chosenPair[type] = pair.id;
+
+                if ( this.chosenPair.option === this.chosenPair.match ) {
+                    this.matchedPairs.push(pair.id);
+                    this.resetChosenPair();
+                } else if ( this.chosenPair.option !== null && this.chosenPair.match !== null ) {
+                    this.resetChosenPair();
+                }
+            },
+            choosePair(pair) {
+                this.choose('option', pair);
+            },
+            choosePairMatch(pair) {
+                this.choose('match', pair);
+            },
+            isOptionChosen(pair) {
+                return this.chosenPair.option === pair.id;
+            },
+            isOptionMatchChosen(pair) {
+                return this.chosenPair.match === pair.id;
+            },
+            isMatchedPair(pair) {
+                return this.matchedPairs.indexOf(pair.id) !== -1;
             }
         }
     }
