@@ -57,15 +57,23 @@
                     </div>
 
                     <div v-if="isMatchPairs()">
-                        <div class="row sz-match-pairs" v-for="(pair, index) in pairs()">
-                            <div class="col-xs-6" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }">
-                                <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
-                                <div>{{ pair.option }}</div>
+                        <div class="row sz-match-pairs">
+                            <div class="col-xs-6">
+                                <div class="row" v-for="pair in pairs()">
+                                    <div class="col-xs-12" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }">
+                                        <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
+                                        <div>{{ pair.option }}</div>
+                                    </div>
+                                </div>
                             </div>
 
-                            <div class="col-xs-6" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }">
-                                <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
-                                <div>{{ pair.option_match }}</div>
+                            <div class="col-xs-6">
+                                <div class="row" v-for="pair in pairs(true)">
+                                    <div class="col-xs-12" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }">
+                                        <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
+                                        <div>{{ pair.option_match }}</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -106,6 +114,12 @@
     export default {
         props: ['question'],
         mounted() {
+            if ( this.isMatchPairs() ) {
+                if ( this.pairs().length > 0 ) {
+                    this.question.pairs = window._.shuffle(this.pairs());
+                }
+                this.shuffledPairs = window._.shuffle(this.pairs());
+            }
         },
         data() {
             return {
@@ -117,7 +131,8 @@
                     option: null,
                     match: null
                 },
-                matchedPairs: []
+                matchedPairs: [],
+                shuffledPairs: []
             };
         },
         methods: {
@@ -155,7 +170,12 @@
             options() {
                 return ( this.question && this.question.options ) ? this.question.options : [];
             },
-            pairs() {
+            pairs(shuffled) {
+
+                if ( shuffled === true ) {
+                    return this.shuffledPairs;
+                }
+
                 return ( this.question && this.question.pairs ) ? this.question.pairs : [];
             },
             isInformation() {
