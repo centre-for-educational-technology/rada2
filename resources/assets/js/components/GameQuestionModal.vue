@@ -87,9 +87,16 @@
                     </div>
 
                     <div v-if="isPhoto()" style="text-align: center;">
-                        <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }" style="font-size: 96px;">
-                            <i class="mdi mdi-camera" aria-hidden="true"></i>
-                        </a>
+                        <div class="row text-center">
+                            <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }" style="font-size: 96px;">
+                                <i class="mdi mdi-camera" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="row" v-show="hasImageSelected">
+                            <div class="col-xs-10 col-xs-offset-1">
+                                <img v-bind:src="imageSrc" style="width:100%;height:auto;">
+                            </div>
+                        </div>
                         <input type="file" accept="image/*" capture="camera" style="display:none;" name="image" ref="image" v-on:change="imageSelected()">
                     </div>
                 </div>
@@ -112,7 +119,8 @@
             return {
                 selectedOptions: [],
                 textualAnswer: '',
-                hasImageSelected: false
+                hasImageSelected: false,
+                imageSrc: null
             };
         },
         methods: {
@@ -127,6 +135,7 @@
                     this.selectedOptions = [];
                     this.textualAnswer = '';
                     this.hasImageSelected = false;
+                    this.imageSrc = null;
                 });
             },
             submit() {
@@ -184,9 +193,22 @@
                 $(this.$refs.image).trigger('click');
             },
             imageSelected() {
-                // TODO It might be needed to do something with the file selected
                 console.log('File selected', event.target.files[0]);
-                this.hasImageSelected = true;
+                // TODO Make sure to only allow JPG/JPEG and PNG
+                if ( event.target.files.length > 0 ) {
+                    if ( window.FileReader ) {
+                        var reader = new FileReader(),
+                            vm = this;
+
+                        reader.onload = (e) => {
+                            vm.imageSrc = e.target.result;
+                        };
+
+                        reader.readAsDataURL(event.target.files[0]);
+                    }
+
+                    this.hasImageSelected = true;
+                }
             },
             canSubmit() {
                 if ( this.isInformation() ) {
