@@ -7,7 +7,6 @@
                     <h4 class="modal-title">{{ title() }}</h4>
                 </div>
                 <div class="modal-body">
-                    <h3>Question</h3>
                     <p class="sz-display-new-lines">{{ description() }}</p>
 
                     <div v-if="isOneCorrectAnswer()">
