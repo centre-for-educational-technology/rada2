@@ -15,7 +15,7 @@
 
     <!-- Styles -->
     <link href="//cdn.materialdesignicons.com/1.7.22/css/materialdesignicons.min.css" rel="stylesheet">
-    <link href="/css/app.css" rel="stylesheet">
+    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     <style>
         html, body {
             height: 100%;
@@ -59,8 +59,8 @@
     </div>
 
     <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
-    <script src="{{ asset('js/play.js') }}"></script>
+    <script src="{{ elixir('js/app.js') }}"></script>
+    <script src="{{ elixir('js/play.js') }}"></script>
 
 </body>
 </html>

@@ -10,7 +10,7 @@
 @endsection
 
 @section('footer-scripts')
-<script src="{{ asset('js/create_edit_activity_item.js') }}"></script>
+<script src="{{ elixir('js/create_edit_activity_item.js') }}"></script>
 <script src="//maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&amp;callback=initMap" async defer></script>
 @endsection
 

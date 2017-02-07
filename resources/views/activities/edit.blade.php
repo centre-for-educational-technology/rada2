@@ -8,7 +8,7 @@
 @section('footer-scripts')
 <script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.5.0-rc1/Sortable.min.js"></script>
-<script src="{{ asset('js/create_edit_activity.js') }}"></script>
+<script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
 
 @section('content')

@@ -2,6 +2,7 @@
 
 @section('footer-scripts')
 <script>
+    // XXX Move this to a standalone file
     $(document).ready(function() {
         $('.mdi-close-circle-outline').on('click', function() {
             // TODO Add confirmation and call the action in question
