@@ -113,12 +113,6 @@
     export default {
         props: ['question'],
         mounted() {
-            if ( this.isMatchPairs() ) {
-                if ( this.pairs().length > 0 ) {
-                    this.question.pairs = window._.shuffle(this.pairs());
-                }
-                this.shuffledPairs = window._.shuffle(this.pairs());
-            }
         },
         data() {
             return {
@@ -137,6 +131,13 @@
         methods: {
             open() {
                 this.$nextTick(() => {
+                    if ( this.isMatchPairs() ) {
+                        if ( this.pairs().length > 0 ) {
+                            this.question.pairs = _.shuffle(this.pairs());
+                        }
+                        this.shuffledPairs = _.shuffle(this.pairs());
+                    }
+
                     $(this.$refs.modal).modal('show');
                 });
             },
@@ -156,6 +157,9 @@
                 console.log('Implement question submit');
                 // TODO Make sure that modal can not be closed until resolved
                 this.close();
+                // XXX This should not be set like that
+                // A more elegant and meaningful way is needed
+                this.$parent.markAnswered(this.question.id);
             },
             title() {
                 return this.question ? this.question.title : '';

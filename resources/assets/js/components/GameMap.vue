@@ -54,6 +54,10 @@
         });
     }
 
+    var allowedDistance = window.SmartZoos.config.allowed_distance || 25,
+        connectMarkers =  window.SmartZoos.config.connect_markers || false,
+        answeredMarkerUrl = window.SmartZoos.config.map.green_dotless_icon_url;
+
     export default {
         components: {
             'game-information-modal': require('./GameInformationModal.vue'),
@@ -66,6 +70,7 @@
 
             this.mapData = {};
             this.mapData.markers = [];
+            this.mapData.answered = [];
             this.mapData.mapOptions = {
                 center: {
                     lat: this.latitude,
@@ -94,7 +99,7 @@
             };
         },
         methods: {
-            initMap: function() {
+            initMap() {
                 var _this = this;
 
                 this.mapData.map = new google.maps.Map(document.getElementById('map'), this.mapData.mapOptions);
@@ -135,28 +140,43 @@
                                 lng: Number(question.longitude)
                             },
                             map: map,
-                            animation: google.maps.Animation.DROP
+                            animation: google.maps.Animation.DROP,
+                            questionId: question.id
                         });
+
+                        if ( _this.isAnswered(question) ) {
+                            marker.setIcon({
+                                url: answeredMarkerUrl
+                            });
+                        }
+
                         markers.push(marker);
 
                         marker.addListener('click', function() {
+                            if ( _this.isAnswered(question) ) {
+                                return;
+                            }
                             //var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
                             // TODO Distance value should be global
-                            //if ( distance <= 25 ) {
+                            //if ( distance <= allowedDistance ) {
                                 _this.question = question;
-                                _this.$nextTick(function() {
-                                    this.$refs.questionModal.open();
+                                _this.$nextTick(() => {
+                                    _this.$refs.questionModal.open();
                                 });
                             //}
                         });
                     });
+
+                    if ( connectMarkers ) {
+                        _this.connectMarkers();
+                    }
                 }
 
-                this.$nextTick(function() {
+                this.$nextTick(() => {
                     this.$refs.informationModal.open();
                 });
             },
-            initGameControls: function() {
+            initGameControls() {
                 var map = this.mapData.map,
                     playerMarker = this.mapData.playerMarker,
                     gameControlsDiv = document.createElement('div'),
@@ -165,14 +185,14 @@
                 gameControls.index = 1;
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControlsDiv);
             },
-            closeInfoWindow: function() {
+            closeInfoWindow() {
                 var infoWindow = this.mapData.infoWindow;
 
                 if ( infoWindow && infoWindow.getMap() ) {
                     infoWindow.close();
                 }
             },
-            initPlayerMarker: function() {
+            initPlayerMarker() {
                 var circle,
                     playerMarker,
                     activeDistanceCircle,
@@ -207,7 +227,7 @@
 
                 var activeDistanceCircle = new google.maps.Circle({
                     map: map,
-                    radius: 25, // TODO This should be global
+                    radius: allowedDistance, // TODO This should be global
                     fillColor: 'blue',
                     fillOpacity: 0.25,
                     strokeColor: 'blue',
@@ -219,6 +239,47 @@
                 google.maps.event.trigger(playerMarker, 'click');
 
                 this.mapData.playerMarker = playerMarker;
+            },
+            isAnswered(question) {
+                return this.mapData.answered.indexOf(question.id) !== -1;
+            },
+            markAnswered(id) {
+                // TODO Might make sense to raise an error if marker can not be found
+                var marker = _.find(this.mapData.markers, function(marker) { return marker.questionId === id; });
+
+                if ( marker ) {
+                    marker.setIcon({
+                        url: answeredMarkerUrl
+                    });
+                }
+                this.mapData.answered.push(id);
+            },
+            connectMarkers() {
+                var map = this.mapData.map,
+                    markers = this.mapData.markers;
+
+                if ( markers.length > 1 ) {
+                    _.each(markers, (marker, index) => {
+                        if ( index === 0 ) {
+                            return;
+                        }
+
+                        var line = new google.maps.Polyline({
+                            path: [
+                                markers[index-1].getPosition(),
+                                markers[index].getPosition()
+                            ],
+                            strokeWeight: 2,
+                            strokeOpacity: 0.5,
+                            icons: [{
+                                icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
+                                offset: '100%'
+                            }],
+                            geodesic: true,
+                            map: map
+                        });
+                    });
+                }
             }
         }
     }
