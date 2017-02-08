@@ -11,7 +11,7 @@
 
                     <div v-if="isOneCorrectAnswer()">
                         <ul class="media-list">
-                            <li class="media" v-for="(option, index) in options()">
+                            <li class="media" v-for="(option, index) in options()" v-on:click="triggerOptionClick(index)">
                                 <div class="media-left" v-if="option.image">
                                     <img v-bind:src="option.image" class="media-object" alt="option-image" style="max-width:150px;height:auto;">
                                 </div>
@@ -22,7 +22,7 @@
 
                                 <div class="media-right media-middle">
                                     <input type="radio" name="option" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option" style="display:none;">
-                                    <i class="mdi mdi-radiobox-blank" v-if="!isSelectedOption(option.id)" v-on:click="triggerOptionClick(index)"></i>
+                                    <i class="mdi mdi-radiobox-blank" v-if="!isSelectedOption(option.id)"></i>
                                     <i class="mdi mdi-radiobox-marked" v-if="isSelectedOption(option.id)"></i>
                                 </div>
                             </li>
@@ -31,7 +31,7 @@
 
                     <div v-if="isMultipleCorrectAnswers()">
                         <ul class="media-list">
-                            <li class="media" v-for="(option, index) in options()">
+                            <li class="media" v-for="(option, index) in options()" v-on:click="triggerOptionClick(index)">
                                 <div class="media-left" v-if="option.image">
                                     <img v-bind:src="option.image" class="media-object" alt="option-image" style="max-width:150px;height:auto;">
                                 </div>
@@ -42,8 +42,8 @@
 
                                 <div class="media-right media-middle">
                                     <input type="checkbox" name="options[]" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option" style="display:none;">
-                                    <i class="mdi mdi-checkbox-blank-outline" v-if="!isSelectedOption(option.id)" v-on:click="triggerOptionClick(index)"></i>
-                                    <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id)" v-on:click="triggerOptionClick(index)"></i>
+                                    <i class="mdi mdi-checkbox-blank-outline" v-if="!isSelectedOption(option.id)"></i>
+                                    <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id)"></i>
                                 </div>
                             </li>
                         </ul>
@@ -59,18 +59,22 @@
                         <div class="row sz-match-pairs">
                             <div class="col-xs-6">
                                 <div class="row" v-for="pair in pairs()">
-                                    <div class="col-xs-12" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }">
-                                        <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
-                                        <div>{{ pair.option }}</div>
+                                    <div class="col-xs-12">
+                                        <div class="sz-matchable" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }">
+                                            <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image">
+                                            <div>{{ pair.option }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="col-xs-6">
                                 <div class="row" v-for="pair in pairs(true)">
-                                    <div class="col-xs-12" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }">
-                                        <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image" style="max-width:100%;height:auto;cursor:pointer;">
-                                        <div>{{ pair.option_match }}</div>
+                                    <div class="col-xs-12">
+                                        <div class="sz-matchable" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }">
+                                            <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image">
+                                            <div>{{ pair.option_match }}</div>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -78,14 +82,14 @@
                     </div>
 
                     <div v-if="isEmbeddedContent()">
+                        <div class="embed-responsive embed-responsive-16by9" v-html="embeddedContent()"></div>
+
                         <div class="form-group">
                             <textarea class="form-control" placeholder="Textual Answer ..." v-model="textualAnswer"></textarea>
                         </div>
-
-                        <div class="embed-responsive embed-responsive-16by9" v-html="embeddedContent()"></div>
                     </div>
 
-                    <div v-if="isPhoto()" style="text-align: center;">
+                    <div v-if="isPhoto()">
                         <div class="row text-center">
                             <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }" style="font-size: 96px;">
                                 <i class="mdi mdi-camera" aria-hidden="true"></i>

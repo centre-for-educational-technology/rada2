@@ -8052,14 +8052,29 @@ button.mdi::before {
   margin-right: 15px;
 }
 
-#sz-play-app .sz-match-pairs .chosen {
+#sz-play-app .sz-match-pairs .row .sz-matchable {
+  border: 1px solid #eeeeee;
+  padding: 5px;
+  cursor: pointer;
+  min-height: 100px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+#sz-play-app .sz-match-pairs .row .sz-matchable.chosen {
   box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
   -webkit-transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
 
-#sz-play-app .sz-match-pairs .matched {
+#sz-play-app .sz-match-pairs .row .sz-matchable.matched {
   color: #2ab27b;
+  border-color: #2ab27b;
+}
+
+#sz-play-app .sz-match-pairs .row .sz-matchable img {
+  max-width: 100%;
+  height: auto;
 }
 
 /*# sourceMappingURL=app.css.map */
