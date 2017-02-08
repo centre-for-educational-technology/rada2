@@ -8090,8 +8090,7 @@ button.mdi::before {
 }
 
 #sz-play-app .sz-match-pairs .row .sz-matchable.matched {
-  color: #2ab27b;
-  border-color: #2ab27b;
+  opacity: 0.5;
 }
 
 #sz-play-app .sz-match-pairs .row .sz-matchable img {

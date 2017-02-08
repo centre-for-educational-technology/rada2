@@ -2,6 +2,7 @@
     <div style="height:100%;width:100%;">
         <game-information-modal ref="informationModal" v-if="activity" v-bind:activity="activity"></game-information-modal>
         <game-question-modal v-bind:question="question" v-if="question" ref="questionModal"></game-question-modal>
+        <game-results-modal v-bind:activity="activity" v-if="gameComplete" ref="resultsModal"></game-results-modal>
         <div id="map">
         </div>
     </div>
@@ -61,7 +62,8 @@
     export default {
         components: {
             'game-information-modal': require('./GameInformationModal.vue'),
-            'game-question-modal': require('./GameQuestionModal.vue')
+            'game-question-modal': require('./GameQuestionModal.vue'),
+            'game-results-modal': require('./GameResultsModal.vue')
         },
         props: ['latitude', 'longitude'],
         mounted() {
@@ -95,7 +97,8 @@
         data() {
             return {
                 question: null,
-                activity: null
+                activity: null,
+                gameComplete: false
             };
         },
         methods: {
@@ -253,6 +256,19 @@
                     });
                 }
                 this.mapData.answered.push(id);
+
+                if ( this.mapData.answered.length === this.activity.questions.length ) {
+                    this.gameComplete = true;
+
+                    this.$nextTick(() => {
+                        var vm = this;
+                        // XXX This one is because previous dialog has to be closed first
+                        // Need to either determne if dialog is open and wait or find a different solution
+                        setTimeout(() => {
+                            vm.$refs.resultsModal.open();
+                        }, 1500);
+                    });
+                }
             },
             connectMarkers() {
                 var map = this.mapData.map,
