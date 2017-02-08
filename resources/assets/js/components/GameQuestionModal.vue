@@ -10,10 +10,10 @@
                     <p class="sz-display-new-lines">{{ description() }}</p>
 
                     <div v-if="isOneCorrectAnswer()">
-                        <ul class="media-list">
+                        <ul class="media-list sz-one-correct-answer">
                             <li class="media" v-for="(option, index) in options()" v-on:click="triggerOptionClick(index)">
                                 <div class="media-left" v-if="option.image">
-                                    <img v-bind:src="option.image" class="media-object" alt="option-image" style="max-width:150px;height:auto;">
+                                    <img v-bind:src="option.image" class="media-object" alt="option-image">
                                 </div>
 
                                 <div class="media-body media-middle">
@@ -21,7 +21,7 @@
                                 </div>
 
                                 <div class="media-right media-middle">
-                                    <input type="radio" name="option" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option" style="display:none;">
+                                    <input type="radio" name="option" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option">
                                     <i class="mdi mdi-radiobox-blank" v-if="!isSelectedOption(option.id)"></i>
                                     <i class="mdi mdi-radiobox-marked" v-if="isSelectedOption(option.id)"></i>
                                 </div>
@@ -30,10 +30,10 @@
                     </div>
 
                     <div v-if="isMultipleCorrectAnswers()">
-                        <ul class="media-list">
+                        <ul class="media-list sz-multiple-correct-answers">
                             <li class="media" v-for="(option, index) in options()" v-on:click="triggerOptionClick(index)">
                                 <div class="media-left" v-if="option.image">
-                                    <img v-bind:src="option.image" class="media-object" alt="option-image" style="max-width:150px;height:auto;">
+                                    <img v-bind:src="option.image" class="media-object" alt="option-image">
                                 </div>
 
                                 <div class="media-body media-middle">
@@ -41,7 +41,7 @@
                                 </div>
 
                                 <div class="media-right media-middle">
-                                    <input type="checkbox" name="options[]" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option" style="display:none;">
+                                    <input type="checkbox" name="options[]" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option">
                                     <i class="mdi mdi-checkbox-blank-outline" v-if="!isSelectedOption(option.id)"></i>
                                     <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id)"></i>
                                 </div>
@@ -60,7 +60,7 @@
                             <div class="col-xs-6">
                                 <div class="row" v-for="pair in pairs()">
                                     <div class="col-xs-12">
-                                        <div class="sz-matchable" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }">
+                                        <div class="sz-matchable" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }" v-bind:style="matchableStyles" ref="matchable">
                                             <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image">
                                             <div>{{ pair.option }}</div>
                                         </div>
@@ -71,7 +71,7 @@
                             <div class="col-xs-6">
                                 <div class="row" v-for="pair in pairs(true)">
                                     <div class="col-xs-12">
-                                        <div class="sz-matchable" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }">
+                                        <div class="sz-matchable" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }" v-bind:style="matchableStyles" ref="matchable">
                                             <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image">
                                             <div>{{ pair.option_match }}</div>
                                         </div>
@@ -89,18 +89,18 @@
                         </div>
                     </div>
 
-                    <div v-if="isPhoto()">
+                    <div v-if="isPhoto()" class="sz-photo">
                         <div class="row text-center">
-                            <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }" style="font-size: 96px;">
+                            <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }">
                                 <i class="mdi mdi-camera" aria-hidden="true"></i>
                             </a>
                         </div>
                         <div class="row" v-show="hasImageSelected">
                             <div class="col-xs-10 col-xs-offset-1">
-                                <img v-bind:src="imageSrc" style="width:100%;height:auto;">
+                                <img v-bind:src="imageSrc" alt="uploadable-image" class="sz-uploadable-image">
                             </div>
                         </div>
-                        <input type="file" accept="image/*" capture="camera" style="display:none;" name="image" ref="image" v-on:change="imageSelected()">
+                        <input type="file" accept="image/*" capture="camera" name="image" ref="image" v-on:change="imageSelected()">
                     </div>
                 </div>
 
@@ -129,7 +129,10 @@
                     match: null
                 },
                 matchedPairs: [],
-                shuffledPairs: []
+                shuffledPairs: [],
+                matchableStyles: {
+                    'min-height': '100px'
+                }
             };
         },
         methods: {
@@ -137,7 +140,23 @@
                 this.$nextTick(() => {
                     if ( this.isMatchPairs() ) {
                         if ( this.pairs().length > 0 ) {
-                            this.question.pairs = _.shuffle(this.pairs());
+                            this.question.pairs = _.shuffle(this.pairs())
+
+                            // TODO Check solution, move to standalone function
+                            // Make sure it is also applied on page resize
+                            this.$nextTick(() => {
+                                var vm = this;
+
+                                setTimeout(() => {
+                                    var heights = _.map(this.$refs.matchable, (matchable) => {
+                                        return $(matchable).outerHeight(true);
+                                    });
+                                    var highest = _.max(heights);
+                                    if ( highest ) {
+                                        vm.matchableStyles['min-height'] = highest + 'px';
+                                    }
+                                }, 250);
+                            });
                         }
                         this.shuffledPairs = _.shuffle(this.pairs());
                     }
@@ -155,6 +174,7 @@
                     this.chosenPair.option = null;
                     this.chosenPair.mathc = null;
                     this.matchedPairs = [];
+                    this.matchableStyles['min-height'] = '100px';
                 });
             },
             submit() {

@@ -8033,18 +8033,41 @@ button.mdi::before {
   transform: rotate(45deg);
 }
 
-#sz-play-app .sz-take-image {
+#sz-play-app .sz-photo input[type='file'] {
+  display: none;
+}
+
+#sz-play-app .sz-photo .sz-take-image {
   color: #777777;
   margin-left: auto;
   margin-right: auto;
+  font-size: 96px;
 }
 
-#sz-play-app .sz-take-image.sz-image-taken {
+#sz-play-app .sz-photo .sz-take-image.sz-image-taken {
   color: #333333;
 }
 
-#sz-play-app .sz-take-image i.mdi::before {
+#sz-play-app .sz-photo .sz-take-image i.mdi::before {
   font-size: 96px;
+}
+
+#sz-play-app .sz-photo img.sz-uploadable-image {
+  width: 100%;
+  height: auto;
+}
+
+#sz-play-app .sz-one-correct-answer .media input[type='radio'], #sz-play-app .sz-one-correct-answer .media input[type='checkbox'], #sz-play-app .sz-multiple-correct-answers .media input[type='radio'], #sz-play-app .sz-multiple-correct-answers .media input[type='checkbox'] {
+  display: none;
+}
+
+#sz-play-app .sz-one-correct-answer .media .media-left img.media-object, #sz-play-app .sz-multiple-correct-answers .media .media-left img.media-object {
+  max-width: 150px;
+  height: auto;
+}
+
+#sz-play-app .sz-one-correct-answer .media .media-right, #sz-play-app .sz-multiple-correct-answers .media .media-right {
+  padding-top: 5px;
 }
 
 #sz-play-app .sz-match-pairs.row {
@@ -8056,7 +8079,6 @@ button.mdi::before {
   border: 1px solid #eeeeee;
   padding: 5px;
   cursor: pointer;
-  min-height: 100px;
   margin-top: 5px;
   margin-bottom: 5px;
 }
