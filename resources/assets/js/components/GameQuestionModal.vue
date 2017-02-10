@@ -218,7 +218,6 @@
                     formData.append('image', this.$refs.image.files[0]);
 
                     data = formData;
-                    console.log('zz', data);
                 }
                 // TODO Need to configure the URL (not important but should still work with subdir installss)
                 this.$http.post('/api/games/answer', data).then(response => {
