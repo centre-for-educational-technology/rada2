@@ -1,7 +1,11 @@
 <div class="pull-right">
-    <a href="{!! route('activity.play', ['id' => $activity->id]) !!}" class="btn btn-success btn-sm" title="{{ trans('general.actions.play') }}">
+    <a href="{!! route('activity.start', ['id' => $activity->id]) !!}" class="btn btn-success btn-sm" title="{{ trans('general.actions.play') }}" onclick="event.preventDefault();
+             document.getElementById('play-form-{{ $activity->id }}').submit();">
         <i class="mdi mdi-play-circle-outline"></i>
     </a>
+    <form id="play-form-{{ $activity->id }}" action="{{ route('activity.start', ['id' => $activity->id]) }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
     @if(Auth::check())
             @can('update', $activity)
                 <a href="{!! route('activity.edit', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.edit') }}">

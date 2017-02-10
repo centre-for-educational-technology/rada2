@@ -1,8 +1,8 @@
 <template>
     <div style="height:100%;width:100%;">
-        <game-information-modal ref="informationModal" v-if="activity" v-bind:activity="activity"></game-information-modal>
-        <game-question-modal v-bind:question="question" v-if="question" ref="questionModal"></game-question-modal>
-        <game-results-modal v-bind:activity="activity" v-if="gameComplete" ref="resultsModal"></game-results-modal>
+        <game-information-modal ref="informationModal" v-if="game" v-bind:activity="game.activity"></game-information-modal>
+        <game-question-modal v-bind:question="question" v-bind:game-id="game.id" v-if="question" ref="questionModal"></game-question-modal>
+        <game-results-modal v-bind:activity="game.activity" v-bind:answers="game.answers" v-if="game && gameComplete" ref="resultsModal"></game-results-modal>
         <div id="map">
         </div>
     </div>
@@ -68,11 +68,13 @@
         props: ['latitude', 'longitude'],
         mounted() {
             // XXX This should be something smaller, attached items are not needed
-            this.activity = window.SmartZoos.data.activity;
+            this.game = window.SmartZoos.data.game;
+            if ( this.game.complete ) {
+                this.gameComplete = true;
+            }
 
             this.mapData = {};
             this.mapData.markers = [];
-            this.mapData.answered = [];
             this.mapData.mapOptions = {
                 center: {
                     lat: this.latitude,
@@ -97,7 +99,7 @@
         data() {
             return {
                 question: null,
-                activity: null,
+                game: null,
                 gameComplete: false
             };
         },
@@ -129,13 +131,13 @@
                     }*/
                 }, true);
 
-                if ( window.SmartZoos.data.activity.questions ) {
+                if ( _this.game.activity.questions ) {
                     var map = _this.mapData.map,
                         markers = _this.mapData.markers,
                         infoWindow = _this.mapData.infoWindow,
                         playerMarker = _this.mapData.playerMarker;
 
-                    _.each(window.SmartZoos.data.activity.questions, function(question) {
+                    _.each(_this.game.activity.questions, function(question) {
                         var marker = new google.maps.Marker({
                             title: question.title,
                             position: {
@@ -176,7 +178,11 @@
                 }
 
                 this.$nextTick(() => {
-                    this.$refs.informationModal.open();
+                    if ( this.game.complete ) {
+                        this.$refs.resultsModal.open();
+                    } else {
+                        this.$refs.informationModal.open();
+                    }
                 });
             },
             initGameControls() {
@@ -244,9 +250,9 @@
                 this.mapData.playerMarker = playerMarker;
             },
             isAnswered(question) {
-                return this.mapData.answered.indexOf(question.id) !== -1;
+                return _.has(this.game.answers, question.id);
             },
-            markAnswered(id) {
+            markAnswered(id, answer) {
                 // TODO Might make sense to raise an error if marker can not be found
                 var marker = _.find(this.mapData.markers, function(marker) { return marker.questionId === id; });
 
@@ -255,9 +261,10 @@
                         url: answeredMarkerUrl
                     });
                 }
-                this.mapData.answered.push(id);
+                this.game.answers[id] = answer;
 
-                if ( this.mapData.answered.length === this.activity.questions.length ) {
+                if ( _.size(this.game.answers) === this.game.activity.questions.length ) {
+                    this.game.complete = true;
                     this.gameComplete = true;
 
                     this.$nextTick(() => {

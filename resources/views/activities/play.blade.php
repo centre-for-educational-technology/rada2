@@ -27,6 +27,9 @@
 
     <!-- Scripts -->
     <script>
+        window.Laravel = <?php echo json_encode([
+            'csrfToken' => csrf_token(),
+        ]); ?>;
         window.SmartZoos = <?php echo json_encode([
             'config' => [
                 'base_url' => url('/'),
@@ -36,10 +39,10 @@
                 ]
             ],
             'data' => [
-                'activity' => $game_data,
+                'game' => $game_data,
             ],
         ]);
-        ?>
+        ?>;
     </script>
 </head>
 <body>

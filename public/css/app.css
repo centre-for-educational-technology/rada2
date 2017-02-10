@@ -8053,8 +8053,11 @@ button.mdi::before {
 }
 
 #sz-play-app .sz-photo img.sz-uploadable-image {
-  width: 100%;
+  max-width: 100%;
   height: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #sz-play-app .sz-one-correct-answer .media input[type='radio'], #sz-play-app .sz-one-correct-answer .media input[type='checkbox'], #sz-play-app .sz-multiple-correct-answers .media input[type='radio'], #sz-play-app .sz-multiple-correct-answers .media input[type='checkbox'] {
@@ -8068,6 +8071,10 @@ button.mdi::before {
 
 #sz-play-app .sz-one-correct-answer .media .media-right, #sz-play-app .sz-multiple-correct-answers .media .media-right {
   padding-top: 5px;
+}
+
+#sz-play-app .sz-one-correct-answer .mdi.correct, #sz-play-app .sz-multiple-correct-answers .mdi.correct {
+  color: #2ab27b;
 }
 
 #sz-play-app .sz-match-pairs.row {
@@ -8096,6 +8103,14 @@ button.mdi::before {
 #sz-play-app .sz-match-pairs .row .sz-matchable img {
   max-width: 100%;
   height: auto;
+}
+
+#sz-play-app .sz-game-results .sz-options-list .mdi-radiobox-marked, #sz-play-app .sz-game-results .sz-options-list .mdi-checkbox-marked-outline {
+  color: #bf5329;
+}
+
+#sz-play-app .sz-game-results .sz-options-list.correct .mdi-radiobox-marked, #sz-play-app .sz-game-results .sz-options-list.correct .mdi-checkbox-marked-outline {
+  color: #2ab27b;
 }
 
 /*# sourceMappingURL=app.css.map */

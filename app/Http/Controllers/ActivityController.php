@@ -16,6 +16,10 @@ use Illuminate\Support\Facades\File;
 
 use App\Http\Requests\StoreActivity;
 
+use App\Game;
+
+use Auth;
+
 class ActivityController extends Controller
 {
     /**
@@ -32,7 +36,7 @@ class ActivityController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'play']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'start']]);
     }
 
     /**
@@ -132,23 +136,6 @@ class ActivityController extends Controller
     }
 
     /**
-     * Display game page for the specified activity.
-     *
-     * @param \App\Activity
-     * @return \Illuminate\Http\Response
-     */
-    public function play(Activity $activity)
-    {
-        // XXX This seems to fail for guests
-        //$this->authorize('view', $activity);
-
-        return view('activities/play')->with([
-            'activity' => $activity,
-            'game_data' => $activity->getGameData(),
-        ]);
-    }
-
-    /**
      * Show the form for editing the specified activity.
      *
      * @param \App\Activity
@@ -224,5 +211,35 @@ class ActivityController extends Controller
         $activity->deleteFeaturedImage();
 
         return redirect()->route('activity.index');
+    }
+
+    /**
+     * [start description]
+     * @param  Activity $activity [description]
+     * @return [type]             [description]
+     */
+    public function start(Activity $activity)
+    {
+        $game = null;
+
+        if ( Auth::check() ) {
+            $game = Game::where([
+                'activity_id' => $activity->id,
+                'user_id' => auth()->user()->id
+            ])->first();
+        }
+
+        if ( !$game ) {
+            $game = new Game;
+
+            if ( Auth::check() )
+            {
+                $game->user()->associate( auth()->user() );
+            }
+            $game->activity()->associate($activity);
+            $game->save();
+        }
+
+        return redirect()->route('game.play', [ 'id' => $game->id ]);
     }
 }

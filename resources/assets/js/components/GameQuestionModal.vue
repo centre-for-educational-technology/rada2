@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" aria-label="Close" v-on:click="close()"><span aria-hidden="true">&times;</span></button>
+                    <button type="button" class="close" aria-label="Close" v-on:click="close()" v-bind:diabled="inAjaxCall"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">{{ title() }}</h4>
                 </div>
                 <div class="modal-body">
@@ -23,7 +23,7 @@
                                 <div class="media-right media-middle">
                                     <input type="radio" name="option" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option">
                                     <i class="mdi mdi-radiobox-blank" v-if="!isSelectedOption(option.id)"></i>
-                                    <i class="mdi mdi-radiobox-marked" v-if="isSelectedOption(option.id)"></i>
+                                    <i class="mdi mdi-radiobox-marked" v-if="isSelectedOption(option.id)" v-bind:class="{ correct: isCorrectlyAnswered(option.id), incorrect: isIncorrectlyAnswered(option.id) }"></i>
                                 </div>
                             </li>
                         </ul>
@@ -43,7 +43,7 @@
                                 <div class="media-right media-middle">
                                     <input type="checkbox" name="options[]" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option">
                                     <i class="mdi mdi-checkbox-blank-outline" v-if="!isSelectedOption(option.id)"></i>
-                                    <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id)"></i>
+                                    <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id)" v-bind:class="{ correct: isCorrectlyAnswered(option.id), incorrect: isIncorrectlyAnswered(option.id) }"></i>
                                 </div>
                             </li>
                         </ul>
@@ -105,8 +105,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" v-on:click="close()">Close</button>
-                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit()" v-on:click="submit()">Submit</button>
+                    <button type="button" class="btn btn-default" v-on:click="close()" v-bind:disabled="inAjaxCall">Close</button>
+                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()">Submit</button>
                 </div>
             </div>
         </div>
@@ -115,8 +115,17 @@
 
 <script>
     export default {
-        props: ['question'],
+        props: ['question', 'gameId'],
         mounted() {
+            var vm = this;
+
+            this.$nextTick(() => {
+                $(this.$refs.modal).on('hide.bs.modal', e => {
+                    if ( vm.inAjaxCall ) {
+                        e.preventDefault();
+                    }
+                });
+            });
         },
         data() {
             return {
@@ -132,7 +141,8 @@
                 shuffledPairs: [],
                 matchableStyles: {
                     'min-height': '100px'
-                }
+                },
+                inAjaxCall: false
             };
         },
         methods: {
@@ -165,6 +175,8 @@
                 });
             },
             close() {
+                if ( this.inAjaxCall ) return;
+
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('hide');
                     this.selectedOptions = [];
@@ -175,15 +187,52 @@
                     this.chosenPair.mathc = null;
                     this.matchedPairs = [];
                     this.matchableStyles['min-height'] = '100px';
+                    this.inAjaxCall = false;
                 });
             },
             submit() {
-                console.log('Implement question submit');
-                // TODO Make sure that modal can not be closed until resolved
-                this.close();
-                // XXX This should not be set like that
-                // A more elegant and meaningful way is needed
-                this.$parent.markAnswered(this.question.id);
+                if ( this.inAjaxCall ) return;
+
+                var vm = this;
+
+                this.inAjaxCall = true;
+
+                var data = {
+                    'game_id': this.gameId,
+                    'question_id': this.question.id,
+                };
+
+                if ( this.isOneCorrectAnswer() || this.isMultipleCorrectAnswers() ) {
+                    data.options = this.selectedOptions;
+                } else if ( this.isFreeformAnswer() || this.isEmbeddedContent() ) {
+                    data.text = this.textualAnswer;
+                }
+
+                if ( this.isPhoto() ) {
+                    var formData = new FormData();
+
+                    _.each(data, (item, key) => {
+                        formData.append(key, item);
+                    });
+
+                    formData.append('image', this.$refs.image.files[0]);
+
+                    data = formData;
+                    console.log('zz', data);
+                }
+                // TODO Need to configure the URL (not important but should still work with subdir installss)
+                this.$http.post('/api/games/answer', data).then(response => {
+                    vm.inAjaxCall = false;
+
+                    vm.close();
+                    // XXX This should not be set like that
+                    // A more elegant and meaningful way is needed
+                    vm.$parent.markAnswered(this.question.id, response.body);
+                }, response => {
+                    vm.inAjaxCall = false;
+                    console.error('Error', response);
+                    // TODO Might need to notify user abut the error
+                });
             },
             title() {
                 return this.question ? this.question.title : '';
@@ -314,6 +363,16 @@
             },
             isMatchedPair(pair) {
                 return this.matchedPairs.indexOf(pair.id) !== -1;
+            },
+            isCorrectlyAnswered(id) {
+                // TODO Check if ajaxHasBroughtInCorrectAnswers
+                // and act
+                return false;
+            },
+            isIncorrectlyAnswered(id) {
+                // TODO Check if ajaxHasBroughtIncorrectAnswers
+                // and act
+                return false;
             }
         }
     }
