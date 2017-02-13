@@ -15,30 +15,35 @@
 
                     @foreach($games as $game)
                         <div class="row">
-                            <div class="col-xs-6">
+                            <div class="col-xs-5 col-sm-5">
                                 <strong>{{ $game->activity->title }}</strong>
                             </div>
-                            <div class="col-xs-4">
+                            <div class="col-xs-4 col-sm-5">
                                 @if ( $game->isComplete() )
-                                    {{ trans('pages.dashboard.finished', [ 'date' => date(trans('general.date-time.formats.short'), strtotime($game->updated_at)) ])}}
+                                    {{ trans('pages.dashboard.finished', [ 'date' => date(trans('general.date-time.formats.medium'), strtotime($game->updated_at)) ])}}
                                 @else
-                                    {{ trans('pages.dashboard.started', [ 'date' => date(trans('general.date-time.formats.short'), strtotime($game->created_at)) ])}}
+                                    {{ trans('pages.dashboard.started', [ 'date' => date(trans('general.date-time.formats.medium'), strtotime($game->created_at)) ])}}
                                 @endif
                             </div>
-                            <div class="col-xs-2">
+                            <div class="col-xs-3 col-sm-2">
                                 @if ( $game->isComplete() )
-                                    <a href="{!! route('game.play', ['id' => $game->id]) !!}" class="btn btn-success btn-sm">{{ trans('pages.dashboard.btn.play-again' )}}</a>
+                                    <a href="{!! route('game.play', ['id' => $game->id]) !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.view-results' )}}">
+                                        <i class="mdi mdi-map-marker-circle"></i>
+                                    </a>
                                 @else
-                                    <a href="{!! route('game.play', ['id' => $game->id]) !!}" class="btn btn-success btn-sm">{{ trans('pages.dashboard.btn.continue' )}}</a>
+                                    <a href="{!! route('game.play', ['id' => $game->id]) !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.continue' )}}">
+                                        <i class="mdi mdi-play-circle-outline"></i>
+                                    </a>
                                 @endif
                             </div>
                         </div>
                         <div class="row" style="margin-top: 10px;">
+                            @php ( $percentage = $game->getCompletionPercentage() )
                             <div class="col-xs-12">
                                 <div class="progress">
-                                    <div class="progress-bar progress-bar-{{ $game->complete ? 'success' : 'info' }}" style="min-width: 2em; width: {{ $game->getCompletionPercentage() }}%;">
-                                        <span class="sr-only">{{ $game->getCompletionPercentage() }}</span>
-                                        {{ $game->getCompletionPercentage() }}%
+                                    <div class="progress-bar progress-bar-{{ $game->complete ? 'success' : 'info' }}" style="min-width: 2em; width: {{ $percentage }}%;">
+                                        <span class="sr-only">{{ $percentage }}</span>
+                                        {{ $percentage }}%
                                     </div>
                                 </div>
                             </div>

@@ -53,7 +53,7 @@ return [
         'started' => 'Started :date',
         'market-and-card-trading' => 'Marker and card trading',
         'btn' => [
-            'play-again' => 'Play again',
+            'view-results' => 'View results',
             'continue' => 'Continue',
         ],
     ],

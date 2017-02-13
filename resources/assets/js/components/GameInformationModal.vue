@@ -33,7 +33,7 @@
                     </p>
                     <h3>Featured Image</h3>
                     <p>
-                        <img v-bind:src="activity.featured_image" alt="featured-image" style="width:100%;height:auto;">
+                        <img v-bind:src="activity.featured_image" alt="featured-image" class="sz-uploadable-image">
                     </p>
                     <h3>Zoo</h3>
                     <p>
