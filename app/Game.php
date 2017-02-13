@@ -19,6 +19,14 @@ class Game extends Model
     public $incrementing = false;
 
     /**
+     * [isComplete description]
+     * @return boolean [description]
+     */
+    public function isComplete() {
+        return (bool)$this->complete;
+    }
+
+    /**
      * Get Activity current Game is connected with,.
      * @return Activity Activity object.
      */
@@ -115,5 +123,17 @@ class Game extends Model
         }
 
         return $data;
+    }
+
+    /**
+     * [getCompletionPercentage description]
+     * @return [type] [description]
+     */
+    public function getCompletionPercentage() {
+        if ( $this->isComplete() ) {
+            return 100;
+        }
+
+        return round($this->answers()->count() / $this->activity->activityItems()->count() * 100, 0, PHP_ROUND_HALF_UP);
     }
 }

@@ -29,7 +29,7 @@ Route::group(['prefix' => 'auth'], function()
     Route::get('facebook/callback', 'Auth\FacebookController@handleProviderCallback');
 });
 
-Route::get('home', 'HomeController@index');
+Route::get('dashboard', 'HomeController@index')->name('dashboard');
 
 // Activity Routes
 Route::group(['prefix' => 'activities'], function()
@@ -76,6 +76,6 @@ Route::group(['prefix' => 'manage'], function()
 {
     Route::group(['prefix' => 'users'], function()
     {
-        Route::get('/', 'UserController@index')->name('user.index');
+        Route::get('/', 'UserController@index')->name('manage.users');
     });
 });

@@ -75,9 +75,14 @@
                                 </a>
 
                                 <ul class="dropdown-menu" role="menu">
+                                    <li>
+                                        <a href="{!! route('dashboard') !!}">
+                                            {{ trans('pages.dashboard.title') }}
+                                        </a>
+                                    </li>
                                     @if ( Auth::user()->isAdmin() )
                                         <li>
-                                            <a href="{!! route('user.index') !!}">
+                                            <a href="{!! route('manage.users') !!}">
                                                 {{ trans('pages.manage.users.index.heading') }}
                                             </a>
                                         </li>

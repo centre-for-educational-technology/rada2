@@ -44,5 +44,18 @@ return [
             'loading' => 'Game Loading ...',
         ],
     ],
+    'dashboard' => [
+        'title' => 'Dashboard',
+        'heading' => 'Welcome, :name!',
+        'none-found' => 'No Games or Activities found',
+        'games-and-activities' => 'Games & activities',
+        'finished' => 'Finished :date',
+        'started' => 'Started :date',
+        'market-and-card-trading' => 'Marker and card trading',
+        'btn' => [
+            'play-again' => 'Play again',
+            'continue' => 'Continue',
+        ],
+    ],
 
 ];

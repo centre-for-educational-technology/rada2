@@ -8,7 +8,7 @@
                 <div class="modal-body">
                     <div v-for="(question, index) in activity.questions">
                         <h3>{{ index + 1 }}. {{ question.title }}</h3>
-                        <p>{{question.description}}</p>
+                        <p class="sz-display-new-lines">{{question.description}}</p>
                         <div v-if="isOneCorrectAnswer(question) || isMultipleCorrectAnswers(question)">
                             <ul class="media-list sz-options-list" v-for="option in question.options" v-bind:class="{ correct: isCorrect(question) }">
                                 <li class="media sz-option">
