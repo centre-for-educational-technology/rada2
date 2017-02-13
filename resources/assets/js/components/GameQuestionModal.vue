@@ -90,6 +90,12 @@
                     </div>
 
                     <div v-if="isPhoto()" class="sz-photo">
+                        <transition name="fade">
+                            <div class="alert alert-danger text-center" role="alert" v-show="incorrectImageFormat">
+                                Please select an image in JPEG or PNG format.
+                            </div>
+                        </transition>
+
                         <div class="row text-center">
                             <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }">
                                 <i class="mdi mdi-camera" aria-hidden="true"></i>
@@ -142,7 +148,8 @@
                 matchableStyles: {
                     'min-height': '100px'
                 },
-                inAjaxCall: false
+                inAjaxCall: false,
+                incorrectImageFormat: false
             };
         },
         methods: {
@@ -188,6 +195,8 @@
                     this.matchedPairs = [];
                     this.matchableStyles['min-height'] = '100px';
                     this.inAjaxCall = false;
+                    $(this.$refs.image).val('');
+                    this.incorrectImageFormat = false;
                 });
             },
             submit() {
@@ -288,9 +297,16 @@
                 $(this.$refs.image).trigger('click');
             },
             imageSelected() {
-                console.log('File selected', event.target.files[0]);
-                // TODO Make sure to only allow JPG/JPEG and PNG
                 if ( event.target.files.length > 0 ) {
+                    var file = event.target.files[0];
+
+                    if ( !( file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type == 'image/png' ) ) {
+                        $(event.target).val('');
+                        this.hasImageSelected = false;
+                        this.incorrectImageFormat = true;
+                        return;
+                    }
+
                     if ( window.FileReader ) {
                         var reader = new FileReader(),
                             vm = this;
@@ -299,10 +315,11 @@
                             vm.imageSrc = e.target.result;
                         };
 
-                        reader.readAsDataURL(event.target.files[0]);
+                        reader.readAsDataURL(file);
                     }
 
                     this.hasImageSelected = true;
+                    this.incorrectImageFormat = false;
                 }
             },
             canSubmit() {

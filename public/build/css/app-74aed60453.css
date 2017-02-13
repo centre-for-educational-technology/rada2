@@ -8113,4 +8113,13 @@ button.mdi::before {
   color: #2ab27b;
 }
 
+#sz-play-app .fade-enter-active, #sz-play-app .fade-leave-active {
+  -webkit-transition: opacity .5s;
+  transition: opacity .5s;
+}
+
+#sz-play-app .fade-enter, #sz-play-app .fade-leave-to {
+  opacity: 0;
+}
+
 /*# sourceMappingURL=app.css.map */
