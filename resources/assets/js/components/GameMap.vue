@@ -46,12 +46,7 @@
         controlUI.appendChild(exitControlIcon);
 
         exitControlIcon.addEventListener('click', function() {
-            // TODO Make translatable
-            var confirmation = confirm('Are you sure you want to exit the game?');
-
-            if ( confirmation ) {
-                window.location = window.SmartZoos.config.base_url;
-            }
+            vm.exit();
         });
     }
 
@@ -302,6 +297,14 @@
                             map: map
                         });
                     });
+                }
+            },
+            exit() {
+                // TODO Make translatable
+                var confirmation = confirm('Are you sure you want to exit the game?');
+
+                if ( confirmation ) {
+                    window.location = window.SmartZoos.config.base_url;
                 }
             }
         }

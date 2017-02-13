@@ -45,6 +45,9 @@
                     </div>
                 </div>
                 <div class="modal-footer">
+                    <button type="button" class="btn btn-default" v-on:click="exit()">
+                        <i class="mdi mdi-exit-to-app"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -61,6 +64,9 @@
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
                 });
+            },
+            exit() {
+                this.$parent.exit();
             },
             isInformation(question) {
                 return question ? question.type == 1 : false;
