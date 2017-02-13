@@ -50,7 +50,7 @@
         });
     }
 
-    var allowedDistance = window.SmartZoos.config.allowed_distance || 25,
+    var allowedDistance = window.SmartZoos.config.map.allowed_distance || 25,
         connectMarkers =  window.SmartZoos.config.connect_markers || false,
         answeredMarkerUrl = window.SmartZoos.config.map.green_dotless_icon_url;
 
@@ -231,7 +231,7 @@
 
                 var activeDistanceCircle = new google.maps.Circle({
                     map: map,
-                    radius: allowedDistance, // TODO This should be global
+                    radius: allowedDistance,
                     fillColor: 'blue',
                     fillOpacity: 0.25,
                     strokeColor: 'blue',

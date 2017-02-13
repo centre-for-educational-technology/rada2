@@ -49,6 +49,7 @@ return [
         'google' => [
             'api_key' => env('GOOGLE_MAPS_API_KEY'),
         ],
+        'allowed_distance' => env('MAPS_ALLOWED_DISTANCE', 25), // Allowed distance radius value, used within a Game
     ],
 
 ];
