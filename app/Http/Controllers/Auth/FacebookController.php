@@ -45,6 +45,6 @@ class FacebookController extends Controller
 
         auth()->login($user, true);
 
-        return redirect('home');
+        return redirect('dashboard');
     }
 }
