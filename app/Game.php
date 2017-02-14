@@ -67,6 +67,11 @@ class Game extends Model
                 $data['answers'][$answer->activity_item_id] = $answer->getGameData();
             }
         }
+        // Force answers to be interpreted as an object if empty
+        if ( count($data['answers']) === 0 ) {
+            $data['answers'] = (object)$data['answers'];
+        }
+
         $data['activity'] = [
             'id' => $activity->id,
             'title' => $activity->title,

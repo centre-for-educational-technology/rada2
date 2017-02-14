@@ -30,7 +30,7 @@ class GameController extends Controller
      */
     public function play(Game $game)
     {
-        if ( $game->user->id ) {
+        if ( $game->user_id ) {
             if ( !( Auth::check() && Auth::user()->id === $game->user_id ) ) {
                 abort(403);
             }
