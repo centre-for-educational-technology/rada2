@@ -186,6 +186,7 @@
                     gameControlsDiv = document.createElement('div'),
                     gameControls = new GameControls(gameControlsDiv, map, playerMarker, this);
 
+                // XXX This is a strange code pience that sends index without a reason()
                 gameControls.index = 1;
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControlsDiv);
             },

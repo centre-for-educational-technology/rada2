@@ -6,6 +6,34 @@
  */
 
 window.initMap = function() {
+    function initGameControls(map, cb) {
+        if ( !navigator.geolocation ) {
+            return false;
+        }
+
+        var gameControls = document.createElement('div'),
+            controlUI = document.createElement('div');
+
+        controlUI.id = 'sz-map-controls';
+        gameControls.appendChild(controlUI);
+
+        var navigationControlItem = document.createElement('i');
+        navigationControlItem.className = 'mdi mdi-target';
+        navigationControlItem.title = 'Set current position'; // TODO Translate
+        controlUI.appendChild(navigationControlItem);
+
+        navigationControlItem.addEventListener('click', function() {
+            navigator.geolocation.getCurrentPosition(
+                cb,
+                function(error) {
+                    alert('Geolocation error'); // TODO Translate
+                    console.log('Geolocation error', error);
+                });
+        });
+
+        map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControls);
+    }
+
     function setLatAndLngValues(latLng) {
         document.getElementById('latitude').value = ( typeof latLng.lat === 'function' ) ? latLng.lat() : latLng.lat;
         document.getElementById('longitude').value = ( typeof latLng.lng === 'function' ) ? latLng.lng() : latLng.lng;
@@ -74,11 +102,25 @@ window.initMap = function() {
 
     marker = initializeMarker(map, currentLatLng);
 
+    initGameControls(map, function(position) {
+        var latLng = {
+            lat: position.coords.latitude,
+            lng: position.coords.longitude
+        };
+
+        map.panTo(latLng);
+        removeMarker(marker);
+        setLatAndLngValues(latLng);
+        setTimeout(function() {
+            marker = initializeMarker(map, latLng);
+        }, 250);
+    });
+
     $(document).find('select[name="zoo"]').on('change', function() {
         var value = $(this).val(),
             latLng = window.Laravel.zooGeolocationOptions[value];
 
-        map.setCenter(latLng);
+        map.panTo(latLng);
         removeMarker(marker);
         setLatAndLngValues(latLng);
         setTimeout(function() {
