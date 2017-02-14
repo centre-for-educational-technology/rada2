@@ -1,9 +1,9 @@
 @extends('layouts.error')
 
 @section('title')
-Be right back.
+Not Found.
 @endsection
 
 @section('content')
-Be right back.
+Not Found.
 @endsection

@@ -30,6 +30,11 @@ class GameController extends Controller
      */
     public function play(Game $game)
     {
+        if ( $game->user->id ) {
+            if ( !( Auth::check() && Auth::user()->id === $game->user_id ) ) {
+                abort(403);
+            }
+        }
         return view('activities/play')->with([
             'game_data' => $game->getGameData(),
         ]);

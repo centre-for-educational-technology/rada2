@@ -1,9 +1,9 @@
 @extends('layouts.error')
 
 @section('title')
-Be right back.
+Forbidden.
 @endsection
 
 @section('content')
-Be right back.
+Forbidden.
 @endsection
