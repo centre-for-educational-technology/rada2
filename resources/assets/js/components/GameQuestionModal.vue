@@ -157,22 +157,21 @@
                 this.$nextTick(() => {
                     if ( this.isMatchPairs() ) {
                         if ( this.pairs().length > 0 ) {
-                            this.question.pairs = _.shuffle(this.pairs())
+                            this.question.pairs = _.shuffle(this.pairs());
 
-                            // TODO Check solution, move to standalone function
-                            // Make sure it is also applied on page resize
-                            this.$nextTick(() => {
+                            // TODO This produces a small visible size change,
+                            // might make sense to display things as invisible (not hidden)
+                            // do the resize and only then show
+                            $(this.$refs.modal).one('shown.bs.modal', e => {
                                 var vm = this;
+                                var heights = _.map(this.$refs.matchable, (matchable) => {
+                                    return $(matchable).outerHeight(true);
+                                });
+                                var highest = _.max(heights);
 
-                                setTimeout(() => {
-                                    var heights = _.map(this.$refs.matchable, (matchable) => {
-                                        return $(matchable).outerHeight(true);
-                                    });
-                                    var highest = _.max(heights);
-                                    if ( highest ) {
-                                        vm.matchableStyles['min-height'] = highest + 'px';
-                                    }
-                                }, 250);
+                                if ( highest ) {
+                                    vm.matchableStyles['min-height'] = highest + 'px';
+                                }
                             });
                         }
                         this.shuffledPairs = _.shuffle(this.pairs());
