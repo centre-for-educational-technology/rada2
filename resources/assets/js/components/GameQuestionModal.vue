@@ -121,7 +121,7 @@
 
 <script>
     export default {
-        props: ['question', 'gameId'],
+        props: ['question', 'gameId', 'baseUrl'],
         mounted() {
             var vm = this;
 
@@ -186,6 +186,7 @@
 
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('hide');
+
                     this.selectedOptions = [];
                     this.textualAnswer = '';
                     this.hasImageSelected = false;
@@ -228,14 +229,16 @@
 
                     data = formData;
                 }
-                // TODO Need to configure the URL (not important but should still work with subdir installss)
-                this.$http.post('/api/games/answer', data).then(response => {
+
+                this.$http.post(vm.baseUrl + '/api/games/answer', data).then(response => {
                     vm.inAjaxCall = false;
+                    var questionId = vm.question.id;
+
+                    $(vm.$refs.modal).one('hidden.bs.modal', e => {
+                        vm.$parent.markAnswered(questionId, response.body);
+                    });
 
                     vm.close();
-                    // XXX This should not be set like that
-                    // A more elegant and meaningful way is needed
-                    vm.$parent.markAnswered(this.question.id, response.body);
                 }, response => {
                     vm.inAjaxCall = false;
                     console.error('Error', response);

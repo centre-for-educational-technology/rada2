@@ -1,8 +1,8 @@
 <template>
     <div style="height:100%;width:100%;">
         <game-information-modal ref="informationModal" v-if="game" v-bind:activity="game.activity"></game-information-modal>
-        <game-question-modal v-bind:question="question" v-bind:game-id="game.id" v-if="question" ref="questionModal"></game-question-modal>
-        <game-results-modal v-bind:activity="game.activity" v-bind:answers="game.answers" v-if="game && gameComplete" ref="resultsModal"></game-results-modal>
+        <game-question-modal v-bind:question="question" v-bind:game-id="game.id" v-bind:base-url="baseUrl" v-if="question" ref="questionModal"></game-question-modal>
+        <game-results-modal v-bind:activity="game.activity" v-bind:answers="game.answers" v-if="game && game.complete" ref="resultsModal"></game-results-modal>
         <div id="map">
         </div>
     </div>
@@ -62,11 +62,9 @@
         },
         props: ['latitude', 'longitude'],
         mounted() {
-            // XXX This should be something smaller, attached items are not needed
+            this.baseUrl = window.SmartZoos.config.base_url;
+
             this.game = window.SmartZoos.data.game;
-            if ( this.game.complete ) {
-                this.gameComplete = true;
-            }
 
             this.mapData = {};
             this.mapData.markers = [];
@@ -95,7 +93,7 @@
             return {
                 question: null,
                 game: null,
-                gameComplete: false
+                baseUrl: ''
             };
         },
         methods: {
@@ -121,9 +119,6 @@
                     if ( map.szTrackingEnabled === true ) {
                         map.panTo(playerMarker.getPosition());
                     }
-                    /*if ( markers.length > 0 ) {
-                        detectAndActivateClosestMarker(playerMarker.getPosition(), markers, closestMarker);
-                    }*/
                 }, true);
 
                 if ( _this.game.activity.questions ) {
@@ -259,17 +254,18 @@
                 }
                 this.game.answers[id] = answer;
 
-                if ( _.size(this.game.answers) === this.game.activity.questions.length ) {
+                var answerIds = _.keys(this.game.answers).map(id => {
+                    return _.toNumber(id);
+                });
+                var questionIds = _.map(this.game.activity.questions, question => {
+                    return question.id;
+                });
+
+                if ( _.intersection(questionIds, answerIds).length === questionIds.length ) {
                     this.game.complete = true;
-                    this.gameComplete = true;
 
                     this.$nextTick(() => {
-                        var vm = this;
-                        // XXX This one is because previous dialog has to be closed first
-                        // Need to either determne if dialog is open and wait or find a different solution
-                        setTimeout(() => {
-                            vm.$refs.resultsModal.open();
-                        }, 1500);
+                        this.$refs.resultsModal.open();
                     });
                 }
             },
@@ -305,7 +301,7 @@
                 var confirmation = confirm('Are you sure you want to exit the game?');
 
                 if ( confirmation ) {
-                    window.location = window.SmartZoos.config.base_url;
+                    window.location = this.baseUrl;
                 }
             }
         }
