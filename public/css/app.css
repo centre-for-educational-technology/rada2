@@ -7972,59 +7972,17 @@ button.mdi::before {
   width: 100%;
   background-color: #eeeeee;
   text-align: center;
-}
-
-@-webkit-keyframes loading {
-  0% {
-    color: #222222;
-  }
-  25% {
-    color: #333333;
-  }
-  50% {
-    color: #555555;
-  }
-  75% {
-    color: #777777;
-  }
-  100% {
-    color: #eeeeee;
-  }
-}
-
-@keyframes loading {
-  0% {
-    color: #222222;
-  }
-  25% {
-    color: #333333;
-  }
-  50% {
-    color: #555555;
-  }
-  75% {
-    color: #777777;
-  }
-  100% {
-    color: #eeeeee;
-  }
+  padding-top: 250px;
 }
 
 #sz-play-app #loading span {
   display: inline-block;
   font-size: 150%;
-  margin-top: 250px;
-  -webkit-animation-name: loading;
-  animation-name: loading;
-  -webkit-animation-duration: 3s;
-  animation-duration: 3s;
-  -webkit-animation-iteration-count: infinite;
-  animation-iteration-count: infinite;
+  -webkit-animation-duration: 5s;
+  animation-duration: 5s;
 }
 
 #sz-play-app #loading .sz-geolocation-error {
-  margin-top: 250px;
-  font-size: 200%;
   color: #bf5329;
 }
 
@@ -8111,15 +8069,6 @@ button.mdi::before {
 
 #sz-play-app .sz-game-results .sz-options-list.correct .mdi-radiobox-marked, #sz-play-app .sz-game-results .sz-options-list.correct .mdi-checkbox-marked-outline {
   color: #2ab27b;
-}
-
-#sz-play-app .fade-enter-active, #sz-play-app .fade-leave-active {
-  -webkit-transition: opacity .5s;
-  transition: opacity .5s;
-}
-
-#sz-play-app .fade-enter, #sz-play-app .fade-leave-to {
-  opacity: 0;
 }
 
 /*# sourceMappingURL=app.css.map */

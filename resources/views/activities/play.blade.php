@@ -50,14 +50,17 @@
 <body>
     <div id="sz-play-app">
         <div id="loading" v-if="isLoading()">
-            <span v-if="!hasGeoLocationError()">
+            <span v-if="!hasGeoLocationError()" class="animated flash infinite">
                 <i class="mdi mdi-cloud-sync"></i>
                 {{ trans('pages.play.game.loading') }}
             </span>
 
-            <div class="sz-geolocation-error" v-if="hasGeoLocationError()">
-                <strong v-html="geoLocationErrorMessage"></strong>
-            </div>
+            <transition name="error-fade-in-up-big" enter-active-class="animated fadeInUpBig">
+                <div class="sz-geolocation-error" v-if="hasGeoLocationError()">
+                    <i class="mdi mdi-map-marker-circle"></i>
+                    <span v-html="geoLocationErrorMessage"></span>
+                </div>
+            </transition>
         </div>
 
         <game-map v-if="!isLoading()" v-bind:latitude="latitude" v-bind:longitude="longitude"></game-map>

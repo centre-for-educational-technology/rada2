@@ -227,27 +227,15 @@
         width: 100%;
         background-color: $gray-lighter;
         text-align: center;
-
-        @keyframes loading {
-            0% { color: $gray-darker; }
-            25% { color: $gray-dark; }
-            50% { color: $gray; }
-            75% { color: $gray-light; }
-            100% { color: $gray-lighter; }
-        }
+        padding-top: 250px;
 
         span {
             display: inline-block;
             font-size: 150%;
-            margin-top: 250px;
-            animation-name: loading;
-            animation-duration: 3s;
-            animation-iteration-count: infinite;
+            animation-duration: 5s;
         }
 
         .sz-geolocation-error {
-            margin-top: 250px;
-            font-size: 200%;
             color: $brand-danger;
         }
     }
@@ -354,13 +342,5 @@
                 }
             }
         }
-    }
-
-    .fade-enter-active, .fade-leave-active {
-        transition: opacity .5s
-    }
-
-    .fade-enter, .fade-leave-to {
-        opacity: 0
     }
 }

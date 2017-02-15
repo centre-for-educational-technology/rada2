@@ -90,7 +90,7 @@
                     </div>
 
                     <div v-if="isPhoto()" class="sz-photo">
-                        <transition name="fade">
+                        <transition name="fade-in-down-out-up" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
                             <div class="alert alert-danger text-center" role="alert" v-show="incorrectImageFormat">
                                 Please select an image in JPEG or PNG format.
                             </div>
