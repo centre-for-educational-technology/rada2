@@ -7978,8 +7978,8 @@ button.mdi::before {
 #sz-play-app #loading span {
   display: inline-block;
   font-size: 150%;
-  -webkit-animation-duration: 5s;
-  animation-duration: 5s;
+  -webkit-animation-duration: 3s;
+  animation-duration: 3s;
 }
 
 #sz-play-app #loading .sz-geolocation-error {

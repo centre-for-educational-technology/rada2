@@ -52,10 +52,10 @@
         <div id="loading" v-if="isLoading()">
             <span v-if="!hasGeoLocationError()" class="animated flash infinite">
                 <i class="mdi mdi-cloud-sync"></i>
-                {{ trans('pages.play.game.loading') }}
+                    {{ trans('pages.play.game.loading') }}
             </span>
 
-            <transition name="error-fade-in-up-big" enter-active-class="animated fadeInUpBig">
+            <transition name="error-fade" mode="out-in" enter-active-class="animated fadeInDownBig" leave-active-class="animated fadeOutUpBig">
                 <div class="sz-geolocation-error" v-if="hasGeoLocationError()">
                     <i class="mdi mdi-map-marker-circle"></i>
                     <span v-html="geoLocationErrorMessage"></span>
