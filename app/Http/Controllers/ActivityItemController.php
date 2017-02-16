@@ -105,7 +105,7 @@ class ActivityItemController extends Controller
    */
   public function index()
   {
-      return view('activity_items/index')->with('activity_items', ActivityItem::all());
+      return view('activity_items/index')->with('activity_items', ActivityItem::paginate( config('paginate.limit') ));
   }
 
   /**

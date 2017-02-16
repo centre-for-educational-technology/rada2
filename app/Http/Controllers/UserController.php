@@ -34,6 +34,6 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('manage/users/index')->with('users', User::with(['social_accounts', 'roles'])->get());
+        return view('manage/users/index')->with('users', User::with(['social_accounts', 'roles'])->paginate( config('paginate.limit') ));
     }
 }

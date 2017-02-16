@@ -24,26 +24,30 @@
                 <div class="panel-body">
                     @if ( count($activity_items) === 0 )
                         <div class="well">{{ trans('pages.activity-items.index.none-found') }}</div>
-                    @endif
-
-                    @foreach($activity_items as $activity_item)
-                        <div class="media">
-                            <div class="media-left">
-                                <a href="{!! route('activity_item.show', [ 'id' => $activity_item->id ]) !!}">
-                                    <img class="media-object img-rounded" src="{{ asset('img/logos/logo-square.png') }}" alt="featured-image" style="width:64px;height:64px;">
-                                </a>
-                            </div>
-                            <div class="media-body">
-                                @include('activity_items.actions')
-                                <h4 class="media-heading">
-                                    <a href="{!! route('activity_item.show', ['id' => $activity_item->id]) !!}">
-                                        {{ $activity_item->title }}
+                    @else
+                        @foreach($activity_items as $activity_item)
+                            <div class="media">
+                                <div class="media-left">
+                                    <a href="{!! route('activity_item.show', [ 'id' => $activity_item->id ]) !!}">
+                                        <img class="media-object img-rounded sz-img-64x64" src="{{ asset('img/logos/logo-square.png') }}" alt="featured-image">
                                     </a>
-                                </h4>
-                                <p class="sz-display-new-lines">{{$activity_item->description}}</p>
+                                </div>
+                                <div class="media-body">
+                                    @include('activity_items.actions')
+                                    <h4 class="media-heading">
+                                        <a href="{!! route('activity_item.show', ['id' => $activity_item->id]) !!}">
+                                            {{ $activity_item->title }}
+                                        </a>
+                                    </h4>
+                                    <p class="sz-display-new-lines">{{$activity_item->description}}</p>
+                                </div>
                             </div>
+                        @endforeach
+
+                        <div class="text-center">
+                            {{ $activity_items->links() }}
                         </div>
-                    @endforeach
+                    @endif
                 </div>
             </div>
         </div>
