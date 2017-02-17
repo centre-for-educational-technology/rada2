@@ -77,5 +77,6 @@ Route::group(['prefix' => 'manage'], function()
     Route::group(['prefix' => 'users'], function()
     {
         Route::get('/', 'UserController@index')->name('manage.users');
+        Route::post('{user}', 'UserController@assignRoles');
     });
 });

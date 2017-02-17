@@ -91,7 +91,7 @@ return [
        'updated-at' => 'Updated at',
    ],
    'roles' => [
-       'admin' => 'Administartor',
+       'admin' => 'Administrator',
        'zooAdmin' => 'Administrator',
        'zooMember' => 'Member',
    ],

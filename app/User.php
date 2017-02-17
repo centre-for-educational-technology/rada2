@@ -39,6 +39,25 @@ class User extends Authenticatable
     }
 
     /**
+     * [getRolesData description]
+     * @return [type] [description]
+     */
+    public function getRolesData() {
+        $rolesData = [];
+
+        if ( $this->roles ) {
+            foreach ( $this->roles as $role ) {
+                $rolesData[] = [
+                    'id' => $role->id,
+                    'zoo' => $role->pivot->zoo,
+                ];
+            }
+        }
+
+        return $rolesData;
+    }
+
+    /**
      * [pairs description]
      * @return [type] [description]
      */
@@ -52,7 +71,7 @@ class User extends Authenticatable
      * @param  [type]  $zoo  [description]
      * @return boolean       [description]
      */
-    private function hasRole(string $name, int $zoo = null) {
+    public function hasRole(string $name, int $zoo = null) {
         $rolesByName = $this->roles->keyBy('name');
 
         if ( $rolesByName->has($name) ) {

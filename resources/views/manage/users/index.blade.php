@@ -2,10 +2,59 @@
 
 @section('footer-scripts')
 <script>
-    // XXX Move this to a standalone file
     $(document).ready(function() {
         $('.mdi-close-circle-outline').on('click', function() {
-            // TODO Add confirmation and call the action in question
+            var confirmation = confirm('{{ trans("pages.manage.users.index.confirmations.role") }}');
+
+            if ( confirmation ) {
+                var _this = $(this),
+                    user = _this.data('user-id'),
+                    role = _this.data('role-id');
+
+                $.ajax({
+                    cache: false,
+                    method: 'DELETE',
+                    url: '{{ url("/api/manage/users") }}/' + user + '/roles/' + role,
+                    success: function(data, textStatus, jqXHR) {
+                        _this.parent().fadeOut('medium', function() {
+                            $(this).remove();
+                        });
+                        $('#user-' + user).find('button').data('user-roles', data.roles);
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        _this.parent().addClass('animated shake');
+                        setTimeout(function() {
+                            _this.parent().removeClass('animated shake');
+                        }, 1000);
+                    }
+                });
+            }
+        });
+
+        $('#rolesModal').on('show.bs.modal', function(e) {
+            var form = $(this).find('form'),
+                button = $(e.relatedTarget),
+                userId = button.data('user-id'),
+                userName = button.data('user-name'),
+                userRoles = button.data('user-roles');
+                form.attr('action', form.data('action-base') + '/' + userId);
+                $(this).find('h4.modal-title > strong').text(userName);
+                if ( userRoles ) {
+                    _.each(userRoles, function(role) {
+                        form.find('input[type="checkbox"][name="roles[]"][value="' + role.id + '"]').prop('checked', true);
+                        if ( role.zoo ) {
+                            form.find('select[name="role_' + role.id + '_zoo"]').val(role.zoo);
+                        }
+                    });
+                }
+
+        });
+        $('#rolesModal').on('hidden.bs.modal', function(e) {
+            var form = $(this).find('form');
+
+            form.trigger('reset');
+            form.attr('action', '');
+            $(this).find('h4.modal-title > strong').text('');
         });
     });
 </script>
@@ -13,6 +62,53 @@
 
 @section('content')
 <div class="container">
+    <div class="modal fade" tabindex="-1" role="dialog" id="rolesModal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title">
+                        <strong></strong>:
+                        {{ trans('pages.manage.users.index.modal.title') }}
+                    </h4>
+                </div>
+                <div class="modal-body">
+                    <form name="roles" action="" method="post" data-action-base="{{ url('/manage/users') }}">
+                        <input type="hidden" name="page" value="{{ $users->currentPage() }}">
+                        {{ csrf_field() }}
+                        <div class="form-group">
+                            @foreach($roles as $role)
+                                <div class="row">
+                                    <div class="col-xs-6">
+                                        <div class="checkbox">
+                                            <label>
+                                                <input type="checkbox" name="roles[]" value="{{ $role->id }}">
+                                                {{ trans( 'general.roles.' . $role->name ) }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                    <div class="col-xs-6">
+                                        @if ( $role->name !== 'admin' )
+                                        <select name="role_{{ $role->id }}_zoo">
+                                            @foreach(Activity::getZooOptions() as $id => $title)
+                                                <option value="{{ $id }}">{{ $title }}</option>
+                                            @endforeach
+                                        </select>
+                                        @endif
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">{{ trans('general.forms.buttons.cancel') }}</button>
+                    <button type="button" class="btn btn-primary" onclick="$(this).parent().parent().find('form').submit();">{{ trans('general.forms.buttons.save') }}</button>
+                </div>
+            </div><!-- /.modal-content -->
+        </div><!-- /.modal-dialog -->
+    </div><!-- /.modal -->
+
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -42,7 +138,7 @@
                             </thead>
                             <tbody>
                                 @foreach($users as $user)
-                                    <tr>
+                                    <tr id="user-{{ $user->id }}">
                                         <td>{{ $user->name }}</td>
                                         <td>{{ $user->email }}</td>
                                         <td>{{ date(trans('general.date-time.formats.short'), strtotime($user->created_at)) }}</td>
@@ -73,9 +169,9 @@
                                             @endif
                                         </td>
                                         <td>
-                                            <a href="#" class="btn btn-primary btn-xs">
+                                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#rolesModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-roles="{{ json_encode( $user->getRolesData() ) }}">
                                                 <i class="mdi mdi-plus"></i>
-                                            </a>
+                                            </button>
                                         </td>
                                     </tr>
                                 @endforeach

@@ -36,6 +36,12 @@ return [
                 'none-found' => 'No User could be found',
                 'accounts' => 'Accounts',
                 'roles' => 'Roles',
+                'confirmations' => [
+                    'role' => 'Are you sure you want to remove selected role?',
+                ],
+                'modal' => [
+                    'title' => 'Manage user roles',
+                ],
             ]
         ],
     ],
