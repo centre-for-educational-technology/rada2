@@ -82,8 +82,8 @@ class UserController extends Controller
 
         // Prevent removing Administrator role from self
         if ( $user->isAdmin() && $user->id === Auth::user()->id ) {
-            $adminRole = Role::where('name', '=', 'admin')->first();
-            $syncableRoles[$adminRole->id] = [ 'zoo' => null ];
+            $adminRole = Role::getAdminRole();
+            $syncableRoles[$adminRole->id] = ['zoo' => null];
         }
 
         $user->roles()->sync($syncableRoles);
