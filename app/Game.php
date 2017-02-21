@@ -19,8 +19,8 @@ class Game extends Model
     public $incrementing = false;
 
     /**
-     * [isComplete description]
-     * @return boolean [description]
+     * Determine if game has been completed.
+     * @return boolean Game completion status
      */
     public function isComplete() {
         return (bool)$this->complete;
@@ -28,7 +28,7 @@ class Game extends Model
 
     /**
      * Get Activity current Game is connected with,.
-     * @return Activity Activity object.
+     * @return App\Activity Activity object.
      */
     public function activity() {
         return $this->belongsTo(Activity::class);
@@ -36,15 +36,15 @@ class Game extends Model
 
     /**
      * Get user account current social one belongs to.
-     * @return User Application local user account
+     * @return App\User Application local user account
      */
     public function user() {
         return $this->belongsTo(User::class);
     }
 
     /**
-     * [answers description]
-     * @return [type] [description]
+     * Get answers for the current game.
+     * @return App\GameAnswer [description]
      */
     public function answers() {
         return $this->hasMany(GameAnswer::class);
@@ -131,14 +131,23 @@ class Game extends Model
     }
 
     /**
-     * [getCompletionPercentage description]
-     * @return [type] [description]
+     * Get game completion percentage.
+     * @return bool
      */
     public function getCompletionPercentage() {
-        if ( $this->isComplete() ) {
+        if ( $this->isComplete() )
+        {
             return 100;
         }
 
-        return round($this->answers()->count() / $this->activity->activityItems()->count() * 100, 0, PHP_ROUND_HALF_UP);
+        $answersCount = $this->answers()->count();
+        $itemsCount = $this->activity->activityItems()->count();
+
+        if ( $itemsCount === 0 )
+        {
+            return 0;
+        }
+
+        return round($answersCount / $itemsCount * 100, 0, PHP_ROUND_HALF_UP);
     }
 }
