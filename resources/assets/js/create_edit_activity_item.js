@@ -83,7 +83,7 @@ window.initMap = function() {
         zoom: 18,
         mapTypeId: google.maps.MapTypeId.HYBRID,
         disableDefaultUI: true,
-        disableDoubleClickZoom: true,
+        zoomControl: true,
         styles: [
             {
                 featureType: 'poi',

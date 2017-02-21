@@ -76,6 +76,7 @@
                 zoom: 18,
                 mapTypeId: google.maps.MapTypeId.HYBRID,
                 disableDefaultUI: true,
+                zoomControl: true,
                 styles: [
                     {
                         featureType: 'poi',
