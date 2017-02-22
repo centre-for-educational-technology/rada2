@@ -19,7 +19,8 @@ This tool set includes:
   - Create and configure Google and Facebook apps, fill the needed environment variables
     - Please make sure to activate the **Google Maps JavaScript API**, **Google Static Maps API** and **Google+ API**, create the API key for Maps and OAuth credentials
     - Please make sure that Facebook App is set to **public** mode
-    - The redirect URL addresses are in the form **BASE-URL/auth/PROVIDER-name/callback**.
+    - The redirect URL addresses are in the form **BASE-URL/auth/PROVIDER-name/callback**
+  - Create reCaptcha(V2) keys and fill in the configurations in **.env** file. Constants to look for are **NOCAPTCHA_SECRET** and **NOCAPTCHA_SITEKEY**
 - Configure subject and title from sent email messages
  - Open the **config/mail.php** file and set the needed values within the **from** element
 - Create the database as needed (according to configuration provided)

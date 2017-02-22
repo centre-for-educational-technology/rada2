@@ -8076,4 +8076,13 @@ button.mdi::before {
   color: #2ab27b;
 }
 
+@media screen and (max-height: 575px) {
+  #rc-imageselect, .g-recaptcha {
+    transform: scale(0.77);
+    -webkit-transform: scale(0.77);
+    transform-origin: 0 0;
+    -webkit-transform-origin: 0 0;
+  }
+}
+
 /*# sourceMappingURL=app.css.map */
