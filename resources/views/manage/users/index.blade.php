@@ -128,10 +128,10 @@
                             <thead>
                                 <tr>
                                     <th>{{ trans('auth.register.form.name') }}</th>
-                                    <th>{{ trans('auth.general.email') }}</th>
-                                    <th>{{ trans('general.date-time.created-at') }}</th>
-                                    <th>{{ trans('general.date-time.updated-at') }}</th>
-                                    <th>{{ trans('pages.manage.users.index.accounts') }}</th>
+                                    <th class="hidden-xs">{{ trans('auth.general.email') }}</th>
+                                    <th class="hidden-xs">{{ trans('general.date-time.created-at') }}</th>
+                                    <th class="hidden-xs">{{ trans('general.date-time.updated-at') }}</th>
+                                    <th class="hidden-xs">{{ trans('pages.manage.users.index.accounts') }}</th>
                                     <th>{{ trans('pages.manage.users.index.roles') }}</th>
                                     <th></th>
                                 </tr>
@@ -140,10 +140,10 @@
                                 @foreach($users as $user)
                                     <tr id="user-{{ $user->id }}">
                                         <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>{{ date(trans('general.date-time.formats.short'), strtotime($user->created_at)) }}</td>
-                                        <td>{{ date(trans('general.date-time.formats.short'), strtotime($user->updated_at)) }}</td>
-                                        <td class="sz-account-types">
+                                        <td class="hidden-xs">{{ $user->email }}</td>
+                                        <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->created_at)) }}</td>
+                                        <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->updated_at)) }}</td>
+                                        <td class="sz-account-types hidden-xs">
                                             <i class="mdi mdi-account-key {{ $user->password ? ' active' : 'inactive' }}"></i>
                                             @if( $user->social_accounts )
                                                 @foreach( $user->social_accounts as $social )
