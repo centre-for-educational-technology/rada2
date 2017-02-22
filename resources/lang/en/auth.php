@@ -19,6 +19,7 @@ return [
         'email' => 'E-Mail Address',
         'password' => 'Password',
         'confirm-password' => 'Confirm Password',
+        'captcha' => 'Captcha',
     ],
     'login' => [
         'form' => [
