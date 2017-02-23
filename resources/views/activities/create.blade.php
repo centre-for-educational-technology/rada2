@@ -7,7 +7,7 @@
 
 @section('footer-scripts')
 <script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.5.0-rc1/Sortable.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/Sortable/1.5.0/Sortable.min.js"></script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
 
@@ -251,12 +251,18 @@
                             <div class="col-xs-6">
                                 <ul class="list-group sz-scrollable-list" id="activity-items">
                                     @foreach( $activity_items as $item)
-                                        <li class="list-group-item" data-toggle="popover" data-placement="top" data-title="{{ $item::getQuestionType($item->type) }}" data-content="{{ $item->description }}" data-trigger="hover">
-                                            <i class="mdi mdi-drag sz-handle" aria-hidden="true"></i>
-                                            {{ $item->title }}
-                                            {!! Form::hidden('tmp_activity_items[]', $item->id, [
-                                                'class' => 'form-control',
-                                            ]) !!}
+                                        <li class="list-group-item">
+                                            <div class="row">
+                                                <div class="col-xs-2">
+                                                    {!! Form::hidden('tmp_activity_items[]', $item->id, [
+                                                        'class' => 'form-control',
+                                                    ]) !!}
+                                                    <i class="mdi mdi-information-outline" aria-hidden="true" data-toggle="popover" data-placement="top" data-container="body" data-title="{{ $item::getQuestionType($item->type) }}" data-content="{{ $item->description }}" data-trigger="click"></i>
+                                                </div>
+                                                <div class="col-xs-8 col-md-10">
+                                                    {{ $item->title }}
+                                                </div>
+                                            </div>
                                        </li>
                                     @endforeach
                                 </ul>

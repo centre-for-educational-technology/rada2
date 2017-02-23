@@ -8,7 +8,8 @@ $(document).ready(function() {
     });
 
     // Instanciate popovers
-    $('[data-toggle="popover"]').popover();
+    // TODO Enable popovers, these have issues after cloning
+    //$('[data-toggle="popover"]').popover();
 
     // Instanciate lists with dragging and sorting functionality
     var sortableSource = Sortable.create(document.getElementById('activity-items'), {
@@ -17,8 +18,7 @@ $(document).ready(function() {
             pull: 'clone',
             put: false
         },
-        sort: false,
-        handle: '.sz-handle'
+        sort: false
     });
     var sortableTarget = Sortable.create(document.getElementById('attached-activity-items'), {
         group: {
@@ -27,11 +27,10 @@ $(document).ready(function() {
             put: true
         },
         sort: true,
-        handle: '.sz-handle',
         onAdd: function(evt) {
             var input = $(evt.item).find('input')[0];
             input.name = input.name.replace(/tmp_/, "");
-            $(evt.item).find('i.sz-handle').after('<i class="mdi mdi-close-circle-outline pull-right" aria-hidden="true" onclick="$(this).parent().popover(\'destroy\');$(this).parent().remove();"></i>');
+            $(evt.item).find('.row > div:first').append('<i class="mdi mdi-close-circle-outline" aria-hidden="true" onclick="$(this).parent().parent().parent().remove();"></i>');
         }
     });
 });

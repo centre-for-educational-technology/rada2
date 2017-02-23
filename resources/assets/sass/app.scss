@@ -132,14 +132,18 @@
     min-height: 100px;
     max-height: 250px;
     overflow-x: hidden;
+    background-color: $gray-lighter;
 
-    .sz-handle {
+    li {
         cursor: move;
-    }
 
-    .mdi-close-circle-outline {
-        color: $brand-danger;
-        cursor: pointer;
+        .mdi {
+            cursor: pointer;
+        }
+
+        .mdi-close-circle-outline {
+            color: $brand-danger;
+        }
     }
 }
 
