@@ -75,7 +75,7 @@ class ActivityController extends Controller
     {
         $this->authorize('create', Activity::class);
 
-        return view('activities/create')->with('activity_items', ActivityItem::all());
+        return view('activities/create');
     }
 
     /**
@@ -145,10 +145,7 @@ class ActivityController extends Controller
     {
         $this->authorize('update', $activity);
 
-        return view('activities/edit')->with([
-            'activity' => $activity,
-            'activity_items' => ActivityItem::all(),
-        ]);
+        return view('activities/edit')->with('activity', $activity);
     }
 
     /**

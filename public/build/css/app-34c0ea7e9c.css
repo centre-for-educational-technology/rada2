@@ -7880,24 +7880,8 @@ button.mdi::before {
   padding-top: 5px;
 }
 
-.sz-scrollable-list {
-  height: auto;
-  min-height: 100px;
-  max-height: 250px;
-  overflow-x: hidden;
-  background-color: #eeeeee;
-}
-
-.sz-scrollable-list li {
+.sz-sortable-list li {
   cursor: move;
-}
-
-.sz-scrollable-list li .mdi {
-  cursor: pointer;
-}
-
-.sz-scrollable-list li .mdi-close-circle-outline {
-  color: #bf5329;
 }
 
 .sz-option-image-small {

@@ -1,36 +1,22 @@
-$(document).ready(function() {
-    // Instanciate slider
-    $('#difficulty_level').ionRangeSlider({
-        onChange: function(data) {
-            $('input[name="difficulty_level_start"]').val(data.from);
-            $('input[name="difficulty_level_end"]').val(data.to);
-        }
-    });
+Vue.component('activity-items', require('./components/ActivityItems.vue'));
 
-    // Instanciate popovers
-    // TODO Enable popovers, these have issues after cloning
-    //$('[data-toggle="popover"]').popover();
+const activityApp = new Vue({
+    el: 'form.activity-create,form.activity-edit',
+    mounted() {
+        const vm = this;
 
-    // Instanciate lists with dragging and sorting functionality
-    var sortableSource = Sortable.create(document.getElementById('activity-items'), {
-        group: {
-            name: 'activity-items',
-            pull: 'clone',
-            put: false
-        },
-        sort: false
-    });
-    var sortableTarget = Sortable.create(document.getElementById('attached-activity-items'), {
-        group: {
-            name: 'activity-items',
-            pull: false,
-            put: true
-        },
-        sort: true,
-        onAdd: function(evt) {
-            var input = $(evt.item).find('input')[0];
-            input.name = input.name.replace(/tmp_/, "");
-            $(evt.item).find('.row > div:first').append('<i class="mdi mdi-close-circle-outline" aria-hidden="true" onclick="$(this).parent().parent().parent().remove();"></i>');
-        }
-    });
+        vm.apiUrl = window.Laravel.apiUrl;
+
+        $(vm.$refs.difficultyLevel).ionRangeSlider({
+            onChange(data) {
+                $(vm.$refs.difficultyLevelStart).val(data.from);
+                $(vm.$refs.difficultyLevelEnd).val(data.to);
+            }
+        });
+    },
+    data() {
+        return {
+            apiUrl: '/api'
+        };
+    }
 });

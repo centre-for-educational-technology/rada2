@@ -127,26 +127,11 @@
     }
 }
 
-.sz-scrollable-list {
-    height: auto;
-    min-height: 100px;
-    max-height: 250px;
-    overflow-x: hidden;
-    background-color: $gray-lighter;
-
+.sz-sortable-list {
     li {
         cursor: move;
-
-        .mdi {
-            cursor: pointer;
-        }
-
-        .mdi-close-circle-outline {
-            color: $brand-danger;
-        }
     }
 }
-
 
 .sz-option-image-small {
     max-height: 22px;

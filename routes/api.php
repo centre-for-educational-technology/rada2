@@ -22,6 +22,10 @@ Route::group(['prefix' => 'games'], function()
     Route::post('answer', 'GameController@answer');
 });
 
+Route::group(['prefix' => 'activity_items'], function() {
+    Route::get('search', 'ActivityItemController@search');
+});
+
 Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], function()
 {
     Route::delete('users/{user}/roles/{role}', 'UserController@removeRole');
