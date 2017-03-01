@@ -124,7 +124,8 @@ class Activity extends Model
             ->withPivot('position')
             ->with('options') // XXX Too eager
             ->with('pairs') // XXX Too eager
-            ->withTimestamps();
+            ->withTimestamps()
+            ->orderBy('position', 'asc');
     }
 
     /**
