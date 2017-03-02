@@ -247,6 +247,7 @@
                     vm.searchResults.data = _.cloneDeep(response.body.data);
                 }, response => {
                     vm.inAjaxCall = false;
+                    // TODO Needs some visual error handling
                     console.error('Error', response);
                 });
             },
@@ -256,14 +257,12 @@
                 vm.searchResults.params.page = vm.searchResults.currentPage + 1;
                 this.$http.get(vm.apiUrl + '/activity_items/search', { params: vm.searchResults.params }).then(response => {
                     vm.inAjaxCall = false;
-                    // XXX This needs to be done with help of merge method
-                    _.each(_.cloneDeep(response.body.data), function(single) {
-                        vm.searchResults.data.push(single);
-                    });
+                    vm.searchResults.data.push(..._.cloneDeep(response.body.data));
                     vm.searchResults.currentPage = response.body.current_page;
                     vm.searchResults.loadMore = response.body.current_page < response.body.last_page;
                 }, response => {
                     vm.inAjaxCall = false;
+                    // TODO Needs some visual error handling
                     console.error('Error', response);
                 });
             },
