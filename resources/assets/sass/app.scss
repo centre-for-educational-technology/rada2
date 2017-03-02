@@ -348,3 +348,19 @@
         -webkit-transform-origin:0 0;
     }
 }
+
+.sz-search-results {
+    th.sortable {
+        cursor: pointer;
+
+        &.active {
+            color: $brand-success;
+        }
+    }
+
+    .mdi.mdi-sort-alphabetical, .mdi.mdi-sort-numeric {
+        &::before {
+            font-size: 18px;
+        }
+    }
+}

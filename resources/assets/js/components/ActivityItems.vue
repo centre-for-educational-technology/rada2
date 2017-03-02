@@ -57,22 +57,34 @@
                             </div>
                             <div v-if="searchResults.data && searchResults.data.length > 0">
                                 <strong>{{ searchResults.total }} items found:</strong>
-                                <table class="table table-striped table-hover">
+                                <table class="table table-striped table-hover sz-search-results">
                                     <thead>
                                         <tr>
-                                            <th>Title</th>
-                                            <th>Zoo</th>
-                                            <th>Type</th>
-                                            <th>Language</th>
-                                            <th>Actions</th>
+                                            <th class="sortable" v-bind:class="{ active: isOrderedBy('title') }" v-on:click="sortSearchResults('title')">
+                                                <i class="mdi mdi-sort-alphabetical pull-right"></i>
+                                                Title
+                                            </th>
+                                            <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('zoo') }" v-on:click="sortSearchResults('zoo')">
+                                                <i class="mdi mdi-sort-numeric pull-right"></i>
+                                                Zoo
+                                            </th>
+                                            <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('type') }" v-on:click="sortSearchResults('type')">
+                                                <i class="mdi mdi-sort-numeric pull-right"></i>
+                                                Type
+                                            </th>
+                                            <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('language') }" v-on:click="sortSearchResults('language')">
+                                                <i class="mdi mdi-sort-numeric pull-right"></i>
+                                                Language
+                                            </th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="item in searchResults.data">
+                                        <tr v-for="item in sortedSearchResults">
                                             <td v-bind:title="item.description">{{ item.title }}</td>
-                                            <td>{{ getZooFromId(item.zoo) }}</td>
-                                            <td>{{ getQuestionTypeFromId(item.type) }}</td>
-                                            <td>{{ getLanguageFromId(item.language) }}</td>
+                                            <td class="hidden-xs">{{ getZooFromId(item.zoo) }}</td>
+                                            <td class="hidden-xs">{{ getQuestionTypeFromId(item.type) }}</td>
+                                            <td class="hidden-xs">{{ getLanguageFromId(item.language) }}</td>
                                             <td>
                                                 <transition name="button-toggle" mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
                                                     <button type="button" class="btn btn-success btn-sm" v-on:click="addItem(item)" v-if="!hasItem(item)" key="add"><i class="mdi mdi-plus"></i></button>
@@ -163,7 +175,11 @@
                 searchResults: {
                     data: [],
                     total: 0,
-                    loadMore: false
+                    loadMore: false,
+                    order: {
+                        by: null,
+                        direction: null
+                    }
                 },
                 zooOptions: {
                     0: 'Any'
@@ -190,6 +206,15 @@
                 }
             };
         },
+        computed: {
+            sortedSearchResults() {
+                if ( this.searchResults.order.by && this.searchResults.order.direction ) {
+                    return _.orderBy(this.searchResults.data, this.searchResults.order.by, this.searchResults.order.direction);
+                }
+
+                return this.searchResults.data;
+            }
+        },
         methods: {
             openDialog() {
                 this.$nextTick(() => {
@@ -215,13 +240,11 @@
                 vm.inAjaxCall= true;
                 this.$http.get(vm.apiUrl + '/activity_items/search', { params: params }).then(response => {
                     vm.inAjaxCall = false;
-                    vm.searchResults = {
-                        data: _.cloneDeep(response.body.data),
-                        total: response.body.total,
-                        currentPage: response.body.current_page,
-                        params: params,
-                        loadMore: response.body.current_page < response.body.last_page
-                    };
+                    vm.searchResults.total = response.body.total;
+                    vm.searchResults.currentPage = response.body.current_page;
+                    vm.searchResults.params = params;
+                    vm.searchResults.loadMore = response.body.current_page < response.body.last_page;
+                    vm.searchResults.data = _.cloneDeep(response.body.data);
                 }, response => {
                     vm.inAjaxCall = false;
                     console.error('Error', response);
@@ -273,6 +296,19 @@
             },
             getLanguageFromId(id) {
                 return this.getOptionValueFromId(this.languageOptions, id);
+            },
+            sortSearchResults(orderBy) {
+                const tmpOrderBy = this.searchResults.order.by;
+                const tmpOrderDirection = this.searchResults.order.direction;
+                if ( tmpOrderBy === orderBy ) {
+                    this.searchResults.order.direction = ( tmpOrderDirection === 'desc' ) ? 'asc' : 'desc';
+                } else {
+                    this.searchResults.order.by = orderBy;
+                    this.searchResults.order.direction = tmpOrderDirection ? tmpOrderDirection : 'desc';
+                }
+            },
+            isOrderedBy(orderBy) {
+                return this.searchResults.order.by === orderBy;
             }
         }
     }

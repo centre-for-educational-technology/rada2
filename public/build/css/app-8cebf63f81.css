@@ -8073,4 +8073,16 @@ button.mdi::before {
   }
 }
 
+.sz-search-results th.sortable {
+  cursor: pointer;
+}
+
+.sz-search-results th.sortable.active {
+  color: #2ab27b;
+}
+
+.sz-search-results .mdi.mdi-sort-alphabetical::before, .sz-search-results .mdi.mdi-sort-numeric::before {
+  font-size: 18px;
+}
+
 /*# sourceMappingURL=app.css.map */
