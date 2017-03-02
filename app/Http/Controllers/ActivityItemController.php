@@ -438,7 +438,7 @@ class ActivityItemController extends Controller
    */
   public function search(Request $request)
   {
-      $query = ActivityItem::where([]);
+      $query = ActivityItem::select('id', 'title', 'description', 'type', 'zoo', 'language');
 
       if ( $request->has('keywords') && trim($request->get('keywords')) ) {
           $query->where(function($query) use ($request) {
