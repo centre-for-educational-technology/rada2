@@ -141,7 +141,7 @@ class Game extends Model
         }
 
         $answersCount = $this->answers()->count();
-        $itemsCount = $this->activity->activityItems()->count();
+        $itemsCount = $this->activity->getActivityItemsCount();
 
         if ( $itemsCount === 0 )
         {

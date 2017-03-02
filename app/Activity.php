@@ -129,6 +129,14 @@ class Activity extends Model
     }
 
     /**
+     * [getActivityItemsCount description]
+     * @return [type] [description]
+     */
+    public function getActivityItemsCount() {
+        return $this->belongsToMany(ActivityItem::class)->count();
+    }
+
+    /**
      * Determines if activity has own Featured Image
      * @return boolean
      */
