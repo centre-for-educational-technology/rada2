@@ -63,7 +63,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        return view('activities/index')->with('activities', Activity::paginate( config('paginate.limit') ));
+        return view('activities/index')->with('activities', Activity::orderBy('id', 'desc')->paginate( config('paginate.limit') ));
     }
 
     /**
