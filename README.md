@@ -21,6 +21,7 @@ This tool set includes:
     - Please make sure that Facebook App is set to **public** mode
     - The redirect URL addresses are in the form **BASE-URL/auth/PROVIDER-name/callback**
   - Create reCaptcha(V2) keys and fill in the configurations in **.env** file. Constants to look for are **NOCAPTCHA_SECRET** and **NOCAPTCHA_SITEKEY**
+  - Create and configure Google Analytics and UserReport services. Configuration constant names are **GOOGLE_ANALYTICS_KEY** and **USERREPORT_KEY**
 - Configure subject and title from sent email messages
  - Open the **config/mail.php** file and set the needed values within the **from** element
 - Create the database as needed (according to configuration provided)

@@ -69,6 +69,8 @@
     <!-- Scripts -->
     <script src="{{ elixir('js/app.js') }}"></script>
     <script src="{{ elixir('js/play.js') }}"></script>
+    @include('services.analytics')
+    @include('services.userreport')
 
 </body>
 </html>

@@ -47,5 +47,7 @@
                 </div>
             </div>
         </div>
+
+        @include('services.analytics')
     </body>
 </html>

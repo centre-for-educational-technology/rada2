@@ -116,5 +116,7 @@
     <script src="{{ elixir('js/app.js') }}"></script>
 
     @yield('footer-scripts')
+    @include('services.analytics')
+    @include('services.userreport')
 </body>
 </html>

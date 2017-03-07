@@ -39,6 +39,7 @@ return [
         'client_id' => env('GOOGLE_CLIENT_ID'),
         'client_secret' => env('GOOGLE_CLIENT_SECRET'),
         'redirect' => env('GOOGLE_REDIRECT'),
+        'analytics' => env('GOOGLE_ANALYTICS_KEY', null),
     ],
     'facebook' => [
         'client_id' => env('FACEBOOK_CLIENT_ID'),
@@ -50,6 +51,9 @@ return [
             'api_key' => env('GOOGLE_MAPS_API_KEY'),
         ],
         'allowed_distance' => env('MAPS_ALLOWED_DISTANCE', 25), // Allowed distance radius value, used within a Game
+    ],
+    'userreport' => [
+        'key' => env('USERREPORT_KEY', null),
     ],
 
 ];
