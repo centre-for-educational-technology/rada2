@@ -39,6 +39,32 @@
                                             {{ $activity->title }}
                                         </a>
                                     </h4>
+                                    <div>
+                                        <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
+                                        <strong>{{ $activity::getActivityType($activity->type) }}</strong>
+                                    </div>
+                                    <div>
+                                        <i class="mdi mdi-hexagon-multiple" aria-hidden="true"></i>
+                                        <strong>{{ $activity->difficulty_level_start }} - {{ $activity->difficulty_level_end }}</strong>
+                                    </div>
+                                    <div>
+                                        <i class="mdi mdi-timer" aria-hidden="true"></i>
+                                        <strong>{{ $activity->playing_time}} {{ trans('general.minutes')}}</strong>
+                                    </div>
+                                    <div>
+                                        <i class="mdi mdi-translate" aria-hidden="true"></i>
+                                        <strong>{{ trans('general.languages.' . $activity->language) }}</strong>
+                                    </div>
+                                    @if( $activity->contact_information )
+                                    <div>
+                                        <i class="mdi mdi-contact-mail" aria-hidden="true"></i>
+                                        <strong>{{ $activity->contact_information }}</strong>
+                                    </div>
+                                    @endif
+                                    <div>
+                                        <i class="mdi mdi-map-marker" aria-hidden="true"></i>
+                                        <strong>{{ $activity::getZoo($activity->zoo) }}</strong>
+                                    </div>
                                     <p class="sz-display-new-lines">{{$activity->description}}</p>
                                 </div>
                             </div>

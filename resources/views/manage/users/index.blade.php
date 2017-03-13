@@ -140,7 +140,11 @@
                                 @foreach($users as $user)
                                     <tr id="user-{{ $user->id }}">
                                         <td>{{ $user->name }}</td>
-                                        <td class="hidden-xs">{{ $user->email }}</td>
+                                        <td class="hidden-xs">
+                                            <a href="mailto:{{ $user->email}}">
+                                                {{ $user->email }}
+                                            </a>
+                                        </td>
                                         <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->created_at)) }}</td>
                                         <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->updated_at)) }}</td>
                                         <td class="sz-account-types hidden-xs">
