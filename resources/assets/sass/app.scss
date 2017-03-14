@@ -364,3 +364,12 @@
         }
     }
 }
+
+.sz-metadata {
+    font-size: 85%;
+    color: $gray-light;
+
+    .mdi::before {
+        font-size: 90%;
+    }
+}

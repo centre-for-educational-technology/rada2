@@ -8085,4 +8085,13 @@ button.mdi::before {
   font-size: 18px;
 }
 
+.sz-metadata {
+  font-size: 85%;
+  color: #777777;
+}
+
+.sz-metadata .mdi::before {
+  font-size: 90%;
+}
+
 /*# sourceMappingURL=app.css.map */

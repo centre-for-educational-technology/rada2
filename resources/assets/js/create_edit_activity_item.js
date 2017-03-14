@@ -28,6 +28,8 @@ window.initMap = function() {
                 function(error) {
                     alert('Geolocation error'); // TODO Translate
                     console.log('Geolocation error', error);
+                }, {
+                    enableHighAccuracy: true
                 });
         });
 

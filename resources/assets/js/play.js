@@ -44,10 +44,13 @@ const playGameApp = new Vue({
             }
 
             if ( window.navigator.geolocation ) {
+                const geolocationOptions = {
+                    enableHighAccuracy: true
+                };
                 if ( watch === true ) {
-                    window.navigator.geolocation.watchPosition(callback, handleError);
+                    window.navigator.geolocation.watchPosition(callback, handleError, geolocationOptions);
                 } else {
-                    window.navigator.geolocation.getCurrentPosition(callback, handleError);
+                    window.navigator.geolocation.getCurrentPosition(callback, handleError, geolocationOptions);
                 }
             } else {
                 throw 'Geolocation is unavailable!';

@@ -39,19 +39,19 @@
                                             {{ $activity_item->title }}
                                         </a>
                                     </h4>
-                                    <div>
-                                        <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
-                                        <strong>{{ $activity_item::getQuestionType($activity_item->type) }}</strong>
-                                    </div>
-                                    <div>
-                                        <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                                        <strong>{{ Activity::getZoo($activity_item->zoo) }}</strong>
-                                    </div>
-                                    <div>
-                                        <i class="mdi mdi-translate" aria-hidden="true"></i>
-                                        <strong>{{ trans('general.languages.' . $activity_item->language) }}</strong>
-                                    </div>
                                     <p class="sz-display-new-lines">{{$activity_item->description}}</p>
+                                    <div class="sz-metadata">
+                                        <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
+                                        {{ $activity_item::getQuestionType($activity_item->type) }}
+                                    </div>
+                                    <div class="sz-metadata">
+                                        <i class="mdi mdi-map-marker" aria-hidden="true"></i>
+                                        {{ Activity::getZoo($activity_item->zoo) }}
+                                    </div>
+                                    <div class="sz-metadata">
+                                        <i class="mdi mdi-translate" aria-hidden="true"></i>
+                                        {{ trans('general.languages.' . $activity_item->language) }}
+                                    </div>
                                 </div>
                             </div>
                         @endforeach

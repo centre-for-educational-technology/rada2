@@ -39,33 +39,33 @@
                                             {{ $activity->title }}
                                         </a>
                                     </h4>
-                                    <div>
+                                    <p class="sz-display-new-lines">{{$activity->description}}</p>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
-                                        <strong>{{ $activity::getActivityType($activity->type) }}</strong>
+                                        {{ $activity::getActivityType($activity->type) }}
                                     </div>
-                                    <div>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-hexagon-multiple" aria-hidden="true"></i>
-                                        <strong>{{ $activity->difficulty_level_start }} - {{ $activity->difficulty_level_end }}</strong>
+                                        {{ $activity->difficulty_level_start }} - {{ $activity->difficulty_level_end }}
                                     </div>
-                                    <div>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
-                                        <strong>{{ $activity->playing_time}} {{ trans('general.minutes')}}</strong>
+                                        {{ $activity->playing_time}} {{ trans('general.minutes')}}
                                     </div>
-                                    <div>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-translate" aria-hidden="true"></i>
-                                        <strong>{{ trans('general.languages.' . $activity->language) }}</strong>
+                                        {{ trans('general.languages.' . $activity->language) }}
                                     </div>
                                     @if( $activity->contact_information )
-                                    <div>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-contact-mail" aria-hidden="true"></i>
-                                        <strong>{{ $activity->contact_information }}</strong>
+                                        {{ $activity->contact_information }}
                                     </div>
                                     @endif
-                                    <div>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                                        <strong>{{ $activity::getZoo($activity->zoo) }}</strong>
+                                        {{ $activity::getZoo($activity->zoo) }}
                                     </div>
-                                    <p class="sz-display-new-lines">{{$activity->description}}</p>
                                 </div>
                             </div>
                         @endforeach
