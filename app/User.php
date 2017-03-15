@@ -76,7 +76,7 @@ class User extends Authenticatable
 
         if ( $rolesByName->has($name) ) {
             if ( $zoo ) {
-                return (int)$rolesByName[$name]->zoo === (int)$zoo;
+                return (int)$rolesByName[$name]->pivot->zoo === (int)$zoo;
             }
 
             return true;
@@ -98,7 +98,7 @@ class User extends Authenticatable
      * @param  int     $zoo [description]
      * @return boolean      [description]
      */
-    public function isZooAdmin(int $zoo) {
+    public function isZooAdmin(int $zoo = null) {
         return $this->hasRole('zooAdmin', $zoo);
     }
 
@@ -107,7 +107,7 @@ class User extends Authenticatable
      * @param  int     $zoo [description]
      * @return boolean      [description]
      */
-    public function isZooMember(int $zoo) {
+    public function isZooMember(int $zoo = null) {
         return $this->hasRole('zooMember', $zoo);
     }
 }
