@@ -4,6 +4,12 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
+            <ul class="nav nav-tabs">
+                <li role="presentation" class="active"><a href="{!! route('dashboard') !!}">{{ trans('pages.dashboard.title') }}</a></li>
+                @can('viewResultsIndex', 'App\Activity')
+                <li role="presentation"><a href="{!! route('results') !!}">{{ trans('pages.activity-results-index.title')}}</a></li>
+                @endcan
+            </ul>
             <div class="panel panel-default">
                 <div class="panel-heading">{{ trans('pages.dashboard.heading', [ 'name' => Auth::user()->name ]) }}</div>
 

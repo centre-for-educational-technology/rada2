@@ -38,7 +38,8 @@ class Game extends Model
      * Get user account current social one belongs to.
      * @return App\User Application local user account
      */
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -46,8 +47,29 @@ class Game extends Model
      * Get answers for the current game.
      * @return App\GameAnswer [description]
      */
-    public function answers() {
+    public function answers()
+    {
         return $this->hasMany(GameAnswer::class);
+    }
+
+    /**
+     * [hasAnswerTo description]
+     * @param  int     $id [description]
+     * @return boolean     [description]
+     */
+    public function hasAnswerTo(int $id)
+    {
+        return $this->answers->keyBy('activity_item_id')->has($id);
+    }
+
+    /**
+     * [getAnswerTo description]
+     * @param  int    $id [description]
+     * @return [type]     [description]
+     */
+    public function getAnswerTo(int $id)
+    {
+        return $this->answers->keyBy('activity_item_id')->get($id);
     }
 
     /**

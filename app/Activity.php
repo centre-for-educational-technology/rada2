@@ -129,6 +129,14 @@ class Activity extends Model
     }
 
     /**
+     * [games description]
+     * @return [type] [description]
+     */
+    public function games() {
+        return $this->hasMany(Game::class);
+    }
+
+    /**
      * [getActivityItemsCount description]
      * @return [type] [description]
      */

@@ -20,6 +20,8 @@ use App\Game;
 
 use Auth;
 
+use Illuminate\Support\Facades\Log;
+
 class ActivityController extends Controller
 {
     /**
@@ -238,5 +240,47 @@ class ActivityController extends Controller
         }
 
         return redirect()->route('game.play', [ 'id' => $game->id ]);
+    }
+
+    /**
+     * Display a listing of activities with results.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function resultsIndex()
+    {
+        $this->authorize('viewResultsList', Activity::class);
+
+        $zooIds = [];
+        if ( Auth::user()->isAdmin() )
+        {
+            $zooIds = array_keys(Activity::getZooOptions());
+        }
+        else if ( Auth::user()->roles )
+        {
+            foreach ( Auth::user()->roles as $role ) {
+                if ( $role->pivot->zoo && !in_array( $role->pivot->zoo, $zooIds ) ) {
+                    $zooIds[] = (int)$role->pivot->zoo;
+                }
+            }
+        }
+
+        return view('activities/results-index')->with([
+            'activities' => Activity::whereIn('zoo', $zooIds)->orderBy('id', 'desc')->paginate( config('paginate.limit') ),
+            'zoos' => array_map(function($id) { return Activity::getZoo($id); }, $zooIds),
+        ]);
+    }
+
+    /**
+     * Display the results for specified activity.
+     *
+     * @param \App\Activity
+     * @return \Illuminate\Http\Response
+     */
+    public function results(Activity $activity)
+    {
+        $this->authorize('viewResults', $activity);
+
+        return view('activities/results')->with('activity', $activity);
     }
 }

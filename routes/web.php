@@ -29,7 +29,12 @@ Route::group(['prefix' => 'auth'], function()
     Route::get('facebook/callback', 'Auth\FacebookController@handleProviderCallback');
 });
 
-Route::get('dashboard', 'HomeController@index')->name('dashboard');
+Route::group(['prefix' => 'dashboard'], function()
+{
+    Route::get('/', 'HomeController@index')->name('dashboard');
+    Route::get('results', 'ActivityController@resultsIndex')->name('results');
+    Route::get('{activity}/results', 'ActivityController@results')->name('activity.results');
+});
 
 // Activity Routes
 Route::group(['prefix' => 'activities'], function()

@@ -10,7 +10,8 @@ class GameAnswer extends Model
      * Get Activity current Game is connected with,.
      * @return Activity Activity object.
      */
-    public function activityItem() {
+    public function activityItem()
+    {
         return $this->belongsTo(ActivityItem::class);
     }
 
@@ -18,7 +19,8 @@ class GameAnswer extends Model
      * Get user account current social one belongs to.
      * @return User Application local user account
      */
-    public function game() {
+    public function game()
+    {
         return $this->belongsTo(Game::class);
     }
 
@@ -26,7 +28,8 @@ class GameAnswer extends Model
      * Get full URL for image from public storage or default one
      * @return string Full public URL to image file
      */
-    public function getImageUrl() {
+    public function getImageUrl()
+    {
         if ( $this->image ) {
             return asset('uploads/images/'. $this->game_id . '/' . $this->image);
         }
@@ -38,7 +41,8 @@ class GameAnswer extends Model
      * [getGameData description]
      * @return [type] [description]
      */
-    public function getGameData() {
+    public function getGameData()
+    {
         return [
             'question' => $this->activity_item_id,
             'answer' => (array)json_decode($this->answer),

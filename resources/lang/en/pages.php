@@ -63,5 +63,14 @@ return [
             'continue' => 'Continue',
         ],
     ],
+    'activity-results-index' => [
+        'title' => 'Activities',
+        'heading' => 'Results of Activities',
+        'zoos' => 'Displayed activities belong to these Zoos',
+    ],
+    'activity-results' => [
+        'heading' => 'Results of :title',
+
+    ]
 
 ];

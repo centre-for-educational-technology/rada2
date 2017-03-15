@@ -37,7 +37,8 @@ class ActivityItem extends Model
      * @param  int    $id Question type key
      * @return string     Question type title
      */
-    public static function getQuestionType(int $id) {
+    public static function getQuestionType(int $id)
+    {
         $types = self::getQuestionTypeOptions();
 
         if ( array_key_exists($id, $types) ) {
@@ -52,7 +53,8 @@ class ActivityItem extends Model
      * @param  int     $type Question type identifier
      * @return boolean
      */
-    private function isQuestionOfType(int $type) {
+    private function isQuestionOfType(int $type)
+    {
         return (int)$this->type === $type;
     }
 
@@ -60,7 +62,8 @@ class ActivityItem extends Model
      * Determines if question has type of embedded-content
      * @return boolean
      */
-    public function isEmbeddedContent() {
+    public function isEmbeddedContent()
+    {
         return $this->isQuestionOfType(6);
     }
 
@@ -68,7 +71,8 @@ class ActivityItem extends Model
      * Determines if question has type of one-correct-answer
      * @return boolean
      */
-    public function isOneCorrectAnswer() {
+    public function isOneCorrectAnswer()
+    {
         return $this->isQuestionOfType(2);
     }
 
@@ -76,23 +80,35 @@ class ActivityItem extends Model
      * Determines if question has type of multiple-correct-answers
      * @return boolean
      */
-    public function isMultipleCorrectAnswers() {
+    public function isMultipleCorrectAnswers()
+    {
         return $this->isQuestionOfType(3);
     }
 
     /**
      * Determines if question has type of match-pairs
-     * @return boolean [description]
+     * @return boolean
      */
-    public function isMatchPairs() {
+    public function isMatchPairs()
+    {
         return $this->isQuestionOfType(5);
+    }
+
+    /**
+     * Determines if question has type of freeform-answer
+     * @return boolean
+     */
+    public function isFreeformAnswer()
+    {
+        return $this->isQuestionOfType(4);
     }
 
     /**
      * Returns geolocaions for Zoos
      * @return array Options for Zoos geolocation data
      */
-    public static function getZooGeolocationOptions() {
+    public static function getZooGeolocationOptions()
+    {
         return [
             1 => [
                 'lat' => 59.3270,
@@ -113,7 +129,8 @@ class ActivityItem extends Model
      * Get user account current social one belongs to.
      * @return User Application local user account
      */
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -121,7 +138,8 @@ class ActivityItem extends Model
      * Get options that belong to current ActivityItem
      * @return [type] [descripion]
      */
-    public function options() {
+    public function options()
+    {
         return $this->hasMany(ActivityItemOption::class);
     }
 
@@ -129,7 +147,8 @@ class ActivityItem extends Model
      * [pairs description]
      * @return [type] [description]
      */
-    public function pairs() {
+    public function pairs()
+    {
         return $this->hasMany(ActivityItemPair::class);
     }
 
@@ -137,7 +156,8 @@ class ActivityItem extends Model
      * Returns storage path hash for the ActivityItem
      * @return string SHA1 hash used for storage path
      */
-    public function getStoragePath() {
+    public function getStoragePath()
+    {
         return self::getStoragePathForId($this->id);
     }
 
@@ -146,7 +166,8 @@ class ActivityItem extends Model
      * @param  int    $id [description]
      * @return [type]     [description]
      */
-    public static function getStoragePathForId(int $id) {
+    public static function getStoragePathForId(int $id)
+    {
         return sha1( 'activity_item_' . $id ) . '/';
     }
 
@@ -155,10 +176,14 @@ class ActivityItem extends Model
      * This method is useful for construction of edit form.
      * @return array Array with data objects or an empty one
      */
-    public function getQuestionData() {
-        if ( $this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers() ) {
+    public function getQuestionData()
+    {
+        if ( $this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers() )
+        {
             return $this->options()->get(['id', 'option', 'correct', 'image']);
-        } else if ( $this->isMatchPairs() ) {
+        }
+        else if ( $this->isMatchPairs() )
+        {
             return $this->pairs()->get(['id', 'option', 'image', 'option_match', 'image_match']);
         }
 

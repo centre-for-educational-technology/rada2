@@ -70,4 +70,27 @@ class ActivityPolicy
     {
         return $user->id === $activity->user_id;
     }
+
+    /**
+     * Determine whether the user can view Activities results list.
+     *
+     * @param  App\User  $user
+     * @return mixed
+     */
+    public function viewResultsList(User $user)
+    {
+        return $user->isZooAdmin() || $user->isZooMember();
+    }
+
+    /**
+     * Determine whether the user view results for Activity.
+     *
+     * @param  App\User  $user
+     * @param  App\Activity  $activity
+     * @return mixed
+     */
+    public function viewResults(User $user, Activity $activity)
+    {
+        return $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
+    }
 }
