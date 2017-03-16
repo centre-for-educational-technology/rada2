@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container">
-    <div id="sz-landing-carousel" class="carousel slide" data-ride="carousel" style="max-width:900px;">
+    <div id="sz-landing-carousel" class="carousel slide" data-ride="carousel" style="max-width:900px;margin-left:auto;margin-right:auto;">
         <!-- Indicators -->
         <ol class="carousel-indicators">
             <li data-target="#sz-landing-carousel" data-slide-to="0" class="active"></li>
