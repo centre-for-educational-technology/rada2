@@ -11,6 +11,10 @@
 
                 <div class="panel-body">
                     @include('activity_items.actions')
+                    <div class="sz-metadata">
+                        <i class="mdi mdi-account-circle" aria-hidden="true"></i>
+                        {{ $activity_item->user->name }}
+                    </div>
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>

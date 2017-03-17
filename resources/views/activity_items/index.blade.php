@@ -41,6 +41,10 @@
                                     </h4>
                                     <p class="sz-display-new-lines">{{$activity_item->description}}</p>
                                     <div class="sz-metadata">
+                                        <i class="mdi mdi-account-circle" aria-hidden="true"></i>
+                                        {{ $activity_item->user->name }}
+                                    </div>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
                                         {{ $activity_item::getQuestionType($activity_item->type) }}
                                     </div>

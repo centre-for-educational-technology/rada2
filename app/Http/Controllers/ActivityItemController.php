@@ -105,7 +105,7 @@ class ActivityItemController extends Controller
    */
   public function index()
   {
-      return view('activity_items/index')->with('activity_items', ActivityItem::orderBy('id', 'desc')->paginate( config('paginate.limit') ));
+      return view('activity_items/index')->with('activity_items', ActivityItem::orderBy('id', 'desc')->with('user')->paginate( config('paginate.limit') ));
   }
 
   /**
