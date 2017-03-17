@@ -140,7 +140,9 @@
                                 <tbody>
                                     @foreach($users as $user)
                                         <tr id="user-{{ $user->id }}">
-                                            <td>{{ $user->name }}</td>
+                                            <td>
+                                                <a href="{!! route('user.profile', ['user' => $user->id]) !!}">{{ $user->name }}</a>
+                                            </td>
                                             <td class="hidden-xs">
                                                 <a href="mailto:{{ $user->email}}">
                                                     {{ $user->email }}
