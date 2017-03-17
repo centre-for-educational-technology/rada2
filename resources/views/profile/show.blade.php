@@ -14,7 +14,7 @@
                         <div class="col-xs-2">
                             @can('update', $user)
                                 <a href="{!! route('user.profile.edit', ['user' => $user->id]) !!}" class="btn btn-primary pull-right" title="{{ trans('general.actions.edit') }}">
-                                    <i class="mdi mdi-pencil" aria-hidden="true"></i>
+                                    <i class="mdi mdi-account-edit" aria-hidden="true"></i>
                                 </a>
                             @endcan
                         </div>
