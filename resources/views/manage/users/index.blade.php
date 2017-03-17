@@ -124,63 +124,65 @@
                     @if ( count($users) === 0 )
                         <div class="well">{{ trans('pages.manage.users.index.none-found') }}</div>
                     @else
-                        <table class="table table-striped table-hover">
-                            <thead>
-                                <tr>
-                                    <th>{{ trans('auth.register.form.name') }}</th>
-                                    <th class="hidden-xs">{{ trans('auth.general.email') }}</th>
-                                    <th class="hidden-xs">{{ trans('general.date-time.created-at') }}</th>
-                                    <th class="hidden-xs">{{ trans('general.date-time.updated-at') }}</th>
-                                    <th class="hidden-xs">{{ trans('pages.manage.users.index.accounts') }}</th>
-                                    <th>{{ trans('pages.manage.users.index.roles') }}</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($users as $user)
-                                    <tr id="user-{{ $user->id }}">
-                                        <td>{{ $user->name }}</td>
-                                        <td class="hidden-xs">
-                                            <a href="mailto:{{ $user->email}}">
-                                                {{ $user->email }}
-                                            </a>
-                                        </td>
-                                        <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->created_at)) }}</td>
-                                        <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->updated_at)) }}</td>
-                                        <td class="sz-account-types hidden-xs">
-                                            <i class="mdi mdi-account-key {{ $user->password ? ' active' : 'inactive' }}"></i>
-                                            @if( $user->social_accounts )
-                                                @foreach( $user->social_accounts as $social )
-                                                    @if ( $social->isGoogle() )
-                                                        <i class="mdi mdi-google"></i>
-                                                    @elseif ( $social->isFacebook() )
-                                                        <i class="mdi mdi-facebook-box"></i>
-                                                    @endif
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @if ( $user->roles )
-                                                @foreach ( $user->roles as $role)
-                                                    <span class="badge sz-role-badge">
-                                                        {{ trans('general.roles.' . $role->name) }}
-                                                        @if ( $role->pivot->zoo )
-                                                            ({{ $role->pivot->zoo ? App\Activity::getZoo($role->pivot->zoo) : '' }})
-                                                        @endif
-                                                        <i class="mdi mdi-close-circle-outline" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}"></i>
-                                                    </span>
-                                                @endforeach
-                                            @endif
-                                        </td>
-                                        <td>
-                                            <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#rolesModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-roles="{{ json_encode( $user->getRolesData() ) }}">
-                                                <i class="mdi mdi-plus"></i>
-                                            </button>
-                                        </td>
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{{ trans('auth.register.form.name') }}</th>
+                                        <th class="hidden-xs">{{ trans('auth.general.email') }}</th>
+                                        <th class="hidden-xs">{{ trans('general.date-time.created-at') }}</th>
+                                        <th class="hidden-xs">{{ trans('general.date-time.updated-at') }}</th>
+                                        <th class="hidden-xs">{{ trans('pages.manage.users.index.accounts') }}</th>
+                                        <th>{{ trans('pages.manage.users.index.roles') }}</th>
+                                        <th></th>
                                     </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach($users as $user)
+                                        <tr id="user-{{ $user->id }}">
+                                            <td>{{ $user->name }}</td>
+                                            <td class="hidden-xs">
+                                                <a href="mailto:{{ $user->email}}">
+                                                    {{ $user->email }}
+                                                </a>
+                                            </td>
+                                            <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->created_at)) }}</td>
+                                            <td class="hidden-xs">{{ date(trans('general.date-time.formats.short'), strtotime($user->updated_at)) }}</td>
+                                            <td class="sz-account-types hidden-xs">
+                                                <i class="mdi mdi-account-key {{ $user->password ? ' active' : 'inactive' }}"></i>
+                                                @if( $user->social_accounts )
+                                                    @foreach( $user->social_accounts as $social )
+                                                        @if ( $social->isGoogle() )
+                                                            <i class="mdi mdi-google"></i>
+                                                        @elseif ( $social->isFacebook() )
+                                                            <i class="mdi mdi-facebook-box"></i>
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                @if ( $user->roles )
+                                                    @foreach ( $user->roles as $role)
+                                                        <span class="badge sz-role-badge">
+                                                            {{ trans('general.roles.' . $role->name) }}
+                                                            @if ( $role->pivot->zoo )
+                                                                ({{ $role->pivot->zoo ? App\Activity::getZoo($role->pivot->zoo) : '' }})
+                                                            @endif
+                                                            <i class="mdi mdi-close-circle-outline" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}"></i>
+                                                        </span>
+                                                    @endforeach
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#rolesModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-roles="{{ json_encode( $user->getRolesData() ) }}">
+                                                    <i class="mdi mdi-plus"></i>
+                                                </button>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
 
                         <div class="text-center">
                             {{ $users->links() }}
