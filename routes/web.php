@@ -36,6 +36,12 @@ Route::group(['prefix' => 'dashboard'], function()
     Route::get('{activity}/results', 'ActivityController@results')->name('activity.results');
 });
 
+Route::group(['prefix' => 'profile'], function() {
+    Route::get('{user}', 'UserController@show')->name('user.profile');
+    Route::get('{user}/edit', 'UserController@edit')->name('user.profile.edit');
+    Route::put('{user}', 'UserController@update');
+});
+
 // Activity Routes
 Route::group(['prefix' => 'activities'], function()
 {

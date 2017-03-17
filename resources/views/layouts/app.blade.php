@@ -79,6 +79,11 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{!! route('user.profile', [ 'profile' => Auth::user()->id ]) !!}">
+                                            {{ trans('pages.profile.title') }}
+                                        </a>
+                                    </li>
+                                    <li>
                                         <a href="{!! route('dashboard') !!}">
                                             {{ trans('pages.dashboard.title') }}
                                         </a>

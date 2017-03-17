@@ -71,6 +71,15 @@ return [
     'activity-results' => [
         'heading' => 'Results of :title',
 
-    ]
+    ],
+    'profile' => [
+        'title' => 'Profile',
+        'heading' => 'Profile of :name',
+    ],
+    'profile-edit' => [
+        'help' => [
+            'password' => 'Please leave password field empty, unless you want to have it changed.',
+        ]
+    ],
 
 ];
