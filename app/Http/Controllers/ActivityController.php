@@ -51,9 +51,17 @@ class ActivityController extends Controller
         $fileName = sha1(uniqid('featured_image_', true)) . '.' . $originalExtension;
 
         $image = Image::make($request->file('featured_image')->getRealPath());
-        // TODO Might only need to resize big images
-        // Current solution resizes smaller images to bigger dimensions
-        $image->resize(800, 800)->save(public_path('uploads/images/' . $fileName));
+
+        $image->resize(800, null, function($constraint) {
+            $constraint->upsize();
+            $constraint->aspectRatio();
+        });
+        $image->resize(null, 800, function($constraint) {
+            $constraint->upsize();
+            $constraint->aspectRatio();
+        });
+
+        $image->save(public_path('uploads/images/' . $fileName));
 
         return $fileName;
     }
