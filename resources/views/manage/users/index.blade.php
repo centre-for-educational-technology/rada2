@@ -170,14 +170,14 @@
                                                             @if ( $role->pivot->zoo )
                                                                 ({{ $role->pivot->zoo ? App\Activity::getZoo($role->pivot->zoo) : '' }})
                                                             @endif
-                                                            <i class="mdi mdi-close-circle-outline" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}"></i>
+                                                            <i class="mdi mdi-close-circle-outline" title="{{ trans('pages.manage.users.index.remove-role') }}" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}"></i>
                                                         </span>
                                                     @endforeach
                                                 @endif
                                             </td>
                                             <td>
-                                                <button class="btn btn-primary btn-xs" data-toggle="modal" data-target="#rolesModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-roles="{{ json_encode( $user->getRolesData() ) }}">
-                                                    <i class="mdi mdi-plus"></i>
+                                                <button class="btn btn-primary btn-xs" title="{{ trans('pages.manage.users.index.manage-roles') }}" data-toggle="modal" data-target="#rolesModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-roles="{{ json_encode( $user->getRolesData() ) }}">
+                                                    <i class="mdi mdi-account-settings"></i>
                                                 </button>
                                             </td>
                                         </tr>
