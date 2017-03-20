@@ -8099,4 +8099,21 @@ table.sz-table-results img {
   max-heiht: 24px;
 }
 
+.media.sz-author .media-left {
+  padding-top: 10px;
+}
+
+.media.sz-author .media-left i.mdi::before {
+  font-size: 36px;
+}
+
+.media.sz-author .media-body .sz-date {
+  color: #777777;
+  font-size: 85%;
+}
+
+.media.sz-author .media-body .sz-date .mdi::before {
+  font-size: 95%;
+}
+
 /*# sourceMappingURL=app.css.map */

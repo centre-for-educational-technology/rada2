@@ -33,12 +33,19 @@
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    @include('activity_items.actions')
                                     <h4 class="media-heading">
                                         <a href="{!! route('activity_item.show', ['id' => $activity_item->id]) !!}">
                                             {{ $activity_item->title }}
                                         </a>
                                     </h4>
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6">
+                                            @include('includes.author', ['author' => $activity_item->user, 'date' => $activity_item->created_at])
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            @include('activity_items.includes.actions')
+                                        </div>
+                                    </div>
                                     <p class="sz-display-new-lines">{{$activity_item->description}}</p>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-account-circle" aria-hidden="true"></i>

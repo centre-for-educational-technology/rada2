@@ -380,3 +380,26 @@ table.sz-table-results {
         max-heiht: 24px;
     }
 }
+
+.media.sz-author {
+    .media-left {
+        padding-top: 10px;
+
+        i.mdi {
+            &::before {
+                font-size: 36px;
+            }
+        }
+    }
+
+    .media-body {
+        .sz-date {
+            color: $gray-light;
+            font-size: 85%;
+
+            .mdi::before {
+                font-size: 95%;
+            }
+        }
+    }
+}

@@ -33,17 +33,20 @@
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    @include('activities.actions')
                                     <h4 class="media-heading">
                                         <a href="{!! route('activity.show', ['id' => $activity->id]) !!}">
                                             {{ $activity->title }}
                                         </a>
                                     </h4>
-                                    <p class="sz-display-new-lines">{{$activity->description}}</p>
-                                    <div class="sz-metadata">
-                                        <i class="mdi mdi-account-circle" aria-hidden="true"></i>
-                                        {{ $activity->user->name }}
+                                    <div class="row">
+                                        <div class="col-xs-12 col-sm-6">
+                                            @include('includes.author', ['author' => $activity->user, 'date' => $activity->created_at])
+                                        </div>
+                                        <div class="col-xs-12 col-sm-6">
+                                            @include('activities.includes.actions')
+                                        </div>
                                     </div>
+                                    <p class="sz-display-new-lines">{{$activity->description}}</p>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
                                         {{ $activity::getActivityType($activity->type) }}
