@@ -29,6 +29,8 @@ Route::group(['prefix' => 'auth'], function()
     Route::get('facebook/callback', 'Auth\FacebookController@handleProviderCallback');
 });
 
+Route::post('locale/{locale}', 'LocaleController@set')->name('locale.set');
+
 Route::group(['prefix' => 'dashboard'], function()
 {
     Route::get('/', 'HomeController@index')->name('dashboard');

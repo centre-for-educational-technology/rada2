@@ -17,6 +17,7 @@ return [
        'collecting-cards' => 'Collecting Cards',
        'treasure-hunt' => 'Treasure Hunt',
    ],
+   'language' => 'Language',
    'languages' => [
        'en' => 'English',
        'et' => 'Estonian',
@@ -45,7 +46,6 @@ return [
            'description' => 'Description',
            'difficulty-level' => 'Difficulty Level',
            'playing-time' => 'Playing Time',
-           'language' => 'Language',
            'contact-information' => 'Contact Information',
            'featured-image' => 'Freatured Image',
            'zoo' => 'Zoo',

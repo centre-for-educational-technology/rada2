@@ -134,7 +134,7 @@
         </div>
 
         <div class="form-group{{ $errors->has('language') ? ' has-error' : '' }}">
-            {!! Form::label('language', trans('general.forms.labels.language'), [
+            {!! Form::label('language', trans('general.language'), [
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">

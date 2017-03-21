@@ -19,8 +19,9 @@ require('./bootstrap');
     el: '#app'
 });*/
 
-$(document).ready(function() {
-    $('a[data-method="delete"]').on('click', function(e) {
+$(document).ready(() => {
+    // Delete button comnfirmation and consequent POST
+    $('a[data-method="delete"]').on('click', e => {
         e.preventDefault();
         var _this = $(this);
 
@@ -46,5 +47,11 @@ $(document).ready(function() {
         } else {
             _this.trigger('blur');
         }
+    });
+
+    // Setting locale
+    $('.sz-set-locale').on('click', e => {
+        e.preventDefault();
+        $(document).find('form#locale-form').attr('action', $(e.target).attr('href')).submit();
     });
 });

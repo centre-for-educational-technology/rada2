@@ -106,7 +106,7 @@
                     @endif
                     <h3>{{ trans('general.forms.labels.zoo') }}</h3>
                     <p>{{ Activity::getZoo($activity_item->zoo) }}</p>
-                    <h3>{{ trans('general.forms.labels.language') }}</h3>
+                    <h3>{{ trans('general.language') }}</h3>
                     <p>{{ trans('general.languages.' . $activity_item->language) }}</p>
                     <h3>{{ trans('general.forms.labels.location') }}</h3>
                     <p>
