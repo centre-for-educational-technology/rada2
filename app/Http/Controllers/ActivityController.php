@@ -185,7 +185,9 @@ class ActivityController extends Controller
                 File::delete(public_path('uploads/images/' . $originalFeaturedImage));
             }
         }
-        $activity->zoo = $request->zoo;
+        if ( auth()->user()->can('changeZoo', $activity) ) {
+            $activity->zoo = $request->zoo;
+        }
 
         $activity->save();
 

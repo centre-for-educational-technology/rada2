@@ -264,7 +264,10 @@ class ActivityItemController extends Controller
           $activity_item->embedded_content = $request->input('embedded-content', '');
       }
 
-      $activity_item->zoo = $request->zoo;
+      if ( auth()->user()->can('changeZoo', $activity_item) ) {
+          $activity_item->zoo = $request->zoo;
+      }
+
       $activity_item->language = $request->language;
       $activity_item->latitude = $request->latitude;
       $activity_item->longitude = $request->longitude;

@@ -28,7 +28,7 @@ class ActivityItemPolicy
      *
      * @param  App\User  $user
      * @param  App\ActivityItem  $item
-     * @return mixed
+     * @return boolean
      */
     public function view(User $user, ActivityItem $item)
     {
@@ -39,7 +39,7 @@ class ActivityItemPolicy
      * Determine whether the user can create ActivityItems.
      *
      * @param  App\User  $user
-     * @return mixed
+     * @return boolean
      */
     public function create(User $user)
     {
@@ -51,11 +51,11 @@ class ActivityItemPolicy
      *
      * @param  App\User  $user
      * @param  App\ActivityItem  $item
-     * @return mixed
+     * @return boolean
      */
     public function update(User $user, ActivityItem $item)
     {
-        return $user->id === $item->user_id;
+        return $user->id === $item->user_id || $user->isZooAdmin($item->zoo) || $user->isZooMember($item->zoo);
     }
 
     /**
@@ -63,9 +63,20 @@ class ActivityItemPolicy
      *
      * @param  App\User  $user
      * @param  App\ActivityItem  $item
-     * @return mixed
+     * @return boolean
      */
     public function delete(User $user, ActivityItem $item)
+    {
+        return $user->id === $item->user_id || $user->isZooAdmin($item->zoo) || $user->isZooMember($item->zoo);
+    }
+
+    /**
+     * Determines if the user can change Zoo value.
+     * @param  App\User         $user User object
+     * @param  App\ActivityItem $item ActivityItem object
+     * @return boolean
+     */
+    public function changeZoo(User $user, ActivityItem $item)
     {
         return $user->id === $item->user_id;
     }

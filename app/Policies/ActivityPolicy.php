@@ -29,7 +29,7 @@ class ActivityPolicy
      *
      * @param  App\User  $user
      * @param  App\Activity  $activity
-     * @return mixed
+     * @return boolean
      */
     public function view(User $user, Activity $activity)
     {
@@ -40,7 +40,7 @@ class ActivityPolicy
      * Determine whether the user can create Activities.
      *
      * @param  App\User  $user
-     * @return mixed
+     * @return boolean
      */
     public function create(User $user)
     {
@@ -52,11 +52,11 @@ class ActivityPolicy
      *
      * @param  App\User  $user
      * @param  App\Activity  $activity
-     * @return mixed
+     * @return boolean
      */
     public function update(User $user, Activity $activity)
     {
-        return $user->id === $activity->user_id;
+        return $user->id === $activity->user_id || $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
     }
 
     /**
@@ -64,18 +64,18 @@ class ActivityPolicy
      *
      * @param  App\User  $user
      * @param  App\Activity  $activity
-     * @return mixed
+     * @return boolean
      */
     public function delete(User $user, Activity $activity)
     {
-        return $user->id === $activity->user_id;
+        return $user->id === $activity->user_id || $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
     }
 
     /**
      * Determine whether the user can view Activities results list.
      *
      * @param  App\User  $user
-     * @return mixed
+     * @return boolean
      */
     public function viewResultsList(User $user)
     {
@@ -87,10 +87,21 @@ class ActivityPolicy
      *
      * @param  App\User  $user
      * @param  App\Activity  $activity
-     * @return mixed
+     * @return boolean
      */
     public function viewResults(User $user, Activity $activity)
     {
         return $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
+    }
+
+    /**
+     * Determines if the user is allowed to change Zoo value.
+     * @param  App\User     $user     User object
+     * @param  App\Activity $activity Activity object
+     * @return boolean
+     */
+    public function changeZoo(User $user, Activity $activity)
+    {
+        return $user->id === $activity->user_id;
     }
 }

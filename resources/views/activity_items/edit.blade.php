@@ -126,9 +126,11 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('zoo', Activity::getZooOptions(), $activity_item->zoo, [
-                        'class' => 'form-control',
-                    ]) !!}
+                    @php ( $zooSelectOptions = [ 'class' => 'form-control'] )
+                    @cannot('changeZoo', $activity_item)
+                        @php ( $zooSelectOptions['disabled'] = true )
+                    @endcannot
+                    {!! Form::select('zoo', App\Activity::getZooOptions(), $activity_item->zoo, $zooSelectOptions) !!}
                 </div>
 
                 @if ($errors->has('zoo'))
