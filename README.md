@@ -39,3 +39,13 @@ If all the dependencies are installed, then one would only need to run one of th
  - **gulp** would run all tasks
  - **gulp --production** would run  all tasks and enforce minification and uglification
  - **gulp watch** would run the tasks and keep watching for changes (CTRL + C to cancel the task in terminal)
+
+ ## Localization
+
+All translations are placed under **ROOT/resources/lang/LANGUAGE**, where **LANGUAGE** is one of the following **en**, **et**, **ru**, **fi**, **swe**.
+
+I order to create a new translation, please copy all the files from **ROOT/resources/lang/en** to newly created directory.
+
+Please note that files for different translations should be synchronized, meaning, new translations should be added to all of these files and translated right away.
+
+NB! While translating textual strings please make sure not to remove the replacement parts. Each replacement part could be identified buy having a colon in front of the word: Example: **User :name has logged in.**, the **:name** is a placeholder that will be substituted with some value and should be left as is in all translations.
