@@ -153,14 +153,14 @@
                             if ( _this.isAnswered(question) ) {
                                 return;
                             }
-                            //var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
+                            var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
                             // TODO Distance value should be global
-                            //if ( distance <= allowedDistance ) {
+                            if ( distance <= allowedDistance ) {
                                 _this.question = question;
                                 _this.$nextTick(() => {
                                     _this.$refs.questionModal.open();
                                 });
-                            //}
+                            }
                         });
                     });
 
