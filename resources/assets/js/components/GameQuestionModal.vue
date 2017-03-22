@@ -51,7 +51,7 @@
 
                     <div v-if="isFreeformAnswer()">
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Textual Answer ..." v-model="textualAnswer"></textarea>
+                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" v-model="textualAnswer"></textarea>
                         </div>
                     </div>
 
@@ -85,14 +85,14 @@
                         <div class="embed-responsive embed-responsive-16by9" v-html="embeddedContent()"></div>
 
                         <div class="form-group">
-                            <textarea class="form-control" placeholder="Textual Answer ..." v-model="textualAnswer"></textarea>
+                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" v-model="textualAnswer"></textarea>
                         </div>
                     </div>
 
                     <div v-if="isPhoto()" class="sz-photo">
                         <transition name="fade-in-down-out-up" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
                             <div class="alert alert-danger text-center" role="alert" v-show="incorrectImageFormat">
-                                Please select an image in JPEG or PNG format.
+                                {{ $t('image-format-hint' )}}
                             </div>
                         </transition>
 
@@ -111,8 +111,8 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" v-on:click="close()" v-bind:disabled="inAjaxCall">Close</button>
-                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()">Submit</button>
+                    <button type="button" class="btn btn-default" v-on:click="close()" v-bind:disabled="inAjaxCall">{{ $t('close') }}</button>
+                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()">{{ $t('submit') }}</button>
                 </div>
             </div>
         </div>

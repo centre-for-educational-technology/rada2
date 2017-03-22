@@ -22,11 +22,20 @@ return [
             'heading' => 'Activities',
             'none-found' => 'No Activities could be found.',
         ],
+        'create-or-edit' => [
+            'any' => 'Any',
+            'keywords' => 'Keywords',
+            'items-found' => 'items found',
+        ],
     ],
     'activity-items' => [
         'index' => [
           'heading' => 'Activity Items',
           'none-found' => 'No Activity Items could be found.',
+        ],
+        'create-or-edit' => [
+            'set-current-position' => 'Set current position',
+            'geolocation-error' => 'Error: Geolocation could not be determined',
         ],
     ],
     'manage' => [
@@ -50,6 +59,13 @@ return [
     'play' => [
         'game' => [
             'loading' => 'Game Loading ...',
+            'its-you' => 'It\'s you',
+            'info' => 'Game information',
+            'position-tracking' => 'Enable or disable position tracking',
+            'exit' => 'Exit current game',
+            'exit-confirmation' => 'Are you sure you want to exit the game? Only authenticated users would be able to continue later.',
+            'textual-answer-placeholder' => 'Answer text...',
+            'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
         ],
     ],
     'dashboard' => [

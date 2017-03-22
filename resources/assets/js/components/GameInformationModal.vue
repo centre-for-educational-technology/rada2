@@ -7,41 +7,41 @@
                     <h4 class="modal-title">{{ activity.title }}</h4>
                 </div>
                 <div class="modal-body">
-                    <h3>Description</h3>
+                    <h3>{{ $t('description') }}</h3>
                     <p class="sz-display-new-lines">
                         {{ activity.description }}
                     </p>
-                    <h3>Activity Type</h3>
+                    <h3>{{ $t('activity-type') }}</h3>
                     <p>
                         {{ activity.type }}
                     </p>
-                    <h3>Difficulty Level</h3>
+                    <h3>{{ $t('difficulty-level') }}</h3>
                     <p>
                         {{ activity.difficulty_level_start }} - {{ activity.difficulty_level_end }}
                     </p>
-                    <h3>Playing Time</h3>
+                    <h3>{{ $t('playing-time') }}</h3>
                     <p>
-                        {{ activity.playing_time }} minutes
+                        {{ activity.playing_time }} {{ $t('minutes') }}
                     </p>
-                    <h3>Language</h3>
+                    <h3>{{ $t('language') }}</h3>
                     <p>
                         {{ activity.language }}
                     </p>
-                    <h3>Contact Information</h3>
-                    <p>
+                    <h3 v-if="activity.contact_information">{{ $t('contact-information') }}</h3>
+                    <p v-if="activity.contact_information">
                         {{ activity.contact_information }}
                     </p>
-                    <h3>Featured Image</h3>
+                    <h3>{{ $t('featured-image') }}</h3>
                     <p>
                         <img v-bind:src="activity.featured_image" alt="featured-image" class="sz-uploadable-image">
                     </p>
-                    <h3>Zoo</h3>
+                    <h3>{{ $t('zoo') }}</h3>
                     <p>
                         {{ activity.zoo }}
                     </p>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" v-on:click="close()">Close</button>
+                    <button type="button" class="btn btn-default" v-on:click="close()">{{ $t('close')}}</button>
                 </div>
             </div>
         </div>

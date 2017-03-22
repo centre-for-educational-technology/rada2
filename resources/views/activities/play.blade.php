@@ -38,10 +38,31 @@
                     'green_dotless_icon_url' => asset('img/map/spotlight-poi-dotless-green.png'),
                     'key' => config('services.maps.google.api_key'),
                     'allowed_distance' => (int)config('services.maps.allowed_distance'),
-                ]
+                ],
+                'locale' => App::getLocale(),
             ],
             'data' => [
                 'game' => $game_data,
+                'translations' => [
+                    'description' => trans('general.forms.labels.description'),
+                    'activity-type' => trans('general.forms.labels.activity-type'),
+                    'difficulty-level' => trans('general.forms.labels.difficulty-level'),
+                    'playing-time' => trans('general.forms.labels.playing-time'),
+                    'minutes' => trans('general.minutes'),
+                    'language' => trans('general.language'),
+                    'contact-information' => trans('general.forms.labels.contact-information'),
+                    'featured-image' => trans('general.forms.labels.featured-image'),
+                    'zoo' => trans('general.forms.labels.zoo'),
+                    'close' => trans('general.forms.buttons.close'),
+                    'submit' => trans('general.forms.buttons.submit'),
+                    'its-you' => trans('pages.play.game.its-you'),
+                    'info' => trans('pages.play.game.info'),
+                    'position-tracking' => trans('pages.play.game.position-tracking'),
+                    'exit' => trans('pages.play.game.exit'),
+                    'exit-confirmation' => trans('pages.play.game.exit-confirmation'),
+                    'textual-answer-placeholder' => trans('pages.play.game.textual-answer-placeholder'),
+                    'image-format-hint' => trans('pages.play.game.image-format-hint'),
+                ]
             ],
         ]);
         ?>;

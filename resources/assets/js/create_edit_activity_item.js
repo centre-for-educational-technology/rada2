@@ -6,6 +6,15 @@
  */
 
 window.initMap = function() {
+    function $t(key) {
+        if ( window.Laravel.translations && window.Laravel.translations.hasOwnProperty(key) ) {
+            return window.Laravel.translations[key];
+        }
+
+        console.warn('Could not find translation for: ' + key);
+        return key;
+    }
+
     function initGameControls(map, cb) {
         if ( !navigator.geolocation ) {
             return false;
@@ -19,15 +28,15 @@ window.initMap = function() {
 
         var navigationControlItem = document.createElement('i');
         navigationControlItem.className = 'mdi mdi-target';
-        navigationControlItem.title = 'Set current position'; // TODO Translate
+        navigationControlItem.title = $t('set-current-position');
         controlUI.appendChild(navigationControlItem);
 
         navigationControlItem.addEventListener('click', function() {
             navigator.geolocation.getCurrentPosition(
                 cb,
                 function(error) {
-                    alert('Geolocation error'); // TODO Translate
-                    console.log('Geolocation error', error);
+                    alert($t('geolocation-error'));
+                    console.error('Geolocation error', error);
                 }, {
                     enableHighAccuracy: true
                 });
@@ -86,6 +95,7 @@ window.initMap = function() {
         mapTypeId: google.maps.MapTypeId.HYBRID,
         disableDefaultUI: true,
         zoomControl: true,
+        streetViewControl: true,
         styles: [
             {
                 featureType: 'poi',
@@ -130,6 +140,11 @@ window.initMap = function() {
         }, 250);
     });
 };
+
+const VueI18n = require('vue-i18n');
+Vue.use(VueI18n);
+Vue.config.lang = window.Laravel.locale;
+Vue.locale(window.Laravel.locale, _.cloneDeep(window.Laravel.translations));
 
 Vue.component('one-correct-answer', require('./components/OneCorrectAnswer.vue'));
 Vue.component('multiple-correct-answers', require('./components/MultipleCorrectAnswers.vue'));

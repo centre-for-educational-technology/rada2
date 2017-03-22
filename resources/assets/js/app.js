@@ -13,12 +13,6 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-//Vue.component('example', require('./components/Example.vue'));
-
-/*const app = new Vue({
-    el: '#app'
-});*/
-
 $(document).ready(() => {
     // Delete button comnfirmation and consequent POST
     $('a[data-method="delete"]').on('click', e => {

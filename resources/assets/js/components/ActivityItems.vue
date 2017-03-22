@@ -5,34 +5,34 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" aria-label="Close" v-on:click="closeDialog()"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Add activity items</h4>
+                        <h4 class="modal-title">{{ $t('add-activity-items') }}</h4>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
                             <div class="form-group">
-                                <label>Keywords</label>
-                                <input type="text" class="form-control" placeholder="Type a keyword or title" v-model="searchForm.keywords">
+                                <label>{{ $t('keywords') }}</label>
+                                <input type="text" class="form-control" v-bind:placeholder="$t('keyword-or-title')" v-model="searchForm.keywords">
                             </div>
                             <div class="form-group">
-                                <label>Zoo</label>
+                                <label>{{ $t('zoo') }}</label>
                                 <select class="form-control" v-model="searchForm.zoo">
                                     <option v-for="(title, key) in zooOptions" v-bind:value="key">{{ title }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Question Type</label>
+                                <label>{{ $t('question-type') }}</label>
                                 <select class="form-control" v-model="searchForm.questionType">
                                     <option v-for="(title, key) in questionTypeOptions" v-bind:value="key">{{ title }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Language</label>
+                                <label>{{ $t('language') }}</label>
                                 <select class="form-control" v-model="searchForm.language">
                                     <option v-for="(title, key) in languageOptions" v-bind:value="key">{{ title }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>Difficulty Level</label>
+                                <label>{{ $t('difficulty-level') }}</label>
                                 <input type="hidden"
                                        class="form-control"
                                        data-type="double"
@@ -47,34 +47,34 @@
                                        data-disable="true">
                             </div>
                             <div class="form-group">
-                                <label>Playing Time</label>
+                                <label>{{ $t('playing-time') }}</label>
                                 <select class="form-control" disabled="disabled" v-model="searchForm.playingTime">
                                     <option v-for="(title, key) in playingTimeOptions" v-bind:value="key">{{ title }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems()">Search</button>
+                                <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems()">{{ $t('search') }}</button>
                             </div>
                             <div v-if="searchResults.data && searchResults.data.length > 0">
-                                <strong>{{ searchResults.total }} items found:</strong>
+                                <strong>{{ searchResults.total }} {{ $t('items-found') }}:</strong>
                                 <table class="table table-striped table-hover sz-search-results">
                                     <thead>
                                         <tr>
                                             <th class="sortable" v-bind:class="{ active: isOrderedBy('title') }" v-on:click="sortSearchResults('title')">
                                                 <i class="mdi mdi-sort-alphabetical pull-right"></i>
-                                                Title
+                                                {{ $t('title') }}
                                             </th>
                                             <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('zoo') }" v-on:click="sortSearchResults('zoo')">
                                                 <i class="mdi mdi-sort-numeric pull-right"></i>
-                                                Zoo
+                                                {{ $t('zoo') }}
                                             </th>
                                             <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('type') }" v-on:click="sortSearchResults('type')">
                                                 <i class="mdi mdi-sort-numeric pull-right"></i>
-                                                Type
+                                                {{ $t('question-type') }}
                                             </th>
                                             <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('language') }" v-on:click="sortSearchResults('language')">
                                                 <i class="mdi mdi-sort-numeric pull-right"></i>
-                                                Language
+                                                {{ $t('language') }}
                                             </th>
                                             <th></th>
                                         </tr>
@@ -96,21 +96,21 @@
                                 </table>
                                 <div class="text-center">
                                     <transition name="button-load-more" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-                                    <button type="button" class="btn btn-default" v-on:click="loadMoreItems()" v-if="searchResults.loadMore" v-bind:disabled="inAjaxCall">Load more</button>
+                                    <button type="button" class="btn btn-default" v-on:click="loadMoreItems()" v-if="searchResults.loadMore" v-bind:disabled="inAjaxCall">{{ $t('load-more') }}</button>
                                     </transition>
                                 </div>
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-default" v-on:click="closeDialog()" v-bind:disabled="inAjaxCall">Close</button>
+                        <button type="button" class="btn btn-default" v-on:click="closeDialog()" v-bind:disabled="inAjaxCall">{{ $t('close') }}</button>
                     </div>
                 </div>
             </div>
         </div>
         <button type="button" class="btn btn-success" v-on:click="openDialog()">
             <i class="mdi mdi-plus"></i>
-            Add Activity Items
+            {{ $t('add-activity-items') }}
         </button>
         <ul class="list-group sz-sortable-list">
             <draggable :list="items" :options="options">
@@ -182,16 +182,16 @@
                     }
                 },
                 zooOptions: {
-                    0: 'Any'
+                    0: this.$t('any')
                 },
                 questionTypeOptions: {
-                    0: 'Any'
+                    0: this.$t('any')
                 },
                 languageOptions: {
-                    0: 'Any'
+                    0: this.$t('any')
                 },
                 playingTimeOptions: {
-                    0: 'Any'
+                    0: this.$t('any')
                 },
                 searchForm: {
                     keywords: '',

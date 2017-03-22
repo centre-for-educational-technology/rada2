@@ -9,7 +9,7 @@
                     </a>
                 </span>
                 <input type="hidden" name="ids[]" v-model="option.id">
-                <input type="text" class="form-control" name="options[]" v-model="option.option">
+                <input type="text" class="form-control" name="options[]" v-model="option.option" v-bind:placeholder="$t('option-text')">
                 <span class="input-group-addon">
                     <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct">
                 </span>
@@ -28,7 +28,7 @@
     <div class="row">
         <div class="col-xs-12">
             <a href="#" class="btn" tabindex="-1" v-on:click.prevent="addOption">
-                <i class="mdi mdi-plus-circle-outline" aria-hidden="true" title="Add option"></i>
+                <i class="mdi mdi-plus-circle-outline" aria-hidden="true" v-bind:title="$t('add-option')"></i>
             </a>
         </div>
     </div>

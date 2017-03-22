@@ -69,6 +69,17 @@ return [
            'create' => 'Create',
            'save' => 'Save',
            'cancel' => 'Cancel',
+           'close' => 'Close',
+           'submit' => 'Submit',
+           'search' => 'Search',
+           'add-activity-items' => 'Add activity items',
+           'load-more' => 'Load more',
+           'add-option' => 'Add option',
+       ],
+       'placeholders' => [
+           'keyword-or-title' => 'Type a keyword or title',
+           'option-text' => 'Option text...',
+           'embedded-content' => 'Please add any embed codes here',
        ],
    ],
    'actions' => [
@@ -95,5 +106,4 @@ return [
        'zooAdmin' => 'Administrator',
        'zooMember' => 'Member',
    ],
-
 ];

@@ -8,6 +8,7 @@
 @endsection
 
 @section('footer-scripts')
+@include('activity_items.includes.locales')
 <script src="{{ elixir('js/create_edit_activity_item.js') }}"></script>
 <script src="//maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&amp;callback=initMap" async defer></script>
 @endsection
@@ -96,6 +97,7 @@
                     {!! Form::textarea('embedded-content', null, [
                         'class' => 'form-control',
                         'rows' => '3',
+                        'placeholder' => trans('general.forms.placeholders.embedded-content'),
                     ]) !!}
 
                     <span class="help-block">

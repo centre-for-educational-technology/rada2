@@ -1,5 +1,11 @@
 //"use strict";
 
+const VueI18n = require('vue-i18n');
+
+Vue.use(VueI18n);
+Vue.config.lang = window.SmartZoos.config.locale;
+Vue.locale(window.SmartZoos.config.locale, _.cloneDeep(window.SmartZoos.data.translations));
+
 Vue.component('game-map', require('./components/GameMap.vue'));
 
 const playGameApp = new Vue({
@@ -38,7 +44,7 @@ const playGameApp = new Vue({
             if ( typeof handleError !== 'function' ) {
                 handleError = function(error) {
                     if ( window.console && window.console.error && typeof window.console.error === 'function' ) {
-                        window.console.error('Geolocation error', error);
+                        window.console.error('Geolocation error', error); // TODO Consider making traslatable
                     }
                 };
             }
@@ -53,7 +59,7 @@ const playGameApp = new Vue({
                     window.navigator.geolocation.getCurrentPosition(callback, handleError, geolocationOptions);
                 }
             } else {
-                throw 'Geolocation is unavailable!';
+                throw 'Geolocation is unavailable!'; // TODO Consider making translatable
             }
         },
         hasGeoLocationError: function() {

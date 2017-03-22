@@ -9,7 +9,7 @@
                     </a>
                 </span>
                 <input type="hidden" name="ids[]" v-model="option.id">
-                <input type="text" class="form-control" name="options[]" v-model="option.option">
+                <input type="text" class="form-control" name="options[]" v-model="option.option" v-bind:placeholder="$t('option-text')">
                 <span class="input-group-addon">
                     <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-image')" v-bind:class="{ 'sz-option-has-image': option.image }" v-bind:title="option.image" data-toggle="tooltip" data-placement="top" ref="add-image">
                         <i class="mdi mdi-camera" aria-hidden="true"></i>
@@ -25,7 +25,7 @@
                         <img class="sz-option-image-small" alt="option-match-image" v-bind:src="$parent.getOptionImageUrl(option.image_match)">
                     </a>
                 </span>
-                <input type="text" class="form-control" name="matches[]" v-model="option.option_match">
+                <input type="text" class="form-control" name="matches[]" v-model="option.option_match" v-bind:placeholder="$t('option-text')">
                 <span class="input-group-addon">
                     <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-match-image')" v-bind:class="{ 'sz-option-has-image': option.image_match }" v-bind:title="option.image_match" data-toggle="tooltip" data-placement="top" ref="add-match-image">
                         <i class="mdi mdi-camera" aria-hidden="true"></i>
@@ -43,7 +43,7 @@
     <div class="row">
         <div class="col-xs-12">
             <a href="#" class="btn" tabindex="-1" v-on:click.prevent="addOption">
-                <i class="mdi mdi-plus-circle-outline" aria-hidden="true" title="Add option"></i>
+                <i class="mdi mdi-plus-circle-outline" aria-hidden="true" v-bind:title="$t('add-option')"></i>
             </a>
         </div>
     </div>

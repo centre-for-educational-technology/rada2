@@ -16,7 +16,7 @@
 
         var informationControlItem = document.createElement('i');
         informationControlItem.className = 'mdi mdi-information-outline';
-        informationControlItem.title = 'Game Info';
+        informationControlItem.title = vm.$t('info');
         controlUI.appendChild(informationControlItem);
 
         informationControlItem.addEventListener('click', function() {
@@ -25,7 +25,7 @@
 
         var navigationControlItem = document.createElement('i');
         navigationControlItem.className = 'mdi mdi-navigation';
-        navigationControlItem.title = 'Enable or disable position tracking';
+        navigationControlItem.title = vm.$t('position-tracking');
         controlUI.appendChild(navigationControlItem);
 
         navigationControlItem.addEventListener('click', function() {
@@ -42,7 +42,7 @@
 
         var exitControlIcon = document.createElement('i');
         exitControlIcon.className = 'mdi mdi-exit-to-app';
-        exitControlIcon.title = 'Exit the game';
+        exitControlIcon.title = vm.$t('exit');
         controlUI.appendChild(exitControlIcon);
 
         exitControlIcon.addEventListener('click', function() {
@@ -77,6 +77,7 @@
                 mapTypeId: google.maps.MapTypeId.HYBRID,
                 disableDefaultUI: true,
                 zoomControl: true,
+                streetViewControl: true,
                 styles: [
                     {
                         featureType: 'poi',
@@ -211,7 +212,7 @@
                 };
 
                 var playerMarker = new google.maps.Marker({
-                    title: 'It\'s You!', // TODO Make sure that this is translated
+                    title: this.$t('its-you'),
                     position: {
                         lat: this.latitude,
                         lng: this.longitude
@@ -299,7 +300,7 @@
             },
             exit() {
                 // TODO Make translatable
-                var confirmation = confirm('Are you sure you want to exit the game?');
+                var confirmation = confirm(this.$t('exit-confirmation'));
 
                 if ( confirmation ) {
                     window.location = this.baseUrl;

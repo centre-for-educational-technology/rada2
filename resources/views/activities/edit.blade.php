@@ -6,10 +6,9 @@
 @endsection
 
 @section('footer-scripts')
+@include('activities.includes.locales')
+@include('activities.includes.options')
 <script>
-    window.Laravel.zooOptions = <?php echo json_encode(App\Activity::getZooOptions()); ?>;
-    window.Laravel.questionTypeOptions = <?php echo json_encode(App\ActivityItem::getQuestionTypeOptions()); ?>;
-    window.Laravel.languageOptions = <?php echo json_encode(App\Activity::getLanguageOptions()); ?>;
     window.Laravel.activityItems = <?php echo json_encode($activity->activityItems); ?>;
 </script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
