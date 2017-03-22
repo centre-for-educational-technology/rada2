@@ -134,7 +134,7 @@ class GameController extends Controller
 
         $answer->save();
 
-        if ( $game->answers()->count() === $activity->activityItems()->count() ) {
+        if ( $game->answers()->count() === $activity->getActivityItemsCount() ) {
             $game->complete = true;
             $game->save();
         }
