@@ -15,9 +15,9 @@ require('./bootstrap');
 
 $(document).ready(() => {
     // Delete button comnfirmation and consequent POST
-    $('a[data-method="delete"]').on('click', e => {
+    $('a[data-method="delete"]').on('click', function(e) {
         e.preventDefault();
-        var _this = $(e.target);
+        var _this = $(this);
 
         if ( confirm( _this.data('confirm') ) ) {
             var form = $('<form>', {
@@ -44,8 +44,8 @@ $(document).ready(() => {
     });
 
     // Setting locale
-    $('.sz-set-locale').on('click', e => {
+    $('.sz-set-locale').on('click', function(e) {
         e.preventDefault();
-        $(document).find('form#locale-form').attr('action', $(e.target).attr('href')).submit();
+        $(document).find('form#locale-form').attr('action', $(this).attr('href')).submit();
     });
 });
