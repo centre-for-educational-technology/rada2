@@ -3,7 +3,7 @@
     window.Laravel.translations = <?php echo json_encode([
         'any' => trans('pages.activities.create-or-edit.any'),
         'add-activity-items' => trans('general.forms.buttons.add-activity-items'),
-        'keywords' => trans('general.activities.create-or-edit.keywords'),
+        'keywords' => trans('pages.activities.create-or-edit.keywords'),
         'zoo' => trans('general.forms.labels.zoo'),
         'question-type' => trans('general.forms.labels.question-type'),
         'language' => trans('general.language'),

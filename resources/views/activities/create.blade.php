@@ -244,17 +244,6 @@
             </div>
         </div>
 
-        <div class="form-group{{ $errors->has('items') ? ' has-error' : '' }}">
-            {!! Form::label('items', trans('general.forms.labels.activity-items'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12" id="activity-items">
-                    <activity-items v-bind:api-url="apiUrl"></activity-items>
-                </div>
-            </div>
-        </div>
-
         <div class="form-group{{ ( $errors->has('proximity_radius') || $errors->has('proximity_check') ) ? ' has-error' : '' }}">
             {!! Form::label('radius', trans('general.forms.labels.proximity'), [
                 'class' => 'col-md-4 control-label',
@@ -291,6 +280,17 @@
                         <strong>{{ $errors->first('proximity_check') }}</strong>
                     </span>
                 @endif
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('items') ? ' has-error' : '' }}">
+            {!! Form::label('items', trans('general.forms.labels.activity-items'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12" id="activity-items">
+                    <activity-items v-bind:api-url="apiUrl"></activity-items>
+                </div>
             </div>
         </div>
 
