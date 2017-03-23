@@ -106,6 +106,8 @@ class Game extends Model
             'contact_information' => $activity->contact_information,
             'featured_image' => $activity->getFeaturedImageUrl(),
             'zoo' => $activity->getZoo($activity->zoo),
+            'proximity_check' => (bool)$activity->proximity_check,
+            'proximity_radius' => $activity->proximity_radius ? $activity->proximity_radius : (int)config('services.maps.allowed_distance'),
             'questions' => [],
         ];
 

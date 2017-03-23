@@ -37,7 +37,6 @@
                 'map' => [
                     'green_dotless_icon_url' => asset('img/map/spotlight-poi-dotless-green.png'),
                     'key' => config('services.maps.google.api_key'),
-                    'allowed_distance' => (int)config('services.maps.allowed_distance'),
                 ],
                 'locale' => App::getLocale(),
             ],

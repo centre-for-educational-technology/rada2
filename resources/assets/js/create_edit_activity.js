@@ -18,6 +18,17 @@ const activityApp = new Vue({
                 $(vm.$refs.difficultyLevelEnd).val(data.to);
             }
         });
+
+        $(vm.$refs.proximityCheck).on('change', (e) => {
+            const isChecked = $(vm.$refs.proximityCheck).prop('checked');
+            $(vm.$refs.proximityRadius).prop('disabled', !isChecked);
+        });
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        if ( !$(vm.$refs.proximityCheck).prop('checked') ) {
+            $(vm.$refs.proximityRadius).prop('disabled', true);
+        }
     },
     data() {
         return {

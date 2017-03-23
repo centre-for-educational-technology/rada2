@@ -50,8 +50,7 @@
         });
     }
 
-    var allowedDistance = window.SmartZoos.config.map.allowed_distance || 25,
-        connectMarkers =  window.SmartZoos.config.connect_markers || false,
+    var connectMarkers =  window.SmartZoos.config.connect_markers || false,
         answeredMarkerUrl = window.SmartZoos.config.map.green_dotless_icon_url;
 
     export default {
@@ -153,13 +152,15 @@
                             if ( _this.isAnswered(question) ) {
                                 return;
                             }
-                            var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
-                            // TODO Distance value should be global
-                            if ( distance <= allowedDistance ) {
-                                _this.question = question;
-                                _this.$nextTick(() => {
-                                    _this.$refs.questionModal.open();
-                                });
+
+                            if ( _this.hasProximityCheck() ) {
+                                var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
+
+                                if ( distance <= _this.getProximityRadius() ) {
+                                    _this.openQuestionModal(question);
+                                }
+                            } else {
+                                _this.openQuestionModal(question);
                             }
                         });
                     });
@@ -227,16 +228,18 @@
                     infoWindow.open(map, this);
                 });
 
-                var activeDistanceCircle = new google.maps.Circle({
-                    map: map,
-                    radius: allowedDistance,
-                    fillColor: 'blue',
-                    fillOpacity: 0.25,
-                    strokeColor: 'blue',
-                    strokeWeight: 1,
-                    strokeOpacity: 0.5
-                });
-                activeDistanceCircle.bindTo('center', playerMarker, 'position');
+                if ( this.hasProximityCheck() ) {
+                    var activeDistanceCircle = new google.maps.Circle({
+                        map: map,
+                        radius: this.getProximityRadius(),
+                        fillColor: 'blue',
+                        fillOpacity: 0.25,
+                        strokeColor: 'blue',
+                        strokeWeight: 1,
+                        strokeOpacity: 0.5
+                    });
+                    activeDistanceCircle.bindTo('center', playerMarker, 'position');
+                }
 
                 google.maps.event.trigger(playerMarker, 'click');
 
@@ -299,12 +302,23 @@
                 }
             },
             exit() {
-                // TODO Make translatable
                 var confirmation = confirm(this.$t('exit-confirmation'));
 
                 if ( confirmation ) {
                     window.location = this.baseUrl;
                 }
+            },
+            hasProximityCheck() {
+                return this.game.activity.proximity_check;
+            },
+            getProximityRadius() {
+                return this.game.activity.proximity_radius || 25;
+            },
+            openQuestionModal(question) {
+                this.question = question;
+                this.$nextTick(() => {
+                    this.$refs.questionModal.open();
+                });
             }
         }
     }

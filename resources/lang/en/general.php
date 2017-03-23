@@ -52,6 +52,7 @@ return [
            'question-type' => 'Question Type',
            'location' => 'Location',
            'activity-items' => 'Activity Items',
+           'proximity' => 'Proximity',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',

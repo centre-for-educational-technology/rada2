@@ -45,7 +45,7 @@ class GameAnswer extends Model
     {
         return [
             'question' => $this->activity_item_id,
-            'answer' => (array)json_decode($this->answer),
+            'answer' => json_decode($this->answer, true),
             'image' => $this->getImageUrl(),
             'correct' => (bool)$this->correct,
         ];

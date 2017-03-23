@@ -41,6 +41,8 @@ class StoreActivity extends FormRequest
             'contact_information' => 'max:255',
             'featured_image' => 'image|mimes:jpeg,jpg,png',
             'zoo' => 'required|in:1,2,3',
+            'proximity_check' => 'integer|in:1',
+            'proximity_radius' => 'integer|between:25,100',
         ];
     }
 }

@@ -17,7 +17,7 @@ $(document).ready(() => {
     // Delete button comnfirmation and consequent POST
     $('a[data-method="delete"]').on('click', e => {
         e.preventDefault();
-        var _this = $(this);
+        var _this = $(e.target);
 
         if ( confirm( _this.data('confirm') ) ) {
             var form = $('<form>', {

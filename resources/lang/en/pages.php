@@ -26,6 +26,12 @@ return [
             'any' => 'Any',
             'keywords' => 'Keywords',
             'items-found' => 'items found',
+            'tooltips' => [
+                'proximity-check' => 'Determines if proximity check is applied',
+            ],
+            'help' => [
+                'proximity' => 'Only set proximity radius in meters if defalult value of :default is not suitable. We recommend setting it to a value between 25 to 100 meters. If you uncheck the checkbox situated to the right of the field, then the game will not check proximity at all.',
+            ],
         ],
     ],
     'activity-items' => [

@@ -106,11 +106,22 @@ class ActivityController extends Controller
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
-        if ( $request->hasFile('featured_image') ) {
+        if ( $request->hasFile('featured_image') )
+        {
             $fileName = $this->processFeaturedImage($request);
             $activity->featured_image = $fileName;
         }
         $activity->zoo = $request->zoo;
+
+        if ( $request->has('proximity_check') )
+        {
+            if ( $request->has('proximity_radius') && (int)$request->proximity_radius )
+            {
+                $activity->proximity_radius = (int)$request->proximity_radius;
+            }
+        } else {
+            $activity->proximity_check = false;
+        }
 
         $activity->user()->associate( auth()->user() );
 
@@ -185,8 +196,23 @@ class ActivityController extends Controller
                 File::delete(public_path('uploads/images/' . $originalFeaturedImage));
             }
         }
-        if ( auth()->user()->can('changeZoo', $activity) ) {
+        if ( auth()->user()->can('changeZoo', $activity) )
+        {
             $activity->zoo = $request->zoo;
+        }
+
+        if ( $request->has('proximity_check') )
+        {
+            $activity->proximity_check = true;
+            if ( $request->has('proximity_radius') && (int)$request->proximity_radius )
+            {
+                $activity->proximity_radius = (int)$request->proximity_radius;
+            } else {
+                $activity->proximity_radius = null;
+            }
+        } else {
+            $activity->proximity_check = false;
+            $activity->proximity_radius = null;
         }
 
         $activity->save();

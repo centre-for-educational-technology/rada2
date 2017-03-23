@@ -255,6 +255,45 @@
             </div>
         </div>
 
+        <div class="form-group{{ ( $errors->has('proximity_radius') || $errors->has('proximity_check') ) ? ' has-error' : '' }}">
+            {!! Form::label('radius', trans('general.forms.labels.proximity'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon">
+                        <i class="mdi mdi-radar" aria-hidden="true"></i>
+                    </span>
+                    {!! Form::number('proximity_radius', '', [
+                        'class' => 'form-control',
+                        'min' => 25,
+                        'max' => 100,
+                        'ref' => 'proximityRadius',
+                    ]) !!}
+                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" title="{{ trans('pages.activities.create-or-edit.tooltips.proximity-check') }}">
+                        {!! Form::checkbox('proximity_check', 1, true, [
+                            'ref' => 'proximityCheck',
+                        ]) !!}
+                    </span>
+                </div>
+                <p class="help-block">
+                    {{ trans('pages.activities.create-or-edit.help.proximity', ['default' => config('services.maps.allowed_distance')]) }}
+                </p>
+
+                @if ($errors->has('proximity_radius'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('proximity_radius') }}</strong>
+                    </span>
+                @endif
+
+                @if ($errors->has('proximity_check'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('proximity_check') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 {!! Form::submit(trans('general.forms.buttons.create'), [
