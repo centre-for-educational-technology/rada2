@@ -57,7 +57,7 @@
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                                        {{ Activity::getZoo($activity_item->zoo) }}
+                                        {{ App\Activity::getZoo($activity_item->zoo) }}
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-translate" aria-hidden="true"></i>

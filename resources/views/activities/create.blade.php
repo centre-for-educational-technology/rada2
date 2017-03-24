@@ -26,7 +26,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::select('type', Activity::getActivityTypeOptions(), null, [
+                    {!! Form::select('type', App\Activity::getActivityTypeOptions(), null, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>
@@ -82,26 +82,26 @@
                         'id' => 'difficulty_level',
                         'class' => 'form-control',
                         'data-type' => 'double',
-                        'data-min' => Activity::getDifficultyLevelMinimum(),
-                        'data-max' => Activity::getDifficultyLevelMaximum(),
-                        'data-from' => Activity::getDifficultyLevelMinimum(),
-                        'data-to' => Activity::getDifficultyLevelMaximum(),
+                        'data-min' => App\Activity::getDifficultyLevelMinimum(),
+                        'data-max' => App\Activity::getDifficultyLevelMaximum(),
+                        'data-from' => App\Activity::getDifficultyLevelMinimum(),
+                        'data-to' => App\Activity::getDifficultyLevelMaximum(),
                         'data-step' => 1,
                         'data-grid' => 'true',
                         'data-grid-num' => 11,
                         'ref' => 'difficultyLevel',
                     ]) !!}
-                    {!! Form::number('difficulty_level_start', Activity::getDifficultyLevelMinimum(), [
+                    {!! Form::number('difficulty_level_start', App\Activity::getDifficultyLevelMinimum(), [
                         'class' => 'form-control',
-                        'min' => Activity::getDifficultyLevelMinimum(),
-                        'max' => Activity::getDifficultyLevelMaximum(),
+                        'min' => App\Activity::getDifficultyLevelMinimum(),
+                        'max' => App\Activity::getDifficultyLevelMaximum(),
                         'style' => 'display:none;',
                         'ref' => 'difficultyLevelStart',
                     ]) !!}
-                    {!! Form::number('difficulty_level_end', Activity::getDifficultyLevelMaximum(), [
+                    {!! Form::number('difficulty_level_end', App\Activity::getDifficultyLevelMaximum(), [
                         'class' => 'form-control',
-                        'min' => Activity::getDifficultyLevelMinimum(),
-                        'max' => Activity::getDifficultyLevelMaximum(),
+                        'min' => App\Activity::getDifficultyLevelMinimum(),
+                        'max' => App\Activity::getDifficultyLevelMaximum(),
                         'style' => 'display:none;',
                         'ref' => 'difficultyLevelEnd',
                     ]) !!}
@@ -161,7 +161,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('language', Activity::getLanguageOptions(), null, [
+                    {!! Form::select('language', App\Activity::getLanguageOptions(), null, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>
@@ -231,7 +231,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('zoo', Activity::getZooOptions(), null, [
+                    {!! Form::select('zoo', App\Activity::getZooOptions(), null, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>

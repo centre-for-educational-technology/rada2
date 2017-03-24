@@ -122,7 +122,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('zoo', Activity::getZooOptions(), null, [
+                    {!! Form::select('zoo', App\Activity::getZooOptions(), null, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>
@@ -144,7 +144,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('language', Activity::getLanguageOptions(), null, [
+                    {!! Form::select('language', App\Activity::getLanguageOptions(), null, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>

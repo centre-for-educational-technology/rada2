@@ -152,7 +152,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('language', Activity::getLanguageOptions(), $activity_item->language, [
+                    {!! Form::select('language', App\Activity::getLanguageOptions(), $activity_item->language, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>

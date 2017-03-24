@@ -90,7 +90,7 @@
                                     <div class="col-xs-6">
                                         @if ( $role->name !== 'admin' )
                                         <select name="role_{{ $role->id }}_zoo">
-                                            @foreach(Activity::getZooOptions() as $id => $title)
+                                            @foreach(App\Activity::getZooOptions() as $id => $title)
                                                 <option value="{{ $id }}">{{ $title }}</option>
                                             @endforeach
                                         </select>
