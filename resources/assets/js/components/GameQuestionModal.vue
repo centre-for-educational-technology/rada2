@@ -103,7 +103,7 @@
                         </div>
                         <div class="row" v-show="hasImageSelected">
                             <div class="col-xs-10 col-xs-offset-1">
-                                <img v-bind:src="imageSrc" alt="uploadable-image" class="sz-uploadable-image">
+                                <img v-bind:src="imageSrc" alt="uploadable-image" class="img-responsive center-block">
                             </div>
                         </div>
                         <input type="file" accept="image/*" capture="camera" name="image" ref="image" v-on:change="imageSelected()">

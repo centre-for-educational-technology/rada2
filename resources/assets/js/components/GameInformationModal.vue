@@ -33,7 +33,7 @@
                     </p>
                     <h3>{{ $t('featured-image') }}</h3>
                     <p>
-                        <img v-bind:src="activity.featured_image" alt="featured-image" class="sz-uploadable-image">
+                        <img v-bind:src="activity.featured_image" alt="featured-image" class="img-responsive center-block">
                     </p>
                     <h3>{{ $t('zoo') }}</h3>
                     <p>

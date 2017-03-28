@@ -39,7 +39,7 @@
 
                         <div class="sz-photo" v-if="isPhoto(question)">
                             <div class="well well-sm" v-if="hasImage(question)">
-                                <img alt="uploaded-image" class="sz-uploadable-image" v-bind:src="getImage(question)">
+                                <img alt="uploaded-image" class="img-responsive center-block" v-bind:src="getImage(question)">
                             </div>
                         </div>
                     </div>

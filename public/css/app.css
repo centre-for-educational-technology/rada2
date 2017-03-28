@@ -8003,14 +8003,6 @@ button.mdi::before {
   font-size: 96px;
 }
 
-#sz-play-app .sz-photo img.sz-uploadable-image {
-  max-width: 100%;
-  height: auto;
-  display: block;
-  margin-left: auto;
-  margin-right: auto;
-}
-
 #sz-play-app .sz-one-correct-answer .media input[type='radio'], #sz-play-app .sz-one-correct-answer .media input[type='checkbox'], #sz-play-app .sz-multiple-correct-answers .media input[type='radio'], #sz-play-app .sz-multiple-correct-answers .media input[type='checkbox'] {
   display: none;
 }
