@@ -10,13 +10,13 @@ use App\Game;
 
 use App\GameAnswer;
 
+use App\ActivityItem;
+
 use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Validator;
-
-#use Illuminate\Support\Facades\Log;
 
 use Auth;
 
@@ -134,7 +134,11 @@ class GameController extends Controller
 
         $answer->save();
 
-        if ( $game->answers()->count() === $activity->getActivityItemsCount() ) {
+        // Determine completion status and mark as completed
+        $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
+        $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
+        $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
+        if ( count($unansweredItemIds) === 0 ) {
             $game->complete = true;
             $game->save();
         }
