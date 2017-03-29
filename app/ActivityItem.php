@@ -4,6 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
+use App\Options\ZooOptions;
+use App\Options\QuestionTypeOptions;
+use App\Options\LanguageOptions;
+
 class ActivityItem extends Model
 {
     /**
@@ -16,36 +20,31 @@ class ActivityItem extends Model
     ];
 
     /**
-     * Returns ActivityItem Question Type options
-     * @return array Options for ActivityItem Question Type select
+     * Returns question type title
+     * @return string Question type title or key
      */
-    public static function getQuestionTypeOptions()
+    public function getQuestionType()
     {
-        return [
-            1 => trans('general.question-types.information'),
-            2 => trans('general.question-types.one-correct-answer'),
-            3 => trans('general.question-types.multiple-correct-answers'),
-            4 => trans('general.question-types.freeform-answer'),
-            5 => trans('general.question-types.match-pairs'),
-            6 => trans('general.question-types.embedded-content'),
-            7 => trans('general.question-types.photo'),
-        ];
+        return resolve(QuestionTypeOptions::class)->value($this->zoo);
+
     }
 
     /**
-     * Returns question type title
-     * @param  int    $id Question type key
-     * @return string     Question type title
+     * Returns Zoo title
+     * @return string Zoo title or key
      */
-    public static function getQuestionType(int $id)
+    public function getZoo()
     {
-        $types = self::getQuestionTypeOptions();
+        return resolve(ZooOptions::class)->value($this->zoo);
+    }
 
-        if ( array_key_exists($id, $types) ) {
-            return $types[$id];
-        }
-
-        return $id;
+    /**
+     * Returns language title
+     * @return string Language title or key
+     */
+    public function getLanguage()
+    {
+        return resolve(LanguageOptions::class)->value($this->language);
     }
 
     /**
@@ -101,28 +100,6 @@ class ActivityItem extends Model
     public function isFreeformAnswer()
     {
         return $this->isQuestionOfType(4);
-    }
-
-    /**
-     * Returns geolocaions for Zoos
-     * @return array Options for Zoos geolocation data
-     */
-    public static function getZooGeolocationOptions()
-    {
-        return [
-            1 => [
-                'lat' => 59.3270,
-                'lng' => 18.1037,
-            ],
-            2 => [
-                'lat' => 60.1750,
-                'lng' => 24.9861,
-            ],
-            3 => [
-                'lat' => 59.4259,
-                'lng' => 24.6595,
-            ]
-        ];
     }
 
     /**

@@ -5,8 +5,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Support\Facades\File;
+
+use App\Options\ZooOptions;
+use App\Options\ActivityTypeOptions;
+use App\Options\LanguageOptions;
 
 class Activity extends Model
 {
@@ -20,73 +23,30 @@ class Activity extends Model
     ];
 
     /**
-     * Returns Zoo options
-     * @return array Options for Zoo select
-     */
-    public static function getZooOptions()
-    {
-        return [
-            1 => trans('general.zoos.skansen'),
-            2 => trans('general.zoos.korkeasaari'),
-            3 => trans('general.zoos.tallinn'),
-        ];
-    }
-
-    /**
      * Returns Zoo title
-     * @param  int    $id Zoo key
-     * @return string     Zoo title
+     * @return string Zoo title or key
      */
-    public static function getZoo(int $id) {
-        $zoos = self::getZooOptions();
-
-        if ( array_key_exists($id, $zoos) ) {
-            return $zoos[$id];
-        }
-
-        return $id;
-    }
-
-    /**
-     * Returns Language options
-     * @return array Options or Language select
-     */
-    public static function getLanguageOptions()
+    public function getZoo()
     {
-        return [
-            'en' => trans('general.languages.en'),
-            'et' => trans('general.languages.et'),
-            'ru' => trans('general.languages.ru'),
-            'fi' => trans('general.languages.fi'),
-            'swe' => trans('general.languages.swe'),
-        ];
+        return resolve(ZooOptions::class)->value($this->zoo);
     }
 
     /**
-     * Returns Activity Type options
-     * @return array Options for Activity Type select
+     * Returns Activity Type title
+     * @return string Activity type title or key
      */
-    public static function getActivityTypeOptions()
+    public function getActivityType()
     {
-        return [
-            1 => trans('general.activity-type.collecting-cards'),
-            2 => trans('general.activity-type.treasure-hunt'),
-        ];
+        return resolve(ActivityTypeOptions::class)->value($this->type);
     }
 
     /**
-     * Returns activity type title
-     * @param  int    $id Activity type key
-     * @return string     Activity type title or key
+     * Returns Language title or key
+     * @return string Language title or key
      */
-    public static function getActivityType(int $id) {
-        $types = self::getActivityTypeOptions();
-
-        if ( array_key_exists($id, $types) ) {
-            return $types[$id];
-        }
-
-        return $id;
+    public function getLanguage()
+    {
+        return resolve(LanguageOptions::class)->value($this->language);
     }
 
     /**

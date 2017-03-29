@@ -29,8 +29,8 @@ class User extends Authenticatable
     ];
 
     /**
-     * [roles description]
-     * @return [type] [description]
+     * Retruns user roles
+     * @return array Role objects
      */
     public function roles() {
         return $this->belongsToMany(Role::class)
@@ -39,8 +39,8 @@ class User extends Authenticatable
     }
 
     /**
-     * [getRolesData description]
-     * @return [type] [description]
+     * Returns roles data
+     * @return array An array of roles data with id and zoo keys
      */
     public function getRolesData() {
         $rolesData = [];
@@ -58,18 +58,18 @@ class User extends Authenticatable
     }
 
     /**
-     * [pairs description]
-     * @return [type] [description]
+     * Returns social accounts
+     * @return array Array of SocialAccount objects
      */
     public function social_accounts() {
         return $this->hasMany(SocialAccount::class);
     }
 
     /**
-     * [hasRole description]
-     * @param  string  $name [description]
-     * @param  [type]  $zoo  [description]
-     * @return boolean       [description]
+     * Determines if user has certain role
+     * @param  string  $name Role internal name
+     * @param  int     $zoo  Zoo identifier, default to NULL
+     * @return boolean
      */
     public function hasRole(string $name, int $zoo = null) {
         $rolesByName = $this->roles->keyBy('name');
@@ -86,7 +86,7 @@ class User extends Authenticatable
     }
 
     /**
-     * Determined if current user is an administrator
+     * Determines if current user has role of an administrator
      * @return boolean
      */
     public function isAdmin() {
@@ -94,18 +94,19 @@ class User extends Authenticatable
     }
 
     /**
-     * [isZooAdmin description]
-     * @param  int     $zoo [description]
-     * @return boolean      [description]
+     * Determines if current user has role of a zooAdministrator
+     * Also check if role belongs to a certain Zoo
+     * @param  int     $zoo Zoo identifier, defaults to NULL
+     * @return boolean
      */
     public function isZooAdmin(int $zoo = null) {
         return $this->hasRole('zooAdmin', $zoo);
     }
 
     /**
-     * [isZooMember description]
-     * @param  int     $zoo [description]
-     * @return boolean      [description]
+     * Determines is current user has role of a zooMember
+     * @param  int     $zoo Zoo identifier, defaults to NULL
+     * @return boolean
      */
     public function isZooMember(int $zoo = null) {
         return $this->hasRole('zooMember', $zoo);

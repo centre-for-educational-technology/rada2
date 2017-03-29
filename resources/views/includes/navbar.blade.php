@@ -44,7 +44,7 @@
 
                     <ul class="dropdown-menu" role="menu">
                         @php( $currentLocale = App::getLocale() )
-                        @foreach( App\Activity::getLanguageOptions() as $key => $option)
+                        @foreach( resolve('App\Options\LanguageOptions')->options() as $key => $option)
                         <li class="{{ ( $key === $currentLocale ) ? 'active' : '' }}">
                             <a href="{{ url('locale/' . $key) }}" class="sz-set-locale">{{ $option }}</a>
                         </li>

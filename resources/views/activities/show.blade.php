@@ -21,13 +21,13 @@
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
                     <h3>{{ trans('general.forms.labels.activity-type') }}</h3>
-                    <p>{{ $activity::getActivityType($activity->type) }}</p>
+                    <p>{{ $activity->getActivityType() }}</p>
                     <h3>{{ trans('general.forms.labels.difficulty-level') }}</h3>
                     <p>{{ $activity->difficulty_level_start }} - {{ $activity->difficulty_level_end }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>
                     <p>{{ $activity->playing_time}} {{ trans('general.minutes')}}</p>
                     <h3>{{ trans('general.language') }}</h3>
-                    <p>{{ trans('general.languages.' . $activity->language) }}</p>
+                    <p>{{ $activity->getLanguage() }}</p>
                     <h3>{{ trans('general.forms.labels.contact-information') }}</h3>
                     <p>{{ $activity->contact_information }}</p>
                     @if ($activity->hasFeaturedImage())
@@ -37,7 +37,7 @@
                         </p>
                     @endif
                     <h3>{{ trans('general.forms.labels.zoo') }}</h3>
-                    <p>{{ $activity::getZoo($activity->zoo) }}</p>
+                    <p>{{ $activity->getZoo() }}</p>
                     <h3>{{ trans('general.forms.labels.activity-items') }}</h3>
                     @if ( count($activity->activityItems) === 0 )
                         <div class="well">{{ trans('pages.activity-items.index.none-found') }}</div>

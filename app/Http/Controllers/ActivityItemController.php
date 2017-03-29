@@ -18,6 +18,11 @@ use App\ActivityItemOption;
 
 use App\ActivityItemPair;
 
+use App\Options\ZooGeolocationOptions;
+use App\Options\QuestionTypeOptions;
+use App\Options\ZooOptions;
+use App\Options\LanguageOptions;
+
 class ActivityItemController extends Controller
 {
   /**
@@ -113,11 +118,16 @@ class ActivityItemController extends Controller
    *
    * @return \Illuminate\Http\Response
    */
-  public function create()
+  public function create(ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
   {
       $this->authorize('create', ActivityItem::class);
 
-      return view('activity_items/create');
+      return view('activity_items/create')->with([
+          'zooGeolocationOptions' => $zooGeolocationOptions->options(),
+          'questionTypeOptions' => $questionTypeOptions->options(),
+          'zooOptions' => $zooOptions->options(),
+          'languageOptions' => $languageOptions->options(),
+      ]);
   }
 
   /**
@@ -241,11 +251,17 @@ class ActivityItemController extends Controller
    * @param \App\ActivityItem
    * @return \Illuminate\Http\Response
    */
-  public function edit(ActivityItem $activity_item)
+  public function edit(ActivityItem $activity_item, ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
   {
       $this->authorize('update', $activity_item);
 
-      return view('activity_items/edit')->with('activity_item', $activity_item);
+      return view('activity_items/edit')->with([
+          'activity_item' => $activity_item,
+          'zooGeolocationOptions' => $zooGeolocationOptions->options(),
+          'questionTypeOptions' => $questionTypeOptions->options(),
+          'zooOptions' => $zooOptions->options(),
+          'languageOptions' => $languageOptions->options(),
+      ]);
   }
 
   /**

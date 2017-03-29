@@ -21,7 +21,7 @@
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>
-                    <p>{{ $activity_item::getQuestionType($activity_item->type) }}</p>
+                    <p>{{ $activity_item->getQuestionType() }}</p>
                     @if ( $activity_item->isEmbeddedContent() )
                         <p class="embed-responsive embed-responsive-16by9">
                             {!! html_entity_decode($activity_item->embedded_content) !!}
@@ -105,7 +105,7 @@
                         </ul>
                     @endif
                     <h3>{{ trans('general.forms.labels.zoo') }}</h3>
-                    <p>{{ App\Activity::getZoo($activity_item->zoo) }}</p>
+                    <p>{{ $activity_item->getZoo() }}</p>
                     <h3>{{ trans('general.language') }}</h3>
                     <p>{{ trans('general.languages.' . $activity_item->language) }}</p>
                     <h3>{{ trans('general.forms.labels.location') }}</h3>

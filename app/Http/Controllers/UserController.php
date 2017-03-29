@@ -12,6 +12,8 @@ use App\Role;
 
 use Auth;
 
+use App\Options\ZooOptions;
+
 class UserController extends Controller
 {
     /**
@@ -37,11 +39,12 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(ZooOptions $zooOptions)
     {
         return view('manage/users/index')->with([
             'users' => User::with(['social_accounts', 'roles'])->paginate( config('paginate.limit') ),
             'roles' => Role::all(),
+            'zooOptions' => $zooOptions->options(),
         ]);
     }
 

@@ -90,7 +90,7 @@
                                     <div class="col-xs-6">
                                         @if ( $role->name !== 'admin' )
                                         <select name="role_{{ $role->id }}_zoo">
-                                            @foreach(App\Activity::getZooOptions() as $id => $title)
+                                            @foreach($zooOptions as $id => $title)
                                                 <option value="{{ $id }}">{{ $title }}</option>
                                             @endforeach
                                         </select>
@@ -167,8 +167,8 @@
                                                     @foreach ( $user->roles as $role)
                                                         <span class="badge sz-role-badge">
                                                             {{ trans('general.roles.' . $role->name) }}
-                                                            @if ( $role->pivot->zoo )
-                                                                ({{ $role->pivot->zoo ? App\Activity::getZoo($role->pivot->zoo) : '' }})
+                                                            @if ( $role->hasZoo() )
+                                                                ({{ $role->pivot->zoo ? $role->getZoo() : '' }})
                                                             @endif
                                                             <i class="mdi mdi-close-circle-outline" title="{{ trans('pages.manage.users.index.remove-role') }}" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}"></i>
                                                         </span>

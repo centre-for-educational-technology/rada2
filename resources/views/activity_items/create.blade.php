@@ -2,7 +2,7 @@
 
 @section('header-scripts')
 <script>
-    window.Laravel.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
+    window.Laravel.zooGeolocationOptions = <?php echo json_encode($zooGeolocationOptions); ?>;
     window.Laravel.activityItemFormId = 'create-activity-item';
 </script>
 @endsection
@@ -62,7 +62,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::select('type', App\ActivityItem::getQuestionTypeOptions(), null, [
+                    {!! Form::select('type', $questionTypeOptions, null, [
                         'class' => 'form-control',
                         'v-model' => 'questionType',
                     ]) !!}
@@ -122,7 +122,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('zoo', App\Activity::getZooOptions(), null, [
+                    {!! Form::select('zoo', $zooOptions, null, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>
@@ -144,7 +144,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('language', App\Activity::getLanguageOptions(), null, [
+                    {!! Form::select('language', $languageOptions, null, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>

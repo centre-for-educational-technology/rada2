@@ -3,22 +3,22 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
-
-use App\Activity;
-
-use App\ActivityItem;
-
-use Intervention\Image\Facades\Image;
-
-use Illuminate\Support\Facades\File;
-
 use App\Http\Requests\StoreActivity;
 
+use App\Activity;
+use App\ActivityItem;
 use App\Game;
 
+use Intervention\Image\Facades\Image;
+use Illuminate\Support\Facades\File;
+
 use Auth;
+
+use App\Options\ZooOptions;
+use App\Options\ActivityTypeOptions;
+use App\Options\LanguageOptions;
+use App\Options\QuestionTypeOptions;
 
 use Illuminate\Support\Facades\Log;
 
@@ -81,11 +81,18 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create(ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions)
     {
         $this->authorize('create', Activity::class);
 
-        return view('activities/create');
+        return view('activities/create')->with([
+            'zooOptions' => $zooOptions->options(),
+            'activityTypeOptions' => $activityTypeOptions->options(),
+            'languageOptions' => $languageOptions->options(),
+            'questionTypeOptions' => $questionTypeOptions->options(),
+            'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
+            'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+        ]);
     }
 
     /**
@@ -162,11 +169,19 @@ class ActivityController extends Controller
      * @param \App\Activity
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity)
+    public function edit(Activity $activity, ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions)
     {
         $this->authorize('update', $activity);
 
-        return view('activities/edit')->with('activity', $activity);
+        return view('activities/edit')->with([
+            'activity' => $activity,
+            'zooOptions' => $zooOptions->options(),
+            'activityTypeOptions' => $activityTypeOptions->options(),
+            'languageOptions' => $languageOptions->options(),
+            'questionTypeOptions' => $questionTypeOptions->options(),
+            'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
+            'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+        ]);
     }
 
     /**
@@ -283,14 +298,14 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function resultsIndex()
+    public function resultsIndex(ZooOptions $zooOptions)
     {
         $this->authorize('viewResultsList', Activity::class);
 
         $zooIds = [];
         if ( Auth::user()->isAdmin() )
         {
-            $zooIds = array_keys(Activity::getZooOptions());
+            $zooIds = array_keys($zooOptions->options());
         }
         else if ( Auth::user()->roles )
         {
@@ -303,7 +318,7 @@ class ActivityController extends Controller
 
         return view('activities/results-index')->with([
             'activities' => Activity::whereIn('zoo', $zooIds)->orderBy('id', 'desc')->paginate( config('paginate.limit') ),
-            'zoos' => array_map(function($id) { return Activity::getZoo($id); }, $zooIds),
+            'zoos' => array_map(function($id) use ($zooOptions) { return $zooOptions->value($id); }, $zooIds),
         ]);
     }
 

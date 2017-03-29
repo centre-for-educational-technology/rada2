@@ -43,7 +43,7 @@
                                                 {{ $activity->title }}
                                             </a>
                                         </td>
-                                        <td>{{ $activity::getZoo($activity->zoo) }}</td>
+                                        <td>{{ $activity->getZoo() }}</td>
                                         <td>{{ $activity->games()->count() }}</td>
                                     </tr>
                                     @endforeach

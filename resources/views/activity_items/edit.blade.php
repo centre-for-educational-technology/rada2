@@ -2,7 +2,7 @@
 
 @section('header-scripts')
 <script>
-    window.Laravel.zooGeolocationOptions = <?php echo json_encode(App\ActivityItem::getZooGeolocationOptions()); ?>;
+    window.Laravel.zooGeolocationOptions = <?php echo json_encode($zooGeolocationOptions); ?>;
     window.Laravel.activityItemQuestionData = <?php echo json_encode($activity_item->getQuestionData()); ?>;
     window.Laravel.activityItemFormId = 'edit-activity-item';
     window.Laravel.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
@@ -68,7 +68,7 @@
                     {!! Form::hidden('type', $activity_item->type, [
                         'class' => 'form-control',
                     ]) !!}
-                    {!! Form::select('type', App\ActivityItem::getQuestionTypeOptions(), $activity_item->type, [
+                    {!! Form::select('type', $questionTypeOptions, $activity_item->type, [
                         'class' => 'form-control',
                         'disabled' => 'disabled'
                     ]) !!}
@@ -132,7 +132,7 @@
                     @cannot('changeZoo', $activity_item)
                         @php ( $zooSelectOptions['disabled'] = true )
                     @endcannot
-                    {!! Form::select('zoo', App\Activity::getZooOptions(), $activity_item->zoo, $zooSelectOptions) !!}
+                    {!! Form::select('zoo', $zooOptions, $activity_item->zoo, $zooSelectOptions) !!}
                 </div>
 
                 @if ($errors->has('zoo'))
@@ -152,7 +152,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('language', App\Activity::getLanguageOptions(), $activity_item->language, [
+                    {!! Form::select('language', $languageOptions, $activity_item->language, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>

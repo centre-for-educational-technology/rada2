@@ -49,7 +49,7 @@
                                     <p class="sz-display-new-lines">{{$activity->description}}</p>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
-                                        {{ $activity::getActivityType($activity->type) }}
+                                        {{ $activity->getActivityType() }}
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-hexagon-multiple" aria-hidden="true"></i>
@@ -61,7 +61,7 @@
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-translate" aria-hidden="true"></i>
-                                        {{ trans('general.languages.' . $activity->language) }}
+                                        {{ $activity->getLanguage() }}
                                     </div>
                                     @if( $activity->contact_information )
                                     <div class="sz-metadata">
@@ -71,7 +71,7 @@
                                     @endif
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                                        {{ $activity::getZoo($activity->zoo) }}
+                                        {{ $activity->getZoo() }}
                                     </div>
                                 </div>
                             </div>

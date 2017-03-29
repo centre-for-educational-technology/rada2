@@ -46,22 +46,22 @@
                                             @include('activity_items.includes.actions')
                                         </div>
                                     </div>
-                                    <p class="sz-display-new-lines">{{$activity_item->description}}</p>
+                                    <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-account-circle" aria-hidden="true"></i>
                                         {{ $activity_item->user->name }}
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
-                                        {{ $activity_item::getQuestionType($activity_item->type) }}
+                                        {{ $activity_item->getQuestionType() }}
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                                        {{ App\Activity::getZoo($activity_item->zoo) }}
+                                        {{ $activity_item->getZoo() }}
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-translate" aria-hidden="true"></i>
-                                        {{ trans('general.languages.' . $activity_item->language) }}
+                                        {{ $activity_item->getLanguage() }}
                                     </div>
                                 </div>
                             </div>
