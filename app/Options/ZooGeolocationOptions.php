@@ -36,7 +36,7 @@ class ZooGeolocationOptions extends OptionsBase
 
         if ( $value === $key )
         {
-            throw \Exception('No Zoo Geolocation for key: ' . (string)$key);
+            throw new \Exception('No Geolocation for key: ' . (string)$key);
         }
 
         return $value;
