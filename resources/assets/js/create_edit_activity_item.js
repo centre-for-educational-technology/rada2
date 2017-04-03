@@ -31,10 +31,25 @@ window.initMap = function() {
         navigationControlItem.title = $t('set-current-position');
         controlUI.appendChild(navigationControlItem);
 
+        var inGeoposition = false;
+        var zooSelect = document.getElementById('zoo');
         navigationControlItem.addEventListener('click', function() {
+            if ( inGeoposition ) return;
+            inGeoposition = true;
+            zooSelect.disabled = true;
+
+            navigationControlItem.style.color = '#cccccc';
             navigator.geolocation.getCurrentPosition(
-                cb,
+                function(position) {
+                    navigationControlItem.style.color = null;
+                    zooSelect.disabled = false;
+                    inGeoposition = false;
+                    cb(position);
+                },
                 function(error) {
+                    navigationControlItem.style.color = null;
+                    zooSelect.disabled = false;
+                    inGeoposition = false;
                     alert($t('geolocation-error'));
                     console.error('Geolocation error', error);
                 }, {
@@ -66,10 +81,14 @@ window.initMap = function() {
       return marker;
     }
 
-    function removeMarker(marker) {
-      google.maps.event.clearListeners(marker, 'click');
-      marker.setMap(null);
-      marker = null;
+    function repositionMarker(latLng, marker, map) {
+        setLatAndLngValues(latLng);
+        map.panTo(latLng);
+        marker.setPosition(latLng);
+        marker.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function() {
+            marker.setAnimation(null);
+        }, 500);
     }
 
     function getInitialLatLng() {
@@ -120,24 +139,14 @@ window.initMap = function() {
             lng: position.coords.longitude
         };
 
-        map.panTo(latLng);
-        removeMarker(marker);
-        setLatAndLngValues(latLng);
-        setTimeout(function() {
-            marker = initializeMarker(map, latLng);
-        }, 250);
+        repositionMarker(latLng, marker, map);
     });
 
     $(document).find('select[name="zoo"]').on('change', function() {
         var value = $(this).val(),
             latLng = window.Laravel.zooGeolocationOptions[value];
 
-        map.panTo(latLng);
-        removeMarker(marker);
-        setLatAndLngValues(latLng);
-        setTimeout(function() {
-          marker = initializeMarker(map, latLng);
-        }, 250);
+        repositionMarker(latLng, marker, map);
     });
 };
 
