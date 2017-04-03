@@ -3,7 +3,6 @@
 namespace App\Options;
 
 use App\Options\Interfaces\Options as OptionsInterface;
-use Illuminate\Support\Facades\Log;
 
 class OptionsBase implements OptionsInterface
 {
