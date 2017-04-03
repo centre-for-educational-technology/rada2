@@ -2,27 +2,19 @@
 
 namespace App\Options;
 
-class LanguageOptions
+class LanguageOptions extends OptionsBase
 {
-    public function options()
+    /**
+     * Create instance and set available options
+     */
+    public function __construct()
     {
-        return [
+        $this->options = [
             'en' => trans('general.languages.en'),
             'et' => trans('general.languages.et'),
             'ru' => trans('general.languages.ru'),
             'fi' => trans('general.languages.fi'),
             'swe' => trans('general.languages.swe'),
         ];
-    }
-
-    public function value($id)
-    {
-        $options = $this->options();
-
-        if ( array_key_exists($id, $options) ) {
-            return $options[$id];
-        }
-
-        return $id;
     }
 }

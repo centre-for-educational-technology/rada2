@@ -2,24 +2,16 @@
 
 namespace App\Options;
 
-class ActivityTypeOptions
+class ActivityTypeOptions extends OptionsBase
 {
-    public function options()
+    /**
+     * Create instance and set available options
+     */
+    public function __construct()
     {
-        return [
+        $this->options = [
             1 => trans('general.activity-type.collecting-cards'),
             2 => trans('general.activity-type.treasure-hunt'),
         ];
-    }
-
-    public function value($id)
-    {
-        $options = $this->options();
-
-        if ( array_key_exists($id, $options) ) {
-            return $options[$id];
-        }
-
-        return $id;
     }
 }

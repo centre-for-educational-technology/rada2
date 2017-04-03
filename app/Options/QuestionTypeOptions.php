@@ -2,11 +2,14 @@
 
 namespace App\Options;
 
-class QuestionTypeOptions
+class QuestionTypeOptions extends OptionsBase
 {
-    public function options()
+    /**
+     * Create instance and set available options
+     */
+    public function __construct()
     {
-        return [
+        $this->options = [
             1 => trans('general.question-types.information'),
             2 => trans('general.question-types.one-correct-answer'),
             3 => trans('general.question-types.multiple-correct-answers'),
@@ -15,16 +18,5 @@ class QuestionTypeOptions
             6 => trans('general.question-types.embedded-content'),
             7 => trans('general.question-types.photo'),
         ];
-    }
-
-    public function value($id)
-    {
-        $options = $this->options();
-
-        if ( array_key_exists($id, $options) ) {
-            return $options[$id];
-        }
-
-        return $id;
     }
 }

@@ -2,11 +2,14 @@
 
 namespace App\Options;
 
-class ZooGeolocationOptions
+class ZooGeolocationOptions extends OptionsBase
 {
-    public function options()
+    /**
+     * Create instance and set available options
+     */
+    public function __construct()
     {
-        return [
+        $this->options = [
             1 => [
                 'lat' => 59.3270,
                 'lng' => 18.1037,
@@ -22,14 +25,20 @@ class ZooGeolocationOptions
         ];
     }
 
-    public function value($id)
+    /**
+     * Return geolocation option value or throw an exception
+     * @param  mixed $key Option key
+     * @return array      Geolocation value
+     */
+    public function value($key)
     {
-        $options = $this->options();
+        $value = parent::value($key);
 
-        if ( array_key_exists($id, $options) ) {
-            return $options[$id];
+        if ( $value === $key )
+        {
+            throw \Exception('No Zoo Geolocation for key: ' . (string)$key);
         }
 
-        throw \Exception('No Zoo Geolocation for key: ' . (string)$id);
+        return $value;
     }
 }
