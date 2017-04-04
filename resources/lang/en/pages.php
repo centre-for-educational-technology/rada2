@@ -81,7 +81,7 @@ return [
         'games-and-activities' => 'Games & activities',
         'finished' => 'Finished :date',
         'started' => 'Started :date',
-        'market-and-card-trading' => 'Marker and card trading',
+        'market-and-card-trading' => 'Market and card trading',
         'btn' => [
             'view-results' => 'View results',
             'continue' => 'Continue',
