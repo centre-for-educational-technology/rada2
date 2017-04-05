@@ -13,7 +13,7 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-$(document).ready(() => {
+$(document).ready(function() {
     // Delete button comnfirmation and consequent POST
     $('a[data-method="delete"]').on('click', function(e) {
         e.preventDefault();

@@ -23,7 +23,7 @@
             'csrfToken' => csrf_token(),
             'baseUrl' => url('/'),
             'apiUrl' => url('/api'),
-        ]); ?>
+        ]); ?>;
     </script>
 
     @yield('header-scripts')
