@@ -13,7 +13,7 @@ require('./bootstrap');
  * the application, or feel free to tweak this setup for your needs.
  */
 
-/*$(document).ready(function() {
+$(document).ready(function() {
     // Delete button comnfirmation and consequent POST
     $('a[data-method="delete"]').on('click', function(e) {
         e.preventDefault();
@@ -48,4 +48,5 @@ require('./bootstrap');
         e.preventDefault();
         $(document).find('form#locale-form').attr('action', $(this).attr('href')).submit();
     });
-});*/
+    alert('This is a bit strange');
+});
