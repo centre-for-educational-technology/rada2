@@ -48,5 +48,4 @@ $(document).ready(function() {
         e.preventDefault();
         $(document).find('form#locale-form').attr('action', $(this).attr('href')).submit();
     });
-    alert('This is a bit strange');
 });
