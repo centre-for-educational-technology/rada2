@@ -1,6 +1,7 @@
 {
-  "css/app.css": "css/app-a6aba897bf.css",
-  "js/create_edit_activity.js": "js/create_edit_activity-acce985b96.js",
-  "js/create_edit_activity_item.js": "js/create_edit_activity_item-1267b860cb.js",
-  "js/play.js": "js/play-82e32640d9.js"
+  "css/app.css": "css/app-8a1119228b.css",
+  "js/app.js": "js/app-8ec07fda71.js",
+  "js/create_edit_activity.js": "js/create_edit_activity-72e661e0ed.js",
+  "js/create_edit_activity_item.js": "js/create_edit_activity_item-caa2420600.js",
+  "js/play.js": "js/play-f0aa9feb9a.js"
 }
