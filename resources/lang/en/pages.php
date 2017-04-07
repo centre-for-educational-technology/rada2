@@ -23,7 +23,6 @@ return [
             'none-found' => 'No Activities could be found.',
         ],
         'create-or-edit' => [
-            'any' => 'Any',
             'keywords' => 'Keywords',
             'items-found' => 'items found',
             'tooltips' => [

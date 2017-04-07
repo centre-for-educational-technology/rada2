@@ -53,6 +53,7 @@ return [
            'location' => 'Location',
            'activity-items' => 'Activity Items',
            'proximity' => 'Proximity',
+           'search-text' => 'Search text',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -76,12 +77,17 @@ return [
            'add-activity-items' => 'Add activity items',
            'load-more' => 'Load more',
            'add-option' => 'Add option',
+           'reset' => 'Reset',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Type a keyword or title',
            'option-text' => 'Option text...',
            'embedded-content' => 'Please add any embed codes here',
+           'search-text' => 'Enter a text fragment to search for',
        ],
+       'options' => [
+           'any' => 'Any',
+       ]
    ],
    'actions' => [
        'create' => 'Create',

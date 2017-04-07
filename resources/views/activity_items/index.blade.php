@@ -7,21 +7,27 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-10">
+                        <div class="col-xs-10 col-md-8">
                             {{ trans('pages.activity-items.index.heading') }}
                         </div>
 
-                        <div class="col-xs-2">
-                            @can('create', 'App\ActivityItem')
-                                <a href="{!! route('activity_item.create') !!}" class="btn btn-primary pull-right" title="{{ trans('general.actions.create') }}">
-                                    <i class="mdi mdi-plus" aria-hidden="true"></i>
+                        <div class="col-xs-2 col-md-4">
+                            <div class="pull-right">
+                                @can('create', 'App\ActivityItem')
+                                    <a href="{!! route('activity_item.create') !!}" class="btn btn-primary" title="{{ trans('general.actions.create') }}">
+                                        <i class="mdi mdi-plus" aria-hidden="true"></i>
+                                    </a>
+                                @endcan
+                                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#search-form" aria-expanded="false" aria-controls="search-form" title="{{ trans('general.forms.buttons.search') }}">
+                                    <i class="mdi mdi-search-web" aria-hidden="true"></i>
                                 </a>
-                            @endcan
+                            </div>
                         </div>
                     </div>
+                    @include('activity_items.includes.search')
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" id="search-results">
                     @if ( count($activity_items) === 0 )
                         <div class="well">{{ trans('pages.activity-items.index.none-found') }}</div>
                     @else
