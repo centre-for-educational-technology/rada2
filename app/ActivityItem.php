@@ -25,7 +25,7 @@ class ActivityItem extends Model
      */
     public function getQuestionType()
     {
-        return resolve(QuestionTypeOptions::class)->value($this->zoo);
+        return resolve(QuestionTypeOptions::class)->value($this->type);
 
     }
 
