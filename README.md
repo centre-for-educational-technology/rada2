@@ -27,6 +27,7 @@ This tool set includes:
 - Create the database as needed (according to configuration provided)
 - Run **php artisan migrate** from terminal (this should create database and more)
   - Running **php artisan serve** would serve the app in development (or configure the server of your choice)
+- Run **php artisan db:seed** to ensure that database is filled with required information
 
 ## Development
 
