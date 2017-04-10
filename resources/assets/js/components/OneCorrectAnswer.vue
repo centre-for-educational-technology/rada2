@@ -20,7 +20,7 @@
                 <i class="mdi mdi-camera" aria-hidden="true"></i>
             </a>
             <input type="file" accept="image/*" capture="camera" style="display:none;" v-bind:name="'option-image-' + index" v-on:change="imageSelected(index)" ref="option-image">
-            <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: options.length < 2}">
+            <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: !canRemoveOptions() }">
                 <i class="mdi mdi-close-circle-outline" aria-hidden="true"></i>
             </a>
         </div>
@@ -69,22 +69,25 @@
         data() {
             return  {
                 options: [],
-                checkedOption: -1
+                checkedOption: 0
             };
         },
         methods: {
             addImage: function(index) {
                 $(this.$refs['option-image'][index]).trigger('click');
             },
+            canRemoveOptions: function() {
+                return this.options.length > 2;
+            },
             removeOption: function(index) {
-                if ( this.options.length < 2) {
+                if ( !this.canRemoveOptions() ) {
                     return;
                 }
 
                 this.options.splice(index, 1);
 
                 if ( this.checkedOption === index ) {
-                    this.checkedOption = -1;
+                    this.checkedOption = 0;
                 } else if ( this.checkedOption > index ) {
                     this.checkedOption -= 1;
                 }
