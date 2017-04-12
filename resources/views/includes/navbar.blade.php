@@ -22,10 +22,10 @@
                 <li class="{{ Request::is('/')? 'active': '' }}">
                     <a href="{{ url('/') }}">{{ trans('navbar.home') }}</a>
                 </li>
-                <li class="{{ Request::is('activities')? 'active': '' }}">
+                <li class="{{ Request::is('activities', 'activities/*') ? 'active': '' }}">
                     <a href="{{ url('/activities') }}">{{ trans('navbar.activities') }}</a>
                 </li>
-                <li class="{{ Request::is('activity_items')? 'active': '' }}">
+                <li class="{{ Request::is('activity_items', 'activity_items/*') ? 'active': '' }}">
                     <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
                 </li>
                 <li class="{{ Request::is('trading-market')? 'active': '' }} disabled">
