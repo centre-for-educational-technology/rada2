@@ -84,8 +84,6 @@
                         'data-type' => 'double',
                         'data-min' => $difficultyLevelMinimum,
                         'data-max' => $difficultyLevelMaximum,
-                        'data-from' => $difficultyLevelMinimum,
-                        'data-to' => $difficultyLevelMaximum,
                         'data-step' => 1,
                         'data-grid' => 'true',
                         'data-grid-num' => 11,
@@ -100,7 +98,7 @@
                     ]) !!}
                     {!! Form::number('difficulty_level_end', $difficultyLevelMaximum, [
                         'class' => 'form-control',
-                        'min' => $difficultyLevelMaximum,
+                        'min' => $difficultyLevelMinimum,
                         'max' => $difficultyLevelMaximum,
                         'style' => 'display:none;',
                         'ref' => 'difficultyLevelEnd',

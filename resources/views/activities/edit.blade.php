@@ -82,14 +82,12 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::hidden('difficulty_level', '', [
+                    {!! Form::hidden('difficulty_level', $activity->difficulty_level_start . ';' . $activity->difficulty_level_end, [
                         'id' => 'difficulty_level',
                         'class' => 'form-control',
                         'data-type' => 'double',
                         'data-min' => $difficultyLevelMinimum,
                         'data-max' => $difficultyLevelMaximum,
-                        'data-from' => $activity->difficulty_level_start,
-                        'data-to' => $activity->difficulty_level_end,
                         'data-step' => 1,
                         'data-grid' => 'true',
                         'data-grid-num' => 11,
