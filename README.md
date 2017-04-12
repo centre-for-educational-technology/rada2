@@ -50,3 +50,7 @@ I order to create a new translation, please copy all the files from **ROOT/resou
 Please note that files for different translations should be synchronized, meaning, new translations should be added to all of these files and translated right away.
 
 NB! While translating textual strings please make sure not to remove the replacement parts. Each replacement part could be identified buy having a colon in front of the word: Example: **User :name has logged in.**, the **:name** is a placeholder that will be substituted with some value and should be left as is in all translations.
+
+## Production
+
+If you need to be running in production mode, then please use the branch named **production** instead of **master**. That branch might not have all the latest changes, but it should have the JS and CSS assets built for running in production (minified and more).
