@@ -71,9 +71,67 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index(Request $request, ActivityTypeOptions $activityTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
     {
-        return view('activities/index')->with('activities', Activity::orderBy('id', 'desc')->with('user')->paginate( config('paginate.limit') ));
+        $search = [
+            'search-text' => $request->has('search-text') ? $request->get('search-text') : '',
+            'activity-type' => $request->has('activity-type') ? $request->get('activity-type') : '',
+            'difficulty-level' => $request->has('difficulty-level') ? $request->get('difficulty-level') : Activity::getDifficultyLevelMinimum() . ';' . Activity::getDifficultyLevelMaximum(),
+            'zoo' => $request->has('zoo') ? $request->get('zoo') : '',
+            'language' => $request->has('language') ? $request->get('language') : '',
+            'search-submitted' => ( $request->has('search-submitted') && (int) $request->get('search-submitted') === 1 ) ? true : false,
+        ];
+
+        $query = Activity::orderBy('id', 'desc')->with('user');
+
+        if ( $request->has('search-text') && trim($request->get('search-text')) )
+        {
+            $query->where(function($query) use ($request) {
+                $query->where('title', 'like', '%' . trim($request->get('search-text')) . '%')->orWhere('description', 'like', '%' . trim($request->get('search-text')) . '%');
+            });
+        }
+
+        if ( $request->has('activity-type') && (int)$request->get('activity-type') !== 0 )
+        {
+            $query->where('type', '=', (int)$request->get('activity-type'));
+        }
+
+        if ( $request->has('difficulty-level') ) {
+            $parts = explode(';', $request->get('difficulty-level'), 2);
+
+            if ( count($parts) === 2 && ( (int)$parts[0] <= (int)$parts[1] ) )
+            {
+                $query->where('difficulty_level_start', '<=', (int)$parts[1]);
+                $query->where('difficulty_level_end', '>=', (int)$parts[0]);
+            }
+        }
+
+        if ( $request->has('zoo') && (int)$request->get('zoo') !== 0 )
+        {
+            $query->where('zoo', '=', (int)$request->get('zoo'));
+        }
+
+        if ( $request->has('language') && $request->get('language') !== '0' )
+        {
+            $query->where('language', '=', $request->get('language'));
+        }
+
+        $activities = $query->paginate( config('paginate.limit') );
+
+        if ( $search['search-submitted'] ) {
+            $activities->appends($search);
+            $activities->fragment('search-results');
+        }
+
+        return view('activities/index')->with([
+            'activities' => $activities,
+            'activityTypeOptions' => $activityTypeOptions->options(),
+            'zooOptions' => $zooOptions->options(),
+            'languageOptions' => $languageOptions->options(),
+            'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
+            'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+            'search' => $search,
+        ]);
     }
 
     /**

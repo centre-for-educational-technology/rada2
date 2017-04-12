@@ -5,17 +5,32 @@
     </div>
 
     <div class="form-group">
-        <label for="question-type">{{ trans('general.forms.labels.question-type') }}</label>
-        <select class="form-control" name="question-type" id="question-type">
+        <label for="activity-type">{{ trans('general.forms.labels.activity-type') }}</label>
+        <select class="form-control" name="activity-type" id="activity-type">
             <option value="0">{{ trans('general.forms.options.any') }}</option>
-            @foreach($questionTypeOptions as $key => $title)
-                @if( $key == $search['question-type'] )
+            @foreach($activityTypeOptions as $key => $title)
+                @if( $key == $search['activity-type'] )
                     <option value="{{ $key }}" selected="selected">{{ $title }}</option>
                 @else
                     <option value="{{ $key }}">{{ $title }}</option>
                 @endif
             @endforeach
         </select>
+    </div>
+
+    <div class="form-group">
+        <label for="difficulty-level">{{ trans('general.forms.labels.difficulty-level') }}</label>
+        <input type="text"
+               class="form-control"
+               name="difficulty-level"
+               id="difficulty-level"
+               value="{{ $search['difficulty-level'] }}"
+               data-type="double"
+               data-min="{{ $difficultyLevelMinimum }}"
+               data-max="{{ $difficultyLevelMaximum }}"
+               data-step="1"
+               data-grid="true"
+               data-grid-num="11">
     </div>
 
     <div class="form-group">
@@ -53,7 +68,7 @@
             <i class="mdi mdi-search-web" aria-hidden="true"></i>
             {{ trans('general.forms.buttons.search') }}
         </button>
-        <a href="{!! route('activity_item.index') !!}" class="btn btn-default{{ !$search['search-submitted'] ? ' disabled' : '' }}">
+        <a href="{!! route('activity.index') !!}" class="btn btn-default{{ !$search['search-submitted'] ? ' disabled' : '' }}">
             <i class="mdi mdi-refresh" aria-hidden="true"></i>
             {{ trans('general.forms.buttons.reset') }}
         </a>

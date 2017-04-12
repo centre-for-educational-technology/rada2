@@ -24,6 +24,7 @@
                             </div>
                         </div>
                     </div>
+
                     @include('activity_items.includes.search')
                 </div>
 

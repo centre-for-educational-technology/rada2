@@ -1,5 +1,19 @@
 @extends('layouts.app')
 
+@section('header-styles')
+<link href="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/css/ion.rangeSlider.min.css" rel="stylesheet">
+<link href="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/css/ion.rangeSlider.skinFlat.min.css" rel="stylesheet">
+@endsection
+
+@section('footer-scripts')
+<script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#difficulty-level').ionRangeSlider({});
+    });
+</script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -7,21 +21,29 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-10">
+                        <div class="col-xs-10 col-md-8">
                             {{ trans('pages.activities.index.heading') }}
                         </div>
 
-                        <div class="col-xs-2">
-                            @can('create', 'App\Activity')
-                                <a href="{!! route('activity.create') !!}" class="btn btn-primary pull-right" title="{{ trans('general.actions.create') }}">
-                                    <i class="mdi mdi-plus" aria-hidden="true"></i>
+                        <div class="col-xs-2 col-md-4">
+                            <div class="pull-right">
+                                @can('create', 'App\Activity')
+                                    <a href="{!! route('activity.create') !!}" class="btn btn-primary" title="{{ trans('general.actions.create') }}">
+                                        <i class="mdi mdi-plus" aria-hidden="true"></i>
+                                    </a>
+                                @endcan
+                                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#search-form" aria-expanded="false" aria-controls="search-form" title="{{ trans('general.forms.buttons.search') }}">
+                                    <i class="mdi mdi-search-web" aria-hidden="true"></i>
                                 </a>
-                            @endcan
+                            </div>
                         </div>
                     </div>
+
+                    @include('activities.includes.search')
+
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" id="search-results">
                     @if ( count($activities) === 0 )
                         <div class="well">{{ trans('pages.activities.index.none-found') }}</div>
                     @else
