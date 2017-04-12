@@ -175,6 +175,10 @@
                             });
                         }
                         this.shuffledPairs = _.shuffle(this.pairs());
+                    } else if ( this.isOneCorrectAnswer() || this.isMultipleCorrectAnswers() ) {
+                        if ( this.options().length > 0 ) {
+                            this.question.options = _.shuffle(this.options());
+                        }
                     }
 
                     $(this.$refs.modal).modal('show');
@@ -193,6 +197,7 @@
                     this.chosenPair.option = null;
                     this.chosenPair.mathc = null;
                     this.matchedPairs = [];
+                    this.shuffledPairs = [];
                     this.matchableStyles['min-height'] = '100px';
                     this.inAjaxCall = false;
                     $(this.$refs.image).val('');
@@ -257,7 +262,6 @@
                 return ( this.question && this.question.options ) ? this.question.options : [];
             },
             pairs(shuffled) {
-
                 if ( shuffled === true ) {
                     return this.shuffledPairs;
                 }
