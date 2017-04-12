@@ -11,7 +11,7 @@
                 <input type="hidden" name="ids[]" v-model="option.id">
                 <input type="text" class="form-control" name="options[]" v-model="option.option" v-bind:placeholder="$t('option-text')">
                 <span class="input-group-addon">
-                    <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct">
+                    <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct" v-on:change="enforceCorrectOption()">
                 </span>
             </div>
         </div>
@@ -45,7 +45,7 @@
                     {
                         id: 0,
                         option: '',
-                        correct: false,
+                        correct: true,
                         image: ''
                     },
                     {
@@ -87,6 +87,7 @@
                 }
 
                 this.options.splice(index, 1);
+                this.enforceCorrectOption();
             },
             addOption: function() {
                 this.options.push({
@@ -113,6 +114,14 @@
                         element.tooltip();
                     }
                 });
+            },
+            hasCorrectOptions: function() {
+                return _.some(this.options, ['correct', true]);
+            },
+            enforceCorrectOption: function() {
+                if ( !this.hasCorrectOptions() ) {
+                    this.options[0].correct = true;
+                }
             }
         }
     }

@@ -157,7 +157,9 @@ class ActivityItem extends Model
     {
         if ( $this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers() )
         {
-            return $this->options()->get(['id', 'option', 'correct', 'image']);
+            return $this->options()->get(['id', 'option', 'correct', 'image'])->each(function($item, $key) {
+                $item->correct = (bool)$item->correct;
+            });
         }
         else if ( $this->isMatchPairs() )
         {
