@@ -8,6 +8,9 @@
 @section('footer-scripts')
 @include('activities.includes.locales')
 @include('activities.includes.options')
+<script>
+    window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
+</script>
 <script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection

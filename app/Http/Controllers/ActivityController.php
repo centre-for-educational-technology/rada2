@@ -150,6 +150,7 @@ class ActivityController extends Controller
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
             'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+            'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : [],
         ]);
     }
 
@@ -239,6 +240,7 @@ class ActivityController extends Controller
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
             'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+            'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
         ]);
     }
 
