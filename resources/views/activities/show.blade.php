@@ -44,10 +44,12 @@
                     @else
                         <ul class="list-group">
                             @foreach( $activity->activityItems as $item )
-                                <li class="list-group-item">
+                                <li class="list-group-item" title="{{ $item->description }}">
                                     <a href="{!! route('activity_item.show', ['id' => $item->id]) !!}">
                                         <i class="mdi mdi-link pull-right"></i>
                                     </a>
+                                    <img class="sz-img-w30" src="{{ $item->icon_url }}" alt="icon">
+                                    &nbsp;
                                     {{ $item->title }}
                                 </li>
                             @endforeach

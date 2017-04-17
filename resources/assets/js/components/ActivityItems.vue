@@ -123,7 +123,11 @@
                     <input type="hidden" class="form-control" name="activity_items[]" v-bind:value="item.id">
                     <i class="mdi mdi-drag-vertical"></i>
                     <button type="button" class="btn btn-danger btn-sm pull-right" v-on:click="removeItem(item)"><i class="mdi mdi-minus"></i></button>
-                    {{ item.title }}
+                    <img class="sz-img-w30" v-bind:src="item.icon_url" alt="icon">
+                    &nbsp;
+                    <span>
+                        {{ item.title }}
+                    </span>
                 </li>
             </draggable>
         </ul>
