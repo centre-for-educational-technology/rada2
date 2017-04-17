@@ -20,6 +20,40 @@ class ActivityItem extends Model
     ];
 
     /**
+     * Attributes that are appendable to JSON.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'icon_url'
+    ];
+
+    /**
+     * Sets icon_url attribute to icon URL value.
+     * @return string Icon URL
+     */
+    public function getIconUrlAttribute()
+    {
+        $iconUrl = asset('img/logos/logo-square.png');
+        $typeMap = [
+            1 => 'information',
+            2 => 'one-correct-answer',
+            3 => 'multiple-correct-answers',
+            4 => 'freeform-answer',
+            5 => 'match-pairs',
+            6 => 'embedded-content',
+            7 => 'photo',
+        ];
+
+        if ( array_key_exists( (int)$this->type, $typeMap ) )
+        {
+            $iconUrl = asset('img/icons/item/' . $typeMap[(int)$this->type] . '.png');
+        }
+
+        return $this->attributes['icon_url'] = $iconUrl;
+    }
+
+    /**
      * Returns question type title
      * @return string Question type title or key
      */

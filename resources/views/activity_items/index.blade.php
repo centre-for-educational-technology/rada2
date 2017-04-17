@@ -36,7 +36,7 @@
                             <div class="media">
                                 <div class="media-left">
                                     <a href="{!! route('activity_item.show', [ 'id' => $activity_item->id ]) !!}">
-                                        <img class="media-object img-rounded sz-img-64x64" src="{{ asset('img/logos/logo-square.png') }}" alt="featured-image">
+                                        <img class="media-object img-rounded sz-img-52x60" src="{{ $activity_item->icon_url }}" alt="featured-image">
                                     </a>
                                 </div>
                                 <div class="media-body">

@@ -68,9 +68,11 @@
                                                 <i class="mdi mdi-sort-numeric pull-right"></i>
                                                 {{ $t('zoo') }}
                                             </th>
-                                            <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('type') }" v-on:click="sortSearchResults('type')">
-                                                <i class="mdi mdi-sort-numeric pull-right"></i>
+                                            <th class="sortable" v-bind:class="{ active: isOrderedBy('type') }" v-on:click="sortSearchResults('type')">
+                                                <i class="mdi mdi-sort-numeric pull-right hidden-xs"></i>
+                                                <span class="hidden-xs">
                                                 {{ $t('question-type') }}
+                                                </span>
                                             </th>
                                             <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('language') }" v-on:click="sortSearchResults('language')">
                                                 <i class="mdi mdi-sort-numeric pull-right"></i>
@@ -83,7 +85,10 @@
                                         <tr v-for="item in sortedSearchResults">
                                             <td v-bind:title="item.description">{{ item.title }}</td>
                                             <td class="hidden-xs">{{ getZooFromId(item.zoo) }}</td>
-                                            <td class="hidden-xs">{{ getQuestionTypeFromId(item.type) }}</td>
+                                            <td>
+                                                <img class="sz-img-w30" v-bind:src="item.icon_url" alt="icon">
+                                                <span class="hidden-xs">&nbsp;{{ getQuestionTypeFromId(item.type) }}</span>
+                                            </td>
                                             <td class="hidden-xs">{{ getLanguageFromId(item.language) }}</td>
                                             <td>
                                                 <transition name="button-toggle" mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">

@@ -7894,6 +7894,16 @@ button.mdi::before {
   height: 64px;
 }
 
+.sz-img-52x60 {
+  width: 52px;
+  height: 60px;
+}
+
+.sz-img-w30 {
+  width: 30px;
+  height: auto;
+}
+
 .sz-account-types .mdi-google {
   color: #4d90fe;
 }
