@@ -80,4 +80,15 @@ class ActivityItemPolicy
     {
         return $user->id === $item->user_id;
     }
+
+    /**
+     * Determines if the user can see correct answer for certain question types
+     * @param  App\User         $user User object
+     * @param  App\ActivityItem $item ActivityItem object
+     * @return boolean
+     */
+    public function viewCorrectAnswer(User $user, ActivityItem $item)
+    {
+        return $user->id === $item->user_id || $user->isZooAdmin() || $user->isZooMember();
+    }
 }
