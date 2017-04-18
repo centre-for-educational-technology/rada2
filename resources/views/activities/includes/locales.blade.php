@@ -16,5 +16,6 @@
         'title' => trans('general.forms.labels.title'),
         'items-found' => trans('pages.activities.create-or-edit.items-found'),
         'load-more' => trans('general.forms.buttons.load-more'),
+        'none-found' => trans('pages.activity-items.index.none-found'),
     ]); ?>
 </script>

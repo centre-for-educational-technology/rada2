@@ -55,6 +55,9 @@
                             <div class="form-group">
                                 <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems()">{{ $t('search') }}</button>
                             </div>
+
+                            <div class="well text-center" v-if="searchResults.total === 0 && searchResults.currentPage">{{ $t('none-found') }}</div>
+
                             <div v-if="searchResults.data && searchResults.data.length > 0">
                                 <strong>{{ searchResults.total }} {{ $t('items-found') }}:</strong>
                                 <table class="table table-striped table-hover sz-search-results">
