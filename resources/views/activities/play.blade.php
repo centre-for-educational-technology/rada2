@@ -35,7 +35,6 @@
             'config' => [
                 'base_url' => url('/'),
                 'map' => [
-                    'green_dotless_icon_url' => asset('img/map/spotlight-poi-dotless-green.png'),
                     'key' => config('services.maps.google.api_key'),
                 ],
                 'locale' => App::getLocale(),

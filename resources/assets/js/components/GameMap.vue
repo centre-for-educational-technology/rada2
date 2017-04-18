@@ -50,8 +50,7 @@
         });
     }
 
-    var connectMarkers =  window.SmartZoos.config.connect_markers || false,
-        answeredMarkerUrl = window.SmartZoos.config.map.green_dotless_icon_url;
+    var connectMarkers =  window.SmartZoos.config.connect_markers || false;
 
     export default {
         components: {
@@ -87,7 +86,11 @@
                         stylers: [{visibility: 'off'}]
                   },
                 ]
-            }
+            };
+            this.mapData.iconAnchor = new google.maps.Point(17.35, 20);
+            this.mapData.iconSize = new google.maps.Size(52, 60);
+            this.mapData.iconScaledSize = new google.maps.Size(34.7, 40);
+
             this.initMap();
         },
         data() {
@@ -120,6 +123,16 @@
                     if ( map.szTrackingEnabled === true ) {
                         map.panTo(playerMarker.getPosition());
                     }
+                    if ( _this.hasProximityCheck() ) {
+                        // TODO Might make sense to cancel in case location
+                        // does change rpidly
+                        // Giving it half a second or so should be good enough
+                        _.each(_this.mapData.markers, function(marker) {
+                            if ( !_this.isAnswered(marker.questionId) ) {
+                                _this.detectAndSetMarkerIcon(marker);
+                            }
+                        });
+                    }
                 }, true);
 
                 if ( _this.game.activity.questions ) {
@@ -140,16 +153,12 @@
                             questionId: question.id
                         });
 
-                        if ( _this.isAnswered(question) ) {
-                            marker.setIcon({
-                                url: answeredMarkerUrl
-                            });
-                        }
+                        _this.detectAndSetMarkerIcon(marker);
 
                         markers.push(marker);
 
                         marker.addListener('click', function() {
-                            if ( _this.isAnswered(question) ) {
+                            if ( _this.isAnswered(question.id) ) {
                                 return;
                             }
 
@@ -245,19 +254,18 @@
 
                 this.mapData.playerMarker = playerMarker;
             },
-            isAnswered(question) {
-                return _.has(this.game.answers, question.id);
+            isAnswered(questionId) {
+                return _.has(this.game.answers, questionId);
             },
             markAnswered(id, answer) {
+                this.game.answers[id] = answer;
+
                 // TODO Might make sense to raise an error if marker can not be found
                 var marker = _.find(this.mapData.markers, function(marker) { return marker.questionId === id; });
 
                 if ( marker ) {
-                    marker.setIcon({
-                        url: answeredMarkerUrl
-                    });
+                    this.detectAndSetMarkerIcon(marker);
                 }
-                this.game.answers[id] = answer;
 
                 var answerIds = _.keys(this.game.answers).map(id => {
                     return _.toNumber(id);
@@ -318,6 +326,37 @@
                 this.question = question;
                 this.$nextTick(() => {
                     this.$refs.questionModal.open();
+                });
+            },
+            detectAndSetMarkerIcon(marker) {
+                // TODO Check it we should fail in case question could not be found
+                const question = _.find(this.game.activity.questions, ['id', marker.questionId]);
+                const nameMapping = {
+                    1: 'information',
+                    2: 'one-correct-answer',
+                    3: 'multiple-correct-answers',
+                    4: 'freeform-answer',
+                    5: 'match-pairs',
+                    6: 'embedded-content',
+                    7: 'photo'
+                };
+                let iconBase = this.baseUrl + '/img/icons/item/';
+
+                if ( this.isAnswered(question.id) ) {
+                    iconBase += 'answered/';
+                } else if ( this.hasProximityCheck() ) {
+                    const distance = google.maps.geometry.spherical.computeDistanceBetween(this.mapData.playerMarker.getPosition(), marker.getPosition());
+
+                    if ( distance > this.getProximityRadius() ) {
+                        iconBase += 'inactive/';
+                    }
+                }
+
+                marker.setIcon({
+                    anchor: this.mapData.iconAnchor,
+                    size: this.mapData.iconSize,
+                    scaledSize: this.mapData.iconScaledSize,
+                    url: iconBase + nameMapping[question.type] + '.png'
                 });
             }
         }
