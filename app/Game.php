@@ -164,14 +164,15 @@ class Game extends Model
             return 100;
         }
 
-        $answersCount = $this->answers()->count();
-        $itemsCount = $this->activity->getActivityItemsCount();
+        $itemIds = $this->activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
 
-        if ( $itemsCount === 0 )
+        if ( count($itemIds) === 0 )
         {
             return 0;
         }
 
-        return round($answersCount / $itemsCount * 100, 0, PHP_ROUND_HALF_UP);
+        $answersCount = $this->answers()->whereIn('activity_item_id', $itemIds)->count();
+
+        return round($answersCount / count($itemIds) * 100, 0, PHP_ROUND_HALF_UP);
     }
 }
