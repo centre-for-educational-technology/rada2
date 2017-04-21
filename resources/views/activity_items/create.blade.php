@@ -3,6 +3,7 @@
 @section('header-scripts')
 <script>
     window.Laravel.zooGeolocationOptions = <?php echo json_encode($zooGeolocationOptions); ?>;
+    window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'create-activity-item';
 </script>
 @endsection
@@ -65,6 +66,7 @@
                     {!! Form::select('type', $questionTypeOptions, null, [
                         'class' => 'form-control',
                         'v-model' => 'questionType',
+                        'v-on:change' => 'changedQuestionType',
                     ]) !!}
                 </div>
 

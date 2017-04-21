@@ -40,6 +40,7 @@
         mounted() {
             if ( this.$parent.hasQuestionData() ) {
                 this.options = this.$parent.getQuestionData();
+                this.enforceCorrectOption();
             } else {
                 this.options = [
                     {

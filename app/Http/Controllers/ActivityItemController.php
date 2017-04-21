@@ -23,6 +23,8 @@ use App\Options\QuestionTypeOptions;
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 
+use Illuminate\Support\Facades\Log;
+
 class ActivityItemController extends Controller
 {
   /**
@@ -167,11 +169,41 @@ class ActivityItemController extends Controller
   {
       $this->authorize('create', ActivityItem::class);
 
+      $questionData = [];
+
+      if ( (int)old('type') === 2 || (int)old('type') === 3 )
+      {
+          $correct = is_array( old('correct') ) ? old('correct') : [ old('correct') ];
+
+          foreach ( old('options') as $index => $option )
+          {
+              $questionData[] = [
+                  'id' => 0,
+                  'option' => $option,
+                  'correct' => in_array($index, $correct),
+                  'image' => '',
+              ];
+          }
+      } else if ( (int)old('type') === 5 )
+      {
+          foreach( old('options') as $index => $option )
+          {
+              $questionData[] = [
+                  'id' => 0,
+                  'option' => $option,
+                  'image' => '',
+                  'option_match' => old('matches')[$index],
+                  'image_match' => '',
+              ];
+          }
+      }
+
       return view('activity_items/create')->with([
           'zooGeolocationOptions' => $zooGeolocationOptions->options(),
           'questionTypeOptions' => $questionTypeOptions->options(),
           'zooOptions' => $zooOptions->options(),
           'languageOptions' => $languageOptions->options(),
+          'questionData' => $questionData,
       ]);
   }
 
@@ -300,12 +332,50 @@ class ActivityItemController extends Controller
   {
       $this->authorize('update', $activity_item);
 
+      $questionData = [];
+
+      if ( (int)old('type') === 2 || (int)old('type') === 3 )
+      {
+          $correct = is_array( old('correct') ) ? old('correct') : [ old('correct') ];
+          $options = $activity_item->options->keyBy('id');
+
+          foreach ( old('options') as $index => $option )
+          {
+              $optionId = old('ids')[$index];
+
+              $questionData[] = [
+                  'id' => $optionId,
+                  'option' => $option,
+                  'correct' => in_array($index, $correct),
+                  'image' => $options->has($optionId) ? $options->get($optionId)->image : '',
+              ];
+          }
+      } else if ( (int)old('type') === 5 )
+      {
+          $pairs = $activity_item->pairs->keyBy('id');
+
+          foreach( old('options') as $index => $option )
+          {
+              $pairId = old('ids')[$index];
+              $pair = $pairs->get($pairId);
+
+              $questionData[] = [
+                  'id' => $pairId,
+                  'option' => $option,
+                  'image' => $pair ? $pair->image : '',
+                  'option_match' => old('matches')[$index],
+                  'image_match' => $pair ? $pair->image_match : '',
+              ];
+          }
+      }
+
       return view('activity_items/edit')->with([
           'activity_item' => $activity_item,
           'zooGeolocationOptions' => $zooGeolocationOptions->options(),
           'questionTypeOptions' => $questionTypeOptions->options(),
           'zooOptions' => $zooOptions->options(),
           'languageOptions' => $languageOptions->options(),
+          'questionData' => $questionData ? $questionData : $activity_item->getQuestionData(),
       ]);
   }
 

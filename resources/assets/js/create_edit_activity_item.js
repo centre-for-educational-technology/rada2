@@ -171,6 +171,11 @@ const addActivityItemApp = new Vue({
         getQuestionData: function() {
             return window.Laravel.activityItemQuestionData;
         },
+        changedQuestionType: function() {
+            if ( this.hasQuestionData() ) {
+                delete window.Laravel.activityItemQuestionData;
+            }
+        },
         getOptionImageUrl: function(image) {
             return window.Laravel.activityItemAssetsBaseUrl + '/' + image;
         },

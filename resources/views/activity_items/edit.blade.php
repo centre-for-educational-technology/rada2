@@ -3,7 +3,7 @@
 @section('header-scripts')
 <script>
     window.Laravel.zooGeolocationOptions = <?php echo json_encode($zooGeolocationOptions); ?>;
-    window.Laravel.activityItemQuestionData = <?php echo json_encode($activity_item->getQuestionData()); ?>;
+    window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'edit-activity-item';
     window.Laravel.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
 </script>

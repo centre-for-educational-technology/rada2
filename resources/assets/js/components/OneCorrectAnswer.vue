@@ -40,7 +40,9 @@
         mounted() {
             if ( this.$parent.hasQuestionData() ) {
                 this.options = this.$parent.getQuestionData();
-                this.checkedOption = _.findIndex(this.options, function(o) { return o.correct === 1; });
+
+                const correctIndex = _.findIndex(this.options, ['correct', true]);
+                this.checkedOption = ( correctIndex !== -1 ) ? correctIndex : 0;
             } else {
                 this.options = [
                     {

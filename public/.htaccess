@@ -3,6 +3,8 @@
         Options -MultiViews
     </IfModule>
 
+    php_value memory_limit 256M
+
     RewriteEngine On
 
     # Redirect Trailing Slashes If Not A Folder...
