@@ -10,15 +10,13 @@ use App\Activity;
 use App\ActivityItem;
 use App\Game;
 
-use Intervention\Image\Facades\Image;
-use Illuminate\Support\Facades\File;
-
 use Auth;
 
 use App\Options\ZooOptions;
 use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
+use App\Services\ImageService;
 
 use Illuminate\Support\Facades\Log;
 
@@ -43,25 +41,15 @@ class ActivityController extends Controller
 
     /**
      * Process uploaded image as needed and move to a correct location.
+     * @param  \App\Services\ImageService       $imageService
      * @param  \App\Http\Requests\StoreActivity $request
      * @return string                                    Image file name
      */
-    private function processFeaturedImage(&$request) {
+    private function processFeaturedImage(&$imageService, &$request) {
         $originalExtension = $request->file('featured_image')->getClientOriginalExtension();
-        $fileName = sha1(uniqid('featured_image_', true)) . '.' . $originalExtension;
+        $fileName = $imageService->generateUniqueFileName('featured_image_', $originalExtension);
 
-        $image = Image::make($request->file('featured_image')->getRealPath());
-
-        $image->resize(800, null, function($constraint) {
-            $constraint->upsize();
-            $constraint->aspectRatio();
-        });
-        $image->resize(null, 800, function($constraint) {
-            $constraint->upsize();
-            $constraint->aspectRatio();
-        });
-
-        $image->save(public_path('uploads/images/' . $fileName));
+        $imageService->process($request->file('featured_image')->getRealPath(), null, $fileName, 800);
 
         return $fileName;
     }
@@ -158,9 +146,10 @@ class ActivityController extends Controller
      * Store newly created activity in database.
      *
      * @param \App\Http\Requests\StoreActivity;
+     * @param \App\Services\ImageService;
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreActivity $request)
+    public function store(StoreActivity $request, ImageService $imageService)
     {
         $activity = new Activity;
 
@@ -174,7 +163,7 @@ class ActivityController extends Controller
         $activity->contact_information = $request->contact_information;
         if ( $request->hasFile('featured_image') )
         {
-            $fileName = $this->processFeaturedImage($request);
+            $fileName = $this->processFeaturedImage($imageService, $request);
             $activity->featured_image = $fileName;
         }
         $activity->zoo = $request->zoo;
@@ -249,9 +238,10 @@ class ActivityController extends Controller
      *
      * @param \App\Http\Requests\StoreActivity;
      * @param \App\Activity
+     * @param \App\Services\ImageService
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreActivity $request, Activity $activity)
+    public function update(StoreActivity $request, Activity $activity, ImageService $imageService)
     {
         $activity->type = $request->type;
         $activity->title = $request->title;
@@ -264,11 +254,11 @@ class ActivityController extends Controller
         if ( $request->hasFile('featured_image') ) {
             $originalFeaturedImage = $activity->featured_image;
 
-            $fileName = $this->processFeaturedImage($request);
+            $fileName = $this->processFeaturedImage($imageService, $request);
             $activity->featured_image = $fileName;
 
             if ( $originalFeaturedImage ) {
-                File::delete(public_path('uploads/images/' . $originalFeaturedImage));
+                $imageService->delete($originalFeaturedImage);
             }
         }
         if ( auth()->user()->can('changeZoo', $activity) )

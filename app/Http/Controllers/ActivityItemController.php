@@ -6,10 +6,6 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 
-use Intervention\Image\Facades\Image;
-
-use Illuminate\Support\Facades\File;
-
 use App\ActivityItem;
 
 use App\Http\Requests\StoreActivityItem;
@@ -22,6 +18,8 @@ use App\Options\ZooGeolocationOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
+use Illuminate\Support\Facades\File;
+use App\Services\ImageService;
 
 use Illuminate\Support\Facades\Log;
 
@@ -46,30 +44,16 @@ class ActivityItemController extends Controller
 
   /**
    * Process uploaded image as needed and move to a correct location.
-   * @param  \App\Http\Requests\StoreActivity $request
-   * @return string                                    Image file name
+   * @param  \App\Services\ImageService       $imageService ImageService instance
+   * @param  \App\Http\Requests\StoreActivity $request      Request instance
+   * @param  string                           $name         Uploaded file name
+   * @return string                                         Image file name
    */
-  private function processUploadedOptionImage(&$request, $name, $path) {
+  private function processUploadedOptionImage(&$imageService, &$request, $name, $path) {
       $originalExtension = $request->file($name)->getClientOriginalExtension();
-      $fileName = sha1(uniqid('activity_item_image_', true)) . '.' . $originalExtension;
+      $fileName = $imageService->generateUniqueFileName('activity_item_image_', $originalExtension);
 
-      $image = Image::make($request->file($name)->getRealPath());
-
-      $image->resize(500, null, function($constraint) {
-          $constraint->upsize();
-          $constraint->aspectRatio();
-      });
-      $image->resize(null, 500, function($constraint) {
-          $constraint->upsize();
-          $constraint->aspectRatio();
-      });
-
-      if ( !File::isDirectory( public_path('uploads/images/' . $path) ) ) {
-          File::makeDirectory( public_path('uploads/images/' . $path) );
-      }
-
-      $image->save(public_path('uploads/images/' . $path  . $fileName));
-
+      $imageService->process($request->file($name)->getRealPath(), $path, $fileName, 500);
 
       return $fileName;
   }
@@ -213,7 +197,7 @@ class ActivityItemController extends Controller
    * @param \App\Http\Requests\StoreActivityItem';
    * @return \Illuminate\Http\Response
    */
-  public function store(StoreActivityItem $request)
+  public function store(StoreActivityItem $request, ImageService $imageService)
   {
       $item = new ActivityItem;
 
@@ -252,7 +236,7 @@ class ActivityItemController extends Controller
               $tmp->option = $option;
               $tmp->correct = (int)( $key === $correct );
               if ( $request->hasFile('option-image-' . $key) ) {
-                  $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
               }
 
               $options[] = $tmp;
@@ -274,7 +258,7 @@ class ActivityItemController extends Controller
               $tmp->option = $option;
               $tmp->correct = (int)in_array($key, $correct);
               if ( $request->hasFile('option-image-' . $key) ) {
-                  $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
               }
 
               $options[] = $tmp;
@@ -292,10 +276,10 @@ class ActivityItemController extends Controller
               $tmp->option = $option;
               $tmp->option_match = $request->matches[$key];
               if ( $request->hasFile('option-image-' . $key) ) {
-                  $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                  $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
               }
               if ( $request->hasFile('option-match-image-' . $key) ) {
-                  $tmp->image_match = $this->processUploadedOptionImage($request, 'option-match-image-' . $key, $path);
+                  $tmp->image_match = $this->processUploadedOptionImage($imageService, $request, 'option-match-image-' . $key, $path);
               }
 
 
@@ -386,7 +370,7 @@ class ActivityItemController extends Controller
    * @param \App\ActivityItem
    * @return \Illuminate\Http\Response
    */
-  public function update(StoreActivityItem $request, ActivityItem $activity_item)
+  public function update(StoreActivityItem $request, ActivityItem $activity_item, ImageService $imageService)
   {
       $activity_item->title = $request->title;
       $activity_item->description = $request->description;
@@ -430,7 +414,7 @@ class ActivityItemController extends Controller
                           $tmp->deleteImage();
                           $tmp->image = null;
                       }
-                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                      $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
                   $options[] = $tmp;
               } else {
@@ -439,7 +423,7 @@ class ActivityItemController extends Controller
                   $tmp->option = $option;
                   $tmp->correct = (int)( $key === $correct );
                   if ( $request->hasFile('option-image-' . $key) ) {
-                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                      $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
 
                   $options[] = $tmp;
@@ -470,7 +454,7 @@ class ActivityItemController extends Controller
                           $tmp->deleteImage();
                           $tmp->image = null;
                       }
-                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                      $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
 
                   $options[] = $tmp;
@@ -480,7 +464,7 @@ class ActivityItemController extends Controller
                   $tmp->option = $option;
                   $tmp->correct = (int)in_array($key, $correct);
                   if ( $request->hasFile('option-image-' . $key) ) {
-                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                      $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
 
                   $options[] = $tmp;
@@ -509,14 +493,14 @@ class ActivityItemController extends Controller
                           $tmp->deleteImage();
                           $tmp->image = null;
                       }
-                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                      $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
                   if ( $request->hasFile('option-match-image-' . $key) ) {
                       if ( $tmp->image_match ) {
                           $tmp->deleteImageMatch();
                           $tmp->image_match = null;
                       }
-                      $tmp->image_match = $this->processUploadedOptionImage($request, 'option-match-image-' . $key, $path);
+                      $tmp->image_match = $this->processUploadedOptionImage($imageService, $request, 'option-match-image-' . $key, $path);
                   }
 
                   $pairs[] = $tmp;
@@ -526,10 +510,10 @@ class ActivityItemController extends Controller
                   $tmp->option = $option;
                   $tmp->option_match = $request->matches[$key];
                   if ( $request->hasFile('option-image-' . $key) ) {
-                      $tmp->image = $this->processUploadedOptionImage($request, 'option-image-' . $key, $path);
+                      $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
                   if ( $request->hasFile('option-match-image-' . $key) ) {
-                      $tmp->image_match = $this->processUploadedOptionImage($request, 'option-match-image-' . $key, $path);
+                      $tmp->image_match = $this->processUploadedOptionImage($imageService, $request, 'option-match-image-' . $key, $path);
                   }
 
                   $pairs[] = $tmp;

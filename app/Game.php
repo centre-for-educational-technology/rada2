@@ -175,4 +175,13 @@ class Game extends Model
 
         return round($answersCount / count($itemIds) * 100, 0, PHP_ROUND_HALF_UP);
     }
+
+    /**
+     * Returns storage path hash for the ActivityItem
+     * @return string SHA1 hash used for storage path
+     */
+    public function getStoragePath()
+    {
+        return $this->id . '/';
+    }
 }

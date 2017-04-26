@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Validator;
 
+use App\Services\ImageService;
+
 use Auth;
 
 class GameController extends Controller
@@ -42,10 +44,11 @@ class GameController extends Controller
 
     /**
      * [answer description]
-     * @param  Request $request [description]
-     * @return [type]           [description]
+     * @param  Request                    $request      [description]
+     * @param  \App\Services\ImageService $imageService ImageService instance
+     * @return [type]                                   [description]
      */
-    public function answer(Request $request)
+    public function answer(Request $request, ImageService $imageService)
     {
         $game = Game::find($request->get('game_id'));
 
@@ -105,26 +108,10 @@ class GameController extends Controller
             }
 
             $originalExtension = $request->file('image')->getClientOriginalExtension();
-            $fileName = sha1(uniqid('game_answer_image', true)) . '.' . $originalExtension;
+            $fileName = $imageService->generateUniqueFileName('game_answer_image_', $originalExtension);
 
-            $image = Image::make($request->file('image')->getRealPath());
-
-            $image->resize(800, null, function($constraint) {
-                $constraint->upsize();
-                $constraint->aspectRatio();
-            });
-            $image->resize(null, 800, function($constraint) {
-                $constraint->upsize();
-                $constraint->aspectRatio();
-            });
-
-            $directoryPath = public_path( 'uploads/images/' . $game->id . '/' );
-
-            if ( !File::isDirectory($directoryPath) ) {
-                File::makeDirectory( $directoryPath );
-            }
-
-            $image->save( $directoryPath . $fileName );
+            $directoryPath = $game->getStoragePath();
+            $imageService->process($request->file('image')->getRealPath(), $directoryPath, $fileName, 800);
 
             $answer->image = $fileName;
         }
