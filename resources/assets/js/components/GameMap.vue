@@ -40,6 +40,19 @@
             }
         });
 
+        var boundsControlItem = document.createElement('i');
+        boundsControlItem.className = 'mdi mdi-map-marker-multiple';
+        boundsControlItem.title = vm.$t('apply-item-bounds');
+        controlUI.appendChild(boundsControlItem);
+
+        boundsControlItem.addEventListener('click', function() {
+            var bounds = vm.getMarkerBounds();
+
+            if ( !bounds.isEmpty() ) {
+                map.fitBounds(bounds);
+            }
+        });
+
         var exitControlIcon = document.createElement('i');
         exitControlIcon.className = 'mdi mdi-exit-to-app';
         exitControlIcon.title = vm.$t('exit');
@@ -358,6 +371,21 @@
                     scaledSize: this.mapData.iconScaledSize,
                     url: iconBase + nameMapping[question.type] + '.png'
                 });
+            },
+            getMarkerBounds() {
+                if ( this.mapData.markerBounds ) return this.mapData.markerBounds;
+
+                this.mapData.markerBounds = new google.maps.LatLngBounds();
+
+                if ( this.mapData.markers.length > 0 ) {
+                    const vm = this;
+
+                    _.each(this.mapData.markers, function(marker) {
+                        vm.mapData.markerBounds.extend(marker.getPosition());
+                    });
+                }
+
+                return this.mapData.markerBounds;
             }
         }
     }

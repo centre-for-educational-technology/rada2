@@ -60,6 +60,7 @@
                     'exit-confirmation' => trans('pages.play.game.exit-confirmation'),
                     'textual-answer-placeholder' => trans('pages.play.game.textual-answer-placeholder'),
                     'image-format-hint' => trans('pages.play.game.image-format-hint'),
+                    'apply-item-bounds' => trans('pages.play.game.apply-item-bounds'),
                 ]
             ],
         ]);

@@ -71,6 +71,7 @@ return [
             'exit-confirmation' => 'Are you sure you want to exit the game? Only authenticated users would be able to continue later.',
             'textual-answer-placeholder' => 'Answer text...',
             'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
+            'apply-item-bounds' => 'Show all available Activity Item points on the map',
         ],
     ],
     'dashboard' => [
