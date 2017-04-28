@@ -14,6 +14,20 @@
         controlUI.id = 'sz-map-controls'
         controlDiv.appendChild(controlUI);
 
+        var completionControlItem = document.createElement('i');
+        completionControlItem.className = 'label label-success';
+        completionControlItem.style.fontSize = '20px';
+        completionControlItem.style.position = 'relative';
+        completionControlItem.style.top = '-7px';
+        completionControlItem.style.marginLeft = '5px';
+        completionControlItem.style.marginRight = '5px';
+        completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
+        controlUI.appendChild(completionControlItem);
+
+        vm.$watch('game.answers', function() {
+            completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
+        });
+
         var informationControlItem = document.createElement('i');
         informationControlItem.className = 'mdi mdi-information-outline';
         informationControlItem.title = vm.$t('info');
@@ -271,7 +285,7 @@
                 return _.has(this.game.answers, questionId);
             },
             markAnswered(id, answer) {
-                this.game.answers[id] = answer;
+                this.$set(this.game.answers, id, answer);
 
                 // TODO Might make sense to raise an error if marker can not be found
                 var marker = _.find(this.mapData.markers, function(marker) { return marker.questionId === id; });
@@ -386,6 +400,19 @@
                 }
 
                 return this.mapData.markerBounds;
+            },
+            getAnsweredQuestionsCount() {
+                if ( _.size(this.game.activity.questions) === 0 || _.size(this.game.answers) === 0 ) return 0;
+
+                var questionIds = _.map(this.game.activity.questions, question => {
+                    return question.id;
+                });
+
+                var answered = _.filter(this.game.answers, answer => {
+                    return questionIds.indexOf(answer.question) !== -1;
+                });
+
+                return _.size(answered);
             }
         }
     }
