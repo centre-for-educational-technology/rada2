@@ -120,8 +120,11 @@
 </template>
 
 <script>
+    import ImageMixin from './../mixins/Image.js'
+
     export default {
         props: ['question', 'gameId', 'baseUrl'],
+        mixins: [ImageMixin],
         mounted() {
             var vm = this;
 
@@ -306,7 +309,7 @@
                 if ( event.target.files.length > 0 ) {
                     var file = event.target.files[0];
 
-                    if ( !( file.type === 'image/jpg' || file.type === 'image/jpeg' || file.type == 'image/png' ) ) {
+                    if ( !this.isValidImageFormat(file) ) {
                         $(event.target).val('');
                         this.hasImageSelected = false;
                         this.incorrectImageFormat = true;

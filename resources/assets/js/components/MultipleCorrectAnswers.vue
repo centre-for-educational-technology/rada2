@@ -36,7 +36,11 @@
 </template>
 
 <script>
+    import ImageMixin from './../mixins/Image.js';
+    import OptionImageMixin from './../mixins/OptionImage.js';
+
     export default {
+        mixins: [ImageMixin, OptionImageMixin],
         mounted() {
             if ( this.$parent.hasQuestionData() ) {
                 this.options = this.$parent.getQuestionData();
@@ -96,24 +100,6 @@
                     option: '',
                     correct: false,
                     image: ''
-                });
-            },
-            imageSelected: function(index) {
-                if ( !event.target.files.length > 0 ) return;
-
-                this.options[index].image = event.target.files[0].name;
-                this.options[index].imagePreview = false;
-                var element = $(this.$refs['add-image'][index]);
-
-                this.$nextTick(() => {
-                    if ( element.data && element.data('original-title') ) {
-                        element
-                            .attr('data-original-title', element.attr('title'))
-                            .removeAttr('title')
-                            .tooltip('show');
-                    } else {
-                        element.tooltip();
-                    }
                 });
             },
             hasCorrectOptions: function() {
