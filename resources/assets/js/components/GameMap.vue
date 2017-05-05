@@ -99,7 +99,7 @@
                     lng: this.longitude
                 },
                 zoom: 18,
-                mapTypeId: google.maps.MapTypeId.HYBRID,
+                mapTypeId: google.maps.MapTypeId.ROADMAP,
                 disableDefaultUI: true,
                 zoomControl: true,
                 streetViewControl: true,
@@ -134,6 +134,8 @@
                 this.mapData.map = new google.maps.Map(document.getElementById('map'), this.mapData.mapOptions);
 
                 this.mapData.infoWindow = new google.maps.InfoWindow();
+
+                this.initGroundOverlays();
 
                 this.initPlayerMarker();
 
@@ -212,6 +214,19 @@
                     } else {
                         this.$refs.informationModal.open();
                     }
+                });
+            },
+            initGroundOverlays() {
+                // XXX Overlay should only load when Skansen is chosen
+                // Image should be part of the codebase
+                this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay('http://www.skansen.se/images/google-map-overlay.png',{
+                    north: 59.329167,
+                    south: 59.324011,
+                    east: 18.111242,
+                    west: 18.099022
+                }, {
+                    clickable: false,
+                    map: this.mapData.map
                 });
             },
             initGameControls() {
