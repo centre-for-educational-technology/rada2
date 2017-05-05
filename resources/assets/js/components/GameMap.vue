@@ -299,6 +299,11 @@
             isAnswered(questionId) {
                 return _.has(this.game.answers, questionId);
             },
+            isCorrect(questionId) {
+                const answer = _.get(this.game.answers, questionId, null);
+
+                return answer && answer.correct === true;
+            },
             markAnswered(id, answer) {
                 this.$set(this.game.answers, id, answer);
 
@@ -385,7 +390,7 @@
                 let iconBase = this.baseUrl + '/img/icons/item/';
 
                 if ( this.isAnswered(question.id) ) {
-                    iconBase += 'answered/';
+                    iconBase += this.isCorrect(question.id) ? 'correct/' : 'incorrect/';
                 } else if ( this.hasProximityCheck() ) {
                     const distance = google.maps.geometry.spherical.computeDistanceBetween(this.mapData.playerMarker.getPosition(), marker.getPosition());
 
