@@ -7820,6 +7820,10 @@ button.mdi::before {
   color: #a94442;
 }
 
+form.sz-action-form-inline {
+  display: inline-block;
+}
+
 .sz-display-new-lines {
   white-space: pre-line;
 }
