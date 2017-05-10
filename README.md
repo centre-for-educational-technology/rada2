@@ -11,6 +11,8 @@ This tool set includes:
 ## Installation
 - Make sure that [composer](https://getcomposer.org/) is installed globally or install it in place
 - Clone the repository
+  - Please make sure to switch to **production** branch if you are running on production server
+  - In case of development instance, please make sure to build the static assets. Refer to [working with compiled assets](#working-with-compiled-assets) for more information
 - Move into the directory (**cd SmartZoos**)
 - Install the dependencies **composer install**
 - Make sure that .env file is present and configured as needed (copy .env.example to .env and fill in with data)
@@ -30,6 +32,8 @@ This tool set includes:
 - Run **php artisan db:seed** to ensure that database is filled with required information
 
 ## Development
+
+**NB! Please note that non-production branch does not have the built assets provided**
 
 ### Working with compiled assets
 Working with JS and SASS requires [Node.js](https://nodejs.org) and [Gulp](http://gulpjs.com/) or compilation, generation and management purposes.
