@@ -72,6 +72,13 @@ return [
             'textual-answer-placeholder' => 'Answer text...',
             'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
             'apply-item-bounds' => 'Show all available Activity Item points on the map',
+            'icons' => [
+                'help' => 'Each icon has a colour code that indicates the state of a question.',
+                'active' => 'Indicates that icon is clickable and answer could be given.',
+                'inactive' => 'Indicates a need to get closer in order to be able to answer the question.',
+                'correct' => 'Indicates that the question has been answered correctly.',
+                'incorrect' => 'Indicates that the question has not been answered correctly.',
+            ],
         ],
     ],
     'dashboard' => [

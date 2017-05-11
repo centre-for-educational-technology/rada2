@@ -61,6 +61,13 @@
                     'textual-answer-placeholder' => trans('pages.play.game.textual-answer-placeholder'),
                     'image-format-hint' => trans('pages.play.game.image-format-hint'),
                     'apply-item-bounds' => trans('pages.play.game.apply-item-bounds'),
+                    'icons' => [
+                        'help' => trans('pages.play.game.icons.help'),
+                        'active' => trans('pages.play.game.icons.active'),
+                        'inactive' => trans('pages.play.game.icons.inactive'),
+                        'correct' => trans('pages.play.game.icons.correct'),
+                        'incorrect' => trans('pages.play.game.icons.incorrect'),
+                    ],
                 ]
             ],
         ]);

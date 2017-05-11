@@ -7,6 +7,22 @@
                     <h4 class="modal-title">{{ activity.title }}</h4>
                 </div>
                 <div class="modal-body">
+                    <button class="btn btn-default btn-sm pull-right" role="button" data-toggle="collapse" data-target="#iconCodes" aria-expanded="false" aria-controls="iconCodes">
+                        <i class="mdi mdi-help-circle-outline"></i>
+                    </button>
+                    <div class="collapse" id="iconCodes">
+                        <div class="well well-sm">
+                            <p class="help-block">{{ $t('icons.help') }}</p>
+                            <div class="media"  v-for="icon in icons">
+                                <div class="media-left media-middle">
+                                    <img class="media-object" alt="icon" style="width:26px;height:30px;" v-bind:src="getIconUrl(icon)">
+                                </div>
+                                <div class="media-body">
+                                    <p>{{ getIconText(icon) }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <h3>{{ $t('description') }}</h3>
                     <p class="sz-display-new-lines">
                         {{ activity.description }}
@@ -52,6 +68,13 @@
     export default {
         props: ['activity'],
         mounted() {
+            this.baseUrl = window.SmartZoos.config.base_url;
+        },
+        data() {
+            return {
+                icons: ['active', 'inactive', 'correct', 'incorrect'],
+                baseUrl: ''
+            };
         },
         methods: {
             open() {
@@ -63,6 +86,12 @@
                 this.$nextTick(function() {
                     $(this.$refs.modal).modal('hide');
                 });
+            },
+            getIconUrl(type) {
+                return this.baseUrl + '/img/icons/item/' + ( ( type !== 'active' ) ? type + '/' : '' ) + 'information.png';
+            },
+            getIconText(type) {
+                return this.$t('icons.' + type);
             }
         }
     }
