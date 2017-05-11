@@ -217,9 +217,7 @@
                 });
             },
             initGroundOverlays() {
-                // XXX Overlay should only load when Skansen is chosen
-                // Image should be part of the codebase
-                this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay('http://www.skansen.se/images/google-map-overlay.png',{
+                this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay(this.baseUrl + '/img/map/overlays/skansen.png',{
                     north: 59.329167,
                     south: 59.324011,
                     east: 18.111242,
