@@ -8,7 +8,7 @@
                 </div>
                 <div class="modal-body">
                     <button class="btn btn-default btn-sm pull-right" role="button" data-toggle="collapse" data-target="#iconCodes" aria-expanded="false" aria-controls="iconCodes">
-                        <i class="mdi mdi-help-circle-outline"></i>
+                        <i class="mdi mdi-information-outline"></i>
                     </button>
                     <div class="collapse" id="iconCodes">
                         <div class="well well-sm">
