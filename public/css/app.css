@@ -16008,6 +16008,10 @@ form.sz-action-form-inline {
   font-size: 96px;
 }
 
+#sz-play-app .sz-one-correct-answer .media, #sz-play-app .sz-multiple-correct-answers .media {
+  cursor: pointer;
+}
+
 #sz-play-app .sz-one-correct-answer .media input[type='radio'], #sz-play-app .sz-one-correct-answer .media input[type='checkbox'], #sz-play-app .sz-multiple-correct-answers .media input[type='radio'], #sz-play-app .sz-multiple-correct-answers .media input[type='checkbox'] {
   display: none;
 }

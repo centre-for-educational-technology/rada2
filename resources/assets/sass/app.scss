@@ -278,6 +278,8 @@ form.sz-action-form-inline {
 
     .sz-one-correct-answer, .sz-multiple-correct-answers {
         .media {
+            cursor: pointer;
+
             input[type='radio'], input[type='checkbox'] {
                 display: none;
             }
