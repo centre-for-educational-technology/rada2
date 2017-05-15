@@ -60,6 +60,7 @@
                     'textual-answer-placeholder' => trans('pages.play.game.textual-answer-placeholder'),
                     'image-format-hint' => trans('pages.play.game.image-format-hint'),
                     'apply-item-bounds' => trans('pages.play.game.apply-item-bounds'),
+                    'results-heading' => trans('pages.play.game.results-heading'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),

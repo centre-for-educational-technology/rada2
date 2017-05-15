@@ -6,6 +6,7 @@
                     <h4 class="modal-title">{{ activity.title }}</h4>
                 </div>
                 <div class="modal-body">
+                    <h2 class="text-center">{{ $t('results-heading')}}</h2>
                     <div v-for="(question, index) in activity.questions">
                         <h3>{{ index + 1 }}. {{ question.title }}</h3>
                         <p class="sz-display-new-lines">{{question.description}}</p>

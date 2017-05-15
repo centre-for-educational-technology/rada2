@@ -72,6 +72,7 @@ return [
             'textual-answer-placeholder' => 'Answer text...',
             'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
             'apply-item-bounds' => 'Show all available Activity Item points on the map',
+            'results-heading' => 'These are your results',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Indicates that icon is clickable and answer could be given.',
