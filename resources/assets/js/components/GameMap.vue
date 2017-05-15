@@ -152,6 +152,7 @@
                     if ( map.szTrackingEnabled === true ) {
                         map.panTo(playerMarker.getPosition());
                     }
+                    _this.initUpdateClosestUnansweredMarkerArrow();
                     if ( _this.hasProximityCheck() ) {
                         // TODO Might make sense to cancel in case location
                         // does change rpidly
@@ -206,6 +207,8 @@
                     if ( connectMarkers ) {
                         _this.connectMarkers();
                     }
+
+                    _this.initUpdateClosestUnansweredMarkerArrow();
                 }
 
                 this.$nextTick(() => {
@@ -319,6 +322,8 @@
                     return question.id;
                 });
 
+                this.initUpdateClosestUnansweredMarkerArrow();
+
                 if ( _.intersection(questionIds, answerIds).length === questionIds.length ) {
                     this.game.complete = true;
 
@@ -431,6 +436,61 @@
                 });
 
                 return _.size(answered);
+            },
+            getClosestUnansweredMarker() {
+                var vm = this,
+                    unansweredMarkers = _.filter(this.mapData.markers, marker => { return !vm.isAnswered(marker.questionId); }),
+                    playerMarker = this.mapData.playerMarker;
+
+                if ( unansweredMarkers.length > 0 ) {
+                    return _.minBy(unansweredMarkers, marker => {
+                        return google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
+                    });
+                }
+
+                return null;
+            },
+            initUpdateClosestUnansweredMarkerArrow() {
+                var vm = this,
+                    marker = vm.getClosestUnansweredMarker();
+
+                if ( !marker ) {
+                    if ( vm.mapData.closestUnansweredMarkerArrow ) {
+                        vm.mapData.closestUnansweredMarkerArrow.setMap(null);
+                    }
+                    return;
+                }
+
+                if ( !vm.mapData.closestUnansweredMarkerArrow ) {
+                    vm.mapData.closestUnansweredMarkerArrow = new google.maps.Polyline({
+                        path: [
+                            vm.mapData.playerMarker.getPosition(),
+                            marker.getPosition()
+                        ],
+                        strokeColor: 'red',
+                        strokeWeight: 2,
+                        strokeOpacity: 0.4,
+                        icons: [{
+                            icon: {
+                                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                                fillColor: 'red',
+                                strokeColor: 'red',
+                                fillOpacity: 0.8,
+                                strokeOpacity: 0.8,
+                                scale: 4
+                            },
+                            offset: '50px',
+                        }],
+                        geodesic: true,
+                        map: vm.mapData.map,
+                        zIndex: 2
+                    });
+                } else {
+                    vm.mapData.closestUnansweredMarkerArrow.setPath([
+                        vm.mapData.playerMarker.getPosition(),
+                        marker.getPosition()
+                    ]);
+                }
             }
         }
     }
