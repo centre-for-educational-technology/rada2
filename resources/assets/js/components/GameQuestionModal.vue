@@ -111,8 +111,12 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" v-on:click="close()" v-bind:disabled="inAjaxCall">{{ $t('close') }}</button>
-                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()">{{ $t('submit') }}</button>
+                    <button type="button" class="btn btn-default" v-on:click="close()" v-bind:disabled="inAjaxCall" v-bind:title="$t('close')">
+                        <i class="mdi mdi-close"></i>
+                    </button>
+                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()" v-bind:title="$t('submit')">
+                        <i class="mdi mdi-send"></i>
+                    </button>
                 </div>
             </div>
         </div>
