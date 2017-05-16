@@ -71,7 +71,7 @@
                     -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-lg center-block sz-go-btn" v-on:click="close()">{{ $t('GO!')}}</button>
+                    <button type="button" class="btn btn-lg center-block sz-go-btn" v-on:click="close()">{{ $t('go')}}</button>
                 </div>
             </div>
         </div>

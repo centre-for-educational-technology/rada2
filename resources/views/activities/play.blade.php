@@ -62,6 +62,7 @@
                     'apply-item-bounds' => trans('pages.play.game.apply-item-bounds'),
                     'results-heading' => trans('pages.play.game.results-heading'),
                     'number-of-questions' => trans('pages.play.game.number-of-questions'),
+                    'go' => trans('pages.play.game.go'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),
