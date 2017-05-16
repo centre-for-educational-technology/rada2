@@ -16123,4 +16123,14 @@ table.sz-table-results img {
   display: inline-block;
 }
 
+.btn.sz-go-btn {
+  background-color: #65bf3b;
+  border: 5px solid #cff0c6;
+  color: #ffffff;
+  letter-spacing: 2px;
+  font-weight: bold;
+  padding-left: 25px;
+  padding-right: 25px;
+}
+
 /*# sourceMappingURL=app.css.map */

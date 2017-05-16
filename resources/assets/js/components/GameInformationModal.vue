@@ -4,7 +4,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" v-on:click="close()"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">{{ activity.title }}</h4>
+                    <h4 class="modal-title text-center">{{ activity.title }}</h4>
                 </div>
                 <div class="modal-body">
                     <button class="btn btn-default btn-sm pull-right" role="button" data-toggle="collapse" data-target="#iconCodes" aria-expanded="false" aria-controls="iconCodes">
@@ -23,41 +23,55 @@
                             </div>
                         </div>
                     </div>
+                    <!--
                     <h3>{{ $t('description') }}</h3>
-                    <p class="sz-display-new-lines">
+                    -->
+                    <p class="sz-display-new-lines text-center" v-if="activity.description">
                         {{ activity.description }}
                     </p>
+                    <!--
                     <h3>{{ $t('activity-type') }}</h3>
                     <p>
                         {{ activity.type }}
                     </p>
-                    <h3>{{ $t('difficulty-level') }}</h3>
+                    -->
+                    <h4>{{ $t('number-of-questions') }}</h4>
+                    <p>{{ activity.questions.length }}</p>
+                    <h4>{{ $t('difficulty-level') }}</h4>
                     <p>
                         {{ activity.difficulty_level_start }} - {{ activity.difficulty_level_end }}
                     </p>
-                    <h3>{{ $t('playing-time') }}</h3>
+                    <h4>{{ $t('playing-time') }}</h4>
                     <p>
                         {{ activity.playing_time }} {{ $t('minutes') }}
                     </p>
+                    <!--
                     <h3>{{ $t('language') }}</h3>
                     <p>
                         {{ activity.language }}
                     </p>
+                    -->
+                    <!--
                     <h3 v-if="activity.contact_information">{{ $t('contact-information') }}</h3>
                     <p v-if="activity.contact_information">
                         {{ activity.contact_information }}
                     </p>
+                    -->
+                    <!--
                     <h3>{{ $t('featured-image') }}</h3>
+                    -->
                     <p>
                         <img v-bind:src="activity.featured_image" alt="featured-image" class="img-responsive center-block">
                     </p>
+                    <!--
                     <h3>{{ $t('zoo') }}</h3>
                     <p>
                         {{ activity.zoo }}
                     </p>
+                    -->
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default" v-on:click="close()">{{ $t('close')}}</button>
+                    <button type="button" class="btn btn-lg center-block sz-go-btn" v-on:click="close()">{{ $t('GO!')}}</button>
                 </div>
             </div>
         </div>

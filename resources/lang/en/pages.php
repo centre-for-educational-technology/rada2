@@ -73,6 +73,7 @@ return [
             'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
             'apply-item-bounds' => 'Show all available Activity Item points on the map',
             'results-heading' => 'These are your results',
+            'number-of-questions' => 'No. of Questions',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',
