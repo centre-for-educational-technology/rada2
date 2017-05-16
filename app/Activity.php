@@ -11,6 +11,8 @@ use App\Options\ZooOptions;
 use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 
+use Illuminate\Support\Facades\DB;
+
 class Activity extends Model
 {
     /**
@@ -134,6 +136,48 @@ class Activity extends Model
             return File::delete( public_path('uploads/images/' . $this->featured_image) );
         }
 
+        return false;
+    }
+
+    /**
+     * Returns Activity Game status lookup structure for current user.
+     * @return array Statuses of Games for current User keyed by Activity ID
+     */
+    private function getUserGamesLookup()
+    {
+        static $games;
+
+        if ( !isset($games) )
+        {
+            if ( Auth::check() )
+            {
+                $games = DB::table('games')->where('user_id', Auth::user()->id)->select('activity_id', 'complete')->get();
+                $games = $games->keyBy('activity_id');
+            }
+            else
+            {
+                $games = [];
+            }
+        }
+
+        return $games;
+    }
+
+    /**
+     * Determined Activity Game status for current User if any
+     * @return mixed Returns either 0, 1 or false
+     */
+    public function getUserGameStatus()
+    {
+        if ( Auth::check() )
+        {
+            $games = $this->getUserGamesLookup();
+
+            if ( $games->has($this->id) )
+            {
+                return $games->get($this->id)->complete;
+            }
+        }
         return false;
     }
 }

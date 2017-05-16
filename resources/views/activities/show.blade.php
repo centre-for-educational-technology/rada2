@@ -10,6 +10,7 @@
                 </div>
 
                 <div class="panel-body">
+                    @include('activities.includes.game-status', ['activity' => $activity])
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             @include('includes.author', ['author' => $activity->user, 'date' => $activity->created_at])

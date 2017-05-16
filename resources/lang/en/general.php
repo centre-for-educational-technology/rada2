@@ -17,6 +17,10 @@ return [
        'collecting-cards' => 'Collecting Cards',
        'treasure-hunt' => 'Treasure Hunt',
    ],
+   'activity-status' => [
+       'complete' => 'Complete Activity',
+       'ongoing' => 'Ongoing Activity',
+   ],
    'language' => 'Language',
    'languages' => [
        'en' => 'English',

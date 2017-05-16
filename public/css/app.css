@@ -16117,4 +16117,10 @@ table.sz-table-results img {
   font-size: 95%;
 }
 
+.alert.sz-activity-status {
+  padding: 5px;
+  margin: 5px 0 5px 0;
+  display: inline-block;
+}
+
 /*# sourceMappingURL=app.css.map */
