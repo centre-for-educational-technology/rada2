@@ -66,6 +66,7 @@
                     'results-heading' => trans('pages.play.game.results-heading'),
                     'number-of-questions' => trans('pages.play.game.number-of-questions'),
                     'go' => trans('pages.play.game.go'),
+                    'gps-error' => trans('pages.play.game.gps-error'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),

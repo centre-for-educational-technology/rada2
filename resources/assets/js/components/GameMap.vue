@@ -124,8 +124,25 @@
             return {
                 question: null,
                 game: null,
-                baseUrl: ''
+                baseUrl: '',
+                gpsError: false
             };
+        },
+        watch: {
+            gpsError(value) {
+                const elementId = 'sz-gps-error',
+                    element = document.getElementById('sz-gps-error');
+
+                if ( value === true ) {
+                    if ( !element ) {
+                        this.initGpsErrorControl(elementId)
+                    } else {
+                        element.style.display = 'initial';
+                    }
+                } else {
+                    element.style.display = 'none';
+                }
+            }
         },
         methods: {
             initMap() {
@@ -145,6 +162,8 @@
                     var map = _this.mapData.map,
                         playerMarker = _this.mapData.playerMarker;
 
+                    _this.gpsError = false;
+
                     playerMarker.setPosition({
                         lat: position.coords.latitude,
                         lng: position.coords.longitude
@@ -163,7 +182,9 @@
                             }
                         });
                     }
-                }, true);
+                }, true, function(error) {
+                    _this.gpsError = true;
+                });
 
                 if ( _this.game.activity.questions ) {
                     var map = _this.mapData.map,
@@ -236,9 +257,16 @@
                     gameControlsDiv = document.createElement('div'),
                     gameControls = new GameControls(gameControlsDiv, map, playerMarker, this);
 
-                // XXX This is a strange code pience that sends index without a reason()
+                // XXX This is a strange code pience that sends index without a reason
                 gameControls.index = 1;
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControlsDiv);
+            },
+            initGpsErrorControl(elementId) {
+                const element = document.createElement('div');
+                element.id = elementId;
+                element.innerHTML = '<span>' + this.$t('gps-error') + '</span>';
+                element.style['margin-top'] = document.getElementById('sz-map-controls').offsetHeight + 'px';
+                this.mapData.map.controls[google.maps.ControlPosition.TOP_LEFT].push(element);
             },
             closeInfoWindow() {
                 var infoWindow = this.mapData.infoWindow;

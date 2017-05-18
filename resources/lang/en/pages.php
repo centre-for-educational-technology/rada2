@@ -74,6 +74,7 @@ return [
             'apply-item-bounds' => 'Show all available Activity Item points on the map',
             'results-heading' => 'These are your results',
             'number-of-questions' => 'No. of Questions',
+            'gps-error' => 'GPS signal not found.',
             'go' => 'GO!',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
