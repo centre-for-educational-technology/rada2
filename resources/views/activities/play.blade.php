@@ -37,6 +37,9 @@
                     'key' => config('services.maps.google.api_key'),
                 ],
                 'locale' => App::getLocale(),
+                'sentry' => [
+                    'sdn' => config('services.sentry.sdn'),
+                ],
             ],
             'data' => [
                 'game' => $game_data,

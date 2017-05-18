@@ -55,5 +55,8 @@ return [
     'userreport' => [
         'key' => env('USERREPORT_KEY', null),
     ],
+    'sentry' => [
+        'sdn' => env('SENTRY_SDN', null),
+    ],
 
 ];

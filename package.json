@@ -19,5 +19,7 @@
     "vue-template-compiler": "^2.2.6",
     "vuedraggable": "^2.8.5"
   },
-  "dependencies": {}
+  "dependencies": {
+    "raven-js": "^3.15.0"
+  }
 }

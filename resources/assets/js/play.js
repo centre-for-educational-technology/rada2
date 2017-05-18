@@ -1,10 +1,19 @@
 //"use strict";
 
 const VueI18n = require('vue-i18n');
+import Raven from 'raven-js';
+import RavenVue from 'raven-js/plugins/vue';
 
 Vue.use(VueI18n);
 Vue.config.lang = window.SmartZoos.config.locale;
 Vue.locale(window.SmartZoos.config.locale, _.cloneDeep(window.SmartZoos.data.translations));
+
+if ( SmartZoos.config.sentry && SmartZoos.config.sentry.sdn) {
+    Raven
+        .config(SmartZoos.config.sentry.sdn)
+        .addPlugin(RavenVue, Vue)
+        .install();
+}
 
 Vue.component('game-map', require('./components/GameMap.vue'));
 
