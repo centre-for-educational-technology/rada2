@@ -22,6 +22,8 @@ const playGameApp = new Vue({
     created: function() {
         var vm = this;
 
+        window.addEventListener('beforeunload', vm.leaving);
+
         window.initMap = function() {
             vm.getGeoLocation(function(position) {
                 vm.latitude = position.coords.latitude;
@@ -42,7 +44,8 @@ const playGameApp = new Vue({
             mapInitialised: false,
             latitude: undefined,
             longitude: undefined,
-            geoLocationErrorMessage: null
+            geoLocationErrorMessage: null,
+            checkUnload: true
         };
     },
     methods: {
@@ -73,6 +76,14 @@ const playGameApp = new Vue({
         },
         hasGeoLocationError: function() {
             return !!this.geoLocationErrorMessage;
+        },
+        leaving: function(event) {
+            if ( !this.checkUnload) return false;
+
+            const message = this.$t('exit-confirmation');
+
+            event.returnValue = message;
+            return message;
         }
     }
 });

@@ -363,6 +363,8 @@
                 var confirmation = confirm(this.$t('exit-confirmation'));
 
                 if ( confirmation ) {
+                    // Prevent unload check from being applied
+                    this.$parent.checkUnload = false;
                     window.location = this.baseUrl;
                 }
             },
