@@ -98,6 +98,7 @@ return [
        'edit' => 'Edit',
        'delete' => 'Delete',
        'play' => 'Play',
+       'send-to-backpack' => 'Send To Backpack',
    ],
    'minutes' => 'minutes',
    'confirmations' => [

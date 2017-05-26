@@ -111,4 +111,43 @@ class User extends Authenticatable
     public function isZooMember(int $zoo = null) {
         return $this->hasRole('zooMember', $zoo);
     }
+
+    /**
+     * User badges
+     * @return array Array of Badge items
+     */
+    public function badges()
+    {
+        return $this->belongsToMany(Badge::class)
+            ->withTimestamps()
+            ->orderBy('badge_user.created_at', 'desc');
+    }
+
+    /**
+     * Checks if user has a badge
+     * @param  Badge   $badge Badge object
+     * @return boolean
+     */
+    public function hasBadge(Badge $badge)
+    {
+        // XXX A better check logic is needed
+        $count = $this->belongsToMany(Badge::class)
+            ->wherePivot('badge_id', $badge->id)
+            ->count();
+
+        return $count !== 0;
+    }
+
+    /**
+     * Awards a badge to User if not present
+     * @param  Badge $badge Badge object
+     * @return void
+     */
+    public function awardBadge(Badge $badge)
+    {
+        if ( !$this->hasBadge($badge) )
+        {
+            $this->badges()->attach($badge->id);
+        }
+    }
 }

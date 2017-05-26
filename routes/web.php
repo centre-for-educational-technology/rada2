@@ -93,3 +93,9 @@ Route::group(['prefix' => 'manage'], function()
         Route::post('{user}', 'UserController@assignRoles');
     });
 });
+
+// Badges
+Route::group(['prefix' => 'badges'], function()
+{
+    Route::get('/', 'BadgeController@index')->name('badge.index');
+});

@@ -30,3 +30,11 @@ Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], function()
 {
     Route::delete('users/{user}/roles/{role}', 'UserController@removeRole');
 });
+
+Route::group(['prefix' => 'badges'], function()
+{
+    Route::get('issuer', 'BadgeController@issuer')->name('api.badge.issuer');
+
+    Route::get('{badge}', 'BadgeController@badge')->name('api.badge.show');
+    Route::get('{badge}/assertion/{user}', 'BadgeController@assertion')->name('api.badge.user.assertion');
+});

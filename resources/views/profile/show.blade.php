@@ -1,5 +1,23 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+<script src="https://backpack.openbadges.org/issuer.js"></script>
+<script>
+    $(function () {
+        $('[data-toggle="popover"]').popover();
+  });
+
+  function flyBadges() {
+      // XXX It might make sense to sign Assertion objects instead of hosting those
+      throw 'Need To Determine Assertions';
+      OpenBadges.issue(['http://localhost:8080/api/badges/assertions/29334926-1fcc-451a-ae78-4e0a5bcb680c'], function(errors, successes) {
+          console.log('Errors', errors);
+          console.log('Successes', successes);
+      });
+  }
+</script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -58,6 +76,34 @@
                     <p>{{ date(trans('general.date-time.formats.long'), strtotime($user->created_at)) }}</p>
                     <h3>{{ trans('general.date-time.updated-at') }}</h3>
                     <p>{{ date(trans('general.date-time.formats.long'), strtotime($user->updated_at)) }}</p>
+                    @if ( $user->badges )
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-8">
+                                <h3>{{ trans('pages.profile.labels.badges-earned') }}</h3>
+                            </div>
+                            <div class="col-xs-12 col-sm-4">
+                                @if ( count($user->badges) > 0 )
+                                    <button type="button" class="btn btn-primary pull-right" onclick="flyBadges()">
+                                        <i class="mdi mdi-cube-send"></i>
+                                        {{ trans('general.actions.send-to-backpack') }}
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                        @foreach ( $user->badges as $badge )
+                            <img
+                                class="media-object"
+                                src="{{ $badge->getImageUrl() }}"
+                                alt="image"
+                                style="display:inline-block;width:125px;height:125px;"
+                                data-toggle="popover"
+                                data-placement="top"
+                                data-trigger="hover"
+                                title="{{ $badge->name }}"
+                                data-content="{{ $badge->description . '<br><strong>' . date(trans('general.date-time.formats.medium'), strtotime($badge->pivot->created_at)) . '</strong>' }}"
+                                data-html="true">
+                        @endforeach
+                    @endif
                 </div>
             </div>
         </div>

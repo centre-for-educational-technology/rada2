@@ -92,7 +92,6 @@ return [
         'games-and-activities' => 'Games & activities',
         'finished' => 'Finished :date',
         'started' => 'Started :date',
-        'market-and-card-trading' => 'Market and card trading',
         'btn' => [
             'view-results' => 'View results',
             'continue' => 'Continue',
@@ -110,6 +109,9 @@ return [
     'profile' => [
         'title' => 'Profile',
         'heading' => 'Profile of :name',
+        'labels' => [
+            'badges-earned' => 'Badges Earned',
+        ],
     ],
     'profile-edit' => [
         'help' => [

@@ -55,8 +55,6 @@
                             </div>
                         </div>
                     @endforeach
-
-                    <h4>{{ trans('pages.dashboard.market-and-card-trading' )}}</h4>
                 </div>
             </div>
         </div>
