@@ -30,6 +30,11 @@ This tool set includes:
 - Run **php artisan migrate** from terminal (this should create database and more)
   - Running **php artisan serve** would serve the app in development (or configure the server of your choice)
 - Run **php artisan db:seed** to ensure that database is filled with required information
+- Add private and public keys to the **storage/app/keys** directory (key length might be different)
+```
+openssl genrsa -out private-key.pem 2048
+openssl rsa -in private-key.pem -out public-key.pem -outform PEM -pubout
+```
 
 ## Development
 
