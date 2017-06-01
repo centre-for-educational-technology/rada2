@@ -17,6 +17,8 @@ class BadgeUserPivot extends Migration
             $table->uuid('badge_id');
             $table->unsignedInteger('user_id');
             $table->timestamps();
+            $table->boolean('sent')->default(false);
+
 
             $table->primary(['badge_id', 'user_id']);
             $table->foreign('badge_id')
@@ -27,6 +29,7 @@ class BadgeUserPivot extends Migration
                 ->references('id')
                 ->on('users')
                 ->onDelete('cascade');
+            $table->index('sent');
         });
     }
 

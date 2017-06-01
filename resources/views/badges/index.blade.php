@@ -15,7 +15,7 @@
                             <div class="media" id="{{ $badge->type }}">
                                 <div class="media-left">
                                     <a href="{!! $badge->getCriteriaUrl() !!}">
-                                        <img class="media-object" src="{{ $badge->getImageUrl() }}" alt="image" style="width:125px;height:125px;">
+                                        <img class="media-object openbadge" src="{{ $badge->getImageUrl() }}" alt="image">
                                     </a>
                                 </div>
                                 <div class="media-body">

@@ -14,6 +14,8 @@ use Auth;
 
 use App\Options\ZooOptions;
 
+use App\Services\OpenBadgesService;
+
 class UserController extends Controller
 {
     /**
@@ -53,11 +55,14 @@ class UserController extends Controller
      * @param  App\User $user User object
      * @return [type]         Profile view
      */
-    public function show(User $user)
+    public function show(OpenBadgesService $openBadgesService, User $user)
     {
         $this->authorize('view', $user);
 
-        return view('profile/show')->with('user', $user);
+        return view('profile/show')->with([
+            'user' => $user,
+            'openBadgesService' => $openBadgesService,
+        ]);
     }
 
     /**

@@ -6,8 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 use App\Traits\UuidModel;
 
-use App\Services\OpenBadgesService;
-
 class Badge extends Model
 {
     use UuidModel;
@@ -35,27 +33,6 @@ class Badge extends Model
     public function getCriteriaUrl()
     {
         return route('badge.index', ['#' . $this->type]);
-    }
-
-    /**
-     * Returns Badge data
-     * @return array Badge data
-     */
-    public function getBadgeData()
-    {
-        $openBadgesService = resolve(OpenBadgesService::class);
-
-        return [
-            '@context' => $openBadgesService->getContextUri(),
-            'id' => route('api.badge.show', ['badge' => $this->id]),
-            'type' => 'BadgeClass',
-            'name' => $this->name,
-            'description' => $this->description,
-            'image' => $this->getImageUrl(),
-            'criteria' => $this->getCriteriaUrl(),
-            'issuer' => route('api.badge.issuer'),
-            'tags' => ['smartzoos', 'toolset', 'badge',],
-        ];
     }
 
     /**

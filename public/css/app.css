@@ -16148,4 +16148,10 @@ table.sz-table-results img {
   padding-right: 25px;
 }
 
+img.openbadge {
+  display: inline-block;
+  width: 125px;
+  height: 125px;
+}
+
 /*# sourceMappingURL=app.css.map */

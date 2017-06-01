@@ -9,6 +9,8 @@ use App\Badge;
 use App\Game;
 use App\Activity;
 
+use Illuminate\Support\Facades\Log;
+
 class AwardBadges extends Command
 {
     /**
@@ -16,14 +18,14 @@ class AwardBadges extends Command
      *
      * @var string
      */
-    protected $signature = 'badges:award';
+    protected $signature = 'badge:award';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Awards badges to users';
 
     /**
      * Collection of badges, keyed by "type"
@@ -40,8 +42,6 @@ class AwardBadges extends Command
     public function __construct()
     {
         parent::__construct();
-
-        $this->badges = Badge::all()->keyBy('type');
     }
 
     /**
@@ -51,6 +51,11 @@ class AwardBadges extends Command
      */
     public function handle()
     {
+        if ( !isset($this->badges) )
+        {
+            $this->badges = Badge::all()->keyBy('type');
+        }
+
         $this->info('Evaluating Users and Awarding Badges');
 
         $usersChecked = 0;

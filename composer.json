@@ -12,7 +12,8 @@
         "intervention/image": "^2.3",
         "doctrine/dbal": "^2.5",
         "webpatser/laravel-uuid": "^2.0",
-        "anhskohbo/no-captcha": "^2.3"
+        "anhskohbo/no-captcha": "^2.3",
+        "firebase/php-jwt": "^4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

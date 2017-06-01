@@ -19,7 +19,8 @@ elixir(mix => {
        .webpack('create_edit_activity_item.js')
        .webpack('create_edit_activity.js')
        .webpack('play.js')
-       .version(['css/app.css', 'js/create_edit_activity_item.js', 'js/create_edit_activity.js', 'js/play.js', 'js/app.js'])
+       .webpack('profile.js')
+       .version(['css/app.css', 'js/create_edit_activity_item.js', 'js/create_edit_activity.js', 'js/play.js', 'js/app.js', 'js/profile.js'])
        .copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts')
        .copy('node_modules/mdi/fonts', 'public/build/fonts');
 });

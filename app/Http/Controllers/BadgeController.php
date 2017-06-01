@@ -14,6 +14,8 @@ use Auth;
 
 use App\Services\OpenBadgesService;
 
+use Illuminate\Support\Facades\DB;
+
 class BadgeController extends Controller
 {
     /**
@@ -34,16 +36,18 @@ class BadgeController extends Controller
      */
     public function issuer(OpenBadgesService $openBadgesService)
     {
-        return [
-            '@context' => $openBadgesService->getContextUri(),
-            'id' => route('api.badge.issuer'),
-            'type' => 'Issuer',
-            'name' => 'Smart Zoos',
-            'url' => 'https://smartzoos.eu/',
-            'description' => 'Smart Zoos Project',
-            'image' => asset('img/logos/logo-square.png'),
-            'email' => 'info@smartzoos.eu',
-        ];
+        return $openBadgesService->issuerData();
+    }
+
+    /**
+     * Respnds with public key
+     * @param  OpenBadgesService $openBadgesService OpenBadgesService object
+     * @return string                               Key text with correct Content-Type header
+     */
+    public function publicKey(OpenBadgesService $openBadgesService)
+    {
+        return response($openBadgesService->getPublicKey())
+            ->header('Content-Type', 'application/x-pem-file');
     }
 
     /**
@@ -51,9 +55,9 @@ class BadgeController extends Controller
      * @param  Badge  $badge Badge object
      * @return array         Badge data
      */
-    public function badge(Badge $badge)
+    public function badge(OpenBadgesService $openBadgesService, Badge $badge)
     {
-        return $badge->getBadgeData();
+        return $openBadgesService->badgeData($badge);
     }
 
     /**
@@ -72,24 +76,60 @@ class BadgeController extends Controller
             return response()->json(['error' => 'Not Found.'], 404);
         }
 
-        $assertionUrl = route('api.badge.user.assertion', ['badge' => $badge->id, 'user' => $user->id]);
+        return $openBadgesService->assertionData($badge, $user);
+    }
 
-        return [
-            '@context' => $openBadgesService->getContextUri(),
-            'id' => $assertionUrl,
-            'type' => 'Assertion',
-            'uid' => $openBadgesService->assertionUid($assertionUrl),
-            'recipient' => [
-                'identity' => $openBadgesService->hashRecipientIdentity($user->email),
-                'type' => 'email',
-                'hashed' => true,
-            ],
-            'badge' => route('api.badge.show', ['badge' => $badge->id]),
-            'verify' => [
-                'type' => 'hosted',
-                'url' => $assertionUrl,
-            ],
-            'issuedOn' => $badge->created_at->toIso8601String(),
-        ];
+    /**
+     * Responds with signed assertions and badges for current user
+     * @param  OpenBadgesService $openBadgesService OpenBadgesService object
+     * @return array                                Array with Badge ID and Assertion JWS
+     */
+    public function mine(OpenBadgesService $openBadgesService) {
+        if ( !Auth::guard('web')->check() ) {
+            return response()->json(['error' => 'Unauthorized.'], 401);
+        }
+
+        $signedAssertions = [];
+        $user = Auth::user();
+        $badges = $user->badges;
+
+        if ( $badges && count($badges) > 0 )
+        {
+            foreach ( $badges as $badge )
+            {
+                $signedAssertions[] = [
+                    'badge' => $badge->id,
+                    'assertion' => $openBadgesService->assertionSignature($badge, $user),
+                ];
+            }
+        }
+
+        return $signedAssertions;
+    }
+
+    /**
+     * Marks assertions as sent
+     * @param  Request $request Request object
+     * @return array            Array ob affected badges
+     */
+    public function sent(Request $request)
+    {
+        if ( !Auth::guard('web')->check() ) {
+            return response()->json(['error' => 'Unauthorized.'], 401);
+        }
+
+        $badges = $request->get('badges');
+
+        if ( $badges && count($badges) > 0 )
+        {
+            DB::table('badge_user')
+                ->where('user_id', Auth::user()->id)
+                ->whereIn('badge_id', $badges)
+                ->update(['sent' => 1]);
+
+            return $badges;
+        }
+
+        return [];
     }
 }
