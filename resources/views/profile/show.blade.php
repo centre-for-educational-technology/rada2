@@ -70,10 +70,10 @@
                             </div>
                             <div class="col-xs-12 col-sm-4">
                                 @if ( count($user->badges) > 0 )
-                                    <button type="button" id="send-to-backpack" class="btn btn-primary pull-right"">
+                                    <!--button type="button" id="send-to-backpack" class="btn btn-primary pull-right"">
                                         <i class="mdi mdi-cube-send"></i>
                                         {{ trans('general.actions.send-to-backpack') }}
-                                    </button>
+                                    </button-->
                                 @endif
                             </div>
                         </div>
