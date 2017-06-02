@@ -92,14 +92,26 @@
                                         data-content="{{ $badge->description . '<br><strong>' . date(trans('general.date-time.formats.medium'), strtotime($badge->pivot->created_at)) . '</strong>' }}"
                                         data-html="true">
                                     @if ( $isCurrentUser )
-                                        <button
-                                            class="btn btn-default btn-small openbadge-download"
-                                            title="{{ trans('general.actions.download-baked-badge') }}"
-                                            data-toggle="tooltip"
-                                            data-placement="top"
-                                            data-assertion-url="{{ route('api.badge.assertion', ['badge' => $badge->id, 'user' => $user->id]) }}">
-                                            <i class="mdi mdi-cloud-download" aria-hidden="true"></i>
-                                        </button>
+                                        @php ( $assertionUrl = route('api.badge.assertion', ['badge' => $badge->id, 'user' => $user->id]) )
+                                        <div class="openbadge-actions text-center">
+                                            <!--button
+                                                class="btn btn-default btn-sm openbadge-download"
+                                                title="{{ trans('general.actions.download-baked-badge') }}"
+                                                data-toggle="tooltip"
+                                                data-placement="top"
+                                                data-assertion-url="{!! $assertionUrl !!}">
+                                                <i class="mdi mdi-cloud-download" aria-hidden="true"></i>
+                                            </button-->
+                                            <a
+                                                class="btn btn-default btn-sm openbadge-assertion-open"
+                                                title="{{ trans('general.actions.assertion-open') }}"
+                                                href="{!! $assertionUrl !!}"
+                                                target="_blank"
+                                                data-toggle="tooltip"
+                                                data-placement="top">
+                                                <i class="mdi mdi-json" aria-hidden="true"></i>
+                                            </a>
+                                        </div>
                                     @endif
                                 </div>
                             @endforeach
