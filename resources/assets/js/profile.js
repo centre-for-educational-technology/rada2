@@ -9,6 +9,7 @@ $(function () {
     }
 
     $('[data-toggle="popover"]').popover();
+    $('[data-toggle="tooltip"]').tooltip();
 
     $('button#send-to-backpack').on('click', function() {
         handleGa('send', 'event', 'Badges', 'click', 'User initialized sending badges to Backpack');
@@ -34,5 +35,10 @@ $(function () {
                 });
             }
         });
+    });
+
+    $('button.openbadge-download').on('click', function() {
+        var url = 'http://backpack.openbadges.org/baker?assertion=' + window.encodeURIComponent($(this).data('assertion-url'));
+        window.open(url, '_blank', '', false);
     });
 });

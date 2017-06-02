@@ -35,7 +35,8 @@ Route::group(['prefix' => 'badges'], function()
 {
     Route::get('issuer', 'BadgeController@issuer')->name('api.badge.issuer');
     Route::get('key', 'BadgeController@publicKey')->name('api.badge.key');
-    Route::get('mine', 'BadgeController@mine')->name('api.badges.mine');
+    Route::get('mine', 'BadgeController@mine')->name('api.badge.mine');
     Route::post('mine', 'BadgeController@sent');
     Route::get('{badge}', 'BadgeController@badge')->name('api.badge.show');
+    Route::get('{badge}/user/{user}', 'BadgeController@assertion')->name('api.badge.assertion');
 });

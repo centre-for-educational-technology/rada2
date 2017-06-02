@@ -448,3 +448,15 @@ img.openbadge {
     width: 125px;
     height: 125px;
 }
+
+#badges-earned {
+    .openbadge-container {
+        display: inline-block;
+
+        button.openbadge-download {
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    }
+}

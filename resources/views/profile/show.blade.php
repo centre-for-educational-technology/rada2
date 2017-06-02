@@ -64,12 +64,13 @@
                     <h3>{{ trans('general.date-time.updated-at') }}</h3>
                     <p>{{ date(trans('general.date-time.formats.long'), strtotime($user->updated_at)) }}</p>
                     @if ( $user->badges )
+                        @php ( $isCurrentUser = Auth::check() && Auth::user()->id === $user->id )
                         <div class="row">
                             <div class="col-xs-12 col-sm-8">
                                 <h3>{{ trans('pages.profile.labels.badges-earned') }}</h3>
                             </div>
                             <div class="col-xs-12 col-sm-4">
-                                @if ( count($user->badges) > 0 )
+                                @if ( count($user->badges) > 0 && $isCurrentUser )
                                     <!--button type="button" id="send-to-backpack" class="btn btn-primary pull-right"">
                                         <i class="mdi mdi-cube-send"></i>
                                         {{ trans('general.actions.send-to-backpack') }}
@@ -79,16 +80,28 @@
                         </div>
                         <div id="badges-earned">
                             @foreach ( $user->badges as $badge )
-                                <img
-                                    class="media-object openbadge"
-                                    src="{{ $badge->getImageUrl() }}"
-                                    alt="image"
-                                    data-toggle="popover"
-                                    data-placement="top"
-                                    data-trigger="hover"
-                                    title="{{ $badge->name }}"
-                                    data-content="{{ $badge->description . '<br><strong>' . date(trans('general.date-time.formats.medium'), strtotime($badge->pivot->created_at)) . '</strong>' }}"
-                                    data-html="true">
+                                <div class="openbadge-container">
+                                    <img
+                                        class="media-object openbadge"
+                                        src="{{ $badge->getImageUrl() }}"
+                                        alt="image"
+                                        data-toggle="popover"
+                                        data-placement="top"
+                                        data-trigger="hover"
+                                        title="{{ $badge->name }}"
+                                        data-content="{{ $badge->description . '<br><strong>' . date(trans('general.date-time.formats.medium'), strtotime($badge->pivot->created_at)) . '</strong>' }}"
+                                        data-html="true">
+                                    @if ( $isCurrentUser )
+                                        <button
+                                            class="btn btn-default btn-small openbadge-download"
+                                            title="{{ trans('general.actions.download-baked-badge') }}"
+                                            data-toggle="tooltip"
+                                            data-placement="top"
+                                            data-assertion-url="{{ route('api.badge.assertion', ['badge' => $badge->id, 'user' => $user->id]) }}">
+                                            <i class="mdi mdi-cloud-download" aria-hidden="true"></i>
+                                        </button>
+                                    @endif
+                                </div>
                             @endforeach
                         </div>
                     @endif

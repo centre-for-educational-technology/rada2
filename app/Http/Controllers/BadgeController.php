@@ -76,7 +76,7 @@ class BadgeController extends Controller
             return response()->json(['error' => 'Not Found.'], 404);
         }
 
-        return $openBadgesService->assertionData($badge, $user);
+        return $openBadgesService->hostedAssertionData($user->badges->keyBy('id')->get($badge->id), $user);
     }
 
     /**

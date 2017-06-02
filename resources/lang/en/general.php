@@ -99,6 +99,7 @@ return [
        'delete' => 'Delete',
        'play' => 'Play',
        'send-to-backpack' => 'Send To Backpack',
+       'download-baked-badge' => 'Download baked badge image',
    ],
    'minutes' => 'minutes',
    'confirmations' => [

@@ -161,6 +161,40 @@ class OpenBadgesService
     }
 
     /**
+     * Returns data for hosted Assertion
+     * @param  Badge  $badge Badge object with piot data
+     * @param  User   $user  User object
+     * @return array         Array wuth hosted Assertion data
+     */
+    public static function hostedAssertionData(Badge $badge, User $user)
+    {
+        if ( !isset($badge->pivot->created_at) )
+        {
+            throw new \Exception('Badge missing created_at pivot data');
+        }
+
+        $assertionUrl = route('api.badge.assertion', ['badge' => $badge->id, 'user' => $user->id]);
+
+        return [
+            '@context' => self::getContextUri(),
+            'id' => $assertionUrl,
+            'type' => 'Assertion',
+            'uid' => self::assertionUid($badge, $user),
+            'recipient' => [
+                'identity' => self::hashRecipientIdentity($user->email),
+                'type' => 'email',
+                'hashed' => true,
+            ],
+            'badge' => route('api.badge.show', ['badge' => $badge->id]),
+            'verify' => [
+                'type' => 'hosted',
+                'url' => $assertionUrl,
+            ],
+            'issuedOn' => $badge->pivot->created_at->toIso8601String(),
+        ];
+    }
+
+    /**
      * Returns signed assertion JSON Web Signature (JWS)
      * @param  Badge  $badge Badge object
      * @param  User   $user  User object

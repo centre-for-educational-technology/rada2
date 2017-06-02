@@ -16154,4 +16154,14 @@ img.openbadge {
   height: 125px;
 }
 
+#badges-earned .openbadge-container {
+  display: inline-block;
+}
+
+#badges-earned .openbadge-container button.openbadge-download {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
 /*# sourceMappingURL=app.css.map */
