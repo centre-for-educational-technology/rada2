@@ -79,8 +79,11 @@
 </template>
 
 <script>
+    import MarkerIconMixin from './../mixins/MarkerIcon.js';
+
     export default {
         props: ['activity'],
+        mixins: [MarkerIconMixin],
         mounted() {
             this.baseUrl = window.SmartZoos.config.base_url;
         },
@@ -100,9 +103,6 @@
                 this.$nextTick(function() {
                     $(this.$refs.modal).modal('hide');
                 });
-            },
-            getIconUrl(type) {
-                return this.baseUrl + '/img/map/icons/' + ( ( type !== 'active' ) ? type : 'default' ) + '.svg';
             },
             getIconText(type) {
                 return this.$t('icons.' + type);

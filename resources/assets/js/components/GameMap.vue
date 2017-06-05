@@ -79,6 +79,8 @@
 
     var connectMarkers =  window.SmartZoos.config.connect_markers || false;
 
+    import MarkerIconMixin from './../mixins/MarkerIcon.js';
+
     export default {
         components: {
             'game-information-modal': require('./GameInformationModal.vue'),
@@ -86,6 +88,7 @@
             'game-results-modal': require('./GameResultsModal.vue')
         },
         props: ['latitude', 'longitude'],
+        mixins: [MarkerIconMixin],
         mounted() {
             this.baseUrl = window.SmartZoos.config.base_url;
 
@@ -408,27 +411,30 @@
                     this.$refs.questionModal.open();
                 });
             },
-            detectAndSetMarkerIcon(marker) {
+            detectMarkerIconState(marker) {
                 // TODO Check it we should fail in case question could not be found
                 const question = _.find(this.game.activity.questions, ['id', marker.questionId]);
-                const iconBase = this.baseUrl + '/img/map/icons/';
-                let iconType = 'default';
 
                 if ( this.isAnswered(question.id) ) {
-                    iconType = this.isCorrect(question.id) ? 'correct' : 'incorrect';
+                    return this.isCorrect(question.id) ? 'correct' : 'incorrect';
                 } else if ( this.hasProximityCheck() ) {
                     const distance = google.maps.geometry.spherical.computeDistanceBetween(this.mapData.playerMarker.getPosition(), marker.getPosition());
 
                     if ( distance > this.getProximityRadius() ) {
-                        iconType = 'inactive';
+                        return 'inactive';
                     }
                 }
+
+                return 'active';
+            },
+            detectAndSetMarkerIcon(marker) {
+                const state = this.detectMarkerIconState(marker);
 
                 marker.setIcon({
                     anchor: this.mapData.iconAnchor,
                     size: this.mapData.iconSize,
                     scaledSize: this.mapData.iconScaledSize,
-                    url: iconBase + iconType + '.svg'
+                    url: this.getIconUrl(state)
                 });
             },
             getMarkerBounds() {
