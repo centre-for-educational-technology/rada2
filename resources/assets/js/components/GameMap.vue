@@ -114,9 +114,9 @@
                   },
                 ]
             };
-            this.mapData.iconAnchor = new google.maps.Point(17.35, 20);
-            this.mapData.iconSize = new google.maps.Size(52, 60);
-            this.mapData.iconScaledSize = new google.maps.Size(34.7, 40);
+            this.mapData.iconAnchor = new google.maps.Point(20, 20);
+            this.mapData.iconSize = new google.maps.Size(60, 60);
+            this.mapData.iconScaledSize = new google.maps.Size(40, 40);
 
             this.initMap();
         },
@@ -411,24 +411,16 @@
             detectAndSetMarkerIcon(marker) {
                 // TODO Check it we should fail in case question could not be found
                 const question = _.find(this.game.activity.questions, ['id', marker.questionId]);
-                const nameMapping = {
-                    1: 'information',
-                    2: 'one-correct-answer',
-                    3: 'multiple-correct-answers',
-                    4: 'freeform-answer',
-                    5: 'match-pairs',
-                    6: 'embedded-content',
-                    7: 'photo'
-                };
-                let iconBase = this.baseUrl + '/img/icons/item/';
+                const iconBase = this.baseUrl + '/img/map/icons/';
+                let iconType = 'default';
 
                 if ( this.isAnswered(question.id) ) {
-                    iconBase += this.isCorrect(question.id) ? 'correct/' : 'incorrect/';
+                    iconType = this.isCorrect(question.id) ? 'correct' : 'incorrect';
                 } else if ( this.hasProximityCheck() ) {
                     const distance = google.maps.geometry.spherical.computeDistanceBetween(this.mapData.playerMarker.getPosition(), marker.getPosition());
 
                     if ( distance > this.getProximityRadius() ) {
-                        iconBase += 'inactive/';
+                        iconType = 'inactive';
                     }
                 }
 
@@ -436,7 +428,7 @@
                     anchor: this.mapData.iconAnchor,
                     size: this.mapData.iconSize,
                     scaledSize: this.mapData.iconScaledSize,
-                    url: iconBase + nameMapping[question.type] + '.png'
+                    url: iconBase + iconType + '.svg'
                 });
             },
             getMarkerBounds() {

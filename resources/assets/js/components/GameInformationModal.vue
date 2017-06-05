@@ -15,7 +15,7 @@
                             <p class="help-block">{{ $t('icons.help') }}</p>
                             <div class="media"  v-for="icon in icons">
                                 <div class="media-left media-middle">
-                                    <img class="media-object" alt="icon" style="width:26px;height:30px;" v-bind:src="getIconUrl(icon)">
+                                    <img class="media-object" alt="icon" style="width:30px;height:30px;" v-bind:src="getIconUrl(icon)">
                                 </div>
                                 <div class="media-body">
                                     <p>{{ getIconText(icon) }}</p>
@@ -102,7 +102,7 @@
                 });
             },
             getIconUrl(type) {
-                return this.baseUrl + '/img/icons/item/' + ( ( type !== 'active' ) ? type + '/' : '' ) + 'information.png';
+                return this.baseUrl + '/img/map/icons/' + ( ( type !== 'active' ) ? type : 'default' ) + '.svg';
             },
             getIconText(type) {
                 return this.$t('icons.' + type);
