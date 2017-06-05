@@ -25,9 +25,11 @@
                 <li class="{{ Request::is('activities', 'activities/*') ? 'active': '' }}">
                     <a href="{{ url('/activities') }}">{{ trans('navbar.activities') }}</a>
                 </li>
-                <li class="{{ Request::is('activity_items', 'activity_items/*') ? 'active': '' }}">
-                    <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
-                </li>
+                @if ( Auth::check() )
+                    <li class="{{ Request::is('activity_items', 'activity_items/*') ? 'active': '' }}">
+                        <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
+                    </li>
+                @endif
                 <li class="{{ Request::is('badges')? 'active': '' }}">
                     <a href="{{ route('badge.index') }}">{{ trans('navbar.badges') }}</a>
                 </li>
