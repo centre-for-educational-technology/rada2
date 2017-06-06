@@ -16,6 +16,10 @@ return [
             'heading' => 'Mis on SmartZoos?',
             'content' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
         ],
+        'choose-location' => 'Vali asukoht',
+        'btn' => [
+            'play-smart-zoos' => 'Mängima',
+        ],
     ],
     'activities' => [
         'index' => [

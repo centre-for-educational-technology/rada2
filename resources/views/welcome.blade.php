@@ -1,41 +1,36 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+<script src="{{ elixir('js/welcome.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="container">
-    <div id="sz-landing-carousel" class="carousel slide" data-ride="carousel" style="max-width:900px;margin-left:auto;margin-right:auto;">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-            <li data-target="#sz-landing-carousel" data-slide-to="0" class="active"></li>
-            <li data-target="#sz-landing-carousel" data-slide-to="1"></li>
-            <li data-target="#sz-landing-carousel" data-slide-to="2"></li>
-        </ol>
-
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-            <div class="item active">
-                <img src="{{ asset('img/header/img-1.jpg') }}" alt="slide" class="img-responsive center-block">
-            </div>
-            <div class="item">
-                <img src="{{ asset('img/header/img-2.jpg') }}" alt="slide" class="img-responsive center-block">
-            </div>
-            <div class="item">
-                <img src="{{ asset('img/header/img-3.jpg') }}" alt="slide" class="img-responsive center-block">
-            </div>
+    <div class="row" id="sz-quick-play">
+        <div class="col-xs-12">
+            <button class="btn btn-default sz-quick-play-btn">
+                <i class="mdi mdi-map-marker" aria-hidden="true"></i>
+                {{ trans('pages.welcome.btn.play-smart-zoos') }}
+            </button>
         </div>
 
-        <!-- Controls -->
-        <a class="left carousel-control" href="#sz-landing-carousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-            <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#sz-landing-carousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-            <span class="sr-only">Next</span>
-        </a>
+        <div class="col-xs-12" style="display:none;">
+            <div class="text-center">
+                <h2>
+                    {{ trans('pages.welcome.choose-location')}}:
+                </h2>
+            </div>
+
+            @foreach ( $zooOptions as $key => $option)
+                <a href="{!! route('activity.index', ['zoo' => $key]) !!}" class="btn btn-default sz-quick-play-btn sz-quick-play-zoo-btn">
+                    {{ $option }}
+                </a>
+            @endforeach
+        </div>
     </div>
 
     <div class="row" style="margin-top:30px;">
-        <div class="jumbotron col-md-6 col-md-offset-3">
+        <div class="jumbotron col-xs-12">
             <h1 style="text-align:center;">{{ trans('pages.welcome.jumbotron.heading') }}</h1>
             <p style="text-align:center;">{{ trans('pages.welcome.jumbotron.content') }}</p>
             @if (Auth::guest())
@@ -48,12 +43,6 @@
             @endif
         </div>
     </div>
-
-    <!-- 16:9 aspect ratio -->
-    <div class="embed-responsive embed-responsive-16by9">
-        <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/81C45FD4E3I?controls=0&showinfo=0" allowfullscreen></iframe>
-    </div>
-
 
     <div class="row" style="margin-top:30px;">
         <div class="col-xs-6 col-md-3">

@@ -16158,4 +16158,46 @@ img.openbadge {
   display: inline-block;
 }
 
+#sz-quick-play .btn.sz-quick-play-btn {
+  background-color: #65bf3b;
+  border: 5px solid #cff0c6;
+  color: #ffffff;
+  width: 100%;
+  font-size: 150%;
+}
+
+#sz-quick-play .btn.sz-quick-play-btn i.mdi {
+  display: block;
+  margin-top: 25px;
+  margin-bottom: 10px;
+}
+
+#sz-quick-play .btn.sz-quick-play-btn i.mdi::before {
+  font-size: 70px;
+}
+
+#sz-quick-play .btn.sz-quick-play-zoo-btn {
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+form.sz-play-action-form {
+  width: 100%;
+}
+
+form.sz-play-action-form button {
+  width: 100%;
+  margin-top: 5px;
+}
+
+form.sz-play-action-form button i.mdi {
+  display: inline-block;
+  margin-top: 20px;
+  margin-bottom: 10px;
+}
+
+form.sz-play-action-form button i.mdi::before {
+  font-size: 52px;
+}
+
 /*# sourceMappingURL=app.css.map */

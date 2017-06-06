@@ -1,10 +1,13 @@
 <div class="pull-right">
-    <form class="sz-action-form-inline" action="{{ route('activity.start', ['id' => $activity->id]) }}" method="POST">
-        {{ csrf_field() }}
-        <button type="submit" class="btn btn-success btn-sm" title="{{ trans('general.actions.play') }}">
-          <i class="mdi mdi-play-circle-outline"></i>
-        </button>
-    </form>
+    @php ( $includePlay = isset($includePlay) ? $includePlay : true )
+    @if ( $includePlay !== false )
+        <form class="sz-action-form-inline" action="{{ route('activity.start', ['id' => $activity->id]) }}" method="POST">
+            {{ csrf_field() }}
+            <button type="submit" class="btn btn-success btn-sm" title="{{ trans('general.actions.play') }}">
+              <i class="mdi mdi-play-circle-outline"></i>
+            </button>
+        </form>
+    @endif
     @if(Auth::check())
             @can('update', $activity)
                 <a href="{!! route('activity.edit', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.edit') }}">
