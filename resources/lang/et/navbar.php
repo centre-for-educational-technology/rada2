@@ -11,8 +11,8 @@ return [
     |
     */
 
-    'home' => 'Home',
-    'activities'     => 'Activities',
-    'activity-items' => 'Activity Items',
-    'badges' => 'Badges',
+    'home' => 'Algus',
+    'activities'     => 'Rajad',
+    'activity-items' => 'Rajapunktid',
+    'badges' => 'Õpimärgid',
 ];
