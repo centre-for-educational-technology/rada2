@@ -13,109 +13,109 @@ return [
 
     'welcome' => [
         'jumbotron' => [
-            'heading' => 'What is SmartZoos?',
+            'heading' => 'Mis on SmartZoos?',
             'content' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
         ],
     ],
     'activities' => [
         'index' => [
-            'heading' => 'Activities',
-            'none-found' => 'No Activities could be found.',
+            'heading' => 'Rajad',
+            'none-found' => 'Ühtegi rada ei leitud.',
         ],
         'create-or-edit' => [
-            'keywords' => 'Keywords',
-            'items-found' => 'items found',
+            'keywords' => 'Märksõnad',
+            'items-found' => 'leitud vastet',
             'tooltips' => [
-                'proximity-check' => 'Determines if proximity check is applied',
+                'proximity-check' => 'Teeb kindlaks, kas kauguse piirang on sisse lülitatud',
             ],
             'help' => [
-                'proximity' => 'Only set proximity radius in meters if defalult value of :default is not suitable. We recommend setting it to a value between 25 to 100 meters. If you uncheck the checkbox situated to the right of the field, then the game will not check proximity at all.',
+                'proximity' => 'Määra kaugusepiirang meetrites ainult juhul kui vaikimisi väärtus :default ei ole sobiv. Soovituslik vahemik on 25 kuni 100 meetrit. Võttes maha linnukuse märkeruudust, on võimalik rada läbida ilma asukohapiiranguta.',
             ],
         ],
     ],
     'activity-items' => [
         'index' => [
-          'heading' => 'Activity Items',
-          'none-found' => 'No Activity Items could be found.',
+          'heading' => 'Rajapunktid',
+          'none-found' => 'Ühtegi rajapunkti ei leitud.',
         ],
         'create-or-edit' => [
-            'set-current-position' => 'Set current position',
-            'geolocation-error' => 'Error: Geolocation could not be determined',
+            'set-current-position' => 'Määra praegune asukoht',
+            'geolocation-error' => 'Viga: Asukohta ei õnnestunud tuvastada',
         ],
     ],
     'manage' => [
         'users' => [
             'index' => [
-                'heading' => 'Manage Users',
-                'none-found' => 'No User could be found',
-                'accounts' => 'Accounts',
-                'roles' => 'Roles',
-                'manage-roles' => 'Manage roles',
-                'remove-role' => 'Remove role',
+                'heading' => 'Halda kasutajaid',
+                'none-found' => 'Ühtegi kasutajat ei leitud',
+                'accounts' => 'Kontod',
+                'roles' => 'Rollid',
+                'manage-roles' => 'Halda rolle',
+                'remove-role' => 'Eemalda roll',
                 'confirmations' => [
-                    'role' => 'Are you sure you want to remove selected role?',
+                    'role' => 'Oled sa kindel, et soovid rolli eemaldada?',
                 ],
                 'modal' => [
-                    'title' => 'Manage user roles',
+                    'title' => 'Halda kasutajate rolle',
                 ],
             ]
         ],
     ],
     'play' => [
         'game' => [
-            'loading' => 'Game Loading ...',
-            'its-you' => 'It\'s you',
-            'info' => 'Game information',
-            'position-tracking' => 'Enable or disable position tracking',
-            'exit' => 'Exit current game',
-            'exit-confirmation' => 'Are you sure you want to exit the game? Only authenticated users would be able to continue later.',
-            'textual-answer-placeholder' => 'Answer text...',
-            'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
-            'apply-item-bounds' => 'Show all available Activity Item points on the map',
-            'results-heading' => 'These are your results',
-            'number-of-questions' => 'No. of Questions',
-            'gps-error' => 'GPS signal not found.',
-            'go' => 'GO!',
+            'loading' => 'Mäng laeb ...',
+            'its-you' => 'See oled sina',
+            'info' => 'Mängu info',
+            'position-tracking' => 'Lülita sisse või keela positsioneerimine',
+            'exit' => 'Välju mängust',
+            'exit-confirmation' => 'Oled sa kindel, et soovid mängust lahkuda? Ainult registreerunud kasutajad saavad mängu jätkata.',
+            'textual-answer-placeholder' => 'Vastuse tekst...',
+            'image-format-hint' => 'Palun kasuta ainult PNG või JPG/JPEG formaadis pilte.',
+            'apply-item-bounds' => 'Kuva kaardil kõik rajapunktid',
+            'results-heading' => 'Need on sinu tulemused',
+            'number-of-questions' => 'Küsimuste arv',
+            'gps-error' => 'GPS signaal puudub.',
+            'go' => 'Mängima!',
             'icons' => [
-                'help' => 'Each icon has a colour code that indicates the state of a question.',
-                'active' => 'Unanswered',
-                'inactive' => 'Out of reach',
-                'correct' => 'Correct',
-                'incorrect' => 'Incorrect answer',
+                'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
+                'active' => 'Vastamata',
+                'inactive' => 'Liiga kaugel',
+                'correct' => 'Õige',
+                'incorrect' => 'Vale vastus',
             ],
         ],
     ],
     'dashboard' => [
-        'title' => 'Dashboard',
-        'heading' => 'Welcome, :name!',
-        'none-found' => 'No Games or Activities found',
-        'games-and-activities' => 'Games & activities',
-        'finished' => 'Finished :date',
-        'started' => 'Started :date',
+        'title' => 'Töölaud',
+        'heading' => 'Tere tulemast, :name!',
+        'none-found' => 'Ühtegi mängu ega tegevust ei leitud',
+        'games-and-activities' => 'Mängud ja tegevused',
+        'finished' => 'Lõpetatud :date',
+        'started' => 'Alustatud :date',
         'btn' => [
-            'view-results' => 'View results',
-            'continue' => 'Continue',
+            'view-results' => 'Vaata tulemusi',
+            'continue' => 'Jätka',
         ],
     ],
     'activity-results-index' => [
-        'title' => 'Activities',
-        'heading' => 'Results of Activities',
-        'zoos' => 'Displayed activities belong to these Zoos',
+        'title' => 'Mängud',
+        'heading' => 'Mängude tulemused',
+        'zoos' => 'Kuvatavad mängud kuuluvad järgmiste loomaaedade juurde',
     ],
     'activity-results' => [
-        'heading' => 'Results of :title',
+        'heading' => 'Mängu :title tulemused',
 
     ],
     'profile' => [
-        'title' => 'Profile',
-        'heading' => 'Profile of :name',
+        'title' => 'Profiil',
+        'heading' => 'Kasutaja: :name',
         'labels' => [
-            'badges-earned' => 'Badges Earned',
+            'badges-earned' => 'õpimärki omandatud',
         ],
     ],
     'profile-edit' => [
         'help' => [
-            'password' => 'Please leave password field empty, unless you want to have it changed.',
+            'password' => 'Kui sa ei soovi salasõna muuta, jäta palun salasõna väli tühjaks.',
         ]
     ],
 
