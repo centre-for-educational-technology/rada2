@@ -13,50 +13,50 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Sisestatud andmed ei kattu meie süsteemis olevatega.',
+    'throttle' => 'Liiga palju sisselogimise katseid. Proovi palun :seconds sekundi pärast uuesti.',
     'general' => [
-        'email' => 'E-Mail Address',
-        'password' => 'Password',
-        'confirm-password' => 'Confirm Password',
+        'email' => 'E-posti aadress',
+        'password' => 'Salasõna',
+        'confirm-password' => 'Korda salasõna',
         'captcha' => 'Captcha',
     ],
     'login' => [
         'form' => [
-            'heading' => 'Log in',
-            'text' => 'Jaunt through the zoo and collect pieces of a puzzle. If you get a complete picture, you can redeem it for discounts in the zoo shops and the entrance.',
-            'remember' => 'Remember Me',
+            'heading' => 'Logi sisse',
+            'text' => 'Seikle loomaaedades ja kogu kokku puzzletükke. Kui sa oled kokku kogunud terve pildi, saad sa selle vahetada mõne allahindluse või kupongi vastu loomaaia poes, kohvikutes või väravas.',
+            'remember' => 'Jära mind meelde',
             'btn' => [
-                'login' => 'Log in',
-                'reset' => 'Forgot Your Password?',
-                'google' => 'Sign in with Google',
-                'facebook' => 'Sign in with Facebook',
+                'login' => 'Logi sisse',
+                'reset' => 'Unustasid salasõna?',
+                'google' => 'Google',
+                'facebook' => 'Facebook',
             ],
-            'social-networks'=> 'Or login with social networks',
+            'social-networks'=> 'või kasutades sotsiaalvõrgustiku kontot',
         ],
     ],
     'register' => [
         'form' => [
-            'heading' => 'Register',
-            'name' => 'Name',
+            'heading' => 'Registreeru',
+            'name' => 'Nimi',
             'btn' => [
-                'register' => 'Register',
+                'register' => 'Registreeru',
             ],
         ],
     ],
     'reset' => [
         'form' => [
-            'heading' => 'Reset Password',
+            'heading' => 'Lähtesta salasõna',
             'btn' => [
-                'send-password-reset-link' => 'Send Password Reset Link',
-                'reset-password' => 'Reset Password',
+                'send-password-reset-link' => 'Saada salasõna lähtestamine link',
+                'reset-password' => 'Lähtesta salasõna',
             ],
         ],
     ],
     'logout' => [
         'form' => [
             'btn' => [
-                'logout' => 'Logout',
+                'logout' => 'Logi välja',
             ],
         ],
     ],
