@@ -31,11 +31,11 @@
 
     <div class="row" style="margin-top:30px;">
         <div class="jumbotron col-xs-12">
-            <h1 style="text-align:center;">{{ trans('pages.welcome.jumbotron.heading') }}</h1>
-            <p style="text-align:center;">{{ trans('pages.welcome.jumbotron.content') }}</p>
+            <h1 class="text-center">{{ trans('pages.welcome.jumbotron.heading') }}</h1>
+            <p class="text-center">{{ trans('pages.welcome.jumbotron.content') }}</p>
             @if (Auth::guest())
                 <p class="row">
-                    <p class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3">
+                    <p class="col-xs-8 col-xs-offset-2 col-md-6 col-md-offset-3 text-center">
                         <a class="btn btn-primary btn-sm" href="{{ url('/register') }}" role="button">{{ trans('auth.register.form.btn.register') }}</a>
                         <a class="btn btn-primary btn-sm" href="{{ url('/login') }}" role="button">{{ trans('auth.login.form.btn.login') }}</a>
                     </p>
