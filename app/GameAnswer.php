@@ -3,9 +3,18 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class GameAnswer extends Model
 {
+    use LogsActivity;
+
+    /**
+     * Define attributes to be logged
+     * @var array
+     */
+    protected static $logAttributes = ['game_id', 'activity_item_id'];
+
     /**
      * Get Activity current Game is connected with,.
      * @return Activity Activity object.

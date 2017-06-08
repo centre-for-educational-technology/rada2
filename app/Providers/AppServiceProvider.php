@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\ServiceProvider;
 use App\Services\ImageService;
 use App\Services\OpenBadgesService;
+use App\Services\SocialAccountService;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -33,6 +34,11 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(OpenBadgesService::class, function()
         {
             return new OpenBadgesService();
+        });
+
+        $this->app->singleton(SocialAccountService::class, function()
+        {
+            return new SocialAccountService();
         });
     }
 }

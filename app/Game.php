@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 use App\Traits\UuidModel;
 
@@ -11,12 +12,19 @@ use Illuminate\Support\Facades\Log;
 class Game extends Model
 {
     use UuidModel;
+    use LogsActivity;
 
     /**
      * Define that model does not use increments
      * @var boolean
      */
     public $incrementing = false;
+
+    /**
+     * Define attributes to be logged
+     * @var array
+     */
+    protected static $logAttributes = ['activity_id', 'user_id', 'complete',];
 
     /**
      * Determine if game has been completed.

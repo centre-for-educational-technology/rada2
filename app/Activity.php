@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
@@ -15,6 +16,8 @@ use Illuminate\Support\Facades\DB;
 
 class Activity extends Model
 {
+    use LogsActivity;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -23,6 +26,12 @@ class Activity extends Model
     protected $fillable = [
         'user_id',
     ];
+
+    /**
+     * Define attributes to be logged
+     * @var array
+     */
+    protected static $logAttributes = ['title',];
 
     /**
      * Returns Zoo title

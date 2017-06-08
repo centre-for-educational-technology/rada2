@@ -5,10 +5,13 @@ namespace App;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Log;
+use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Event;
 
 class User extends Authenticatable
 {
     use Notifiable;
+    use LogsActivity;
 
     /**
      * The attributes that are mass assignable.
@@ -27,6 +30,12 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    /**
+     * Define attributes to be logged
+     * @var array
+     */
+    protected static $logAttributes = ['name',];
 
     /**
      * Retruns user roles
@@ -148,6 +157,10 @@ class User extends Authenticatable
         if ( !$this->hasBadge($badge) )
         {
             $this->badges()->attach($badge->id);
+            activity()
+                ->performedOn($badge)
+                ->withProperties(['user_id' => $this->id,])
+                ->log('awarded');
         }
     }
 }

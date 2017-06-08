@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 use App\Options\ZooOptions;
 use App\Options\QuestionTypeOptions;
@@ -10,6 +11,8 @@ use App\Options\LanguageOptions;
 
 class ActivityItem extends Model
 {
+    use LogsActivity;
+
     /**
      * The attributes that are mass assignable.
      *
@@ -27,6 +30,12 @@ class ActivityItem extends Model
     protected $appends = [
         'icon_url'
     ];
+
+    /**
+     * Define attributes to be logged
+     * @var array
+     */
+    protected static $logAttributes = ['title',];
 
     /**
      * Sets icon_url attribute to icon URL value.

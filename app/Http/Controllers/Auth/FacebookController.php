@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Auth;
 
 use App\User;
 
-use App\SocialAccountService;
+use App\Services\SocialAccountService;
 
 use Socialite;
 

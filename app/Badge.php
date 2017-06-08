@@ -3,12 +3,14 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 use App\Traits\UuidModel;
 
 class Badge extends Model
 {
     use UuidModel;
+    use LogsActivity;
 
     /**
      * Define that model does not use increments

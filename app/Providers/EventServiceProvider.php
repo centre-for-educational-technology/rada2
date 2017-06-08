@@ -105,6 +105,12 @@ class EventServiceProvider extends ServiceProvider
                     $activity->user->awardBadge($proBadge);
                 }
             }
+
+            activity()
+                ->causedBy($game->user)
+                ->performedOn($game)
+                ->withProperties(['activity_id' => $game->activity_id, 'user_id' => $game->user_id, 'complete' => $game->complete,])
+                ->log('complete');
         });
     }
 }
