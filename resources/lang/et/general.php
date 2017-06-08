@@ -58,6 +58,7 @@ return [
            'activity-items' => 'Rajapunktid',
            'proximity' => 'Kaugus',
            'search-text' => 'Otsi teksti',
+           'read-more' => 'Read more',
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
@@ -88,6 +89,7 @@ return [
            'option-text' => 'Valikute tekst...',
            'embedded-content' => 'Lisa vistutatav kood siia',
            'search-text' => 'Otsimiseks sisesta tekstiosa',
+           'read-more' => 'Enter a URL that has more information on the topic',
        ],
        'options' => [
            'any' => 'Kõik',

@@ -170,6 +170,12 @@
                     <p>
                         <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;zoom=18&amp;size=240x180&amp;maptype=hybrid&amp;markers=color:red%7C{{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;style=feature:poi%7Cvisibility:off&amp;style=feature:transit.station%7Cvisibility:off&amp;key={{ config('services.maps.google.api_key') }}" alt="map">
                     </p>
+                    @if ( $activity_item->read_more )
+                        <h3>{{ trans('general.forms.labels.read-more') }}</h3>
+                        <p>
+                            <a href="{{ $activity_item->read_more }}" target="_blank">{{ $activity_item->read_more }}</a>
+                        </p>
+                    @endif
                 </div>
             </div>
         </div>

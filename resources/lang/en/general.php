@@ -58,6 +58,7 @@ return [
            'activity-items' => 'Activity Items',
            'proximity' => 'Proximity',
            'search-text' => 'Search text',
+           'read-more' => 'Read more',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -88,6 +89,7 @@ return [
            'option-text' => 'Option text...',
            'embedded-content' => 'Please add any embed codes here',
            'search-text' => 'Enter a text fragment to search for',
+           'read-more' => 'Enter a URL that has more information on the topic',
        ],
        'options' => [
            'any' => 'Any',

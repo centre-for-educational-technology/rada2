@@ -214,6 +214,11 @@ class ActivityItemController extends Controller
       $item->latitude = $request->latitude;
       $item->longitude = $request->longitude;
 
+      if ( $request->has('read_more') )
+      {
+          $item->read_more = $request->read_more;
+      }
+
       $item->user()->associate( auth()->user() );
 
       $item->save();
@@ -386,6 +391,13 @@ class ActivityItemController extends Controller
       $activity_item->language = $request->language;
       $activity_item->latitude = $request->latitude;
       $activity_item->longitude = $request->longitude;
+
+      if ( $request->has('read_more') )
+      {
+          $activity_item->read_more = $request->read_more;
+      } else {
+          $activity_item->read_more = '';
+      }
 
       $activity_item->save();
 

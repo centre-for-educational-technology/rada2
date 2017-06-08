@@ -201,6 +201,26 @@
             </div>
         </div>
 
+        <div class="form-group{{ $errors->has('read_more') ? ' has-error' : '' }}">
+            {!! Form::label('read_more', trans('general.forms.labels.read-more'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                    {!! Form::url('read_more', $activity_item->read_more, [
+                        'class' => 'form-control',
+                        'placeholder' => trans('general.forms.placeholders.read-more'),
+                    ]) !!}
+                </div>
+
+                @if ($errors->has('read_more'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('read_more') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 {!! Form::submit(trans('general.forms.buttons.save'), [

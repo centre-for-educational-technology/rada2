@@ -43,6 +43,13 @@
                                 <img alt="uploaded-image" class="img-responsive center-block" v-bind:src="getImage(question)">
                             </div>
                         </div>
+
+                        <div>
+                            <a href="" v-bind:href="question.read_more" target="_blank" class="btn btn-default btn-sm" v-if="question.read_more">
+                                <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                                {{ $t('read-more-about') }}
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">

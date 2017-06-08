@@ -70,6 +70,12 @@
                                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                                         {{ $activity_item->getLanguage() }}
                                     </div>
+                                    @if ( $activity_item->read_more )
+                                        <div class="sz-metadata">
+                                            <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+                                            <a href="{{ $activity_item->read_more }}" target="_blank">{{ $activity_item->read_more }}</a>
+                                        </div>
+                                    @endif
                                 </div>
                             </div>
                         @endforeach

@@ -80,6 +80,7 @@ return [
             'number-of-questions' => 'No. of Questions',
             'gps-error' => 'GPS signal not found.',
             'go' => 'GO!',
+            'read-more-about' => 'Read more about...',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',

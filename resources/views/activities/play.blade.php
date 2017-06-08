@@ -67,6 +67,7 @@
                     'number-of-questions' => trans('pages.play.game.number-of-questions'),
                     'go' => trans('pages.play.game.go'),
                     'gps-error' => trans('pages.play.game.gps-error'),
+                    'read-more-about' => trans('pages.play.game.read-more-about'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),
