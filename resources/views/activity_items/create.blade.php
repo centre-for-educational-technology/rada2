@@ -195,7 +195,7 @@
             </div>
         </div>
 
-        <div class="form-group required{{ $errors->has('read_more') ? ' has-error' : '' }}">
+        <div class="form-group{{ $errors->has('read_more') ? ' has-error' : '' }}">
             {!! Form::label('read_more', trans('general.forms.labels.read-more'), [
                 'class' => 'col-md-4 control-label',
             ]) !!}
