@@ -19,6 +19,7 @@ use App\Options\QuestionTypeOptions;
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 use App\Services\ImageService;
 
 use Illuminate\Support\Facades\Log;
@@ -47,6 +48,7 @@ class ActivityItemController extends Controller
    * @param  \App\Services\ImageService       $imageService ImageService instance
    * @param  \App\Http\Requests\StoreActivity $request      Request instance
    * @param  string                           $name         Uploaded file name
+   * @param  string                           $path         Directory path
    * @return string                                         Image file name
    */
   private function processUploadedOptionImage(&$imageService, &$request, $name, $path) {
@@ -54,6 +56,22 @@ class ActivityItemController extends Controller
       $fileName = $imageService->generateUniqueFileName('activity_item_image_', $originalExtension);
 
       $imageService->process($request->file($name)->getRealPath(), $path, $fileName, 500);
+
+      return $fileName;
+  }
+
+  /**
+   * Process uploaded image as needed and move to a correct location.
+   * @param  \App\Services\ImageService           $imageService
+   * @param  \App\Http\Requests\StoreActivityItem $request
+   * @param  string                               $path         Directory path
+   * @return string                               Image file name
+   */
+  private function processUploadedImage(&$imageService, &$request, $path) {
+      $originalExtension = $request->file('image')->getClientOriginalExtension();
+      $fileName = $imageService->generateUniqueFileName('image_', $originalExtension);
+
+      $imageService->process($request->file('image')->getRealPath(), $path, $fileName, 800);
 
       return $fileName;
   }
@@ -225,6 +243,14 @@ class ActivityItemController extends Controller
 
       $path = $item->getStoragePath();
 
+      if ( $request->hasFile('image') )
+      {
+          $fileName = $this->processUploadedImage($imageService, $request, $path);
+          DB::table('activity_items')
+              ->where('id', $item->id)
+              ->update(['image' => $fileName]);
+      }
+
       // TODO It might make sense to move contents of these blocks to standalone
       // functions, as they act after item has alreayd been created
       if ( $item->isOneCorrectAnswer() ) {
@@ -377,8 +403,21 @@ class ActivityItemController extends Controller
    */
   public function update(StoreActivityItem $request, ActivityItem $activity_item, ImageService $imageService)
   {
+      $path = $activity_item->getStoragePath();
+
       $activity_item->title = $request->title;
       $activity_item->description = $request->description;
+
+      if ( $request->hasFile('image') ) {
+          $originalImage = $activity_item->image;
+
+          $fileName = $this->processUploadedImage($imageService, $request, $path);
+          $activity_item->image = $fileName;
+
+          if ( $originalImage ) {
+              $imageService->delete($path . $originalImage);
+          }
+      }
 
       if ( $activity_item->isEmbeddedContent() ) {
           $activity_item->embedded_content = $request->input('embedded-content', '');
@@ -400,8 +439,6 @@ class ActivityItemController extends Controller
       }
 
       $activity_item->save();
-
-      $path = $activity_item->getStoragePath();
 
       // TODO It might make sense to move contents of these blocks to standalone
       // functions, as they act after item has alreayd been created

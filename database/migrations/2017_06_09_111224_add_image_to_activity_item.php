@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class UpdateActivityItemsTable extends Migration
+class AddImageToActivityItem extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,7 @@ class UpdateActivityItemsTable extends Migration
     public function up()
     {
         Schema::table('activity_items', function (Blueprint $table) {
-            $table->string('read_more', 2000)->nullable()->after('longitude');
+            $table->string('image')->nullable()->after('description');
         });
     }
 
@@ -26,7 +26,7 @@ class UpdateActivityItemsTable extends Migration
     public function down()
     {
         Schema::table('activity_items', function (Blueprint $table) {
-            $table->dropColumn('read_more');
+            $table->dropColumn('image');
         });
     }
 }

@@ -212,7 +212,7 @@
                 </div>
 
                 <p class="help-block">
-                    {{ trans('general.forms.help.featured-image') }}
+                    {{ trans('general.forms.help.image') }}
                 </p>
 
                 @if ($errors->has('featured_image'))

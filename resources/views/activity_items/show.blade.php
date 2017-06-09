@@ -18,6 +18,10 @@
                             @include('activity_items.includes.actions')
                         </div>
                     </div>
+                    @if ( $activity_item->hasImage() )
+                        <h3>{{ trans('general.forms.labels.image') }}</h3>
+                        <img src="{!! $activity_item->getImageUrl() !!}" alt="image" class="img-responsive">
+                    @endif
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>

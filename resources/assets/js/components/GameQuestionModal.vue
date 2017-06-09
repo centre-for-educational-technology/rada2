@@ -7,6 +7,9 @@
                     <h4 class="modal-title">{{ title() }}</h4>
                 </div>
                 <div class="modal-body">
+                    <div v-if="hasImage()">
+                        <img src="" class="img-responsive" alt="image" v-bind:src="image()">
+                    </div>
                     <p class="sz-display-new-lines">{{ description() }}</p>
 
                     <div v-if="isOneCorrectAnswer()">
@@ -265,6 +268,12 @@
             },
             description() {
                 return this.question ? this.question.description : '';
+            },
+            hasImage() {
+                return this.question && this.question.image;
+            },
+            image() {
+                return this.question ? this.question.image : '';
             },
             embeddedContent() {
                 return this.question ? this.question.embedded_content : '';

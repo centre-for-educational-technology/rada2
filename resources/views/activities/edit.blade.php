@@ -214,9 +214,9 @@
 
                 <p class="help-block">
                     @if ($activity->hasFeaturedImage())
-                        <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded pull-left" style="height:64px;width:64px;margin-right:10px;">
+                        <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded pull-left sz-uploaded-image-preview">
                     @endif
-                    {{ trans('general.forms.help.featured-image') }}
+                    {{ trans('general.forms.help.image') }}
                 </p>
 
                 @if ($errors->has('featured_image'))

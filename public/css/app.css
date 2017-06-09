@@ -16200,4 +16200,10 @@ form.sz-play-action-form button i.mdi::before {
   font-size: 52px;
 }
 
+img.sz-uploaded-image-preview {
+  height: 64px;
+  width: 64px;
+  margin-right: 10px;
+}
+
 /*# sourceMappingURL=app.css.map */

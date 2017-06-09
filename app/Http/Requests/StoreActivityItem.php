@@ -39,6 +39,7 @@ class StoreActivityItem extends FormRequest
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'read_more' => 'url',
+            'image' => 'image|mimes:jpeg,jpg,png',
         ];
     }
 }

@@ -125,6 +125,7 @@ class Game extends Model
                     'id' => $item->id,
                     'title' => $item->title,
                     'description' => $item->description,
+                    'image' => $item->getImageUrl(),
                     'embedded_content' => $item->embedded_content,
                     'type' => $item->type,
                     'latitude' => $item->latitude,

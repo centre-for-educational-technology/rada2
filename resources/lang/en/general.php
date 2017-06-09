@@ -59,11 +59,12 @@ return [
            'proximity' => 'Proximity',
            'search-text' => 'Search text',
            'read-more' => 'Read more',
+           'image' => 'Image',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
            'difficulty-level' => 'Choose a suitable range from available values. Defaults to all included.',
-           'featured-image' => 'An image in JPEG or PNG format. Uploaded image will be resized to 800 by 800 pixels.',
+           'image' => 'An image in JPEG or PNG format. Uploaded image will be resized to 800 by 800 pixels.',
            'map' => 'Please select the correct Zoo and drag the marker to the specific location.',
            'question-types' => [
                'information' => 'Description text will be displayed as an information for the location.',

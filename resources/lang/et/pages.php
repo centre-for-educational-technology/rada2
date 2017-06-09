@@ -80,7 +80,7 @@ return [
             'number-of-questions' => 'Küsimuste arv',
             'gps-error' => 'GPS signaal puudub.',
             'go' => 'Mängima!',
-            'read-more-about' => 'Read more about...',
+            'read-more-about' => 'Lisainfo ...',
             'icons' => [
                 'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
                 'active' => 'Vastamata',
