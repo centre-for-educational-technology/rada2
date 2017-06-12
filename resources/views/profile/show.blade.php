@@ -71,10 +71,10 @@
                             </div>
                             <div class="col-xs-12 col-sm-4">
                                 @if ( count($user->badges) > 0 && $isCurrentUser )
-                                    <!--button type="button" id="send-to-backpack" class="btn btn-primary pull-right"">
+                                    <button type="button" id="send-to-backpack" class="btn btn-primary pull-right"">
                                         <i class="mdi mdi-cube-send"></i>
                                         {{ trans('general.actions.send-to-backpack') }}
-                                    </button-->
+                                    </button>
                                 @endif
                             </div>
                         </div>
@@ -94,14 +94,14 @@
                                     @if ( $isCurrentUser )
                                         @php ( $assertionUrl = route('api.badge.assertion', ['badge' => $badge->id, 'user' => $user->id]) )
                                         <div class="openbadge-actions text-center">
-                                            <!--button
+                                            <button
                                                 class="btn btn-default btn-sm openbadge-download"
                                                 title="{{ trans('general.actions.download-baked-badge') }}"
                                                 data-toggle="tooltip"
                                                 data-placement="top"
                                                 data-assertion-url="{!! $assertionUrl !!}">
                                                 <i class="mdi mdi-cloud-download" aria-hidden="true"></i>
-                                            </button-->
+                                            </button>
                                             <a
                                                 class="btn btn-default btn-sm openbadge-assertion-open"
                                                 title="{{ trans('general.actions.assertion-open') }}"
