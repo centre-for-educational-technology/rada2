@@ -64,6 +64,21 @@ return [
                 ],
             ]
         ],
+        'statistics' => [
+            'heading' => 'Statistics',
+            'users' => 'Users',
+            'activities' => 'Activities',
+            'activity-items' => 'Activity Items',
+            'games' => 'Games',
+            'captions' => [
+                'activities-by-zoo' => 'Activities by Zoo',
+                'activities-by-language' => 'Activities by Language',
+                'activity-items-by-zoo' => 'Activity Items by Zoo',
+                'activity-items-by-question-type' => 'Activity Items by Question Type',
+                'activity-items-by-language' => 'Activity Items by Language',
+                'games-by-status' => 'Games by Status',
+            ],
+        ],
     ],
     'play' => [
         'game' => [

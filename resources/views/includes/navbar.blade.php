@@ -89,6 +89,12 @@
                                         {{ trans('pages.manage.users.index.heading') }}
                                     </a>
                                 </li>
+                                <li>
+                                    <a href="{!! route('manage.statistics') !!}">
+                                        <i class="mdi mdi-chart-pie" aria-hidden="true"></i>
+                                        {{ trans('pages.manage.statistics.heading') }}
+                                    </a>
+                                </li>
                             @endif
                             <li>
                                 <a href="{{ url('/logout') }}"
