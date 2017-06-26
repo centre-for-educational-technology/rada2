@@ -204,7 +204,8 @@
                             },
                             map: map,
                             animation: google.maps.Animation.DROP,
-                            questionId: question.id
+                            questionId: question.id,
+                            optimized: false
                         });
 
                         _this.detectAndSetMarkerIcon(marker);
