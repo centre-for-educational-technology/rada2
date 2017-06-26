@@ -133,17 +133,24 @@
         },
         watch: {
             gpsError(value) {
+                const mapControlsElement = document.getElementById('sz-map-controls');
+
+                // Ignore any attempts to show GPS error until UI is ready
+                if ( !mapControlsElement ) return;
+
                 const elementId = 'sz-gps-error',
                     element = document.getElementById('sz-gps-error');
 
                 if ( value === true ) {
                     if ( !element ) {
-                        this.initGpsErrorControl(elementId)
+                        this.initGpsErrorControl(elementId);
                     } else {
                         element.style.display = 'initial';
                     }
                 } else {
-                    element.style.display = 'none';
+                    if ( element ) {
+                        element.style.display = 'none';
+                    }
                 }
             }
         },
