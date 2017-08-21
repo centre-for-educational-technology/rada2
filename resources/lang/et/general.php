@@ -21,7 +21,7 @@ return [
        'complete' => 'Lõpeta tegevus',
        'ongoing' => 'Käimasolev tegevus',
    ],
-   'language' => 'Language',
+   'language' => 'Keel',
    'languages' => [
        'en' => 'Inglise',
        'et' => 'Eesti',
