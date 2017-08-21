@@ -21,7 +21,7 @@ return [
        'complete' => 'Hela aktiviteten',
        'ongoing' => 'Pågående aktivitet',
    ],
-   'language' => 'Language',
+   'language' => 'Språk',
    'languages' => [
        'en' => 'English',
        'et' => 'Eesti keel',
