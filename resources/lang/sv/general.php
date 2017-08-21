@@ -27,7 +27,7 @@ return [
        'et' => 'Eesti keel',
        'ru' => 'По-русски',
        'fi' => 'Suomi',
-       'swe' => 'Svenska',
+       'sv' => 'Svenska',
    ],
    'zoos' => [
      'skansen' => 'Skansen',
