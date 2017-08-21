@@ -27,7 +27,7 @@ return [
        'et' => 'Estonian',
        'ru' => 'Russian',
        'fi' => 'Finnish',
-       'swe' => 'Swedish',
+       'sv' => 'Swedish',
    ],
    'zoos' => [
      'skansen' => 'Skansen',

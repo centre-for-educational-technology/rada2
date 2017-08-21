@@ -14,7 +14,7 @@ class LanguageOptions extends OptionsBase
             'et' => trans('general.languages.et'),
             'ru' => trans('general.languages.ru'),
             'fi' => trans('general.languages.fi'),
-            'swe' => trans('general.languages.swe'),
+            'sv' => trans('general.languages.sv'),
         ];
     }
 }
