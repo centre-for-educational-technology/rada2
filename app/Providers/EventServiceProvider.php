@@ -104,13 +104,18 @@ class EventServiceProvider extends ServiceProvider
                     $proBadge = Badge::getBadgeByType('pro_gamer');
                     $activity->user->awardBadge($proBadge);
                 }
-            }
 
-            activity()
-                ->causedBy($game->user)
-                ->performedOn($game)
-                ->withProperties(['activity_id' => $game->activity_id, 'user_id' => $game->user_id, 'complete' => $game->complete,])
-                ->log('complete');
+                activity()
+                    ->causedBy($game->user)
+                    ->performedOn($game)
+                    ->withProperties(['activity_id' => $game->activity_id, 'user_id' => $game->user_id, 'complete' => $game->complete,])
+                    ->log('complete');
+            } else {
+                activity()
+                    ->performedOn($game)
+                    ->withProperties(['activity_id' => $game->activity_id, 'complete' => $game->complete,])
+                    ->log('complete');
+            }
         });
     }
 }
