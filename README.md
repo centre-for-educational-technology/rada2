@@ -52,7 +52,7 @@ If all the dependencies are installed, then one would only need to run one of th
 
  ## Localization
 
-All translations are placed under **ROOT/resources/lang/LANGUAGE**, where **LANGUAGE** is one of the following **en**, **et**, **ru**, **fi**, **swe**.
+All translations are placed under **ROOT/resources/lang/LANGUAGE**, where **LANGUAGE** is one of the following **en**, **et**, **ru**, **fi**, **sv**.
 
 I order to create a new translation, please copy all the files from **ROOT/resources/lang/en** to newly created directory.
 
