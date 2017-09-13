@@ -63,7 +63,6 @@ return [
        ],
        'help' => [
            'playing-time' => 'Aktivitetstid i minuter',
-           'difficulty-level' => 'Välj ett lämpligt intervall från de angivna värdena.  Alla ingår om inget annant anges.',
            'image' => 'En bild i JPEG- eller PNG-format.  Den uppladdade bilden kommer att skalas om till 800×800 pixlar.',
            'map' => 'Välj rätt djurpark och släpa markören till önskad plats.',
            'question-types' => [
@@ -122,5 +121,10 @@ return [
        'admin' => 'Administratör',
        'zooAdmin' => 'Administratör',
        'zooMember' => 'Medlem',
+   ],
+   'difficulty-level' => [
+     'easy' => 'Easy',
+     'medium' => 'Medium',
+     'hard' => 'Hard',
    ],
 ];

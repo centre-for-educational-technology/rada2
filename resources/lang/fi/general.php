@@ -63,7 +63,6 @@ return [
        ],
        'help' => [
            'playing-time' => 'Toimintaaika minuuteissa',
-           'difficulty-level' => 'Valitse sopiva väli arvoista. Oletus on kaikki arvot.',
            'image' => 'Kuva JPEG- tai PNG-muodossa.  Ladattu kuva muutetaan kokoon 800×800 pistettä.',
            'map' => 'Valitse toivottu eläintarha ja vedä osoitin tahdottuun pisteeseen.',
            'question-types' => [
@@ -122,5 +121,10 @@ return [
        'admin' => 'Ylläpitäjä',
        'zooAdmin' => 'Ylläpitäjä',
        'zooMember' => 'Jäsen',
+   ],
+   'difficulty-level' => [
+     'easy' => 'Easy',
+     'medium' => 'Medium',
+     'hard' => 'Hard',
    ],
 ];

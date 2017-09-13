@@ -16,6 +16,7 @@ use App\Options\ZooOptions;
 use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
+use App\Options\DifficultyLevelOptions;
 use App\Services\ImageService;
 
 use Illuminate\Support\Facades\Log;
@@ -59,12 +60,12 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, ActivityTypeOptions $activityTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
+    public function index(Request $request, ActivityTypeOptions $activityTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions, DifficultyLevelOptions $difficultyLevelOptions)
     {
         $search = [
             'search-text' => $request->has('search-text') ? $request->get('search-text') : '',
             'activity-type' => $request->has('activity-type') ? $request->get('activity-type') : '',
-            'difficulty-level' => $request->has('difficulty-level') ? $request->get('difficulty-level') : Activity::getDifficultyLevelMinimum() . ';' . Activity::getDifficultyLevelMaximum(),
+            'difficulty-level' => $request->has('difficulty-level') ? $request->get('difficulty-level') : '',
             'zoo' => $request->has('zoo') ? $request->get('zoo') : '',
             'language' => $request->has('language') ? $request->get('language') : '',
             'search-submitted' => ( $request->has('search-submitted') && (int) $request->get('search-submitted') === 1 ) ? true : false,
@@ -85,13 +86,7 @@ class ActivityController extends Controller
         }
 
         if ( $request->has('difficulty-level') ) {
-            $parts = explode(';', $request->get('difficulty-level'), 2);
-
-            if ( count($parts) === 2 && ( (int)$parts[0] <= (int)$parts[1] ) )
-            {
-                $query->where('difficulty_level_start', '<=', (int)$parts[1]);
-                $query->where('difficulty_level_end', '>=', (int)$parts[0]);
-            }
+            $query->where('difficulty_level', '=', (int)$request->get('difficulty-level'));
         }
 
         if ( $request->has('zoo') && (int)$request->get('zoo') !== 0 )
@@ -116,8 +111,7 @@ class ActivityController extends Controller
             'activityTypeOptions' => $activityTypeOptions->options(),
             'zooOptions' => $zooOptions->options(),
             'languageOptions' => $languageOptions->options(),
-            'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
-            'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+            'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'search' => $search,
         ]);
     }
@@ -127,7 +121,7 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions)
+    public function create(ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
     {
         $this->authorize('create', Activity::class);
 
@@ -136,8 +130,7 @@ class ActivityController extends Controller
             'activityTypeOptions' => $activityTypeOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'questionTypeOptions' => $questionTypeOptions->options(),
-            'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
-            'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+            'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : [],
         ]);
     }
@@ -156,8 +149,7 @@ class ActivityController extends Controller
         $activity->type = $request->type;
         $activity->title = $request->title;
         $activity->description = $request->description;
-        $activity->difficulty_level_start = $request->difficulty_level_start;
-        $activity->difficulty_level_end = $request->difficulty_level_end;
+        $activity->difficulty_level = $request->difficulty_level;
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
@@ -217,7 +209,7 @@ class ActivityController extends Controller
      * @param \App\Activity
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity, ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions)
+    public function edit(Activity $activity, ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
     {
         $this->authorize('update', $activity);
 
@@ -227,8 +219,7 @@ class ActivityController extends Controller
             'activityTypeOptions' => $activityTypeOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'questionTypeOptions' => $questionTypeOptions->options(),
-            'difficultyLevelMinimum' => Activity::getDifficultyLevelMinimum(),
-            'difficultyLevelMaximum' => Activity::getDifficultyLevelMaximum(),
+            'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
         ]);
     }
@@ -246,8 +237,7 @@ class ActivityController extends Controller
         $activity->type = $request->type;
         $activity->title = $request->title;
         $activity->description = $request->description;
-        $activity->difficulty_level_start = $request->difficulty_level_start;
-        $activity->difficulty_level_end = $request->difficulty_level_end;
+        $activity->difficulty_level = $request->difficulty_level;
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;

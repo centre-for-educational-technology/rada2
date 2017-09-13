@@ -12,11 +12,11 @@ const activityApp = new Vue({
 
         vm.apiUrl = window.Laravel.apiUrl;
 
-        $(vm.$refs.difficultyLevel).ionRangeSlider({
-            onChange(data) {
-                $(vm.$refs.difficultyLevelStart).val(data.from);
-                $(vm.$refs.difficultyLevelEnd).val(data.to);
-            }
+        $(vm.$refs.difficultyLevelButtons).find('button').on('click', (e) => {
+            var buttonElement = $(e.target);
+            $(vm.$refs.difficultyLevelButtons).find('button').removeClass('active');
+            buttonElement.addClass('active');
+            $(vm.$refs.difficultyLevel).val(buttonElement.data('value'));
         });
 
         $(vm.$refs.proximityCheck).on('change', (e) => {

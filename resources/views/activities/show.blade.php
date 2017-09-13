@@ -24,7 +24,7 @@
                     <h3>{{ trans('general.forms.labels.activity-type') }}</h3>
                     <p>{{ $activity->getActivityType() }}</p>
                     <h3>{{ trans('general.forms.labels.difficulty-level') }}</h3>
-                    <p>{{ $activity->difficulty_level_start }} - {{ $activity->difficulty_level_end }}</p>
+                    <p>{{ $activity->getDifficultyLevel() }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>
                     <p>{{ $activity->playing_time}} {{ trans('general.minutes')}}</p>
                     <h3>{{ trans('general.language') }}</h3>

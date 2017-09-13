@@ -63,7 +63,6 @@ return [
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
-           'difficulty-level' => 'Vali vahemik etteantud skaalal.',
            'image' => 'Sobiv formaat on kas JPEG või PNG. Üleslaetud pilt vähendatakse mõõtu 800 x 800 pikslit.',
            'map' => 'Palun vali sobiv loomaaed ja lohista marker õigesse asukohta.',
            'question-types' => [
@@ -122,5 +121,10 @@ return [
        'admin' => 'Administraator',
        'zooAdmin' => 'Administraator',
        'zooMember' => 'Liige',
+   ],
+   'difficulty-level' => [
+     'easy' => 'Lihtne',
+     'medium' => 'Mõõdukas',
+     'hard' => 'Raske',
    ],
 ];

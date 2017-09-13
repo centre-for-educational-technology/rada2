@@ -20,17 +20,19 @@
 
     <div class="form-group">
         <label for="difficulty-level">{{ trans('general.forms.labels.difficulty-level') }}</label>
-        <input type="text"
+        <div class="input-group col-xs-12">
+            <div class="btn-group btn-group-lg">
+                @include('activities.includes.difficulty_level_buttons', [ 'difficultyLevel' => $search['difficulty-level'] ])
+            </div>
+
+            <input type="hidden"
                class="form-control"
-               name="difficulty-level"
                id="difficulty-level"
+               name="difficulty-level"
                value="{{ $search['difficulty-level'] }}"
-               data-type="double"
-               data-min="{{ $difficultyLevelMinimum }}"
-               data-max="{{ $difficultyLevelMaximum }}"
-               data-step="1"
-               data-grid="true"
-               data-grid-num="11">
+               min="1"
+               max="3">
+        </div>
     </div>
 
     <div class="form-group">

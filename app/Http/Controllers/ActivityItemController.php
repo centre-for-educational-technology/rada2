@@ -622,9 +622,6 @@ class ActivityItemController extends Controller
       if ( $request->has('language') && $request->get('language') !== '0' ) {
           $query->where('language', '=', $request->get('language'));
       }
-      if ( $request->has('difficultyLevel') ) {
-          // TODO Implement once this is added to the model
-      }
       if ( $request->has('playingTime') ) {
           // TODO Implement once this is added to the model
       }

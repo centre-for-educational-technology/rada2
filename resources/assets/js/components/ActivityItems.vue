@@ -32,21 +32,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>{{ $t('difficulty-level') }}</label>
-                                <input type="hidden"
-                                       class="form-control"
-                                       data-type="double"
-                                       data-min="1"
-                                       data-max="99"
-                                       data-from="1"
-                                       data-to="99"
-                                       data-step="1"
-                                       data-grid="true"
-                                       data-grid-num="11"
-                                       ref="rangeSlider"
-                                       data-disable="true">
-                            </div>
-                            <div class="form-group">
                                 <label>{{ $t('playing-time') }}</label>
                                 <select class="form-control" disabled="disabled" v-model="searchForm.playingTime">
                                     <option v-for="(title, key) in playingTimeOptions" v-bind:value="key">{{ title }}</option>
@@ -168,13 +153,6 @@
                         e.preventDefault();
                     }
                 });
-
-                $(this.$refs.rangeSlider).ionRangeSlider({
-                    onChange(data) {
-                        vm.searchForm.difficultyLevel.from = data.from;
-                        vm.searchForm.difficultyLevel.to = data.to;
-                    }
-                });
             });
         },
         data() {
@@ -210,10 +188,6 @@
                     zoo: '0',
                     questionType: '0',
                     language: '0',
-                    difficultyLevel: {
-                        from: 1,
-                        to: 99
-                    },
                     playingTime: '0'
                 }
             };

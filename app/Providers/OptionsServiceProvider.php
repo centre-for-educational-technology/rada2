@@ -8,6 +8,7 @@ use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\ZooGeolocationOptions;
+use App\Options\DifficultyLevelOptions;
 
 class OptionsServiceProvider extends ServiceProvider
 {
@@ -46,6 +47,10 @@ class OptionsServiceProvider extends ServiceProvider
 
         $this->app->singleton(ZooGeolocationOptions::class, function($app) {
             return new ZooGeolocationOptions();
+        });
+
+        $this->app->singleton(DifficultyLevelOptions::class, function($app) {
+            return new DifficultyLevelOptions();
         });
     }
 }

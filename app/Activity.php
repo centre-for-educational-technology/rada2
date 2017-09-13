@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\File;
 use App\Options\ZooOptions;
 use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
+use App\Options\DifficultyLevelOptions;
 
 use Illuminate\Support\Facades\DB;
 
@@ -58,24 +59,6 @@ class Activity extends Model
     public function getLanguage()
     {
         return resolve(LanguageOptions::class)->value($this->language);
-    }
-
-    /**
-     * Returns minimum value for Difficulty Level
-     * @return int Value
-     */
-    public static function getDifficultyLevelMinimum()
-    {
-        return 1;
-    }
-
-    /**
-     * Returns maximum value for Difficulty Level
-     * @return int Value
-     */
-    public static function getDifficultyLevelMaximum()
-    {
-        return 99;
     }
 
     /**
@@ -188,5 +171,14 @@ class Activity extends Model
             }
         }
         return false;
+    }
+
+    /**
+     * Returns Difficulty Level title
+     * @return string Difficulty Level title or key
+     */
+    public function getDifficultyLevel()
+    {
+        return resolve(DifficultyLevelOptions::class)->value($this->difficulty_level);
     }
 }

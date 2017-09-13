@@ -1,17 +1,11 @@
 @extends('layouts.app')
 
-@section('header-styles')
-<link href="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/css/ion.rangeSlider.min.css" rel="stylesheet">
-<link href="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/css/ion.rangeSlider.skinFlat.min.css" rel="stylesheet">
-@endsection
-
 @section('footer-scripts')
 @include('activities.includes.locales')
 @include('activities.includes.options')
 <script>
     window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
 </script>
-<script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
 
@@ -75,52 +69,26 @@
             </div>
         </div>
 
-        <div class="form-group{{ ( $errors->has('difficulty_level_start') || $errors->has('difficulty_level_end') ) ? ' has-error' : '' }}">
+        <div class="form-group{{ $errors->has('difficulty_level') ? ' has-error' : '' }}">
             {!! Form::label('difficulty_level', trans('general.forms.labels.difficulty-level'), [
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::hidden('difficulty_level', '', [
+                    <div class="btn-group btn-group-lg" ref="difficultyLevelButtons">
+                        @include('activities.includes.difficulty_level_buttons', [ 'difficultyLevel' => 2 ])
+                    </div>
+
+                    {!! Form::hidden('difficulty_level', '2', [
                         'id' => 'difficulty_level',
                         'class' => 'form-control',
-                        'data-type' => 'double',
-                        'data-min' => $difficultyLevelMinimum,
-                        'data-max' => $difficultyLevelMaximum,
-                        'data-step' => 1,
-                        'data-grid' => 'true',
-                        'data-grid-num' => 11,
                         'ref' => 'difficultyLevel',
                     ]) !!}
-                    {!! Form::number('difficulty_level_start', $difficultyLevelMinimum, [
-                        'class' => 'form-control',
-                        'min' => $difficultyLevelMinimum,
-                        'max' => $difficultyLevelMaximum,
-                        'style' => 'display:none;',
-                        'ref' => 'difficultyLevelStart',
-                    ]) !!}
-                    {!! Form::number('difficulty_level_end', $difficultyLevelMaximum, [
-                        'class' => 'form-control',
-                        'min' => $difficultyLevelMinimum,
-                        'max' => $difficultyLevelMaximum,
-                        'style' => 'display:none;',
-                        'ref' => 'difficultyLevelEnd',
-                    ]) !!}
-
-                    <p class="help-block">
-                        {{ trans('general.forms.help.difficulty-level') }}
-                    </p>
                 </div>
 
-                @if ($errors->has('difficulty_level_start'))
+                @if ($errors->has('difficulty_level'))
                     <span class="help-block">
-                        <strong>{{ $errors->first('difficulty_level_start') }}</strong>
-                    </span>
-                @endif
-
-                @if ($errors->has('difficulty_level_end'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('difficulty_level_end') }}</strong>
+                        <strong>{{ $errors->first('difficulty_level') }}</strong>
                     </span>
                 @endif
             </div>

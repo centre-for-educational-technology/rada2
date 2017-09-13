@@ -63,7 +63,6 @@ return [
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
-           'difficulty-level' => 'Choose a suitable range from available values. Defaults to all included.',
            'image' => 'An image in JPEG or PNG format. Uploaded image will be resized to 800 by 800 pixels.',
            'map' => 'Please select the correct Zoo and drag the marker to the specific location.',
            'question-types' => [
@@ -122,5 +121,10 @@ return [
        'admin' => 'Administrator',
        'zooAdmin' => 'Administrator',
        'zooMember' => 'Member',
+   ],
+   'difficulty-level' => [
+     'easy' => 'Easy',
+     'medium' => 'Medium',
+     'hard' => 'Hard',
    ],
 ];

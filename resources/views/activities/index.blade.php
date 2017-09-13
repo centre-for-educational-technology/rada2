@@ -1,17 +1,7 @@
 @extends('layouts.app')
 
-@section('header-styles')
-<link href="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/css/ion.rangeSlider.min.css" rel="stylesheet">
-<link href="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/css/ion.rangeSlider.skinFlat.min.css" rel="stylesheet">
-@endsection
-
 @section('footer-scripts')
-<script src="//cdnjs.cloudflare.com/ajax/libs/ion-rangeslider/2.1.4/js/ion.rangeSlider.min.js"></script>
-<script>
-    $(document).ready(function() {
-        $('#difficulty-level').ionRangeSlider({});
-    });
-</script>
+<script src="{{ elixir('js/search_activities.js') }}"></script>
 @endsection
 
 @section('content')
@@ -64,7 +54,7 @@
                                     <p class="sz-display-new-lines">{{$activity->description}}</p>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-hexagon-multiple" aria-hidden="true"></i>
-                                        {{ $activity->difficulty_level_start }} - {{ $activity->difficulty_level_end }}
+                                        {{ $activity->getDifficultyLevel() }}
                                     </div>
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
