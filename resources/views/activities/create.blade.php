@@ -75,7 +75,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <div class="btn-group btn-group-lg" ref="difficultyLevelButtons">
+                    <div class="btn-group btn-group-lg btn-group-justified" role="group" ref="difficultyLevelButtons">
                         @include('activities.includes.difficulty_level_buttons', [ 'difficultyLevel' => 2 ])
                     </div>
 

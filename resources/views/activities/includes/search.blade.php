@@ -21,7 +21,7 @@
     <div class="form-group">
         <label for="difficulty-level">{{ trans('general.forms.labels.difficulty-level') }}</label>
         <div class="input-group col-xs-12">
-            <div class="btn-group btn-group-lg">
+            <div class="btn-group btn-group-lg btn-group-justified" role="group">
                 @include('activities.includes.difficulty_level_buttons', [ 'difficultyLevel' => $search['difficulty-level'] ])
             </div>
 
