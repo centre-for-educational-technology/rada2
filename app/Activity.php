@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
 
 use Illuminate\Support\Facades\Auth;
@@ -15,8 +16,10 @@ use App\Options\DifficultyLevelOptions;
 
 use Illuminate\Support\Facades\DB;
 
+
 class Activity extends Model
 {
+    use SoftDeletes;
     use LogsActivity;
 
     /**

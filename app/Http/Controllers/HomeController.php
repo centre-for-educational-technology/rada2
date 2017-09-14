@@ -27,6 +27,11 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('dashboard')->with( 'games', Game::where( 'user_id', '=', Auth::user()->id )->get() );
+        return view('dashboard')->with( 'games', Game::where( 'user_id', '=', Auth::user()->id )
+            ->with('activity')
+            ->whereHas('activity', function($q) {
+                $q->whereNull('deleted_at');
+            })->get()
+        );
     }
 }

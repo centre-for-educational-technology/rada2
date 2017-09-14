@@ -297,8 +297,13 @@ class ActivityController extends Controller
     {
         $this->authorize('delete', $activity);
 
-        $activity->delete();
-        $activity->deleteFeaturedImage();
+        if ( $activity->games->count() > 0 )
+        {
+            $activity->delete();
+        } else {
+            $activity->forceDelete();
+            $activity->deleteFeaturedImage();
+        }
 
         return redirect()->route('activity.index');
     }
