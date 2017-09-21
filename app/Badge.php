@@ -12,6 +12,8 @@ class Badge extends Model
     use UuidModel;
     use LogsActivity;
 
+    const IMAGE_VERSION = 1;
+
     /**
      * Define that model does not use increments
      * @var boolean
@@ -20,11 +22,13 @@ class Badge extends Model
 
     /**
      * Returns URL of the image based on badge "type" value
+     * @param bool $vector Return URL for vector or raster image, defaults to true
      * @return string URL of the image asset
      */
-    public function getImageUrl()
+    public function getImageUrl($vector = true)
     {
-        return asset('img/badges/' . $this->type . '.png');
+        $extension = ($vector === true) ? 'svg' : 'png';
+        return asset('img/badges/' . $this->type . '.' . $extension . '?v=' . self::IMAGE_VERSION);
     }
 
     /**

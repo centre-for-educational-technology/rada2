@@ -122,7 +122,7 @@ class OpenBadgesService
             'type' => 'BadgeClass',
             'name' => $badge->name,
             'description' => $badge->description,
-            'image' => $badge->getImageUrl(),
+            'image' => $badge->getImageUrl(false),
             'criteria' => $badge->getCriteriaUrl(),
             'issuer' => route('api.badge.issuer'),
             'tags' => ['smartzoos', 'toolset', 'badge',],
