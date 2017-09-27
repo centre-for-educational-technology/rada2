@@ -16,23 +16,27 @@ if ( SmartZoos.config.sentry && SmartZoos.config.sentry.sdn) {
 }
 
 Vue.component('game-map', require('./components/GameMap.vue'));
+Vue.component('game-start-modal', require('./components/GameStartModal.vue'));
 
 const playGameApp = new Vue({
     el: '#sz-play-app',
     created: function() {
         var vm = this;
 
+        vm.game = window.SmartZoos.data.game;
+
         window.addEventListener('beforeunload', vm.leaving);
 
         window.initMap = function() {
-            vm.getGeoLocation(function(position) {
-                vm.latitude = position.coords.latitude;
-                vm.longitude = position.coords.longitude;
-                vm.mapInitialised = true;
-            }, false, function(error) {
-                vm.geoLocationErrorMessage = error.message;
-            });
+            vm.mapInitialised = true;
         };
+
+        vm.getGeoLocation(function(position) {
+            vm.latitude = position.coords.latitude;
+            vm.longitude = position.coords.longitude;
+        }, false, function(error) {
+            vm.geoLocationErrorMessage = error.message;
+        });
 
         var script = document.createElement('script');
         script.type = 'text/javascript';
@@ -45,12 +49,16 @@ const playGameApp = new Vue({
             latitude: undefined,
             longitude: undefined,
             geoLocationErrorMessage: null,
-            checkUnload: true
+            checkUnload: true,
+            game: null
         };
     },
     methods: {
         isLoading: function() {
-            return !this.mapInitialised;
+            return !(this.mapInitialised && this.latitude && this.longitude);
+        },
+        isGameComplete() {
+            return this.game && this.game.complete;
         },
         getGeoLocation: function(callback, watch, handleError) {
             if ( typeof handleError !== 'function' ) {

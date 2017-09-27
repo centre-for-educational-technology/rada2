@@ -245,7 +245,7 @@ form.sz-action-form-inline {
         position: fixed;
         top: 0;
         left: 0;
-        z-index: 9999;
+        z-index: 999;
         height: 100%;
         width: 100%;
         background-color: $gray-lighter;
@@ -503,4 +503,25 @@ img.sz-uploaded-image-preview {
     height: 64px;
     width: 64px;
     margin-right: 10px;
+}
+
+.sz-game-tips-dialog {
+    ul.slides {
+        padding: 0;
+
+        li {
+            display: inline;
+            padding-left: 5px;
+            padding-right: 5px;
+
+            .badge {
+                background-color: #ccc;
+                border: 1px solid #777;
+
+                &.current {
+                    background-color: #777;
+                }
+            }
+        }
+    }
 }

@@ -95,13 +95,35 @@ return [
             'number-of-questions' => 'Küsimuste arv',
             'gps-error' => 'GPS signaal puudub.',
             'go' => 'Mängima!',
+            'back' => 'Back',
+            'next' => 'Next',
+            'got-it' => 'Got it!',
             'read-more-about' => 'Lisainfo ...',
+            'tips-text' => 'Some tips before you start:',
             'icons' => [
                 'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
                 'active' => 'Vastamata',
                 'inactive' => 'Liiga kaugel',
                 'correct' => 'Õige',
                 'incorrect' => 'Vale vastus',
+            ],
+            'items' => [
+                'look_closely' => [
+                    'title' => 'Look around',
+                    'description' => 'Look closely at your surroundings for clues. You never know where you\'ll find answers!',
+                ],
+                'look_out' => [
+                    'title' => 'Look out!',
+                    'description' => 'Be mindful of where you\'re going so you don\'t hurt yourself or others',
+                ],
+                'do_not_disturb' => [
+                    'title' => 'Don\'t be too loud',
+                    'description' => 'Victory is nice, but don\'t scare the animals',
+                ],
+                'help_others' => [
+                    'title' => 'Help each other',
+                    'description' => 'Help your friends and have fun together!',
+                ],
             ],
         ],
     ],

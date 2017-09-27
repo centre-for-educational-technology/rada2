@@ -95,13 +95,35 @@ return [
             'number-of-questions' => 'Kysymysten määrä',
             'gps-error' => 'GPS-signaali ei löydy.',
             'go' => 'Pelaa!',
+            'back' => 'Back',
+            'next' => 'Next',
+            'got-it' => 'Got it!',
             'read-more-about' => 'Lue lisää…',
+            'tips-text' => 'Some tips before you start:',
             'icons' => [
                 'help' => 'Jokaisen kuvakkeen väri osoitta sen tilaa.',
                 'active' => 'Vastaamaton',
                 'inactive' => 'Liian etäinen',
                 'correct' => 'Oikein vastattu',
                 'incorrect' => 'Väärin vastattu',
+            ],
+            'items' => [
+                'look_closely' => [
+                    'title' => 'Look around',
+                    'description' => 'Look closely at your surroundings for clues. You never know where you\'ll find answers!',
+                ],
+                'look_out' => [
+                    'title' => 'Look out!',
+                    'description' => 'Be mindful of where you\'re going so you don\'t hurt yourself or others',
+                ],
+                'do_not_disturb' => [
+                    'title' => 'Don\'t be too loud',
+                    'description' => 'Victory is nice, but don\'t scare the animals',
+                ],
+                'help_others' => [
+                    'title' => 'Help each other',
+                    'description' => 'Help your friends and have fun together!',
+                ],
             ],
         ],
     ],

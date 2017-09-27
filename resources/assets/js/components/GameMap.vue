@@ -87,12 +87,10 @@
             'game-question-modal': require('./GameQuestionModal.vue'),
             'game-results-modal': require('./GameResultsModal.vue')
         },
-        props: ['latitude', 'longitude'],
+        props: ['latitude', 'longitude', 'game'],
         mixins: [MarkerIconMixin],
         mounted() {
             this.baseUrl = window.SmartZoos.config.base_url;
-
-            this.game = window.SmartZoos.data.game;
 
             this.mapData = {};
             this.mapData.markers = [];
@@ -126,7 +124,6 @@
         data() {
             return {
                 question: null,
-                game: null,
                 baseUrl: '',
                 gpsError: false
             };
@@ -247,7 +244,8 @@
                     if ( this.game.complete ) {
                         this.$refs.resultsModal.open();
                     } else {
-                        this.$refs.informationModal.open();
+                        // TODO See if this should stay disabled or be popped open once the tips are done for
+                        //this.$refs.informationModal.open();
                     }
                 });
             },

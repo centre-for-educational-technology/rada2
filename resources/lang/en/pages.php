@@ -95,13 +95,35 @@ return [
             'number-of-questions' => 'No. of Questions',
             'gps-error' => 'GPS signal not found.',
             'go' => 'GO!',
+            'back' => 'Back',
+            'next' => 'Next',
+            'got-it' => 'Got it!',
             'read-more-about' => 'Read more about...',
+            'tips-text' => 'Some tips before you start:',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',
                 'inactive' => 'Out of reach',
                 'correct' => 'Correct',
                 'incorrect' => 'Incorrect answer',
+            ],
+            'items' => [
+                'look_closely' => [
+                    'title' => 'Look around',
+                    'description' => 'Look closely at your surroundings for clues. You never know where you\'ll find answers!',
+                ],
+                'look_out' => [
+                    'title' => 'Look out!',
+                    'description' => 'Be mindful of where you\'re going so you don\'t hurt yourself or others',
+                ],
+                'do_not_disturb' => [
+                    'title' => 'Don\'t be too loud',
+                    'description' => 'Victory is nice, but don\'t scare the animals',
+                ],
+                'help_others' => [
+                    'title' => 'Help each other',
+                    'description' => 'Help your friends and have fun together!',
+                ],
             ],
         ],
     ],
