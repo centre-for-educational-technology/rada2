@@ -16183,6 +16183,15 @@ img.sz-uploaded-image-preview {
   margin-right: 10px;
 }
 
+.sz-game-tips-dialog .tips {
+  overflow: hidden;
+}
+
+.sz-game-tips-dialog .tips .tip-image {
+  margin-left: 10%;
+  margin-right: 10%;
+}
+
 .sz-game-tips-dialog ul.slides {
   padding: 0;
 }

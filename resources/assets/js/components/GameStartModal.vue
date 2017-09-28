@@ -8,10 +8,37 @@
                 </div>
                 <div class="modal-body">
                     <h4 class="text-center">{{ $t('tips-text') }}</h4>
-                    <div class="tip">
-                        <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl(currentItem)">
-                        <h4 class="text-center">{{ $t('items.' + currentItem + '.title') }}</h4>
-                        <div class="text-center">{{ $t('items.' + currentItem + '.description') }}</div>
+                    <div class="tips" ref="tips">
+                        <transition name="tip-side" mode="out-in" v-bind:enter-active-class="enterActivieClass" v-bind:leave-active-class="leaveActiveClass">
+                            <div class="tip" v-if="currentItem === 'look_closely'" key="look_closely">
+                                <div class="tip-image">
+                                    <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl('look_closely')">
+                                </div>
+                                <h4 class="text-center">{{ $t('items.look_closely.title') }}</h4>
+                                <div class="text-center">{{ $t('items.look_closely.description') }}</div>
+                            </div>
+                            <div class="tip" v-if="currentItem === 'look_out'" key="look_out">
+                                <div class="tip-image">
+                                    <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl('look_out')">
+                                </div>
+                                <h4 class="text-center">{{ $t('items.look_out.title') }}</h4>
+                                <div class="text-center">{{ $t('items.look_out.description') }}</div>
+                            </div>
+                            <div class="tip" v-if="currentItem === 'do_not_disturb'" key="do_not_disturb">
+                                <div class="tip-image">
+                                    <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl('do_not_disturb')">
+                                </div>
+                                <h4 class="text-center">{{ $t('items.do_not_disturb.title') }}</h4>
+                                <div class="text-center">{{ $t('items.do_not_disturb.description') }}</div>
+                            </div>
+                            <div class="tip" v-if="currentItem === 'help_others'" key="help_others">
+                                <div class="tip-image">
+                                    <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl('help_others')">
+                                </div>
+                                <h4 class="text-center">{{ $t('items.help_others.title') }}</h4>
+                                <div class="text-center">{{ $t('items.help_others.description') }}</div>
+                            </div>
+                        </transition>
                     </div>
                     <ul class="text-center slides">
                         <li v-for="item in items">
@@ -20,9 +47,9 @@
                     </ul>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-default btn-lg pull-left" v-on:click="previousItem()" v-if="!isFirstItem()">{{ $t('back')}}</button>
-                    <button type="button" class="btn btn-success btn-lg pull-right" v-on:click="nextItem()" v-if="!isLastItem()">{{ $t('next')}}</button>
-                    <button type="button" class="btn btn-success btn-lg pull-right" v-on:click="close()" v-if="isLastItem()">{{ $t('got-it')}}</button>
+                    <button type="button" class="btn btn-default btn-lg pull-left" v-on:click="previousItem()" v-bind:disabled="!currentItem" v-if="!isFirstItem()">{{ $t('back')}}</button>
+                    <button type="button" class="btn btn-success btn-lg pull-right" v-on:click="nextItem()" v-bind:disabled="!currentItem" v-if="!isLastItem()">{{ $t('next')}}</button>
+                    <button type="button" class="btn btn-success btn-lg pull-right" v-on:click="close()" v-bind:disabled="!currentItem" v-if="isLastItem()">{{ $t('got-it')}}</button>
                 </div>
             </div>
         </div>
@@ -40,7 +67,9 @@
             return {
                 baseUrl: '',
                 currentItem: 'look_closely',
-                items: ['look_closely', 'look_out', 'do_not_disturb', 'help_others']
+                items: ['look_closely', 'look_out', 'do_not_disturb', 'help_others'],
+                enterActivieClass: 'animated slideInLeft',
+                leaveActiveClass: 'animated slideOutRight'
             };
         },
         methods: {
@@ -64,13 +93,25 @@
                 return this.items.indexOf(this.currentItem) === (this.items.length - 1);
             },
             nextItem() {
-                if ( !this.isLastItem() ) {
-                    this.currentItem = this.items[this.items.indexOf(this.currentItem) + 1];
+                if ( !this.isLastItem() && this.currentItem ) {
+                    var vm = this;
+                    this.enterActivieClass = 'animated slideInLeft';
+                    this.leaveActiveClass = 'animated slideOutRight';
+
+                    this.$nextTick(() => {
+                        vm.currentItem = vm.items[vm.items.indexOf(vm.currentItem) + 1];
+                    });
                 }
             },
             previousItem() {
-                if ( !this.isFirstItem() ) {
-                    this.currentItem = this.items[this.items.indexOf(this.currentItem) - 1];
+                if ( !this.isFirstItem() && this.currentItem ) {
+                    var vm = this;
+                    this.enterActivieClass = 'animated slideInRight';
+                    this.leaveActiveClass = 'animated slideOutLeft';
+
+                    this.$nextTick(() => {
+                        vm.currentItem = vm.items[vm.items.indexOf(vm.currentItem) - 1];
+                    });
                 }
             }
         }

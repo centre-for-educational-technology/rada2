@@ -506,6 +506,15 @@ img.sz-uploaded-image-preview {
 }
 
 .sz-game-tips-dialog {
+    .tips {
+        overflow: hidden;
+
+        .tip-image {
+            margin-left: 10%;
+            margin-right: 10%;
+        }
+    }
+
     ul.slides {
         padding: 0;
 
