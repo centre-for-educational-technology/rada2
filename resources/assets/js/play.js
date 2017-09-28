@@ -17,15 +17,20 @@ if ( SmartZoos.config.sentry && SmartZoos.config.sentry.sdn) {
 
 Vue.component('game-map', require('./components/GameMap.vue'));
 Vue.component('game-start-modal', require('./components/GameStartModal.vue'));
+Vue.component('game-information-modal', require('./components/GameInformationModal.vue'));
+Vue.component('game-results-modal', require('./components/GameResultsModal.vue'));
 
 const playGameApp = new Vue({
     el: '#sz-play-app',
     created: function() {
         var vm = this;
 
+        vm.baseUrl = window.SmartZoos.config.base_url;
         vm.game = window.SmartZoos.data.game;
 
         window.addEventListener('beforeunload', vm.leaving);
+
+        if ( vm.isGameComplete() ) return;
 
         window.initMap = function() {
             vm.mapInitialised = true;
@@ -43,8 +48,19 @@ const playGameApp = new Vue({
         script.src = '//maps.googleapis.com/maps/api/js?key=' + window.SmartZoos.config.map.key + '&callback=initMap&libraries=geometry';
         document.body.appendChild(script);
     },
+    mounted() {
+        if ( !this.isGameComplete() ) {
+            this.$refs.startModal.open();
+            // TODO Need to decide which modal should be shown
+            //this.$refs.informationModal.open();
+        } else {
+            // TODO Make sure not to load Location or Maps if game has already been complete
+            this.$refs.resultsModal.open();
+        }
+    },
     data() {
         return {
+            baseUrl: '',
             mapInitialised: false,
             latitude: undefined,
             longitude: undefined,
@@ -92,6 +108,15 @@ const playGameApp = new Vue({
 
             event.returnValue = message;
             return message;
+        },
+        exit() {
+            var confirmation = confirm(this.$t('exit-confirmation'));
+
+            if ( confirmation ) {
+                // Prevent unload check from being applied
+                this.checkUnload = false;
+                window.location = this.baseUrl;
+            }
         }
     }
 });

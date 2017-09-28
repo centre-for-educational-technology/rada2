@@ -61,7 +61,6 @@
         props: ['activity'],
         mounted() {
             this.baseUrl = window.SmartZoos.config.base_url;
-            this.open();
         },
         data() {
             return {

@@ -1,8 +1,6 @@
 <template>
     <div style="height:100%;width:100%;">
-        <game-information-modal ref="informationModal" v-if="game" v-bind:activity="game.activity"></game-information-modal>
         <game-question-modal v-bind:question="question" v-bind:game-id="game.id" v-bind:base-url="baseUrl" v-if="question" ref="questionModal"></game-question-modal>
-        <game-results-modal v-bind:activity="game.activity" v-bind:answers="game.answers" v-if="game && game.complete" ref="resultsModal"></game-results-modal>
         <div id="map">
         </div>
     </div>
@@ -34,7 +32,7 @@
         controlUI.appendChild(informationControlItem);
 
         informationControlItem.addEventListener('click', function() {
-            vm.$refs.informationModal.open();
+            vm.$parent.$refs.informationModal.open();
         });
 
         var navigationControlItem = document.createElement('i');
@@ -73,7 +71,7 @@
         controlUI.appendChild(exitControlIcon);
 
         exitControlIcon.addEventListener('click', function() {
-            vm.exit();
+            vm.$parent.exit();
         });
     }
 
@@ -83,15 +81,11 @@
 
     export default {
         components: {
-            'game-information-modal': require('./GameInformationModal.vue'),
-            'game-question-modal': require('./GameQuestionModal.vue'),
-            'game-results-modal': require('./GameResultsModal.vue')
+            'game-question-modal': require('./GameQuestionModal.vue')
         },
-        props: ['latitude', 'longitude', 'game'],
+        props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],
         mounted() {
-            this.baseUrl = window.SmartZoos.config.base_url;
-
             this.mapData = {};
             this.mapData.markers = [];
             this.mapData.mapOptions = {
@@ -124,7 +118,6 @@
         data() {
             return {
                 question: null,
-                baseUrl: '',
                 gpsError: false
             };
         },
@@ -239,15 +232,6 @@
 
                     _this.initUpdateClosestUnansweredMarkerArrow();
                 }
-
-                this.$nextTick(() => {
-                    if ( this.game.complete ) {
-                        this.$refs.resultsModal.open();
-                    } else {
-                        // TODO See if this should stay disabled or be popped open once the tips are done for
-                        //this.$refs.informationModal.open();
-                    }
-                });
             },
             initGroundOverlays() {
                 this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay(this.baseUrl + '/img/map/overlays/skansen.png',{
@@ -394,15 +378,6 @@
                             map: map
                         });
                     });
-                }
-            },
-            exit() {
-                var confirmation = confirm(this.$t('exit-confirmation'));
-
-                if ( confirmation ) {
-                    // Prevent unload check from being applied
-                    this.$parent.checkUnload = false;
-                    window.location = this.baseUrl;
                 }
             },
             hasProximityCheck() {
