@@ -349,7 +349,7 @@
                     this.game.complete = true;
 
                     this.$nextTick(() => {
-                        this.$refs.resultsModal.open();
+                        this.$parent.$refs.resultsModal.open();
                     });
                 }
             },

@@ -103,7 +103,7 @@
                         vm.currentItem = vm.items[vm.items.indexOf(vm.currentItem) + 1];
                         setTimeout(() => {
                             $(this.$refs.tips).removeAttr('style');
-                        }, 1250);
+                        }, 2000);
                     });
                 }
             },
@@ -118,7 +118,7 @@
                         vm.currentItem = vm.items[vm.items.indexOf(vm.currentItem) - 1];
                         setTimeout(() => {
                             $(this.$refs.tips).removeAttr('style');
-                        }, 1250);
+                        }, 2000);
                     });
                 }
             }
