@@ -119,7 +119,7 @@
             </transition>
         </div>
 
-        <game-start-modal ref="startModal" v-if="game" v-bind:activity="game.activity"></game-start-modal>
+        <game-tutorial-modal ref="tutorialModal" v-if="game" v-bind:activity="game.activity"></game-tutorial-modal>
         <game-information-modal ref="informationModal" v-if="game" v-bind:activity="game.activity"></game-information-modal>
         <game-results-modal ref="resultsModal" v-if="isGameComplete()" v-bind:activity="game.activity" v-bind:answers="game.answers"></game-results-modal>
         <game-map v-if="!isLoading()" v-bind:latitude="latitude" v-bind:longitude="longitude" v-bind:game="game" v-bind:base-url="baseUrl"></game-map>

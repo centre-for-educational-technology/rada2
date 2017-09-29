@@ -16,7 +16,7 @@ if ( SmartZoos.config.sentry && SmartZoos.config.sentry.sdn) {
 }
 
 Vue.component('game-map', require('./components/GameMap.vue'));
-Vue.component('game-start-modal', require('./components/GameStartModal.vue'));
+Vue.component('game-tutorial-modal', require('./components/GameTutorialModal.vue'));
 Vue.component('game-information-modal', require('./components/GameInformationModal.vue'));
 Vue.component('game-results-modal', require('./components/GameResultsModal.vue'));
 
@@ -30,31 +30,37 @@ const playGameApp = new Vue({
 
         window.addEventListener('beforeunload', vm.leaving);
 
-        if ( vm.isGameComplete() ) return;
-
-        window.initMap = function() {
-            vm.mapInitialised = true;
-        };
-
-        vm.getGeoLocation(function(position) {
-            vm.latitude = position.coords.latitude;
-            vm.longitude = position.coords.longitude;
-        }, false, function(error) {
-            vm.geoLocationErrorMessage = error.message;
+        vm.$on('dialog:tutorial:close', () => {
+            vm.setHasSeenTotorial();
         });
 
-        var script = document.createElement('script');
-        script.type = 'text/javascript';
-        script.src = '//maps.googleapis.com/maps/api/js?key=' + window.SmartZoos.config.map.key + '&callback=initMap&libraries=geometry';
-        document.body.appendChild(script);
+        if ( !vm.isGameComplete() ) {
+            window.initMap = function() {
+                vm.mapInitialised = true;
+            };
+
+            vm.getGeoLocation(function(position) {
+                vm.latitude = position.coords.latitude;
+                vm.longitude = position.coords.longitude;
+            }, false, function(error) {
+                vm.geoLocationErrorMessage = error.message;
+            });
+
+            var script = document.createElement('script');
+            script.type = 'text/javascript';
+            script.src = '//maps.googleapis.com/maps/api/js?key=' + window.SmartZoos.config.map.key + '&callback=initMap&libraries=geometry';
+            document.body.appendChild(script);
+        }
     },
     mounted() {
         if ( !this.isGameComplete() ) {
-            this.$refs.startModal.open();
-            // TODO Need to decide which modal should be shown
-            //this.$refs.informationModal.open();
+
+            if ( !this.hasSeenTutorial() ) {
+                this.$refs.tutorialModal.open();
+            } else {
+                this.$refs.informationModal.open();
+            }
         } else {
-            // TODO Make sure not to load Location or Maps if game has already been complete
             this.$refs.resultsModal.open();
         }
     },
@@ -70,13 +76,13 @@ const playGameApp = new Vue({
         };
     },
     methods: {
-        isLoading: function() {
+        isLoading() {
             return !(this.mapInitialised && this.latitude && this.longitude);
         },
         isGameComplete() {
             return this.game && this.game.complete;
         },
-        getGeoLocation: function(callback, watch, handleError) {
+        getGeoLocation(callback, watch, handleError) {
             if ( typeof handleError !== 'function' ) {
                 handleError = function(error) {
                     if ( window.console && window.console.error && typeof window.console.error === 'function' ) {
@@ -98,10 +104,10 @@ const playGameApp = new Vue({
                 throw 'Geolocation is unavailable!'; // TODO Consider making translatable
             }
         },
-        hasGeoLocationError: function() {
+        hasGeoLocationError() {
             return !!this.geoLocationErrorMessage;
         },
-        leaving: function(event) {
+        leaving(event) {
             if ( !this.checkUnload) return false;
 
             const message = this.$t('exit-confirmation');
@@ -116,6 +122,16 @@ const playGameApp = new Vue({
                 // Prevent unload check from being applied
                 this.checkUnload = false;
                 window.location = this.baseUrl;
+            }
+        },
+        hasSeenTutorial() {
+            if ( !window.sessionStorage ) return false;
+
+            return window.sessionStorage.getItem('seen:game:tutorial') === 'true';
+        },
+        setHasSeenTotorial() {
+            if ( window.sessionStorage ) {
+                window.sessionStorage.setItem('seen:game:tutorial', 'true');
             }
         }
     }

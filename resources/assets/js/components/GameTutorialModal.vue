@@ -80,6 +80,7 @@
             close() {
                 this.$nextTick(function() {
                     $(this.$refs.modal).modal('hide');
+                    this.$root.$emit('dialog:tutorial:close');
                 });
             },
             getItemImageUrl(key) {
