@@ -98,8 +98,12 @@
                     this.enterActivieClass = 'animated slideInLeft';
                     this.leaveActiveClass = 'animated slideOutRight';
 
+                    $(this.$refs.tips).css('min-height', $(this.$refs.tips).height());
                     this.$nextTick(() => {
                         vm.currentItem = vm.items[vm.items.indexOf(vm.currentItem) + 1];
+                        setTimeout(() => {
+                            $(this.$refs.tips).removeAttr('style');
+                        }, 1250);
                     });
                 }
             },
@@ -109,8 +113,12 @@
                     this.enterActivieClass = 'animated slideInRight';
                     this.leaveActiveClass = 'animated slideOutLeft';
 
+                    $(this.$refs.tips).css('min-height', $(this.$refs.tips).height());
                     this.$nextTick(() => {
                         vm.currentItem = vm.items[vm.items.indexOf(vm.currentItem) - 1];
+                        setTimeout(() => {
+                            $(this.$refs.tips).removeAttr('style');
+                        }, 1250);
                     });
                 }
             }
