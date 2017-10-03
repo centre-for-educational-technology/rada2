@@ -152,6 +152,11 @@ form.sz-action-form-inline {
     height: 60px;
 }
 
+.sz-img-w64 {
+    width: 64px;
+    height: auto;
+}
+
 .sz-img-w30 {
     width: 30px;
     height: auto;
@@ -530,6 +535,19 @@ img.sz-uploaded-image-preview {
                 &.current {
                     background-color: #777;
                 }
+            }
+        }
+    }
+}
+
+.sz-voucher-inactive {
+    .media-left, .media-body {
+        :not(.pull-right) {
+            opacity: 0.5;
+        }
+        .pull-right {
+            a, i {
+                opacity: 1;
             }
         }
     }

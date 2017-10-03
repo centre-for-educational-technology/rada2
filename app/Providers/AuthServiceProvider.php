@@ -16,6 +16,7 @@ class AuthServiceProvider extends ServiceProvider
         'App\Activity' => 'App\Policies\ActivityPolicy',
         'App\ActivityItem' => 'App\Policies\ActivityItemPolicy',
         'App\User' => 'App\Policies\UserPolicy',
+        'App\DiscountVoucher' => 'App\Policies\DiscountVoucherPolicy',
     ];
 
     /**
@@ -26,7 +27,5 @@ class AuthServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->registerPolicies();
-
-        //
     }
 }

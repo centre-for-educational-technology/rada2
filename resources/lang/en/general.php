@@ -21,6 +21,10 @@ return [
        'complete' => 'Complete Activity',
        'ongoing' => 'Ongoing Activity',
    ],
+   'discount-voucher-status' => [
+       'inactive' => 'Inactive',
+       'active' => 'Active',
+   ],
    'language' => 'Language',
    'languages' => [
        'en' => 'English',
@@ -60,6 +64,8 @@ return [
            'search-text' => 'Search text',
            'read-more' => 'Read more',
            'image' => 'Image',
+           'duration' => 'Duration',
+           'status' => 'Status',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -93,7 +99,10 @@ return [
        ],
        'options' => [
            'any' => 'Any',
-       ]
+       ],
+       'addons' => [
+           'hours' => 'hours',
+       ],
    ],
    'actions' => [
        'create' => 'Create',

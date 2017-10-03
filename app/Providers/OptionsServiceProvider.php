@@ -9,6 +9,7 @@ use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\ZooGeolocationOptions;
 use App\Options\DifficultyLevelOptions;
+use App\Options\DiscountVoucherStatusOptions;
 
 class OptionsServiceProvider extends ServiceProvider
 {
@@ -51,6 +52,10 @@ class OptionsServiceProvider extends ServiceProvider
 
         $this->app->singleton(DifficultyLevelOptions::class, function($app) {
             return new DifficultyLevelOptions();
+        });
+
+        $this->app->singleton(DiscountVoucherStatusOptions::class, function($app) {
+            return new DiscountVoucherStatusOptions();
         });
     }
 }

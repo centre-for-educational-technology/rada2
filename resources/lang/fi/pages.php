@@ -47,6 +47,12 @@ return [
             'geolocation-error' => 'Virhe: Sijainnin määritys ei toimi',
         ],
     ],
+    'discount-vouchers' => [
+        'index' => [
+            'heading' => 'Discount Vouchers',
+            'none-found' => 'No Discount Vouchers could be found.',
+        ],
+    ],
     'manage' => [
         'users' => [
             'index' => [

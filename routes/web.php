@@ -97,3 +97,17 @@ Route::group(['prefix' => 'badges'], function()
 {
     Route::get('/', 'BadgeController@index')->name('badge.index');
 });
+
+// DiscountVoucher routes
+Route::group(['prefix' => 'discount_vouchers'], function()
+{
+    Route::get('/', 'DiscountVoucherController@index')->name('discount_voucher.index');
+
+    Route::get('/create', 'DiscountVoucherController@create')->name('discount_voucher.create');
+    Route::post('/', 'DiscountVoucherController@store');
+
+    Route::get('{voucher}/edit', 'DiscountVoucherController@edit')->name('discount_voucher.edit');
+    Route::put('{voucher}', 'DiscountVoucherController@update');
+
+    Route::delete('{voucher}', 'DiscountVoucherController@destroy')->name('discount_voucher.delete');
+});

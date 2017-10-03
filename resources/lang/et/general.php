@@ -21,6 +21,10 @@ return [
        'complete' => 'Lõpeta tegevus',
        'ongoing' => 'Käimasolev tegevus',
    ],
+   'discount-voucher-status' => [
+       'inactive' => 'Inactive',
+       'active' => 'Active',
+   ],
    'language' => 'Keel',
    'languages' => [
        'en' => 'Inglise',
@@ -60,6 +64,8 @@ return [
            'search-text' => 'Otsi teksti',
            'read-more' => 'Lisainfo',
            'image' => 'Pilt',
+           'duration' => 'Duration',
+           'status' => 'Status',
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
@@ -93,7 +99,10 @@ return [
        ],
        'options' => [
            'any' => 'Kõik',
-       ]
+       ],
+       'addons' => [
+           'hours' => 'hours',
+       ],
    ],
    'actions' => [
        'create' => 'Loo',

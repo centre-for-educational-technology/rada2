@@ -15,4 +15,5 @@ return [
     'activities'     => 'Rajad',
     'activity-items' => 'Rajapunktid',
     'badges' => 'Õpimärgid',
+    'discount_vouchers' => 'Discount Vouchers',
 ];

@@ -17,7 +17,8 @@ class ActivityPolicy
      * @param  string $ability Ability to check
      * @return boolean|void    Either returns True to override or does nothing
      */
-    public function before(User $user, $ability) {
+    public function before(User $user, $ability)
+    {
 
         if ($user->isAdmin()) {
             return true;

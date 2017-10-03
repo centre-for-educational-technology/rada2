@@ -56,7 +56,7 @@ class ActivityController extends Controller
     }
 
     /**
-     * Display a listing of activities..
+     * Display a listing of activities.
      *
      * @return \Illuminate\Http\Response
      */
@@ -138,8 +138,8 @@ class ActivityController extends Controller
     /**
      * Store newly created activity in database.
      *
-     * @param \App\Http\Requests\StoreActivity;
-     * @param \App\Services\ImageService;
+     * @param \App\Http\Requests\StoreActivity
+     * @param \App\Services\ImageService
      * @return \Illuminate\Http\Response
      */
     public function store(StoreActivity $request, ImageService $imageService)
@@ -227,7 +227,7 @@ class ActivityController extends Controller
     /**
      * Update the specified activity in database.
      *
-     * @param \App\Http\Requests\StoreActivity;
+     * @param \App\Http\Requests\StoreActivity
      * @param \App\Activity
      * @param \App\Services\ImageService
      * @return \Illuminate\Http\Response

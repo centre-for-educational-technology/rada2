@@ -21,6 +21,10 @@ return [
        'complete' => 'Hela aktiviteten',
        'ongoing' => 'Pågående aktivitet',
    ],
+   'discount-voucher-status' => [
+       'inactive' => 'Inactive',
+       'active' => 'Active',
+   ],
    'language' => 'Språk',
    'languages' => [
        'en' => 'English',
@@ -60,6 +64,8 @@ return [
            'search-text' => 'Sök text',
            'read-more' => 'Läs mera',
            'image' => 'Bild',
+           'duration' => 'Duration',
+           'status' => 'Status',
        ],
        'help' => [
            'playing-time' => 'Aktivitetstid i minuter',
@@ -93,7 +99,10 @@ return [
        ],
        'options' => [
            'any' => 'Någon',
-       ]
+       ],
+       'addons' => [
+           'hours' => 'hours',
+       ],
    ],
    'actions' => [
        'create' => 'Skapa',

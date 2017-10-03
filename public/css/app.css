@@ -15872,6 +15872,11 @@ form.sz-action-form-inline {
   height: 60px;
 }
 
+.sz-img-w64 {
+  width: 64px;
+  height: auto;
+}
+
 .sz-img-w30 {
   width: 30px;
   height: auto;
@@ -16209,6 +16214,14 @@ img.sz-uploaded-image-preview {
 
 .sz-game-tips-dialog ul.slides li .badge.current {
   background-color: #777;
+}
+
+.sz-voucher-inactive .media-left :not(.pull-right), .sz-voucher-inactive .media-body :not(.pull-right) {
+  opacity: 0.5;
+}
+
+.sz-voucher-inactive .media-left .pull-right a, .sz-voucher-inactive .media-left .pull-right i, .sz-voucher-inactive .media-body .pull-right a, .sz-voucher-inactive .media-body .pull-right i {
+  opacity: 1;
 }
 
 /*# sourceMappingURL=app.css.map */

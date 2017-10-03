@@ -21,6 +21,10 @@ return [
        'complete' => 'Valmis toiminta',
        'ongoing' => 'Jatkuva toiminta',
    ],
+   'discount-voucher-status' => [
+       'inactive' => 'Inactive',
+       'active' => 'Active',
+   ],
    'language' => 'Kieli',
    'languages' => [
        'en' => 'English',
@@ -60,6 +64,8 @@ return [
            'search-text' => 'Etsi tekstiä',
            'read-more' => 'Lue lisää',
            'image' => 'Kuva',
+           'duration' => 'Duration',
+           'status' => 'Status',
        ],
        'help' => [
            'playing-time' => 'Toimintaaika minuuteissa',
@@ -93,7 +99,10 @@ return [
        ],
        'options' => [
            'any' => 'Joku',
-       ]
+       ],
+       'addons' => [
+           'hours' => 'hours',
+       ],
    ],
    'actions' => [
        'create' => 'Luo',
