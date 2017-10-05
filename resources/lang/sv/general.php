@@ -66,6 +66,7 @@ return [
            'image' => 'Bild',
            'duration' => 'Duration',
            'status' => 'Status',
+           'discount-voucher' => 'Discount Voucher',
        ],
        'help' => [
            'playing-time' => 'Aktivitetstid i minuter',

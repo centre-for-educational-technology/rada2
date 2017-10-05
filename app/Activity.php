@@ -68,7 +68,8 @@ class Activity extends Model
      * Get user account current social one belongs to.
      * @return User Application local user account
      */
-    public function user() {
+    public function user()
+    {
         return $this->belongsTo(User::class);
     }
 
@@ -76,7 +77,8 @@ class Activity extends Model
      * [activityItems description]
      * @return [type] [description]
      */
-    public function activityItems() {
+    public function activityItems()
+    {
         return $this->belongsToMany(ActivityItem::class)
             ->withPivot('position')
             ->with('options') // XXX Too eager
@@ -89,15 +91,26 @@ class Activity extends Model
      * [games description]
      * @return [type] [description]
      */
-    public function games() {
+    public function games()
+    {
         return $this->hasMany(Game::class);
     }
 
     /**
-     * [getActivityItemsCount description]
-     * @return [type] [description]
+     * Get DiscountVoucher assigned to current activity.
+     * @return DiscountVoucher|NULL Assigned discount voucher or an empty value
      */
-    public function getActivityItemsCount() {
+    public function discountVoucher()
+    {
+        return $this->belongsTo(DiscountVoucher::class);
+    }
+
+    /**
+     * Returns count of ActivityItems.
+     * @return integer Nymber of connected elements
+     */
+    public function getActivityItemsCount()
+    {
         return $this->belongsToMany(ActivityItem::class)->count();
     }
 
@@ -105,7 +118,8 @@ class Activity extends Model
      * Determines if activity has own Featured Image
      * @return boolean
      */
-    public function hasFeaturedImage() {
+    public function hasFeaturedImage()
+    {
         return !!$this->featured_image;
     }
 
@@ -113,7 +127,8 @@ class Activity extends Model
      * Get full URL for featured image from public storage or default one
      * @return string Full public URL to image file
      */
-    public function getFeaturedImageUrl() {
+    public function getFeaturedImageUrl()
+    {
         if ( $this->hasFeaturedImage() ) {
             return asset('uploads/images/' . $this->featured_image);
         }
@@ -125,7 +140,8 @@ class Activity extends Model
      * [deleteImage description]
      * @return [type] [description]
      */
-    public function deleteFeaturedImage() {
+    public function deleteFeaturedImage()
+    {
         if ( $this->hasFeaturedImage() ) {
 
             return File::delete( public_path('uploads/images/' . $this->featured_image) );

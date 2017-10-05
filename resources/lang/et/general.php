@@ -66,6 +66,7 @@ return [
            'image' => 'Pilt',
            'duration' => 'Duration',
            'status' => 'Status',
+           'discount-voucher' => 'Discount Voucher',
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',

@@ -66,6 +66,7 @@ return [
            'image' => 'Kuva',
            'duration' => 'Duration',
            'status' => 'Status',
+           'discount-voucher' => 'Discount Voucher',
        ],
        'help' => [
            'playing-time' => 'Toimintaaika minuuteissa',

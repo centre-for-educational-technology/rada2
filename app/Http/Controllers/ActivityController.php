@@ -9,6 +9,7 @@ use App\Http\Requests\StoreActivity;
 use App\Activity;
 use App\ActivityItem;
 use App\Game;
+use App\DiscountVoucher;
 
 use Auth;
 
@@ -53,6 +54,45 @@ class ActivityController extends Controller
         $imageService->process($request->file('featured_image')->getRealPath(), null, $fileName, 800);
 
         return $fileName;
+    }
+
+    /**
+     * Returns options to use with select field for discount voucher.
+     * @param boolean $onlyActive Only return active discount vouchers
+     * @return array An aerray with an additional empty option at the top
+     */
+    private function getDiscountVoucherOptions($onlyActive = true)
+    {
+        $discountVoucherOptions = [ 'NULL' => '',];
+
+        $query = DiscountVoucher::orderBy('created_at', 'asc');
+
+        if ( $onlyActive )
+        {
+            $query->where('status', '=', 1);
+        }
+
+        $vouchers = $query->get();
+
+        if ( $vouchers )
+        {
+            foreach ( $vouchers as $voucher )
+            {
+                $discountVoucherOptions[$voucher->id] = $voucher->title;
+            }
+        }
+
+        return $discountVoucherOptions;
+    }
+
+    /**
+     * Determines if passed id should be treated as an empty field
+     * @param  string  $id Dicount voucher identifier
+     * @return boolean
+     */
+    private function isEmptyDiscountVoucher($id)
+    {
+        return $id === 'NULL';
     }
 
     /**
@@ -132,6 +172,7 @@ class ActivityController extends Controller
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : [],
+            'discountVoucherOptions' => $this->getDiscountVoucherOptions(true),
         ]);
     }
 
@@ -171,6 +212,19 @@ class ActivityController extends Controller
         }
 
         $activity->user()->associate( auth()->user() );
+
+        if ( auth()->user()->can('addDiscountVoucher', Activity::class) && $request->has('discount_voucher') ) {
+            $voucherId = $request->discount_voucher;
+
+            if ( !$this->isEmptyDiscountVoucher($voucherId) )
+            {
+                $voucher = DiscountVoucher::find($request->discount_voucher);
+
+                if ( $voucher ) {
+                    $activity->discountVoucher()->associate($voucher);
+                }
+            }
+        }
 
         $activity->save();
 
@@ -221,6 +275,7 @@ class ActivityController extends Controller
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
+            'discountVoucherOptions' => $this->getDiscountVoucherOptions(false),
         ]);
     }
 
@@ -268,6 +323,28 @@ class ActivityController extends Controller
         } else {
             $activity->proximity_check = false;
             $activity->proximity_radius = null;
+        }
+
+        if ( auth()->user()->can('changeDiscountVoucher', $activity) && $request->has('discount_voucher') ) {
+            $voucherId = $request->discount_voucher;
+
+            if ( $this->isEmptyDiscountVoucher($voucherId) )
+            {
+                if ( $activity->discountVoucher )
+                {
+                    $activity->discountVoucher()->dissociate();
+                }
+            } else {
+                $voucher = DiscountVoucher::find($voucherId);
+
+                if ( $voucher ) {
+                    if ( $activity->discountVoucher ) {
+                        $activity->discountVoucher()->dissociate();
+                    }
+
+                    $activity->discountVoucher()->associate($voucher);
+                }
+            }
         }
 
         $activity->save();
