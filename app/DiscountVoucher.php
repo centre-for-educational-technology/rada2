@@ -28,7 +28,8 @@ class DiscountVoucher extends Model
      * Determines if voucher has own image
      * @return boolean
      */
-    public function hasImage() {
+    public function hasImage()
+    {
         return !!$this->image;
     }
 
@@ -36,8 +37,10 @@ class DiscountVoucher extends Model
      * Get full URL for image from public storage or default one
      * @return string Full public URL to image file
      */
-    public function getImageUrl() {
-        if ( $this->hasImage() ) {
+    public function getImageUrl()
+    {
+        if ( $this->hasImage() )
+        {
             return asset('uploads/images/' . $this->image);
         }
 
@@ -48,12 +51,23 @@ class DiscountVoucher extends Model
      * Removed image file if one exists
      * @return boolean
      */
-    public function deleteImage() {
-        if ( $this->hasImage() ) {
+    public function deleteImage()
+    {
+        if ( $this->hasImage() )
+        {
 
             return File::delete( public_path('uploads/images/' . $this->image) );
         }
 
         return false;
+    }
+
+    /**
+     * Determines if current voucher is active or not
+     * @return boolean
+     */
+    public function isActive()
+    {
+        return (boolean) $this->status;
     }
 }

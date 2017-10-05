@@ -2,6 +2,11 @@
 
 @section('footer-scripts')
 <script src="{{ elixir('js/search_activities.js') }}"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[data-toggle="popover"]').popover()
+    });
+</script>
 @endsection
 
 @section('content')
@@ -60,6 +65,22 @@
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                                         {{ $activity->playing_time}} {{ trans('general.minutes')}}
                                     </div>
+                                    @if ( $activity->discountVoucher && $activity->discountVoucher->isActive() )
+                                        <div class="sz-metadata">
+                                            <i class="mdi mdi-sale" aria-hidden="true"></i>
+                                            <a href="#"
+                                               class="btn btn-default btn-xs"
+                                               onclick="javascript:return false;"
+                                               data-toggle="popover"
+                                               data-placement="right"
+                                               data-container="body"
+                                               data-html="true"
+                                               title="{{ $activity->discountVoucher->title }}"
+                                               data-content="<img src='{{ $activity->discountVoucher->getImageUrl() }}' class='img-responsive' alt='image'> <br> {{ $activity->discountVoucher->description }}">
+                                               {{ $activity->discountVoucher->title }}
+                                            </a>
+                                        </div>
+                                    @endif
 
                                     <form class="sz-play-action-form" action="{{ route('activity.start', ['id' => $activity->id]) }}" method="POST">
                                         {{ csrf_field() }}

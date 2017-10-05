@@ -111,7 +111,7 @@ class ActivityController extends Controller
             'search-submitted' => ( $request->has('search-submitted') && (int) $request->get('search-submitted') === 1 ) ? true : false,
         ];
 
-        $query = Activity::orderBy('id', 'desc')->with('user');
+        $query = Activity::orderBy('id', 'desc')->with(['user', 'discountVoucher',]);
 
         if ( $request->has('search-text') && trim($request->get('search-text')) )
         {
