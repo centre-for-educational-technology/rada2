@@ -79,6 +79,11 @@ class ActivityController extends Controller
             foreach ( $vouchers as $voucher )
             {
                 $discountVoucherOptions[$voucher->id] = $voucher->title;
+
+                if ( !(boolean) $voucher->status )
+                {
+                    $discountVoucherOptions[$voucher->id] .= ' (' . trans('general.discount-voucher-status.inactive') . ')';
+                }
             }
         }
 

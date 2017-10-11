@@ -113,6 +113,7 @@ return [
        'send-to-backpack' => 'Saada Backpacki',
        'download-baked-badge' => 'Lae alla õpimärgi pildifail',
        'assertion-open' => 'Open badge-i tõendi URL',
+       'discount-voucher-spend' => 'Spend Discount Voucher',
    ],
    'minutes' => 'minutid',
    'confirmations' => [

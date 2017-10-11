@@ -113,6 +113,7 @@ return [
        'send-to-backpack' => 'Lägg i ryggsäcken',
        'download-baked-badge' => 'Hämta ditt märke',
        'assertion-open' => 'URL till märken',
+       'discount-voucher-spend' => 'Spend Discount Voucher',
    ],
    'minutes' => 'minuter',
    'confirmations' => [

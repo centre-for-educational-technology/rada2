@@ -40,3 +40,8 @@ Route::group(['prefix' => 'badges'], function()
     Route::get('{badge}', 'BadgeController@badge')->name('api.badge.show');
     Route::get('{badge}/user/{user}', 'BadgeController@assertion')->name('api.badge.assertion');
 });
+
+Route::group(['prefix' => 'vouchers'], function()
+{
+    Route::delete('{voucher}', 'UserController@spendDiscountVoucher');
+});

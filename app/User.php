@@ -7,6 +7,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Facades\Event;
+use Carbon\Carbon;
 
 class User extends Authenticatable
 {
@@ -162,5 +163,69 @@ class User extends Authenticatable
                 ->withProperties(['user_id' => $this->id,])
                 ->log('awarded');
         }
+    }
+
+    /**
+     * Returns active relations to DiscountVouchers
+     * @return Illuminate\Support\Collection Collection of DiscountVoucher objects with additional data
+     */
+    public function discountVouchers()
+    {
+        return $this->belongsToMany(DiscountVoucher::class)
+            ->withTimestamps()
+            ->wherePivot('spent', 0)
+            ->wherePivot('valid_until', '>', Carbon::now())
+            ->withPivot(['valid_until', 'spent',])
+            ->orderBy('discount_voucher_user.valid_until', 'asc');
+    }
+
+    /**
+     * Returns number of DiscountVoucher objects user currently has
+     * @return integer NUmber of discount vouchers
+     */
+    public function getDiscountVouchersCount()
+    {
+        return $this->belongsToMany(DiscountVoucher::class)
+            ->wherePivot('spent', 0)
+            ->wherePivot('valid_until', '>', Carbon::now())
+            ->withPivot(['valid_until', 'spent',])
+            ->count();
+    }
+
+    /**
+     * Awards DiscountVoucher to a User
+     * @param  App\DiscountVoucher $voucher DiscountVoucher object
+     * @return void
+     */
+    public function awardDiscountVoucher(DiscountVoucher $voucher)
+    {
+        $dateTime = Carbon::now();
+        $dateTime->addHours($voucher->duration);
+        $this->discountVouchers()->attach($voucher->id, [
+            'valid_until' => $dateTime,
+        ]);
+        activity()
+            ->performedOn($voucher)
+            ->withProperties([
+                'user_id' => $this->id,
+                'valid_until' => $dateTime->toIso8601String(),
+            ])
+            ->log('awarded');
+    }
+
+    /**
+     * Checks if current user has at least one instance of DiscountVoucher awarded
+     * @param  App\DiscountVoucher $voucher DiscountVoucher object
+     * @return boolean
+     */
+    public function hasDiscountVoucher(DiscountVoucher $voucher)
+    {
+        $count = $this->belongsToMany(DiscountVoucher::class)
+            ->wherePivot('discount_voucher_id', $voucher->id)
+            ->wherePivot('spent', 0)
+            ->wherePivot('valid_until', '>', Carbon::now())
+            ->count();
+
+        return $count !== 0;
     }
 }

@@ -4,7 +4,10 @@
 <script src="{{ elixir('js/search_activities.js') }}"></script>
 <script type="text/javascript">
     $(function () {
-        $('[data-toggle="popover"]').popover()
+        $('a[data-toggle="discountVoucher"]').on('click', function(e) {
+            e.preventDefault();
+            $(this).parent().next('.row').slideToggle();
+        });
     });
 </script>
 @endsection
@@ -70,15 +73,27 @@
                                             <i class="mdi mdi-sale" aria-hidden="true"></i>
                                             <a href="#"
                                                class="btn btn-default btn-xs"
-                                               onclick="javascript:return false;"
-                                               data-toggle="popover"
-                                               data-placement="right"
-                                               data-container="body"
-                                               data-html="true"
-                                               title="{{ $activity->discountVoucher->title }}"
-                                               data-content="<img src='{{ $activity->discountVoucher->getImageUrl() }}' class='img-responsive' alt='image'> <br> {{ $activity->discountVoucher->description }}">
+                                               data-toggle="discountVoucher">
                                                {{ $activity->discountVoucher->title }}
                                             </a>
+                                        </div>
+                                        <div class="row" style="display:none;">
+                                            <div class="col-xs-12">
+                                                <div class="thumbnail">
+                                                    <img src="{{ $activity->discountVoucher->getImageUrl() }}" alt="image">
+                                                    <div class="caption">
+                                                        <a href="{!! route('discount_voucher.index', ['#' . $activity->discountVoucher->id]) !!}">
+                                                            <h3>{{ $activity->discountVoucher->title}}</h3>
+                                                        </a>
+                                                        <p class="sz-metadata">
+                                                            <i class="mdi mdi-timer" aria-hidden="true"></i>
+                                                            {{ $activity->discountVoucher->duration }}
+                                                            {{ trans('general.forms.addons.hours') }}
+                                                        </p>
+                                                        <p class="sz-display-new-lines">{{ $activity->discountVoucher->description }}</p>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     @endif
 

@@ -20,6 +20,7 @@
     "vuedraggable": "^2.8.5"
   },
   "dependencies": {
+    "moment": "^2.19.0",
     "raven-js": "^3.15.0"
   }
 }

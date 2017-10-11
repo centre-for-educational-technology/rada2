@@ -16,6 +16,10 @@ use App\Options\ZooOptions;
 
 use App\Services\OpenBadgesService;
 
+use App\DiscountVoucher;
+
+use Illuminate\Support\Facades\DB;
+
 class UserController extends Controller
 {
     /**
@@ -32,8 +36,8 @@ class UserController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
-        $this->middleware('auth.admin', ['only' => ['index', 'removeRole', 'assignRoles']]);
+        $this->middleware('auth', ['except' => ['spendDiscountVoucher',]]);
+        $this->middleware('auth.admin', ['only' => ['index', 'removeRole', 'assignRoles',]]);
     }
 
     /**
@@ -62,6 +66,7 @@ class UserController extends Controller
         return view('profile/show')->with([
             'user' => $user,
             'openBadgesService' => $openBadgesService,
+            'isCurrentUser' => Auth::check() && Auth::user()->id === $user->id,
         ]);
     }
 
@@ -157,5 +162,40 @@ class UserController extends Controller
         $user->roles()->sync($syncableRoles);
 
         return redirect()->route('manage.users', ['page' => $request->get('page'), '#user-' . $user->id]);
+    }
+
+    /**
+     * Spends existing Discount Voucher that user has.
+     * Spends the voucher with least validity time left in case multiple are present.
+     * @param  App/DiscountVoucher $voucher DiscountVoucher object
+     * @return \Illuminate\Http\Response
+     */
+    public function spendDiscountVoucher(DiscountVoucher $voucher)
+    {
+        if ( !Auth::guard('web')->check() ) {
+            return response()->json(['error' => 'Unauthorized.'], 401);
+        }
+
+        $user = Auth::user();
+
+        if ( !$user->hasDiscountVoucher($voucher) ) {
+            return response()->json(['error' => 'Forbidden.'], 403);
+        }
+
+        DB::table('discount_voucher_user')
+            ->where('discount_voucher_id', $voucher->id)
+            ->where('user_id', $user->id)
+            ->where('spent', 0)
+            ->orderBy('discount_voucher_user.valid_until', 'asc')
+            ->limit(1)
+            ->update(['spent' => 1,]);
+        activity()
+            ->performedOn($voucher)
+            ->withProperties([])
+            ->log('spent');
+
+        return [
+            'discount_voucher_id' => $voucher->id,
+        ];
     }
 }

@@ -12,6 +12,8 @@ use App\SocialAccount;
 use App\Activity;
 use App\Game;
 
+use Auth;
+
 class EventServiceProvider extends ServiceProvider
 {
     /**
@@ -115,6 +117,19 @@ class EventServiceProvider extends ServiceProvider
                     ->performedOn($game)
                     ->withProperties(['activity_id' => $game->activity_id, 'complete' => $game->complete,])
                     ->log('complete');
+            }
+        });
+
+        Event::listen('game.complete', function($game)
+        {
+            if ( Auth::check() && $game->activity->discountVoucher && $game->activity->discountVoucher->isActive() )
+            {
+                $user = Auth::user();
+
+                if ( $game->answers()->where('correct', '<>', 1)->count() === 0 )
+                {
+                    $user->awardDiscountVoucher($game->activity->discountVoucher);
+                }
             }
         });
     }

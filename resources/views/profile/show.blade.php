@@ -63,8 +63,7 @@
                     <p>{{ date(trans('general.date-time.formats.long'), strtotime($user->created_at)) }}</p>
                     <h3>{{ trans('general.date-time.updated-at') }}</h3>
                     <p>{{ date(trans('general.date-time.formats.long'), strtotime($user->updated_at)) }}</p>
-                    @if ( $user->badges )
-                        @php ( $isCurrentUser = Auth::check() && Auth::user()->id === $user->id )
+                    @if ( $user->badges && count($user->badges) > 0 )
                         <div class="row">
                             <div class="col-xs-12 col-sm-8">
                                 <h3>{{ trans('pages.profile.labels.badges-earned') }}</h3>
@@ -114,6 +113,40 @@
                                         </div>
                                     @endif
                                 </div>
+                            @endforeach
+                        </div>
+                    @endif
+
+                    @if ( $user->discountVouchers && count($user->discountVouchers) > 0 )
+                        <h3>{{ trans('pages.profile.labels.discount-vouchers-earned') }}</h3>
+                        <div class="row">
+                            @foreach ( $user->discountVouchers as $voucher )
+                            <div class="discount-voucher col-sm-6 col-md-4" data-valid-until="{{ \Carbon\Carbon::parse($voucher->pivot->valid_until)->toIso8601String() }}">
+                                <div class="thumbnail">
+                                    <img src="{{ $voucher->getImageUrl() }}" alt="image">
+                                    <div class="caption">
+                                        <h4>{{ $voucher->title }}</h4>
+                                        <p>{{ $voucher->description }}</p>
+                                        <p class="valid-until">
+                                            <strong>{{ trans('pages.profile.labels.valid-until') }}</strong>
+                                            <span></span>
+                                        </p>
+                                        <p>
+                                            <button
+                                                class="btn btn-default discount-voucher-spend"
+                                                data-confirm="{{ trans('pages.profile.confirmations.discount-voucher-spend') }}"
+                                                data-voucher-id="{{ $voucher->id }}"
+                                                role="button">
+                                                {{ trans('general.actions.discount-voucher-spend') }}
+                                            </button>
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                            @if ( $loop->iteration % 3 === 0 )
+                                </div>
+                                <div class="row">
+                            @endif
                             @endforeach
                         </div>
                     @endif

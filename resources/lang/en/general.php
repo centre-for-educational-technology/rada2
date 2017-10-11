@@ -113,6 +113,7 @@ return [
        'send-to-backpack' => 'Send To Backpack',
        'download-baked-badge' => 'Download baked badge image',
        'assertion-open' => 'Open badge assertion URL',
+       'discount-voucher-spend' => 'Spend Discount Voucher',
    ],
    'minutes' => 'minutes',
    'confirmations' => [

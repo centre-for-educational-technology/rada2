@@ -159,6 +159,11 @@ return [
         'heading' => 'Profile of :name',
         'labels' => [
             'badges-earned' => 'Badges Earned',
+            'discount-vouchers-earned' => 'Discount Vouchers Earned',
+            'valid-until' => 'Valid until',
+        ],
+        'confirmations' => [
+            'discount-voucher-spend' => 'Are you sure you want to spend this Discount Voucher?',
         ],
     ],
     'profile-edit' => [

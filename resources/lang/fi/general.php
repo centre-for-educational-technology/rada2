@@ -113,6 +113,7 @@ return [
        'send-to-backpack' => 'Lähetä reppuun',
        'download-baked-badge' => 'Hae arvomerkkikuva',
        'assertion-open' => 'Aukaise arvomerkkilinkki',
+       'discount-voucher-spend' => 'Spend Discount Voucher',
    ],
    'minutes' => 'minuuttia',
    'confirmations' => [

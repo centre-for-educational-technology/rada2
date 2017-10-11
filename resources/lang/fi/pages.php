@@ -159,6 +159,11 @@ return [
         'heading' => ':name n profiili',
         'labels' => [
             'badges-earned' => 'Ansaitut arvomerkit',
+            'discount-vouchers-earned' => 'Discount Vouchers Earned',
+            'valid-until' => 'Valid until',
+        ],
+        'confirmations' => [
+            'discount-voucher-spend' => 'Are you sure you want to spend this Discount Voucher?',
         ],
     ],
     'profile-edit' => [

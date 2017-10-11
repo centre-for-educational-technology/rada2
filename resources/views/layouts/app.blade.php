@@ -22,6 +22,7 @@
             'csrfToken' => csrf_token(),
             'baseUrl' => url('/'),
             'apiUrl' => url('/api'),
+            'locale' => App::getLocale(),
         ]); ?>;
     </script>
 
