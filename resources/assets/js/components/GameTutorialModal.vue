@@ -9,7 +9,7 @@
                 <div class="modal-body">
                     <h4 class="text-center">{{ $t('tips-text') }}</h4>
                     <div class="tips" ref="tips">
-                        <transition name="tip-side" mode="out-in" v-bind:enter-active-class="enterActivieClass" v-bind:leave-active-class="leaveActiveClass">
+                        <transition name="tip-side" mode="out-in" v-bind:enter-active-class="enterActiveClass" v-bind:leave-active-class="leaveActiveClass">
                             <div class="tip" v-if="currentItem === 'look_closely'" key="look_closely">
                                 <div class="tip-image">
                                     <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl('look_closely')">
@@ -67,8 +67,8 @@
                 baseUrl: '',
                 currentItem: 'look_closely',
                 items: ['look_closely', 'look_out', 'do_not_disturb', 'help_others'],
-                enterActivieClass: 'animated slideInLeft',
-                leaveActiveClass: 'animated slideOutRight'
+                enterActiveClass: 'animated slideInRight',
+                leaveActiveClass: 'animated slideOutLeft'
             };
         },
         methods: {
@@ -95,8 +95,8 @@
             nextItem() {
                 if ( !this.isLastItem() && this.currentItem ) {
                     var vm = this;
-                    this.enterActivieClass = 'animated slideInLeft';
-                    this.leaveActiveClass = 'animated slideOutRight';
+                    this.enterActiveClass = 'animated slideInRight';
+                    this.leaveActiveClass = 'animated slideOutLeft';
 
                     $(this.$refs.tips).css('min-height', $(this.$refs.tips).height());
                     this.$nextTick(() => {
@@ -110,8 +110,8 @@
             previousItem() {
                 if ( !this.isFirstItem() && this.currentItem ) {
                     var vm = this;
-                    this.enterActivieClass = 'animated slideInRight';
-                    this.leaveActiveClass = 'animated slideOutLeft';
+                    this.enterActiveClass = 'animated slideInLeft';
+                    this.leaveActiveClass = 'animated slideOutRight';
 
                     $(this.$refs.tips).css('min-height', $(this.$refs.tips).height());
                     this.$nextTick(() => {
