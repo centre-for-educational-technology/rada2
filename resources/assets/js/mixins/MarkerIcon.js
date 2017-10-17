@@ -3,8 +3,8 @@ export default {
         getIconsBaseUrl() {
             return this.baseUrl + '/img/map/icons/';
         },
-        getIconUrl(state) {
-            return this.getIconsBaseUrl() + ( ( state !== 'active' ) ? state : 'default' ) + '.svg';
+        getIconUrl(state, type) {
+            return this.getIconsBaseUrl() + ( ( type && type === 1 ) ? 'info_' : '' ) + ( ( state !== 'active' ) ? state : 'default' ) + '.svg';
         }
     }
 };

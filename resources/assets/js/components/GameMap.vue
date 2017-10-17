@@ -219,6 +219,7 @@
                             map: map,
                             animation: google.maps.Animation.DROP,
                             questionId: question.id,
+                            questionType: question.type,
                             optimized: false
                         });
 
@@ -432,7 +433,7 @@
                     anchor: this.mapData.iconAnchor,
                     size: this.mapData.iconSize,
                     scaledSize: this.mapData.iconScaledSize,
-                    url: this.getIconUrl(state)
+                    url: this.getIconUrl(state, marker.questionType)
                 });
             },
             getMarkerBounds() {
