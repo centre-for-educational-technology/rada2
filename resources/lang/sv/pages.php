@@ -94,6 +94,7 @@ return [
             'position-tracking' => 'Slå av/på positionsbestämning',
             'exit' => 'Avsluta spelet',
             'exit-confirmation' => 'Avsluta spelet.  Är du säker?  Endast inloggade användare kan fortsätta ett avslutat spel',
+            'change-map-type' => 'Change map type',
             'textual-answer-placeholder' => 'Svarstext…',
             'image-format-hint' => 'Endast JPEG- eller PNG-bilder tillåtna.',
             'apply-item-bounds' => 'Visa alla uppgifter på kartan.',

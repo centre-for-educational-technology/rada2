@@ -94,6 +94,7 @@ return [
             'position-tracking' => 'Lülita sisse või keela positsioneerimine',
             'exit' => 'Välju mängust',
             'exit-confirmation' => 'Oled sa kindel, et soovid mängust lahkuda? Ainult registreerunud kasutajad saavad mängu jätkata.',
+            'change-map-type' => 'Change map type',
             'textual-answer-placeholder' => 'Vastuse tekst...',
             'image-format-hint' => 'Palun kasuta ainult PNG või JPG/JPEG formaadis pilte.',
             'apply-item-bounds' => 'Kuva kaardil kõik rajapunktid',

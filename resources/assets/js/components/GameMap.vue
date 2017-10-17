@@ -8,11 +8,13 @@
 
 <script>
     function GameControls(controlDiv, map, playerMarker, vm) {
-        var controlUI = document.createElement('div');
+        const mapTypeIds = _.values(google.maps.MapTypeId);
+
+        const controlUI = document.createElement('div');
         controlUI.id = 'sz-map-controls'
         controlDiv.appendChild(controlUI);
 
-        var completionControlItem = document.createElement('i');
+        const completionControlItem = document.createElement('i');
         completionControlItem.className = 'label label-success';
         completionControlItem.style.fontSize = '20px';
         completionControlItem.style.position = 'relative';
@@ -26,7 +28,7 @@
             completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
         });
 
-        var informationControlItem = document.createElement('i');
+        const informationControlItem = document.createElement('i');
         informationControlItem.className = 'mdi mdi-information-outline';
         informationControlItem.title = vm.$t('info');
         controlUI.appendChild(informationControlItem);
@@ -35,7 +37,7 @@
             vm.$parent.$refs.informationModal.open();
         });
 
-        var navigationControlItem = document.createElement('i');
+        const navigationControlItem = document.createElement('i');
         navigationControlItem.className = 'mdi mdi-navigation';
         navigationControlItem.title = vm.$t('position-tracking');
         controlUI.appendChild(navigationControlItem);
@@ -52,26 +54,41 @@
             }
         });
 
-        var boundsControlItem = document.createElement('i');
+        const boundsControlItem = document.createElement('i');
         boundsControlItem.className = 'mdi mdi-map-marker-multiple';
         boundsControlItem.title = vm.$t('apply-item-bounds');
         controlUI.appendChild(boundsControlItem);
 
         boundsControlItem.addEventListener('click', function() {
-            var bounds = vm.getMarkerBounds();
+            const bounds = vm.getMarkerBounds();
 
             if ( !bounds.isEmpty() ) {
                 map.fitBounds(bounds);
             }
         });
 
-        var exitControlIcon = document.createElement('i');
+        const exitControlIcon = document.createElement('i');
         exitControlIcon.className = 'mdi mdi-exit-to-app';
         exitControlIcon.title = vm.$t('exit');
         controlUI.appendChild(exitControlIcon);
 
         exitControlIcon.addEventListener('click', function() {
             vm.$parent.exit();
+        });
+
+        const mapTypeControlItem = document.createElement('i');
+        mapTypeControlItem.className = 'mdi mdi-layers';
+        mapTypeControlItem.title = vm.$t('change-map-type');
+        controlUI.appendChild(mapTypeControlItem);
+
+        mapTypeControlItem.addEventListener('click', function() {
+            let nextIndex = _.indexOf(mapTypeIds, map.mapTypeId) + 1;
+
+            if ( nextIndex === mapTypeIds.length ) {
+                nextIndex = 0;
+            }
+
+            map.setMapTypeId(mapTypeIds[nextIndex]);
         });
     }
 

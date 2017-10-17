@@ -94,6 +94,7 @@ return [
             'position-tracking' => 'Aktivoi/deaktivoi sijainnin määritystä.',
             'exit' => 'Katkaise peli',
             'exit-confirmation' => 'Haluatko tosiaan katkaista pelin?  Ainoastaan sisäänkirjaudetut pelaajat voivat jatkaa katkaistua peliä.',
+            'change-map-type' => 'Change map type',
             'textual-answer-placeholder' => 'Vastausteksti…',
             'image-format-hint' => 'Ainoastaan JPEG- tai PNG-kuvia sallittu.',
             'apply-item-bounds' => 'Näytä kaikkien tehtävien sijainnit kartasta.',

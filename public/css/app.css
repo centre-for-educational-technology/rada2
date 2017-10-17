@@ -15907,10 +15907,14 @@ form.sz-action-form-inline {
 }
 
 #map #sz-map-controls {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
   background-color: #fff;
   border: 2px solid #fff;
-  border-radius: 3px;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+  border-radius: 2px;
   text-align: center;
 }
 
@@ -15936,6 +15940,22 @@ form.sz-action-form-inline {
 #map #sz-map-controls i.mdi-navigation.active::before {
   -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
+}
+
+#map #sz-map-controls i.mdi-layers {
+  position: fixed;
+  left: 10px;
+  bottom: 30px;
+  margin: 0;
+}
+
+#map #sz-map-controls i.mdi-layers::before {
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+  background-color: #fff;
+  border: 2px solid #fff;
+  border-radius: 2px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 }
 
 #map #sz-gps-error {

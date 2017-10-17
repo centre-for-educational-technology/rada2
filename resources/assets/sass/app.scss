@@ -193,10 +193,11 @@ form.sz-action-form-inline {
 
 #map {
     #sz-map-controls {
+        user-select: none;
+        box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
         background-color: #fff;
         border: 2px solid #fff;
-        border-radius: 3px;
-        box-shadow: 0 2px 6px rgba(0,0,0,.3);
+        border-radius: 2px;
         text-align: center;
 
         i {
@@ -220,6 +221,22 @@ form.sz-action-form-inline {
                     &::before {
                         transform: rotate(45deg);
                     }
+                }
+            }
+
+            &.mdi-layers {
+                position: fixed;
+                left: 10px;
+                bottom: 30px;
+                margin: 0;
+
+                &::before {
+                    box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
+                    background-color: #fff;
+                    border: 2px solid #fff;
+                    border-radius: 2px;
+                    padding-top: 10px;
+                    padding-bottom: 10px;
                 }
             }
         }
