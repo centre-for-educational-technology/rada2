@@ -375,9 +375,16 @@ form.sz-action-form-inline {
                 color: $brand-danger;
             }
 
+            .mdi-checkbox-blank-outline {
+                color: $brand-danger;
+            }
+
             &.correct {
                 .mdi-radiobox-marked, .mdi-checkbox-marked-outline {
                     color: $brand-success;
+                }
+                .mdi-checkbox-blank-outline {
+                    color: $text-color;
                 }
             }
         }

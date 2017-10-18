@@ -11,7 +11,7 @@
                         <h3>{{ index + 1 }}. {{ question.title }}</h3>
                         <p class="sz-display-new-lines">{{question.description}}</p>
                         <div v-if="isOneCorrectAnswer(question) || isMultipleCorrectAnswers(question)">
-                            <ul class="media-list sz-options-list" v-for="option in question.options" v-bind:class="{ correct: isCorrect(question) }">
+                            <ul class="media-list sz-options-list" v-for="option in question.options" v-bind:class="{ correct: isCorrectOption(question, option) }">
                                 <li class="media sz-option">
                                         <div class="media-left" v-if="option.image">
                                             <img v-bind:src="option.image" class="media-object" alt="option-image">
@@ -120,6 +120,15 @@
                 }
 
                 return this.answers[question.id].answer.options.indexOf(option.id) !== -1;
+            },
+            isCorrectOption(question, option) {
+                const chosen = this.choseOption(question, option);
+
+                if ( ( chosen && option.correct ) || ( !chosen && !option.correct ) ) {
+                    return true;
+                }
+
+                return false;
             },
             hasText(question) {
                 if ( !this.hasAnswer(question) ) {

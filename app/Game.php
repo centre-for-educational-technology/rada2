@@ -140,6 +140,7 @@ class Game extends Model
                             'id' => $option->id,
                             'option' => $option->option,
                             'image' => $option->getImageUrl(),
+                            'correct' => (bool) $option->correct,
                         ];
                     }
                 }

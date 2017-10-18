@@ -16078,8 +16078,16 @@ form.sz-action-form-inline {
   color: #bf5329;
 }
 
+#sz-play-app .sz-game-results .sz-options-list .mdi-checkbox-blank-outline {
+  color: #bf5329;
+}
+
 #sz-play-app .sz-game-results .sz-options-list.correct .mdi-radiobox-marked, #sz-play-app .sz-game-results .sz-options-list.correct .mdi-checkbox-marked-outline {
   color: #2ab27b;
+}
+
+#sz-play-app .sz-game-results .sz-options-list.correct .mdi-checkbox-blank-outline {
+  color: #636b6f;
 }
 
 @media screen and (max-height: 575px) {
