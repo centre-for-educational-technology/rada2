@@ -16244,4 +16244,21 @@ img.sz-uploaded-image-preview {
   opacity: 1;
 }
 
+#sz-cookie-consent {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  padding: 15px 0;
+  background-color: #eeeeee;
+  z-index: 9999;
+  border-top: 1px solid #e2e2e2;
+}
+
+#sz-cookie-consent .row {
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+}
+
 /*# sourceMappingURL=app.css.map */

@@ -138,4 +138,8 @@ return [
      'medium' => 'Mõõdukas',
      'hard' => 'Raske',
    ],
+   'cookie-consent' => [
+       'text' => 'This website uses cookies to ensure you get the best possible online experience. By continuing to use our website, you agree to the use of cookies.',
+       'button-agree' => 'Agree',
+   ],
 ];

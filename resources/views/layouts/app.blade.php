@@ -29,6 +29,8 @@
     @yield('header-scripts')
 </head>
 <body>
+    @include('includes.cookie-consent')
+    
     <div id="app">
         @include('includes.navbar')
 

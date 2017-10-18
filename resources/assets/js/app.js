@@ -48,4 +48,23 @@ $(document).ready(function() {
         e.preventDefault();
         $(document).find('form#locale-form').attr('action', $(this).attr('href')).submit();
     });
+
+    // Handling cookie consent
+    const cookieConsentKey = 'cookie:consent';
+    if ( window.localStorage && window.localStorage.getItem(cookieConsentKey) !== 'true' ) {
+        $('#sz-cookie-consent')
+            .addClass('fadeInUp animated')
+            .css('display', '')
+            .find('button').on('click', function() {
+                $(this).parents('#sz-cookie-consent').addClass('fadeOutDown');
+                if ( window.localStorage ) {
+                    try {
+                        window.localStorage.setItem(cookieConsentKey, 'true');
+                    } catch (err) {
+                        // Handles the QuotaExceededError in some versions of Safari on iOS
+                    }
+                }
+            });
+    }
+
 });
