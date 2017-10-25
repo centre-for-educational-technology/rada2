@@ -51,7 +51,9 @@ $(document).ready(function() {
 
     // Handling cookie consent
     const cookieConsentKey = 'cookie:consent';
-    if ( window.localStorage && window.localStorage.getItem(cookieConsentKey) !== 'true' ) {
+    const hasGivenConsent = window.localStorage && window.localStorage.getItem(cookieConsentKey) === 'true';
+
+    if ( !hasGivenConsent ) {
         $('#sz-cookie-consent')
             .addClass('fadeInUp animated')
             .css('display', '')
