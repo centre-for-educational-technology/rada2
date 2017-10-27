@@ -61,6 +61,10 @@
                                     </h4>
                                     <p class="sz-display-new-lines">{{$activity->description}}</p>
                                     <div class="sz-metadata">
+                                        <i class="mdi mdi-translate" aria-hidden="true"></i>
+                                        {{ $activity->getLanguage() }}
+                                    </div>
+                                    <div class="sz-metadata">
                                         <i class="mdi mdi-hexagon-multiple" aria-hidden="true"></i>
                                         {{ $activity->getDifficultyLevel() }}
                                     </div>
