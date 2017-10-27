@@ -45,12 +45,33 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ZooOptions $zooOptions)
+    public function index(Request $request, ZooOptions $zooOptions)
     {
+        $q = $request->has('q') ? trim($request->get('q')) : NULL;
+        $query = User::with(['social_accounts', 'roles']);
+
+        if ( $q )
+        {
+            $query->where(function($query) use ($q)
+            {
+                $query->where('name', 'like', '%' . $q . '%')->orWhere('email', 'like', '%' . $q . '%');
+            });
+        }
+
+        $users = $query->paginate( config('paginate.limit') );
+
+        if ( $q )
+        {
+            $users->appends([
+                'q' => $q,
+            ]);
+        }
+
         return view('manage/users/index')->with([
-            'users' => User::with(['social_accounts', 'roles'])->paginate( config('paginate.limit') ),
+            'users' => $users,
             'roles' => Role::all(),
             'zooOptions' => $zooOptions->options(),
+            'q' => $q,
         ]);
     }
 

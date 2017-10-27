@@ -97,6 +97,7 @@ return [
            'embedded-content' => 'Lägg in inbäddad HTML-kod här.',
            'search-text' => 'Skriv in texten som ska sökas',
            'read-more' => 'Lägg in en URL med mer information om frågan.',
+           'name-or-email' => 'Name or email',
        ],
        'options' => [
            'any' => 'Någon',

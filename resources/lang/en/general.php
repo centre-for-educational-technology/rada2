@@ -97,6 +97,7 @@ return [
            'embedded-content' => 'Please add any embed codes here',
            'search-text' => 'Enter a text fragment to search for',
            'read-more' => 'Enter a URL that has more information on the topic',
+           'name-or-email' => 'Name or email',
        ],
        'options' => [
            'any' => 'Any',

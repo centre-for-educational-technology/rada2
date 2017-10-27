@@ -97,6 +97,7 @@ return [
            'embedded-content' => 'Syötä sulautetti HTML-koodi tähän.',
            'search-text' => 'Syötä etsittävä teksti',
            'read-more' => 'Syötä URL jossa löytyy lisää tietoja aiheesta.',
+           'name-or-email' => 'Name or email',
        ],
        'options' => [
            'any' => 'Joku',

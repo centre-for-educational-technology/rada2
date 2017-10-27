@@ -97,6 +97,7 @@ return [
            'embedded-content' => 'Lisa vistutatav kood siia',
            'search-text' => 'Otsimiseks sisesta tekstiosa',
            'read-more' => 'Sisesta veebiaadress kust leiab rohkem infot',
+           'name-or-email' => 'Name or email',
        ],
        'options' => [
            'any' => 'Kõik',

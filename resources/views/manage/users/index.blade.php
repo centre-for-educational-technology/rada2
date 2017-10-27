@@ -114,8 +114,24 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-12">
+                        <div class="col-xs-12 col-md-8">
                             {{ trans('pages.manage.users.index.heading') }}
+                        </div>
+
+                        <div class="col-xs-12 col-md-4">
+                            <form class="form-inline pull-right">
+                                <div class="form-group">
+                                    <label class="sr-only" for="q">{{ trans('general.forms.placeholders.name-or-email') }}</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" name="q" id="q" value="{{ $q }}" placeholder="{{ trans('general.forms.placeholders.name-or-email') }}">
+                                        <div class="input-group-addon">
+                                            <button type="submit" class="btn btn-primary btn-xs" title="{{ trans('general.forms.buttons.search') }}">
+                                                <i class="mdi mdi-search-web" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>
