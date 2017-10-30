@@ -115,6 +115,7 @@ return [
        'download-baked-badge' => 'Hämta ditt märke',
        'assertion-open' => 'URL till märken',
        'discount-voucher-spend' => 'Spend Discount Voucher',
+       'get-qr-code' => 'Get QR Code',
    ],
    'minutes' => 'minuter',
    'confirmations' => [

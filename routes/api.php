@@ -45,3 +45,8 @@ Route::group(['prefix' => 'vouchers'], function()
 {
     Route::delete('{voucher}', 'UserController@spendDiscountVoucher');
 });
+
+Route::group(['prefix' => 'activities'], function()
+{
+    Route::get('{activity}/qrcode', 'ActivityController@qrCode')->name('api.activity.qrcode');
+});

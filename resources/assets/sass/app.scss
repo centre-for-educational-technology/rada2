@@ -591,3 +591,16 @@ img.sz-uploaded-image-preview {
         align-items: center;
     }
 }
+
+#qr-code-modal {
+    .modal-body {
+        svg {
+            width: 100%;
+            height: auto;
+        }
+    }
+}
+
+.btn-qr-code {
+  @include button-variant($btn-qr-code-color, $btn-qr-code-bg, $btn-qr-code-border);
+}

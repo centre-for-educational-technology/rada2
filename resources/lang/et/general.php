@@ -115,6 +115,7 @@ return [
        'download-baked-badge' => 'Lae alla õpimärgi pildifail',
        'assertion-open' => 'Open badge-i tõendi URL',
        'discount-voucher-spend' => 'Spend Discount Voucher',
+       'get-qr-code' => 'Get QR Code',
    ],
    'minutes' => 'minutid',
    'confirmations' => [

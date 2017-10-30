@@ -16,7 +16,6 @@ use App\Options\DifficultyLevelOptions;
 
 use Illuminate\Support\Facades\DB;
 
-
 class Activity extends Model
 {
     use SoftDeletes;

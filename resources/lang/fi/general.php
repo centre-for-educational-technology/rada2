@@ -115,6 +115,7 @@ return [
        'download-baked-badge' => 'Hae arvomerkkikuva',
        'assertion-open' => 'Aukaise arvomerkkilinkki',
        'discount-voucher-spend' => 'Spend Discount Voucher',
+       'get-qr-code' => 'Get QR Code',
    ],
    'minutes' => 'minuuttia',
    'confirmations' => [

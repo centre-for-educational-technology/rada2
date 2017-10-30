@@ -115,6 +115,7 @@ return [
        'download-baked-badge' => 'Download baked badge image',
        'assertion-open' => 'Open badge assertion URL',
        'discount-voucher-spend' => 'Spend Discount Voucher',
+       'get-qr-code' => 'Get QR Code',
    ],
    'minutes' => 'minutes',
    'confirmations' => [

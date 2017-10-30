@@ -44,3 +44,7 @@ $sz-facebook-background: #4c69ba;
 $sz-go-btn-background: #65bf3b;
 $sz-go-btn-border: #cff0c6;
 $sz-go-btn-text: #ffffff;
+
+$btn-qr-code-color: #fff !default;
+$btn-qr-code-bg: #f37841 !default;
+$btn-qr-code-border: darken($btn-qr-code-bg, 5%) !default;

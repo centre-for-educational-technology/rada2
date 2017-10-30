@@ -1,7 +1,12 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+<script src="{{ elixir('js/qr_code_modal.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="container">
+    @include('activities.includes.qrcode_modal')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

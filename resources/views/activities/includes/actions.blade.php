@@ -1,4 +1,7 @@
 <div class="pull-right">
+    <a href="#" class="btn btn btn-qr-code btn-sm" data-toggle="modal" data-target="#qr-code-modal" data-api-url="{!! route('api.activity.qrcode', ['id' => $activity->id]) !!}" data-title="{{ $activity->title }}" title="{{ trans('general.actions.get-qr-code') }}">
+        <i class="mdi mdi-qrcode"></i>
+    </a>
     @php ( $includePlay = isset($includePlay) ? $includePlay : true )
     @if ( $includePlay !== false )
         <form class="sz-action-form-inline" action="{{ route('activity.start', ['id' => $activity->id]) }}" method="POST">

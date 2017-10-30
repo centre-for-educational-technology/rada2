@@ -20,6 +20,8 @@ use App\Options\QuestionTypeOptions;
 use App\Options\DifficultyLevelOptions;
 use App\Services\ImageService;
 
+use SimpleSoftwareIO\QrCode\Facades\QrCode;
+
 use Illuminate\Support\Facades\Log;
 
 class ActivityController extends Controller
@@ -38,7 +40,7 @@ class ActivityController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'start']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'start', 'qrCode']]);
     }
 
     /**
@@ -460,5 +462,20 @@ class ActivityController extends Controller
         $this->authorize('viewResults', $activity);
 
         return view('activities/results')->with('activity', $activity);
+    }
+
+    /**
+     * Responds with activity QR Code formatted as SVG.
+     * @param  \App\Activity $activity Activity model
+     * @return \Illuminate\Http\Response
+     */
+    public function qrCode(Activity $activity)
+    {
+        $url = route('activity.start', ['id' => $activity->id]);
+        $qrCode = QrCode::size(500)->errorCorrection('H')->generate($url);
+
+        return [
+            'qrcode' => $qrCode,
+        ];
     }
 }

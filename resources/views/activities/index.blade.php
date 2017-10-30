@@ -2,6 +2,7 @@
 
 @section('footer-scripts')
 <script src="{{ elixir('js/search_activities.js') }}"></script>
+<script src="{{ elixir('js/qr_code_modal.js') }}"></script>
 <script type="text/javascript">
     $(function () {
         $('a[data-toggle="discountVoucher"]').on('click', function(e) {
@@ -14,6 +15,7 @@
 
 @section('content')
 <div class="container">
+    @include('activities.includes.qrcode_modal')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
