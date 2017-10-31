@@ -107,6 +107,7 @@ return [
             'got-it' => 'Got it!',
             'read-more-about' => 'Read more about...',
             'tips-text' => 'Some tips before you start:',
+            'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',

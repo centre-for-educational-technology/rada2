@@ -67,6 +67,7 @@ return [
            'duration' => 'Duration',
            'status' => 'Status',
            'discount-voucher' => 'Discount Voucher',
+           'access-code' => 'Access Code',
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
@@ -98,6 +99,7 @@ return [
            'search-text' => 'Otsimiseks sisesta tekstiosa',
            'read-more' => 'Sisesta veebiaadress kust leiab rohkem infot',
            'name-or-email' => 'Name or email',
+           'access-code' => 'Code or text to access question without positioning restrictions',
        ],
        'options' => [
            'any' => 'Kõik',

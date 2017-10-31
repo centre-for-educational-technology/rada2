@@ -129,6 +129,7 @@ class Game extends Model
                     'type' => $item->type,
                     'latitude' => $item->latitude,
                     'longitude' => $item->longitude,
+                    'access_code' => $item->access_code,
                     'read_more' => $item->read_more,
                     'options' => [],
                     'pairs' => [],

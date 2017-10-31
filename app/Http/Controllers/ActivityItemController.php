@@ -232,6 +232,11 @@ class ActivityItemController extends Controller
       $item->latitude = $request->latitude;
       $item->longitude = $request->longitude;
 
+      if ( $request->has('access_code') )
+      {
+          $item->access_code = $request->access_code;
+      }
+
       if ( $request->has('read_more') )
       {
           $item->read_more = $request->read_more;
@@ -431,10 +436,21 @@ class ActivityItemController extends Controller
       $activity_item->latitude = $request->latitude;
       $activity_item->longitude = $request->longitude;
 
+      if ( $request->has('access_code') )
+      {
+          $activity_item->access_code = $request->access_code;
+      }
+      else
+      {
+          $activity_item->access_code = NULL;
+      }
+
       if ( $request->has('read_more') )
       {
           $activity_item->read_more = $request->read_more;
-      } else {
+      }
+      else
+      {
           $activity_item->read_more = '';
       }
 

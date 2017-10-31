@@ -91,4 +91,15 @@ class ActivityItemPolicy
     {
         return $user->id === $item->user_id || $user->isZooAdmin() || $user->isZooMember();
     }
+
+    /**
+     * Determines if the user can see access code
+     * @param  App\User         $user User object
+     * @param  App\ActivityItem $item ActivityItem object
+     * @return boolean
+     */
+    public function viewAccessCode(User $user, ActivityItem $item)
+    {
+        return $this->viewCorrectAnswer($user, $item);
+    }
 }

@@ -1,6 +1,7 @@
 <template>
     <div style="height:100%;width:100%;">
         <game-question-modal v-bind:question="question" v-bind:game-id="game.id" v-bind:base-url="baseUrl" v-if="question" ref="questionModal"></game-question-modal>
+        <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <div id="map">
         </div>
     </div>
@@ -98,7 +99,8 @@
 
     export default {
         components: {
-            'game-question-modal': require('./GameQuestionModal.vue')
+            'game-question-modal': require('./GameQuestionModal.vue'),
+            'game-access-code-modal': require('./GameAccessCodeModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],
@@ -237,6 +239,8 @@
 
                                 if ( distance <= _this.getProximityRadius() ) {
                                     _this.openQuestionModal(question);
+                                } else if ( _this.hasAccessCode(question) ) {
+                                    _this.openAccessCodeModal(question);
                                 }
                             } else {
                                 _this.openQuestionModal(question);
@@ -336,6 +340,9 @@
 
                 this.mapData.playerMarker = playerMarker;
             },
+            findQuestionById(id) {
+                return _.find(this.game.activity.questions, ['id', id]);
+            },
             isAnswered(questionId) {
                 return _.has(this.game.answers, questionId);
             },
@@ -343,6 +350,9 @@
                 const answer = _.get(this.game.answers, questionId, null);
 
                 return answer && answer.correct === true;
+            },
+            hasAccessCode(question) {
+                return !!( question && question.access_code );
             },
             markAnswered(id, answer) {
                 this.$set(this.game.answers, id, answer);
@@ -410,9 +420,15 @@
                     this.$refs.questionModal.open();
                 });
             },
+            openAccessCodeModal(question) {
+                this.question = question;
+                this.$nextTick(() => {
+                    this.$refs.accessCodeModal.open();
+                });
+            },
             detectMarkerIconState(marker) {
                 // TODO Check it we should fail in case question could not be found
-                const question = _.find(this.game.activity.questions, ['id', marker.questionId]);
+                const question = this.findQuestionById(marker.questionId);
 
                 if ( this.isAnswered(question.id) ) {
                     return this.isCorrect(question.id) ? 'correct' : 'incorrect';

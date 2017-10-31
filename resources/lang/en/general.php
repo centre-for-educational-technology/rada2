@@ -67,6 +67,7 @@ return [
            'duration' => 'Duration',
            'status' => 'Status',
            'discount-voucher' => 'Discount Voucher',
+           'access-code' => 'Access Code',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -98,6 +99,7 @@ return [
            'search-text' => 'Enter a text fragment to search for',
            'read-more' => 'Enter a URL that has more information on the topic',
            'name-or-email' => 'Name or email',
+           'access-code' => 'Code or text to access question without positioning restrictions',
        ],
        'options' => [
            'any' => 'Any',

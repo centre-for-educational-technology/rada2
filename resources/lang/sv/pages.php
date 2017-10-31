@@ -107,6 +107,7 @@ return [
             'got-it' => 'Got it!',
             'read-more-about' => 'Läs mer om…',
             'tips-text' => 'Some tips before you start:',
+            'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
             'icons' => [
                 'help' => 'Varje ikons färg visar uppgiftens tillstånd.',
                 'active' => 'Obesvarad',
