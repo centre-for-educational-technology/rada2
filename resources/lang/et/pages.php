@@ -153,7 +153,7 @@ return [
         'zoos' => 'Kuvatavad mängud kuuluvad järgmiste loomaaedade juurde',
     ],
     'activity-results' => [
-        'heading' => 'Mängu :title tulemused',
+        'heading' => 'Mängu <strong>:title</strong> tulemused',
 
     ],
     'profile' => [

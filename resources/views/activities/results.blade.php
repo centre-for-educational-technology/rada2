@@ -8,6 +8,10 @@
                 return $(this).next('.sz-popover-data').html();
             }
         });
+
+        $('form').find('.checkbox > label > input[type="checkbox"]').on('change', function() {
+            $(this).parents('form').submit();
+        });
     });
 </script>
 @endsection
@@ -23,10 +27,33 @@
                 @endcan
             </ul>
             <div class="panel panel-default">
-                <div class="panel-heading">{{ trans('pages.activity-results.heading', [ 'title' => $activity->title ]) }}</div>
+                <div class="panel-heading">
+                    <div class="row">
+                    <div class="col-xs-12">
+                        {!! trans('pages.activity-results.heading', [ 'title' => $activity->title ]) !!}
+                    </div>
+
+                    <div class="col-xs-12">
+                        <form class="form-inline pull-right">
+                            <div class="checkbox sz-metadata">
+                                <label>
+                                    <input type="checkbox" name="incognito" id="incognito" value="0"{{ $incognito ? '' : ' checked'}}>
+                                    Hide incognito
+                                </label>
+                            </div>
+                            <div class="checkbox sz-metadata">
+                                <label>
+                                    <input type="checkbox" name="incomplete" id="incomplete" value="0"{{ $incomplete ? '' : ' checked'}}>
+                                    Hide incomplete
+                                </label>
+                            </div>
+                        </form>
+                    </div>
+                    </div>
+                </div>
 
                 <div class="panel-body">
-                    @if ( !$activity->games )
+                    @if ( $games->count() === 0 )
                         <div class="well">{{ trans('pages.dashboard.none-found') }}</div>
                     @else
                         <div class="table-responsive">
@@ -71,13 +98,23 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach($activity->games as $game)
+                                    @foreach($games as $game)
                                     <tr>
-                                        <td class="text-center {{ !$game->complete ? 'warning' : '' }}">
+                                        <td class="text-center {{ !$game->isComplete() ? 'warning' : '' }}">
                                         @if( $game->user )
                                             {{ $game->user->name }}
                                         @else
                                             <i class="mdi mdi-incognito" aria-hidden="true"></i>
+                                        @endif
+                                        <div class="sz-metadata">
+                                            <i class="mdi mdi-timer" aria-hidden="true"></i>
+                                            {{ date(trans('general.date-time.formats.medium'), strtotime($game->created_at)) }}
+                                        </div>
+                                        @if ( $game->isComplete())
+                                            <div class="sz-metadata">
+                                                <i class="mdi mdi-timer-off" aria-hidden="true"></i>
+                                                {{ date(trans('general.date-time.formats.medium'), strtotime($game->updated_at)) }}
+                                            </div>
                                         @endif
                                         </td>
                                         @foreach($activity->activityItems as $item)
@@ -116,6 +153,10 @@
                                     @endforeach
                                 </tbody>
                             </table>
+
+                            <div class="text-center">
+                                {{ $games->links() }}
+                            </div>
                         </div>
                     @endif
                 </div>

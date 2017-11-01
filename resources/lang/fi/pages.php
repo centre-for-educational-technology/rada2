@@ -153,7 +153,7 @@ return [
         'zoos' => 'Näytetyt toiminnat kuuluvat seuraaviin eläintarhoihin:',
     ],
     'activity-results' => [
-        'heading' => ':title n tulokset',
+        'heading' => '<strong>:title</strong> n tulokset',
 
     ],
     'profile' => [

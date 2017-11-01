@@ -153,7 +153,7 @@ return [
         'zoos' => 'Aktiviteterna nedan hör till följande djurparker',
     ],
     'activity-results' => [
-        'heading' => ':title, resultat',
+        'heading' => '<strong>:title</strong>, resultat',
 
     ],
     'profile' => [

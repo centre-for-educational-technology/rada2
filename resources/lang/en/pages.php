@@ -153,7 +153,7 @@ return [
         'zoos' => 'Displayed activities belong to these Zoos',
     ],
     'activity-results' => [
-        'heading' => 'Results of :title',
+        'heading' => 'Results of <strong>:title</strong>',
 
     ],
     'profile' => [

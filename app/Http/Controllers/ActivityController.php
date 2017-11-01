@@ -454,14 +454,44 @@ class ActivityController extends Controller
     /**
      * Display the results for specified activity.
      *
-     * @param \App\Activity
+     * @param Illuminate\Http\Request $request  Request object
+     * @param \App\Activity           $activity Activity object
      * @return \Illuminate\Http\Response
      */
-    public function results(Activity $activity)
+    public function results(Request $request, Activity $activity)
     {
         $this->authorize('viewResults', $activity);
 
-        return view('activities/results')->with('activity', $activity);
+        $search = [
+            'incognito' => ( $request->has('incognito') && (int)$request->incognito === 0 ) ? false : true,
+            'incomplete' => ( $request->has('incomplete') && (int)$request->incomplete === 0 ) ? false : true,
+        ];
+
+        $gamesQuery = $activity->games()->orderBy('created_at', 'desc');
+
+        if ( !$search['incognito'] )
+        {
+            $gamesQuery->whereNotNull('user_id');
+        }
+
+        if ( !$search['incomplete'] )
+        {
+            $gamesQuery->where('complete', '=', 1);
+        }
+
+        $games = $gamesQuery->paginate( config('paginate.limit') );
+
+        if ( !$search['incomplete'] || !$search['incognito'] )
+        {
+            $games->appends($search);
+        }
+
+        return view('activities/results')->with([
+            'activity' => $activity,
+            'games' => $games,
+            'incognito' => $search['incognito'],
+            'incomplete' => $search['incomplete'],
+        ]);
     }
 
     /**
