@@ -34,11 +34,12 @@ class StoreActivityItem extends FormRequest
     public function rules()
     {
         $languages = resolve(LanguageOptions::class)->keys();
+        $activityItem = $this->route('activity_item');
 
         return [
             'title' => 'required|max:255',
             'type' => 'required|integer|between:1,7',
-            'zoo' => 'required|integer|between:1,3',
+            'zoo' => ( $activityItem && auth()->user()->cannot('changeZoo', $activityItem) ) ? 'integer|between:1,3' : 'required|integer|between:1,3',
             'language' => 'required|in:' . implode(',', $languages),
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
