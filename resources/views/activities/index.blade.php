@@ -55,7 +55,7 @@
                                     </a>
                                 </div>
                                 <div class="media-body">
-                                    @include('activities.includes.actions', ['includePlay' => false])
+                                    @include('activities.includes.actions')
                                     <h4 class="media-heading">
                                         <a href="{!! route('activity.show', ['id' => $activity->id]) !!}">
                                             {{ $activity->title }}
@@ -103,12 +103,7 @@
                                         </div>
                                     @endif
 
-                                    <form class="sz-play-action-form" action="{{ route('activity.start', ['id' => $activity->id]) }}" method="POST">
-                                        {{ csrf_field() }}
-                                        <button type="submit" class="btn btn-success btn-sm" title="{{ trans('general.actions.play') }}">
-                                          <i class="mdi mdi-play-circle-outline"></i>
-                                        </button>
-                                    </form>
+                                    @include('activities.includes.play', ['activity' => $activity])
                                 </div>
                             </div>
                         @endforeach
