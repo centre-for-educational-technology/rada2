@@ -501,7 +501,7 @@ class ActivityController extends Controller
      */
     public function qrCode(Activity $activity)
     {
-        $url = route('activity.start', ['id' => $activity->id]);
+        $url = route('activity.show', ['id' => $activity->id]);
         $qrCode = QrCode::size(500)->errorCorrection('H')->generate($url);
 
         return [
