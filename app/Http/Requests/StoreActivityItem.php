@@ -6,6 +6,8 @@ use Illuminate\Foundation\Http\FormRequest;
 
 use App\ActivityItem;
 
+use App\Options\LanguageOptions;
+
 class StoreActivityItem extends FormRequest
 {
     /**
@@ -31,11 +33,13 @@ class StoreActivityItem extends FormRequest
      */
     public function rules()
     {
+        $languages = resolve(LanguageOptions::class)->keys();
+
         return [
             'title' => 'required|max:255',
             'type' => 'required|integer|between:1,7',
             'zoo' => 'required|integer|between:1,3',
-            'language' => 'required|in:en,et,ru,fi,swe',
+            'language' => 'required|in:' . implode(',', $languages),
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'read_more' => 'url',

@@ -22,6 +22,15 @@ class OptionsBase implements OptionsInterface
     }
 
     /**
+     * Returns keys of all available options.
+     * @return array Keys of defined options
+     */
+    public function keys()
+    {
+        return array_keys($this->options());
+    }
+
+    /**
      * Returns value for the option key provided. Defaults to the provided key
      * if value for one does not exist.
      * @param  mixed $key Option identifier
