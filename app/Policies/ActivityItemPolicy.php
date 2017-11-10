@@ -43,7 +43,7 @@ class ActivityItemPolicy
      */
     public function create(User $user)
     {
-        return $user->isZooAdmin() || $user->isZooMember();
+        return true;
     }
 
     /**
