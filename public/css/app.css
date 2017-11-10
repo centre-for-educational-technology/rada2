@@ -16326,4 +16326,58 @@ fieldset[disabled] .btn-qr-code.focus {
   background-color: #fff;
 }
 
+.btn-play {
+  color: #fff;
+  background-color: #73c84c;
+  border-color: #ceecc1;
+  border-width: 5px;
+  border-radius: 10px;
+}
+
+.btn-play:focus, .btn-play.focus {
+  color: #fff;
+  background-color: #5bac35;
+  border-color: #82ce5f;
+}
+
+.btn-play:hover {
+  color: #fff;
+  background-color: #5bac35;
+  border-color: #aadd92;
+}
+
+.btn-play:active, .btn-play.active,
+.open > .btn-play.dropdown-toggle {
+  color: #fff;
+  background-color: #5bac35;
+  border-color: #aadd92;
+}
+
+.btn-play:active:hover, .btn-play:active:focus, .btn-play:active.focus, .btn-play.active:hover, .btn-play.active:focus, .btn-play.active.focus,
+.open > .btn-play.dropdown-toggle:hover,
+.open > .btn-play.dropdown-toggle:focus,
+.open > .btn-play.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #4c902d;
+  border-color: #82ce5f;
+}
+
+.btn-play:active, .btn-play.active,
+.open > .btn-play.dropdown-toggle {
+  background-image: none;
+}
+
+.btn-play.disabled:hover, .btn-play.disabled:focus, .btn-play.disabled.focus, .btn-play[disabled]:hover, .btn-play[disabled]:focus, .btn-play[disabled].focus,
+fieldset[disabled] .btn-play:hover,
+fieldset[disabled] .btn-play:focus,
+fieldset[disabled] .btn-play.focus {
+  background-color: #73c84c;
+  border-color: #ceecc1;
+}
+
+.btn-play .badge {
+  color: #73c84c;
+  background-color: #fff;
+}
+
 /*# sourceMappingURL=app.css.map */

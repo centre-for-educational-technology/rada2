@@ -602,5 +602,11 @@ img.sz-uploaded-image-preview {
 }
 
 .btn-qr-code {
-  @include button-variant($btn-qr-code-color, $btn-qr-code-bg, $btn-qr-code-border);
+    @include button-variant($btn-qr-code-color, $btn-qr-code-bg, $btn-qr-code-border);
+}
+
+.btn-play {
+    @include button-variant($btn-play-color, lighten($btn-play-bg, 5%), $btn-play-border);
+    border-width: 5px;
+    border-radius: 10px;
 }
