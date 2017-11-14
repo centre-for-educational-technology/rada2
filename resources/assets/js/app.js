@@ -69,4 +69,8 @@ $(document).ready(function() {
             });
     }
 
+    $('a[data-toggle="discountVoucher"]').on('click', function(e) {
+        e.preventDefault();
+        $(this).parent().next('.row').slideToggle();
+    });
 });

@@ -24,6 +24,7 @@
                             @include('activities.includes.actions')
                         </div>
                     </div>
+                    @include('activities.includes.discount_voucher', ['activity' => $activity])
                     @include('activities.includes.play', ['activity' => $activity])
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
