@@ -32,12 +32,6 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <label>{{ $t('playing-time') }}</label>
-                                <select class="form-control" disabled="disabled" v-model="searchForm.playingTime">
-                                    <option v-for="(title, key) in playingTimeOptions" v-bind:value="key">{{ title }}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems()">{{ $t('search') }}</button>
                             </div>
 
@@ -180,15 +174,11 @@
                 languageOptions: {
                     0: this.$t('any')
                 },
-                playingTimeOptions: {
-                    0: this.$t('any')
-                },
                 searchForm: {
                     keywords: '',
                     zoo: '0',
                     questionType: '0',
-                    language: '0',
-                    playingTime: '0'
+                    language: '0'
                 }
             };
         },

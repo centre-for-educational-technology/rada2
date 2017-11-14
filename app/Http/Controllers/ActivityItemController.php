@@ -615,9 +615,9 @@ class ActivityItemController extends Controller
   }
 
   /**
-   * [answer description]
-   * @param  Request $request [description]
-   * @return [type]           [description]
+   * Returns paginated ActivityItem results matching search criteria
+   * @param  \Illuminate\Http\Request $request Request object
+   * @return \Illuminate\Http\Response
    */
   public function search(Request $request)
   {
@@ -637,9 +637,6 @@ class ActivityItemController extends Controller
       }
       if ( $request->has('language') && $request->get('language') !== '0' ) {
           $query->where('language', '=', $request->get('language'));
-      }
-      if ( $request->has('playingTime') ) {
-          // TODO Implement once this is added to the model
       }
 
       return $query->paginate( config('paginate.limit') );

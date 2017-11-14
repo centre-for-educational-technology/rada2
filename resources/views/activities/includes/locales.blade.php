@@ -8,7 +8,6 @@
         'question-type' => trans('general.forms.labels.question-type'),
         'language' => trans('general.language'),
         'difficulty-level' => trans('general.forms.labels.difficulty-level'),
-        'playing-time' => trans('general.forms.labels.playing-time'),
         'search' => trans('general.forms.buttons.search'),
         'close' => trans('general.forms.buttons.close'),
         'difficulty-level' => trans('general.forms.labels.difficulty-level'),
