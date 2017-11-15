@@ -76,6 +76,7 @@ return [
             'activities' => 'Aktiviteter',
             'activity-items' => 'Uppgifter',
             'games' => 'Spel',
+            'discount-vouchers' => 'Vouchers',
             'captions' => [
                 'activities-by-zoo' => 'Sorterade per djurpark',
                 'activities-by-language' => 'Sorterade per språk',
@@ -83,6 +84,10 @@ return [
                 'activity-items-by-question-type' => 'Uppgifter sorterade per frågetyp',
                 'activity-items-by-language' => 'Uppgifter sorterade per språk',
                 'games-by-status' => 'Spel sorterade per tillstånd.',
+            ],
+            'columns' => [
+                'discount-vouchers-total' => 'Total vouchers',
+                'discount-vouchers-redeemed' => 'Redeemed',
             ],
         ],
     ],

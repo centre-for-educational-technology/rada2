@@ -111,6 +111,30 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div>
+                        <h2>
+                            {{ trans('pages.manage.statistics.discount-vouchers') }}
+                            <span class="badge">{{ $discountVouchers }}</span>
+                        </h2>
+
+                        <table class="table table-striped table-hover table-condensed">
+                            <tbody>
+                                <tr>
+                                    <th>{{ trans('pages.manage.statistics.columns.discount-vouchers-total') }}</th>
+                                    <th>{{ trans('general.discount-voucher-status.active') }}</th>
+                                    <th>{{ trans('general.discount-voucher-status.inactive') }}</th>
+                                    <th>{{ trans('pages.manage.statistics.columns.discount-vouchers-redeemed') }}</th>
+                                </tr>
+                                <tr>
+                                    <td>{{ $discountVouchers }}</td>
+                                    <td>{{ $discountVouchersByStatus->has(1) ? $discountVouchersByStatus->get(1)->count : 0 }}</td>
+                                    <td>{{ $discountVouchersByStatus->has(0) ? $discountVouchersByStatus->get(0)->count : 0 }}</td>
+                                    <td>{{ $discountVouchersRedeemed }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>

@@ -76,6 +76,7 @@ return [
             'activities' => 'Activities',
             'activity-items' => 'Activity Items',
             'games' => 'Games',
+            'discount-vouchers' => 'Vouchers',
             'captions' => [
                 'activities-by-zoo' => 'Activities by Zoo',
                 'activities-by-language' => 'Activities by Language',
@@ -83,6 +84,10 @@ return [
                 'activity-items-by-question-type' => 'Activity Items by Question Type',
                 'activity-items-by-language' => 'Activity Items by Language',
                 'games-by-status' => 'Games by Status',
+            ],
+            'columns' => [
+                'discount-vouchers-total' => 'Total vouchers',
+                'discount-vouchers-redeemed' => 'Redeemed',
             ],
         ],
     ],

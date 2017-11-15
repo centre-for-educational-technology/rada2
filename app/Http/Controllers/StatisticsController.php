@@ -12,6 +12,7 @@ use App\User;
 use App\Activity;
 use App\ActivityItem;
 use App\Game;
+use App\DiscountVoucher;
 
 use App\Options\ZooOptions;
 use App\Options\QuestionTypeOptions;
@@ -49,6 +50,8 @@ class StatisticsController extends Controller
         $activityItemsByZoo = ActivityItem::select('zoo', DB::raw('count(*) as count'))->groupBy('zoo')->get()->keyBy('zoo');
         $activityItemsByLanguage = ActivityItem::select('language', DB::raw('count(*) as count'))->groupBy('language')->get()->keyBy('language');
         $gamesByStatus = Game::select('complete', DB::raw('count(*) as count'))->groupBy('complete')->get()->keyBy('complete');
+        $discountVouchersByStatus = DiscountVoucher::select('status', DB::raw('count(*) as count'))->groupBy('status')->get()->keyBy('status');
+        $discountVouchersRedeemed = DB::table('discount_voucher_user')->count();
 
         return view('manage/statistics')->with([
             'users' => User::count(),
@@ -64,6 +67,9 @@ class StatisticsController extends Controller
             'zooOptions' => $zooOptions->options(),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'languageOptions' => $languageOptions->options(),
+            'discountVouchers' => DiscountVoucher::count(),
+            'discountVouchersByStatus' => $discountVouchersByStatus,
+            'discountVouchersRedeemed' => $discountVouchersRedeemed,
         ]);
     }
 }

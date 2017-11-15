@@ -76,6 +76,7 @@ return [
             'activities' => 'Toiminnat',
             'activity-items' => 'Tehtävät',
             'games' => 'Pelit',
+            'discount-vouchers' => 'Vouchers',
             'captions' => [
                 'activities-by-zoo' => 'Toiminnat eläintarhaa kohti',
                 'activities-by-language' => 'Toiminnat kieltä kohti',
@@ -83,6 +84,10 @@ return [
                 'activity-items-by-question-type' => 'Tehtävät kysymyslajia kohti',
                 'activity-items-by-language' => 'Tehtävät kieltä kohti',
                 'games-by-status' => 'Pelit tilaa kohti',
+            ],
+            'columns' => [
+                'discount-vouchers-total' => 'Total vouchers',
+                'discount-vouchers-redeemed' => 'Redeemed',
             ],
         ],
     ],
