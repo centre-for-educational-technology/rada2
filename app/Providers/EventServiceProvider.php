@@ -122,7 +122,7 @@ class EventServiceProvider extends ServiceProvider
 
         Event::listen('game.complete', function($game)
         {
-            if ( Auth::check() && $game->activity->discountVoucher && $game->activity->discountVoucher->isActive() )
+            if ( Auth::check() && $game->activity->discountVoucher && $game->activity->discountVoucher->canBeAwarded() )
             {
                 $user = Auth::user();
 

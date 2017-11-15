@@ -36,6 +36,7 @@ class StoreDiscountVoucher extends FormRequest
         return [
             'title' => 'required|max:255',
             'duration' => 'required|integer|min:0',
+            'amount' => 'integer|min:0',
             'status' => 'required|integer|in:0,1',
             'image' => (!$voucher) ? 'required|image|mimes:jpeg,jpg,png' : 'image|mimes:jpeg,jpg,png',
         ];

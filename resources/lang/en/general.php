@@ -68,6 +68,7 @@ return [
            'status' => 'Status',
            'discount-voucher' => 'Discount Voucher',
            'access-code' => 'Access Code',
+           'amount' => 'Amount',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -106,6 +107,7 @@ return [
        ],
        'addons' => [
            'hours' => 'hours',
+           'awarded' => 'awarded',
        ],
    ],
    'actions' => [

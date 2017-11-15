@@ -59,6 +59,7 @@
                                         {{ $voucher->duration }}
                                         ({{ trans('general.forms.addons.hours') }})
                                     </div>
+                                    @include('discount_vouchers.includes.amount_metadata', ['voucher' => $voucher])
                                     <div class="sz-metadata">
                                         {{ $statusOptions[$voucher->status] }}
                                     </div>

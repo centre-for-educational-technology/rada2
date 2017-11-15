@@ -1,4 +1,4 @@
-@if ( $activity->discountVoucher && $activity->discountVoucher->isActive() )
+@if ( $activity->discountVoucher && $activity->discountVoucher->canBeAwarded() )
     <div class="sz-metadata">
         <i class="mdi mdi-sale" aria-hidden="true"></i>
         <a href="#"
@@ -20,6 +20,7 @@
                         {{ $activity->discountVoucher->duration }}
                         {{ trans('general.forms.addons.hours') }}
                     </p>
+                    @include('discount_vouchers.includes.amount_metadata', ['voucher' => $activity->discountVoucher])
                     <p class="sz-display-new-lines">{{ $activity->discountVoucher->description }}</p>
                 </div>
             </div>

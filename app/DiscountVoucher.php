@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\Traits\UuidModel;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Facades\File;
+use App\User;
 
 class DiscountVoucher extends Model
 {
@@ -69,5 +70,41 @@ class DiscountVoucher extends Model
     public function isActive()
     {
         return (boolean) $this->status;
+    }
+
+    /**
+     * Determines if current voucher has an amount limit set
+     * @return boolean
+     */
+    public function hasAmountLimitation()
+    {
+        return (bool) $this->amount;
+    }
+
+    /**
+     * Returns number of awarded vouchers
+     * @return integer
+     */
+    public function awardedCount()
+    {
+        return $this->belongsToMany(User::class)->count();
+    }
+
+    /**
+     * Determines if voucher can be awarded
+     * @return boolean
+     */
+    public function canBeAwarded()
+    {
+        if ( !$this->isActive() )
+        {
+            return false;
+        }
+        else if ( !$this->hasAmountLimitation() )
+        {
+            return true;
+        }
+
+        return $this->awardedCount() < (int) $this->amount;
     }
 }

@@ -39,13 +39,32 @@ class DiscountVoucherController extends Controller
      * @param  \App\Http\Requests\StoreDiscountVoucher $request
      * @return string                                  Image file name
      */
-    private function processImage(&$imageService, &$request) {
+    private function processImage(&$imageService, &$request)
+    {
         $originalExtension = $request->file('image')->getClientOriginalExtension();
         $fileName = $imageService->generateUniqueFileName('discount_voucher_image_', $originalExtension);
 
         $imageService->process($request->file('image')->getRealPath(), null, $fileName, 800);
 
         return $fileName;
+    }
+
+    /**
+     * Sets new amount value or resets to NULL, default to NULL
+     * @param \App\DiscountVoucher                    $voucher DiscountVoucher object
+     * @param \App\Http\Requests\StoreDiscountVoucher $request Request
+     * @return void
+     */
+    private function setAmount(&$voucher, &$request)
+    {
+        $amount = NULL;
+
+        if ( $request->has('amount') )
+        {
+            $amount = ( (int) $request->amount >= 1 ) ? (int) $request->amount : NULL;
+        }
+
+        $voucher->amount = $amount;
     }
 
     /**
@@ -88,6 +107,7 @@ class DiscountVoucherController extends Controller
         $voucher->title = $request->title;
         $voucher->description = $request->description;
         $voucher->duration = (int) $request->duration;
+        $this->setAmount($voucher, $request);
         $voucher->status = (boolean) $request->status;
 
         if ( $request->hasFile('image') )
@@ -129,6 +149,7 @@ class DiscountVoucherController extends Controller
         $voucher->title = $request->title;
         $voucher->description = $request->description;
         $voucher->duration = (int) $request->duration;
+        $this->setAmount($voucher, $request);
         $voucher->status = (boolean) $request->status;
 
         if ( $request->hasFile('image') ) {

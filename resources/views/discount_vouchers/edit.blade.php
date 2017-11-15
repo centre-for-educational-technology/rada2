@@ -68,6 +68,29 @@
             </div>
         </div>
 
+        <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
+            {!! Form::label('amount', trans('general.forms.labels.amount'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                    <span class="input-group-addon">
+                        <i class="mdi mdi-numeric" aria-hidden="true"></i>
+                    </span>
+                    {!! Form::number('amount', $voucher->amount, [
+                        'class' => 'form-control',
+                        'min' => 0,
+                    ]) !!}
+                </div>
+
+                @if ($errors->has('amount'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('amount') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
         <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
             {!! Form::label('status', trans('general.forms.labels.status'), [
                 'class' => 'col-md-4 control-label',

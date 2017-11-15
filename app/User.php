@@ -181,7 +181,7 @@ class User extends Authenticatable
 
     /**
      * Returns number of DiscountVoucher objects user currently has
-     * @return integer NUmber of discount vouchers
+     * @return integer Number of discount vouchers
      */
     public function getDiscountVouchersCount()
     {
