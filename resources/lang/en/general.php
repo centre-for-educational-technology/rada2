@@ -69,6 +69,10 @@ return [
            'discount-voucher' => 'Discount Voucher',
            'access-code' => 'Access Code',
            'amount' => 'Amount',
+           'hide-incognito' => 'Hide incognito',
+           'hide-incomplete' => 'Hide incomplete',
+           'from' => 'From',
+           'until' => 'Until',
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -92,6 +96,7 @@ return [
            'load-more' => 'Load more',
            'add-option' => 'Add option',
            'reset' => 'Reset',
+           'apply-filters' => 'Apply filters',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Type a keyword or title',
@@ -101,6 +106,7 @@ return [
            'read-more' => 'Enter a URL that has more information on the topic',
            'name-or-email' => 'Name or email',
            'access-code' => 'Code or text to access question without positioning restrictions',
+           'datetime' => 'Date or Date and Time',
        ],
        'options' => [
            'any' => 'Any',

@@ -22,6 +22,8 @@ use App\Services\ImageService;
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
+use Carbon\Carbon;
+
 use Illuminate\Support\Facades\Log;
 
 class ActivityController extends Controller
@@ -100,6 +102,40 @@ class ActivityController extends Controller
     private function isEmptyDiscountVoucher($id)
     {
         return $id === 'NULL';
+    }
+
+    /**
+     * Returns date object if parsing succeeded
+     * @param  string                   $parameterName Parameter name
+     * @param  \Illuminate\Http\Request $request       Request object
+     * @return mixed                                   Carbon date object or NULL
+     */
+    private function getParsedDateFromRequest($parameterName, &$request)
+    {
+        $dateObject = NULL;
+
+        if ( $request->has($parameterName) && $request->get($parameterName) )
+        {
+            try {
+                $dateObject = Carbon::parse($request->get($parameterName));
+            }
+            catch (\Exception $e)
+            {
+                // Parsing failed, nothing to be done
+            }
+        }
+
+        return $dateObject;
+    }
+
+    /**
+     * Returns the browser input friendly DateTime string
+     * @param  \Carbon\Carbon $date Date object
+     * @return string               DateTime string suitable for datetime-local input
+     */
+    private function toBrowserInputFriendlyDateTime(Carbon $date)
+    {
+        return "{$date->toDateString()}T{$date->toTimeString()}";
     }
 
     /**
@@ -465,6 +501,8 @@ class ActivityController extends Controller
         $search = [
             'incognito' => ( $request->has('incognito') && (int)$request->incognito === 0 ) ? false : true,
             'incomplete' => ( $request->has('incomplete') && (int)$request->incomplete === 0 ) ? false : true,
+            'from' => ( $request->has('from') && $request->from ) ? $this->getParsedDateFromRequest('from', $request) : '',
+            'until' => ( $request->has('until') && $request->until ) ? $this->getParsedDateFromRequest('until', $request) : '',
         ];
 
         $gamesQuery = $activity->games()->orderBy('created_at', 'desc');
@@ -479,9 +517,34 @@ class ActivityController extends Controller
             $gamesQuery->where('complete', '=', 1);
         }
 
+        if ( $search['from'] && $search['until'] )
+        {
+            $gamesQuery->where(function($gamesQuery) use ($search) {
+                $gamesQuery->where('created_at', '>=', $search['from'])->where('created_at', '<=', $search['until']);
+            });
+        }
+        else if ( $search['from'] )
+        {
+            $gamesQuery->where('created_at', '>=', $search['from']);
+        }
+        else if ( $search['until'] )
+        {
+            $gamesQuery->where('created_at', '<=', $search['until']);
+        }
+
         $games = $gamesQuery->paginate( config('paginate.limit') );
 
-        if ( !$search['incomplete'] || !$search['incognito'] )
+        // Turn dates into strings, make sure the result is suitable from the borowser input
+        if ( $search['from'] )
+        {
+            $search['from'] = $this->toBrowserInputFriendlyDateTime($search['from']);
+        }
+        if ( $search['until'] )
+        {
+            $search['until'] = $this->toBrowserInputFriendlyDateTime($search['until']);
+        }
+
+        if ( !$search['incomplete'] || !$search['incognito'] || $search['from'] || $search['until'] )
         {
             $games->appends($search);
         }
@@ -489,8 +552,7 @@ class ActivityController extends Controller
         return view('activities/results')->with([
             'activity' => $activity,
             'games' => $games,
-            'incognito' => $search['incognito'],
-            'incomplete' => $search['incomplete'],
+            'filters' => $search,
         ]);
     }
 

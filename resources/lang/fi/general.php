@@ -69,6 +69,10 @@ return [
            'discount-voucher' => 'Discount Voucher',
            'access-code' => 'Access Code',
            'amount' => 'Amount',
+           'hide-incognito' => 'Hide incognito',
+           'hide-incomplete' => 'Hide incomplete',
+           'from' => 'From',
+           'until' => 'Until',
        ],
        'help' => [
            'playing-time' => 'Toimintaaika minuuteissa',
@@ -92,6 +96,7 @@ return [
            'load-more' => 'Lataa lisää',
            'add-option' => 'Lisää vaihtoehto',
            'reset' => 'Palauta',
+           'apply-filters' => 'Apply filters',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Syötä avainsana tai otsikko',
@@ -101,6 +106,7 @@ return [
            'read-more' => 'Syötä URL jossa löytyy lisää tietoja aiheesta.',
            'name-or-email' => 'Name or email',
            'access-code' => 'Code or text to access question without positioning restrictions',
+           'datetime' => 'Date or Date and Time',
        ],
        'options' => [
            'any' => 'Joku',

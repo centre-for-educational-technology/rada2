@@ -69,6 +69,10 @@ return [
            'discount-voucher' => 'Discount Voucher',
            'access-code' => 'Access Code',
            'amount' => 'Amount',
+           'hide-incognito' => 'Hide incognito',
+           'hide-incomplete' => 'Hide incomplete',
+           'from' => 'From',
+           'until' => 'Until',
        ],
        'help' => [
            'playing-time' => 'Aktivitetstid i minuter',
@@ -92,6 +96,7 @@ return [
            'load-more' => 'Hämta mera.',
            'add-option' => 'Lägg till ett alternativ.',
            'reset' => 'Återställ',
+           'apply-filters' => 'Apply filters',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Skriv ett nyckelord eller en rubrik.',
@@ -101,6 +106,7 @@ return [
            'read-more' => 'Lägg in en URL med mer information om frågan.',
            'name-or-email' => 'Name or email',
            'access-code' => 'Code or text to access question without positioning restrictions',
+           'datetime' => 'Date or Date and Time',
        ],
        'options' => [
            'any' => 'Någon',

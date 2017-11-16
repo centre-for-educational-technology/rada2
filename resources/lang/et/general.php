@@ -69,6 +69,10 @@ return [
            'discount-voucher' => 'Discount Voucher',
            'access-code' => 'Access Code',
            'amount' => 'Amount',
+           'hide-incognito' => 'Hide incognito',
+           'hide-incomplete' => 'Hide incomplete',
+           'from' => 'From',
+           'until' => 'Until',
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
@@ -92,6 +96,7 @@ return [
            'load-more' => 'Lae veel',
            'add-option' => 'Lisa valik',
            'reset' => 'Lähtesta',
+           'apply-filters' => 'Apply filters',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Märksõna või pealkiri',
@@ -101,6 +106,7 @@ return [
            'read-more' => 'Sisesta veebiaadress kust leiab rohkem infot',
            'name-or-email' => 'Name or email',
            'access-code' => 'Code or text to access question without positioning restrictions',
+           'datetime' => 'Date or Date and Time',
        ],
        'options' => [
            'any' => 'Kõik',

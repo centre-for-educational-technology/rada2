@@ -9,8 +9,13 @@
             }
         });
 
-        $('form').find('.checkbox > label > input[type="checkbox"]').on('change', function() {
+        $('form[name="filters"]').find('.checkbox > label > input[type="checkbox"]').on('change', function() {
             $(this).parents('form').submit();
+        });
+
+        $('form[name="filters"] button[type="reset"]').on('click', function(e) {
+            e.preventDefault();
+            window.location.replace(window.location.origin + window.location.pathname);
         });
     });
 </script>
@@ -29,26 +34,54 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                    <div class="col-xs-12">
-                        {!! trans('pages.activity-results.heading', [ 'title' => $activity->title ]) !!}
-                    </div>
+                        <div class="col-xs-12">
+                            {!! trans('pages.activity-results.heading', [ 'title' => $activity->title ]) !!}
+                        </div>
 
-                    <div class="col-xs-12">
-                        <form class="form-inline pull-right">
-                            <div class="checkbox sz-metadata">
-                                <label>
-                                    <input type="checkbox" name="incognito" id="incognito" value="0"{{ $incognito ? '' : ' checked'}}>
-                                    Hide incognito
-                                </label>
+                        <form name="filters" action="{!! route('activity.results', ['id' => $activity->id]) !!}" class="form-inline col-xs-12">
+                            <div class="row">
+                                <div class="col-xs-12">
+                                    <div class="pull-right">
+                                        <div class="checkbox sz-metadata">
+                                            <label>
+                                                <input type="checkbox" name="incognito" id="incognito" value="0"{{ $filters['incognito'] ? '' : ' checked'}}>
+                                                {{ trans('general.forms.labels.hide-incognito') }}
+                                            </label>
+                                        </div>
+                                        <div class="checkbox sz-metadata">
+                                            <label>
+                                                <input type="checkbox" name="incomplete" id="incomplete" value="0"{{ $filters['incomplete'] ? '' : ' checked'}}>
+                                                {{ trans('general.forms.labels.hide-incomplete') }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="checkbox sz-metadata">
-                                <label>
-                                    <input type="checkbox" name="incomplete" id="incomplete" value="0"{{ $incomplete ? '' : ' checked'}}>
-                                    Hide incomplete
-                                </label>
+                            <div class="row">
+                                <div class="col-xs-12 text-center">
+                                    <div class="form-group">
+                                        <label for="from">{{ trans('general.forms.labels.from') }}</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="mdi mdi-calendar-clock" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="datetime-local" name="from" id="from" value="{{ $filters['from'] }}" class="form-control" placeholder="{{ trans('general.forms.placeholders.datetime') }}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="from">{{ trans('general.forms.labels.until') }}</label>
+                                        <div class="input-group">
+                                            <span class="input-group-addon">
+                                                <i class="mdi mdi-calendar-clock" aria-hidden="true"></i>
+                                            </span>
+                                            <input type="datetime-local" name="until" id="until" value="{{ $filters['until'] }}" class="form-control" placeholder="{{ trans('general.forms.placeholders.datetime') }}">
+                                        </div>
+                                    </div>
+                                    <button type="submit" class="btn btn-primary">{{ trans('general.forms.buttons.apply-filters') }}</button>
+                                    <button type="reset" class="btn btn-default">{{ trans('general.forms.buttons.reset') }}</button>
+                                </div>
                             </div>
                         </form>
-                    </div>
                     </div>
                 </div>
 
