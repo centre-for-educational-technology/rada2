@@ -61,6 +61,12 @@ const playGameApp = new Vue({
             } else {
                 this.$refs.informationModal.open();
             }
+
+            this.$watch('game.complete', () => {
+                if ( this.isGameComplete() ) {
+                    this.$refs.resultsModal.open();
+                }
+            });
         } else {
             this.$refs.resultsModal.open();
         }

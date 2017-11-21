@@ -20,6 +20,7 @@ Route::get('/user', function (Request $request) {
 Route::group(['prefix' => 'games'], function()
 {
     Route::post('answer', 'GameController@answer');
+    Route::post('position', 'GameController@logPlayerPosition');
 });
 
 Route::group(['prefix' => 'activity_items'], function() {

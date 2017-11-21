@@ -25,8 +25,8 @@ class GameAnswer extends Model
     }
 
     /**
-     * Get user account current social one belongs to.
-     * @return User Application local user account
+     * Get Game the Answer belongs to
+     * @return Game
      */
     public function game()
     {

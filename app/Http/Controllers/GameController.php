@@ -12,6 +12,8 @@ use App\GameAnswer;
 
 use App\ActivityItem;
 
+use App\PlayerPosition;
+
 use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\File;
@@ -24,8 +26,20 @@ use Auth;
 
 use Illuminate\Support\Facades\Event;
 
+use Carbon\Carbon;
+
 class GameController extends Controller
 {
+    /**
+     * Create a new controller instance.
+     *
+     * @return void
+     */
+    public function __construct()
+    {
+        $this->middleware('game.verify', ['except' => ['play',]]);
+    }
+
     /**
      * Display game page for the specified activity.
      *
@@ -50,25 +64,14 @@ class GameController extends Controller
     }
 
     /**
-     * [answer description]
-     * @param  Request                    $request      [description]
+     * Answer a question
+     * @param  \Illuminate\Http\Request   $request      Request object
      * @param  \App\Services\ImageService $imageService ImageService instance
-     * @return [type]                                   [description]
+     * @param  \App\Game                  $game         Game object
+     * @return \Illuminate\Http\Response
      */
-    public function answer(Request $request, ImageService $imageService)
+    public function answer(Request $request, ImageService $imageService, Game $game)
     {
-        $game = Game::find($request->get('game_id'));
-
-        if ( $game->user_id ) {
-            if ( !( Auth::guard('web')->check() && Auth::guard('web')->user()->id === $game->user_id ) ) {
-                return response()->json(['error' => 'Forbidden.'], 403);
-            }
-        }
-
-        if ( $game->isComplete() ) {
-            return response()->json(['error' => 'Game has already been marked as completed.'], 403);
-        }
-
         $activity = $game->activity;
 
         $item = $activity->activityItems()->where('id', $request->get('question_id'))->first();
@@ -140,5 +143,32 @@ class GameController extends Controller
         }
 
         return $answer->getGameData();
+    }
+
+    /**
+     * Log player position
+     * @param  \Illuminate\Http\Request $request Request object
+     * @param  \App\Game                $game    Game object
+     * @return \Illuminate\Http\Response
+     */
+    public function logPlayerPosition(Request $request, Game $game)
+    {
+        $position = $request->get('position');
+
+        if ( !$position )
+        {
+            return response()->json(['error' => 'Position data is missing.'], 400);
+        }
+
+        $playerPosition = new PlayerPosition();
+        $playerPosition->game()->associate($game);
+        $playerPosition->latitude = $position['coords']['latitude'];
+        $playerPosition->longitude = $position['coords']['longitude'];
+        $playerPosition->heading = $position['coords']['heading'];
+        $playerPosition->timestamp = Carbon::createFromTimestamp((int)$position['timestamp'] / 1000);
+        $playerPosition->created_at = Carbon::now();
+        $playerPosition->save();
+
+        return $playerPosition;
     }
 }

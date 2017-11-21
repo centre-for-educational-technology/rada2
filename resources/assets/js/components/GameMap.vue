@@ -137,7 +137,8 @@
         data() {
             return {
                 question: null,
-                gpsError: false
+                gpsError: false,
+                position: null
             };
         },
         watch: {
@@ -201,6 +202,8 @@
                             }
                         });
                     }
+
+                    _this.setPosition(position);
                 }, true, function(error) {
                     _this.gpsError = true;
                 });
@@ -254,6 +257,8 @@
 
                     _this.initUpdateClosestUnansweredMarkerArrow();
                 }
+
+                this.initPlayerPositionLogging();
             },
             initGroundOverlays() {
                 this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay(this.baseUrl + '/img/map/overlays/skansen.png',{
@@ -375,10 +380,6 @@
 
                 if ( _.intersection(questionIds, answerIds).length === questionIds.length ) {
                     this.game.complete = true;
-
-                    this.$nextTick(() => {
-                        this.$parent.$refs.resultsModal.open();
-                    });
                 }
             },
             connectMarkers() {
@@ -534,6 +535,52 @@
                         marker.getPosition()
                     ]);
                 }
+            },
+            initPlayerPositionLogging() {
+                if ( this.game.complete ) return;
+
+                const vm = this;
+
+                const playerPositionIntervalId = setInterval(() => {
+                    vm.logPlayerPosition(vm.getPosition());
+                }, 60000);
+
+                vm.$watch('game.complete', (newVal, oldVal) => {
+                    if ( newVal === true ) {
+                        clearInterval(playerPositionIntervalId);
+                    }
+                });
+            },
+            setPosition(position) {
+                this.position = position;
+            },
+            getPosition() {
+                return this.position;
+            },
+            logPlayerPosition(position) {
+                if ( !position ) return;
+
+                var data = {
+                    game_id: this.game.id,
+                    position: {
+                        coords: {
+                            latitude: position.coords.latitude,
+                            longitude: position.coords.longitude,
+                            altitude: position.coords.altitude,
+                            accuracy: position.coords.accuracy,
+                            altitudeAccuracy: position.coords.altitudeAccuracy,
+                            heading: position.coords.heading,
+                            speed: position.coords.speed
+                        },
+                        timestamp: position.timestamp
+                    },
+                };
+
+                this.$http.post(this.baseUrl + '/api/games/position', data).then(response => {
+                    // Succeed silently
+                }, response => {
+                    // Fail silently
+                });
             }
         }
     }
