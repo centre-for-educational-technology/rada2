@@ -107,6 +107,7 @@ return [
            'name-or-email' => 'Name or email',
            'access-code' => 'Code or text to access question without positioning restrictions',
            'datetime' => 'Date or Date and Time',
+           'question-or-information' => 'Please write Question or Information, depending on chosen Question Type',
        ],
        'options' => [
            'any' => 'Någon',
