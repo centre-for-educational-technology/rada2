@@ -60,6 +60,21 @@ window.initMap = function() {
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControls);
     }
 
+    // TODO This code is a repatition of one from GameMap component
+    // It might make sense to rewrite it into a mixin
+    // This would require using a component for the map instead
+    function initGroundOverlays(map) {
+        return new google.maps.GroundOverlay(window.Laravel.baseUrl + '/img/map/overlays/skansen.png',{
+            north: 59.329167,
+            south: 59.324011,
+            east: 18.111242,
+            west: 18.099022
+        }, {
+            clickable: false,
+            map: map
+        });
+    }
+
     function setLatAndLngValues(latLng) {
         document.getElementById('latitude').value = ( typeof latLng.lat === 'function' ) ? latLng.lat() : latLng.lat;
         document.getElementById('longitude').value = ( typeof latLng.lng === 'function' ) ? latLng.lng() : latLng.lng;
@@ -141,6 +156,8 @@ window.initMap = function() {
 
         repositionMarker(latLng, marker, map);
     });
+
+    initGroundOverlays(map);
 
     $(document).find('select[name="zoo"]').on('change', function() {
         var value = $(this).val(),
