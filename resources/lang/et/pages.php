@@ -159,7 +159,9 @@ return [
     ],
     'activity-results' => [
         'heading' => 'Mängu <strong>:title</strong> tulemused',
-
+        'btn' => [
+            'download-player-positions' => 'Download player positions',
+        ],
     ],
     'profile' => [
         'title' => 'Profiil',

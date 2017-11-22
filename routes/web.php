@@ -33,6 +33,7 @@ Route::group(['prefix' => 'dashboard'], function()
     Route::get('/', 'HomeController@index')->name('dashboard');
     Route::get('results', 'ActivityController@resultsIndex')->name('results');
     Route::get('{activity}/results', 'ActivityController@results')->name('activity.results');
+    Route::get('{game}/positions', 'GameController@downloadPlayerPositions')->name('game.positions');
 });
 
 Route::group(['prefix' => 'profile'], function() {

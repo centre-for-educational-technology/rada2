@@ -159,7 +159,9 @@ return [
     ],
     'activity-results' => [
         'heading' => 'Results of <strong>:title</strong>',
-
+        'btn' => [
+            'download-player-positions' => 'Download player positions',
+        ],
     ],
     'profile' => [
         'title' => 'Profile',

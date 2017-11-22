@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Event;
 
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\DB;
+
 class GameController extends Controller
 {
     /**
@@ -37,7 +39,7 @@ class GameController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('game.verify', ['except' => ['play',]]);
+        $this->middleware('game.verify', ['except' => ['play', 'downloadPlayerPositions']]);
     }
 
     /**
@@ -170,5 +172,46 @@ class GameController extends Controller
         $playerPosition->save();
 
         return $playerPosition;
+    }
+
+    /**
+     * Trigger download of CSV file with player positions
+     * @param  \App\Game   $game Game object
+     * @return \Illuminate\Http\Response
+     */
+    public function downloadPlayerPositions(Game $game)
+    {
+        $this->authorize('downloadPlayerPositions', $game->activity);
+
+        $headers = [
+            'Content-type' => 'text/csv',
+            'Content-Disposition' => 'attachment; filename=game-' . $game->id . '-player-positions.csv',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+        $columns = ['Latitude', 'Longitude', 'Heading', 'Timestamp',];
+        $playerPositions = DB::table('player_positions')
+                               ->select('latitude', 'longitude', 'heading', 'timestamp')
+                               ->where('game_id', $game->id)
+                               ->orderBy('timestamp', 'asc')
+                               ->get();
+        $callback = function() use ($playerPositions, $columns)
+        {
+            $handle = fopen('php://output', 'w');
+            fputcsv($handle, $columns);
+
+            if ( $playerPositions->count() > 0 )
+            {
+                foreach ($playerPositions as $position)
+                {
+                    fputcsv($handle, [$position->latitude, $position->longitude, $position->heading, $position->timestamp,]);
+                }
+            }
+
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

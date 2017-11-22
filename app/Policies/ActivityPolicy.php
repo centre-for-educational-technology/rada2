@@ -84,7 +84,7 @@ class ActivityPolicy
     }
 
     /**
-     * Determine whether the user view results for Activity.
+     * Determine whether the user can view results for Activity.
      *
      * @param  App\User  $user
      * @param  App\Activity  $activity
@@ -93,6 +93,18 @@ class ActivityPolicy
     public function viewResults(User $user, Activity $activity)
     {
         return $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
+    }
+
+    /**
+     * Determine whether the user can download player positions data for Activity.
+     *
+     * @param  App\User  $user
+     * @param  App\Activity  $activity
+     * @return boolean
+     */
+    public function downloadPlayerPositions(User $user, Activity $activity)
+    {
+        return $this->viewResults($user, $activity);
     }
 
     /**

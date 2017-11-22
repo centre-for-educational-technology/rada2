@@ -134,21 +134,24 @@
                                     @foreach($games as $game)
                                     <tr>
                                         <td class="text-center {{ !$game->isComplete() ? 'warning' : '' }}">
-                                        @if( $game->user )
-                                            {{ $game->user->name }}
-                                        @else
-                                            <i class="mdi mdi-incognito" aria-hidden="true"></i>
-                                        @endif
-                                        <div class="sz-metadata">
-                                            <i class="mdi mdi-timer" aria-hidden="true"></i>
-                                            {{ date(trans('general.date-time.formats.medium'), strtotime($game->created_at)) }}
-                                        </div>
-                                        @if ( $game->isComplete())
+                                            <a class="btn btn-primary btn-xs pull-right" href="{!! route('game.positions', ['id' => $game->id]) !!}" target="_blank" title="{{ trans('pages.activity-results.btn.download-player-positions') }}">
+                                                <i class="mdi mdi-download" aria-hidden="true"></i>
+                                            </a>
+                                            @if( $game->user )
+                                                {{ $game->user->name }}
+                                            @else
+                                                <i class="mdi mdi-incognito" aria-hidden="true"></i>
+                                            @endif
                                             <div class="sz-metadata">
-                                                <i class="mdi mdi-timer-off" aria-hidden="true"></i>
-                                                {{ date(trans('general.date-time.formats.medium'), strtotime($game->updated_at)) }}
+                                                <i class="mdi mdi-timer" aria-hidden="true"></i>
+                                                {{ date(trans('general.date-time.formats.medium'), strtotime($game->created_at)) }}
                                             </div>
-                                        @endif
+                                            @if ( $game->isComplete())
+                                                <div class="sz-metadata">
+                                                    <i class="mdi mdi-timer-off" aria-hidden="true"></i>
+                                                    {{ date(trans('general.date-time.formats.medium'), strtotime($game->updated_at)) }}
+                                                </div>
+                                            @endif
                                         </td>
                                         @foreach($activity->activityItems as $item)
                                             @php( $hasAnswer = $game->hasAnswerTo($item->id) )
