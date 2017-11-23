@@ -13,10 +13,6 @@ return [
     |
     */
 
-   'activity-type' => [
-       'collecting-cards' => 'Kaartide kogumine',
-       'treasure-hunt' => 'Aarete jaht',
-   ],
    'activity-status' => [
        'complete' => 'Lõpeta tegevus',
        'ongoing' => 'Käimasolev tegevus',
@@ -49,7 +45,6 @@ return [
    ],
    'forms' => [
        'labels' => [
-           'activity-type' => 'Raja tüüp',
            'title' => 'Pealkiri',
            'description' => 'Kirjeldus',
            'difficulty-level' => 'Raskusaste',

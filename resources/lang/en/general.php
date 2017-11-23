@@ -13,10 +13,6 @@ return [
     |
     */
 
-   'activity-type' => [
-       'collecting-cards' => 'Collecting Cards',
-       'treasure-hunt' => 'Treasure Hunt',
-   ],
    'activity-status' => [
        'complete' => 'Complete Activity',
        'ongoing' => 'Ongoing Activity',
@@ -49,7 +45,6 @@ return [
    ],
    'forms' => [
        'labels' => [
-           'activity-type' => 'Activity Type',
            'title' => 'Title',
            'description' => 'Description',
            'difficulty-level' => 'Difficulty Level',

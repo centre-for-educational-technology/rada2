@@ -18,25 +18,6 @@
         'class' => 'form-horizontal activity-create',
         'role' => 'form',
     ]) !!}
-        <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
-            {!! Form::label('type', trans('general.forms.labels.activity-type'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    {!! Form::select('type', $activityTypeOptions, null, [
-                        'class' => 'form-control',
-                    ]) !!}
-                </div>
-
-                @if ($errors->has('type'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('type') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
         <div class="form-group required{{ $errors->has('title') ? ' has-error' : '' }}">
             {!! Form::label('title', trans('general.forms.labels.title'), [
                 'class' => 'col-md-4 control-label',

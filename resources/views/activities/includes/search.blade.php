@@ -5,20 +5,6 @@
     </div>
 
     <div class="form-group">
-        <label for="activity-type">{{ trans('general.forms.labels.activity-type') }}</label>
-        <select class="form-control" name="activity-type" id="activity-type">
-            <option value="0">{{ trans('general.forms.options.any') }}</option>
-            @foreach($activityTypeOptions as $key => $title)
-                @if( $key == $search['activity-type'] )
-                    <option value="{{ $key }}" selected="selected">{{ $title }}</option>
-                @else
-                    <option value="{{ $key }}">{{ $title }}</option>
-                @endif
-            @endforeach
-        </select>
-    </div>
-
-    <div class="form-group">
         <label for="difficulty-level">{{ trans('general.forms.labels.difficulty-level') }}</label>
         <div class="input-group col-xs-12">
             <div class="btn-group btn-group-lg btn-group-justified" role="group">

@@ -4,7 +4,6 @@ namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use App\Options\ZooOptions;
-use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\ZooGeolocationOptions;
@@ -32,10 +31,6 @@ class OptionsServiceProvider extends ServiceProvider
     {
         $this->app->singleton(ZooOptions::class, function($app) {
             return new ZooOptions();
-        });
-
-        $this->app->singleton(ActivityTypeOptions::class, function($app) {
-            return new ActivityTypeOptions();
         });
 
         $this->app->singleton(LanguageOptions::class, function($app) {

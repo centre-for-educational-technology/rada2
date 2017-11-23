@@ -14,7 +14,6 @@ use App\DiscountVoucher;
 use Auth;
 
 use App\Options\ZooOptions;
-use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\DifficultyLevelOptions;
@@ -143,11 +142,10 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, ActivityTypeOptions $activityTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions, DifficultyLevelOptions $difficultyLevelOptions)
+    public function index(Request $request, ZooOptions $zooOptions, LanguageOptions $languageOptions, DifficultyLevelOptions $difficultyLevelOptions)
     {
         $search = [
             'search-text' => $request->has('search-text') ? $request->get('search-text') : '',
-            'activity-type' => $request->has('activity-type') ? $request->get('activity-type') : '',
             'difficulty-level' => $request->has('difficulty-level') ? $request->get('difficulty-level') : '',
             'zoo' => $request->has('zoo') ? $request->get('zoo') : '',
             'language' => $request->has('language') ? $request->get('language') : '',
@@ -161,11 +159,6 @@ class ActivityController extends Controller
             $query->where(function($query) use ($request) {
                 $query->where('title', 'like', '%' . trim($request->get('search-text')) . '%')->orWhere('description', 'like', '%' . trim($request->get('search-text')) . '%');
             });
-        }
-
-        if ( $request->has('activity-type') && (int)$request->get('activity-type') !== 0 )
-        {
-            $query->where('type', '=', (int)$request->get('activity-type'));
         }
 
         if ( $request->has('difficulty-level') ) {
@@ -191,7 +184,6 @@ class ActivityController extends Controller
 
         return view('activities/index')->with([
             'activities' => $activities,
-            'activityTypeOptions' => $activityTypeOptions->options(),
             'zooOptions' => $zooOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
@@ -204,13 +196,12 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
+    public function create(ZooOptions $zooOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
     {
         $this->authorize('create', Activity::class);
 
         return view('activities/create')->with([
             'zooOptions' => $zooOptions->options(),
-            'activityTypeOptions' => $activityTypeOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
@@ -230,7 +221,6 @@ class ActivityController extends Controller
     {
         $activity = new Activity;
 
-        $activity->type = $request->type;
         $activity->title = $request->title;
         $activity->description = $request->description;
         $activity->difficulty_level = $request->difficulty_level;
@@ -306,14 +296,13 @@ class ActivityController extends Controller
      * @param \App\Activity
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity, ZooOptions $zooOptions, ActivityTypeOptions $activityTypeOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
+    public function edit(Activity $activity, ZooOptions $zooOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
     {
         $this->authorize('update', $activity);
 
         return view('activities/edit')->with([
             'activity' => $activity,
             'zooOptions' => $zooOptions->options(),
-            'activityTypeOptions' => $activityTypeOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
@@ -332,7 +321,6 @@ class ActivityController extends Controller
      */
     public function update(StoreActivity $request, Activity $activity, ImageService $imageService)
     {
-        $activity->type = $request->type;
         $activity->title = $request->title;
         $activity->description = $request->description;
         $activity->difficulty_level = $request->difficulty_level;

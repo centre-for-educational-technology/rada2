@@ -7,7 +7,6 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 use App\Options\Interfaces\Options as OptionsInterface;
 use App\Options\OptionsBase;
 use App\Options\ZooOptions;
-use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\ZooGeolocationOptions;
@@ -42,20 +41,6 @@ class OptionsTest extends TestCase
         $this->assertInstanceOf(OptionsInterface::class, $instance);
         $this->assertInstanceOf(OptionsBase::class, $instance);
         $this->assertCount(3, $instance->options());
-    }
-
-    /**
-     * Test ActivityTypeOptions class.
-     *
-     * @return void
-     */
-    public function testActivityTypeOptions()
-    {
-        $instance = $this->app->make(ActivityTypeOptions::class);
-
-        $this->assertInstanceOf(OptionsInterface::class, $instance);
-        $this->assertInstanceOf(OptionsBase::class, $instance);
-        $this->assertCount(2, $instance->options());
     }
 
     /**

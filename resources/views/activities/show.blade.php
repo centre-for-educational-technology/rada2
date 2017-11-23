@@ -28,8 +28,6 @@
                     @include('activities.includes.play', ['activity' => $activity])
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
-                    <h3>{{ trans('general.forms.labels.activity-type') }}</h3>
-                    <p>{{ $activity->getActivityType() }}</p>
                     <h3>{{ trans('general.forms.labels.difficulty-level') }}</h3>
                     <p>{{ $activity->getDifficultyLevel() }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>

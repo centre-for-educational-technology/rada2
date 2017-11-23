@@ -10,7 +10,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 
 use App\Options\ZooOptions;
-use App\Options\ActivityTypeOptions;
 use App\Options\LanguageOptions;
 use App\Options\DifficultyLevelOptions;
 
@@ -43,15 +42,6 @@ class Activity extends Model
     public function getZoo()
     {
         return resolve(ZooOptions::class)->value($this->zoo);
-    }
-
-    /**
-     * Returns Activity Type title
-     * @return string Activity type title or key
-     */
-    public function getActivityType()
-    {
-        return resolve(ActivityTypeOptions::class)->value($this->type);
     }
 
     /**

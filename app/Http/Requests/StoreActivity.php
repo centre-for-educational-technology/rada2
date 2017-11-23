@@ -37,7 +37,6 @@ class StoreActivity extends FormRequest
         $activity = $this->route('activity');
 
         return [
-            'type' => 'required|integer|in:1,2',
             'title' => 'required|max:255',
             'difficulty_level' => 'required|integer|between:1,3',
             'playing_time' => 'integer|min:0',

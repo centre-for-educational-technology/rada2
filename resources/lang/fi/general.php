@@ -13,10 +13,6 @@ return [
     |
     */
 
-   'activity-type' => [
-       'collecting-cards' => 'Keräyskortit',
-       'treasure-hunt' => 'Aarrejahti',
-   ],
    'activity-status' => [
        'complete' => 'Valmis toiminta',
        'ongoing' => 'Jatkuva toiminta',
@@ -49,7 +45,6 @@ return [
    ],
    'forms' => [
        'labels' => [
-           'activity-type' => 'Toimintatyyppi',
            'title' => 'Otsikko',
            'description' => 'Selitys',
            'difficulty-level' => 'Vaikeusaste',

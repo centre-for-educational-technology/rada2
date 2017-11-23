@@ -106,7 +106,6 @@ class Game extends Model
             'id' => $activity->id,
             'title' => $activity->title,
             'description' => $activity->description,
-            'type' => $activity->getActivityType(),
             'difficulty_level' => $activity->getDifficultyLevel(),
             'playing_time' => $activity->playing_time,
             'language' => $activity->getLanguage(),

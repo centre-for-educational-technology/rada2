@@ -13,10 +13,6 @@ return [
     |
     */
 
-   'activity-type' => [
-       'collecting-cards' => 'Samlarkort',
-       'treasure-hunt' => 'Skattjakt',
-   ],
    'activity-status' => [
        'complete' => 'Hela aktiviteten',
        'ongoing' => 'Pågående aktivitet',
@@ -49,7 +45,6 @@ return [
    ],
    'forms' => [
        'labels' => [
-           'activity-type' => 'Aktivitetstyp',
            'title' => 'Titel',
            'description' => 'Beskrivning',
            'difficulty-level' => 'Svårighetsnivå',
