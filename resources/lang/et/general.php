@@ -92,11 +92,12 @@ return [
            'close' => 'Sulge',
            'submit' => 'Saada',
            'search' => 'Otsi',
-           'add-activity-items' => 'Lisa rajapunktid',
            'load-more' => 'Lae veel',
            'add-option' => 'Lisa valik',
            'reset' => 'Lähtesta',
            'apply-filters' => 'Apply filters',
+           'search-activity-items' => 'Search Activity Items',
+           'create-new-activity-item' => 'Create new Activity Item',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Märksõna või pealkiri',

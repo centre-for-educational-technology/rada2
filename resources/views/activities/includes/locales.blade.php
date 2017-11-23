@@ -2,7 +2,8 @@
     window.Laravel.locale = '<?php echo App::getLocale(); ?>';
     window.Laravel.translations = <?php echo json_encode([
         'any' => trans('general.forms.options.any'),
-        'add-activity-items' => trans('general.forms.buttons.add-activity-items'),
+        'search-activity-items' => trans('general.forms.buttons.search-activity-items'),
+        'create-new-activity-item' => trans('general.forms.buttons.create-new-activity-item'),
         'keywords' => trans('pages.activities.create-or-edit.keywords'),
         'zoo' => trans('general.forms.labels.zoo'),
         'question-type' => trans('general.forms.labels.question-type'),

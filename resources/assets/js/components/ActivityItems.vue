@@ -5,7 +5,7 @@
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" aria-label="Close" v-on:click="closeDialog()"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">{{ $t('add-activity-items') }}</h4>
+                        <h4 class="modal-title">{{ $t('search-activity-items') }}</h4>
                     </div>
                     <div class="modal-body">
                         <div class="container-fluid">
@@ -32,7 +32,10 @@
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems()">{{ $t('search') }}</button>
+                                <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems()">
+                                    <i class="mdi mdi-search-web" aria-hidden="true"></i>
+                                    {{ $t('search') }}
+                                </button>
                             </div>
 
                             <div class="well text-center" v-if="searchResults.total === 0 && searchResults.currentPage">{{ $t('none-found') }}</div>
@@ -96,9 +99,14 @@
             </div>
         </div>
         <button type="button" class="btn btn-success" v-on:click="openDialog()">
-            <i class="mdi mdi-plus"></i>
-            {{ $t('add-activity-items') }}
+            <i class="mdi mdi-search-web" aria-hidden="true"></i>
+            {{ $t('search-activity-items') }}
         </button>
+        <a class="btn btn-success" v-bind:href="baseUrl + '/activity_items/create'" target="_blank" v-if="canCreateActivityItem">
+            <i class="mdi mdi-plus" aria-hidden="true"></i>
+            {{ $t('create-new-activity-item') }}
+            <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+        </a>
         <ul class="list-group sz-sortable-list">
             <draggable :list="items" :options="options">
                 <li class="list-group-item" v-for="item in items" v-bind:title="item.description">
@@ -123,7 +131,7 @@
         components: {
             draggable
         },
-        props: ['apiUrl'],
+        props: ['baseUrl', 'apiUrl', 'canCreateActivityItem'],
         mounted() {
             const vm = this;
 

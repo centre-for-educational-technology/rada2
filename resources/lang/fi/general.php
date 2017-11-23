@@ -92,11 +92,12 @@ return [
            'close' => 'Sulje',
            'submit' => 'Lähetä',
            'search' => 'Etsi',
-           'add-activity-items' => 'Lisää tehtäviä',
            'load-more' => 'Lataa lisää',
            'add-option' => 'Lisää vaihtoehto',
            'reset' => 'Palauta',
            'apply-filters' => 'Apply filters',
+           'search-activity-items' => 'Search Activity Items',
+           'create-new-activity-item' => 'Create new Activity Item',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Syötä avainsana tai otsikko',

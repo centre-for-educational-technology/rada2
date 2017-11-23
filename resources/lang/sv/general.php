@@ -92,11 +92,12 @@ return [
            'close' => 'Stäng',
            'submit' => 'Skicka',
            'search' => 'Sök',
-           'add-activity-items' => 'Lägg till en uppgift.',
            'load-more' => 'Hämta mera.',
            'add-option' => 'Lägg till ett alternativ.',
            'reset' => 'Återställ',
            'apply-filters' => 'Apply filters',
+           'search-activity-items' => 'Search Activity Items',
+           'create-new-activity-item' => 'Create new Activity Item',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Skriv ett nyckelord eller en rubrik.',

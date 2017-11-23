@@ -5,6 +5,7 @@
 @include('activities.includes.options')
 <script>
     window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
+    window.Laravel.canCreateActivityItem = <?php echo json_encode(Auth::user()->can('create', 'App\Activity')); ?>;
 </script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
@@ -264,7 +265,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12" id="activity-items">
-                    <activity-items v-bind:api-url="apiUrl"></activity-items>
+                    <activity-items v-bind:base-url="baseUrl" v-bind:api-url="apiUrl" v-bind:can-create-activity-item="canCreateActivityItem"></activity-items>
                 </div>
             </div>
         </div>

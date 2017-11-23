@@ -92,11 +92,12 @@ return [
            'close' => 'Close',
            'submit' => 'Submit',
            'search' => 'Search',
-           'add-activity-items' => 'Add activity items',
            'load-more' => 'Load more',
            'add-option' => 'Add option',
            'reset' => 'Reset',
            'apply-filters' => 'Apply filters',
+           'search-activity-items' => 'Search Activity Items',
+           'create-new-activity-item' => 'Create new Activity Item',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Type a keyword or title',

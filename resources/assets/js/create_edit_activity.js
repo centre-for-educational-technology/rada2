@@ -10,7 +10,9 @@ const activityApp = new Vue({
     mounted() {
         const vm = this;
 
+        vm.baseUrl = window.Laravel.baseUrl;
         vm.apiUrl = window.Laravel.apiUrl;
+        vm.canCreateActivityItem = window.Laravel.canCreateActivityItem;
 
         $(vm.$refs.difficultyLevelButtons).find('button').on('click', (e) => {
             var buttonElement = $(e.target);
@@ -32,7 +34,9 @@ const activityApp = new Vue({
     },
     data() {
         return {
-            apiUrl: '/api'
+            baseUrl: '/',
+            apiUrl: '/api',
+            canCreateActivityItem: false
         };
     }
 });
