@@ -182,21 +182,21 @@ const addActivityItemApp = new Vue({
         questionType: $('select[name="type"]').val()
     },
     methods: {
-        hasQuestionData: function() {
+        hasQuestionData() {
             return window.Laravel.activityItemQuestionData && window.Laravel.activityItemQuestionData.length > 0;
         },
-        getQuestionData: function() {
+        getQuestionData() {
             return window.Laravel.activityItemQuestionData;
         },
-        changedQuestionType: function() {
+        changedQuestionType() {
             if ( this.hasQuestionData() ) {
                 delete window.Laravel.activityItemQuestionData;
             }
         },
-        getOptionImageUrl: function(image) {
+        getOptionImageUrl(image) {
             return window.Laravel.activityItemAssetsBaseUrl + '/' + image;
         },
-        hasPreview: function(option, imageKey, flagKey) {
+        hasPreview(option, imageKey, flagKey) {
             imageKey = imageKey || 'image';
             flagKey = flagKey || 'imagePreview';
             if ( option.id && option[imageKey] && option[flagKey] !== false ) {

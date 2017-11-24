@@ -112,6 +112,9 @@ return [
            'hours' => 'hours',
            'awarded' => 'awarded',
        ],
+       'tooltips' => [
+           'remove-image' => 'Check to remove an existing image',
+       ],
    ],
    'actions' => [
        'create' => 'Luo',

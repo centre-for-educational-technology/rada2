@@ -126,13 +126,13 @@ class Activity extends Model
     }
 
     /**
-     * [deleteImage description]
-     * @return [type] [description]
+     * Deleted a featured image from storage if there is one.
+     * Does not set the corresponding attribute to an empty value.
+     * @return boolean
      */
     public function deleteFeaturedImage()
     {
         if ( $this->hasFeaturedImage() ) {
-
             return File::delete( public_path('uploads/images/' . $this->featured_image) );
         }
 

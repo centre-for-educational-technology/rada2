@@ -6,6 +6,7 @@
 <script>
     window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
     window.Laravel.canCreateActivityItem = <?php echo json_encode(Auth::user()->can('create', 'App\Activity')); ?>;
+    window.Laravel.hasFeaturedImage = <?php echo json_encode($activity->hasFeaturedImage()); ?>;
 </script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
@@ -159,7 +160,19 @@
                     </span>
                     {!! Form::file('featured_image', [
                         'class' => 'form-control',
+                        'ref' => 'featuredImage',
                     ]) !!}
+                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" data-container="body" title="{{ trans('general.forms.tooltips.remove-image') }}">
+                        {!! Form::checkbox('remove_featured_image', 1, false, [
+                            'ref' => 'removeFeaturedImage',
+                            'v-bind:disabled' => 'canRemoveFeaturedImage()',
+                        ]) !!}
+                    </span>
+                    <span class="input-group-addon">
+                        <a href="#" class="btn btn-danger btn-xs" v-on:click="resetFeaturedImage" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
+                            <i class="mdi mdi-delete" aria-hidden="true"></i>
+                        </a>
+                    </span>
                 </div>
 
                 <p class="help-block">

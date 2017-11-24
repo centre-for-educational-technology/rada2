@@ -158,7 +158,13 @@
                     </span>
                     {!! Form::file('featured_image', [
                         'class' => 'form-control',
+                        'ref' => 'featuredImage',
                     ]) !!}
+                    <span class="input-group-addon">
+                        <a href="#" class="btn btn-danger btn-xs" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
+                            <i class="mdi mdi-delete" aria-hidden="true"></i>
+                        </a>
+                    </span>
                 </div>
 
                 <p class="help-block">

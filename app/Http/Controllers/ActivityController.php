@@ -337,6 +337,11 @@ class ActivityController extends Controller
                 $imageService->delete($originalFeaturedImage);
             }
         }
+        else if ( $request->remove_featured_image && $activity->hasFeaturedImage() )
+        {
+            $activity->deleteFeaturedImage();
+            $activity->featured_image = null;
+        }
         if ( auth()->user()->can('changeZoo', $activity) )
         {
             $activity->zoo = $request->zoo;
