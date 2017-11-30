@@ -22,10 +22,10 @@
                         <h3>{{ trans('general.forms.labels.image') }}</h3>
                         <img src="{!! $activity_item->getImageUrl() !!}" alt="image" class="img-responsive">
                     @endif
-                    <h3>{{ trans('general.forms.labels.description') }}</h3>
-                    <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>
                     <p>{{ $activity_item->getQuestionType() }}</p>
+                    <h3>{{ trans('general.forms.labels.question-or-information') }}</h3>
+                    <p class="sz-display-new-lines">{{ $activity_item->description }}</p>
                     @if ( $activity_item->isEmbeddedContent() )
                         <p class="embed-responsive embed-responsive-16by9">
                             {!! html_entity_decode($activity_item->embedded_content) !!}

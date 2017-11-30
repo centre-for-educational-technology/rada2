@@ -68,6 +68,7 @@ return [
            'hide-incomplete' => 'Hide incomplete',
            'from' => 'From',
            'until' => 'Until',
+           'question-or-information' => 'Question/Information',
        ],
        'help' => [
            'playing-time' => 'Aktivitetstid i minuter',

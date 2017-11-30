@@ -87,7 +87,26 @@
                         <strong>{{ $errors->first('type') }}</strong>
                     </span>
                 @endif
+            </div>
+        </div>
 
+        <div class="form-group">
+            {!! Form::label('description', trans('general.forms.labels.question-or-information'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                    {!! Form::textarea('description', null, [
+                        'class' => 'form-control',
+                        'rows' => '3',
+                        'placeholder' => trans('general.forms.placeholders.question-or-information'),
+                    ]) !!}
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <div class="col-md-6 col-md-offset-4">
                 <div id="question-type-information" class="sz-question" v-if="questionType == 1">
                     <span class="help-block">
                         {{ trans('general.forms.help.question-types.information') }}
@@ -123,21 +142,6 @@
                     <span class="help-block">
                         {{ trans('general.forms.help.question-types.photo') }}
                     </span>
-                </div>
-            </div>
-        </div>
-
-        <div class="form-group">
-            {!! Form::label('description', trans('general.forms.labels.description'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    {!! Form::textarea('description', null, [
-                        'class' => 'form-control',
-                        'rows' => '3',
-                        'placeholder' => trans('general.forms.placeholders.question-or-information'),
-                    ]) !!}
                 </div>
             </div>
         </div>
