@@ -31,8 +31,11 @@ return [
                 'reset' => 'Forgot Your Password?',
                 'google' => 'Sign in with Google',
                 'facebook' => 'Sign in with Facebook',
+                'email' => 'Sign in with E-mail',
+                'register-account' => 'Register Account',
             ],
-            'social-networks'=> 'Or login with social networks',
+            'choose-login-method'=> 'Choose login method',
+            'or' => 'or',
         ],
     ],
     'register' => [

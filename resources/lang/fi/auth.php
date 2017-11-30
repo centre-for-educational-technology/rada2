@@ -31,8 +31,11 @@ return [
                 'reset' => 'Unohditko salasanasi?',
                 'google' => 'Kirjaudu sisään Google-käyttäjänimelläsi',
                 'facebook' => 'Kirajudi sisään Facebook-käyttäjanimelläsi',
+                'email' => 'Sign in with E-mail',
+                'register-account' => 'Register Account',
             ],
-            'social-networks'=> 'Kirjaudi sisään sosiaalsten verkkojen kautta',
+            'choose-login-method'=> 'Choose login method',
+            'or' => 'or',
         ],
     ],
     'register' => [

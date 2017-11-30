@@ -15784,6 +15784,22 @@ button.mdi::before {
   color: #fff;
 }
 
+.email-sign-in {
+  background-color: #555555;
+  background-image: linear-gradient(to right top, #555555, #626262);
+  border: 1px solid #494949;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.1);
+  color: #fff;
+}
+
+.email-sign-in:hover, .email-sign-in:active, .email-sign-in:focus {
+  background-color: #777777;
+  background-image: linear-gradient(to right top, #777777, #848484);
+  border: 1px solid #6a6a6a;
+  text-shadow: 0 1px rgba(0, 0, 0, 0.3);
+  color: #fff;
+}
+
 .form-group.required .control-label:after {
   content: "*";
   color: #a94442;

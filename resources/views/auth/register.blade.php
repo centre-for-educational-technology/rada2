@@ -37,7 +37,7 @@
                                     <span class="input-group-addon">
                                         <i class="mdi mdi-email" aria-hidden="true"></i>
                                     </span>
-                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" required>
+                                    <input id="email" type="email" class="form-control" name="email" value="{{ old('email') ? old('email') : request('email') }}" required>
                                 </div>
 
                                 @if ($errors->has('email'))

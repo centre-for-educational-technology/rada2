@@ -31,8 +31,11 @@ return [
                 'reset' => 'Har du glömt ditt lösenord?',
                 'google' => 'Logga in som din Google-identitet.',
                 'facebook' => 'Logga in som din Facebook-identitet.',
+                'email' => 'Sign in with E-mail',
+                'register-account' => 'Register Account',
             ],
-            'social-networks'=> 'Eller logga in via sociala nät.',
+            'choose-login-method'=> 'Choose login method',
+            'or' => 'or',
         ],
     ],
     'register' => [

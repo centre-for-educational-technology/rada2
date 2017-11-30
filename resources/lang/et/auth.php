@@ -31,8 +31,11 @@ return [
                 'reset' => 'Unustasid salasõna?',
                 'google' => 'Google',
                 'facebook' => 'Facebook',
+                'email' => 'Sign in with E-mail',
+                'register-account' => 'Register Account',
             ],
-            'social-networks'=> 'või kasutades sotsiaalvõrgustiku kontot',
+            'choose-login-method'=> 'Choose login method',
+            'or' => 'or',
         ],
     ],
     'register' => [
