@@ -94,6 +94,7 @@ return [
            'apply-filters' => 'Apply filters',
            'search-activity-items' => 'Search Activity Items',
            'create-new-activity-item' => 'Create new Activity Item',
+           'login-or-register' => 'Login/Register',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Märksõna või pealkiri',

@@ -610,3 +610,9 @@ img.sz-uploaded-image-preview {
     border-width: 5px;
     border-radius: 10px;
 }
+
+.sz-welcome-page {
+    .row:not(:first-child) {
+        margin-top: 30px;
+    }
+}

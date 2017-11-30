@@ -13,13 +13,20 @@ return [
 
     'welcome' => [
         'jumbotron' => [
-            'heading' => 'Vad är SmartZoos?',
-            'content' => 'SmartZoos knyter samman djurparkerna i Östersjöområdet som en gemensam turistattraktion genom gemensamma pedagogiska mobilspel.',
+            'information' => [
+                'heading' => 'Vad är SmartZoos?',
+                'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+            ],
+            'schools' => [
+                'heading' => 'SmartZoos for Schools',
+                'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
+            ],
         ],
         'choose-location' => 'Välj plats',
         'btn' => [
             'play-smart-zoos' => 'Spela',
         ],
+        'project-information' => 'SmartZoos knyter samman djurparkerna i Östersjöområdet som en gemensam turistattraktion genom gemensamma pedagogiska mobilspel.',
     ],
     'activities' => [
         'index' => [

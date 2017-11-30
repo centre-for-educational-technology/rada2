@@ -63,8 +63,7 @@
             <ul class="nav navbar-nav">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
-                    <li><a href="{{ url('/login') }}">{{ trans('auth.login.form.btn.login') }}</a></li>
-                    <li><a href="{{ url('/register') }}">{{ trans('auth.register.form.btn.register') }}</a></li>
+                    <li><a href="{{ url('/login') }}">{{ trans('general.forms.buttons.login-or-register') }}</a></li>
                 @else
                     @php( $discountVouchersCount = Auth::user()->getDiscountVouchersCount() )
                     <li class="dropdown">

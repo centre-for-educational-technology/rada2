@@ -13,13 +13,20 @@ return [
 
     'welcome' => [
         'jumbotron' => [
-            'heading' => 'Mis on SmartZoos?',
-            'content' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
+            'information' => [
+                'heading' => 'Mis on SmartZoos?',
+                'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+            ],
+            'schools' => [
+                'heading' => 'SmartZoos for Schools',
+                'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
+            ],
         ],
         'choose-location' => 'Vali asukoht',
         'btn' => [
             'play-smart-zoos' => 'Mängima',
         ],
+        'project-information' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
     ],
     'activities' => [
         'index' => [

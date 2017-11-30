@@ -16380,4 +16380,8 @@ fieldset[disabled] .btn-play.focus {
   background-color: #fff;
 }
 
+.sz-welcome-page .row:not(:first-child) {
+  margin-top: 30px;
+}
+
 /*# sourceMappingURL=app.css.map */
