@@ -77,17 +77,19 @@
             check() {
                 if ( !this.canCheck() ) return;
 
-                this.animated = false;
+                const vm = this;
 
-                this.$nextTick(() => {
-                    if ( this.accessCode.trim() === this.question.access_code.trim() ) {
-                        this.correctCode = true;
-                        this.close();
+                vm.animated = false;
+
+                vm.$nextTick(() => {
+                    if ( vm.accessCode.toLowerCase().trim() === vm.question.access_code.toLowerCase().trim() ) {
+                        vm.correctCode = true;
+                        vm.close();
                     } else {
-                        this.correctCode = false;
+                        vm.correctCode = false;
                     }
 
-                    this.animated = true;
+                    vm.animated = true;
                 });
             }
         }
