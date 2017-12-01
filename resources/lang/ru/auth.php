@@ -17,7 +17,7 @@ return [
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
     'general' => [
         'email' => 'E-Mail Address',
-        'password' => 'Password',
+        'password' => 'siia kirjuta salasõna vene keeles',
         'confirm-password' => 'Confirm Password',
         'captcha' => 'Captcha',
     ],
