@@ -11,28 +11,28 @@
                         <div class="container-fluid">
                             <div class="form-group">
                                 <label>{{ $t('keywords') }}</label>
-                                <input type="text" class="form-control" v-bind:placeholder="$t('keyword-or-title')" v-model="searchForm.keywords">
+                                <input type="text" class="form-control" v-bind:placeholder="$t('keyword-or-title')" v-model="searchForm.keywords" v-on:keydown.enter.prevent.stop="searchForItems">
                             </div>
                             <div class="form-group">
                                 <label>{{ $t('zoo') }}</label>
-                                <select class="form-control" v-model="searchForm.zoo">
+                                <select class="form-control" v-model="searchForm.zoo" v-on:keydown.enter.prevent.stop="searchForItems">
                                     <option v-for="(title, key) in zooOptions" v-bind:value="key">{{ title }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>{{ $t('question-type') }}</label>
-                                <select class="form-control" v-model="searchForm.questionType">
+                                <select class="form-control" v-model="searchForm.questionType" v-on:keydown.enter.prevent.stop="searchForItems">
                                     <option v-for="(title, key) in questionTypeOptions" v-bind:value="key">{{ title }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
                                 <label>{{ $t('language') }}</label>
-                                <select class="form-control" v-model="searchForm.language">
+                                <select class="form-control" v-model="searchForm.language" v-on:keydown.enter.prevent.stop="searchForItems">
                                     <option v-for="(title, key) in languageOptions" v-bind:value="key">{{ title }}</option>
                                 </select>
                             </div>
                             <div class="form-group">
-                                <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems()">
+                                <button type="button" class="btn btn-primary" v-bind:disabled="inAjaxCall" v-on:click="searchForItems">
                                     <i class="mdi mdi-search-web" aria-hidden="true"></i>
                                     {{ $t('search') }}
                                 </button>
@@ -214,6 +214,7 @@
                 });
             },
             searchForItems() {
+                if ( this.inAjaxCall ) return;
                 const vm = this;
                 let params = {
                     keywords: vm.searchForm.keywords,
