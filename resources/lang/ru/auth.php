@@ -13,53 +13,53 @@ return [
     |
     */
 
-    'failed' => 'These credentials do not match our records.',
-    'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
+    'failed' => 'Эти учётные данные не соответствуют нашим записям.',
+    'throttle' => 'Слишком много попыток входа в систему. Пожалуйста, повторите попытку через: секунды.',
     'general' => [
-        'email' => 'E-Mail Address',
+        'email' => 'Адрес эл. почты',
         'password' => 'Пароль',
         'confirm-password' => 'Подтвердить пароль',
         'captcha' => 'Captcha',
     ],
     'login' => [
         'form' => [
-            'heading' => 'Log in',
+            'heading' => 'Войти',
             'text' => 'Jaunt through the zoo and collect pieces of a puzzle. If you get a complete picture, you can redeem it for discounts in the zoo shops and the entrance.',
-            'remember' => 'Remember Me',
+            'remember' => 'Запомнить меня',
             'btn' => [
-                'login' => 'Log in',
-                'reset' => 'Forgot Your Password?',
-                'google' => 'Sign in with Google',
-                'facebook' => 'Sign in with Facebook',
-                'email' => 'Sign in with E-mail',
-                'register-account' => 'Register Account',
+                'login' => 'Войти',
+                'reset' => 'Забыли пароль?',
+                'google' => 'Войдите через Google',
+                'facebook' => 'Войдите через Facebook',
+                'email' => 'Войдите через E-mail',
+                'register-account' => 'Зарегистрироваться',
             ],
-            'choose-login-method'=> 'Choose login method',
-            'or' => 'or',
+            'choose-login-method'=> 'Выберите способ входа',
+            'or' => 'или',
         ],
     ],
     'register' => [
         'form' => [
-            'heading' => 'Register',
-            'name' => 'Name',
+            'heading' => 'Зарегистрироваться',
+            'name' => 'Имя',
             'btn' => [
-                'register' => 'Register',
+                'register' => 'Зарегистрироваться',
             ],
         ],
     ],
     'reset' => [
         'form' => [
-            'heading' => 'Reset Password',
+            'heading' => 'Сброс пароля',
             'btn' => [
-                'send-password-reset-link' => 'Send Password Reset Link',
-                'reset-password' => 'Reset Password',
+                'send-password-reset-link' => 'Отправить ссылку для сброса пароля',
+                'reset-password' => 'Сброс пароля',
             ],
         ],
     ],
     'logout' => [
         'form' => [
             'btn' => [
-                'logout' => 'Logout',
+                'logout' => 'Выход',
             ],
         ],
     ],
