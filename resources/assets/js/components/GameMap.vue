@@ -39,19 +39,19 @@
         });
 
         const navigationControlItem = document.createElement('i');
-        navigationControlItem.className = 'mdi mdi-navigation';
+        navigationControlItem.className = 'mdi mdi-crosshairs';
         navigationControlItem.title = vm.$t('position-tracking');
         controlUI.appendChild(navigationControlItem);
 
         navigationControlItem.addEventListener('click', function() {
             if ( map.szTrackingEnabled ) {
                 map.szTrackingEnabled = false;
-                navigationControlItem.className = 'mdi mdi-navigation';
+                navigationControlItem.className = 'mdi mdi-crosshairs';
             } else {
                 map.panTo(playerMarker.getPosition());
                 google.maps.event.trigger(playerMarker, 'click');
                 map.szTrackingEnabled = true;
-                navigationControlItem.className = 'mdi mdi-navigation active';
+                navigationControlItem.className = 'mdi mdi-crosshairs-gps active';
             }
         });
 

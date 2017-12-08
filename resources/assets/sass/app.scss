@@ -228,16 +228,8 @@ form.sz-action-form-inline {
                 }
             }
 
-            &.mdi-navigation {
+            &.mdi-crosshairs {
                 color: $gray-light;
-
-                &.active {
-                    color: blue;
-
-                    &::before {
-                        transform: rotate(45deg);
-                    }
-                }
             }
 
             &.mdi-layers {

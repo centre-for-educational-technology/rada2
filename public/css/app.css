@@ -15945,17 +15945,8 @@ form.sz-action-form-inline {
   font-size: 36px;
 }
 
-#map #sz-map-controls i.mdi-navigation {
+#map #sz-map-controls i.mdi-crosshairs {
   color: #777777;
-}
-
-#map #sz-map-controls i.mdi-navigation.active {
-  color: blue;
-}
-
-#map #sz-map-controls i.mdi-navigation.active::before {
-  -webkit-transform: rotate(45deg);
-  transform: rotate(45deg);
 }
 
 #map #sz-map-controls i.mdi-layers {
