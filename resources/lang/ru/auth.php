@@ -19,12 +19,12 @@ return [
         'email' => 'Адрес эл. почты',
         'password' => 'Пароль',
         'confirm-password' => 'Подтвердить пароль',
-        'captcha' => 'Captcha',
+        'captcha' => 'Я не робот',
     ],
     'login' => [
         'form' => [
             'heading' => 'Войти',
-            'text' => 'Jaunt through the zoo and collect pieces of a puzzle. If you get a complete picture, you can redeem it for discounts in the zoo shops and the entrance.',
+            'text' => 'Проходя интерактивные тропы зоопарка и верно отвечая на вопросы, вы собираете кусочки головоломки (пазла). Если сложите полную картинку, то сможете получить скидки в магазинах или на кассе зоопарка.',
             'remember' => 'Запомнить меня',
             'btn' => [
                 'login' => 'Войти',
