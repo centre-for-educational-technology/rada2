@@ -11,9 +11,9 @@ return [
     |
     */
 
-    'home' => 'Home',
-    'activities'     => 'Activities',
-    'activity-items' => 'Activity Items',
-    'badges' => 'Badges',
-    'discount_vouchers' => 'Discount Vouchers',
+    'home' => 'Домой',
+    'activities'     => 'Тропы',
+    'activity-items' => 'Пункты троп',
+    'badges' => 'Значки',
+    'discount_vouchers' => 'Ваучеры на скидку',
 ];
