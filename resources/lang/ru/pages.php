@@ -14,66 +14,66 @@ return [
     'welcome' => [
         'jumbotron' => [
             'information' => [
-                'heading' => 'What is SmartZoos?',
-                'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+                'heading' => 'Приложение "Умные зоопарки" (SmartZoos), что это такое?',
+                'content' => 'Приложение Умные зоопарки - это игровой сервис, основанный на местоположении, с помощью которого вы сможете больше узнать о животных и научиться вести за ними наблюдение.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos for Schools',
-                'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
+           'heading' => 'Приложение Умные зоопарки  для общеобразовательных учебных заведений',
+                'content' => 'Переместите класс за пределы школы!<br>Приложение Умные зоопарки - это современный способ обучаться играя. В роли Разработчика Вы сможете сможете создавать занимательные Учебные тропы, или Игры, в которые будете играть сами или другие пользователи приложения Умные зоопарки.',
             ],
         ],
-        'choose-location' => 'Choose location',
+        'choose-location' => 'Выберите расположение',
         'btn' => [
-            'play-smart-zoos' => 'Play SmartZoos',
+            'play-smart-zoos' => 'Играть в Умные зоопарки',
         ],
-        'project-information' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
+        'project-information' => 'Умные зоопарки (SmartZoos) объединяет зоопарки центральных государств балтийского региона, чтобы сформировать совместную туристическую привлекательность посредством разработки, внедрения и совместного маркетинга трансграничного пакета услуг обучения с помощью мобильных устройств.',
     ],
     'activities' => [
         'index' => [
-            'heading' => 'Activities',
-            'none-found' => 'No Activities could be found.',
+            'heading' => 'Учебные тропы',
+            'none-found' => 'Тропы не найдены.',
         ],
         'create-or-edit' => [
-            'keywords' => 'Keywords',
-            'items-found' => 'items found',
+            'keywords' => 'Ключевое слово',
+            'items-found' => 'Найденные пункты',
             'tooltips' => [
-                'proximity-check' => 'Determines if proximity check is applied',
+                'proximity-check' => 'Определено в том случае, если применена удалённость пункта',
             ],
             'help' => [
-                'proximity' => 'Only set proximity radius in meters if default value of :default is not suitable. We recommend setting it to a value between 25 to 100 meters. If you uncheck the checkbox situated to the right of the field, then the game will not check proximity at all.',
+                'proximity' => 'Радиус удалённости установить в метрах, если значение по умолчанию: по умолчанию не подходит. Рекомендуемое значение от 25 до 100 метров. Если вы снимите флажок (галочку), расположенный справа от поля, то игра не будет определять удалённость пункта.',
             ],
         ],
     ],
     'activity-items' => [
         'index' => [
-          'heading' => 'Activity Items',
-          'none-found' => 'No Activity Items could be found.',
+          'heading' => 'Пункты тропы',
+          'none-found' => 'Пункты тропы не найдены.',
         ],
         'create-or-edit' => [
-            'set-current-position' => 'Set current position',
-            'geolocation-error' => 'Error: Geolocation could not be determined',
+            'set-current-position' => 'Установить текущую позицию',
+            'geolocation-error' => 'Ошибка: Геолокация не может быть определена',
         ],
     ],
     'discount-vouchers' => [
         'index' => [
-            'heading' => 'Discount Vouchers',
-            'none-found' => 'No Discount Vouchers could be found.',
+            'heading' => 'Ваучеры на скидку',
+            'none-found' => 'Ваучеры на скидку не были найдены.',
         ],
     ],
     'manage' => [
         'users' => [
             'index' => [
-                'heading' => 'Manage Users',
-                'none-found' => 'No User could be found',
-                'accounts' => 'Accounts',
-                'roles' => 'Roles',
-                'manage-roles' => 'Manage roles',
-                'remove-role' => 'Remove role',
+                'heading' => 'Управление полтзователями',
+                'none-found' => 'Пользователь не найден',
+                'accounts' => 'Учётные записи',
+                'roles' => 'Роли',
+                'manage-roles' => 'Управлять ролями',
+                'remove-role' => 'Удалить роль',
                 'confirmations' => [
-                    'role' => 'Are you sure you want to remove selected role?',
+                    'role' => 'Вы уверены, что желаете удалить выбранную роль?',
                 ],
                 'modal' => [
-                    'title' => 'Manage user roles',
+                    'title' => 'Управлять ролями пользователя',
                 ],
             ]
         ],
