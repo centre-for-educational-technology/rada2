@@ -19,7 +19,7 @@ export default {
                 element.tooltip('destroy');
             });
         },
-        imageSelected: function(index) {
+        imageSelected: function(event, index) {
             if ( !this.hasFiles(event) ) return;
 
             if ( !this.isValidImageFormat(event.target.files[0]) ) {

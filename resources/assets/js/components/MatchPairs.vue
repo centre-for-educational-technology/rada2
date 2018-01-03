@@ -14,7 +14,7 @@
                     <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-image')" v-bind:class="{ 'sz-option-has-image': option.image }" v-bind:title="option.image" data-toggle="tooltip" data-placement="top" ref="add-image">
                         <i class="mdi mdi-camera" aria-hidden="true"></i>
                     </a>
-                    <input type="file" accept="image/*" capture="camera" style="display:none;" v-bind:name="'option-image-' + index" v-on:change="imageSelected(index, 'add-image')" ref="option-image">
+                    <input type="file" accept="image/*" capture="camera" style="display:none;" v-bind:name="'option-image-' + index" v-on:change="imageSelected($event, index, 'add-image')" ref="option-image">
                 </span>
             </div>
         </div>
@@ -30,7 +30,7 @@
                     <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index, 'option-match-image')" v-bind:class="{ 'sz-option-has-image': option.image_match }" v-bind:title="option.image_match" data-toggle="tooltip" data-placement="top" ref="add-match-image">
                         <i class="mdi mdi-camera" aria-hidden="true"></i>
                     </a>
-                    <input type="file" accept="image/*" capture="camera" style="display:none;" v-bind:name="'option-match-image-' + index" v-on:change="imageSelected(index, 'add-match-image')" ref="option-match-image">
+                    <input type="file" accept="image/*" capture="camera" style="display:none;" v-bind:name="'option-match-image-' + index" v-on:change="imageSelected($event, index, 'add-match-image')" ref="option-match-image">
                 </span>
             </div>
         </div>
@@ -113,7 +113,7 @@
                     image_match: ''
                 });
             },
-            imageSelected: function(index, ref) {
+            imageSelected: function(event, index, ref) {
                 if ( !event.target.files.length > 0 ) return;
 
                 if ( ref === 'add-match-image' ) {

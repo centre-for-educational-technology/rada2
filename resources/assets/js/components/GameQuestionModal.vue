@@ -109,7 +109,7 @@
                                 <img v-bind:src="imageSrc" alt="uploadable-image" class="img-responsive center-block">
                             </div>
                         </div>
-                        <input type="file" accept="image/*" capture="camera" name="image" ref="image" v-on:change="imageSelected()">
+                        <input type="file" accept="image/*" capture="camera" name="image" ref="image" v-on:change="imageSelected">
                     </div>
                 </div>
 
@@ -328,7 +328,7 @@
             triggerImageClick() {
                 $(this.$refs.image).trigger('click');
             },
-            imageSelected() {
+            imageSelected(event) {
                 if ( event.target.files.length > 0 ) {
                     var file = event.target.files[0];
 
