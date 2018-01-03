@@ -43,9 +43,9 @@ return [
     'image'                => ':характеристика должен быть изображением.',
     'in'                   => 'Выбранный :характеристика недействителен.',
     'in_array'             => 'Поле :характеристика не существует в :другое.',
-    'integer'              => 'The :attribute must be an integer.',
-    'ip'                   => 'The :attribute must be a valid IP address.',
-    'json'                 => 'The :attribute must be a valid JSON string.',
+    'integer'              => ' :характеристика должен быть целым числом.',
+    'ip'                   => ' :характеристика должен быть с действительным IP-адресом.',
+    'json'                 => ' :характеристика должен быть с действительной строкой JSON.',
     'max'                  => [
         'numeric' => 'The :attribute may not be greater than :max.',
         'file'    => 'The :attribute may not be greater than :max kilobytes.',
