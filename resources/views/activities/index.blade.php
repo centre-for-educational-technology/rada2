@@ -69,6 +69,9 @@
                                     @include('activities.includes.discount_voucher', ['activity' => $activity])
                                     @include('activities.includes.play', ['activity' => $activity])
                                 </div>
+                                @if ( !$loop->last)
+                                    <hr>
+                                @endif
                             </div>
                         @endforeach
 

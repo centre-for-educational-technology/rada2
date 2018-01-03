@@ -24,6 +24,9 @@
                                     </h4>
                                     <p>{{$badge->description}}</p>
                                 </div>
+                                @if ( !$loop->last)
+                                    <hr>
+                                @endif
                             </div>
                         @endforeach
                     @endif

@@ -64,6 +64,9 @@
                                         {{ $statusOptions[$voucher->status] }}
                                     </div>
                                 </div>
+                                @if ( !$loop->last)
+                                    <hr>
+                                @endif
                             </div>
                         @endforeach
                     @endif

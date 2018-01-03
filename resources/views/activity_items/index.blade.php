@@ -77,6 +77,9 @@
                                         </div>
                                     @endif
                                 </div>
+                                @if ( !$loop->last)
+                                    <hr>
+                                @endif
                             </div>
                         @endforeach
 
