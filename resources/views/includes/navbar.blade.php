@@ -33,9 +33,11 @@
                 <li class="{{ Request::is('badges')? 'active': '' }}">
                     <a href="{{ route('badge.index') }}">{{ trans('navbar.badges') }}</a>
                 </li>
-                <li class="{{ Request::is('discount_vouchers', 'discount_vouchers/*')? 'active': '' }}">
-                    <a href="{{ route('discount_voucher.index') }}">{{ trans('navbar.discount_vouchers') }}</a>
-                </li>
+                @can('create', 'App\DiscountVoucher')
+                    <li class="{{ Request::is('discount_vouchers', 'discount_vouchers/*')? 'active': '' }}">
+                        <a href="{{ route('discount_voucher.index') }}">{{ trans('navbar.discount_vouchers') }}</a>
+                    </li>
+                @endcan
             </ul>
 
             <!-- Right Side Of Navbar -->
