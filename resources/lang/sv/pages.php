@@ -15,11 +15,11 @@ return [
         'jumbotron' => [
             'information' => [
                 'heading' => 'Vad är SmartZoos?',
-                'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+                'content' => 'SmartZoos är en speltjänst för platsberoende spel, där uppgifterna leder dig genom omgivningen och du kanske lär dig ett eller annat.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos for Schools',
-                'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
+                'heading' => 'SmartZoos för skolor',
+                'content' => 'Flytta klassrummet utomhus!<br>SmartZoos är ett modernt sätt att kombinera skola med pedagogisk lek.  Med ett skaparkonto kan du skapa aktiviteter för dig och andra SmartZoos-användare.',
             ],
         ],
         'choose-location' => 'Välj plats',
@@ -56,8 +56,8 @@ return [
     ],
     'discount-vouchers' => [
         'index' => [
-            'heading' => 'Discount Vouchers',
-            'none-found' => 'No Discount Vouchers could be found.',
+            'heading' => 'Rabattkuponger',
+            'none-found' => 'Inga rabattkuponger kunde hittas.',
         ],
     ],
     'manage' => [
@@ -83,7 +83,7 @@ return [
             'activities' => 'Aktiviteter',
             'activity-items' => 'Uppgifter',
             'games' => 'Spel',
-            'discount-vouchers' => 'Vouchers',
+            'discount-vouchers' => 'Rabattkuponger',
             'captions' => [
                 'activities-by-zoo' => 'Sorterade per djurpark',
                 'activities-by-language' => 'Sorterade per språk',
@@ -93,8 +93,8 @@ return [
                 'games-by-status' => 'Spel sorterade per tillstånd.',
             ],
             'columns' => [
-                'discount-vouchers-total' => 'Total vouchers',
-                'discount-vouchers-redeemed' => 'Redeemed',
+                'discount-vouchers-total' => 'Totalt antal rabattkuponger',
+                'discount-vouchers-redeemed' => 'Inlösta',
             ],
         ],
     ],
@@ -106,7 +106,7 @@ return [
             'position-tracking' => 'Slå av/på positionsbestämning',
             'exit' => 'Avsluta spelet',
             'exit-confirmation' => 'Avsluta spelet.  Är du säker?  Endast inloggade användare kan fortsätta ett avslutat spel',
-            'change-map-type' => 'Change map type',
+            'change-map-type' => 'Byt karttyp',
             'textual-answer-placeholder' => 'Svarstext…',
             'image-format-hint' => 'Endast JPEG- eller PNG-bilder tillåtna.',
             'apply-item-bounds' => 'Visa alla uppgifter på kartan.',
@@ -114,12 +114,12 @@ return [
             'number-of-questions' => 'Antal frågor',
             'gps-error' => 'Ingen GPS-signal.',
             'go' => 'Starta!',
-            'back' => 'Back',
-            'next' => 'Next',
-            'got-it' => 'Got it!',
+            'back' => 'Tillbaka',
+            'next' => 'Nästa',
+            'got-it' => 'Jag förstår!',
             'read-more-about' => 'Läs mer om…',
-            'tips-text' => 'Some tips before you start:',
-            'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
+            'tips-text' => 'Några tips innan du börjar:',
+            'access-code-placeholder' => 'Mata in koden eller texten för att komma förbi platsbindningen.',
             'icons' => [
                 'help' => 'Varje ikons färg visar uppgiftens tillstånd.',
                 'active' => 'Obesvarad',
@@ -129,20 +129,20 @@ return [
             ],
             'items' => [
                 'look_closely' => [
-                    'title' => 'Look around',
-                    'description' => 'Look closely at your surroundings for clues. You never know where you\'ll find answers!',
+                    'title' => 'Se dig om',
+                    'description' => 'Leta noga i omgivningarna efter ledtrådar. Man vet aldrig var man kan hitta svaren!',
                 ],
                 'look_out' => [
-                    'title' => 'Look out!',
-                    'description' => 'Be mindful of where you\'re going so you don\'t hurt yourself or others',
+                    'title' => 'Se upp!',
+                    'description' => 'Se dig för så att du inte skadar dig eller andra.',
                 ],
                 'do_not_disturb' => [
-                    'title' => 'Don\'t be too loud',
-                    'description' => 'Victory is nice, but don\'t scare the animals',
+                    'title' => 'Skrik inte',
+                    'description' => 'Det är kul att vinna, men skräm inte djuren.',
                 ],
                 'help_others' => [
-                    'title' => 'Help each other',
-                    'description' => 'Help your friends and have fun together!',
+                    'title' => 'Hjälp varandra',
+                    'description' => 'Hjälp dina vänner och ha kul tillsammans!',
                 ],
             ],
         ],
@@ -167,7 +167,7 @@ return [
     'activity-results' => [
         'heading' => '<strong>:title</strong>, resultat',
         'btn' => [
-            'download-player-positions' => 'Download player positions',
+            'download-player-positions' => 'Ladda ner spelarpositioner',
         ],
     ],
     'profile' => [
@@ -175,11 +175,11 @@ return [
         'heading' => ':name s profil',
         'labels' => [
             'badges-earned' => 'Vunna märken',
-            'discount-vouchers-earned' => 'Discount Vouchers Earned',
-            'valid-until' => 'Valid until',
+            'discount-vouchers-earned' => 'Vunna rabattkuponger',
+            'valid-until' => 'Gäller till',
         ],
         'confirmations' => [
-            'discount-voucher-spend' => 'Are you sure you want to spend this Discount Voucher?',
+            'discount-voucher-spend' => 'Lösa in rabattkupong.  Är du säker?',
         ],
     ],
     'profile-edit' => [

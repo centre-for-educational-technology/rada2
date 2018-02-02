@@ -15,5 +15,5 @@ return [
     'activities'     => 'Aktiviteter',
     'activity-items' => 'Uppgifter',
     'badges' => 'Märken',
-    'discount_vouchers' => 'Discount Vouchers',
+    'discount_vouchers' => 'Rabattkuponger',
 ];
