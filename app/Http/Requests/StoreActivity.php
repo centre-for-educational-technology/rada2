@@ -39,7 +39,7 @@ class StoreActivity extends FormRequest
         return [
             'title' => 'required|max:255',
             'difficulty_level' => 'required|integer|between:1,3',
-            'playing_time' => 'integer|min:0',
+            'playing_time' => 'required|integer|min:0',
             'language' => 'required|in:' . implode(',', $languages),
             'contact_information' => 'max:255',
             'featured_image' => 'image|mimes:jpeg,jpg,png',
