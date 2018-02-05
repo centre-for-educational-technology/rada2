@@ -166,7 +166,14 @@ class GameController extends Controller
         $playerPosition->game()->associate($game);
         $playerPosition->latitude = $position['coords']['latitude'];
         $playerPosition->longitude = $position['coords']['longitude'];
-        $playerPosition->heading = $position['coords']['heading'];
+        if ( isset($position['coords']['heading']) )
+        {
+            $heading = (int)$position['coords']['heading'];
+            if ( $heading >= 0 && $heading < 360 )
+            {
+                $playerPosition->heading = $heading;
+            }
+        }
         $playerPosition->timestamp = Carbon::createFromTimestamp((int)$position['timestamp'] / 1000);
         $playerPosition->created_at = Carbon::now();
         $playerPosition->save();
