@@ -16397,4 +16397,8 @@ fieldset[disabled] .btn-play.focus {
   margin-bottom: 0px;
 }
 
+.btn.discount-voucher-spend {
+  white-space: normal;
+}
+
 /*# sourceMappingURL=app.css.map */
