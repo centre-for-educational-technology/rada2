@@ -94,17 +94,17 @@ class EventServiceProvider extends ServiceProvider
                 if ( $count >= 5 )
                 {
                     $seasonedBadge = Badge::getBadgeByType('seasoned_gamer');
-                    $activity->user->awardBadge($seasonedBadge);
+                    $game->user->awardBadge($seasonedBadge);
                 }
                 if ( $count >= 10 )
                 {
                     $veteranBadge = Badge::getBadgeByType('veteran_gamer');
-                    $activity->user->awardBadge($veteranBadge);
+                    $game->user->awardBadge($veteranBadge);
                 }
                 if ( $count >= 25 )
                 {
                     $proBadge = Badge::getBadgeByType('pro_gamer');
-                    $activity->user->awardBadge($proBadge);
+                    $game->user->awardBadge($proBadge);
                 }
 
                 activity()
