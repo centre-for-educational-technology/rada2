@@ -58,7 +58,7 @@
         </div>
         <div class="col-xs-6 col-md-3">
             <a href="http://www.korkeasaari.fi" class="thumbnail" target="_blank">
-                <img src="{{ asset('img/logos/korkeasaari.jpg') }}" alt="Korkeasaari">
+                <img src="{{ asset('img/logos/korkeasaari.png') }}" alt="Korkeasaari">
             </a>
         </div>
         <div class="col-xs-6 col-md-3">
