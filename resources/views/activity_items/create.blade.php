@@ -54,6 +54,7 @@
                     </span>
                     {!! Form::file('image', [
                         'class' => 'form-control',
+                        'accept' => 'image/jpeg, image/png',
                     ]) !!}
                 </div>
 

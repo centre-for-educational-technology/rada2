@@ -109,7 +109,7 @@
                                 <img v-bind:src="imageSrc" alt="uploadable-image" class="img-responsive center-block">
                             </div>
                         </div>
-                        <input type="file" accept="image/*" capture="camera" name="image" ref="image" v-on:change="imageSelected">
+                        <input type="file" accept="image/jpeg, image/png" capture="camera" name="image" ref="image" v-on:change="imageSelected">
                     </div>
                 </div>
 

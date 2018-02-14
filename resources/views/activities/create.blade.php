@@ -159,6 +159,7 @@
                     {!! Form::file('featured_image', [
                         'class' => 'form-control',
                         'ref' => 'featuredImage',
+                        'accept' => 'image/jpeg, image/png',
                     ]) !!}
                     <span class="input-group-addon">
                         <a href="#" class="btn btn-danger btn-xs" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
