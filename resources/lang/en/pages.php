@@ -187,5 +187,12 @@ return [
             'password' => 'Please leave password field empty, unless you want to have it changed.',
         ]
     ],
+    'badges' => [
+        'introduction' => [
+            'general' => 'By accomplishing certain tasks within SmartZoos, you will be rewarded with badges.',
+            'authenticated' => 'The badges you have collected can be seen on your <a href=":profileUrl">Profile</a>.',
+            'guest' => 'In order to collect badges, you must be <a href=":loginUrl">logged in</a>.',
+        ],
+    ],
 
 ];
