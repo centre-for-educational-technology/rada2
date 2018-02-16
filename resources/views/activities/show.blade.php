@@ -7,6 +7,7 @@
 @section('content')
 <div class="container">
     @include('activities.includes.qrcode_modal')
+    @include('activities.includes.play_modal')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">

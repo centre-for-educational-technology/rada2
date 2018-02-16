@@ -23,6 +23,7 @@
             'baseUrl' => url('/'),
             'apiUrl' => url('/api'),
             'locale' => App::getLocale(),
+            'isLoggedIn' => Auth::check(),
         ]); ?>;
     </script>
 
@@ -30,7 +31,7 @@
 </head>
 <body>
     @include('includes.cookie-consent')
-    
+
     <div id="app">
         @include('includes.navbar')
 

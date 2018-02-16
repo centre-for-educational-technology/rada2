@@ -135,6 +135,7 @@ return [
    'minutes' => 'minutes',
    'confirmations' => [
        'delete' => 'Are you sure you want to delete this item?',
+       'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
    ],
    'date-time' => [
        'formats' => [

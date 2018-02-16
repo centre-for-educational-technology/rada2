@@ -135,6 +135,7 @@ return [
    'minutes' => 'minuter',
    'confirmations' => [
        'delete' => 'Ta bort uppgift.  Är du säker?',
+       'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
    ],
    'date-time' => [
        'formats' => [

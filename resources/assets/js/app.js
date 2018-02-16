@@ -73,4 +73,23 @@ $(document).ready(function() {
         e.preventDefault();
         $(this).parent().next('.row').slideToggle();
     });
+
+    const playModal = $('#play-modal');
+    if ( playModal.length > 0 && !window.Laravel.isLoggedIn ) {
+        playModal.on('hidden.bs.modal', function() {
+            $(this).find('button.btn-play').off('click');
+        });
+
+        $('form.sz-play-action-form button.btn-play').on('click', function(event) {
+            event.preventDefault();
+            const self = this;
+
+            playModal.find('button.btn-play').on('click', function() {
+                $(self).parents('form.sz-play-action-form').trigger('submit');
+                playModal.modal('hide');
+            });
+
+            playModal.modal('show');
+        });
+    }
 });

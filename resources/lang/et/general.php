@@ -135,6 +135,7 @@ return [
    'minutes' => 'minutid',
    'confirmations' => [
        'delete' => 'Oled sa kindek, et soovid selle kustutada?',
+       'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
    ],
    'date-time' => [
        'formats' => [

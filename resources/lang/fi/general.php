@@ -135,6 +135,7 @@ return [
    'minutes' => 'minuuttia',
    'confirmations' => [
        'delete' => 'Haluatko tosiaan poistaa tämän tehtävän?',
+       'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
    ],
    'date-time' => [
        'formats' => [
