@@ -117,6 +117,9 @@ return [
        'tooltips' => [
            'remove-image' => 'Kryssa i för att ta bort en bild',
        ],
+       'warnings' => [
+           'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
+       ],
    ],
    'actions' => [
        'create' => 'Skapa',

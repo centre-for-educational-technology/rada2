@@ -117,6 +117,9 @@ return [
        'tooltips' => [
            'remove-image' => 'Check to remove an existing image',
        ],
+       'warnings' => [
+           'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
+       ],
    ],
    'actions' => [
        'create' => 'Luo',

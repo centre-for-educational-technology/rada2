@@ -24,6 +24,7 @@
         'name' => 'create-activity-item',
         'id' => 'create-activity-item',
     ]) !!}
+        @include('includes.readd-pictures-alert', [ 'errors' => $errors, ])
         <div class="form-group required{{ $errors->has('title') ? ' has-error' : '' }}">
             {!! Form::label('title', trans('general.forms.labels.title'), [
                 'class' => 'col-md-4 control-label',
