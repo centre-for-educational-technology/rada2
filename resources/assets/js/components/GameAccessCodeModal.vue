@@ -7,6 +7,10 @@
                     <h4 class="modal-title">{{ title() }}</h4>
                 </div>
                 <div class="modal-body">
+                    <p v-if="hasAccessCodeClues()">
+                        <i class="mdi mdi-information-outline"></i>
+                        {{ accessCodeClues() }}
+                    </p>
                     <input type="text" class="form-control" v-bind:class="{ animated: animated, shake: !correctCode && animated }" v-bind:placeholder="$t('access-code-placeholder')" v-model="accessCode" v-on:keyup.enter="check()" ref="input">
                 </div>
                 <div class="modal-footer">
@@ -70,6 +74,14 @@
             },
             title() {
                 return ( this.question && this.question.title ) ? this.question.title : '';
+            },
+            hasAccessCodeClues() {
+                const accessCodeClues = this.accessCodeClues();
+
+                return !!( accessCodeClues && accessCodeClues.trim() );
+            },
+            accessCodeClues() {
+                return ( this.question && this.question.access_code_clues ) ? this.question.access_code_clues : '';
             },
             canCheck() {
                 return !!this.accessCode;

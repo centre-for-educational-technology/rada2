@@ -237,6 +237,11 @@ class ActivityItemController extends Controller
           $item->access_code = $request->access_code;
       }
 
+      if ( $request->has('access_code_clues') )
+      {
+          $item->access_code_clues = $request->access_code_clues;
+      }
+
       if ( $request->has('read_more') )
       {
           $item->read_more = $request->read_more;
@@ -443,6 +448,15 @@ class ActivityItemController extends Controller
       else
       {
           $activity_item->access_code = NULL;
+      }
+
+      if ( $request->has('access_code_clues') )
+      {
+          $activity_item->access_code_clues = $request->access_code_clues;
+      }
+      else
+      {
+          $activity_item->access_code_clues = NULL;
       }
 
       if ( $request->has('read_more') )

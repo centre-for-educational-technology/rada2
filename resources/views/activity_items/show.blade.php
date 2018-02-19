@@ -174,12 +174,16 @@
                     <p>
                         <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;zoom=18&amp;size=240x180&amp;maptype=hybrid&amp;markers=color:red%7C{{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;style=feature:poi%7Cvisibility:off&amp;style=feature:transit.station%7Cvisibility:off&amp;key={{ config('services.maps.google.api_key') }}" alt="map">
                     </p>
-                    @if ( $activity_item->access_code )
                     @can('viewAccessCode', $activity_item)
-                        <h3>{{ trans('general.forms.labels.access-code') }}</h3>
-                        <p>{{ $activity_item->access_code }}</p>
+                        @if ( $activity_item->access_code )
+                            <h3>{{ trans('general.forms.labels.access-code') }}</h3>
+                            <p>{{ $activity_item->access_code }}</p>
+                        @endif
+                        @if ( $activity_item->access_code_clues )
+                            <h3>{{ trans('general.forms.labels.access-code-clues') }}</h3>
+                            <p>{{ $activity_item->access_code_clues }}</p>
+                        @endif
                     @endcan
-                    @endif
 
                     @if ( $activity_item->read_more )
                         <h3>{{ trans('general.forms.labels.read-more') }}</h3>
