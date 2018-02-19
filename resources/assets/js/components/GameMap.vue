@@ -225,6 +225,7 @@
                             animation: google.maps.Animation.DROP,
                             questionId: question.id,
                             questionType: question.type,
+                            hasAccessCode: _this.hasAccessCode(question),
                             optimized: false
                         });
 
@@ -450,7 +451,7 @@
                     anchor: this.mapData.iconAnchor,
                     size: this.mapData.iconSize,
                     scaledSize: this.mapData.iconScaledSize,
-                    url: this.getIconUrl(state, marker.questionType)
+                    url: this.getIconUrl(state, marker.questionType, marker.hasAccessCode)
                 });
             },
             getMarkerBounds() {
