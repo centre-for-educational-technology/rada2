@@ -245,6 +245,10 @@
                                     _this.openQuestionModal(question);
                                 } else if ( _this.hasAccessCode(question) ) {
                                     _this.openAccessCodeModal(question);
+                                } else {
+                                    _this.closeInfoWindow();
+                                    infoWindow.setContent(marker.title);
+                                    infoWindow.open(map, marker);
                                 }
                             } else {
                                 _this.openQuestionModal(question);
