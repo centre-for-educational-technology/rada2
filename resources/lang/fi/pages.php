@@ -120,6 +120,7 @@ return [
             'read-more-about' => 'Lue lisää…',
             'tips-text' => 'Some tips before you start:',
             'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
+            'not-logged-in' => 'Not logged in',
             'icons' => [
                 'help' => 'Jokaisen kuvakkeen väri osoitta sen tilaa.',
                 'active' => 'Vastaamaton',

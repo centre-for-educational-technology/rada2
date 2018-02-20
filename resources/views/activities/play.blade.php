@@ -29,6 +29,8 @@
     <script>
         window.Laravel = <?php echo json_encode([
             'csrfToken' => csrf_token(),
+            'isLoggedIn' => Auth::check(),
+            'userName' => Auth::check() ? Auth::user()->name : trans('pages.play.game.not-logged-in'),
         ]); ?>;
         window.SmartZoos = <?php echo json_encode([
             'config' => [

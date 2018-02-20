@@ -28,6 +28,8 @@ const playGameApp = new Vue({
 
         vm.baseUrl = window.SmartZoos.config.base_url;
         vm.exitUrl = window.SmartZoos.config.exit_url;
+        vm.isLoggedIn = window.Laravel.isLoggedIn;
+        vm.userName = window.Laravel.userName;
         vm.game = window.SmartZoos.data.game;
 
         window.addEventListener('beforeunload', vm.leaving);
@@ -81,7 +83,9 @@ const playGameApp = new Vue({
             longitude: undefined,
             geoLocationErrorMessage: null,
             checkUnload: true,
-            game: null
+            game: null,
+            isLoggedIn: false,
+            userName: ''
         };
     },
     methods: {

@@ -29,6 +29,35 @@
             completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
         });
 
+        const userControlItem = document.createElement('i');
+        userControlItem.className = 'mdi';
+        if ( vm.$parent.isLoggedIn ) {
+            userControlItem.className += ' mdi-account';
+        } else {
+            userControlItem.className += ' mdi-account-off';
+        }
+        userControlItem.title = vm.$parent.userName;
+        controlUI.appendChild(userControlItem);
+
+        let userControlTooltipVisible = false;
+        userControlItem.addEventListener('click', function() {
+            $(userControlItem).tooltip('toggle');
+            userControlTooltipVisible = userControlTooltipVisible ? false : true;
+        });
+
+        $(userControlItem).tooltip({
+            'container': 'body',
+            'placement': 'bottom',
+            'title': $(userControlItem).attr('title'),
+            'trigger': 'manual'
+        });
+
+        $(window).on('resize', function () {
+            if ( userControlTooltipVisible ) {
+                $(userControlItem).tooltip('show');
+            }
+        });
+
         const informationControlItem = document.createElement('i');
         informationControlItem.className = 'mdi mdi-information-outline';
         informationControlItem.title = vm.$t('info');

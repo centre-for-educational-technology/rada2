@@ -15945,7 +15945,7 @@ form.sz-action-form-inline {
   font-size: 36px;
 }
 
-#map #sz-map-controls i.mdi-crosshairs {
+#map #sz-map-controls i.mdi-crosshairs, #map #sz-map-controls i.mdi-account-off {
   color: #777777;
 }
 

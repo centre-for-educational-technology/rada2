@@ -120,6 +120,7 @@ return [
             'read-more-about' => 'Read more about...',
             'tips-text' => 'Some tips before you start:',
             'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
+            'not-logged-in' => 'Not logged in',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',
