@@ -33,6 +33,7 @@
         window.SmartZoos = <?php echo json_encode([
             'config' => [
                 'base_url' => url('/'),
+                'exit_url' => $exit_url,
                 'map' => [
                     'key' => config('services.maps.google.api_key'),
                 ],

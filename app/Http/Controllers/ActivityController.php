@@ -426,7 +426,7 @@ class ActivityController extends Controller
      * @param  Activity $activity [description]
      * @return [type]             [description]
      */
-    public function start(Activity $activity)
+    public function start(Request $request, Activity $activity)
     {
         $game = null;
 
@@ -448,7 +448,16 @@ class ActivityController extends Controller
             $game->save();
         }
 
-        return redirect()->route('game.play', [ 'id' => $game->id ]);
+        $routeParams = [
+            'id' => $game->id,
+        ];
+
+        if ( $request->has('exit_url') )
+        {
+            $routeParams['exit_url'] = $request->get('exit_url');
+        }
+
+        return redirect()->route('game.play', $routeParams);
     }
 
     /**

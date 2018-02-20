@@ -19,6 +19,7 @@
                         <div class="well">{{ trans('pages.dashboard.none-found') }}</div>
                     @endif
 
+                    @php ( $gameExitUrl = route('dashboard') )
                     @foreach($games as $game)
                         <div class="row">
                             <div class="col-xs-5 col-sm-5">
@@ -32,12 +33,13 @@
                                 @endif
                             </div>
                             <div class="col-xs-3 col-sm-2">
+                                @php ( $gameUrl = route('game.play', ['id' => $game->id, 'exit_url' => $gameExitUrl,]) )
                                 @if ( $game->isComplete() )
-                                    <a href="{!! route('game.play', ['id' => $game->id]) !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.view-results' )}}">
+                                    <a href="{!! $gameUrl !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.view-results' )}}">
                                         <i class="mdi mdi-map-marker-circle"></i>
                                     </a>
                                 @else
-                                    <a href="{!! route('game.play', ['id' => $game->id]) !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.continue' )}}">
+                                    <a href="{!! $gameUrl !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.continue' )}}">
                                         <i class="mdi mdi-play-circle-outline"></i>
                                     </a>
                                 @endif

@@ -48,7 +48,7 @@ class GameController extends Controller
      * @param \App\Activity
      * @return \Illuminate\Http\Response
      */
-    public function play(Game $game)
+    public function play(Request $request, Game $game)
     {
         if ( !$game->activity ) {
             abort(404);
@@ -60,8 +60,18 @@ class GameController extends Controller
             }
         }
 
+        $exitUrl = route('activity.index');
+        if ( $request->has('exit_url') )
+        {
+            if ( starts_with( $request->get('exit_url'), url('/') ) )
+            {
+                $exitUrl = $request->get('exit_url');
+            }
+        }
+
         return view('activities/play')->with([
             'game_data' => $game->getGameData(),
+            'exit_url' => $exitUrl,
         ]);
     }
 

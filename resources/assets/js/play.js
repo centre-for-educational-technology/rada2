@@ -27,6 +27,7 @@ const playGameApp = new Vue({
         var vm = this;
 
         vm.baseUrl = window.SmartZoos.config.base_url;
+        vm.exitUrl = window.SmartZoos.config.exit_url;
         vm.game = window.SmartZoos.data.game;
 
         window.addEventListener('beforeunload', vm.leaving);
@@ -74,6 +75,7 @@ const playGameApp = new Vue({
     data() {
         return {
             baseUrl: '',
+            exitUrl: '',
             mapInitialised: false,
             latitude: undefined,
             longitude: undefined,
@@ -128,7 +130,7 @@ const playGameApp = new Vue({
             if ( confirmation ) {
                 // Prevent unload check from being applied
                 this.checkUnload = false;
-                window.location = this.baseUrl;
+                window.location = this.exitUrl;
             }
         },
         hasSeenTutorial() {
