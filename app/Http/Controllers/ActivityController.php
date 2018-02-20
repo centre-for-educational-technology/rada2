@@ -177,9 +177,15 @@ class ActivityController extends Controller
 
         $activities = $query->paginate( config('paginate.limit') );
 
-        if ( $search['search-submitted'] ) {
+        if ( $search['search-submitted'] )
+        {
             $activities->appends($search);
             $activities->fragment('search-results');
+        } else if ( $request->has('zoo') && $request->get('zoo') )
+        {
+            $activities->appends([
+                'zoo' => $request->get('zoo'),
+            ]);
         }
 
         return view('activities/index')->with([
