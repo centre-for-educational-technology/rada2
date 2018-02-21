@@ -228,26 +228,6 @@
             </div>
         </div>
 
-        <div class="form-group{{ $errors->has('access_code') ? ' has-error' : '' }}">
-            {!! Form::label('access_code', trans('general.forms.labels.access-code'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    {!! Form::text('access_code', null, [
-                        'class' => 'form-control',
-                        'placeholder' => trans('general.forms.placeholders.access-code'),
-                    ]) !!}
-                </div>
-
-                @if ($errors->has('access_code'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('access_code') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
         <div class="form-group{{ $errors->has('access_code_clues') ? ' has-error' : '' }}">
             {!! Form::label('access_code_clues', trans('general.forms.labels.access-code-clues'), [
                 'class' => 'col-md-4 control-label',
@@ -263,6 +243,26 @@
                 @if ($errors->has('access_code_clues'))
                     <span class="help-block">
                         <strong>{{ $errors->first('access_code_clues') }}</strong>
+                    </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('access_code') ? ' has-error' : '' }}">
+            {!! Form::label('access_code', trans('general.forms.labels.access-code'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                    {!! Form::text('access_code', null, [
+                        'class' => 'form-control',
+                        'placeholder' => trans('general.forms.placeholders.access-code'),
+                    ]) !!}
+                </div>
+
+                @if ($errors->has('access_code'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('access_code') }}</strong>
                     </span>
                 @endif
             </div>
