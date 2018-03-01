@@ -123,7 +123,7 @@ class Game extends Model
                     'id' => $item->id,
                     'title' => $item->title,
                     'description' => $item->description,
-                    'image' => $item->getImageUrl(),
+                    'image_url' => $item->getImageUrl(),
                     'embedded_content' => $item->embedded_content,
                     'type' => $item->type,
                     'latitude' => $item->latitude,
@@ -140,7 +140,7 @@ class Game extends Model
                         $tmp['options'][] = [
                             'id' => $option->id,
                             'option' => $option->option,
-                            'image' => $option->getImageUrl(),
+                            'image_url' => $option->getImageUrl(),
                             'correct' => (bool) $option->correct,
                         ];
                     }
@@ -151,9 +151,9 @@ class Game extends Model
                         $tmp['pairs'][] = [
                             'id' => $pair->id,
                             'option' => $pair->option,
-                            'image' => $pair->getOptionImageUrl(),
+                            'image_url' => $pair->getOptionImageUrl(),
                             'option_match' => $pair->option_match,
-                            'image_match' => $pair->getOptionMatchImageUrl(),
+                            'image_match_url' => $pair->getOptionMatchImageUrl(),
                         ];
                     }
                 }

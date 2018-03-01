@@ -9,9 +9,47 @@ use Illuminate\Support\Facades\File;
 class ActivityItemPair extends Model
 {
     /**
-     * [getImageUrl description]
-     * @param  string $image [description]
-     * @return [type]        [description]
+     * Attributes that are appendable to JSON.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_url',
+        'image_match_url',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Sets image_url attribute based on image value.
+     * @return string Image URL
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->attributes['image_url'] = $this->getOptionImageUrl();
+    }
+
+    /**
+     * Sets image_match_url attribute based on image_match value.
+     * @return string Image match URL
+     */
+    public function getImageMatchUrlAttribute()
+    {
+        return $this->attributes['image_match_url'] = $this->getOptionMatchImageUrl();
+    }
+
+    /**
+     * Returns image URL
+     * @param  string $image Image path
+     * @return string        Image URL
      */
     private function getImageUrl(string $image) {
         $path = ActivityItem::getStoragePathForId($this->activity_item_id);

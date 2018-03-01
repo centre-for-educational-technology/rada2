@@ -67,7 +67,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr v-for="item in sortedSearchResults">
+                                        <tr v-for="item in sortedSearchResults" ref="searchResult" v-on:click="showQuestionPreview(item, true)">
                                             <td v-bind:title="item.description">{{ item.title }}</td>
                                             <td class="hidden-xs">{{ getZooFromId(item.zoo) }}</td>
                                             <td>
@@ -77,8 +77,8 @@
                                             <td class="hidden-xs">{{ getLanguageFromId(item.language) }}</td>
                                             <td>
                                                 <transition name="button-toggle" mode="out-in" enter-active-class="animated fadeIn" leave-active-class="animated fadeOut">
-                                                    <button type="button" class="btn btn-success btn-sm" v-on:click="addItem(item)" v-if="!hasItem(item)" key="add"><i class="mdi mdi-plus"></i></button>
-                                                    <button type="button" class="btn btn-danger btn-sm" v-on:click="removeItem(item)" v-else key="remove"><i class="mdi mdi-minus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm" v-on:click.stop="addItem(item)" v-if="!hasItem(item)" key="add"><i class="mdi mdi-plus"></i></button>
+                                                    <button type="button" class="btn btn-danger btn-sm" v-on:click.stop="removeItem(item)" v-else key="remove"><i class="mdi mdi-minus"></i></button>
                                                 </transition>
                                             </td>
                                         </tr>
@@ -98,6 +98,9 @@
                 </div>
             </div>
         </div>
+
+        <game-question-modal v-bind:question="previewItem" v-bind:game-id="fakeGameId" v-bind:base-url="baseUrl" v-bind:is-preview="true" v-if="previewItem" ref="questionModal"></game-question-modal>
+
         <button type="button" class="btn btn-success" v-on:click="openDialog()">
             <i class="mdi mdi-search-web" aria-hidden="true"></i>
             {{ $t('search-activity-items') }}
@@ -112,7 +115,10 @@
                 <li class="list-group-item" v-for="item in items" v-bind:title="item.description">
                     <input type="hidden" class="form-control" name="activity_items[]" v-bind:value="item.id">
                     <i class="mdi mdi-drag-vertical"></i>
-                    <button type="button" class="btn btn-danger btn-sm pull-right" v-on:click="removeItem(item)"><i class="mdi mdi-minus"></i></button>
+                    <span class="pull-right">
+                        <button type="button" class="btn btn-primary btn-sm" v-on:click="showQuestionPreview(item)"><i class="mdi mdi-open-in-app"></i></button>
+                        <button type="button" class="btn btn-danger btn-sm" v-on:click="removeItem(item)"><i class="mdi mdi-minus"></i></button>
+                    </span>
                     <img class="sz-img-w30" v-bind:src="item.icon_url" alt="icon">
                     &nbsp;
                     <span>
@@ -129,7 +135,8 @@
 
     export default {
         components: {
-            draggable
+            draggable,
+            'game-question-modal': require('./GameQuestionModal.vue')
         },
         props: ['baseUrl', 'apiUrl', 'canCreateActivityItem'],
         mounted() {
@@ -187,7 +194,9 @@
                     zoo: '0',
                     questionType: '0',
                     language: '0'
-                }
+                },
+                fakeGameId: 0,
+                previewItem: null
             };
         },
         computed: {
@@ -293,6 +302,31 @@
             },
             isOrderedBy(orderBy) {
                 return this.searchResults.order.by === orderBy;
+            },
+            showQuestionPreview(item, reapplyBodyClass) {
+                this.previewItem = item;
+
+                this.$nextTick(() => {
+                    const modal = this.$refs.questionModal.open();
+
+                    if ( reapplyBodyClass ) {
+                        modal.one('hidden.bs.modal', () => {
+                            // Fix .modal-open issue
+                            $(document).find('body').addClass('modal-open');
+                        });
+                    }
+
+                    this.$nextTick(() => {
+                        const modalData = modal.data();
+                        modalData['bs.modal'].$backdrop.css('z-index', 1051);
+                        modalData['bs.modal'].$element.css('z-index', 1061);
+                        modalData['bs.modal'].$dialog.css('margin-top', '50px');
+                        modalData['bs.modal'].$dialog.find('.modal-content')
+                            .css('margin-left', '20px')
+                            .css('margin-right', '20px')
+                            .css('margin-top', '20px');
+                    })
+                });
             }
         }
     }

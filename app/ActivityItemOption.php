@@ -9,6 +9,34 @@ use Illuminate\Support\Facades\File;
 class ActivityItemOption extends Model
 {
     /**
+     * Attributes that are appendable to JSON.
+     *
+     * @var array
+     */
+    protected $appends = [
+        'image_url',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'created_at',
+        'updated_at',
+    ];
+
+    /**
+     * Sets image_url attribute based on image value.
+     * @return string Image URL
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->attributes['image_url'] = $this->getImageUrl();
+    }
+
+    /**
      * Checks if option is marked as correct answer
      * @return boolean
      */

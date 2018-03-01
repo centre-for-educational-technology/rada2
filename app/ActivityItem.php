@@ -30,7 +30,21 @@ class ActivityItem extends Model
      * @var array
      */
     protected $appends = [
-        'icon_url'
+        'icon_url',
+        'image_url',
+    ];
+
+    /**
+     * The attributes that should be hidden for arrays.
+     *
+     * @var array
+     */
+    protected $hidden = [
+        'access_code',
+        'access_code_clues',
+        'created_at',
+        'updated_at',
+        'user_id',
     ];
 
     /**
@@ -62,6 +76,15 @@ class ActivityItem extends Model
         }
 
         return $this->attributes['icon_url'] = $iconUrl;
+    }
+
+    /**
+     * Sets image_url attribute based on image value.
+     * @return string Image URL
+     */
+    public function getImageUrlAttribute()
+    {
+        return $this->attributes['image_url'] = $this->getImageUrl();
     }
 
     /**

@@ -15922,6 +15922,73 @@ form.sz-action-form-inline {
   font-size: 12px;
 }
 
+.sz-game-question .sz-photo input[type='file'] {
+  display: none;
+}
+
+.sz-game-question .sz-photo .sz-take-image {
+  color: #777777;
+  margin-left: auto;
+  margin-right: auto;
+  font-size: 96px;
+}
+
+.sz-game-question .sz-photo .sz-take-image.sz-image-taken {
+  color: #333333;
+}
+
+.sz-game-question .sz-photo .sz-take-image i.mdi::before {
+  font-size: 96px;
+}
+
+.sz-game-question .sz-one-correct-answer .media, .sz-game-question .sz-multiple-correct-answers .media {
+  cursor: pointer;
+}
+
+.sz-game-question .sz-one-correct-answer .media input[type='radio'], .sz-game-question .sz-one-correct-answer .media input[type='checkbox'], .sz-game-question .sz-multiple-correct-answers .media input[type='radio'], .sz-game-question .sz-multiple-correct-answers .media input[type='checkbox'] {
+  display: none;
+}
+
+.sz-game-question .sz-one-correct-answer .media .media-left img.media-object, .sz-game-question .sz-multiple-correct-answers .media .media-left img.media-object {
+  max-width: 150px;
+  height: auto;
+}
+
+.sz-game-question .sz-one-correct-answer .media .media-right, .sz-game-question .sz-multiple-correct-answers .media .media-right {
+  padding-top: 5px;
+}
+
+.sz-game-question .sz-one-correct-answer .mdi.correct, .sz-game-question .sz-multiple-correct-answers .mdi.correct {
+  color: #2ab27b;
+}
+
+.sz-game-question .sz-match-pairs.row {
+  margin-left: 15px;
+  margin-right: 15px;
+}
+
+.sz-game-question .sz-match-pairs .row .sz-matchable {
+  border: 1px solid #eeeeee;
+  padding: 5px;
+  cursor: pointer;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+
+.sz-game-question .sz-match-pairs .row .sz-matchable.chosen {
+  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.sz-game-question .sz-match-pairs .row .sz-matchable.matched {
+  opacity: 0.5;
+}
+
+.sz-game-question .sz-match-pairs .row .sz-matchable img {
+  max-width: 100%;
+  height: auto;
+}
+
 #map #sz-map-controls {
   -webkit-user-select: none;
   -moz-user-select: none;
@@ -16014,73 +16081,6 @@ form.sz-action-form-inline {
   width: 100%;
 }
 
-#sz-play-app .sz-photo input[type='file'] {
-  display: none;
-}
-
-#sz-play-app .sz-photo .sz-take-image {
-  color: #777777;
-  margin-left: auto;
-  margin-right: auto;
-  font-size: 96px;
-}
-
-#sz-play-app .sz-photo .sz-take-image.sz-image-taken {
-  color: #333333;
-}
-
-#sz-play-app .sz-photo .sz-take-image i.mdi::before {
-  font-size: 96px;
-}
-
-#sz-play-app .sz-one-correct-answer .media, #sz-play-app .sz-multiple-correct-answers .media {
-  cursor: pointer;
-}
-
-#sz-play-app .sz-one-correct-answer .media input[type='radio'], #sz-play-app .sz-one-correct-answer .media input[type='checkbox'], #sz-play-app .sz-multiple-correct-answers .media input[type='radio'], #sz-play-app .sz-multiple-correct-answers .media input[type='checkbox'] {
-  display: none;
-}
-
-#sz-play-app .sz-one-correct-answer .media .media-left img.media-object, #sz-play-app .sz-multiple-correct-answers .media .media-left img.media-object {
-  max-width: 150px;
-  height: auto;
-}
-
-#sz-play-app .sz-one-correct-answer .media .media-right, #sz-play-app .sz-multiple-correct-answers .media .media-right {
-  padding-top: 5px;
-}
-
-#sz-play-app .sz-one-correct-answer .mdi.correct, #sz-play-app .sz-multiple-correct-answers .mdi.correct {
-  color: #2ab27b;
-}
-
-#sz-play-app .sz-match-pairs.row {
-  margin-left: 15px;
-  margin-right: 15px;
-}
-
-#sz-play-app .sz-match-pairs .row .sz-matchable {
-  border: 1px solid #eeeeee;
-  padding: 5px;
-  cursor: pointer;
-  margin-top: 5px;
-  margin-bottom: 5px;
-}
-
-#sz-play-app .sz-match-pairs .row .sz-matchable.chosen {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
-  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-}
-
-#sz-play-app .sz-match-pairs .row .sz-matchable.matched {
-  opacity: 0.5;
-}
-
-#sz-play-app .sz-match-pairs .row .sz-matchable img {
-  max-width: 100%;
-  height: auto;
-}
-
 #sz-play-app .sz-game-results .sz-options-list .mdi-radiobox-marked, #sz-play-app .sz-game-results .sz-options-list .mdi-checkbox-marked-outline {
   color: #bf5329;
 }
@@ -16112,6 +16112,10 @@ form.sz-action-form-inline {
 
 .sz-search-results th.sortable.active {
   color: #2ab27b;
+}
+
+.sz-search-results tr {
+  cursor: pointer;
 }
 
 .sz-search-results .mdi.mdi-sort-alphabetical::before, .sz-search-results .mdi.mdi-sort-numeric::before {

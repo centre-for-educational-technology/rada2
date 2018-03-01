@@ -1,6 +1,6 @@
 <template>
     <div ref="modal" class="modal fade" tabindex="-1" role="dialog" v-on:click.self="close()" @keyup.esc="close()">
-        <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-dialog modal-lg sz-game-question" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" v-on:click="close()" v-bind:diabled="inAjaxCall"><span aria-hidden="true">&times;</span></button>
@@ -15,8 +15,8 @@
                     <div v-if="isOneCorrectAnswer()">
                         <ul class="media-list sz-one-correct-answer">
                             <li class="media" v-for="(option, index) in options()" v-on:click="triggerOptionClick(index)">
-                                <div class="media-left" v-if="option.image">
-                                    <img v-bind:src="option.image" class="media-object" alt="option-image">
+                                <div class="media-left" v-if="option.image_url">
+                                    <img v-bind:src="option.image_url" class="media-object" alt="option-image">
                                 </div>
 
                                 <div class="media-body media-middle">
@@ -35,8 +35,8 @@
                     <div v-if="isMultipleCorrectAnswers()">
                         <ul class="media-list sz-multiple-correct-answers">
                             <li class="media" v-for="(option, index) in options()" v-on:click="triggerOptionClick(index)">
-                                <div class="media-left" v-if="option.image">
-                                    <img v-bind:src="option.image" class="media-object" alt="option-image">
+                                <div class="media-left" v-if="option.image_url">
+                                    <img v-bind:src="option.image_url" class="media-object" alt="option-image">
                                 </div>
 
                                 <div class="media-body media-middle">
@@ -64,7 +64,7 @@
                                 <div class="row" v-for="pair in pairs()">
                                     <div class="col-xs-12">
                                         <div class="sz-matchable" v-on:click="choosePair(pair)" v-bind:class="{ 'chosen': isOptionChosen(pair), 'matched': isMatchedPair(pair) }" v-bind:style="matchableStyles" ref="matchable">
-                                            <img v-if="pair.image" v-bind:src="pair.image" class="media-object" alt="pair-image">
+                                            <img v-if="pair.image_url" v-bind:src="pair.image_url" class="media-object" alt="pair-image">
                                             <div>{{ pair.option }}</div>
                                         </div>
                                     </div>
@@ -75,7 +75,7 @@
                                 <div class="row" v-for="pair in pairs(true)">
                                     <div class="col-xs-12">
                                         <div class="sz-matchable" v-on:click="choosePairMatch(pair)" v-bind:class="{ 'chosen': isOptionMatchChosen(pair), 'matched': isMatchedPair(pair) }" v-bind:style="matchableStyles" ref="matchable">
-                                            <img v-if="pair.image_match" v-bind:src="pair.image_match" class="media-object" alt="pair-image">
+                                            <img v-if="pair.image_match_url" v-bind:src="pair.image_match_url" class="media-object" alt="pair-image">
                                             <div>{{ pair.option_match }}</div>
                                         </div>
                                     </div>
@@ -121,7 +121,7 @@
                     <button type="button" class="btn btn-default" v-on:click="close()" v-bind:disabled="inAjaxCall" v-bind:title="$t('close')">
                         <i class="mdi mdi-close"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()" v-bind:title="$t('submit')">
+                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()" v-bind:title="$t('submit')" v-if="!isPreview">
                         <i class="mdi mdi-send"></i>
                     </button>
                 </div>
@@ -134,7 +134,7 @@
     import ImageMixin from './../mixins/Image.js'
 
     export default {
-        props: ['question', 'gameId', 'baseUrl'],
+        props: ['question', 'gameId', 'baseUrl', 'isPreview'],
         mixins: [ImageMixin],
         mounted() {
             var vm = this;
@@ -197,6 +197,8 @@
 
                     $(this.$refs.modal).modal('show');
                 });
+
+                return $(this.$refs.modal);
             },
             close() {
                 if ( this.inAjaxCall ) return;
@@ -270,10 +272,10 @@
                 return this.question ? this.question.description : '';
             },
             hasImage() {
-                return this.question && this.question.image;
+                return this.question && this.question.image_url;
             },
             image() {
-                return this.question ? this.question.image : '';
+                return this.question ? this.question.image_url : '';
             },
             embeddedContent() {
                 return this.question ? this.question.embedded_content : '';
