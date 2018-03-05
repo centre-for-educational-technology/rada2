@@ -330,6 +330,11 @@ class ActivityItemController extends Controller
           $item->pairs()->saveMany($pairs);
       }
 
+      // This one is used to determine if message should be sent or not
+      // Used by the creation of Activity, when opening a new window to
+      // create an ActivityItem
+      $request->session()->flash('activityItemCreated', 'true');
+
       return redirect()->route('activity_item.show', [ 'id' => $item->id ]);
   }
 
@@ -343,6 +348,10 @@ class ActivityItemController extends Controller
   {
       // XXX This seems to fail for guests
       //$this->authorize('view', $activity_item);
+
+      // This one is neede to force preloading for JSON encoding the object
+      $activity_item->options;
+      $activity_item->pairs;
 
       return view('activity_items/show')->with('activity_item', $activity_item);
   }

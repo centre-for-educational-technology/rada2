@@ -105,11 +105,11 @@
             <i class="mdi mdi-search-web" aria-hidden="true"></i>
             {{ $t('search-activity-items') }}
         </button>
-        <a class="btn btn-success" v-bind:href="baseUrl + '/activity_items/create'" target="_blank" v-if="canCreateActivityItem">
+        <button type="button" class="btn btn-success" v-if="canCreateActivityItem" v-on:click="createNewActivityItem">
             <i class="mdi mdi-plus" aria-hidden="true"></i>
             {{ $t('create-new-activity-item') }}
             <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
-        </a>
+        </button>
         <ul class="list-group sz-sortable-list">
             <draggable :list="items" :options="options">
                 <li class="list-group-item" v-for="item in items" v-bind:title="item.description">
@@ -163,6 +163,17 @@
                     }
                 });
             });
+
+            window.addEventListener('message', function(e) {
+                if ( e.origin !== window.origin ) {
+                    return;
+                }
+
+                if ( e.data && e.data.type === 'addActivityItem' && e.data.activityItem ) {
+                    vm.addItem(_.cloneDeep(e.data.activityItem));
+                    e.source.close();
+                }
+            }, false);
         },
         data() {
             return {
@@ -327,6 +338,9 @@
                             .css('margin-top', '20px');
                     })
                 });
+            },
+            createNewActivityItem() {
+                window.open(this.baseUrl + '/activity_items/create', '_blank');
             }
         }
     }

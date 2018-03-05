@@ -1,5 +1,20 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+@if ( Session::has('activityItemCreated') )
+<script>
+    $(document).ready(function() {
+        if ( window.opener ) {
+            window.opener.postMessage({
+                type: 'addActivityItem',
+                activityItem: <?php echo json_encode($activity_item); ?>
+            }, window.origin);
+        }
+    });
+</script>
+@endif
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
