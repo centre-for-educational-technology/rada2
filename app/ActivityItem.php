@@ -225,13 +225,13 @@ class ActivityItem extends Model
     {
         if ( $this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers() )
         {
-            return $this->options()->get(['id', 'option', 'correct', 'image'])->each(function($item, $key) {
+            return $this->options()->get(['id', 'option', 'correct', 'image', 'activity_item_id'])->each(function($item, $key) {
                 $item->correct = (bool)$item->correct;
             });
         }
         else if ( $this->isMatchPairs() )
         {
-            return $this->pairs()->get(['id', 'option', 'image', 'option_match', 'image_match']);
+            return $this->pairs()->get(['id', 'option', 'image', 'option_match', 'image_match', 'activity_item_id']);
         }
 
         return [];
