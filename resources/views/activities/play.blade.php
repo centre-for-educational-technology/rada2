@@ -77,6 +77,7 @@
                     'got-it' => trans('pages.play.game.got-it'),
                     'tips-text' => trans('pages.play.game.tips-text'),
                     'access-code-placeholder' => trans('pages.play.game.access-code-placeholder'),
+                    'complete' => trans('pages.play.game.complete'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),

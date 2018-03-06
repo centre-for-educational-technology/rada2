@@ -121,6 +121,7 @@ return [
             'tips-text' => 'Some tips before you start:',
             'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
             'not-logged-in' => 'Not logged in',
+            'complete' => 'Complete!',
             'icons' => [
                 'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
                 'active' => 'Vastamata',

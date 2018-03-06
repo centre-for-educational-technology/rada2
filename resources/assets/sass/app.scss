@@ -130,8 +130,8 @@ form.sz-action-form-inline {
     color: $brand-danger;
 }
 
-.media-list.sz-options-list, .list-group.sz-pairs-list {
-    .media.sz-option, .list-group-item.sz-pair {
+.media-list.sz-options-list, .list-group.sz-pairs-list, .sz-pairs-list {
+    .media.sz-option, .list-group-item.sz-pair, .media.sz-pair {
         img.media-object {
             max-height: 64px;
             max-width: 64px;
@@ -139,6 +139,10 @@ form.sz-action-form-inline {
 
         .media-body {
             vertical-align: middle;
+
+            .media-heading.selected {
+                font-weight: bold;
+            }
         }
 
         .media-right {
@@ -380,21 +384,24 @@ form.sz-action-form-inline {
     }
 
     .sz-game-results {
+        .sz-quick-results {
+            .sz-results-count {
+                font-size: 600%;
+            }
+
+            .sz-complete-text {
+                font-size: 300%;
+            }
+        }
+
         .sz-options-list {
-            .mdi-radiobox-marked, .mdi-checkbox-marked-outline {
-                color: $brand-danger;
-            }
-
-            .mdi-checkbox-blank-outline {
-                color: $brand-danger;
-            }
-
-            &.correct {
-                .mdi-radiobox-marked, .mdi-checkbox-marked-outline {
+            .mdi {
+                &.correct {
                     color: $brand-success;
                 }
-                .mdi-checkbox-blank-outline {
-                    color: $text-color;
+
+                &.incorrect {
+                    color: $brand-danger;
                 }
             }
         }

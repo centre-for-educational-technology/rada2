@@ -121,6 +121,7 @@ return [
             'tips-text' => 'Några tips innan du börjar:',
             'access-code-placeholder' => 'Mata in koden eller texten för att komma förbi platsbindningen.',
             'not-logged-in' => 'Not logged in',
+            'complete' => 'Complete!',
             'icons' => [
                 'help' => 'Varje ikons färg visar uppgiftens tillstånd.',
                 'active' => 'Obesvarad',
