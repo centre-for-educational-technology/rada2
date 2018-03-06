@@ -182,7 +182,17 @@ class UserController extends Controller
 
         $user->roles()->sync($syncableRoles);
 
-        return redirect()->route('manage.users', ['page' => $request->get('page'), '#user-' . $user->id]);
+        $routeParams = [
+            'page' => $request->get('page'),
+            '#user-' . $user->id,
+        ];
+
+        if ( $request->has('q') && $request->get('q') )
+        {
+            $routeParams['q'] = $request->get('q');
+        }
+
+        return redirect()->route('manage.users', $routeParams);
     }
 
     /**

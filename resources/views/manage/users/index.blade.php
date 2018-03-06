@@ -75,6 +75,7 @@
                 <div class="modal-body">
                     <form name="roles" action="" method="post" data-action-base="{{ url('/manage/users') }}">
                         <input type="hidden" name="page" value="{{ $users->currentPage() }}">
+                        <input type="hidden" name="q" value="{{ $q }}">
                         {{ csrf_field() }}
                         <div class="form-group">
                             @foreach($roles as $role)
