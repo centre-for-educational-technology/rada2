@@ -118,7 +118,7 @@ return [
             'next' => 'Next',
             'got-it' => 'Got it!',
             'read-more-about' => 'Read more about...',
-            'tips-text' => 'Some tips before you start:',
+            'tips-text' => 'Some tips before you start',
             'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
             'not-logged-in' => 'Not logged in',
             'complete' => 'Complete!',
@@ -130,6 +130,10 @@ return [
                 'incorrect' => 'Incorrect answer',
             ],
             'items' => [
+                'gameplay_instructions' => [
+                    'title' => 'How to play',
+                    'description' => 'Investigate the location, find and complete all the tasks!',
+                ],
                 'look_closely' => [
                     'title' => 'Look around',
                     'description' => 'Look closely at your surroundings for clues. You never know where you\'ll find answers!',

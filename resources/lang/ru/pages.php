@@ -118,7 +118,7 @@ return [
             'next' => 'Следующий',
             'got-it' => 'Получить это!',
             'read-more-about' => 'Читать больше...',
-            'tips-text' => 'Некоторые советы перед началом:',
+            'tips-text' => 'Некоторые советы перед началом',
             'access-code-placeholder' => 'Введите код или текст, чтобы переопределить ограничение позиции',
             'not-logged-in' => 'Not logged in',
             'complete' => 'Complete!',
@@ -130,6 +130,10 @@ return [
                 'incorrect' => 'Неверный ответ',
             ],
             'items' => [
+                'gameplay_instructions' => [
+                    'title' => 'How to play',
+                    'description' => 'Investigate the location, find and complete all the tasks!',
+                ],
                 'look_closely' => [
                     'title' => 'Посмотрите вокруг',
                     'description' => 'Посмотрите внимательно вокруг себя для поиска подсказок. Вы никогда не знаете, где найдете ответы!',

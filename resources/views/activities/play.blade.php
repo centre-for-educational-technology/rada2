@@ -86,6 +86,10 @@
                         'incorrect' => trans('pages.play.game.icons.incorrect'),
                     ],
                     'items' => [
+                        'gameplay_instructions' => [
+                            'title' => trans('pages.play.game.items.gameplay_instructions.title'),
+                            'description' => trans('pages.play.game.items.gameplay_instructions.description'),
+                        ],
                         'look_closely' => [
                             'title' => trans('pages.play.game.items.look_closely.title'),
                             'description' => trans('pages.play.game.items.look_closely.description'),

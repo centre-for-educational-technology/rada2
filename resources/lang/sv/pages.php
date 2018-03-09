@@ -118,7 +118,7 @@ return [
             'next' => 'Nästa',
             'got-it' => 'Jag förstår!',
             'read-more-about' => 'Läs mer om…',
-            'tips-text' => 'Några tips innan du börjar:',
+            'tips-text' => 'Några tips innan du börjar',
             'access-code-placeholder' => 'Mata in koden eller texten för att komma förbi platsbindningen.',
             'not-logged-in' => 'Not logged in',
             'complete' => 'Complete!',
@@ -130,6 +130,10 @@ return [
                 'incorrect' => 'Fel svar',
             ],
             'items' => [
+                'gameplay_instructions' => [
+                    'title' => 'How to play',
+                    'description' => 'Investigate the location, find and complete all the tasks!',
+                ],
                 'look_closely' => [
                     'title' => 'Se dig om',
                     'description' => 'Leta noga i omgivningarna efter ledtrådar. Man vet aldrig var man kan hitta svaren!',

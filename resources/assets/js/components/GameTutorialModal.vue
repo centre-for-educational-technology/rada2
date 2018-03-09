@@ -4,12 +4,18 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" v-on:click="close()"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title text-center">{{ activity.title }}</h4>
+                    <h4 class="modal-title text-center">{{ $t('tips-text') }}</h4>
                 </div>
                 <div class="modal-body">
-                    <h4 class="text-center">{{ $t('tips-text') }}</h4>
                     <div class="tips" ref="tips">
                         <transition name="tip-side" mode="out-in" v-bind:enter-active-class="enterActiveClass" v-bind:leave-active-class="leaveActiveClass">
+                            <div class="tip" v-if="currentItem === 'gameplay_instructions'" key="gameplay_instructions">
+                                <div class="tip-image">
+                                    <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl('gameplay_instructions', 'png')">
+                                </div>
+                                <h4 class="text-center">{{ $t('items.gameplay_instructions.title') }}</h4>
+                                <div class="text-center">{{ $t('items.gameplay_instructions.description') }}</div>
+                            </div>
                             <div class="tip" v-if="currentItem === 'look_closely'" key="look_closely">
                                 <div class="tip-image">
                                     <img class="img-responsive center-block" alt="image" v-bind:src="getItemImageUrl('look_closely')">
@@ -82,8 +88,8 @@
         data() {
             return {
                 baseUrl: '',
-                currentItem: 'look_closely',
-                items: ['look_closely', 'look_out', 'do_not_disturb', 'help_others'],
+                currentItem: 'gameplay_instructions',
+                items: ['gameplay_instructions', 'look_closely', 'look_out', 'do_not_disturb', 'help_others'],
                 enterActiveClass: 'animated slideInRight',
                 leaveActiveClass: 'animated slideOutLeft'
             };
@@ -100,8 +106,11 @@
                     this.$root.$emit('dialog:tutorial:close');
                 });
             },
-            getItemImageUrl(key) {
-                return this.baseUrl + '/img/guidelines/' + key + '.jpg';
+            getItemImageUrl(key, format) {
+                if ( !format ) {
+                    format = 'jpg';
+                }
+                return this.baseUrl + '/img/guidelines/' + key + '.' + format;
             },
             isFirstItem() {
                 return this.items.indexOf(this.currentItem) === 0;
