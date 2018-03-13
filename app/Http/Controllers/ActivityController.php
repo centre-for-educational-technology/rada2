@@ -41,7 +41,7 @@ class ActivityController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'start', 'qrCode']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'start', 'qrCode', 'qrCodeDownload']]);
     }
 
     /**
@@ -577,5 +577,34 @@ class ActivityController extends Controller
         return [
             'qrcode' => $qrCode,
         ];
+    }
+
+    /**
+     * Responds with activity QR Code image formatted as PNG.
+     * @param  \Appp\Activity $activity Activity model object
+     * @return \Illuminate\Http\Response
+     */
+    public function qrCodeDownload(Activity $activity)
+    {
+        $headers = [
+            'Content-type' => 'image/png',
+            'Content-Disposition' => 'attachment; filename=activity-' . $activity->id . '-qr-code.png',
+            'Pragma' => 'no-cache',
+            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
+            'Expires' => '0',
+        ];
+
+        $callback = function() use ($activity)
+        {
+            $handle = fopen('php://output', 'w');
+
+            $url = route('activity.show', ['id' => $activity->id]);
+            $qrCode = QrCode::format('png')->size(500)->errorCorrection('H')->generate($url);
+
+            fwrite($handle, $qrCode);
+            fclose($handle);
+        };
+
+        return response()->stream($callback, 200, $headers);
     }
 }

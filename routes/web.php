@@ -51,7 +51,7 @@ Route::group(['prefix' => 'activities'], function()
     Route::post('/', 'ActivityController@store');
 
     Route::get('{activity}', 'ActivityController@show')->name('activity.show');
-    //Route::get('{activity}/play', 'ActivityController@play')->name('activity.play');
+    Route::get('{activity}/qrcode', 'ActivityController@qrCodeDownload')->name('activity.qrcode.download');
 
     Route::get('{activity}/edit', 'ActivityController@edit')->name('activity.edit');
     Route::put('{activity}', 'ActivityController@update');
@@ -69,17 +69,17 @@ Route::group(['prefix' => 'games'], function()
 // ActivityItem Routes
 Route::group(['prefix' => 'activity_items'], function()
 {
-  Route::get('/', 'ActivityItemController@index')->name('activity_item.index');
+    Route::get('/', 'ActivityItemController@index')->name('activity_item.index');
 
-  Route::get('create', 'ActivityItemController@create')->name('activity_item.create');
-  Route::post('/', 'ActivityItemController@store');
+    Route::get('create', 'ActivityItemController@create')->name('activity_item.create');
+    Route::post('/', 'ActivityItemController@store');
 
-  Route::get('{activity_item}', 'ActivityItemController@show')->name('activity_item.show');
+    Route::get('{activity_item}', 'ActivityItemController@show')->name('activity_item.show');
 
-  Route::get('{activity_item}/edit', 'ActivityItemController@edit')->name('activity_item.edit');
-  Route::put('{activity_item}', 'ActivityItemController@update');
+    Route::get('{activity_item}/edit', 'ActivityItemController@edit')->name('activity_item.edit');
+    Route::put('{activity_item}', 'ActivityItemController@update');
 
-  Route::delete('{activity_item}', 'ActivityItemController@destroy')->name('activity_item.delete');
+    Route::delete('{activity_item}', 'ActivityItemController@destroy')->name('activity_item.delete');
 });
 
 // Management routes

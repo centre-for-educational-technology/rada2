@@ -8,6 +8,9 @@
             <div class="modal-body text-center">
             </div>
             <div class="modal-footer">
+                <button type="button" class="btn btn-primary center-block">
+                    <i class="mdi mdi-download" atia-hidden="true"></i>
+                </button>
             </div>
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

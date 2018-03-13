@@ -1,5 +1,5 @@
 <div class="pull-right">
-    <a href="#" class="btn btn btn-qr-code btn-sm" data-toggle="modal" data-target="#qr-code-modal" data-api-url="{!! route('api.activity.qrcode', ['id' => $activity->id]) !!}" data-title="{{ $activity->title }}" title="{{ trans('general.actions.get-qr-code') }}">
+    <a href="#" class="btn btn btn-qr-code btn-sm" data-toggle="modal" data-target="#qr-code-modal" data-api-url="{!! route('api.activity.qrcode', ['id' => $activity->id]) !!}" data-title="{{ $activity->title }}" data-download-url="{!! route('activity.qrcode.download', ['id' => $activity->id]) !!}" title="{{ trans('general.actions.get-qr-code') }}">
         <i class="mdi mdi-qrcode"></i>
     </a>
     @if(Auth::check())
