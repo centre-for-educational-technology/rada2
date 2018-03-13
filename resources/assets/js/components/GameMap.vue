@@ -199,7 +199,9 @@
 
                 this.mapData.map = new google.maps.Map(document.getElementById('map'), this.mapData.mapOptions);
 
-                this.mapData.infoWindow = new google.maps.InfoWindow();
+                this.mapData.infoWindow = new google.maps.InfoWindow({
+                    disableAutoPan: true
+                });
 
                 this.initGroundOverlays();
 
