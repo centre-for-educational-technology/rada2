@@ -252,11 +252,8 @@
 
                 this.$http.post(vm.baseUrl + '/api/games/answer', data).then(response => {
                     vm.inAjaxCall = false;
-                    var questionId = vm.question.id;
 
-                    $(vm.$refs.modal).one('hidden.bs.modal', e => {
-                        vm.$parent.markAnswered(questionId, response.body);
-                    });
+                    vm.$parent.openImageDialog(vm.question.id, response.body);
 
                     vm.close();
                 }, response => {
