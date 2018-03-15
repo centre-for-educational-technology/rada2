@@ -11,7 +11,7 @@
     <title>{{ config('app.name', 'SmartZoos') }}</title>
 
     <!-- Styles -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/npm/animate.css@3.6.1/animate.min.css" rel="stylesheet">
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
 
     @yield('header-styles')

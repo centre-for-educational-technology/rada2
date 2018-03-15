@@ -20,6 +20,7 @@ Vue.component('game-map', require('./components/GameMap.vue'));
 Vue.component('game-tutorial-modal', require('./components/GameTutorialModal.vue'));
 Vue.component('game-information-modal', require('./components/GameInformationModal.vue'));
 Vue.component('game-results-modal', require('./components/GameResultsModal.vue'));
+Vue.component('game-image-dialog', require('./components/GameImageDialog.vue'));
 
 const playGameApp = new Vue({
     el: '#sz-play-app',
@@ -67,7 +68,10 @@ const playGameApp = new Vue({
 
             this.$watch('game.complete', () => {
                 if ( this.isGameComplete() ) {
-                    this.$refs.resultsModal.open();
+                    this.$refs.imageDialog.open();
+                    this.$refs.imageDialog.$once('hidden:image:dialog', () => {
+                        this.$refs.resultsModal.open();
+                    });
                 }
             });
         } else {

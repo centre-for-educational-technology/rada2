@@ -365,7 +365,13 @@ form.sz-action-form-inline {
         width: 100%;
         background-color: $gray-lighter;
         text-align: center;
-        padding-top: 250px;
+
+        span.animated, .sz-geolocation-error {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
 
         span {
             display: inline-block;
@@ -404,6 +410,35 @@ form.sz-action-form-inline {
                     color: $brand-danger;
                 }
             }
+        }
+    }
+
+    .sz-image-dialog {
+        height: 100%;
+        width: 100%;
+        position: fixed;
+        z-index: 2500;
+        display: none;
+
+        .sz-image-dialog-backdrop {
+            width: 100%;
+            height: 100%;
+            position: absolute;
+            background-color: #000;
+            opacity: 0.5;
+        }
+
+        img {
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            margin: auto;
+            width: auto;
+            max-width: 100%;
+            height: auto;
+            max-height: 100%;
         }
     }
 }

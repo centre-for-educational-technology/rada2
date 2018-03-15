@@ -14,7 +14,7 @@
     <title>{{ config('app.name', 'SmartZoos') }}</title>
 
     <!-- Styles -->
-    <link href="//cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css" rel="stylesheet">
+    <link href="//cdn.jsdelivr.net/npm/animate.css@3.6.1/animate.min.css" rel="stylesheet">
     <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
     <style>
         html, body {
@@ -115,7 +115,7 @@
 </head>
 <body>
     <div id="sz-play-app">
-        <div id="loading" v-if="isLoading()">
+        <div id="loading" v-if="isLoading() && !isGameComplete()">
             <span v-if="!hasGeoLocationError()" class="animated flash infinite">
                 <i class="mdi mdi-cloud-sync"></i>
                     {{ trans('pages.play.game.loading') }}
@@ -131,6 +131,7 @@
 
         <game-tutorial-modal ref="tutorialModal" v-if="game" v-bind:activity="game.activity"></game-tutorial-modal>
         <game-information-modal ref="informationModal" v-if="game" v-bind:activity="game.activity"></game-information-modal>
+        <game-image-dialog ref="imageDialog" v-bind:base-url="baseUrl" v-bind:image="'game_complete.png'" v-bind:in-animation-class="'jackInTheBox'" v-bind:out-animation-class="'fadeOutDownBig'"></game-image-dialog>
         <game-results-modal ref="resultsModal" v-if="isGameComplete()" v-bind:activity="game.activity" v-bind:answers="game.answers"></game-results-modal>
         <game-map v-if="!isLoading()" v-bind:latitude="latitude" v-bind:longitude="longitude" v-bind:game="game" v-bind:base-url="baseUrl"></game-map>
     </div>
