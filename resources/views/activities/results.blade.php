@@ -25,12 +25,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <ul class="nav nav-tabs">
-                <li role="presentation"><a href="{!! route('dashboard') !!}">{{ trans('pages.dashboard.title') }}</a></li>
-                @can('viewResultsIndex', 'App\Activity')
-                <li role="presentation" class="active"><a href="{!! route('results') !!}">{{ trans('pages.activity-results-index.title') }}</a></li>
-                @endcan
-            </ul>
+            @include('includes.dashboard_nav', [ 'activeTab' => 'results', ])
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
