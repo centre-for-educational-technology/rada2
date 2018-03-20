@@ -63,7 +63,7 @@ return [
            'status' => 'Status',
            'discount-voucher' => 'Rabattkupong',
            'access-code' => 'Åtkomstkod',
-           'access-code-clues' => 'Access Code Clues',
+           'access-code-clues' => 'Ledtråd till åtkomstkoden',
            'amount' => 'Mängd',
            'hide-incognito' => 'Göm namnlösa',
            'hide-incomplete' => 'Göm ofullständiga',
@@ -105,7 +105,7 @@ return [
            'read-more' => 'Lägg in en URL med mer information om frågan.',
            'name-or-email' => 'Namn eller epostadress',
            'access-code' => 'Kod eller text för att komma åt frågan oavsett position',
-           'access-code-clues' => 'Clues to what/where the Access Code is',
+           'access-code-clues' => 'Ledtrådar till vad/var åtkomstkoden är',
            'datetime' => 'Datum eller datum och tid',
            'question-or-information' => 'Skriv en fråga eller information, beroende på uppgiftstypen.',
        ],
@@ -120,7 +120,7 @@ return [
            'remove-image' => 'Kryssa i för att ta bort en bild',
        ],
        'warnings' => [
-           'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
+           'readd-pictures' => 'Om du hade lagt till bilder måste du tyvärr göra om det igen.',
        ],
    ],
    'actions' => [
@@ -137,7 +137,7 @@ return [
    'minutes' => 'minuter',
    'confirmations' => [
        'delete' => 'Ta bort uppgift.  Är du säker?',
-       'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
+       'play' => 'Du är inte inloggad!  Ditt spel kommer inte att sparas och du kan inte hämta ut några priser.',
    ],
    'date-time' => [
        'formats' => [
