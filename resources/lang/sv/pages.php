@@ -120,8 +120,8 @@ return [
             'read-more-about' => 'Läs mer om…',
             'tips-text' => 'Några tips innan du börjar',
             'access-code-placeholder' => 'Mata in koden eller texten för att komma förbi platsbindningen.',
-            'not-logged-in' => 'Not logged in',
-            'complete' => 'Complete!',
+            'not-logged-in' => 'Ej inloggad!',
+            'complete' => 'Färdig!',
             'icons' => [
                 'help' => 'Varje ikons färg visar uppgiftens tillstånd.',
                 'active' => 'Obesvarad',
@@ -131,8 +131,8 @@ return [
             ],
             'items' => [
                 'gameplay_instructions' => [
-                    'title' => 'How to play',
-                    'description' => 'Investigate the location, find and complete all the tasks!',
+                    'title' => 'Hur man spelar',
+                    'description' => 'Undersök platsen, hitta och besvara alla frågor.',
                 ],
                 'look_closely' => [
                     'title' => 'Se dig om',
@@ -195,9 +195,9 @@ return [
     ],
     'badges' => [
         'introduction' => [
-            'general' => 'By accomplishing certain tasks within SmartZoos, you will be rewarded with badges.',
-            'authenticated' => 'The badges you have collected can be seen on your <a href=":profileUrl">Profile</a>.',
-            'guest' => 'In order to collect badges, you must be <a href=":loginUrl">logged in</a>.',
+            'general' => 'Genom att klara av vissa uppgifter i SmartZoos, får du belöningsmärken.',
+            'authenticated' => 'Märkena du samlat kan du se i din  <a href=":profileUrl">profil</a>.',
+            'guest' => 'För att kunna samla märken måste du <a href=":loginUrl">logga in</a>.',
         ],
     ],
 
