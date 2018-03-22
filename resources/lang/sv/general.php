@@ -162,4 +162,5 @@ return [
        'text' => 'Denna webbplats använder kakor för att du ska få en så bra upplevelse som möjligt.  Genom att fortsätta godkänder du användandet av kakor.',
        'button-agree' => 'Jag godkänner',
    ],
+   'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 6. At least 3G internet connection and working GPS module is needed.',
 ];

@@ -38,11 +38,14 @@
         @yield('content')
     </div>
 
-    <!-- Scripts -->
-    <script src="{{ elixir('js/app.js') }}"></script>
+    <footer>
+        @include('includes.system-requirements')
+        <!-- Scripts -->
+        <script src="{{ elixir('js/app.js') }}"></script>
 
-    @yield('footer-scripts')
-    @include('services.analytics')
-    @include('services.userreport')
+        @yield('footer-scripts')
+        @include('services.analytics')
+        @include('services.userreport')
+    </footer>
 </body>
 </html>

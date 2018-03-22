@@ -162,4 +162,5 @@ return [
        'text' => 'This website uses cookies to ensure you get the best possible online experience. By continuing to use our website, you agree to the use of cookies.',
        'button-agree' => 'Agree',
    ],
+   'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 6. At least 3G internet connection and working GPS module is needed.',
 ];

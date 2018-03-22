@@ -16445,4 +16445,10 @@ fieldset[disabled] .btn-play.focus {
   white-space: normal;
 }
 
+.footer-requirements {
+  color: white;
+  padding: 40px 40px;
+  background-color: #777777;
+}
+
 /*# sourceMappingURL=app.css.map */
