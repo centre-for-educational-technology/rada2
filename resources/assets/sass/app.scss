@@ -223,15 +223,15 @@ form.sz-action-form-inline {
             margin-right: auto;
             font-size: 96px;
 
-            &.sz-image-taken {
-                color: $gray-dark;
-            }
-
             i.mdi {
                 &::before {
                     font-size: 96px;
                 }
             }
+        }
+
+        .sz-image-taken {
+            cursor: pointer;
         }
     }
 

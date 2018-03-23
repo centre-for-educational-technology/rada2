@@ -100,13 +100,13 @@
                         </transition>
 
                         <div class="row text-center">
-                            <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-bind:class="{ 'sz-image-taken': hasImageSelected }">
+                            <a href="#" class="btn sz-take-image" tabindex="-1" v-on:click.prevent="triggerImageClick()" v-show="!hasImageSelected">
                                 <i class="mdi mdi-camera" aria-hidden="true"></i>
                             </a>
                         </div>
                         <div class="row" v-show="hasImageSelected">
                             <div class="col-xs-10 col-xs-offset-1">
-                                <img v-bind:src="imageSrc" alt="uploadable-image" class="img-responsive center-block">
+                                <img v-bind:src="imageSrc" alt="uploadable-image" class="img-responsive center-block sz-image-taken" v-on:click.prevent="triggerImageClick()">
                             </div>
                         </div>
                         <input type="file" accept="image/jpeg, image/png" capture="camera" name="image" ref="image" v-on:change="imageSelected">

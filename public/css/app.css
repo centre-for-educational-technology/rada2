@@ -15937,12 +15937,12 @@ form.sz-action-form-inline {
   font-size: 96px;
 }
 
-.sz-game-question .sz-photo .sz-take-image.sz-image-taken {
-  color: #333333;
-}
-
 .sz-game-question .sz-photo .sz-take-image i.mdi::before {
   font-size: 96px;
+}
+
+.sz-game-question .sz-photo .sz-image-taken {
+  cursor: pointer;
 }
 
 .sz-game-question .sz-one-correct-answer .media, .sz-game-question .sz-multiple-correct-answers .media {
