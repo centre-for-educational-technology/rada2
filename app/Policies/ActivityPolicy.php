@@ -137,4 +137,25 @@ class ActivityPolicy
     public function changeDiscountVoucher(User $user, Activity $activity) {
         return $user->isZooAdmin($activity->zoo);
     }
+
+    /**
+     * Determines if user is allowed to promote activity
+     * @param App\User     $user     User model
+     * @return boolean
+     */
+    public function addPromoted(User $user)
+    {
+        return $user->isZooAdmin();
+    }
+
+    /**
+     * Determies if user is allow to change promoted status for actiivty
+     * @param  App\User     $user     User model
+     * @param  App\Activity $activity Activity model
+     * @return boolean
+     */
+    public function changePromoted(User $user, Activity $activity)
+    {
+        return $user->isZooAdmin($activity->zoo);
+    }
 }

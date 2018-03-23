@@ -277,6 +277,17 @@
         </div>
         @endcan
 
+        @can('addPromoted', 'App\Activity')
+        <div class="form-group">
+            <div class="checkbox col-md-6 col-md-offset-4">
+                <label>
+                    {!! Form::checkbox('promoted', 1, true) !!}
+                    {{ trans('general.forms.labels.promoted') }}
+                </label>
+            </div>
+        </div>
+        @endcan
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 {!! Form::submit(trans('general.forms.buttons.create'), [

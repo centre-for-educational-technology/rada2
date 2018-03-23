@@ -50,6 +50,10 @@
                                 <div class="media-body">
                                     @include('activities.includes.actions')
                                     <h4 class="media-heading">
+                                        @if ( $activity->isPromoted() )
+                                            <i class="mdi mdi-star-circle promoted-activity" aria-hidden="true"></i>
+                                        @endif
+
                                         <a href="{!! route('activity.show', ['id' => $activity->id]) !!}">
                                             {{ $activity->title }}
                                         </a>

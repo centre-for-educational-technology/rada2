@@ -189,4 +189,13 @@ class Activity extends Model
     {
         return resolve(DifficultyLevelOptions::class)->value($this->difficulty_level);
     }
+
+    /**
+     * Checks if Activity is promoted or not
+     * @return boolean
+     */
+    public function isPromoted()
+    {
+        return (bool)$this->promoted;
+    }
 }

@@ -290,6 +290,18 @@
         </div>
         @endcan
 
+        @can('changePromoted', $activity)
+        <div class="form-group">
+            <div class="checkbox col-md-6 col-md-offset-4">
+                <label>
+                    {!! Form::hidden('promoted', 0) !!}
+                    {!! Form::checkbox('promoted', 1, (bool)$activity->promoted) !!}
+                    {{ trans('general.forms.labels.promoted') }}
+                </label>
+            </div>
+        </div>
+        @endcan
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 {!! Form::submit(trans('general.forms.buttons.save'), [

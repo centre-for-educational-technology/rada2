@@ -16451,4 +16451,8 @@ fieldset[disabled] .btn-play.focus {
   background-color: #777777;
 }
 
+.mdi.promoted-activity {
+  line-height: 25px;
+}
+
 /*# sourceMappingURL=app.css.map */

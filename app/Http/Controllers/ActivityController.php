@@ -152,7 +152,7 @@ class ActivityController extends Controller
             'search-submitted' => ( $request->has('search-submitted') && (int) $request->get('search-submitted') === 1 ) ? true : false,
         ];
 
-        $query = Activity::orderBy('id', 'desc')->with(['user', 'discountVoucher',]);
+        $query = Activity::orderBy('promoted', 'desc')->orderBy('id', 'desc')->with(['user', 'discountVoucher',]);
 
         if ( $request->has('search-text') && trim($request->get('search-text')) )
         {
@@ -252,7 +252,8 @@ class ActivityController extends Controller
 
         $activity->user()->associate( auth()->user() );
 
-        if ( auth()->user()->can('addDiscountVoucher', Activity::class) && $request->has('discount_voucher') ) {
+        if ( auth()->user()->can('addDiscountVoucher', Activity::class) && $request->has('discount_voucher') )
+        {
             $voucherId = $request->discount_voucher;
 
             if ( !$this->isEmptyDiscountVoucher($voucherId) )
@@ -263,6 +264,11 @@ class ActivityController extends Controller
                     $activity->discountVoucher()->associate($voucher);
                 }
             }
+        }
+
+        if ( auth()->user()->can('addPromoted', Activity::class) && $request->has('promoted') )
+        {
+            $activity->promoted = (bool)$request->promoted;
         }
 
         $activity->save();
@@ -387,6 +393,11 @@ class ActivityController extends Controller
                     $activity->discountVoucher()->associate($voucher);
                 }
             }
+        }
+
+        if ( auth()->user()->can('changePromoted', $activity) && $request->has('promoted') )
+        {
+            $activity->promoted = (bool)$request->promoted;
         }
 
         $activity->save();

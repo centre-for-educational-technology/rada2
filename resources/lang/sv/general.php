@@ -70,6 +70,7 @@ return [
            'from' => 'Från',
            'until' => 'Till',
            'question-or-information' => 'Fråga/Information',
+           'promoted' => 'Promote, show special icon and put to the top of the lists',
        ],
        'help' => [
            'playing-time' => 'Aktivitetstid i minuter',

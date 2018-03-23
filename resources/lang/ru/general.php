@@ -70,6 +70,7 @@ return [
            'from' => 'С',
            'until' => 'до',
            'question-or-information' => 'Вопрос или информация',
+           'promoted' => 'Promote, show special icon and put to the top of the lists',
        ],
        'help' => [
            'playing-time' => 'Время прохождения тропы в минутах',
