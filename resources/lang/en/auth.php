@@ -45,6 +45,9 @@ return [
             'btn' => [
                 'register' => 'Register',
             ],
+            'labels' => [
+                'agree-to-terms-and-policy' => 'Agree to <a href=":terms" target="_blank">terms and conditions</a> and <a href=":policy" target="_blank">privacy policy</a>',
+            ],
         ],
     ],
     'reset' => [

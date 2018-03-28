@@ -101,6 +101,15 @@
                             </div>
                         </div>
 
+                        <div class="form-group{{ $errors->has('agree') ? ' has-error' : '' }}">
+                            <div class="checkbox col-md-6 col-md-offset-4">
+                                <label>
+                                    {!! Form::checkbox('agree', 1, false) !!}
+                                    {!! trans('auth.register.form.labels.agree-to-terms-and-policy', ['terms' => route('legal.terms'), 'policy' => route('legal.policy')]) !!}
+                                </label>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">
