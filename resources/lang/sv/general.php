@@ -160,7 +160,7 @@ return [
      'hard' => 'Svår',
    ],
    'cookie-consent' => [
-       'text' => 'Denna webbplats använder kakor för att du ska få en så bra upplevelse som möjligt.  Genom att fortsätta godkänder du användandet av kakor.',
+       'text' => 'Denna webbplats använder kakor för att du ska få en så bra upplevelse som möjligt. <a href=":policy" target="_blank">Genom att fortsätta godkänder du användandet av kakor.</a>',
        'button-agree' => 'Jag godkänner',
    ],
    'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 6. At least 3G internet connection and working GPS module is needed.',

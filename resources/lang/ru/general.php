@@ -160,7 +160,7 @@ return [
      'hard' => 'Сложный',
    ],
    'cookie-consent' => [
-       'text' => 'Для повышения эффективности работы нашего сайта мы используем cookie. Продолжая использовать наш веб-сайт, вы соглашаетесь на использование файлов cookie.',
+       'text' => 'Для повышения эффективности работы нашего сайта мы используем cookie. Продолжая использовать наш веб-сайт, вы <a href=":policy" target="_blank">соглашаетесь на использование файлов cookie</a>.',
        'button-agree' => 'Согласен',
    ],
    'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 6. At least 3G internet connection and working GPS module is needed.',

@@ -3,7 +3,7 @@
         <div class="row">
             <div class="col-xs-8 col-md-10">
                 <span class="text-muted small">
-                    {{ trans('general.cookie-consent.text') }}
+                    {!! trans('general.cookie-consent.text', ['policy' => route('legal.policy')]) !!}
                 </span>
             </div>
             <div class="col-xs-4 col-md-2 text-right">
