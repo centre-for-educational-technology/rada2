@@ -187,6 +187,10 @@ return [
         'confirmations' => [
             'discount-voucher-spend' => 'Вы уверены, что желаете использовать этот ваучер на скидку?',
         ],
+        'discount-vouchers' => [
+            'information' => 'Vouchers are rewarded for completing Activities. Show the voucher to the staff to redeem. All vouchers are valid for a certain period of time and could only be redeemed within a certain time frame.',
+            'how-to-redeem' => 'Please let the staff member press the button and confirm the process. This can not be undone.',
+        ],
     ],
     'profile-edit' => [
         'help' => [
