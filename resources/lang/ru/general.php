@@ -134,6 +134,7 @@ return [
        'assertion-open' => 'Открыть URL-адрес подтверждения значка',
        'discount-voucher-spend' => 'Использовать ваучер на скидку',
        'get-qr-code' => 'Получить QR-код',
+       'reveal-discount' => 'Reveal discount',
    ],
    'minutes' => 'Минуты',
    'confirmations' => [

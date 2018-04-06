@@ -1,6 +1,6 @@
 <div class="pull-right">
     @if ( $activity->discountVoucher && $activity->discountVoucher->canBeAwarded() )
-        <a href="#" class="btn btn-discount-voucher btn-sm" data-toggle="modal" data-target="#discount-voucher-modal" data-title="{{ $activity->discountVoucher->title }}" data-id="{{ $activity->id }}" title="{{ trans('general.actions.see-discount-voucher') }}">
+        <a href="#" class="btn btn-discount-voucher btn-sm" data-toggle="modal" data-target="#discount-voucher-modal" data-title="{{ $activity->discountVoucher->title }}" data-id="{{ $activity->id }}" title="{{ trans('general.actions.reveal-discount') }}">
             <i class="mdi mdi-sale"></i>
         </a>
     @endif

@@ -134,6 +134,7 @@ return [
        'assertion-open' => 'Open badge assertion URL',
        'discount-voucher-spend' => 'Spend Discount Voucher',
        'get-qr-code' => 'Get QR Code',
+       'reveal-discount' => 'Reveal discount',
    ],
    'minutes' => 'minutes',
    'confirmations' => [

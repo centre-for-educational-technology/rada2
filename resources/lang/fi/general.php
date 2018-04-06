@@ -134,6 +134,7 @@ return [
        'assertion-open' => 'Aukaise arvomerkkilinkki',
        'discount-voucher-spend' => 'Spend Discount Voucher',
        'get-qr-code' => 'Get QR Code',
+       'reveal-discount' => 'Reveal discount',
    ],
    'minutes' => 'minuuttia',
    'confirmations' => [

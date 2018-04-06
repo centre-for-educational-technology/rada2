@@ -134,6 +134,7 @@ return [
        'assertion-open' => 'URL till märken',
        'discount-voucher-spend' => 'Använda rabattkupong',
        'get-qr-code' => 'Hämta QR-kod',
+       'reveal-discount' => 'Reveal discount',
    ],
    'minutes' => 'minuter',
    'confirmations' => [
