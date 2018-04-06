@@ -14,6 +14,8 @@ use App\Options\DiscountVoucherStatusOptions;
 
 use App\Services\ImageService;
 
+use Auth;
+
 class DiscountVoucherController extends Controller
 {
     /**
@@ -30,7 +32,7 @@ class DiscountVoucherController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index']]);
+        $this->middleware('auth');
     }
 
     /**
@@ -68,13 +70,25 @@ class DiscountVoucherController extends Controller
     }
 
     /**
-     * Display a listing of vouchers.
+     * Display vouchers for a certain user.
      * @param  App\Options\DiscountVoucherStatusOptions $statusOptions Discount Voucher status options
      * @return \Illuminate\Http\Response
      */
-    public function index(DiscountVoucherStatusOptions $statusOptions)
+    public function index()
     {
         return view('discount_vouchers/index')->with([
+            'vouchers' => Auth::user()->discountVouchers,
+        ]);
+    }
+
+    /**
+     * Display a management listing of vouchers.
+     * @param  App\Options\DiscountVoucherStatusOptions $statusOptions Discount Voucher status options
+     * @return \Illuminate\Http\Response
+     */
+    public function manage(DiscountVoucherStatusOptions $statusOptions)
+    {
+        return view('discount_vouchers/manage')->with([
             'statusOptions' => $statusOptions->options(),
             'vouchers' => DiscountVoucher::orderBy('created_at', 'asc')->get(),
         ]);
@@ -118,7 +132,7 @@ class DiscountVoucherController extends Controller
 
         $voucher->save();
 
-        return redirect()->route('discount_voucher.index');
+        return redirect()->route('discount_voucher.manage');
     }
 
     /**
@@ -160,7 +174,7 @@ class DiscountVoucherController extends Controller
 
         $voucher->save();
 
-        return redirect()->route('discount_voucher.index', [ '#' . $voucher->id ]);
+        return redirect()->route('discount_voucher.manage', [ '#' . $voucher->id ]);
     }
 
     /**
@@ -175,6 +189,6 @@ class DiscountVoucherController extends Controller
         $voucher->delete();
         $voucher->deleteImage();
 
-        return redirect()->route('discount_voucher.index');
+        return redirect()->route('discount_voucher.manage');
     }
 }

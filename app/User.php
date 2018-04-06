@@ -173,10 +173,8 @@ class User extends Authenticatable
     {
         return $this->belongsToMany(DiscountVoucher::class)
             ->withTimestamps()
-            ->wherePivot('spent', 0)
-            ->wherePivot('valid_until', '>', Carbon::now())
             ->withPivot(['valid_until', 'spent',])
-            ->orderBy('discount_voucher_user.valid_until', 'asc');
+            ->orderBy('discount_voucher_user.valid_until', 'desc');
     }
 
     /**
@@ -184,6 +182,16 @@ class User extends Authenticatable
      * @return integer Number of discount vouchers
      */
     public function getDiscountVouchersCount()
+    {
+        return $this->belongsToMany(DiscountVoucher::class)
+            ->count();
+    }
+
+    /**
+     * Returns number of unspent and valid DiscountVoucher objects user currently has
+     * @return integer Number of discount vouchers
+     */
+    public function getUnspentAndValidDiscountVouchersCount()
     {
         return $this->belongsToMany(DiscountVoucher::class)
             ->wherePivot('spent', 0)

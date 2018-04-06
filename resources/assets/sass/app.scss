@@ -673,7 +673,7 @@ img.sz-uploaded-image-preview {
     }
 }
 
-.btn-qr-code, .btn-discount-voucher {
+.btn-qr-code, .btn-discount-voucher, .btn-discount-voucher-spend {
     @include button-variant($btn-qr-code-color, $btn-qr-code-bg, $btn-qr-code-border);
 }
 
@@ -697,6 +697,10 @@ img.sz-uploaded-image-preview {
   }
 }
 
+.discount-voucher.invalid-or-spent {
+    opacity: 0.7;
+}
+
 .btn.discount-voucher-spend {
     white-space: normal;
 }
@@ -709,4 +713,8 @@ img.sz-uploaded-image-preview {
 
 .mdi.promoted-activity {
     line-height: 25px;
+}
+
+.badge.sz-orange-badge {
+    background-color: $sz-orange;
 }

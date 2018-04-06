@@ -33,11 +33,17 @@
                 <li class="{{ Request::is('badges')? 'active': '' }}">
                     <a href="{{ route('badge.index') }}">{{ trans('navbar.badges') }}</a>
                 </li>
-                @can('create', 'App\DiscountVoucher')
+                @if ( Auth::check() )
+                    @php( $discountVouchersCount = Auth::user()->getUnspentAndValidDiscountVouchersCount() )
                     <li class="{{ Request::is('discount_vouchers', 'discount_vouchers/*')? 'active': '' }}">
-                        <a href="{{ route('discount_voucher.index') }}">{{ trans('navbar.discount_vouchers') }}</a>
+                        <a href="{{ route('discount_voucher.index') }}">
+                            {{ trans('navbar.discount_vouchers') }}
+                            @if ( $discountVouchersCount > 0 )
+                                <span class="badge sz-orange-badge">{{ $discountVouchersCount }}</span>
+                            @endif
+                        </a>
                     </li>
-                @endcan
+                @endif
             </ul>
 
             <!-- Right Side Of Navbar -->
@@ -67,7 +73,6 @@
                 @if (Auth::guest())
                     <li><a href="{{ url('/login') }}">{{ trans('general.forms.buttons.login-or-register') }}</a></li>
                 @else
-                    @php( $discountVouchersCount = Auth::user()->getDiscountVouchersCount() )
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                             <i class="mdi mdi-account-circle" aria-hidden="true"></i>
@@ -79,9 +84,6 @@
                                 <a href="{!! route('user.profile', [ 'profile' => Auth::user()->id ]) !!}">
                                     <i class="mdi mdi-face-profile" aria-hidden="true"></i>
                                     {{ trans('pages.profile.title') }}
-                                    @if ( $discountVouchersCount > 0 )
-                                        <span class="badge pull-right">{{ $discountVouchersCount }}</span>
-                                    @endif
                                 </a>
                             </li>
                             <li>
@@ -104,6 +106,14 @@
                                     </a>
                                 </li>
                             @endif
+                            @can('create', 'App\DiscountVoucher')
+                                <li>
+                                    <a href="{!! route('discount_voucher.manage') !!}">
+                                        <i class="mdi mdi-sale" aria-hidden="true"></i>
+                                        {{ trans('navbar.discount_vouchers') }}
+                                    </a>
+                                </li>
+                            @endcan
                             <li>
                                 <a href="{{ url('/logout') }}"
                                     onclick="event.preventDefault();

@@ -36,6 +36,9 @@ $input-color-placeholder: lighten($text-color, 30%);
 // Panels
 $panel-default-heading-bg: #fff;
 
+// Colors
+$sz-orange: #f37841;
+
 // Social
 $sz-google-background: #4d90fe;
 $sz-facebook-background: #4c69ba;
@@ -46,7 +49,7 @@ $sz-go-btn-border: #cff0c6;
 $sz-go-btn-text: #ffffff;
 
 $btn-qr-code-color: #fff !default;
-$btn-qr-code-bg: #f37841 !default;
+$btn-qr-code-bg: $sz-orange !default;
 $btn-qr-code-border: darken($btn-qr-code-bg, 5%) !default;
 
 $btn-play-color: #fff !default;

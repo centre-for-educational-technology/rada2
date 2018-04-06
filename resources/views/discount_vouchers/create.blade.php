@@ -3,7 +3,7 @@
 @section('content')
 <div class="container">
     {!! Form::open([
-        'url' => 'discount_vouchers',
+        'url' => 'discount_vouchers/manage',
         'files' => true,
         'class' => 'form-horizontal discount-voucher-create',
         'role' => 'form',
@@ -142,7 +142,7 @@
                 {!! Form::submit(trans('general.forms.buttons.create'), [
                     'class' => 'btn btn-primary',
                 ])!!}
-                {!! Html::link(route('discount_voucher.index'), trans('general.forms.buttons.cancel'), [
+                {!! Html::link(route('discount_voucher.manage'), trans('general.forms.buttons.cancel'), [
                     'class' => 'btn btn-default',
                 ]) !!}
             </div>

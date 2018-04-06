@@ -20,6 +20,8 @@ use App\DiscountVoucher;
 
 use Illuminate\Support\Facades\DB;
 
+use Carbon\Carbon;
+
 class UserController extends Controller
 {
     /**
@@ -217,6 +219,7 @@ class UserController extends Controller
             ->where('discount_voucher_id', $voucher->id)
             ->where('user_id', $user->id)
             ->where('spent', 0)
+            ->where('valid_until', '>', Carbon::now())
             ->orderBy('discount_voucher_user.valid_until', 'asc')
             ->limit(1)
             ->update(['spent' => 1,]);

@@ -104,13 +104,18 @@ Route::group(['prefix' => 'discount_vouchers'], function()
 {
     Route::get('/', 'DiscountVoucherController@index')->name('discount_voucher.index');
 
-    Route::get('/create', 'DiscountVoucherController@create')->name('discount_voucher.create');
-    Route::post('/', 'DiscountVoucherController@store');
+    Route::group(['prefix' => 'manage'], function()
+    {
+        Route::get('/', 'DiscountVoucherController@manage')->name('discount_voucher.manage');
 
-    Route::get('{voucher}/edit', 'DiscountVoucherController@edit')->name('discount_voucher.edit');
-    Route::put('{voucher}', 'DiscountVoucherController@update');
+        Route::get('/create', 'DiscountVoucherController@create')->name('discount_voucher.create');
+        Route::post('/', 'DiscountVoucherController@store');
 
-    Route::delete('{voucher}', 'DiscountVoucherController@destroy')->name('discount_voucher.delete');
+        Route::get('{voucher}/edit', 'DiscountVoucherController@edit')->name('discount_voucher.edit');
+        Route::put('{voucher}', 'DiscountVoucherController@update');
+
+        Route::delete('{voucher}', 'DiscountVoucherController@destroy')->name('discount_voucher.delete');
+    });
 });
 
 // Legal pages

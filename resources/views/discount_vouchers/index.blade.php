@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+<script src="{{ elixir('js/discount_vouchers.js') }}"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -7,68 +11,56 @@
             <div class="panel panel-default">
                 <div class="panel-heading">
                     <div class="row">
-                        <div class="col-xs-10 col-md-8">
+                        <div class="col-xs-12">
                             {{ trans('pages.discount-vouchers.index.heading') }}
-                        </div>
-
-                        <div class="col-xs-2 col-md-4">
-                            <div class="pull-right">
-                                @can('create', 'App\DiscountVoucher')
-                                    <a href="{!! route('discount_voucher.create') !!}" class="btn btn-primary" title="{{ trans('general.actions.create') }}">
-                                        <i class="mdi mdi-plus" aria-hidden="true"></i>
-                                    </a>
-                                @endcan
-                            </div>
                         </div>
                     </div>
                 </div>
 
                 <div class="panel-body">
-                    @if ( count($vouchers) === 0 )
-                        <div class="well">{{ trans('pages.discount-vouchers.index.none-found') }}</div>
-                    @else
-                        @foreach($vouchers as $voucher)
-                            <div class="media sz-voucher-{{ $voucher->status ? 'active' : 'inactive' }}" id="{{ $voucher->id }}">
-                                <div class="media-left">
-                                    <a href="{!! $voucher->getImageUrl() !!}" target="_blank">
-                                        <img class="media-object img-rounded sz-img-w64" src="{{ $voucher->getImageUrl() }}" alt="image">
-                                    </a>
-                                </div>
-                                <div class="media-body">
-                                    <div class="pull-right">
-                                        @if(Auth::check())
-                                                @can('update', $voucher)
-                                                    <a href="{!! route('discount_voucher.edit', ['id' => $voucher->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.edit') }}">
-                                                        <i class="mdi mdi-pencil"></i>
-                                                    </a>
-                                                @endcan
-                                                @can('delete', $voucher)
-                                                    <a href="#" class="btn btn-danger btn-sm" title="{{ trans('general.actions.delete') }}" data-method="delete" data-confirm="{{ trans('general.confirmations.delete') }}" data-action="{!! route('discount_voucher.delete', ['id' => $voucher->id]) !!}">
-                                                        <i class="mdi mdi-delete"></i>
-                                                    </a>
-                                                @endcan
-                                        @endif
-                                    </div>
+                    <h3>{{ trans('pages.profile.labels.discount-vouchers-earned') }}</h3>
+                    <div class="well well-sm text-center">
+                        <p>
+                            {{ trans('pages.profile.discount-vouchers.information') }}
+                        </p>
+                        <p>
+                            <strong>{{ trans('pages.profile.discount-vouchers.how-to-redeem') }}</strong>
+                        </p>
+                    </div>
 
-                                    <h4 class="media-heading">
-                                        {{ $voucher->title }}
-                                    </h4>
-                                    <p class="sz-display-new-lines">{{ $voucher->description }}</p>
-                                    <div class="sz-metadata">
-                                        <i class="mdi mdi-timer" aria-hidden="true"></i>
-                                        {{ $voucher->duration }}
-                                        ({{ trans('general.forms.addons.hours') }})
-                                    </div>
-                                    @include('discount_vouchers.includes.amount_metadata', ['voucher' => $voucher])
-                                    <div class="sz-metadata">
-                                        {{ $statusOptions[$voucher->status] }}
+                    @if ( $vouchers &&  count($vouchers) > 0 )
+                        <div class="row">
+                            @foreach ( $vouchers as $voucher )
+                            @php( $isRedeemable = !( $voucher->pivot->spent || \Carbon\Carbon::parse($voucher->pivot->valid_until) < Carbon\Carbon::now() ) )
+                            <div class="discount-voucher col-sm-6 col-md-4{{ !$isRedeemable ? ' invalid-or-spent' : '' }}" data-valid-until="{{ \Carbon\Carbon::parse($voucher->pivot->valid_until)->toIso8601String() }}">
+                                <div class="thumbnail">
+                                    <img src="{{ $voucher->getImageUrl() }}" alt="image">
+                                    <div class="caption">
+                                        <h4>{{ $voucher->title }}</h4>
+                                        <p>{{ $voucher->description }}</p>
+                                        <p class="valid-until">
+                                            <strong>{{ trans('pages.profile.labels.valid-until') }}</strong>
+                                            <span></span>
+                                        </p>
+                                        <p class="text-center">
+                                            <button
+                                                class="btn btn-discount-voucher-spend discount-voucher-spend"
+                                                data-confirm="{{ trans('pages.profile.confirmations.discount-voucher-spend') }}"
+                                                data-voucher-id="{{ $voucher->id }}"
+                                                role="button"
+                                                {{ !$isRedeemable ? ' disabled="disabled"' : '' }}>
+                                                {{ trans('general.actions.discount-voucher-spend') }}
+                                            </button>
+                                        </p>
                                     </div>
                                 </div>
-                                @if ( !$loop->last)
-                                    <hr>
-                                @endif
                             </div>
-                        @endforeach
+                            @if ( $loop->iteration % 3 === 0 )
+                                </div>
+                                <div class="row">
+                            @endif
+                            @endforeach
+                        </div>
                     @endif
                 </div>
             </div>
