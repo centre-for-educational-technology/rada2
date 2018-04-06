@@ -16290,26 +16290,27 @@ img.sz-uploaded-image-preview {
   height: auto;
 }
 
-.btn-qr-code {
+.btn-qr-code, .btn-discount-voucher {
   color: #fff;
   background-color: #f37841;
   border-color: #f16729;
 }
 
-.btn-qr-code:focus, .btn-qr-code.focus {
+.btn-qr-code:focus, .btn-qr-code.focus, .btn-discount-voucher:focus, .btn-discount-voucher.focus {
   color: #fff;
   background-color: #f05611;
   border-color: #923309;
 }
 
-.btn-qr-code:hover {
+.btn-qr-code:hover, .btn-discount-voucher:hover {
   color: #fff;
   background-color: #f05611;
   border-color: #d0490d;
 }
 
 .btn-qr-code:active, .btn-qr-code.active,
-.open > .btn-qr-code.dropdown-toggle {
+.open > .btn-qr-code.dropdown-toggle, .btn-discount-voucher:active, .btn-discount-voucher.active,
+.open > .btn-discount-voucher.dropdown-toggle {
   color: #fff;
   background-color: #f05611;
   border-color: #d0490d;
@@ -16318,26 +16319,33 @@ img.sz-uploaded-image-preview {
 .btn-qr-code:active:hover, .btn-qr-code:active:focus, .btn-qr-code:active.focus, .btn-qr-code.active:hover, .btn-qr-code.active:focus, .btn-qr-code.active.focus,
 .open > .btn-qr-code.dropdown-toggle:hover,
 .open > .btn-qr-code.dropdown-toggle:focus,
-.open > .btn-qr-code.dropdown-toggle.focus {
+.open > .btn-qr-code.dropdown-toggle.focus, .btn-discount-voucher:active:hover, .btn-discount-voucher:active:focus, .btn-discount-voucher:active.focus, .btn-discount-voucher.active:hover, .btn-discount-voucher.active:focus, .btn-discount-voucher.active.focus,
+.open > .btn-discount-voucher.dropdown-toggle:hover,
+.open > .btn-discount-voucher.dropdown-toggle:focus,
+.open > .btn-discount-voucher.dropdown-toggle.focus {
   color: #fff;
   background-color: #d0490d;
   border-color: #923309;
 }
 
 .btn-qr-code:active, .btn-qr-code.active,
-.open > .btn-qr-code.dropdown-toggle {
+.open > .btn-qr-code.dropdown-toggle, .btn-discount-voucher:active, .btn-discount-voucher.active,
+.open > .btn-discount-voucher.dropdown-toggle {
   background-image: none;
 }
 
 .btn-qr-code.disabled:hover, .btn-qr-code.disabled:focus, .btn-qr-code.disabled.focus, .btn-qr-code[disabled]:hover, .btn-qr-code[disabled]:focus, .btn-qr-code[disabled].focus,
 fieldset[disabled] .btn-qr-code:hover,
 fieldset[disabled] .btn-qr-code:focus,
-fieldset[disabled] .btn-qr-code.focus {
+fieldset[disabled] .btn-qr-code.focus, .btn-discount-voucher.disabled:hover, .btn-discount-voucher.disabled:focus, .btn-discount-voucher.disabled.focus, .btn-discount-voucher[disabled]:hover, .btn-discount-voucher[disabled]:focus, .btn-discount-voucher[disabled].focus,
+fieldset[disabled] .btn-discount-voucher:hover,
+fieldset[disabled] .btn-discount-voucher:focus,
+fieldset[disabled] .btn-discount-voucher.focus {
   background-color: #f37841;
   border-color: #f16729;
 }
 
-.btn-qr-code .badge {
+.btn-qr-code .badge, .btn-discount-voucher .badge {
   color: #f37841;
   background-color: #fff;
 }

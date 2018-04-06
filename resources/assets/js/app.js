@@ -92,4 +92,19 @@ $(document).ready(function() {
             playModal.modal('show');
         });
     }
+
+    const discountVoucherModal = $('#discount-voucher-modal');
+    if ( discountVoucherModal.length > 0 ) {
+        discountVoucherModal.on('show.bs.modal', function (event) {
+            const element = $(event.relatedTarget);
+
+            $(this).find('.modal-title').text(element.data('title'));
+            $(this).find('.modal-body').html($('#discount-voucher-content-'+element.data('id')).html());
+        });
+
+        discountVoucherModal.on('hidden.bs.modal', function() {
+            $(this).find('.modal-title').html('');
+            $(this).find('.modal-body').html('');
+        });
+    }
 });

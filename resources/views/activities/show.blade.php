@@ -6,6 +6,7 @@
 
 @section('content')
 <div class="container">
+    @include('activities.includes.discount-voucher-modal')
     @include('activities.includes.qrcode_modal')
     @include('activities.includes.play_modal')
     <div class="row">

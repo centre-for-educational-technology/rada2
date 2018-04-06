@@ -1,5 +1,10 @@
 <div class="pull-right">
-    <a href="#" class="btn btn btn-qr-code btn-sm" data-toggle="modal" data-target="#qr-code-modal" data-api-url="{!! route('api.activity.qrcode', ['id' => $activity->id]) !!}" data-title="{{ $activity->title }}" data-download-url="{!! route('activity.qrcode.download', ['id' => $activity->id]) !!}" title="{{ trans('general.actions.get-qr-code') }}">
+    @if ( $activity->discountVoucher && $activity->discountVoucher->canBeAwarded() )
+        <a href="#" class="btn btn-discount-voucher btn-sm" data-toggle="modal" data-target="#discount-voucher-modal" data-title="{{ $activity->discountVoucher->title }}" data-id="{{ $activity->id }}" title="{{ trans('general.actions.see-discount-voucher') }}">
+            <i class="mdi mdi-sale"></i>
+        </a>
+    @endif
+    <a href="#" class="btn btn-qr-code btn-sm" data-toggle="modal" data-target="#qr-code-modal" data-api-url="{!! route('api.activity.qrcode', ['id' => $activity->id]) !!}" data-title="{{ $activity->title }}" data-download-url="{!! route('activity.qrcode.download', ['id' => $activity->id]) !!}" title="{{ trans('general.actions.get-qr-code') }}">
         <i class="mdi mdi-qrcode"></i>
     </a>
     @if(Auth::check())

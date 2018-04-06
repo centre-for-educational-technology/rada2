@@ -7,6 +7,7 @@
 
 @section('content')
 <div class="container">
+    @include('activities.includes.discount-voucher-modal')
     @include('activities.includes.qrcode_modal')
     @include('activities.includes.play_modal')
     <div class="row">
@@ -49,6 +50,7 @@
                                 </div>
                                 <div class="media-body">
                                     @include('activities.includes.actions')
+                                    @include('activities.includes.discount_voucher', ['activity' => $activity])
                                     <h4 class="media-heading">
                                         @if ( $activity->isPromoted() )
                                             <i class="mdi mdi-star-circle promoted-activity" aria-hidden="true"></i>
@@ -71,7 +73,6 @@
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                                         {{ $activity->playing_time}} {{ trans('general.minutes')}}
                                     </div>
-                                    @include('activities.includes.discount_voucher', ['activity' => $activity])
                                     @include('activities.includes.play', ['activity' => $activity])
                                 </div>
                                 @if ( !$loop->last)
