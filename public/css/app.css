@@ -5830,15 +5830,6 @@ a.thumbnail.active {
   color: #843534;
 }
 
-@-webkit-keyframes progress-bar-stripes {
-  from {
-    background-position: 40px 0;
-  }
-  to {
-    background-position: 0 0;
-  }
-}
-
 @keyframes progress-bar-stripes {
   from {
     background-position: 40px 0;
@@ -5878,7 +5869,6 @@ a.thumbnail.active {
 
 .progress.active .progress-bar,
 .progress-bar.active {
-  -webkit-animation: progress-bar-stripes 2s linear infinite;
   animation: progress-bar-stripes 2s linear infinite;
 }
 
@@ -6712,15 +6702,11 @@ button.close {
 }
 
 .modal.fade .modal-dialog {
-  -webkit-transform: translate(0, -25%);
   transform: translate(0, -25%);
-  transition: -webkit-transform 0.3s ease-out;
   transition: transform 0.3s ease-out;
-  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out;
 }
 
 .modal.in .modal-dialog {
-  -webkit-transform: translate(0, 0);
   transform: translate(0, 0);
 }
 
@@ -7152,26 +7138,20 @@ button.close {
 
 @media all and (transform-3d), (-webkit-transform-3d) {
   .carousel-inner > .item {
-    transition: -webkit-transform 0.6s ease-in-out;
     transition: transform 0.6s ease-in-out;
-    transition: transform 0.6s ease-in-out, -webkit-transform 0.6s ease-in-out;
     -webkit-backface-visibility: hidden;
     backface-visibility: hidden;
-    -webkit-perspective: 1000px;
     perspective: 1000px;
   }
   .carousel-inner > .item.next, .carousel-inner > .item.active.right {
-    -webkit-transform: translate3d(100%, 0, 0);
     transform: translate3d(100%, 0, 0);
     left: 0;
   }
   .carousel-inner > .item.prev, .carousel-inner > .item.active.left {
-    -webkit-transform: translate3d(-100%, 0, 0);
     transform: translate3d(-100%, 0, 0);
     left: 0;
   }
   .carousel-inner > .item.next.left, .carousel-inner > .item.prev.right, .carousel-inner > .item.active {
-    -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
     left: 0;
   }
@@ -15470,7 +15450,6 @@ button.close {
 }
 
 .mdi-rotate-45:before {
-  -webkit-transform: rotate(45deg);
   transform: rotate(45deg);
 }
 
@@ -15494,7 +15473,6 @@ button.close {
 }
 
 .mdi-rotate-90:before {
-  -webkit-transform: rotate(90deg);
   transform: rotate(90deg);
 }
 
@@ -15518,7 +15496,6 @@ button.close {
 }
 
 .mdi-rotate-135:before {
-  -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
 }
 
@@ -15542,7 +15519,6 @@ button.close {
 }
 
 .mdi-rotate-180:before {
-  -webkit-transform: rotate(180deg);
   transform: rotate(180deg);
 }
 
@@ -15566,7 +15542,6 @@ button.close {
 }
 
 .mdi-rotate-225:before {
-  -webkit-transform: rotate(225deg);
   transform: rotate(225deg);
 }
 
@@ -15590,7 +15565,6 @@ button.close {
 }
 
 .mdi-rotate-270:before {
-  -webkit-transform: rotate(270deg);
   transform: rotate(270deg);
 }
 
@@ -15614,12 +15588,10 @@ button.close {
 }
 
 .mdi-rotate-315:before {
-  -webkit-transform: rotate(315deg);
   transform: rotate(315deg);
 }
 
 .mdi-flip-h:before {
-  -webkit-transform: scaleX(-1);
   transform: scaleX(-1);
   -webkit-filter: FlipH;
   filter: FlipH;
@@ -15627,7 +15599,6 @@ button.close {
 }
 
 .mdi-flip-v:before {
-  -webkit-transform: scaleY(-1);
   transform: scaleY(-1);
   -webkit-filter: FlipV;
   filter: FlipV;
@@ -15635,28 +15606,14 @@ button.close {
 }
 
 .mdi-spin:before {
-  -webkit-animation: mdi-spin 2s infinite linear;
   animation: mdi-spin 2s infinite linear;
-}
-
-@-webkit-keyframes mdi-spin {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(359deg);
-    transform: rotate(359deg);
-  }
 }
 
 @keyframes mdi-spin {
   0% {
-    -webkit-transform: rotate(0deg);
     transform: rotate(0deg);
   }
   100% {
-    -webkit-transform: rotate(359deg);
     transform: rotate(359deg);
   }
 }
@@ -15962,8 +15919,16 @@ form.sz-action-form-inline {
   padding-top: 5px;
 }
 
+.sz-game-question .sz-one-correct-answer .media .media-body .media-heading.selected, .sz-game-question .sz-multiple-correct-answers .media .media-body .media-heading.selected {
+  font-weight: bold;
+}
+
 .sz-game-question .sz-one-correct-answer .mdi.correct, .sz-game-question .sz-multiple-correct-answers .mdi.correct {
   color: #2ab27b;
+}
+
+.sz-game-question .sz-one-correct-answer .mdi.incorrect, .sz-game-question .sz-multiple-correct-answers .mdi.incorrect {
+  color: #bf5329;
 }
 
 .sz-game-question .sz-match-pairs.row {
@@ -15985,6 +15950,10 @@ form.sz-action-form-inline {
 }
 
 .sz-game-question .sz-match-pairs .row .sz-matchable.matched {
+  background-color: rgba(42, 178, 123, 0.2);
+}
+
+.sz-game-question .sz-match-pairs .row .sz-matchable.matched img {
   opacity: 0.5;
 }
 
@@ -16072,14 +16041,12 @@ form.sz-action-form-inline {
   position: absolute;
   top: 50%;
   left: 50%;
-  -webkit-transform: translate(-50%, -50%);
   transform: translate(-50%, -50%);
 }
 
 #sz-play-app #loading span {
   display: inline-block;
   font-size: 150%;
-  -webkit-animation-duration: 3s;
   animation-duration: 3s;
 }
 
@@ -16314,9 +16281,7 @@ img.sz-uploaded-image-preview {
 }
 
 #sz-cookie-consent .row {
-  display: -webkit-box;
   display: flex;
-  -webkit-box-align: center;
   align-items: center;
 }
 

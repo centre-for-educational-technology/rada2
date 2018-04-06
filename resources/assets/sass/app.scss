@@ -253,10 +253,22 @@ form.sz-action-form-inline {
             .media-right {
                 padding-top: 5px;
             }
+
+            .media-body {
+                .media-heading.selected {
+                    font-weight: bold;
+                }
+            }
         }
 
-        .mdi.correct {
-            color: $brand-success;
+        .mdi {
+            &.correct {
+                color: $brand-success;
+            }
+
+            &.incorrect {
+                color: $brand-danger;
+            }
         }
     }
 
@@ -280,7 +292,11 @@ form.sz-action-form-inline {
                 }
 
                 &.matched {
-                    opacity: 0.5;
+                    background-color: rgba(42, 178, 123, 0.2);
+
+                    img {
+                        opacity: 0.5;
+                    }
                 }
 
                 img {

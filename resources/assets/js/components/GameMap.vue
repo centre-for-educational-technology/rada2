@@ -3,7 +3,7 @@
         <game-image-dialog ref="correctImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_correct.png'" v-bind:in-animation-class="'bounceInUp'" v-bind:out-animation-class="'bounceOut'"></game-image-dialog>
         <game-image-dialog ref="incorrectImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_incorrect.png'" v-bind:in-animation-class="'bounceInDown'" v-bind:out-animation-class="'bounceOutDown'"></game-image-dialog>
         <game-image-dialog ref="submittedImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_submitted.png'" v-bind:in-animation-class="'bounceInRight'" v-bind:out-animation-class="'bounceOutLeft'"></game-image-dialog>
-        <game-question-modal v-bind:question="question" v-bind:game-id="game.id" v-bind:base-url="baseUrl" v-if="question" ref="questionModal"></game-question-modal>
+        <game-question-modal v-bind:question="question" v-bind:answer="answer" v-bind:game-id="game.id" v-bind:base-url="baseUrl" v-if="question" ref="questionModal"></game-question-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <div id="map">
         </div>
@@ -170,6 +170,7 @@
         data() {
             return {
                 question: null,
+                answer: null,
                 gpsError: false,
                 position: null
             };
@@ -270,6 +271,8 @@
 
                         marker.addListener('click', function() {
                             if ( _this.isAnswered(question.id) ) {
+                                const answer = _.get(_this.game.answers, question.id, null);
+                                _this.openQuestionModal(question, answer);
                                 return;
                             }
 
@@ -455,14 +458,16 @@
             getProximityRadius() {
                 return this.game.activity.proximity_radius || 25;
             },
-            openQuestionModal(question) {
+            openQuestionModal(question, answer) {
                 this.question = question;
+                this.answer = answer ? answer : null;
                 this.$nextTick(() => {
                     this.$refs.questionModal.open();
                 });
             },
             openAccessCodeModal(question) {
                 this.question = question;
+                this.answer = null;
                 this.$nextTick(() => {
                     this.$refs.accessCodeModal.open();
                 });

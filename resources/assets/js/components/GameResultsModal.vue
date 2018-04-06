@@ -42,9 +42,7 @@
                         </div>
 
                         <div v-if="isFreeformAnswer(question) || isEmbeddedContent(question)">
-                            <div class="well well-sm" v-if="hasText(question)">
-                                {{ getText(question) }}
-                            </div>
+                            <div class="well well-sm sz-display-new-lines" v-if="hasText(question)">{{ getText(question) }}</div>
                         </div>
 
                         <div v-if="isMatchPairs(question)" class="sz-pairs-list">

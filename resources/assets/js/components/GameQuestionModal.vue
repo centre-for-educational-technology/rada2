@@ -20,13 +20,14 @@
                                 </div>
 
                                 <div class="media-body media-middle">
-                                    <h4 class="media-heading">{{ option.option }}</h4>
+                                    <h4 class="media-heading" v-bind:class="{ selected: isAnswered() && isSelectedOption(option.id) }">{{ option.option }}</h4>
                                 </div>
 
                                 <div class="media-right media-middle">
                                     <input type="radio" name="option" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option">
-                                    <i class="mdi mdi-radiobox-blank" v-if="!isSelectedOption(option.id)"></i>
-                                    <i class="mdi mdi-radiobox-marked" v-if="isSelectedOption(option.id)" v-bind:class="{ correct: isCorrectlyAnswered(option.id), incorrect: isIncorrectlyAnswered(option.id) }"></i>
+                                    <i class="mdi mdi-radiobox-blank" v-if="!isSelectedOption(option.id) && !isAnswered()"></i>
+                                    <i class="mdi mdi-radiobox-marked" v-if="isSelectedOption(option.id) && !isAnswered()"></i>
+                                    <i class="mdi" v-bind:class="optionIconClass(option)" aria-hidden="true" v-if="isAnswered()"></i>
                                 </div>
                             </li>
                         </ul>
@@ -40,13 +41,14 @@
                                 </div>
 
                                 <div class="media-body media-middle">
-                                    <h4 class="media-heading">{{ option.option }}</h4>
+                                    <h4 class="media-heading" v-bind:class="{ selected: isAnswered() && isSelectedOption(option.id) }">{{ option.option }}</h4>
                                 </div>
 
                                 <div class="media-right media-middle">
                                     <input type="checkbox" name="options[]" class="form-control" v-model="selectedOptions" v-bind:value="option.id" ref="option">
-                                    <i class="mdi mdi-checkbox-blank-outline" v-if="!isSelectedOption(option.id)"></i>
-                                    <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id)" v-bind:class="{ correct: isCorrectlyAnswered(option.id), incorrect: isIncorrectlyAnswered(option.id) }"></i>
+                                    <i class="mdi mdi-checkbox-blank-outline" v-if="!isSelectedOption(option.id) && !isAnswered()"></i>
+                                    <i class="mdi mdi-checkbox-marked-outline" v-if="isSelectedOption(option.id) && !isAnswered()"></i>
+                                    <i class="mdi" v-bind:class="optionIconClass(option)" aria-hidden="true" v-if="isAnswered()"></i>
                                 </div>
                             </li>
                         </ul>
@@ -54,7 +56,8 @@
 
                     <div v-if="isFreeformAnswer()">
                         <div class="form-group">
-                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" v-model="textualAnswer"></textarea>
+                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" v-model="textualAnswer" v-if="!isAnswered()"></textarea>
+                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" readonly="readonly" v-bind:value="answer.answer.text" v-if="isAnswered()"></textarea>
                         </div>
                     </div>
 
@@ -88,11 +91,12 @@
                         <div class="embed-responsive embed-responsive-16by9" v-html="embeddedContent()"></div>
 
                         <div class="form-group">
-                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" v-model="textualAnswer"></textarea>
+                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" v-model="textualAnswer" v-if="!isAnswered()"></textarea>
+                            <textarea class="form-control" v-bind:placeholder="$t('textual-answer-placeholder')" readonly="readonly" v-bind:value="answer.answer.text" v-if="isAnswered()"></textarea>
                         </div>
                     </div>
 
-                    <div v-if="isPhoto()" class="sz-photo">
+                    <div v-if="isPhoto() && !isAnswered()" class="sz-photo">
                         <transition name="fade-in-down-out-up" enter-active-class="animated fadeInDown" leave-active-class="animated fadeOutUp">
                             <div class="alert alert-danger text-center" role="alert" v-show="incorrectImageFormat">
                                 {{ $t('image-format-hint' )}}
@@ -111,6 +115,10 @@
                         </div>
                         <input type="file" accept="image/jpeg, image/png" capture="camera" name="image" ref="image" v-on:change="imageSelected">
                     </div>
+
+                    <div v-if="isPhoto() && isAnswered()" class="sz-photo">
+                        <img v-bind:src="answer.image" alt="uploaded-image" class="img-responsive center-block sz-image-taken" v-if="isAnswered()">
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -121,7 +129,7 @@
                     <button type="button" class="btn btn-default" v-on:click="close()" v-bind:disabled="inAjaxCall" v-bind:title="$t('close')">
                         <i class="mdi mdi-close"></i>
                     </button>
-                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()" v-bind:title="$t('submit')" v-if="!isPreview">
+                    <button type="button" class="btn btn-primary" v-bind:disabled="!canSubmit() || inAjaxCall" v-on:click="submit()" v-bind:title="$t('submit')" v-if="!(isPreview || isAnswered())">
                         <i class="mdi mdi-send"></i>
                     </button>
                 </div>
@@ -134,7 +142,7 @@
     import ImageMixin from './../mixins/Image.js'
 
     export default {
-        props: ['question', 'gameId', 'baseUrl', 'isPreview'],
+        props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview'],
         mixins: [ImageMixin],
         mounted() {
             var vm = this;
@@ -171,7 +179,9 @@
                 this.$nextTick(() => {
                     if ( this.isMatchPairs() ) {
                         if ( this.pairs().length > 0 ) {
-                            this.question.pairs = _.shuffle(this.pairs());
+                            if ( !this.isAnswered() ) {
+                                this.question.pairs = _.shuffle(this.pairs());
+                            }
 
                             // TODO This produces a small visible size change,
                             // might make sense to display things as invisible (not hidden)
@@ -188,7 +198,11 @@
                                 }
                             });
                         }
-                        this.shuffledPairs = _.shuffle(this.pairs());
+                        if ( !this.isAnswered() ) {
+                            this.shuffledPairs = _.shuffle(this.pairs());
+                        } else {
+                            this.shuffledPairs = this.pairs();
+                        }
                     } else if ( this.isOneCorrectAnswer() || this.isMultipleCorrectAnswers() ) {
                         if ( this.options().length > 0 ) {
                             this.question.options = _.shuffle(this.options());
@@ -315,14 +329,24 @@
                 return this.question ? this.question.type == 7 : false;
             },
             isSelectedOption(id) {
-                if ( this.selectedOptions && typeof this.selectedOptions === 'object' ) {
-                    return this.selectedOptions.indexOf(id) !== -1;
+                let options;
+
+                if ( !this.isAnswered() ) {
+                    options = this.selectedOptions;
+                } else {
+                    options = this.answer.answer.options;
                 }
 
-                return this.selectedOptions === id;
+                if ( options && typeof options === 'object' ) {
+                    return options.indexOf(id) !== -1;
+                }
+
+                return options === id;
             },
             triggerOptionClick(index) {
-                $(this.$refs['option'][index]).trigger('click');
+                if ( !this.isAnswered() ) {
+                    $(this.$refs['option'][index]).trigger('click');
+                }
             },
             triggerImageClick() {
                 $(this.$refs.image).trigger('click');
@@ -409,17 +433,45 @@
                 return this.chosenPair.match === pair.id;
             },
             isMatchedPair(pair) {
+                if ( this.isAnswered() ) {
+                    return true;
+                }
                 return this.matchedPairs.indexOf(pair.id) !== -1;
             },
-            isCorrectlyAnswered(id) {
-                // TODO Check if ajaxHasBroughtInCorrectAnswers
-                // and act
-                return false;
+            isAnswered() {
+                return !!this.answer;
             },
-            isIncorrectlyAnswered(id) {
-                // TODO Check if ajaxHasBroughtIncorrectAnswers
-                // and act
-                return false;
+            isCorrectOption(option) {
+                return !!option.correct;
+            },
+            optionIconClass(option) {
+                const classes = [];
+                const isCorrect = this.isCorrectOption(option);
+                const isChosen = this.isSelectedOption(option.id);
+
+                if ( isChosen ) {
+                    if ( isCorrect ) {
+                        classes.push('correct');
+                    } else {
+                        classes.push('incorrect');
+                    }
+                }
+
+                if ( this.isOneCorrectAnswer() ) {
+                    if ( isCorrect ) {
+                        classes.push('mdi-checkbox-marked-circle-outline');
+                    } else {
+                        classes.push('mdi-close-circle-outline');
+                    }
+                } else if ( this.isMultipleCorrectAnswers() ) {
+                    if ( isCorrect ) {
+                        classes.push('mdi-checkbox-marked-outline');
+                    } else {
+                        classes.push('mdi-close-box-outline');
+                    }
+                }
+
+                return classes;
             }
         }
     }
