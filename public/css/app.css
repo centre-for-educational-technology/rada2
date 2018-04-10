@@ -15700,6 +15700,23 @@ button.mdi::before {
   /*left: -3px;*/
 }
 
+html, body {
+  height: 100%;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#app {
+  flex: 1 0 auto;
+}
+
+footer {
+  flex-shrink: 0;
+}
+
 .navbar-header .navbar-brand img.sz-navbar-brand-logo {
   width: 108px;
   height: 36px;
