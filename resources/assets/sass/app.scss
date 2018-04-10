@@ -416,6 +416,22 @@ form.sz-action-form-inline {
             }
         }
 
+        .sz-game-voucher {
+            text-align: center;
+
+            a.sz-voucher-image {
+                display: block;
+                margin-left: auto;
+                margin-right: auto;
+                max-width: 300px;
+                margin-bottom: 11px;
+            }
+
+            .btn {
+                @include button-variant($btn-qr-code-color, $btn-qr-code-bg, $btn-qr-code-border);
+            }
+        }
+
         .sz-options-list {
             .mdi {
                 &.correct {

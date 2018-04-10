@@ -151,6 +151,10 @@ return [
                     'description' => 'Hjälp dina vänner och ha kul tillsammans!',
                 ],
             ],
+            'vouchers' => [
+                'heading' => 'You have received a voucher!',
+                'details' => 'For details go to',
+            ],
         ],
     ],
     'dashboard' => [

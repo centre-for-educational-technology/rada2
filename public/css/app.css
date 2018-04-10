@@ -16067,6 +16067,70 @@ form.sz-action-form-inline {
   font-size: 300%;
 }
 
+#sz-play-app .sz-game-results .sz-game-voucher {
+  text-align: center;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher a.sz-voucher-image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  max-width: 300px;
+  margin-bottom: 11px;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn {
+  color: #fff;
+  background-color: #f37841;
+  border-color: #f16729;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn:focus, #sz-play-app .sz-game-results .sz-game-voucher .btn.focus {
+  color: #fff;
+  background-color: #f05611;
+  border-color: #923309;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn:hover {
+  color: #fff;
+  background-color: #f05611;
+  border-color: #d0490d;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn:active, #sz-play-app .sz-game-results .sz-game-voucher .btn.active,
+.open > #sz-play-app .sz-game-results .sz-game-voucher .btn.dropdown-toggle {
+  color: #fff;
+  background-color: #f05611;
+  border-color: #d0490d;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn:active:hover, #sz-play-app .sz-game-results .sz-game-voucher .btn:active:focus, #sz-play-app .sz-game-results .sz-game-voucher .btn:active.focus, #sz-play-app .sz-game-results .sz-game-voucher .btn.active:hover, #sz-play-app .sz-game-results .sz-game-voucher .btn.active:focus, #sz-play-app .sz-game-results .sz-game-voucher .btn.active.focus,
+.open > #sz-play-app .sz-game-results .sz-game-voucher .btn.dropdown-toggle:hover,
+.open > #sz-play-app .sz-game-results .sz-game-voucher .btn.dropdown-toggle:focus,
+.open > #sz-play-app .sz-game-results .sz-game-voucher .btn.dropdown-toggle.focus {
+  color: #fff;
+  background-color: #d0490d;
+  border-color: #923309;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn:active, #sz-play-app .sz-game-results .sz-game-voucher .btn.active,
+.open > #sz-play-app .sz-game-results .sz-game-voucher .btn.dropdown-toggle {
+  background-image: none;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn.disabled:hover, #sz-play-app .sz-game-results .sz-game-voucher .btn.disabled:focus, #sz-play-app .sz-game-results .sz-game-voucher .btn.disabled.focus, #sz-play-app .sz-game-results .sz-game-voucher .btn[disabled]:hover, #sz-play-app .sz-game-results .sz-game-voucher .btn[disabled]:focus, #sz-play-app .sz-game-results .sz-game-voucher .btn[disabled].focus,
+fieldset[disabled] #sz-play-app .sz-game-results .sz-game-voucher .btn:hover,
+fieldset[disabled] #sz-play-app .sz-game-results .sz-game-voucher .btn:focus,
+fieldset[disabled] #sz-play-app .sz-game-results .sz-game-voucher .btn.focus {
+  background-color: #f37841;
+  border-color: #f16729;
+}
+
+#sz-play-app .sz-game-results .sz-game-voucher .btn .badge {
+  color: #f37841;
+  background-color: #fff;
+}
+
 #sz-play-app .sz-game-results .sz-options-list .mdi.correct {
   color: #2ab27b;
 }

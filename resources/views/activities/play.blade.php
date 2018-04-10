@@ -107,6 +107,11 @@
                             'description' => trans('pages.play.game.items.help_others.description'),
                         ],
                     ],
+                    'vouchers' => [
+                        'heading' => trans('pages.play.game.vouchers.heading'),
+                        'details' => trans('pages.play.game.vouchers.details'),
+                        'button' => trans('navbar.discount_vouchers'),
+                    ],
                 ]
             ],
         ]);
@@ -132,7 +137,7 @@
         <game-tutorial-modal ref="tutorialModal" v-if="game" v-bind:activity="game.activity"></game-tutorial-modal>
         <game-information-modal ref="informationModal" v-if="game" v-bind:activity="game.activity"></game-information-modal>
         <game-image-dialog ref="imageDialog" v-bind:base-url="baseUrl" v-bind:image="'game_complete.png'" v-bind:in-animation-class="'jackInTheBox'" v-bind:out-animation-class="'fadeOutDownBig'"></game-image-dialog>
-        <game-results-modal ref="resultsModal" v-if="isGameComplete()" v-bind:activity="game.activity" v-bind:answers="game.answers"></game-results-modal>
+        <game-results-modal ref="resultsModal" v-if="isGameComplete()" v-bind:game="game" v-bind:base-url="baseUrl"></game-results-modal>
         <game-map v-if="!isLoading()" v-bind:latitude="latitude" v-bind:longitude="longitude" v-bind:game="game" v-bind:base-url="baseUrl"></game-map>
     </div>
 

@@ -3,7 +3,7 @@
         <div class="modal-dialog modal-lg sz-game-results" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">{{ activity.title }}</h4>
+                    <h4 class="modal-title">{{ game.activity.title }}</h4>
                 </div>
                 <div class="modal-body">
                     <div class="text-center sz-quick-results">
@@ -15,8 +15,18 @@
                         </div>
                     </div>
 
+                    <div class="sz-game-voucher" v-if="gotVoucher()">
+                        <h2>{{ $t('vouchers.heading')}}</h2>
+                        <p>{{ voucherTitle() }}</p>
+                        <a v-bind:href="getVoucherUrl()" class="sz-voucher-image" target="_blank">
+                            <img v-bind:src="getVoucherImageUrl()" class="img-responsive" alt="voucher">
+                        </a>
+                        <p>{{ $t('vouchers.details') }}</p>
+                        <a class="btn btn-default" v-bind:href="getVoucherUrl()" target="_blank">{{ $t('vouchers.button') }}</a>
+                    </div>
+
                     <h2 class="text-center">{{ $t('results-heading')}}</h2>
-                    <div v-for="(question, index) in activity.questions">
+                    <div v-for="(question, index) in game.activity.questions">
                         <h3>{{ index + 1 }}. {{ question.title }}</h3>
                         <p class="sz-display-new-lines">{{question.description}}</p>
                         <div v-if="isOneCorrectAnswer(question) || isMultipleCorrectAnswers(question)">
@@ -97,17 +107,30 @@
 
 <script>
     export default {
-        props: ['activity', 'answers'],
+        props: ['game', 'baseUrl'],
         mounted() {
+            const vm = this;
+            this.$http.get(vm.baseUrl + '/api/games/' + vm.game.id + '/voucher', {}).then(response => {
+                if ( response.body.hasVoucher ) {
+                    vm.voucher = response.body.voucher;
+                }
+            }, response => {
+                //console.error('Error', response);
+            });
+        },
+        data() {
+            return {
+                voucher: false
+            };
         },
         computed: {
             totalQuestionsCount: function() {
-                return this.activity.questions.length;
+                return this.game.activity.questions.length;
             },
             correctQuestionsCount: function() {
                 const vm = this;
 
-                return _.filter(this.activity.questions, function(question) {
+                return _.filter(this.game.activity.questions, function(question) {
                     if ( vm.isCorrect(question) ) {
                         return question;
                     }
@@ -145,28 +168,28 @@
                 return question ? question.type == 7 : false;
             },
             hasAnswer(question) {
-                return !!(this.answers && this.answers[question.id]);
+                return !!(this.game.answers && this.game.answers[question.id]);
             },
             isCorrect(question) {
                 if ( !this.hasAnswer(question) ) {
                     return false;
                 }
 
-                return this.answers[question.id].correct;
+                return this.game.answers[question.id].correct;
             },
             hasOptions(question) {
                 if ( !this.hasAnswer(question) ) {
                     return false;
                 }
 
-                return !!this.answers[question.id].answer.options;
+                return !!this.game.answers[question.id].answer.options;
             },
             choseOption(question, option) {
                 if ( !this.hasOptions(question) ) {
                     return false;
                 }
 
-                return this.answers[question.id].answer.options.indexOf(option.id) !== -1;
+                return this.game.answers[question.id].answer.options.indexOf(option.id) !== -1;
             },
             isCorrectOption(option) {
                 return !!option.correct;
@@ -176,20 +199,20 @@
                     return false;
                 }
 
-                return !!this.answers[question.id].answer.text;
+                return !!this.game.answers[question.id].answer.text;
             },
             getText(question) {
-                return this.answers[question.id].answer.text;
+                return this.game.answers[question.id].answer.text;
             },
             hasImage(question) {
                 if ( !this.hasAnswer(question) ) {
                     return false;
                 }
 
-                return !!this.answers[question.id].image;
+                return !!this.game.answers[question.id].image;
             },
             getImage(question) {
-                return this.answers[question.id].image;
+                return this.game.answers[question.id].image;
             },
             optionIconClass(question, option) {
                 const classes = [];
@@ -222,6 +245,18 @@
             },
             showResults() {
                 this.resultsShown = !this.resultsShown;
+            },
+            getVoucherImageUrl() {
+                return this.baseUrl + '/img/vouchers/voucher.png';
+            },
+            getVoucherUrl() {
+                return this.baseUrl + '/discount_vouchers';
+            },
+            gotVoucher() {
+                return !!this.voucher;
+            },
+            voucherTitle() {
+                return this.gotVoucher() ? this.voucher.title : '';
             }
         }
     }

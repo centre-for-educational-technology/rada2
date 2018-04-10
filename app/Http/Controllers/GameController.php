@@ -14,6 +14,8 @@ use App\ActivityItem;
 
 use App\PlayerPosition;
 
+use App\DiscountVoucher;
+
 use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\File;
@@ -39,7 +41,7 @@ class GameController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('game.verify', ['except' => ['play', 'downloadPlayerPositions']]);
+        $this->middleware('game.verify', ['except' => ['play', 'voucher', 'downloadPlayerPositions']]);
     }
 
     /**
@@ -150,7 +152,7 @@ class GameController extends Controller
         if ( count($unansweredItemIds) === 0 ) {
             $game->complete = true;
             $game->save();
-            // XXX Create a special event type for this one
+            // TODO Consider creating a special event type for this one
             Event::fire('game.complete', $game);
         }
 
@@ -189,6 +191,43 @@ class GameController extends Controller
         $playerPosition->save();
 
         return $playerPosition;
+    }
+
+    /**
+     * Answer a question
+     * @param  \Illuminate\Http\Request   $request      Request object
+     * @param  \App\Game                  $game         Game object
+     * @return \Illuminate\Http\Response
+     */
+    public function voucher(Request $request, Game $game)
+    {
+        if ( $game->user_id ) {
+            if ( !( Auth::check() && Auth::user()->id === $game->user_id ) ) {
+                return response()->json(['error' => 'Forbidden.'], 403);
+            }
+        }
+
+        if ( !$game->user )
+        {
+            return response()->json(['error' => 'Forbidden.'], 403);
+        }
+
+        $responseData = [
+            'hasVoucher' => false,
+        ];
+        $discountVoucher = $game->user->belongsToMany(DiscountVoucher::class)
+            ->where('game_id', '=', $game->id)
+            ->first();
+
+        if ( $discountVoucher )
+        {
+            $responseData['hasVoucher'] = true;
+            $responseData['voucher'] = [
+                'title' => $discountVoucher->title,
+            ];
+        }
+
+        return response()->json($responseData);
     }
 
     /**
