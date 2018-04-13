@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Facades\Event;
 use Carbon\Carbon;
+use App\Notifications\ResetPassword;
 
 class User extends Authenticatable
 {
@@ -247,5 +248,14 @@ class User extends Authenticatable
     public function blocked()
     {
         return ! is_null($this->blocked_at);
+    }
+
+    /**
+     * Sedn reset password notification
+     * @param string $token Password reset token
+     */
+    public function sendPasswordResetNotification($token)
+    {
+        $this->notify(new ResetPassword($token));
     }
 }
