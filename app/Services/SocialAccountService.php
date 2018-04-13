@@ -32,11 +32,18 @@ class SocialAccountService
 
             $user = User::where( 'email', $providerUser->getEmail() )->first();
 
+            if ( $user && !$user->isVerified() )
+            {
+                $user->delete();
+                $user = NULL;
+            }
+
             if ( !$user ) {
                 $user = User::create([
                     'name' => $providerUser->getName(),
                     'email' => $providerUser->getEmail(),
                     'password' => '',
+                    'verified' => 1,
                 ]);
             }
 

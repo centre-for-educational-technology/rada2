@@ -11,9 +11,19 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{ trans('auth.login.form.heading') }}</div>
                 <div class="panel-body">
+                    @if ( session('success') )
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
                     @if ( session('warning') )
                         <div class="alert alert-warning">
                             {{ session('warning') }}
+                        </div>
+                    @endif
+                    @if ( Request::has('verified') && Request::get('verified') )
+                        <div class="alert alert-success">
+                            {{ trans('general.messages.successes.account-email-verified') }}
                         </div>
                     @endif
                     <div class="col-md-8 col-md-offset-4">

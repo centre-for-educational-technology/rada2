@@ -26,6 +26,9 @@ Route::group(['prefix' => 'auth'], function()
     Route::get('facebook/callback', 'Auth\FacebookController@handleProviderCallback');
 });
 
+Route::get('email-verification/error', 'Auth\RegisterController@getVerificationError')->name('email-verification.error');
+Route::get('email-verification/check/{token}', 'Auth\RegisterController@getVerification')->name('email-verification.check');
+
 Route::post('locale/{locale}', 'LocaleController@set')->name('locale.set');
 
 Route::group(['prefix' => 'dashboard'], function()

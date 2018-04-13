@@ -15,7 +15,8 @@
         "anhskohbo/no-captcha": "^2.3",
         "firebase/php-jwt": "^4.0",
         "spatie/laravel-activitylog": "^1.15",
-        "simplesoftwareio/simple-qrcode": "~1"
+        "simplesoftwareio/simple-qrcode": "~1",
+        "jrean/laravel-user-verification": "^3.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

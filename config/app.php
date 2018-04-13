@@ -181,6 +181,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
+        Jrean\UserVerification\UserVerificationServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\OptionsServiceProvider::class,
 
@@ -236,6 +237,7 @@ return [
         'Html' => Collective\Html\HtmlFacade::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'QrCode' => SimpleSoftwareIO\QrCode\Facades\QrCode::class,
+        'UserVerification' => Jrean\UserVerification\Facades\UserVerification::class,
 
     ],
 

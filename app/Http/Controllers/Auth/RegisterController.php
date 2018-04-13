@@ -6,6 +6,10 @@ use App\User;
 use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\Request;
+use Jrean\UserVerification\Traits\VerifiesUsers;
+use Jrean\UserVerification\Facades\UserVerification;
+use Illuminate\Support\Facades\Auth;
 
 class RegisterController extends Controller
 {
@@ -21,6 +25,7 @@ class RegisterController extends Controller
     */
 
     use RegistersUsers;
+    use VerifiesUsers;
 
     /**
      * Where to redirect users after login / registration.
@@ -28,6 +33,12 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/dashboard';
+
+    /**
+     * Where to redirect user after successful verification
+     * @var string
+     */
+    protected $redirectAfterVerification = '/login?verified=true';
 
     /**
      * Create a new controller instance.
@@ -69,5 +80,20 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+    }
+
+    /**
+     * The user has been registered.
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @param  mixed  $user
+     * @return mixed
+     */
+    protected function registered(Request $request, $user)
+    {
+        UserVerification::generate($user);
+        UserVerification::send($user, trans('notifications.email.account-verify.action'));
+        Auth::logout();
+        return redirect('/login')->with('success', trans('general.messages.successes.account-email-verification-sent'));
     }
 }

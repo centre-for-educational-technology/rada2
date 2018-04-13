@@ -28,5 +28,10 @@ return [
             'action' => 'Reset Password',
             'explanation' => 'If you did not request a password reset, no further action is required.',
         ],
+        'account-verify' => [
+            'reason' => 'You are receiving this email because an account with this email address has been created with us.',
+            'action' => 'Verify Account',
+            'explanation' => 'If you did not create that account, no further action is required. Unverified accounts will be automatically removed after 48 hours.',
+        ],
     ],
 ];

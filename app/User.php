@@ -9,11 +9,13 @@ use Spatie\Activitylog\Traits\LogsActivity;
 use Illuminate\Support\Facades\Event;
 use Carbon\Carbon;
 use App\Notifications\ResetPassword;
+use Jrean\UserVerification\Traits\UserVerification;
 
 class User extends Authenticatable
 {
     use Notifiable;
     use LogsActivity;
+    use UserVerification;
 
     /**
      * The attributes that are mass assignable.

@@ -170,6 +170,11 @@ return [
    'messages' => [
        'warnings' => [
            'account-blocked' => 'This account has been suspended. For more information please contact administration.',
+           'account-email-not-verified' => 'This account has not been verified yet. Use verification instructions sent to you by email.',
+       ],
+       'successes' => [
+           'account-email-verification-sent' => 'Your account has been created. We have sent you an email containing verification instructions.',
+           'account-email-verified' => 'Your account has been successfuly verified. You can now log in.',
        ],
    ],
 ];
