@@ -751,3 +751,9 @@ img.sz-uploaded-image-preview {
 .badge.sz-orange-badge {
     background-color: $sz-orange;
 }
+
+.sz-user-row {
+    .sz-blocked {
+        text-decoration: line-through;
+    }
+}

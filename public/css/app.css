@@ -16525,4 +16525,8 @@ fieldset[disabled] .btn-play.focus {
   background-color: #f37841;
 }
 
+.sz-user-row .sz-blocked {
+  text-decoration: line-through;
+}
+
 /*# sourceMappingURL=app.css.map */

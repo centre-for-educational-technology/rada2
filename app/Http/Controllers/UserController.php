@@ -39,7 +39,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['spendDiscountVoucher',]]);
-        $this->middleware('auth.admin', ['only' => ['index', 'removeRole', 'assignRoles',]]);
+        $this->middleware('auth.admin', ['only' => ['index', 'removeRole', 'assignRoles', 'block', 'unblock',]]);
     }
 
     /**
@@ -231,5 +231,51 @@ class UserController extends Controller
         return [
             'discount_voucher_id' => $voucher->id,
         ];
+    }
+
+    /**
+     * Block user.
+     * @param  Illuminate\Http\Request $request Form data
+     * @param  App\User                $user    User object
+     * @return \Illuminate\Http\Response
+     */
+    public function block(Request $request, User $user)
+    {
+        $this->authorize('block', $user);
+
+        if ( !$user->blocked() )
+        {
+            $user->blocked_at = Carbon::now();
+            $user->save();
+            activity()
+                ->performedOn($user)
+                ->withProperties([])
+                ->log('blocked');
+        }
+
+        return back();
+    }
+
+    /**
+     * Unblock user.
+     * @param  Illuminate\Http\Request $request Form data
+     * @param  App\User                $user    User object
+     * @return \Illuminate\Http\Response
+     */
+    public function unblock(Request $request, User $user)
+    {
+        $this->authorize('block', $user);
+
+        if ( $user->blocked() )
+        {
+            $user->blocked_at = NULL;
+            $user->save();
+            activity()
+                ->performedOn($user)
+                ->withProperties([])
+                ->log('unblocked');
+        }
+
+        return back();
     }
 }

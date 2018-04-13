@@ -140,6 +140,8 @@ return [
    'confirmations' => [
        'delete' => 'Ta bort uppgift.  Är du säker?',
        'play' => 'Du är inte inloggad!  Ditt spel kommer inte att sparas och du kan inte hämta ut några priser.',
+       'block-account' => 'Are you sure you want to block selected account?',
+       'unblock-account' => 'Are you sure you want to unblock selected account?',
    ],
    'date-time' => [
        'formats' => [
@@ -165,4 +167,9 @@ return [
        'button-agree' => 'Jag godkänner',
    ],
    'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 6. At least 3G internet connection and working GPS module is needed.',
+   'messages' => [
+       'warnings' => [
+           'account-blocked' => 'This account has been suspended. For more information please contact administration.',
+       ],
+   ],
 ];

@@ -69,6 +69,8 @@ return [
                 'roles' => 'Роли',
                 'manage-roles' => 'Управлять ролями',
                 'remove-role' => 'Удалить роль',
+                'block-account' => 'Block',
+                'unblock-account' => 'Unblock',
                 'confirmations' => [
                     'role' => 'Вы уверены, что желаете удалить выбранную роль?',
                 ],

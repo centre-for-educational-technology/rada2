@@ -11,6 +11,11 @@
             <div class="panel panel-default">
                 <div class="panel-heading">{{ trans('auth.login.form.heading') }}</div>
                 <div class="panel-body">
+                    @if ( session('warning') )
+                        <div class="alert alert-warning">
+                            {{ session('warning') }}
+                        </div>
+                    @endif
                     <div class="col-md-8 col-md-offset-4">
                         <p class="text-justify">{{ trans('auth.login.form.text') }}</p>
                     </div>

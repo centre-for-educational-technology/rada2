@@ -69,6 +69,8 @@ return [
                 'roles' => 'Rollid',
                 'manage-roles' => 'Halda rolle',
                 'remove-role' => 'Eemalda roll',
+                'block-account' => 'Block',
+                'unblock-account' => 'Unblock',
                 'confirmations' => [
                     'role' => 'Oled sa kindel, et soovid rolli eemaldada?',
                 ],

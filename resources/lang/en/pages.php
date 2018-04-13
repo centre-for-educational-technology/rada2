@@ -69,6 +69,8 @@ return [
                 'roles' => 'Roles',
                 'manage-roles' => 'Manage roles',
                 'remove-role' => 'Remove role',
+                'block-account' => 'Block',
+                'unblock-account' => 'Unblock',
                 'confirmations' => [
                     'role' => 'Are you sure you want to remove selected role?',
                 ],

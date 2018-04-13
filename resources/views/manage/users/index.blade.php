@@ -1,63 +1,7 @@
 @extends('layouts.app')
 
 @section('footer-scripts')
-<script>
-    $(document).ready(function() {
-        $('.mdi-close-circle-outline').on('click', function() {
-            var confirmation = confirm('{{ trans("pages.manage.users.index.confirmations.role") }}');
-
-            if ( confirmation ) {
-                var _this = $(this),
-                    user = _this.data('user-id'),
-                    role = _this.data('role-id');
-
-                $.ajax({
-                    cache: false,
-                    method: 'DELETE',
-                    url: '{{ url("/api/manage/users") }}/' + user + '/roles/' + role,
-                    success: function(data, textStatus, jqXHR) {
-                        _this.parent().fadeOut('medium', function() {
-                            $(this).remove();
-                        });
-                        $('#user-' + user).find('button').data('user-roles', data.roles);
-                    },
-                    error: function(jqXHR, textStatus, errorThrown) {
-                        _this.parent().addClass('animated shake');
-                        setTimeout(function() {
-                            _this.parent().removeClass('animated shake');
-                        }, 1000);
-                    }
-                });
-            }
-        });
-
-        $('#rolesModal').on('show.bs.modal', function(e) {
-            var form = $(this).find('form'),
-                button = $(e.relatedTarget),
-                userId = button.data('user-id'),
-                userName = button.data('user-name'),
-                userRoles = button.data('user-roles');
-                form.attr('action', form.data('action-base') + '/' + userId);
-                $(this).find('h4.modal-title > strong').text(userName);
-                if ( userRoles ) {
-                    _.each(userRoles, function(role) {
-                        form.find('input[type="checkbox"][name="roles[]"][value="' + role.id + '"]').prop('checked', true);
-                        if ( role.zoo ) {
-                            form.find('select[name="role_' + role.id + '_zoo"]').val(role.zoo);
-                        }
-                    });
-                }
-
-        });
-        $('#rolesModal').on('hidden.bs.modal', function(e) {
-            var form = $(this).find('form');
-
-            form.trigger('reset');
-            form.attr('action', '');
-            $(this).find('h4.modal-title > strong').text('');
-        });
-    });
-</script>
+<script src="{{ elixir('js/manage_users.js') }}"></script>
 @endsection
 
 @section('content')
@@ -156,9 +100,9 @@
                                 </thead>
                                 <tbody>
                                     @foreach($users as $user)
-                                        <tr id="user-{{ $user->id }}">
+                                        <tr id="user-{{ $user->id }}" class="sz-user-row">
                                             <td>
-                                                <a href="{!! route('user.profile', ['user' => $user->id]) !!}">{{ $user->name }}</a>
+                                                <a href="{!! route('user.profile', ['user' => $user->id]) !!}" class="{{ $user->blocked() ? 'sz-blocked' : ''}}">{{ $user->name }}</a>
                                             </td>
                                             <td class="hidden-xs">
                                                 <a href="mailto:{{ $user->email}}">
@@ -187,7 +131,7 @@
                                                             @if ( $role->hasZoo() )
                                                                 ({{ $role->pivot->zoo ? $role->getZoo() : '' }})
                                                             @endif
-                                                            <i class="mdi mdi-close-circle-outline" title="{{ trans('pages.manage.users.index.remove-role') }}" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}"></i>
+                                                            <i class="mdi mdi-close-circle-outline" title="{{ trans('pages.manage.users.index.remove-role') }}" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}" data-confirm="{{ trans("pages.manage.users.index.confirmations.role") }}"></i>
                                                         </span>
                                                     @endforeach
                                                 @endif
@@ -196,6 +140,17 @@
                                                 <button class="btn btn-primary btn-xs" title="{{ trans('pages.manage.users.index.manage-roles') }}" data-toggle="modal" data-target="#rolesModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-roles="{{ json_encode( $user->getRolesData() ) }}">
                                                     <i class="mdi mdi-account-settings"></i>
                                                 </button>
+                                                @if ( $user->id !== Auth::user()->id )
+                                                    @if ( $user->blocked() )
+                                                        <button class="btn btn-warning btn-xs" title="{{ trans('pages.manage.users.index.unblock-account') }}" data-toggle="action" data-method="put" data-confirm="{{ trans('general.confirmations.unblock-account') }}" data-action="{!! route('user.unblock', ['id' => $user->id]) !!}">
+                                                            <i class="mdi mdi-account"></i>
+                                                        </button>
+                                                    @else
+                                                        <button class="btn btn-warning btn-xs" title="{{ trans('pages.manage.users.index.block-account') }}" data-toggle="action" data-method="put" data-confirm="{{ trans('general.confirmations.block-account') }}" data-action="{!! route('user.block', ['id' => $user->id]) !!}">
+                                                            <i class="mdi mdi-account-off"></i>
+                                                        </button>
+                                                    @endif
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach

@@ -239,4 +239,13 @@ class User extends Authenticatable
 
         return $count !== 0;
     }
+
+    /**
+     * Determine if the user has been blocked.
+     * @return [type] [description]
+     */
+    public function blocked()
+    {
+        return ! is_null($this->blocked_at);
+    }
 }

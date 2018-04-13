@@ -69,6 +69,8 @@ return [
                 'roles' => 'Roolit',
                 'manage-roles' => 'Käsittele rooleja',
                 'remove-role' => 'Poista rooli',
+                'block-account' => 'Block',
+                'unblock-account' => 'Unblock',
                 'confirmations' => [
                     'role' => 'Haluatko tosiaan poista valitun roolin?',
                 ],

@@ -39,6 +39,8 @@ Route::group(['prefix' => 'dashboard'], function()
 Route::group(['prefix' => 'profile'], function() {
     Route::get('{user}', 'UserController@show')->name('user.profile');
     Route::get('{user}/edit', 'UserController@edit')->name('user.profile.edit');
+    Route::put('{user}/block', 'UserController@block')->name('user.block');
+    Route::put('{user}/unblock', 'UserController@unblock')->name('user.unblock');
     Route::put('{user}', 'UserController@update');
 });
 

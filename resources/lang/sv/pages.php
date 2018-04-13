@@ -69,6 +69,8 @@ return [
                 'roles' => 'Roller',
                 'manage-roles' => 'Hantera roller',
                 'remove-role' => 'Ta bort roll',
+                'block-account' => 'Block',
+                'unblock-account' => 'Unblock',
                 'confirmations' => [
                     'role' => 'Ta bort roll.  Är du säker?',
                 ],

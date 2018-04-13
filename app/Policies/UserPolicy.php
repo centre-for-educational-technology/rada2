@@ -28,7 +28,7 @@ class UserPolicy
     public function before(User $user, $ability) {
 
         if ($user->isAdmin()) {
-            if ( $ability !== 'delete' )
+            if ( $ability !== 'delete' && $ability !== 'block' )
             {
                 return true;
             }
@@ -80,5 +80,16 @@ class UserPolicy
     public function delete(User $actor, User $user)
     {
         return false;
+    }
+
+    /**
+     * Determine wherther blocking/unblocking is allowed.
+     * @param  App\User   $actor Actor User object
+     * @param  App\User   $user  Target User object
+     * @return boolean
+     */
+    public function block(User $actor, User $user)
+    {
+        return $actor->isAdmin() && ( $actor->id !== $user->id );
     }
 }
