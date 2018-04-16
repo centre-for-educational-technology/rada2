@@ -7,7 +7,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use app\User;
+use App\User;
 
 class AddVerificationToUserTable extends Migration
 {

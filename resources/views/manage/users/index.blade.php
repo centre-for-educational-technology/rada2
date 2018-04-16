@@ -105,7 +105,7 @@
                                                 <a href="{!! route('user.profile', ['user' => $user->id]) !!}" class="{{ $user->blocked() ? 'sz-blocked' : ''}}">{{ $user->name }}</a>
                                             </td>
                                             <td class="hidden-xs">
-                                                <a href="mailto:{{ $user->email}}">
+                                                <a href="mailto:{{ $user->email}}" class="{{ !$user->isVerified() ? 'sz-not-verified' : ''}}">
                                                     {{ $user->email }}
                                                 </a>
                                             </td>
@@ -137,9 +137,11 @@
                                                 @endif
                                             </td>
                                             <td>
+                                                @if ( $user->isVerified() )
                                                 <button class="btn btn-primary btn-xs" title="{{ trans('pages.manage.users.index.manage-roles') }}" data-toggle="modal" data-target="#rolesModal" data-user-id="{{ $user->id }}" data-user-name="{{ $user->name }}" data-user-roles="{{ json_encode( $user->getRolesData() ) }}">
                                                     <i class="mdi mdi-account-settings"></i>
                                                 </button>
+                                                @endif
                                                 @if ( $user->id !== Auth::user()->id )
                                                     @if ( $user->blocked() )
                                                         <button class="btn btn-warning btn-xs" title="{{ trans('pages.manage.users.index.unblock-account') }}" data-toggle="action" data-method="put" data-confirm="{{ trans('general.confirmations.unblock-account') }}" data-action="{!! route('user.unblock', ['id' => $user->id]) !!}">
