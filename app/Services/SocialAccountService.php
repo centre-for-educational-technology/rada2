@@ -43,8 +43,9 @@ class SocialAccountService
                     'name' => $providerUser->getName(),
                     'email' => $providerUser->getEmail(),
                     'password' => '',
-                    'verified' => 1,
                 ]);
+                $user->verified = true;
+                $user->save();
             }
 
             $account->user()->associate( $user );
