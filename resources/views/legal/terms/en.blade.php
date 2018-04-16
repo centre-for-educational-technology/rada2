@@ -417,7 +417,7 @@ ol.lst-kix_list_2-7.start {
 }
 
 .lst-kix_list_2-0>li:before {
-    content: "" counter(lst-ctn-kix_list_2-0, decimal) " "
+    /*content: "" counter(lst-ctn-kix_list_2-0, decimal) " "*/
 }
 
 .lst-kix_list_2-1>li:before {
