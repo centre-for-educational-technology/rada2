@@ -86,6 +86,8 @@ return [
             'activity-items' => 'Пункты тропы',
             'games' => 'Игры',
             'discount-vouchers' => 'Ваучеры',
+            'blocked-users' => 'Blocked',
+            'unverified-users' => 'Unverified',
             'captions' => [
                 'activities-by-zoo' => 'Тропы зоопарка',
                 'activities-by-language' => 'Тропы по языку',

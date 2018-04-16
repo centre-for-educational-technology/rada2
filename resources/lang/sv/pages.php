@@ -86,6 +86,8 @@ return [
             'activity-items' => 'Uppgifter',
             'games' => 'Spel',
             'discount-vouchers' => 'Rabattkuponger',
+            'blocked-users' => 'Blocked',
+            'unverified-users' => 'Unverified',
             'captions' => [
                 'activities-by-zoo' => 'Sorterade per djurpark',
                 'activities-by-language' => 'Sorterade per språk',

@@ -86,6 +86,8 @@ return [
             'activity-items' => 'Tehtävät',
             'games' => 'Pelit',
             'discount-vouchers' => 'Vouchers',
+            'blocked-users' => 'Blocked',
+            'unverified-users' => 'Unverified',
             'captions' => [
                 'activities-by-zoo' => 'Toiminnat eläintarhaa kohti',
                 'activities-by-language' => 'Toiminnat kieltä kohti',

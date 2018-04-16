@@ -55,6 +55,8 @@ class StatisticsController extends Controller
 
         return view('manage/statistics')->with([
             'users' => User::count(),
+            'blockedUsers' => User::whereNotNull('blocked_at')->count(),
+            'unverifiedUsers' => User::where('verified', 0)->count(),
             'activities' => Activity::count(),
             'activitiesByZoo' => $activitiesByZoo,
             'activitiesByLanguage' => $activitiesByLanguage,

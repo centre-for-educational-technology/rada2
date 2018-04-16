@@ -15,6 +15,20 @@
                             {{ trans('pages.manage.statistics.users') }}
                             <span class="badge">{{ $users }}</span>
                         </h2>
+
+                        <table class="table table-striped table-hover table-condensed">
+                            <caption></caption>
+                            <tbody>
+                                <tr>
+                                    <td>{{ trans('pages.manage.statistics.blocked-users') }}</td>
+                                    <td>{{ $blockedUsers }}</td>
+                                </tr>
+                                <tr>
+                                    <td>{{ trans('pages.manage.statistics.unverified-users') }}</td>
+                                    <td>{{ $unverifiedUsers }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
                     </div>
 
                     <div>
