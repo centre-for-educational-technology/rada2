@@ -35,6 +35,9 @@ This tool set includes:
 openssl genrsa -out private-key.pem 2048
 openssl rsa -in private-key.pem -out public-key.pem -outform PEM -pubout
 ```
+- Setup scheduled jobs (Cron)
+  - Those jobs should be run from Command-line interface (CLI) as those might require a longer period of time to run
+  - Please check the documentation for detailed instructions https://laravel.com/docs/5.3/scheduling#introduction
 
 ## Development
 
@@ -44,11 +47,14 @@ openssl rsa -in private-key.pem -out public-key.pem -outform PEM -pubout
 Working with JS and SASS requires [Node.js](https://nodejs.org) and [Gulp](http://gulpjs.com/) or compilation, generation and management purposes.
 More information could be found on [Laravel Elixir](https://laravel.com/docs/5.3/elixir) documentation pages.
 
+Tasks should run well enough with Node.js versions 6 and 8. Other versions might be having certain compatibility issues.
+
 If all the dependencies are installed, then one would only need to run one of the tasks:
 
  - **gulp** would run all tasks
  - **gulp --production** would run  all tasks and enforce minification and uglification
  - **gulp watch** would run the tasks and keep watching for changes (CTRL + C to cancel the task in terminal)
+ - Same could be achieved by running **npm run prod** and **npm run dev**
 
  ## Localization
 
@@ -60,6 +66,8 @@ Please note that files for different translations should be synchronized, meanin
 
 NB! While translating textual strings please make sure not to remove the replacement parts. Each replacement part could be identified buy having a colon in front of the word: Example: **User :name has logged in.**, the **:name** is a placeholder that will be substituted with some value and should be left as is in all translations.
 
+Also check any additional translations within the **vendor** subdirectory. That would host any translation files that belong to the third-party modules.
+
 ## Production
 
 If you need to be running in production mode, then please use the branch named **production** instead of **master**. That branch might not have all the latest changes, but it should have the JS and CSS assets built for running in production (minified and more).
@@ -68,7 +76,7 @@ If you need to be running in production mode, then please use the branch named *
 
 MIT License
 
-Copyright (c) 2017 SmartZoos Project
+Copyright (c) 2018 SmartZoos Project
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
