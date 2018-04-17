@@ -16,6 +16,8 @@ use App\Services\ImageService;
 
 use Auth;
 
+use Illuminate\Support\Facades\DB;
+
 class DiscountVoucherController extends Controller
 {
     /**
@@ -39,14 +41,15 @@ class DiscountVoucherController extends Controller
      * Process uploaded image as needed and move to a correct location.
      * @param  \App\Services\ImageService              $imageService
      * @param  \App\Http\Requests\StoreDiscountVoucher $request
+     * @param  string                                  $path
      * @return string                                  Image file name
      */
-    private function processImage(&$imageService, &$request)
+    private function processImage(&$imageService, &$request, $path)
     {
         $originalExtension = $request->file('image')->getClientOriginalExtension();
         $fileName = $imageService->generateUniqueFileName('discount_voucher_image_', $originalExtension);
 
-        $imageService->process($request->file('image')->getRealPath(), null, $fileName, 800);
+        $imageService->process($request->file('image')->getRealPath(), $path, $fileName, 800);
 
         return $fileName;
     }
@@ -124,13 +127,15 @@ class DiscountVoucherController extends Controller
         $this->setAmount($voucher, $request);
         $voucher->status = (boolean) $request->status;
 
+        $voucher->save();
+
         if ( $request->hasFile('image') )
         {
-            $fileName = $this->processImage($imageService, $request);
-            $voucher->image = $fileName;
+            $fileName = $this->processImage($imageService, $request, $voucher->getStoragePath());
+            DB::table('discount_vouchers')
+                ->where('id', $voucher->id)
+                ->update(['image' => $fileName]);
         }
-
-        $voucher->save();
 
         return redirect()->route('discount_voucher.manage');
     }
@@ -169,7 +174,7 @@ class DiscountVoucherController extends Controller
         if ( $request->hasFile('image') ) {
             $voucher->deleteImage();
 
-            $voucher->image = $this->processImage($imageService, $request);
+            $voucher->image = $this->processImage($imageService, $request, $voucher->getStoragePath());
         }
 
         $voucher->save();
@@ -187,7 +192,7 @@ class DiscountVoucherController extends Controller
         $this->authorize('delete', $voucher);
 
         $voucher->delete();
-        $voucher->deleteImage();
+        $voucher->deleteFileStorage();
 
         return redirect()->route('discount_voucher.manage');
     }

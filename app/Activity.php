@@ -8,12 +8,11 @@ use Spatie\Activitylog\Traits\LogsActivity;
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\DB;
 
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use App\Options\DifficultyLevelOptions;
-
-use Illuminate\Support\Facades\DB;
 
 class Activity extends Model
 {
@@ -34,6 +33,41 @@ class Activity extends Model
      * @var array
      */
     protected static $logAttributes = ['title',];
+
+    /**
+     * Return storage path for Activity
+     * @return string Path to directory
+     */
+    public function getStoragePath()
+    {
+        return self::getStoragePathForId($this->id);
+    }
+
+    /**
+     * Return storage path for given Activity id
+     * @param  int    $id Activity id
+     * @return string Path to directory
+     */
+    public static function getStoragePathForId(int $id)
+    {
+        return 'activities/' . $id . '/';
+    }
+
+    /**
+     * Delete storage if one exists
+     * @return boolean
+     */
+    public function deleteFileStorage()
+    {
+        $fullPath = public_path('uploads/images/' . $this->getStoragePath());
+
+        if ( File::exists($fullPath) && File::isDirectory($fullPath) )
+        {
+            File::deleteDirectory($fullPath);
+        }
+
+        return false;
+    }
 
     /**
      * Returns Zoo title
@@ -119,7 +153,7 @@ class Activity extends Model
     public function getFeaturedImageUrl()
     {
         if ( $this->hasFeaturedImage() ) {
-            return asset('uploads/images/' . $this->featured_image);
+            return asset('uploads/images/' . $this->getStoragePath() . $this->featured_image);
         }
 
         return asset('img/logos/logo-square.png');
@@ -133,7 +167,7 @@ class Activity extends Model
     public function deleteFeaturedImage()
     {
         if ( $this->hasFeaturedImage() ) {
-            return File::delete( public_path('uploads/images/' . $this->featured_image) );
+            return File::delete( public_path('uploads/images/' . $this->getStoragePath() . $this->featured_image) );
         }
 
         return false;

@@ -18,7 +18,6 @@ use App\Options\ZooGeolocationOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
-use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 use App\Services\ImageService;
 
@@ -626,13 +625,8 @@ class ActivityItemController extends Controller
   {
       $this->authorize('delete', $activity_item);
 
-      $path = $activity_item->getStoragePath();
-
       $activity_item->delete();
-
-      if ( File::isDirectory( public_path('uploads/images/' . $path) ) ) {
-          File::deleteDirectory( public_path('uploads/images/' . $path) );
-      }
+      $activity_item->deleteFileStorage();
 
       return redirect()->route('activity_item.index');
   }

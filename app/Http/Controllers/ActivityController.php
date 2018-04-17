@@ -23,6 +23,8 @@ use SimpleSoftwareIO\QrCode\Facades\QrCode;
 
 use Carbon\Carbon;
 
+use Illuminate\Support\Facades\DB;
+
 use Illuminate\Support\Facades\Log;
 
 class ActivityController extends Controller
@@ -48,13 +50,14 @@ class ActivityController extends Controller
      * Process uploaded image as needed and move to a correct location.
      * @param  \App\Services\ImageService       $imageService
      * @param  \App\Http\Requests\StoreActivity $request
-     * @return string                                    Image file name
+     * @param  string                           $path
+     * @return string                                         Image file name
      */
-    private function processFeaturedImage(&$imageService, &$request) {
+    private function processFeaturedImage(&$imageService, &$request, $path) {
         $originalExtension = $request->file('featured_image')->getClientOriginalExtension();
         $fileName = $imageService->generateUniqueFileName('featured_image_', $originalExtension);
 
-        $imageService->process($request->file('featured_image')->getRealPath(), null, $fileName, 800);
+        $imageService->process($request->file('featured_image')->getRealPath(), $path, $fileName, 800);
 
         return $fileName;
     }
@@ -233,11 +236,6 @@ class ActivityController extends Controller
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
-        if ( $request->hasFile('featured_image') )
-        {
-            $fileName = $this->processFeaturedImage($imageService, $request);
-            $activity->featured_image = $fileName;
-        }
         $activity->zoo = $request->zoo;
 
         if ( $request->has('proximity_check') )
@@ -272,6 +270,14 @@ class ActivityController extends Controller
         }
 
         $activity->save();
+
+        if ( $request->hasFile('featured_image') )
+        {
+            $fileName = $this->processFeaturedImage($imageService, $request, $activity->getStoragePath());
+            DB::table('activities')
+                ->where('id', $activity->id)
+                ->update(['featured_image' => $fileName]);
+        }
 
         if ( $request->has('activity_items') ) {
             $items = [];
@@ -340,14 +346,14 @@ class ActivityController extends Controller
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
         if ( $request->hasFile('featured_image') ) {
-            $originalFeaturedImage = $activity->featured_image;
-
-            $fileName = $this->processFeaturedImage($imageService, $request);
-            $activity->featured_image = $fileName;
-
-            if ( $originalFeaturedImage ) {
-                $imageService->delete($originalFeaturedImage);
+            if ( $activity->hasFeaturedImage() )
+            {
+                $activity->deleteFeaturedImage();
+                $activity->featured_image = null;
             }
+
+            $fileName = $this->processFeaturedImage($imageService, $request, $activity->getStoragePath());
+            $activity->featured_image = $fileName;
         }
         else if ( $request->remove_featured_image && $activity->hasFeaturedImage() )
         {
@@ -432,7 +438,7 @@ class ActivityController extends Controller
             $activity->delete();
         } else {
             $activity->forceDelete();
-            $activity->deleteFeaturedImage();
+            $activity->deleteFileStorage();
         }
 
         return redirect()->route('activity.index');

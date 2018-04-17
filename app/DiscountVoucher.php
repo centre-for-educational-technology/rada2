@@ -26,6 +26,41 @@ class DiscountVoucher extends Model
     protected static $logAttributes = ['title', 'duration', 'status',];
 
     /**
+     * Return storage path for DiscounVoucher
+     * @return string Path to directory
+     */
+    public function getStoragePath()
+    {
+        return self::getStoragePathForId($this->id);
+    }
+
+    /**
+     * Return storage path for given DiscountVoucher id
+     * @param  string    $id DiscountVoucher id
+     * @return string     Path to directory
+     */
+    public static function getStoragePathForId(string $id)
+    {
+        return 'discount_vouchers/' . $id . '/';
+    }
+
+    /**
+     * Delete storage if one exists
+     * @return boolean
+     */
+    public function deleteFileStorage()
+    {
+        $fullPath = public_path('uploads/images/' . $this->getStoragePath());
+
+        if ( File::exists($fullPath) && File::isDirectory($fullPath) )
+        {
+            File::deleteDirectory($fullPath);
+        }
+
+        return false;
+    }
+
+    /**
      * Determines if voucher has own image
      * @return boolean
      */
@@ -42,7 +77,7 @@ class DiscountVoucher extends Model
     {
         if ( $this->hasImage() )
         {
-            return asset('uploads/images/' . $this->image);
+            return asset('uploads/images/' . $this->getStoragePath() . $this->image);
         }
 
         return asset('img/logos/logo-square.png');
@@ -56,8 +91,7 @@ class DiscountVoucher extends Model
     {
         if ( $this->hasImage() )
         {
-
-            return File::delete( public_path('uploads/images/' . $this->image) );
+            return File::delete( public_path('uploads/images/' . $this->getStoragePath() . $this->image) );
         }
 
         return false;

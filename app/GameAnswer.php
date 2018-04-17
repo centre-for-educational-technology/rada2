@@ -40,7 +40,7 @@ class GameAnswer extends Model
     public function getImageUrl()
     {
         if ( $this->image ) {
-            return asset('uploads/images/'. $this->game_id . '/' . $this->image);
+            return asset('uploads/images/'. $this->game->getStoragePath() . '/' . $this->image);
         }
 
         return null;
