@@ -143,6 +143,7 @@ return [
        'block-account' => 'Are you sure you want to block selected account?',
        'unblock-account' => 'Are you sure you want to unblock selected account?',
        'delete-account' => 'Are you sure you want to delete selected account? This can not be undone and would also delete any content created by the user!',
+       'unload-protection' => 'You may have unsaved changes. Do you still want to leave?',
    ],
    'date-time' => [
        'formats' => [

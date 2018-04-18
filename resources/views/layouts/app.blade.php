@@ -24,6 +24,7 @@
             'apiUrl' => url('/api'),
             'locale' => App::getLocale(),
             'isLoggedIn' => Auth::check(),
+            'unloadProtectionMessage' => trans('general.confirmations.unload-protection'),
         ]); ?>;
     </script>
 

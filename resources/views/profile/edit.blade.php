@@ -7,7 +7,8 @@
         'files' => false,
         'class' => 'form-horizontal profile-edit',
         'role' => 'form',
-        'method' => 'put'
+        'method' => 'put',
+        'data-unload-protection' => 'true',
     ]) !!}
         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
             {!! Form::label('type', trans('auth.register.form.name'), [
@@ -81,10 +82,10 @@
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 {!! Form::submit(trans('general.forms.buttons.save'), [
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-primary btn-bypass-unload-protection',
                 ])!!}
                 {!! Html::link(route('user.profile', ['user' => $user->id]), trans('general.forms.buttons.cancel'), [
-                    'class' => 'btn btn-default',
+                    'class' => 'btn btn-default btn-bypass-unload-protection',
                 ]) !!}
             </div>
         </div>

@@ -7,6 +7,7 @@
         'files' => true,
         'class' => 'form-horizontal discount-voucher-create',
         'role' => 'form',
+        'data-unload-protection' => 'true',
     ]) !!}
         @include('includes.readd-pictures-alert', [ 'errors' => $errors, ])
         <div class="form-group required{{ $errors->has('title') ? ' has-error' : '' }}">
@@ -140,10 +141,10 @@
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 {!! Form::submit(trans('general.forms.buttons.create'), [
-                    'class' => 'btn btn-primary',
+                    'class' => 'btn btn-primary btn-bypass-unload-protection',
                 ])!!}
                 {!! Html::link(route('discount_voucher.manage'), trans('general.forms.buttons.cancel'), [
-                    'class' => 'btn btn-default',
+                    'class' => 'btn btn-default btn-bypass-unload-protection',
                 ]) !!}
             </div>
         </div>

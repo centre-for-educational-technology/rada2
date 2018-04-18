@@ -107,4 +107,19 @@ $(document).ready(function() {
             $(this).find('.modal-body').html('');
         });
     }
+
+    if ( $('form[data-unload-protection="true"]').length > 0 ) {
+        const unloadCallback = function(event) {
+            event.returnValue = window.Laravel.unloadProtectionMessage;
+            return window.Laravel.unloadProtectionMessage;
+        };
+
+        window.addEventListener('beforeunload', unloadCallback);
+
+        $('form[data-unload-protection="true"]')
+            .find('.btn.btn-bypass-unload-protection')
+            .on('click', function() {
+                window.removeEventListener('beforeunload', unloadCallback);
+            });
+    }
 });
