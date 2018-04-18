@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 
+use Illuminate\Http\Request;
+
 use Illuminate\Support\Facades\Auth;
 
 use App\User;
@@ -39,11 +41,12 @@ class FacebookController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback(SocialAccountService $service)
+    public function handleProviderCallback(Request $request, SocialAccountService $service)
     {
         $user = $service->createOrGetUser(Socialite::driver('facebook'));
 
         auth()->login($user, true);
+        $request->session()->regenerate();
 
         return redirect('dashboard');
     }

@@ -6,6 +6,8 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth;
 
+use Illuminate\Http\Request;
+
 use App\User;
 
 use App\Services\SocialAccountService;
@@ -39,11 +41,12 @@ class GoogleController extends Controller
      *
      * @return Response
      */
-    public function handleProviderCallback(SocialAccountService $service)
+    public function handleProviderCallback(Request $request, SocialAccountService $service)
     {
         $user = $service->createOrGetUser(Socialite::driver('google'));
 
         auth()->login($user, true);
+        $request->session()->regenerate();
 
         return redirect('dashboard');
     }
