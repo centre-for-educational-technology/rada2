@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
+use Illuminate\Support\Facades\Lang;
 
 use App\Traits\UuidModel;
 
@@ -19,6 +20,49 @@ class Badge extends Model
      * @var boolean
      */
     public $incrementing = false;
+
+    /**
+     * Return attribute translation key
+     * @param  string $attribute Attribute name
+     * @return string            Translation key
+     */
+    private function getTranslationKey(string $attribute)
+    {
+        return 'badges.' . $this->type . '.' . $attribute;
+    }
+
+    /**
+     * Return translation if one exists or current value
+     * @param  string $attribute Attribute name
+     * @param  string $value     Current attribute value
+     * @return string            Translation or current value
+     */
+    private function getAttributeTranslation(string $attribute, string $value)
+    {
+        $translationKey = $this->getTranslationKey($attribute);
+
+        return Lang::has($translationKey) ? trans($translationKey) : $value;
+    }
+
+    /**
+     * Return translated name or current value
+     * @param  string $value Currrent value
+     * @return string        Translation or current value
+     */
+    public function getNameAttribute($value)
+    {
+        return $this->getAttributeTranslation('name', $value);
+    }
+
+    /**
+     * Retrun translated description or current value
+     * @param  string $value Current value
+     * @return string        Translation or current value
+     */
+    public function getDescriptionAttribute($value)
+    {
+        return $this->getAttributeTranslation('description', $value);
+    }
 
     /**
      * Returns URL of the image based on badge "type" value
