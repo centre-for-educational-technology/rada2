@@ -16343,12 +16343,12 @@ img.sz-uploaded-image-preview {
   background-color: #777;
 }
 
-.sz-voucher-inactive .media-left :not(.pull-right), .sz-voucher-inactive .media-body :not(.pull-right) {
+.sz-voucher-inactive .media-left {
   opacity: 0.5;
 }
 
-.sz-voucher-inactive .media-left .pull-right a, .sz-voucher-inactive .media-left .pull-right i, .sz-voucher-inactive .media-body .pull-right a, .sz-voucher-inactive .media-body .pull-right i {
-  opacity: 1;
+.sz-voucher-inactive .media-body h4, .sz-voucher-inactive .media-body p, .sz-voucher-inactive .media-body div.sz-metadata {
+  color: #eeeeee;
 }
 
 #sz-cookie-consent {

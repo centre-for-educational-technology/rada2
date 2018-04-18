@@ -670,14 +670,13 @@ img.sz-uploaded-image-preview {
 }
 
 .sz-voucher-inactive {
-    .media-left, .media-body {
-        :not(.pull-right) {
-            opacity: 0.5;
-        }
-        .pull-right {
-            a, i {
-                opacity: 1;
-            }
+    .media-left {
+        opacity: 0.5;
+    }
+
+    .media-body {
+        h4, p, div.sz-metadata {
+            color: $gray-lighter;
         }
     }
 }
