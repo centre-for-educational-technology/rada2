@@ -45,6 +45,7 @@ Route::group(['prefix' => 'profile'], function() {
     Route::put('{user}/block', 'UserController@block')->name('user.block');
     Route::put('{user}/unblock', 'UserController@unblock')->name('user.unblock');
     Route::put('{user}', 'UserController@update');
+    Route::delete('{user}', 'UserController@destroy')->name('user.delete');
 });
 
 // Activity Routes

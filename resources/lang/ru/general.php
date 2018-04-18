@@ -142,6 +142,7 @@ return [
        'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
        'block-account' => 'Are you sure you want to block selected account?',
        'unblock-account' => 'Are you sure you want to unblock selected account?',
+       'delete-account' => 'Are you sure you want to delete selected account? This can not be undone and would also delete any content created by the user!',
    ],
    'date-time' => [
        'formats' => [

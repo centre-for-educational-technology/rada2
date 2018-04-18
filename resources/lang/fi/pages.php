@@ -71,6 +71,7 @@ return [
                 'remove-role' => 'Poista rooli',
                 'block-account' => 'Block',
                 'unblock-account' => 'Unblock',
+                'delete-account' => 'Delete',
                 'confirmations' => [
                     'role' => 'Haluatko tosiaan poista valitun roolin?',
                 ],

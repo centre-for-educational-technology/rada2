@@ -40,7 +40,7 @@ class ImageService
 
         if ( !File::isDirectory($fullPath) )
         {
-            File::makeDirectory($fullPath);
+            File::makeDirectory($fullPath, 0755, true);
         }
     }
 

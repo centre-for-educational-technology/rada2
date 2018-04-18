@@ -153,6 +153,11 @@
                                                         </button>
                                                     @endif
                                                 @endif
+                                                @can('delete', $user)
+                                                    <button class="btn btn-danger btn-xs" title="{{ trans('pages.manage.users.index.delete-account') }}" data-toggle="action" data-method="delete" data-confirm="{{ trans('general.confirmations.delete-account') }}" data-action="{!! route('user.delete', ['id' => $user->id]) !!}">
+                                                        <i class="mdi mdi-delete-forever"></i>
+                                                    </button>
+                                                @endcan
                                             </td>
                                         </tr>
                                     @endforeach

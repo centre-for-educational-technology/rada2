@@ -7,8 +7,10 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 
 use App\User;
-
 use App\Role;
+use App\Game;
+use App\ActivityItem;
+use App\Activity;
 
 use Auth;
 
@@ -39,7 +41,7 @@ class UserController extends Controller
     public function __construct()
     {
         $this->middleware('auth', ['except' => ['spendDiscountVoucher',]]);
-        $this->middleware('auth.admin', ['only' => ['index', 'removeRole', 'assignRoles', 'block', 'unblock',]]);
+        $this->middleware('auth.admin', ['only' => ['index', 'removeRole', 'assignRoles', 'block', 'unblock', 'destroy',]]);
     }
 
     /**
@@ -275,6 +277,48 @@ class UserController extends Controller
                 ->withProperties([])
                 ->log('unblocked');
         }
+
+        return back();
+    }
+
+    /**
+     * Delete user.
+     * @param  Illuminate\Http\Request $request Form data
+     * @param  App\User                $user    User object
+     * @return \Illuminate\Http\Response
+     */
+    public function destroy(Request $request, User $user)
+    {
+        $this->authorize('delete', $user);
+
+        Game::where('user_id', $user->id)->chunk(50, function ($games)
+        {
+            foreach ( $games as $game )
+            {
+                $game->delete();
+                $game->deleteFileStorage();
+            }
+        });
+
+        ActivityItem::where('user_id', $user->id)->chunk(50, function($items)
+        {
+            foreach( $items as $item)
+            {
+                $item->delete();
+                $item->deleteFileStorage();
+            }
+        });
+
+        Activity::withTrashed()->where('user_id', $user->id)->chunk(50, function($activities)
+        {
+            foreach ( $activities as $activity )
+            {
+                $activity->forceDelete();
+                $activity->deleteFileStorage();
+            }
+        });
+
+        $user->delete();
 
         return back();
     }

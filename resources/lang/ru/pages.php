@@ -71,6 +71,7 @@ return [
                 'remove-role' => 'Удалить роль',
                 'block-account' => 'Block',
                 'unblock-account' => 'Unblock',
+                'delete-account' => 'Delete',
                 'confirmations' => [
                     'role' => 'Вы уверены, что желаете удалить выбранную роль?',
                 ],

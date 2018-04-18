@@ -71,6 +71,7 @@ return [
                 'remove-role' => 'Ta bort roll',
                 'block-account' => 'Block',
                 'unblock-account' => 'Unblock',
+                'delete-account' => 'Delete',
                 'confirmations' => [
                     'role' => 'Ta bort roll.  Är du säker?',
                 ],
