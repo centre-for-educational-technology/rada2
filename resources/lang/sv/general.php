@@ -70,7 +70,7 @@ return [
            'from' => 'Från',
            'until' => 'Till',
            'question-or-information' => 'Fråga/Information',
-           'promoted' => 'Promote, show special icon and put to the top of the lists',
+           'promoted' => 'Flytta upp, visa en specialikon och lägg överst i listor',
        ],
        'help' => [
            'playing-time' => 'Aktivitetstid i minuter',
@@ -134,16 +134,16 @@ return [
        'assertion-open' => 'URL till märken',
        'discount-voucher-spend' => 'Använda rabattkupong',
        'get-qr-code' => 'Hämta QR-kod',
-       'reveal-discount' => 'Reveal discount',
+       'reveal-discount' => 'Visa rabatt',
    ],
    'minutes' => 'minuter',
    'confirmations' => [
        'delete' => 'Ta bort uppgift.  Är du säker?',
        'play' => 'Du är inte inloggad!  Ditt spel kommer inte att sparas och du kan inte hämta ut några priser.',
-       'block-account' => 'Are you sure you want to block selected account?',
-       'unblock-account' => 'Are you sure you want to unblock selected account?',
-       'delete-account' => 'Are you sure you want to delete selected account? This can not be undone and would also delete any content created by the user!',
-       'unload-protection' => 'You may have unsaved changes. Do you still want to leave?',
+       'block-account' => 'Blockera valt konto.  Är du säker?',
+       'unblock-account' => 'Avblockera valt konto.  Är du säker?',
+       'delete-account' => 'Ta bort valt konto.  Detta kan inte ångras och kommer att ta bort allt material skapat av denna användare.  Är du säker?',
+       'unload-protection' => 'Du kan ha osparade ändringar.  Vill du ändå lämna denna sida?',
    ],
    'date-time' => [
        'formats' => [
@@ -168,15 +168,15 @@ return [
        'text' => 'Denna webbplats använder kakor för att du ska få en så bra upplevelse som möjligt. <a href=":policy" target="_blank">Genom att fortsätta godkänder du användandet av kakor.</a>',
        'button-agree' => 'Jag godkänner',
    ],
-   'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 7. At least 3G internet connection and working GPS module is needed.',
+   'system-requirements' => 'Systemkrav: iOS (version 10) eller Android 7. 3G-förbindelse till Internet och fungerande GPS.',
    'messages' => [
        'warnings' => [
-           'account-blocked' => 'This account has been suspended. For more information please contact administration.',
-           'account-email-not-verified' => 'This account has not been verified yet. Use verification instructions sent to you by email.',
+           'account-blocked' => 'Detta konto har stängts av.  Var vänlig kontakta administratören för mer information.',
+           'account-email-not-verified' => 'Detta konto har ännu inte bekräftats.  Följ instruktionerna du fått i din e-post.',
        ],
        'successes' => [
-           'account-email-verification-sent' => 'Your account has been created. We have sent you an email containing verification instructions.',
-           'account-email-verified' => 'Your account has been successfuly verified. You can now log in.',
+           'account-email-verification-sent' => 'Ditt konto har skapats.  Du har fått instruktioner i din e-post för hur du ska bekräfta kontot.',
+           'account-email-verified' => 'Ditt konto har bekräftats.  Du kan nu logga in.',
        ],
    ],
 ];

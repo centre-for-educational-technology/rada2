@@ -69,9 +69,9 @@ return [
                 'roles' => 'Roller',
                 'manage-roles' => 'Hantera roller',
                 'remove-role' => 'Ta bort roll',
-                'block-account' => 'Block',
-                'unblock-account' => 'Unblock',
-                'delete-account' => 'Delete',
+                'block-account' => 'Blockera',
+                'unblock-account' => 'Avblockera',
+                'delete-account' => 'Ta bort',
                 'confirmations' => [
                     'role' => 'Ta bort roll.  Är du säker?',
                 ],
@@ -87,8 +87,8 @@ return [
             'activity-items' => 'Uppgifter',
             'games' => 'Spel',
             'discount-vouchers' => 'Rabattkuponger',
-            'blocked-users' => 'Blocked',
-            'unverified-users' => 'Unverified',
+            'blocked-users' => 'Blockerad',
+            'unverified-users' => 'Obekräftad',
             'captions' => [
                 'activities-by-zoo' => 'Sorterade per djurpark',
                 'activities-by-language' => 'Sorterade per språk',
@@ -157,8 +157,8 @@ return [
                 ],
             ],
             'vouchers' => [
-                'heading' => 'You have received a voucher!',
-                'details' => 'For details go to',
+                'heading' => 'Du har fått en kupong!',
+                'details' => 'För mer information se ',
             ],
         ],
     ],
@@ -197,8 +197,8 @@ return [
             'discount-voucher-spend' => 'Lösa in rabattkupong.  Är du säker?',
         ],
         'discount-vouchers' => [
-            'information' => 'Vouchers are rewarded for completing Activities. Show the voucher to the staff to redeem. All vouchers are valid for a certain period of time and could only be redeemed within a certain time frame.',
-            'how-to-redeem' => 'Please let the staff member press the button and confirm the process. This can not be undone.',
+            'information' => 'Kuponger är belöningar för avklarade aktiviteter.  Visa kupongen för personalen för att lösa in den.  Alla kuponger gäller endast en viss tidsperiod och måster lösas in inom denna tid.',
+            'how-to-redeem' => 'Vänligen låt vår personal trycka på knappen och godkänna inlösen.  Detta kan inte ångras.',
         ],
     ],
     'profile-edit' => [

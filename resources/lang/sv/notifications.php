@@ -12,26 +12,26 @@ return [
     */
 
     'greeting' => [
-        'error' => 'Whoops!',
-        'normal' => 'Hello!',
+        'error' => 'Hoppsan!',
+        'normal' => 'Hej!',
     ],
     'body' => [
-        'sub' => 'If you’re having trouble clicking the ":actionText" button, copy and paste the URL below into your web browser:',
+        'sub' => 'Om du har problem med att klicka på knappen ":actionText", kopiera och klistra in webbadressen nedan i din webbläsare:',
     ],
     'footer' => [
-        'all-rights-reserved' => 'All rights reserved.',
+        'all-rights-reserved' => 'Alla rättigheter förbehålls.',
     ],
-    'regards' => 'Regards',
+    'regards' => 'Hälsningar',
     'email' => [
         'password-reset' => [
-            'reason' => 'You are receiving this email because we received a password reset request for your account.',
-            'action' => 'Reset Password',
-            'explanation' => 'If you did not request a password reset, no further action is required.',
+            'reason' => 'Du får detta brev eftersom vi fått en begäran om att ändra lösenordet på ditt konto.',
+            'action' => 'Ändra lösenordet',
+            'explanation' => 'Om du inte avsåg att ändra ditt lösenord, behöver du inte göra något.',
         ],
         'account-verify' => [
-            'reason' => 'You are receiving this email because an account with this email address has been created with us.',
-            'action' => 'Verify Account',
-            'explanation' => 'If you did not create that account, no further action is required. Unverified accounts will be automatically removed after 48 hours.',
+            'reason' => 'Du får detta brev eftersom ett konto knutet till denna e-postadress har skapats hos oss.',
+            'action' => 'Bekräfta konto.',
+            'explanation' => 'Om du inte skapade detta konto, behöver du inte göra något.  Obekräftade konton tas automatiskt bort efter 48 timmar.',
         ],
     ],
 ];

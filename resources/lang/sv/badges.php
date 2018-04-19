@@ -12,44 +12,44 @@ return [
     */
 
     'novice_gamer' => [
-        'name' => 'Novice Gamer',
-        'description' => 'For completing first Activity.',
+        'name' => 'Nybörjare',
+        'description' => 'Första aktiviteten avklarad.',
     ],
     'pro_gamer' => [
-        'name' => 'Professional Gamer',
-        'description' => 'Become a true game master by completing twenty-five Activities.',
+        'name' => 'Proffs',
+        'description' => 'Bli en mästare genom att klara av 25 aktiviteter.',
     ],
     'seasoned_creator' => [
-        'name' => 'Seasoned Creator',
-        'description' => 'For creating five Activities.',
+        'name' => 'Erfaren skapare',
+        'description' => 'För att ha skapat fem aktiviteter.',
     ],
     'novice_creator' => [
-        'name' => 'Novice Creator',
-        'description' => 'For creating first Activity.',
+        'name' => 'Nybörjarskapare',
+        'description' => 'För att ha skapat en första aktivitet.',
     ],
     'seasoned_gamer' => [
-        'name' => 'Seasoned Gamer',
-        'description' => 'For completing five Activities.',
+        'name' => 'Erfaren spelare',
+        'description' => 'För att ha klarat av fem aktiviteter.',
     ],
     'pro_creator' => [
-        'name' => 'Professional Creator',
-        'description' => 'Master the art of creation by bringing twenty-five Activities into existence.',
+        'name' => 'Proffsskapare',
+        'description' => 'Bli en mästarskapare genom att skapa 25 aktiviter.',
     ],
     'veteran_creator' => [
-        'name' => 'Veteran Creator',
-        'description' => 'For creating ten Activities.',
+        'name' => 'Skaparveteran',
+        'description' => 'För att ha skapat tio aktiviteter.',
     ],
     'veteran_gamer' => [
-        'name' => 'Veteran Gamer',
-        'description' => 'For completing ten Activities.',
+        'name' => 'Spelarveteran',
+        'description' => 'För att ha klarat av tio aktiviteter.',
     ],
     'social' => [
-        'name' => 'Socializer',
-        'description' => 'For logging in with social network.',
+        'name' => 'Umgåsen',
+        'description' => 'För att ha loggat in på sociala medier.',
     ],
     'register' => [
-        'name' => 'Accountant',
-        'description' => 'For creating an account.',
+        'name' => 'Kontohavare',
+        'description' => 'För att ha skapat ett konto.',
     ],
 
 ];

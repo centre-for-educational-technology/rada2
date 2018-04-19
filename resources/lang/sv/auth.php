@@ -46,7 +46,7 @@ return [
                 'register' => 'Registrera',
             ],
             'labels' => [
-                'agree-to-terms-and-policy' => 'Agree to <a href=":terms" target="_blank">terms and conditions</a> and <a href=":policy" target="_blank">privacy policy</a>',
+                'agree-to-terms-and-policy' => 'Godkänn <a href=":terms" target="_blank">användarvillkoren</a> och <a href=":policy" target="_blank">integritetspolicyn</a>',
             ],
         ],
     ],

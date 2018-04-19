@@ -14,9 +14,9 @@ return [
     */
 
     'password' => 'Lösenordet måste vara minst sex tecken långt och vara samma som bekräftelsen.',
-    'reset' => 'Ditt lösenord har återställts!',
-    'sent' => 'En länk för lösenordsåterställning har epostats.',
-    'token' => 'Lösenordsåterställningsnyckeln är felaktig.',
+    'reset' => 'Ditt lösenord har ändrats!',
+    'sent' => 'En länk för lösenordsändring har epostats.',
+    'token' => 'Lösenordsändringsnyckeln är felaktig.',
     'user' => "Det finns ingen användare med denna epostadress.",
 
 ];
