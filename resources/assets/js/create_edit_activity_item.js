@@ -96,14 +96,18 @@ window.initMap = function() {
       return marker;
     }
 
-    function repositionMarker(latLng, marker, map) {
-        setLatAndLngValues(latLng);
-        map.panTo(latLng);
-        marker.setPosition(latLng);
+    function replayMarkerAnimation(marker) {
         marker.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function() {
             marker.setAnimation(null);
         }, 500);
+    }
+
+    function repositionMarker(latLng, marker, map) {
+        setLatAndLngValues(latLng);
+        map.panTo(latLng);
+        marker.setPosition(latLng);
+        replayMarkerAnimation(marker);
     }
 
     function getInitialLatLng() {
@@ -164,6 +168,27 @@ window.initMap = function() {
             latLng = window.Laravel.zooGeolocationOptions[value];
 
         repositionMarker(latLng, marker, map);
+    });
+
+    let longPress = false;
+    let startTime;
+    let endTime;
+
+    map.addListener('mousedown', function(event) {
+        startTime = new Date().getTime();
+    });
+
+    map.addListener('mouseup', function(event) {
+        endTime = new Date().getTime();
+        longPress = (endTime - startTime < 500) ? false : true;
+    });
+
+    map.addListener('click', function(event) {
+        if ( longPress ) {
+            setLatAndLngValues(event.latLng);
+            marker.setPosition(event.latLng);
+            replayMarkerAnimation(marker);
+        }
     });
 };
 
