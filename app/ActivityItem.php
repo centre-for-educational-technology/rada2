@@ -272,4 +272,18 @@ class ActivityItem extends Model
 
         return NULL;
     }
+
+    /**
+     * Deletes an image from storage if there is one.
+     * Does not set the corresponding attribute to an empty value.
+     * @return boolean
+     */
+    public function deleteImage()
+    {
+        if ( $this->hasImage() ) {
+            return File::delete( public_path('uploads/images/' . $this->getStoragePath() . $this->image) );
+        }
+
+        return false;
+    }
 }

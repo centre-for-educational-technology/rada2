@@ -203,8 +203,25 @@ Vue.component('match-pairs', require('./components/MatchPairs.vue'));
 
 const addActivityItemApp = new Vue({
     el: 'form#' + window.Laravel.activityItemFormId,
-    data: {
-        questionType: $('select[name="type"]').val()
+    mounted() {
+        const vm = this;
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        if ( window.Laravel.hasImage ) {
+            vm.hasImage = true;
+        }
+
+        $(vm.$refs.image).on('change', (e) => {
+            this.canResetImage = true;
+        });
+    },
+    data() {
+        return {
+            questionType: $('select[name="type"]').val(),
+            canResetImage: false,
+            hasImage: false
+        };
     },
     methods: {
         hasQuestionData() {
@@ -229,6 +246,17 @@ const addActivityItemApp = new Vue({
             }
 
             return false;
+        },
+        resetImage(e) {
+            e.preventDefault();
+
+            if ( !$(this.$refs.image).val() ) return;
+
+            this.canResetImage = false;
+            $(this.$refs.image).val('');
+        },
+        canRemoveImage() {
+            return !this.hasImage || this.canResetImage;
         }
     }
 });

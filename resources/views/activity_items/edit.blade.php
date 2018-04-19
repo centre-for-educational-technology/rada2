@@ -6,6 +6,7 @@
     window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'edit-activity-item';
     window.Laravel.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
+    window.Laravel.hasImage = <?php echo json_encode($activity_item->hasImage()); ?>;
 </script>
 @endsection
 
@@ -59,7 +60,19 @@
                     {!! Form::file('image', [
                         'class' => 'form-control',
                         'accept' => 'image/jpeg, image/png',
+                        'ref' => 'image',
                     ]) !!}
+                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" data-container="body" title="{{ trans('general.forms.tooltips.remove-image') }}">
+                        {!! Form::checkbox('remove_image', 1, false, [
+                            'ref' => 'removeImage',
+                            'v-bind:disabled' => 'canRemoveImage()',
+                        ]) !!}
+                    </span>
+                    <span class="input-group-addon">
+                        <a href="#" class="btn btn-danger btn-xs" v-on:click="resetImage" ref="removeImage" v-on:click="resetImage" v-bind:disabled="!canResetImage">
+                            <i class="mdi mdi-delete" aria-hidden="true"></i>
+                        </a>
+                    </span>
                 </div>
 
                 <p class="help-block">

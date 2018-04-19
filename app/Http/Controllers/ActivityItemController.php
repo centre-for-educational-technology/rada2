@@ -427,14 +427,19 @@ class ActivityItemController extends Controller
       $activity_item->description = $request->description;
 
       if ( $request->hasFile('image') ) {
-          $originalImage = $activity_item->image;
+          if ( $activity_item->hasImage() )
+          {
+              $activity_item->deleteImage();
+              $activity_item->image = null;
+          }
 
           $fileName = $this->processUploadedImage($imageService, $request, $path);
           $activity_item->image = $fileName;
-
-          if ( $originalImage ) {
-              $imageService->delete($path . $originalImage);
-          }
+      }
+      else if ( $request->remove_image && $activity_item->hasImage() )
+      {
+          $activity_item->deleteImage();
+          $activity_item->image = null;
       }
 
       if ( $activity_item->isEmbeddedContent() ) {
