@@ -1,11 +1,11 @@
 <template>
 <div id="question-type-multiple-correct-answers" class="sz-question">
     <div class="row sz-option-row" v-for="(option, index) in options">
-        <div class="col-xs-9">
+        <div class="col-xs-10">
             <div class="input-group">
                 <span class="input-group-addon" v-if="$parent.hasPreview(option)">
                     <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image)">
-                        <img class="sz-option-image-small" alt="option-image" v-bind:src="$parent.getOptionImageUrl(option.image)">
+                        <img class="sz-option-image-small" alt="option-image" v-bind:src="$parent.getOptionImageUrl(option.image)" v-bind:class="{ removed: hasImageRemoved(index) }">
                     </a>
                 </span>
                 <input type="hidden" name="ids[]" v-model="option.id">
@@ -15,13 +15,23 @@
                 </span>
             </div>
         </div>
-        <div class="col-xs-3 sz-btn-controls">
+        <div class="col-xs-2 sz-btn-controls">
+            <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: !canRemoveOptions() }">
+                <i class="mdi mdi-close-circle-outline" aria-hidden="true"></i>
+            </a>
+        </div>
+        <div class="col-xs-12">
+            <input type="file" accept="image/jpeg, image/png" capture="camera" style="display:none;" v-bind:name="'option-image-' + index" v-on:change="imageSelected($event, index)" ref="option-image">
             <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index)" v-bind:class="{ 'sz-option-has-image': option.image }" v-bind:title="option.image" data-toggle="tooltip" data-placement="top" ref="add-image">
                 <i class="mdi mdi-camera" aria-hidden="true"></i>
             </a>
-            <input type="file" accept="image/jpeg, image/png" capture="camera" style="display:none;" v-bind:name="'option-image-' + index" v-on:change="imageSelected($event, index)" ref="option-image">
-            <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: !canRemoveOptions() }">
-                <i class="mdi mdi-close-circle-outline" aria-hidden="true"></i>
+            <a href="#" class="btn btn-warning btn-xs" tabindex="-1" v-on:click.prevent="removeSelectedImage(index)" v-bind:class="{ disabled: !canRemoveSelectedImage(index) }">
+                <i class="mdi mdi-delete" aria-hidden="true"></i>
+            </a>
+            <input type="checkbox" style="display:none;" v-bind:name="'removed-option-images[]'" ref="removed-option-images" v-bind:value="option.id" v-model="removedImages">
+            <a href="#" class="btn btn-danger btn-xs" tabindex="-1" v-on:click.prevent="removeImage(index)" v-bind:class="{ disabled: !canRemoveImage(index) }" v-if="option.id && option.image_url">
+                <i class="mdi mdi-checkbox-blank-outline" aria-hidden="true" v-if="!hasImageRemoved(index)"></i>
+                <i class="mdi mdi-checkbox-marked-outline" aria-hidden="true" v-if="hasImageRemoved(index)"></i>
             </a>
         </div>
     </div>
@@ -76,7 +86,8 @@
         },
         data() {
             return  {
-                options: []
+                options: [],
+                removedImages: []
             };
         },
         methods: {

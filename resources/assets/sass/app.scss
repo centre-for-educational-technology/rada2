@@ -177,6 +177,10 @@ form.sz-action-form-inline {
 .sz-option-image-small {
     max-height: 22px;
     max-width: 22px;
+
+    &.removed {
+        opacity: 0.5;
+    }
 }
 
 .sz-img-64x64 {

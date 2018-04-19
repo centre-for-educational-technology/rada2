@@ -40,7 +40,8 @@ class ActivityItemOption extends Model
      * Checks if option is marked as correct answer
      * @return boolean
      */
-    public function isCorrect() {
+    public function isCorrect()
+    {
         return (int)$this->correct === 1;
     }
 
@@ -48,8 +49,10 @@ class ActivityItemOption extends Model
      * Get full URL for image from public storage or default one
      * @return string Full public URL to image file
      */
-    public function getImageUrl() {
-        if ( $this->image ) {
+    public function getImageUrl()
+    {
+        if ( $this->image )
+        {
             $path = ActivityItem::getStoragePathForId($this->activity_item_id);
 
             return asset('uploads/images/'. $path . $this->image);
@@ -59,11 +62,23 @@ class ActivityItemOption extends Model
     }
 
     /**
-     * [deleteImage description]
-     * @return [type] [description]
+     * Determine if image exists
+     * @return boolean
      */
-    public function deleteImage() {
-        if ( $this->image ) {
+    public function hasImage()
+    {
+        return !!$this->image;
+    }
+
+    /**
+     * Deletes an image from storage if there is one.
+     * Does not set the corresponding attribute to an empty value.
+     * @return boolean
+     */
+    public function deleteImage()
+    {
+        if ( $this->hasImage() )
+        {
             $path = ActivityItem::getStoragePathForId($this->activity_item_id);
 
             return File::delete( public_path('uploads/images/'. $path . $this->image) );

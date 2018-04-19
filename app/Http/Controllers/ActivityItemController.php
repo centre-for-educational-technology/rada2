@@ -489,7 +489,7 @@ class ActivityItemController extends Controller
           $current_options = $activity_item->options->getDictionary();
           $options = [];
           $correct = -1;
-
+          $removedOptionsImages = $request->get('removed-option-images');
 
           if ( $request->has('correct') ) {
               $correct = (int)$request->correct;
@@ -508,6 +508,12 @@ class ActivityItemController extends Controller
                       }
                       $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
+                  else if ( $removedOptionsImages && is_array($removedOptionsImages) && in_array($tmp->id, $removedOptionsImages) && $tmp->hasImage() )
+                  {
+                      $tmp->deleteImage();
+                      $tmp->image = null;
+                  }
+
                   $options[] = $tmp;
               } else {
                   $tmp =  new ActivityItemOption;
@@ -531,6 +537,7 @@ class ActivityItemController extends Controller
           $current_options = $activity_item->options->getDictionary();
           $options = [];
           $correct = [];
+          $removedOptionsImages = $request->get('removed-option-images');
 
           if ( $request->has('correct') ) {
               $correct = $request->correct;
@@ -547,6 +554,11 @@ class ActivityItemController extends Controller
                           $tmp->image = null;
                       }
                       $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
+                  }
+                  else if ( $removedOptionsImages && is_array($removedOptionsImages) && in_array($tmp->id, $removedOptionsImages) && $tmp->hasImage() )
+                  {
+                      $tmp->deleteImage();
+                      $tmp->image = null;
                   }
 
                   $options[] = $tmp;
