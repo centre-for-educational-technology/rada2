@@ -60,7 +60,7 @@
                         'ref' => 'image',
                     ]) !!}
                     <span class="input-group-addon">
-                        <a href="#" class="btn btn-danger btn-xs" ref="removeImage" v-on:click="resetImage" v-bind:disabled="!canResetImage">
+                        <a href="#" class="btn btn-warning btn-xs" ref="removeImage" v-on:click="resetImage" v-bind:disabled="!canResetImage">
                             <i class="mdi mdi-delete" aria-hidden="true"></i>
                         </a>
                     </span>

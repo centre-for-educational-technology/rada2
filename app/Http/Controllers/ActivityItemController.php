@@ -582,6 +582,8 @@ class ActivityItemController extends Controller
 
       if ( $activity_item->isMatchPairs() ) {
           $current_pairs = $activity_item->pairs->getDictionary();
+          $removedOptionsImages = $request->get('removed-option-images');
+          $removedOptionsMatchImages = $request->get('removed-option-match-images');
 
           $pairs = [];
 
@@ -592,19 +594,32 @@ class ActivityItemController extends Controller
                   $tmp->option = $option;
                   $tmp->option_match = $request->matches[$key];
 
-                  if ( $request->hasFile('option-image-' . $key) ) {
+                  if ( $request->hasFile('option-image-' . $key) )
+                  {
                       if ( $tmp->image ) {
                           $tmp->deleteImage();
                           $tmp->image = null;
                       }
                       $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
-                  if ( $request->hasFile('option-match-image-' . $key) ) {
+                  else if ( $removedOptionsImages && is_array($removedOptionsImages) && in_array($tmp->id, $removedOptionsImages) && $tmp->hasImage() )
+                  {
+                      $tmp->deleteImage();
+                      $tmp->image = null;
+                  }
+
+                  if ( $request->hasFile('option-match-image-' . $key) )
+                  {
                       if ( $tmp->image_match ) {
                           $tmp->deleteImageMatch();
                           $tmp->image_match = null;
                       }
                       $tmp->image_match = $this->processUploadedOptionImage($imageService, $request, 'option-match-image-' . $key, $path);
+                  }
+                  else if ( $removedOptionsMatchImages && is_array($removedOptionsMatchImages) && in_array($tmp->id, $removedOptionsMatchImages) && $tmp->hasImageMatch() )
+                  {
+                      $tmp->deleteImageMatch();
+                      $tmp->image_match = null;
                   }
 
                   $pairs[] = $tmp;

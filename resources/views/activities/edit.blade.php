@@ -172,7 +172,7 @@
                         ]) !!}
                     </span>
                     <span class="input-group-addon">
-                        <a href="#" class="btn btn-danger btn-xs" v-on:click="resetFeaturedImage" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
+                        <a href="#" class="btn btn-warning btn-xs" v-on:click="resetFeaturedImage" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
                             <i class="mdi mdi-delete" aria-hidden="true"></i>
                         </a>
                     </span>

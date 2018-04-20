@@ -11,7 +11,7 @@
                 <input type="hidden" name="ids[]" v-model="option.id">
                 <input type="text" class="form-control" name="options[]" v-model="option.option" v-bind:placeholder="$t('option-text')">
                 <span class="input-group-addon">
-                    <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct" v-on:change="enforceCorrectOption()">
+                    <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct" v-on:change="enforceCorrectOption()" data-toggle="tooltip" data-placement="left" v-bind:title="$t('mark-option-as-correct')">
                 </span>
             </div>
         </div>
@@ -22,17 +22,20 @@
         </div>
         <div class="col-xs-12">
             <input type="file" accept="image/jpeg, image/png" capture="camera" style="display:none;" v-bind:name="'option-image-' + index" v-on:change="imageSelected($event, index)" ref="option-image">
-            <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index)" v-bind:class="{ 'sz-option-has-image': option.image }" v-bind:title="option.image" data-toggle="tooltip" data-placement="top" ref="add-image">
-                <i class="mdi mdi-camera" aria-hidden="true"></i>
-            </a>
-            <a href="#" class="btn btn-warning btn-xs" tabindex="-1" v-on:click.prevent="removeSelectedImage(index)" v-bind:class="{ disabled: !canRemoveSelectedImage(index) }">
-                <i class="mdi mdi-delete" aria-hidden="true"></i>
-            </a>
             <input type="checkbox" style="display:none;" v-bind:name="'removed-option-images[]'" ref="removed-option-images" v-bind:value="option.id" v-model="removedImages">
-            <a href="#" class="btn btn-danger btn-xs" tabindex="-1" v-on:click.prevent="removeImage(index)" v-bind:class="{ disabled: !canRemoveImage(index) }" v-if="option.id && option.image_url">
-                <i class="mdi mdi-checkbox-blank-outline" aria-hidden="true" v-if="!hasImageRemoved(index)"></i>
-                <i class="mdi mdi-checkbox-marked-outline" aria-hidden="true" v-if="hasImageRemoved(index)"></i>
-            </a>
+
+            <div class="btn-group btn-group-sm" role="group">
+                <a href="#" class="btn sz-image-add" tabindex="-1" v-on:click.prevent="addImage(index)" v-bind:class="{ 'sz-option-has-image': option.image }" v-bind:title="option.image" data-toggle="tooltip" data-placement="top" ref="add-image">
+                    <i class="mdi mdi-camera" aria-hidden="true"></i>
+                </a>
+                <a href="#" class="btn btn-danger btn-xs" tabindex="-1" v-on:click.prevent="removeImage(index)" v-bind:class="{ disabled: !canRemoveImage(index) }" v-if="option.id && option.image_url" data-toggle="tooltip" data-placement="top" v-bind:title="$t('remove-existing-image')">
+                    <i class="mdi mdi-checkbox-blank-outline" aria-hidden="true" v-if="!hasImageRemoved(index)"></i>
+                    <i class="mdi mdi-checkbox-marked-outline" aria-hidden="true" v-if="hasImageRemoved(index)"></i>
+                </a>
+                <a href="#" class="btn btn-warning btn-xs" tabindex="-1" v-on:click.prevent="removeSelectedImage(index)" v-bind:class="{ disabled: !canRemoveSelectedImage(index) }" data-toggle="tooltip" data-placement="top" v-bind:title="$t('remove-selected-image')">
+                    <i class="mdi mdi-delete" aria-hidden="true"></i>
+                </a>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -83,6 +86,10 @@
                     }
                 ];
             }
+
+            this.$nextTick(() => {
+                $(this.$el).find('[data-toggle="tooltip"]').tooltip();
+            });
         },
         data() {
             return  {
@@ -111,6 +118,9 @@
                     option: '',
                     correct: false,
                     image: ''
+                });
+                this.$nextTick(() => {
+                    $(this.$el).find('[data-toggle="tooltip"]').tooltip();
                 });
             },
             hasCorrectOptions: function() {

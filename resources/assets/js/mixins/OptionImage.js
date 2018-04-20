@@ -42,7 +42,8 @@ export default {
                         .removeAttr('title')
                         .tooltip('show');
                 } else {
-                    element.tooltip();
+                    element.attr('data-original-title', this.options[index].image);
+                    element.attr('title', this.options[index].image);
                 }
             });
         },
@@ -60,7 +61,7 @@ export default {
                     option.image = '';
                 }
                 option.imageSelected = false;
-                // XXX Needs a standalone selector function
+                
                 $(this.$refs['option-image'][index]).val('');
 
                 const element = this.getImageInputElement(index);
@@ -68,9 +69,11 @@ export default {
                 this.$nextTick(() => {
                     if ( option.image )
                     {
-                        element.attr('title', option.image);
+                        element.attr('data-original-title', option.image);
+                    } else {
+                        element.attr('title', '');
+                        element.attr('data-original-title', '');
                     }
-                    element.tooltip('destroy');
                 });
             }
         },

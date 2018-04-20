@@ -119,6 +119,8 @@ return [
        ],
        'tooltips' => [
            'remove-image' => 'Установите флажок, чтобы удалить существующее изображение',
+           'remove-selected-image' => 'Remove currently selected image',
+           'mark-option-as-correct' => 'Check to mark option as correct',
        ],
        'warnings' => [
            'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
