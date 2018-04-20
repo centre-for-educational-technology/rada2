@@ -375,12 +375,15 @@ class ActivityItemController extends Controller
           foreach ( old('options') as $index => $option )
           {
               $optionId = old('ids')[$index];
+              $optionObject = $options->get($optionId);
 
               $questionData[] = [
                   'id' => $optionId,
                   'option' => $option,
                   'correct' => in_array($index, $correct),
-                  'image' => $options->has($optionId) ? $options->get($optionId)->image : '',
+                  'image' => $optionObject ? $optionObject->image : '',
+                  'image_url' => ( $optionObject && $optionObject->hasImage() ) ? $optionObject->getImageUrl() : '',
+                  'activity_item_id' => $activity_item->id,
               ];
           }
       } else if ( (int)old('type') === 5 )
@@ -396,8 +399,11 @@ class ActivityItemController extends Controller
                   'id' => $pairId,
                   'option' => $option,
                   'image' => $pair ? $pair->image : '',
+                  'image_url' => ( $pair && $pair->hasImage() ) ? $pair->getOptionImageUrl() : '',
                   'option_match' => old('matches')[$index],
                   'image_match' => $pair ? $pair->image_match : '',
+                  'image_match_url' => ( $pair && $pair->hasImageMatch() ) ? $pair->getOptionMatchImageUrl($pair->image_match) : '',
+                  'activity_item_id' => $activity_item->id,
               ];
           }
       }

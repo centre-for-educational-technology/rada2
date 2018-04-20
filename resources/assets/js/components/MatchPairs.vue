@@ -110,6 +110,14 @@
                 ];
             }
 
+            if ( this.$parent.hasRemovedImagesData() ) {
+                this.removedImages = this.$parent.getRemovedImagesData();
+            }
+
+            if ( this.$parent.hasRemovedImageMatchesData() ) {
+                this.removedMatchImages = this.$parent.getRemovedImageMatchesData();
+            }
+
             this.$nextTick(() => {
                 $(this.$el).find('[data-toggle="tooltip"]').tooltip();
             });

@@ -87,6 +87,10 @@
                 ];
             }
 
+            if ( this.$parent.hasRemovedImagesData() ) {
+                this.removedImages = this.$parent.getRemovedImagesData();
+            }
+
             this.$nextTick(() => {
                 $(this.$el).find('[data-toggle="tooltip"]').tooltip();
             });

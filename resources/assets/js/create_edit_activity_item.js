@@ -257,6 +257,18 @@ const addActivityItemApp = new Vue({
         },
         canRemoveImage() {
             return !this.hasImage || this.canResetImage;
+        },
+        hasRemovedImagesData() {
+            return window.Laravel.removedImages && window.Laravel.removedImages.length > 0;
+        },
+        getRemovedImagesData() {
+            return window.Laravel.removedImages;
+        },
+        hasRemovedImageMatchesData() {
+            return window.Laravel.removedImageMatches && window.Laravel.removedImageMatches.length > 0;
+        },
+        getRemovedImageMatchesData() {
+            return window.Laravel.removedImageMatches;
         }
     }
 });
