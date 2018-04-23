@@ -141,11 +141,11 @@ return [
    'minutes' => 'minutid',
    'confirmations' => [
        'delete' => 'Oled sa kindek, et soovid selle kustutada?',
-       'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
-       'block-account' => 'Are you sure you want to block selected account?',
-       'unblock-account' => 'Are you sure you want to unblock selected account?',
-       'delete-account' => 'Are you sure you want to delete selected account? This can not be undone and would also delete any content created by the user!',
-       'unload-protection' => 'You may have unsaved changes. Do you still want to leave?',
+       'play' => 'Sa ei ole sisse loginud! - Sinu progressi ei salvestata ja auhindu (õpimärgid, kuponge) Sulle ei omistata.',
+       'block-account' => 'Oled Sa kindel, et soovid blokeerida valitud kasutaja?',
+       'unblock-account' => 'Oled Sa kindel, et soovid valitud konto uuesti avada?',
+       'delete-account' => 'Oled Sa kindel, et soovid valitud kasutaja kustutada? Seda ei saa tagasi võtta ja selle käigus kustutatakse kogu kasutaja poolt loodud sisu!',
+       'unload-protection' => 'Sul võib olla salvestamata tööd. Oled kindel, et soovid lahkuda?',
    ],
    'date-time' => [
        'formats' => [
@@ -167,18 +167,18 @@ return [
      'hard' => 'Raske',
    ],
    'cookie-consent' => [
-       'text' => 'This website uses cookies to ensure you get the best possible online experience. By continuing to use our website, you <a href=":policy" target="_blank">agree to the use of cookies</a>.',
+       'text' => 'See veebileht kasutab küpsiseid Sinu mugavamaks teenindamiseks. Veebilehe kasutamiseks palun  <a href=":policy" target="_blank">nõustu küpsiste kasutamisega</a>.',
        'button-agree' => 'Nõustun',
    ],
-   'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 7. At least 3G internet connection and working GPS module is needed.',
+   'system-requirements' => 'Miinimumnõuded: operatsioonisüsteem iOS (versioon 10) või Android 7. Vähemalt 3G kiirusega internetiühendus ja toimib GPS moodul on vajalik.',
    'messages' => [
        'warnings' => [
-           'account-blocked' => 'This account has been suspended. For more information please contact administration.',
-           'account-email-not-verified' => 'This account has not been verified yet. Use verification instructions sent to you by email.',
+           'account-blocked' => 'Konto on blokeeritud. Pöördu palun halduri poole küsimustega.',
+           'account-email-not-verified' => 'See konto ei ole veel verifitseeritud. Juhised on saadetud Sinu e-posti aadressile.',
        ],
        'successes' => [
-           'account-email-verification-sent' => 'Your account has been created. We have sent you an email containing verification instructions.',
-           'account-email-verified' => 'Your account has been successfuly verified. You can now log in.',
+           'account-email-verification-sent' => 'Sinu konto on loodud. Saatsime sinu e-posti peale kinnituskirja konto verifitseerimiseks.',
+           'account-email-verified' => 'Sinu konto on edukalt verifitseeritud. Sa võid nüüd sisse logida.',
        ],
    ],
 ];
