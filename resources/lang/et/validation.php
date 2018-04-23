@@ -14,15 +14,15 @@ return [
     */
 
     'accepted'             => 'The :attribute must be accepted.',
-    'active_url'           => 'The :attribute is not a valid URL.',
-    'after'                => 'The :attribute must be a date after :date.',
-    'alpha'                => 'The :attribute may only contain letters.',
-    'alpha_dash'           => 'The :attribute may only contain letters, numbers, and dashes.',
+    'active_url'           => ':attribute ei ole link.',
+    'after'                => ':attribute peab olema kuupäev peale :date.',
+    'alpha'                => ':attribute tohib sisaldada ainult tähti.',
+    'alpha_dash'           => ':attribute tohib sisaldaa ainult tähti, numbreid ja kaldkriipse.',
     'alpha_num'            => 'The :attribute may only contain letters and numbers.',
-    'array'                => 'The :attribute must be an array.',
-    'before'               => 'The :attribute must be a date before :date.',
+    'array'                => ':attribute peab olema jada.',
+    'before'               => ':attribute peab olema kuupäev :date.',
     'between'              => [
-        'numeric' => 'The :attribute must be between :min and :max.',
+        'numeric' => ':attribute peab olema :min ja :max vahel.',
         'file'    => 'The :attribute must be between :min and :max kilobytes.',
         'string'  => 'The :attribute must be between :min and :max characters.',
         'array'   => 'The :attribute must have between :min and :max items.',
