@@ -32,24 +32,24 @@ return [
         'description' => 'Viie mängu lõpetamise eest.',
     ],
     'pro_creator' => [
-        'name' => 'Professional Creator',
-        'description' => 'Master the art of creation by bringing twenty-five Activities into existence.',
+        'name' => 'Professionaalne looja',
+        'description' => 'Oled loonud 25 mängu!.',
     ],
     'veteran_creator' => [
-        'name' => 'Veteran Creator',
-        'description' => 'For creating ten Activities.',
+        'name' => 'Veteran-mängulooja',
+        'description' => '10 mängu loomise eest.',
     ],
     'veteran_gamer' => [
-        'name' => 'Veteran Gamer',
-        'description' => 'For completing ten Activities.',
+        'name' => 'Veteran-mängur',
+        'description' => '10 mängu lõpetamise eest.',
     ],
     'social' => [
-        'name' => 'Socializer',
-        'description' => 'For logging in with social network.',
+        'name' => 'Sotsialiseerija',
+        'description' => 'Oled sisse loginud mõne sotsiaalmeedia kontoga.',
     ],
     'register' => [
-        'name' => 'Accountant',
-        'description' => 'For creating an account.',
+        'name' => 'Kontorott',
+        'description' => 'Sa just lõid uue konto!.',
     ],
 
 ];
