@@ -208,9 +208,9 @@ return [
     ],
     'badges' => [
         'introduction' => [
-            'general' => 'By accomplishing certain tasks within SmartZoos, you will be rewarded with badges.',
-            'authenticated' => 'The badges you have collected can be seen on your <a href=":profileUrl">Profile</a>.',
-            'guest' => 'In order to collect badges, you must be <a href=":loginUrl">logged in</a>.',
+            'general' => 'Täites kindlaid ülesandeid, omistatakse Sulle õpimärke.',
+            'authenticated' => 'Kogutud õpimärke näed oma <a href=":profileUrl">profiili all</a>.',
+            'guest' => 'Õpimärkide kogumiseks tuleb <a href=":loginUrl">sisse logida</a>.',
         ],
     ],
 
