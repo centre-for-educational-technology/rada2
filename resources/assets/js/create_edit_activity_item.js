@@ -134,6 +134,7 @@ window.initMap = function() {
         disableDefaultUI: true,
         zoomControl: true,
         streetViewControl: true,
+        mapTypeControl: true,
         styles: [
             {
                 featureType: 'poi',
