@@ -7,6 +7,8 @@
     window.Laravel.activityItemFormId = 'edit-activity-item';
     window.Laravel.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
     window.Laravel.hasImage = <?php echo json_encode($activity_item->hasImage()); ?>;
+    window.Laravel.removedImages = <?php echo json_encode(old('removed-option-images') ? old('removed-option-images') : []); ?>;
+    window.Laravel.removedImageMatches = <?php echo json_encode(old('removed-option-match-images') ? old('removed-option-match-images') : []); ?>
 </script>
 @endsection
 
@@ -69,7 +71,7 @@
                         ]) !!}
                     </span>
                     <span class="input-group-addon">
-                        <a href="#" class="btn btn-danger btn-xs" v-on:click="resetImage" ref="removeImage" v-on:click="resetImage" v-bind:disabled="!canResetImage">
+                        <a href="#" class="btn btn-warning btn-xs" v-on:click="resetImage" ref="removeImage" v-on:click="resetImage" v-bind:disabled="!canResetImage">
                             <i class="mdi mdi-delete" aria-hidden="true"></i>
                         </a>
                     </span>

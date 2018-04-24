@@ -12,44 +12,44 @@ return [
     */
 
     'novice_gamer' => [
-        'name' => 'Novice Gamer',
-        'description' => 'For completing first Activity.',
+        'name' => 'Algaja mängija',
+        'description' => 'Esimese mängu lõpetamise puhul.',
     ],
     'pro_gamer' => [
-        'name' => 'Professional Gamer',
-        'description' => 'Become a true game master by completing twenty-five Activities.',
+        'name' => 'Professionaalne mängija',
+        'description' => 'Lõpeta 25 mängu ja saa tõeliseks mänguhundiks!',
     ],
     'seasoned_creator' => [
-        'name' => 'Seasoned Creator',
-        'description' => 'For creating five Activities.',
+        'name' => 'Kogenud mängulooja',
+        'description' => 'Viie mängu loomise eest.',
     ],
     'novice_creator' => [
-        'name' => 'Novice Creator',
-        'description' => 'For creating first Activity.',
+        'name' => 'Algaja mängulooja',
+        'description' => 'Esimese mängu loomise eest.',
     ],
     'seasoned_gamer' => [
-        'name' => 'Seasoned Gamer',
-        'description' => 'For completing five Activities.',
+        'name' => 'Kogenud mängija',
+        'description' => 'Viie mängu lõpetamise eest.',
     ],
     'pro_creator' => [
-        'name' => 'Professional Creator',
-        'description' => 'Master the art of creation by bringing twenty-five Activities into existence.',
+        'name' => 'Professionaalne looja',
+        'description' => 'Oled loonud 25 mängu!.',
     ],
     'veteran_creator' => [
-        'name' => 'Veteran Creator',
-        'description' => 'For creating ten Activities.',
+        'name' => 'Veteran-mängulooja',
+        'description' => '10 mängu loomise eest.',
     ],
     'veteran_gamer' => [
-        'name' => 'Veteran Gamer',
-        'description' => 'For completing ten Activities.',
+        'name' => 'Veteran-mängur',
+        'description' => '10 mängu lõpetamise eest.',
     ],
     'social' => [
-        'name' => 'Socializer',
-        'description' => 'For logging in with social network.',
+        'name' => 'Sotsialiseerija',
+        'description' => 'Oled sisse loginud mõne sotsiaalmeedia kontoga.',
     ],
     'register' => [
-        'name' => 'Accountant',
-        'description' => 'For creating an account.',
+        'name' => 'Kontorott',
+        'description' => 'Sa just lõid uue konto!.',
     ],
 
 ];

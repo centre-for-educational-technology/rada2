@@ -58,11 +58,29 @@ class ActivityItemPair extends Model
     }
 
     /**
+     * Determine if image exists
+     * @return boolean
+     */
+    public function hasImage()
+    {
+        return !!$this->image;
+    }
+
+    /**
+     * Determine if match image exists
+     * @return boolean
+     */
+    public function hasImageMatch()
+    {
+        return !!$this->image_match;
+    }
+
+    /**
      * Get full URL for option image from public storage or default one
      * @return string Full public URL to image file
      */
     public function getOptionImageUrl() {
-        if ( $this->image ) {
+        if ( $this->hasImage() ) {
             return $this->getImageUrl($this->image);
         }
 
@@ -74,7 +92,7 @@ class ActivityItemPair extends Model
      * @return string Full public URL to image file
      */
     public function getOptionMatchImageUrl() {
-        if ( $this->image_match ) {
+        if ( $this->hasImageMatch() ) {
             return $this->getImageUrl($this->image_match);
         }
 
@@ -97,7 +115,7 @@ class ActivityItemPair extends Model
      * @return [type] [description]
      */
     public function deleteImage() {
-        if ( $this->image ) {
+        if ( $this->hasImage() ) {
             return $this->deleteImageFile($this->image);
         }
 
@@ -109,7 +127,7 @@ class ActivityItemPair extends Model
      * @return [type] [description]
      */
     public function deleteImageMatch() {
-        if ( $this->image_match ) {
+        if ( $this->hasImageMatch() ) {
             return $this->deleteImageFile($this->image_match);
         }
 

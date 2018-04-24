@@ -9,6 +9,15 @@ class LanguageOptions extends OptionsBase
      */
     public function __construct()
     {
+        $this->initOptions();
+    }
+
+    /**
+     * Initializes and sets options data.
+     * Could be useful in case the language changes.
+     */
+    public function initOptions()
+    {
         $this->options = [
             'en' => trans('general.languages.en'),
             'et' => trans('general.languages.et'),

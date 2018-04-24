@@ -23,11 +23,13 @@ class SetLocale
         }
         else
         {
-            $preferredLanguage = $request->getPreferredLanguage(resolve(LanguageOptions::class)->keys());
+            $languageOptions = resolve(LanguageOptions::class);
+            $preferredLanguage = $request->getPreferredLanguage($languageOptions->keys());
 
             if ( $preferredLanguage )
             {
                 \App::setLocale($preferredLanguage);
+                $languageOptions->initOptions();
             }
         }
 

@@ -119,6 +119,8 @@ return [
        ],
        'tooltips' => [
            'remove-image' => 'Rastita poistaaksen kuva.',
+           'remove-selected-image' => 'Poista valittu kuva.',
+           'mark-option-as-correct' => 'Rastita osoittaksen valinnan oikeaksi.',
        ],
        'warnings' => [
            'readd-pictures' => 'Jos olit lisännyt kuvan, sinun on valitettavasti pakko tehdä uudestaan.',

@@ -29,9 +29,9 @@ return [
             'explanation' => 'Kui teie pole taotlenud salasõna lähtestamist, siis võite antud kirja ignoreerida.',
         ],
         'account-verify' => [
-            'reason' => 'You are receiving this email because an account with this email address has been created with us.',
-            'action' => 'Verify Account',
-            'explanation' => 'If you did not create that account, no further action is required. Unverified accounts will be automatically removed after 48 hours.',
+            'reason' => 'Sa oled saanud selle e-kirja, sest Sinu e-posti aadressiga on loodud meie juures konto..',
+            'action' => 'Verifitseeri oma konto',
+            'explanation' => 'Kui see ei olnud Sina, kes selle konto lõi, ignoreeri seda kirja. Verifitseerimata kontod kustutatakse automaatselt 48 tunni jooksul.',
         ],
     ],
 ];

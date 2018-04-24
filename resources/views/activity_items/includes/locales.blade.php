@@ -6,5 +6,8 @@
         'set-current-position' => trans('pages.activity-items.create-or-edit.set-current-position'),
         'geolocation-error' => trans('pages.activity-items.create-or-edit.geolocation-error'),
         'image-format-hint' => trans('pages.play.game.image-format-hint'),
+        'mark-option-as-correct' => trans('general.forms.tooltips.mark-option-as-correct'),
+        'remove-existing-image' => trans('general.forms.tooltips.remove-image'),
+        'remove-selected-image' => trans('general.forms.tooltips.remove-selected-image'),
     ]); ?>
 </script>
