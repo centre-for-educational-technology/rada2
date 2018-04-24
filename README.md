@@ -89,6 +89,18 @@ If all the dependencies are installed, then one would only need to run one of th
  - `gulp watch` would run the tasks and keep watching for changes (CTRL + C to cancel the task in terminal)
  - Same could be achieved by running `npm run prod` and `npm run dev`
 
+### Merging into production
+
+Once the code has reached a stable point and is ready to me run in production, there is a need to merge `master` branch into one called `production`. The process requires a few steps to be taken:
+
+  - Switch to local branch that is tracking upstream `production`
+    - [This](https://stackoverflow.com/questions/520650/make-an-existing-git-branch-track-a-remote-branch#answer-2286030) should have enough instruction to setup the branch from the terminal
+  - Merge the code from `master` by running `git merge --strategy-option=theirs master`
+    - The strategy is needed to make sure that no conflicts arise. The strategy does not matter too much as any of the static assets would be rebuilt. It is solely needed because generated/built files for static assets (JS and CSS) would have conflicts, as both branches are building their own versions of those files. The ones in production are minified and made ready for production use.
+  - Make sure to build the production assets by running `npm run prod`, which should add new files to the `public/build` directory and also generate new versions for some files within `public/js`.
+    - In case no changes were made to the base files for JS or CSS, there could be no changes to the static assets. Although, running the process just in case would be a good idea (unless one is absolutely sure that it is not necessary)
+  - Add all the changes files, commit and push
+
 ## Localisation
 
 All translations are placed under `ROOT/resources/lang/LANGUAGE`, where `LANGUAGE` is one of the following `en`, `et`, `ru`, `fi`, `sv`.
