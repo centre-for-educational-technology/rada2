@@ -119,8 +119,8 @@ return [
        ],
        'tooltips' => [
            'remove-image' => 'Kryssa i för att ta bort en bild',
-           'remove-selected-image' => 'Remove currently selected image',
-           'mark-option-as-correct' => 'Check to mark option as correct',
+           'remove-selected-image' => 'Ta bort den valda bilden.',
+           'mark-option-as-correct' => 'Kryssa i för att godkänna valet.',
        ],
        'warnings' => [
            'readd-pictures' => 'Om du hade lagt till bilder måste du tyvärr göra om det igen.',
