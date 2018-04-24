@@ -18,7 +18,7 @@ return [
                 'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos for Schools',
+                'heading' => 'SmartZoos koolidele',
                 'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
             ],
         ],
@@ -56,8 +56,8 @@ return [
     ],
     'discount-vouchers' => [
         'index' => [
-            'heading' => 'Discount Vouchers',
-            'none-found' => 'No Discount Vouchers could be found.',
+            'heading' => 'Kupongid',
+            'none-found' => 'Ühtegi kupongi ei leitud.',
         ],
     ],
     'manage' => [
@@ -69,9 +69,9 @@ return [
                 'roles' => 'Rollid',
                 'manage-roles' => 'Halda rolle',
                 'remove-role' => 'Eemalda roll',
-                'block-account' => 'Block',
-                'unblock-account' => 'Unblock',
-                'delete-account' => 'Delete',
+                'block-account' => 'Blokeeri',
+                'unblock-account' => 'Eemalda blokeering',
+                'delete-account' => 'Kustuta',
                 'confirmations' => [
                     'role' => 'Oled sa kindel, et soovid rolli eemaldada?',
                 ],
@@ -83,23 +83,23 @@ return [
         'statistics' => [
             'heading' => 'Statistika',
             'users' => 'Kasutajad',
-            'activities' => 'Activities',
-            'activity-items' => 'Activity Items',
+            'activities' => 'Rajad',
+            'activity-items' => 'Rajapunktid',
             'games' => 'Mängud',
             'discount-vouchers' => 'Kupongid',
             'blocked-users' => 'Blokeeritud',
             'unverified-users' => 'Kinnitamata',
             'captions' => [
-                'activities-by-zoo' => 'Activities by Zoo',
-                'activities-by-language' => 'Activities by Language',
-                'activity-items-by-zoo' => 'Activity Items by Zoo',
-                'activity-items-by-question-type' => 'Activity Items by Question Type',
-                'activity-items-by-language' => 'Activity Items by Language',
-                'games-by-status' => 'Games by Status',
+                'activities-by-zoo' => 'Mändug loomaaedade kaupa',
+                'activities-by-language' => 'Mängud keele alusel',
+                'activity-items-by-zoo' => 'Rajapunktid loomaaedade järgi',
+                'activity-items-by-question-type' => 'Rajapunktid küsimuse tüübi alusel',
+                'activity-items-by-language' => 'Rajapunktid keele alusel',
+                'games-by-status' => 'Mängud staatuse järgi',
             ],
             'columns' => [
                 'discount-vouchers-total' => 'Kuponge kokku',
-                'discount-vouchers-redeemed' => 'Redeemed',
+                'discount-vouchers-redeemed' => 'Lunastatud',
             ],
         ],
     ],
@@ -111,7 +111,7 @@ return [
             'position-tracking' => 'Lülita sisse või keela positsioneerimine',
             'exit' => 'Välju mängust',
             'exit-confirmation' => 'Oled sa kindel, et soovid mängust lahkuda? Ainult registreerunud kasutajad saavad mängu jätkata.',
-            'change-map-type' => 'Change map type',
+            'change-map-type' => 'Muuta kaardi tüüpi',
             'textual-answer-placeholder' => 'Vastuse tekst...',
             'image-format-hint' => 'Palun kasuta ainult PNG või JPG/JPEG formaadis pilte.',
             'apply-item-bounds' => 'Kuva kaardil kõik rajapunktid',
@@ -124,7 +124,7 @@ return [
             'got-it' => 'Sain aru!',
             'read-more-about' => 'Lisainfo ...',
             'tips-text' => 'Mõned näpunäited enne alustamist',
-            'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
+            'access-code-placeholder' => 'Sisesta kood, et vastata küsimusele ilma positsioneerimise piiranguta',
             'not-logged-in' => 'Ei ole sisse logitud',
             'complete' => 'Lõpetatud!',
             'icons' => [
@@ -137,23 +137,23 @@ return [
             'items' => [
                 'gameplay_instructions' => [
                     'title' => 'Kuidas mängida',
-                    'description' => 'Investigate the location, find and complete all the tasks!',
+                    'description' => 'Uuri ümbrust, leia ja lõpeta kõik ülesanded!',
                 ],
                 'look_closely' => [
                     'title' => 'Vaata enda ümber',
-                    'description' => 'Look closely at your surroundings for clues. You never know where you\'ll find answers!',
+                    'description' => 'Jälgi tähelepanelikult ümbrust võimalike vihjete leidmiseks. Ei või iial teada, kust vastuseid leida!',
                 ],
                 'look_out' => [
                     'title' => 'Vaata ette!',
-                    'description' => 'Be mindful of where you\'re going so you don\'t hurt yourself or others',
+                    'description' => 'Ole ettevaatlik, kuhu astud, et ei teeks liiga endale ega teistele',
                 ],
                 'do_not_disturb' => [
                     'title' => 'Ära lärma',
-                    'description' => 'Victory is nice, but don\'t scare the animals',
+                    'description' => 'Võit on tore, kuid ära hirmuta loomi',
                 ],
                 'help_others' => [
                     'title' => 'Aidake üksteist',
-                    'description' => 'Help your friends and have fun together!',
+                    'description' => 'Aita oma sõpru ja veetke koos meeldivalt aega!',
                 ],
             ],
             'vouchers' => [
@@ -182,7 +182,7 @@ return [
     'activity-results' => [
         'heading' => 'Mängu <strong>:title</strong> tulemused',
         'btn' => [
-            'download-player-positions' => 'Download player positions',
+            'download-player-positions' => 'Lae alla mängija positsioonid',
         ],
     ],
     'profile' => [
@@ -190,15 +190,15 @@ return [
         'heading' => 'Kasutaja: :name',
         'labels' => [
             'badges-earned' => 'õpimärki omandatud',
-            'discount-vouchers-earned' => 'Discount Vouchers Earned',
-            'valid-until' => 'Valid until',
+            'discount-vouchers-earned' => 'Teenitud kupongid',
+            'valid-until' => 'Kehtib kuni',
         ],
         'confirmations' => [
-            'discount-voucher-spend' => 'Are you sure you want to spend this Discount Voucher?',
+            'discount-voucher-spend' => 'Kas Sa oled kindel, et soovid kupongi ära kulutada?',
         ],
         'discount-vouchers' => [
-            'information' => 'Vouchers are rewarded for completing Activities. Show the voucher to the staff to redeem. All vouchers are valid for a certain period of time and could only be redeemed within a certain time frame.',
-            'how-to-redeem' => 'Please let the staff member press the button and confirm the process. This can not be undone.',
+            'information' => 'Kuponge on võimalik omandada teatud mängude lõpetamisel. Näita omandatud kupongi töötajale auhinna omandamiseks. Kõik kupongid kehtivad teatud ajaperioodi.',
+            'how-to-redeem' => 'Lase palun töötajal vajutada nuppu oma valiku kinnitamiseks. Seda tegevust ei saa tagasi võtta.',
         ],
     ],
     'profile-edit' => [
