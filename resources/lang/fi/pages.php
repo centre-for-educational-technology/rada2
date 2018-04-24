@@ -15,11 +15,11 @@ return [
         'jumbotron' => [
             'information' => [
                 'heading' => 'Mikä on SmartZoos?',
-                'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+                'content' => 'SmartZoos on palvelu paikallistetuille peleille, missä toiminnat vievät sinut ympäristöösi ja saattavat opettaa asian tai toisen.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos for Schools',
-                'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
+                'heading' => 'SmartZoos kouluille',
+                'content' => 'Siirrä luokkahuone ulos.<br>SmartZoos on nykyinen tapa yhdistää koulua ja pelillistämistä.  Hankimalla luojatilin, voit luoda huvittavia toimintoja itsellesi ja toisille SmartZoos-käyttäjille.',
             ],
         ],
         'choose-location' => 'Valitse paikka',
@@ -56,8 +56,8 @@ return [
     ],
     'discount-vouchers' => [
         'index' => [
-            'heading' => 'Discount Vouchers',
-            'none-found' => 'No Discount Vouchers could be found.',
+            'heading' => 'Alennuskupongit',
+            'none-found' => 'Alennuskuponkeja ei löytynyt.',
         ],
     ],
     'manage' => [
@@ -69,9 +69,9 @@ return [
                 'roles' => 'Roolit',
                 'manage-roles' => 'Käsittele rooleja',
                 'remove-role' => 'Poista rooli',
-                'block-account' => 'Block',
-                'unblock-account' => 'Unblock',
-                'delete-account' => 'Delete',
+                'block-account' => 'Estä',
+                'unblock-account' => 'Poista esto',
+                'delete-account' => 'Poista',
                 'confirmations' => [
                     'role' => 'Haluatko tosiaan poista valitun roolin?',
                 ],
@@ -86,9 +86,9 @@ return [
             'activities' => 'Toiminnat',
             'activity-items' => 'Tehtävät',
             'games' => 'Pelit',
-            'discount-vouchers' => 'Vouchers',
-            'blocked-users' => 'Blocked',
-            'unverified-users' => 'Unverified',
+            'discount-vouchers' => 'Kupongit',
+            'blocked-users' => 'Estetty',
+            'unverified-users' => 'Todennematon',
             'captions' => [
                 'activities-by-zoo' => 'Toiminnat eläintarhaa kohti',
                 'activities-by-language' => 'Toiminnat kieltä kohti',
@@ -98,8 +98,8 @@ return [
                 'games-by-status' => 'Pelit tilaa kohti',
             ],
             'columns' => [
-                'discount-vouchers-total' => 'Total vouchers',
-                'discount-vouchers-redeemed' => 'Redeemed',
+                'discount-vouchers-total' => 'Kaikki kupongit',
+                'discount-vouchers-redeemed' => 'lunastetut',
             ],
         ],
     ],
@@ -111,7 +111,7 @@ return [
             'position-tracking' => 'Aktivoi/deaktivoi sijainnin määritystä.',
             'exit' => 'Katkaise peli',
             'exit-confirmation' => 'Haluatko tosiaan katkaista pelin?  Ainoastaan sisäänkirjaudetut pelaajat voivat jatkaa katkaistua peliä.',
-            'change-map-type' => 'Change map type',
+            'change-map-type' => 'Vaihda kartttatyyppiä',
             'textual-answer-placeholder' => 'Vastausteksti…',
             'image-format-hint' => 'Ainoastaan JPEG- tai PNG-kuvia sallittu.',
             'apply-item-bounds' => 'Näytä kaikkien tehtävien sijainnit kartasta.',
@@ -119,14 +119,14 @@ return [
             'number-of-questions' => 'Kysymysten määrä',
             'gps-error' => 'GPS-signaali ei löydy.',
             'go' => 'Pelaa!',
-            'back' => 'Back',
-            'next' => 'Next',
-            'got-it' => 'Got it!',
+            'back' => 'Palaa',
+            'next' => 'Seuraava',
+            'got-it' => 'Ymmärrän!',
             'read-more-about' => 'Lue lisää…',
-            'tips-text' => 'Some tips before you start',
-            'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
-            'not-logged-in' => 'Not logged in',
-            'complete' => 'Complete!',
+            'tips-text' => 'Joitakin vihjeitä ennen alkua',
+            'access-code-placeholder' => 'Anna koodi tai salasana ohittaaksen paikallisvalvonnan',
+            'not-logged-in' => 'Ei ole kirjautunut sisään',
+            'complete' => 'Valmis!',
             'icons' => [
                 'help' => 'Jokaisen kuvakkeen väri osoitta sen tilaa.',
                 'active' => 'Vastaamaton',
@@ -136,29 +136,29 @@ return [
             ],
             'items' => [
                 'gameplay_instructions' => [
-                    'title' => 'How to play',
-                    'description' => 'Investigate the location, find and complete all the tasks!',
+                    'title' => 'Miten pelata',
+                    'description' => 'Tutki paikkaa, löydä ja selvitä kaikki tehtävät.',
                 ],
                 'look_closely' => [
-                    'title' => 'Look around',
-                    'description' => 'Look closely at your surroundings for clues. You never know where you\'ll find answers!',
+                    'title' => 'Katso ympäri',
+                    'description' => 'Etsi johtolankoja tarkasti.  Et koskaan tiedä missä vastaus piilee.',
                 ],
                 'look_out' => [
-                    'title' => 'Look out!',
-                    'description' => 'Be mindful of where you\'re going so you don\'t hurt yourself or others',
+                    'title' => 'Varo!',
+                    'description' => 'Katso minne kuljet jotta et satuta itseäsi tai toisia.',
                 ],
                 'do_not_disturb' => [
-                    'title' => 'Don\'t be too loud',
-                    'description' => 'Victory is nice, but don\'t scare the animals',
+                    'title' => 'Älä kilju!',
+                    'description' => 'On mukava voittaa, mutta älä peloita eläimiä.',
                 ],
                 'help_others' => [
-                    'title' => 'Help each other',
-                    'description' => 'Help your friends and have fun together!',
+                    'title' => 'Auta toisia',
+                    'description' => 'Auta ystäväsiä ja pitäkää yhdessä hauskaa.',
                 ],
             ],
             'vouchers' => [
-                'heading' => 'You have received a voucher!',
-                'details' => 'For details go to',
+                'heading' => 'Sait kupongin!',
+                'details' => 'Lue lisää:',
             ],
         ],
     ],
@@ -182,7 +182,7 @@ return [
     'activity-results' => [
         'heading' => '<strong>:title</strong> n tulokset',
         'btn' => [
-            'download-player-positions' => 'Download player positions',
+            'download-player-positions' => 'Hae pelaajien paikat',
         ],
     ],
     'profile' => [
@@ -190,15 +190,15 @@ return [
         'heading' => ':name n profiili',
         'labels' => [
             'badges-earned' => 'Ansaitut arvomerkit',
-            'discount-vouchers-earned' => 'Discount Vouchers Earned',
-            'valid-until' => 'Valid until',
+            'discount-vouchers-earned' => 'Ansaitut kupongit',
+            'valid-until' => 'Voimassa kunnes ',
         ],
         'confirmations' => [
-            'discount-voucher-spend' => 'Are you sure you want to spend this Discount Voucher?',
+            'discount-voucher-spend' => 'Haluatko tosiaan käyttää tätä alennuskuponkia?',
         ],
         'discount-vouchers' => [
-            'information' => 'Vouchers are rewarded for completing Activities. Show the voucher to the staff to redeem. All vouchers are valid for a certain period of time and could only be redeemed within a certain time frame.',
-            'how-to-redeem' => 'Please let the staff member press the button and confirm the process. This can not be undone.',
+            'information' => 'Kuponkeja myönnettä toimintojen suorittamisesta.  Lunasta  kuponki näyttämällä se henkilökunnalle.  Kaikki kupongit kelpaavat vain tietyn ajan ja pitää lunastaa tietyn ajan sisällä.',
+            'how-to-redeem' => 'Anna toimihenkilön painaa nappia ja vahvistaa lunastuksen. Tätä ei voi perua.',
         ],
     ],
     'profile-edit' => [
@@ -208,9 +208,9 @@ return [
     ],
     'badges' => [
         'introduction' => [
-            'general' => 'By accomplishing certain tasks within SmartZoos, you will be rewarded with badges.',
-            'authenticated' => 'The badges you have collected can be seen on your <a href=":profileUrl">Profile</a>.',
-            'guest' => 'In order to collect badges, you must be <a href=":loginUrl">logged in</a>.',
+            'general' => 'Suorittamalla tiettyjä tehtäviä SmartZoossa, saat arvomerkkejä.',
+            'authenticated' => 'Keräämäsi arvomerkit näkyvät  <a href=":profileUrl">profiilissasi</a>.',
+            'guest' => 'Kerätääksen arvomerkkejä sinun täytyy  <a href=":loginUrl">kirjautua sisään</a>.',
         ],
     ],
 

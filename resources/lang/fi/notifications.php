@@ -12,26 +12,26 @@ return [
     */
 
     'greeting' => [
-        'error' => 'Whoops!',
-        'normal' => 'Hello!',
+        'error' => 'Hupsis!',
+        'normal' => 'Hei!',
     ],
     'body' => [
-        'sub' => 'If you’re having trouble clicking the ":actionText" button, copy and paste the URL below into your web browser:',
+        'sub' => 'Jos et onnistu napsauttamaan nappia ":actionText", kopioi ja liitä allaoleva osoite selaimeesi:',
     ],
     'footer' => [
-        'all-rights-reserved' => 'All rights reserved.',
+        'all-rights-reserved' => 'Täydet tekijänoikeudet säilytetään.',
     ],
-    'regards' => 'Regards',
+    'regards' => 'Terveisiä',
     'email' => [
         'password-reset' => [
-            'reason' => 'You are receiving this email because we received a password reset request for your account.',
-            'action' => 'Reset Password',
-            'explanation' => 'If you did not request a password reset, no further action is required.',
+            'reason' => 'Saat tämän kirjeen siksi että joku pyysi muuttaa tilisi salasanaa.',
+            'action' => 'Muuta salasana',
+            'explanation' => 'Jos et pyytänyt salasanan muuttamista et tarvitse tehdä mitään.',
         ],
         'account-verify' => [
-            'reason' => 'You are receiving this email because an account with this email address has been created with us.',
-            'action' => 'Verify Account',
-            'explanation' => 'If you did not create that account, no further action is required. Unverified accounts will be automatically removed after 48 hours.',
+            'reason' => 'Saat tämän kirjen siksi että tili kytketty tähän sähköpostiosoitteeseen on luotu meidän luona.',
+            'action' => 'Todenna tili',
+            'explanation' => 'Jos et luonut tiliä, et tarvitse tehdä mitään.  Todennuttamat tilit poistetaan automaatisesti 48 tunnin jälkeen.',
         ],
     ],
 ];

@@ -12,44 +12,44 @@ return [
     */
 
     'novice_gamer' => [
-        'name' => 'Novice Gamer',
-        'description' => 'For completing first Activity.',
+        'name' => 'Aloittelijapelaaja',
+        'description' => 'Ensimmäisen toiminnan suorittanut.',
     ],
     'pro_gamer' => [
-        'name' => 'Professional Gamer',
-        'description' => 'Become a true game master by completing twenty-five Activities.',
+        'name' => 'Ammattipelaaja',
+        'description' => 'Tule pelimestariksi suorittamalla 25 toimintaa.',
     ],
     'seasoned_creator' => [
-        'name' => 'Seasoned Creator',
-        'description' => 'For creating five Activities.',
+        'name' => 'Kokenut luoja',
+        'description' => 'Viiden toiminnan luomisestä.',
     ],
     'novice_creator' => [
-        'name' => 'Novice Creator',
-        'description' => 'For creating first Activity.',
+        'name' => 'Aloittelijaluoja',
+        'description' => 'Ensimmäisen toiminnan luomisesta.',
     ],
     'seasoned_gamer' => [
-        'name' => 'Seasoned Gamer',
-        'description' => 'For completing five Activities.',
+        'name' => 'Kokenut pelaaja',
+        'description' => 'Viiden toiminnan suorittamisesta.',
     ],
     'pro_creator' => [
-        'name' => 'Professional Creator',
-        'description' => 'Master the art of creation by bringing twenty-five Activities into existence.',
+        'name' => 'Ammattiluoja',
+        'description' => 'Tule mestariluojaksi luomalla 25 toimintaa.',
     ],
     'veteran_creator' => [
-        'name' => 'Veteran Creator',
-        'description' => 'For creating ten Activities.',
+        'name' => 'Veteraaniluoja',
+        'description' => 'Kymmenen toiminnan luomisesta.',
     ],
     'veteran_gamer' => [
-        'name' => 'Veteran Gamer',
-        'description' => 'For completing ten Activities.',
+        'name' => 'Veteraanipelaaja',
+        'description' => 'Kymmenen toiminnan suorittamisesta.',
     ],
     'social' => [
-        'name' => 'Socializer',
-        'description' => 'For logging in with social network.',
+        'name' => 'Somestari',
+        'description' => 'Sosiaalisen verkkoon kirjautuminen.',
     ],
     'register' => [
-        'name' => 'Accountant',
-        'description' => 'For creating an account.',
+        'name' => 'Tilittäjä',
+        'description' => 'Käyttäjän luomisesta.',
     ],
 
 ];

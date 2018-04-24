@@ -15,5 +15,5 @@ return [
     'activities'     => 'Toiminnat',
     'activity-items' => 'Tehtävät',
     'badges' => 'Arvomerkit',
-    'discount_vouchers' => 'Discount Vouchers',
+    'discount_vouchers' => 'Alennuskupongit',
 ];
