@@ -187,7 +187,7 @@
                     <p>{{ trans('general.languages.' . $activity_item->language) }}</p>
                     <h3>{{ trans('general.forms.labels.location') }}</h3>
                     <p>
-                        <img src="https://maps.googleapis.com/maps/api/staticmap?center={{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;zoom=18&amp;size=240x180&amp;maptype=hybrid&amp;markers=color:red%7C{{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;style=feature:poi%7Cvisibility:off&amp;style=feature:transit.station%7Cvisibility:off&amp;key={{ config('services.maps.google.api_key') }}" alt="map">
+                        <iframe width="100%" height="240" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key={{ config('services.maps.google.api_key') }}&amp;center={{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;zoom=18&amp;maptype=satellite&amp;q={{ $activity_item->latitude}},{{ $activity_item->longitude }}"></iframe>
                     </p>
                     @can('viewAccessCode', $activity_item)
                         @if ( $activity_item->access_code )
