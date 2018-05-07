@@ -19,7 +19,7 @@ return [
             ],
             'schools' => [
            'heading' => 'Приложение Умные зоопарки  для общеобразовательных учебных заведений',
-                'content' => 'Переместите класс за пределы школы!<br>Приложение Умные зоопарки - это современный способ обучаться играя. В роли Разработчика Вы сможете сможете создавать занимательные Учебные тропы, или Игры, в которые будете играть сами или другие пользователи приложения Умные зоопарки.',
+                'content' => 'Переместите класс за пределы школы!<br>Приложение Умные зоопарки - это современный способ обучаться, играя. В роли Разработчика Вы сможете сможете создавать занимательные Учебные тропы, или Игры, в которые будете играть сами или другие пользователи приложения Умные зоопарки.',
             ],
         ],
         'choose-location' => 'Выберите расположение',
@@ -69,9 +69,9 @@ return [
                 'roles' => 'Роли',
                 'manage-roles' => 'Управлять ролями',
                 'remove-role' => 'Удалить роль',
-                'block-account' => 'Block',
-                'unblock-account' => 'Unblock',
-                'delete-account' => 'Delete',
+                'block-account' => 'Заблокировать',
+                'unblock-account' => 'Разблокировать',
+                'delete-account' => 'Удалить',
                 'confirmations' => [
                     'role' => 'Вы уверены, что желаете удалить выбранную роль?',
                 ],
@@ -87,8 +87,8 @@ return [
             'activity-items' => 'Пункты тропы',
             'games' => 'Игры',
             'discount-vouchers' => 'Ваучеры',
-            'blocked-users' => 'Blocked',
-            'unverified-users' => 'Unverified',
+            'blocked-users' => 'Заблокированный',
+            'unverified-users' => 'Непроверенный',
             'captions' => [
                 'activities-by-zoo' => 'Тропы зоопарка',
                 'activities-by-language' => 'Тропы по языку',
@@ -125,8 +125,8 @@ return [
             'read-more-about' => 'Читать больше...',
             'tips-text' => 'Некоторые советы перед началом',
             'access-code-placeholder' => 'Введите код или текст, чтобы переопределить ограничение позиции',
-            'not-logged-in' => 'Not logged in',
-            'complete' => 'Complete!',
+            'not-logged-in' => 'Не вошёл',
+            'complete' => 'Завершённый!',
             'icons' => [
                 'help' => 'Каждый значок (флажок) имеет цветовой код, указывающий на состояние вопроса.',
                 'active' => 'Неотвеченный',
@@ -136,8 +136,8 @@ return [
             ],
             'items' => [
                 'gameplay_instructions' => [
-                    'title' => 'How to play',
-                    'description' => 'Investigate the location, find and complete all the tasks!',
+                    'title' => 'Как играть',
+                    'description' => 'Изучите местоположение, найдите и выполните все задания!',
                 ],
                 'look_closely' => [
                     'title' => 'Посмотрите вокруг',
@@ -157,13 +157,13 @@ return [
                 ],
             ],
             'vouchers' => [
-                'heading' => 'You have received a voucher!',
-                'details' => 'For details go to',
+                'heading' => 'Вы получили ваучер!',
+                'details' => 'Подробнее смотрите',
             ],
         ],
     ],
     'dashboard' => [
-        'title' => 'Dashboard',
+        'title' => 'Панель инструментов',
         'heading' => 'Добро пожаловать, :name!',
         'none-found' => 'Игры или тропы не найдены',
         'games-and-activities' => 'Игры и тропы',
@@ -197,8 +197,8 @@ return [
             'discount-voucher-spend' => 'Вы уверены, что желаете использовать этот ваучер на скидку?',
         ],
         'discount-vouchers' => [
-            'information' => 'Vouchers are rewarded for completing Activities. Show the voucher to the staff to redeem. All vouchers are valid for a certain period of time and could only be redeemed within a certain time frame.',
-            'how-to-redeem' => 'Please let the staff member press the button and confirm the process. This can not be undone.',
+            'information' => 'Ваучерами награждаются за прохождение троп. Покажите ваучер сотрудникам зоопарка для получения вознаграждения. Все ваучеры действительны и могут быть выкуплены только в течение определенного периода времени.',
+            'how-to-redeem' => 'Пожалуйста, позвольте сотруднику нажать кнопку и подтвердить процесс. Это не может быть отменено.',
         ],
     ],
     'profile-edit' => [
@@ -208,9 +208,9 @@ return [
     ],
     'badges' => [
         'introduction' => [
-            'general' => 'By accomplishing certain tasks within SmartZoos, you will be rewarded with badges.',
-            'authenticated' => 'The badges you have collected can be seen on your <a href=":profileUrl">Profile</a>.',
-            'guest' => 'In order to collect badges, you must be <a href=":loginUrl">logged in</a>.',
+            'general' => 'Выполняя определённые задания в SmartZoos, вы будете вознаграждены значками.',
+            'authenticated' => 'Значки, которые вы собрали, можно увидеть на вашем <a href=":profileUrl">Profile</a>.',
+            'guest' => 'Чтобы собирать значки, вы должны быть <a href=":loginUrl">logged in</a>.',
         ],
     ],
 
