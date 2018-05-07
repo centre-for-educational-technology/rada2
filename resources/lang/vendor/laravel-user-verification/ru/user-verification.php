@@ -8,11 +8,11 @@ return [
     |--------------------------------------------------------------------------
     */
 
-    'verification_email_subject' => 'Your Account Verification Link',
+    'verification_email_subject' => 'Ссылка на вашу учетную запись',
 
     // error view
-    'verification_error_header'      => 'Verification failed',
-    'verification_error_message'     => 'Your account could not be verified.',
-    'verification_error_back_button' => 'Back',
+    'verification_error_header'      => 'Ошибка проверки',
+    'verification_error_message'     => 'Ваша учётная запись не может быть проверена.',
+    'verification_error_back_button' => 'Обратно',
 
 ];
