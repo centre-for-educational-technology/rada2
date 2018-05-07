@@ -12,11 +12,11 @@ return [
     */
 
     'novice_gamer' => [
-        'name' => 'Novice Gamer',
-        'description' => 'For completing first Activity.',
+        'name' => 'Начинающий игрок',
+        'description' => 'Для завершения первой тропы.',
     ],
     'pro_gamer' => [
-        'name' => 'Professional Gamer',
+        'name' => 'Профессиональный игрок',
         'description' => 'Become a true game master by completing twenty-five Activities.',
     ],
     'seasoned_creator' => [
