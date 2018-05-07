@@ -170,15 +170,15 @@ return [
        'text' => 'Для повышения эффективности работы нашего сайта мы используем cookie. Продолжая использовать наш веб-сайт, вы <a href=":policy" target="_blank">соглашаетесь на использование файлов cookie</a>.',
        'button-agree' => 'Согласен',
    ],
-   'system-requirements' => 'Minimum requirements: operation system iOS (version 10) or Android 7. At least 3G internet connection and working GPS module is needed.',
+   'system-requirements' => 'Минимальные требования: операционная система iOS (версия 10) или Android 7. Как минимум 3G интернет и функционирующий GPS-модуль.',
    'messages' => [
        'warnings' => [
-           'account-blocked' => 'This account has been suspended. For more information please contact administration.',
-           'account-email-not-verified' => 'This account has not been verified yet. Use verification instructions sent to you by email.',
+           'account-blocked' => 'Действие этого аккаунта приостановлено. За дополнительной информацией обращайтесь к администратору.',
+           'account-email-not-verified' => 'Эта учётная запись ещё не проверена. Используйте инструкции по проверке, отправленные вам по электронной почте.',
        ],
        'successes' => [
-           'account-email-verification-sent' => 'Your account has been created. We have sent you an email containing verification instructions.',
-           'account-email-verified' => 'Your account has been successfuly verified. You can now log in.',
+           'account-email-verification-sent' => 'Ваш аккаунт был создан. Мы отправили вам письмо с инструкциями по проверке.',
+           'account-email-verified' => 'Ваша учетная запись была успешно проверена. Теперь вы можете войти в систему.',
        ],
    ],
 ];
