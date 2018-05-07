@@ -15,18 +15,18 @@ return [
         'jumbotron' => [
             'information' => [
                 'heading' => 'Mis on SmartZoos?',
-                'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+                'content' => 'SmartZoos on asukohapõhine mäng, mis võimaldab mängijatel osa võtta loovast ja koostööle orienteeritud teadmiste loomisest läbi mängustamise ja interaktiivsete ülesannete.',
             ],
             'schools' => [
                 'heading' => 'SmartZoos koolidele',
-                'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
+                'content' => 'SmartZoos pakub võimaluse viia õppetöö klassiruumist välja ning koostada mängulisi tegevusi asukohapõhiste õpperadade näol.',
             ],
         ],
         'choose-location' => 'Vali asukoht',
         'btn' => [
             'play-smart-zoos' => 'Mängima',
         ],
-        'project-information' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
+        'project-information' => 'SmartZoos ühendab Kesk-Läänemeremaade loomaaiad ühiseks turismi atraktsiooniks läbi mobiilse seikluspõhise teenuste paketi.',
     ],
     'activities' => [
         'index' => [
