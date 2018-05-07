@@ -2,6 +2,6 @@
 
 @section('content')
 <div class="container">
-    @include('legal.policy.en')
+    @include($view)
 </div>
 @endsection
