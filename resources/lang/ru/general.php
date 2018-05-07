@@ -141,11 +141,11 @@ return [
    'minutes' => 'Минуты',
    'confirmations' => [
        'delete' => 'Вы уверены, что желаете удалить этот пункт?',
-       'play' => 'You are not logged in! - Progress will not be saved and any rewards cannot be claimed.',
-       'block-account' => 'Are you sure you want to block selected account?',
-       'unblock-account' => 'Are you sure you want to unblock selected account?',
-       'delete-account' => 'Are you sure you want to delete selected account? This can not be undone and would also delete any content created by the user!',
-       'unload-protection' => 'You may have unsaved changes. Do you still want to leave?',
+       'play' => 'Вы не авторизованы! - Действия не будут сохранены, и вы не сможете претендовать на награды.',
+       'block-account' => 'Вы действительно хотите заблокировать выбранную учетную запись?',
+       'unblock-account' => 'Вы действительно хотите разблокировать выбранную учетную запись?',
+       'delete-account' => 'Вы действительно хотите удалить выбранную учетную запись? Это действие невозможно отменить, также не сможете удалить какой-либо контент, созданный пользователем!',
+       'unload-protection' => 'У вас могут быть несохранённые изменения. Вы действительно хотите выйти?',
    ],
    'date-time' => [
        'formats' => [
