@@ -16,7 +16,7 @@ return [
     'password' => 'Salasõna peab sisaldama vähemalt 6 sümbolit ja kattuma mõlemas väljas.',
     'reset' => 'Salasõna on lähtestatud!',
     'sent' => 'Me saatsime sinu e-postile lingi salasõna lähtestamiseks!',
-    'token' => 'Salasõna algseadistamise võti ei ole kehtivThis password reset token is invalid.',
-    'user' => "Me ei leia kasutajat sellise e-posti aadressiga.",
+    'token' => 'Salasõna algseadistamise võti ei ole kehtiv.',
+    'user' => 'Me ei leia kasutajat sellise e-posti aadressiga.',
 
 ];

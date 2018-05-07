@@ -105,25 +105,25 @@ return [
            'search-text' => 'Otsimiseks sisesta tekstiosa',
            'read-more' => 'Sisesta veebiaadress kust leiab rohkem infot',
            'name-or-email' => 'Nimi või e-posti aadress',
-           'access-code' => 'Code or text to access question without positioning restrictions',
-           'access-code-clues' => 'Clues to what/where the Access Code is',
+           'access-code' => 'Kood või tekst mille abil saab vastata ilma vahetuses läheduses viibimata',
+           'access-code-clues' => 'Vihjed sellele mis Kood olla võiks või kust seda leiab',
            'datetime' => 'Kuupäev või kuupäev ja kellaaeg',
-           'question-or-information' => 'Please write Question or Information, depending on chosen Question Type',
+           'question-or-information' => 'Palun kirjuta Küsimust või Lisainfot, sõltuvalt valitud küsimuse tüübist',
        ],
        'options' => [
            'any' => 'Kõik',
        ],
        'addons' => [
            'hours' => 'tunnid',
-           'awarded' => 'awarded',
+           'awarded' => 'määratud',
        ],
        'tooltips' => [
-           'remove-image' => 'Check to remove an existing image',
-           'remove-selected-image' => 'Remove currently selected image',
-           'mark-option-as-correct' => 'Check to mark option as correct',
+           'remove-image' => 'Märgi olemasoleva pildi kustutamiseks',
+           'remove-selected-image' => 'Eemalda valitud pilt',
+           'mark-option-as-correct' => 'Märgi valik õigeks',
        ],
        'warnings' => [
-           'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
+           'readd-pictures' => 'Kui oled eelnevalt pilte lisanud, lisa need uuesti. Vabandame.',
        ],
    ],
    'actions' => [
@@ -136,7 +136,7 @@ return [
        'assertion-open' => 'Open badge-i tõendi URL',
        'discount-voucher-spend' => 'Kuluta kupong',
        'get-qr-code' => 'Näita QR-koodi',
-       'reveal-discount' => 'Reveal discount',
+       'reveal-discount' => 'Näita kupongi',
    ],
    'minutes' => 'minutid',
    'confirmations' => [
