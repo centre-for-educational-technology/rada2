@@ -12,26 +12,26 @@ return [
     */
 
     'greeting' => [
-        'error' => 'Whoops!',
-        'normal' => 'Hello!',
+        'error' => 'Упс! Ошибка',
+        'normal' => 'Здравствуйте!',
     ],
     'body' => [
-        'sub' => 'If you’re having trouble clicking the ":actionText" button, copy and paste the URL below into your web browser:',
+        'sub' => 'Если у вас возникли проблемы с нажатием кнопки":Текст действия" , скопируйте и вставьте URL-адрес ниже в свой веб-браузер:',
     ],
     'footer' => [
-        'all-rights-reserved' => 'All rights reserved.',
+        'all-rights-reserved' => 'Все права защищены.',
     ],
-    'regards' => 'Regards',
+    'regards' => 'С уважением',
     'email' => [
         'password-reset' => [
-            'reason' => 'You are receiving this email because we received a password reset request for your account.',
-            'action' => 'Reset Password',
-            'explanation' => 'If you did not request a password reset, no further action is required.',
+            'reason' => 'Вы получаете это письмо, потому что мы получили запрос на сброс пароля для вашей учётной записи.',
+            'action' => 'Сброс пароля',
+            'explanation' => 'Если вы не запрашивали сброс пароля, никаких дополнительных действий не требуется.',
         ],
         'account-verify' => [
-            'reason' => 'You are receiving this email because an account with this email address has been created with us.',
-            'action' => 'Verify Account',
-            'explanation' => 'If you did not create that account, no further action is required. Unverified accounts will be automatically removed after 48 hours.',
+            'reason' => 'Вы получаете это электронное письмо, потому что с этим адресом электронной почты была создана учётная запись.',
+            'action' => 'Подтвердить учётную запись',
+            'explanation' => 'Если вы не создавали эту учётную запись, никаких дополнительных действий не требуется. Не проверенные учётные записи будут автоматически удалены через 48 часов.',
         ],
     ],
 ];
