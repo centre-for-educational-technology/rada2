@@ -6,6 +6,8 @@
  */
 
 window.initMap = function() {
+    var enableStreetView = window.Laravel.map.enableStreetView || false;
+
     function $t(key) {
         if ( window.Laravel.translations && window.Laravel.translations.hasOwnProperty(key) ) {
             return window.Laravel.translations[key];
@@ -133,7 +135,7 @@ window.initMap = function() {
         mapTypeId: google.maps.MapTypeId.HYBRID,
         disableDefaultUI: true,
         zoomControl: true,
-        streetViewControl: true,
+        streetViewControl: enableStreetView,
         mapTypeControl: true,
         styles: [
             {

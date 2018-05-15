@@ -49,6 +49,7 @@ return [
     'maps' => [
         'google' => [
             'api_key' => env('GOOGLE_MAPS_API_KEY'),
+            'enable_street_view' => env('MAPS_ENABLE_STREET_VIEW', false),
         ],
         'allowed_distance' => env('MAPS_ALLOWED_DISTANCE', 25), // Allowed distance radius value, used within a Game
     ],

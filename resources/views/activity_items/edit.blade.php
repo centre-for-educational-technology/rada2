@@ -8,7 +8,8 @@
     window.Laravel.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
     window.Laravel.hasImage = <?php echo json_encode($activity_item->hasImage()); ?>;
     window.Laravel.removedImages = <?php echo json_encode(old('removed-option-images') ? old('removed-option-images') : []); ?>;
-    window.Laravel.removedImageMatches = <?php echo json_encode(old('removed-option-match-images') ? old('removed-option-match-images') : []); ?>
+    window.Laravel.removedImageMatches = <?php echo json_encode(old('removed-option-match-images') ? old('removed-option-match-images') : []); ?>;
+    window.Laravel.map = <?php echo json_encode(['enableStreetView' => config('services.maps.google.enable_street_view'),]); ?>;
 </script>
 @endsection
 

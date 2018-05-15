@@ -5,6 +5,7 @@
     window.Laravel.zooGeolocationOptions = <?php echo json_encode($zooGeolocationOptions); ?>;
     window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'create-activity-item';
+    window.Laravel.map = <?php echo json_encode(['enableStreetView' => config('services.maps.google.enable_street_view'),]); ?>;
 </script>
 @endsection
 

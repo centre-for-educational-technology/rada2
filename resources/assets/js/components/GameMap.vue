@@ -126,6 +126,7 @@
     }
 
     var connectMarkers =  window.SmartZoos.config.connect_markers || false;
+    var enableStreetView = window.SmartZoos.config.map.enableStreetView || false;
 
     import MarkerIconMixin from './../mixins/MarkerIcon.js';
 
@@ -149,7 +150,7 @@
                 mapTypeId: google.maps.MapTypeId.ROADMAP,
                 disableDefaultUI: true,
                 zoomControl: true,
-                streetViewControl: true,
+                streetViewControl: enableStreetView,
                 styles: [
                     {
                         featureType: 'poi',

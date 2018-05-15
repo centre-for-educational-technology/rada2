@@ -38,6 +38,7 @@
                 'exit_url' => $exit_url,
                 'map' => [
                     'key' => config('services.maps.google.api_key'),
+                    'enableStreetView' => config('services.maps.google.enable_street_view'),
                 ],
                 'locale' => App::getLocale(),
                 'sentry' => [
