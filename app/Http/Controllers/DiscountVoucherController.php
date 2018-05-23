@@ -91,6 +91,8 @@ class DiscountVoucherController extends Controller
      */
     public function manage(DiscountVoucherStatusOptions $statusOptions)
     {
+        $this->authorize('create', DiscountVoucher::class);
+
         return view('discount_vouchers/manage')->with([
             'statusOptions' => $statusOptions->options(),
             'vouchers' => DiscountVoucher::orderBy('created_at', 'asc')->get(),

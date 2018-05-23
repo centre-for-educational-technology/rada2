@@ -1,4 +1,6 @@
 $(function () {
+    const apiUrl = Laravel.apiUrl;
+
     $('.mdi-close-circle-outline').on('click', function() {
         var _this = $(this);
         var confirmation = confirm(_this.data('confirm'));
@@ -10,7 +12,7 @@ $(function () {
             $.ajax({
                 cache: false,
                 method: 'DELETE',
-                url: '{{ url("/api/manage/users") }}/' + user + '/roles/' + role,
+                url: apiUrl + '/manage/users/' + user + '/roles/' + role,
                 success: function(data, textStatus, jqXHR) {
                     _this.parent().fadeOut('medium', function() {
                         $(this).remove();
