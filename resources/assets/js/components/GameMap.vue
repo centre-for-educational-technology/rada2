@@ -166,7 +166,10 @@
             this.mapData.iconSize = new google.maps.Size(60, 60);
             this.mapData.iconScaledSize = new google.maps.Size(40, 40);
 
-            this.initMap();
+            this.$nextTick(() => {
+                this.initMap();
+            });
+
         },
         data() {
             return {
@@ -214,36 +217,6 @@
                 this.initPlayerMarker();
 
                 this.initGameControls();
-
-                this.$parent.getGeoLocation(function(position) {
-                    var map = _this.mapData.map,
-                        playerMarker = _this.mapData.playerMarker;
-
-                    _this.gpsError = false;
-
-                    playerMarker.setPosition({
-                        lat: position.coords.latitude,
-                        lng: position.coords.longitude
-                    });
-                    if ( map.szTrackingEnabled === true ) {
-                        map.panTo(playerMarker.getPosition());
-                    }
-                    _this.initUpdateClosestUnansweredMarkerArrow();
-                    if ( _this.hasProximityCheck() ) {
-                        // TODO Might make sense to cancel in case location
-                        // does change rpidly
-                        // Giving it half a second or so should be good enough
-                        _.each(_this.mapData.markers, function(marker) {
-                            if ( !_this.isAnswered(marker.questionId) ) {
-                                _this.detectAndSetMarkerIcon(marker);
-                            }
-                        });
-                    }
-
-                    _this.setPosition(position);
-                }, true, function(error) {
-                    _this.gpsError = true;
-                });
 
                 if ( _this.game.activity.questions ) {
                     var map = _this.mapData.map,
@@ -301,6 +274,36 @@
 
                     _this.initUpdateClosestUnansweredMarkerArrow();
                 }
+
+                this.$parent.getGeoLocation(function(position) {
+                    var map = _this.mapData.map,
+                        playerMarker = _this.mapData.playerMarker;
+
+                    _this.gpsError = false;
+
+                    playerMarker.setPosition({
+                        lat: position.coords.latitude,
+                        lng: position.coords.longitude
+                    });
+                    if ( map.szTrackingEnabled === true ) {
+                        map.panTo(playerMarker.getPosition());
+                    }
+                    _this.initUpdateClosestUnansweredMarkerArrow();
+                    if ( _this.hasProximityCheck() ) {
+                        // TODO Might make sense to cancel in case location
+                        // does change rpidly
+                        // Giving it half a second or so should be good enough
+                        _.each(_this.mapData.markers, function(marker) {
+                            if ( !_this.isAnswered(marker.questionId) ) {
+                                _this.detectAndSetMarkerIcon(marker);
+                            }
+                        });
+                    }
+
+                    _this.setPosition(position);
+                }, true, function(error) {
+                    _this.gpsError = true;
+                });
 
                 this.initPlayerPositionLogging();
             },
@@ -474,7 +477,7 @@
                 });
             },
             detectMarkerIconState(marker) {
-                // TODO Check it we should fail in case question could not be found
+                // TODO Check if we should fail in case question could not be found
                 const question = this.findQuestionById(marker.questionId);
 
                 if ( this.isAnswered(question.id) ) {
