@@ -90,6 +90,7 @@
                             <label for="captcha" class="col-md-4 control-label">{{ trans('auth.general.captcha') }}</label>
                             <div class="col-md-6">
                                 <div class="input-group">
+                                    {!! app('captcha')->renderJs() !!}
                                     {!! app('captcha')->display(); !!}
                                 </div>
 
