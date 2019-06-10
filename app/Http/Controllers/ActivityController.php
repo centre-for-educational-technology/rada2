@@ -207,7 +207,7 @@ class ActivityController extends Controller
 
         return view('activities/create')->with([
             'zooOptions' => $zooOptions->options(),
-            'languageOptions' => $languageOptions->options(),
+            'languageOptions' => array_merge(['' => '-'], $languageOptions->options()),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : [],
@@ -317,7 +317,7 @@ class ActivityController extends Controller
         return view('activities/edit')->with([
             'activity' => $activity,
             'zooOptions' => $zooOptions->options(),
-            'languageOptions' => $languageOptions->options(),
+            'languageOptions' => array_merge(['' => '-'], $languageOptions->options()),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,

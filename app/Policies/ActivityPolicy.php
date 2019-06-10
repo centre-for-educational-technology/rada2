@@ -156,6 +156,6 @@ class ActivityPolicy
      */
     public function changePromoted(User $user, Activity $activity)
     {
-        return $user->isZooAdmin($activity->zoo);
+        return $user->isAdmin();
     }
 }
