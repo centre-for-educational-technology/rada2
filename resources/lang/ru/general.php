@@ -47,6 +47,7 @@ return [
        'labels' => [
            'title' => 'Название',
            'description' => 'Описание',
+           'game-story-and-rules' => 'Game story and rules',
            'difficulty-level' => 'Уровень сложности',
            'playing-time' => 'Время прохождения тропы',
            'contact-information' => 'Контакт',

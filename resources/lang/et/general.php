@@ -47,6 +47,7 @@ return [
        'labels' => [
            'title' => 'Pealkiri',
            'description' => 'Kirjeldus',
+           'game-story-and-rules' => 'Mängu lugu ja reeglid',
            'difficulty-level' => 'Raskusaste',
            'playing-time' => 'Raja läbimiseks kuluv aeg',
            'contact-information' => 'Kontakt',

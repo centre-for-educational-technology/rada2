@@ -47,6 +47,7 @@ return [
        'labels' => [
            'title' => 'Otsikko',
            'description' => 'Selitys',
+           'game-story-and-rules' => 'Game story and rules',
            'difficulty-level' => 'Vaikeusaste',
            'playing-time' => 'Peliaika',
            'contact-information' => 'Yhteystiedot',

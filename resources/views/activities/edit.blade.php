@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('description', trans('general.forms.labels.description'), [
+            {!! Form::label('description', trans('general.forms.labels.game-story-and-rules'), [
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">

@@ -47,6 +47,7 @@ return [
        'labels' => [
            'title' => 'Title',
            'description' => 'Description',
+           'game-story-and-rules' => 'Game story and rules',
            'difficulty-level' => 'Difficulty Level',
            'playing-time' => 'Playing Time',
            'contact-information' => 'Contact Information',
