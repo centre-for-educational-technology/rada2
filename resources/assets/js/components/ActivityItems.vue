@@ -95,10 +95,10 @@
 
         <game-question-modal v-bind:question="previewItem" v-bind:game-id="fakeGameId" v-bind:base-url="baseUrl" v-bind:is-preview="true" v-if="previewItem" ref="questionModal"></game-question-modal>
 
-        <button type="button" class="btn btn-success" v-on:click="openDialog()">
-            <i class="mdi mdi-search-web" aria-hidden="true"></i>
-            {{ $t('search-activity-items') }}
-        </button>
+<!--        <button type="button" class="btn btn-success" v-on:click="openDialog()">-->
+<!--            <i class="mdi mdi-search-web" aria-hidden="true"></i>-->
+<!--            {{ $t('search-activity-items') }}-->
+<!--        </button>-->
         <button type="button" class="btn btn-success" v-if="canCreateActivityItem" v-on:click="createNewActivityItem">
             <i class="mdi mdi-plus" aria-hidden="true"></i>
             {{ $t('create-new-activity-item') }}
