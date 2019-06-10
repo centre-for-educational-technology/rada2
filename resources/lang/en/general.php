@@ -125,6 +125,10 @@ return [
        'warnings' => [
            'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
        ],
+       'alerts' => [
+           'image-loading-text' => 'Loading ...',
+           'form-submit-loading-text' => 'Loading ...'
+       ]
    ],
    'actions' => [
        'create' => 'Create',
