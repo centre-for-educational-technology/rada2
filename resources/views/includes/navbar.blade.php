@@ -33,17 +33,6 @@
                 <li class="{{ Request::is('badges')? 'active': '' }}">
                     <a href="{{ route('badge.index') }}">{{ trans('navbar.badges') }}</a>
                 </li>
-                @if ( Auth::check() )
-                    @php( $discountVouchersCount = Auth::user()->getUnspentAndValidDiscountVouchersCount() )
-                    <li class="{{ Request::is('discount_vouchers', 'discount_vouchers/*')? 'active': '' }}">
-                        <a href="{{ route('discount_voucher.index') }}">
-                            {{ trans('navbar.discount_vouchers') }}
-                            @if ( $discountVouchersCount > 0 )
-                                <span class="badge sz-orange-badge">{{ $discountVouchersCount }}</span>
-                            @endif
-                        </a>
-                    </li>
-                @endif
             </ul>
 
             <!-- Right Side Of Navbar -->
