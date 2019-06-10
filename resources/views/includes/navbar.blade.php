@@ -95,14 +95,6 @@
                                     </a>
                                 </li>
                             @endif
-                            @can('create', 'App\DiscountVoucher')
-                                <li>
-                                    <a href="{!! route('discount_voucher.manage') !!}">
-                                        <i class="mdi mdi-sale" aria-hidden="true"></i>
-                                        {{ trans('navbar.discount_vouchers') }}
-                                    </a>
-                                </li>
-                            @endcan
                             <li>
                                 <a href="{{ url('/logout') }}"
                                     onclick="event.preventDefault();
