@@ -63,10 +63,6 @@
                                         {{ $activity_item->getQuestionType() }}
                                     </div>
                                     <div class="sz-metadata">
-                                        <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                                        {{ $activity_item->getZoo() }}
-                                    </div>
-                                    <div class="sz-metadata">
                                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                                         {{ $activity_item->getLanguage() }}
                                     </div>

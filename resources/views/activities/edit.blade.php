@@ -42,7 +42,7 @@
         </div>
 
         <div class="form-group">
-            {!! Form::label('description', trans('general.forms.labels.description'), [
+            {!! Form::label('description', trans('general.forms.labels.game-story-and-rules'), [
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">
@@ -52,31 +52,6 @@
                         'rows' => '3',
                     ]) !!}
                 </div>
-            </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('difficulty_level') ? ' has-error' : '' }}">
-            {!! Form::label('difficulty_level', trans('general.forms.labels.difficulty-level'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    <div class="btn-group btn-group-lg btn-group-justified" role="group" ref="difficultyLevelButtons">
-                        @include('activities.includes.difficulty_level_buttons', [ 'difficultyLevel' => $activity->difficulty_level ])
-                    </div>
-
-                    {!! Form::hidden('difficulty_level', $activity->difficulty_level, [
-                        'id' => 'difficulty_level',
-                        'class' => 'form-control',
-                        'ref' => 'difficultyLevel',
-                    ]) !!}
-                </div>
-
-                @if ($errors->has('difficulty_level'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('difficulty_level') }}</strong>
-                    </span>
-                @endif
             </div>
         </div>
 
@@ -188,30 +163,6 @@
                 @if ($errors->has('featured_image'))
                     <span class="help-block">
                         <strong>{{ $errors->first('featured_image') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('zoo') ? ' has-error' : '' }}">
-            {!! Form::label('zoo', trans('general.forms.labels.zoo'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    <span class="input-group-addon">
-                        <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                    </span>
-                    @php ( $zooSelectOptions = [ 'class' => 'form-control'] )
-                    @cannot('changeZoo', $activity)
-                        @php ( $zooSelectOptions['disabled'] = true )
-                    @endcannot
-                    {!! Form::select('zoo', $zooOptions, $activity->zoo, $zooSelectOptions) !!}
-                </div>
-
-                @if ($errors->has('zoo'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('zoo') }}</strong>
                     </span>
                 @endif
             </div>

@@ -14,12 +14,6 @@
                                 <input type="text" class="form-control" v-bind:placeholder="$t('keyword-or-title')" v-model="searchForm.keywords" v-on:keydown.enter.prevent.stop="searchForItems">
                             </div>
                             <div class="form-group">
-                                <label>{{ $t('zoo') }}</label>
-                                <select class="form-control" v-model="searchForm.zoo" v-on:keydown.enter.prevent.stop="searchForItems">
-                                    <option v-for="(title, key) in zooOptions" v-bind:value="key">{{ title }}</option>
-                                </select>
-                            </div>
-                            <div class="form-group">
                                 <label>{{ $t('question-type') }}</label>
                                 <select class="form-control" v-model="searchForm.questionType" v-on:keydown.enter.prevent.stop="searchForItems">
                                     <option v-for="(title, key) in questionTypeOptions" v-bind:value="key">{{ title }}</option>
@@ -101,10 +95,10 @@
 
         <game-question-modal v-bind:question="previewItem" v-bind:game-id="fakeGameId" v-bind:base-url="baseUrl" v-bind:is-preview="true" v-if="previewItem" ref="questionModal"></game-question-modal>
 
-        <button type="button" class="btn btn-success" v-on:click="openDialog()">
-            <i class="mdi mdi-search-web" aria-hidden="true"></i>
-            {{ $t('search-activity-items') }}
-        </button>
+<!--        <button type="button" class="btn btn-success" v-on:click="openDialog()">-->
+<!--            <i class="mdi mdi-search-web" aria-hidden="true"></i>-->
+<!--            {{ $t('search-activity-items') }}-->
+<!--        </button>-->
         <button type="button" class="btn btn-success" v-if="canCreateActivityItem" v-on:click="createNewActivityItem">
             <i class="mdi mdi-plus" aria-hidden="true"></i>
             {{ $t('create-new-activity-item') }}

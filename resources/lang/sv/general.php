@@ -47,6 +47,7 @@ return [
        'labels' => [
            'title' => 'Titel',
            'description' => 'Beskrivning',
+           'game-story-and-rules' => 'Game story and rules',
            'difficulty-level' => 'Svårighetsnivå',
            'playing-time' => 'Speltid',
            'contact-information' => 'Kontaktinformation',

@@ -19,20 +19,6 @@
     </div>
 
     <div class="form-group">
-        <label for="zoo">{{ trans('general.forms.labels.zoo') }}</label>
-        <select class="form-control" name="zoo" id="zoo">
-            <option value="0">{{ trans('general.forms.options.any') }}</option>
-            @foreach($zooOptions as $key => $title)
-                @if( $key == $search['zoo'] )
-                    <option value="{{ $key }}" selected="selected">{{ $title }}</option>
-                @else
-                    <option value="{{ $key }}">{{ $title }}</option>
-                @endif
-            @endforeach
-        </select>
-    </div>
-
-    <div class="form-group">
         <label for="language">{{ trans('general.language') }}</label>
         <select class="form-control" name="language" id="language">
             <option value="0">{{ trans('general.forms.options.any') }}</option>

@@ -37,10 +37,6 @@
                     -->
                     <h4>{{ $t('number-of-questions') }}</h4>
                     <p>{{ activity.questions.length }}</p>
-                    <h4>{{ $t('difficulty-level') }}</h4>
-                    <p>
-                        {{ activity.difficulty_level }}
-                    </p>
                     <h4>{{ $t('playing-time') }}</h4>
                     <p>
                         {{ activity.playing_time }} {{ $t('minutes') }}

@@ -39,8 +39,6 @@ class StoreActivityItem extends FormRequest
         return [
             'title' => 'required|max:255',
             'type' => 'required|integer|between:1,7',
-            'zoo' => ( $activityItem && auth()->user()->cannot('changeZoo', $activityItem) ) ? 'integer|between:1,3' : 'required|integer|between:1,3',
-            'language' => 'required|in:' . implode(',', $languages),
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'read_more' => 'url',

@@ -31,8 +31,6 @@
                     @include('activities.includes.play', ['activity' => $activity])
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
-                    <h3>{{ trans('general.forms.labels.difficulty-level') }}</h3>
-                    <p>{{ $activity->getDifficultyLevel() }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>
                     <p>{{ $activity->playing_time}} {{ trans('general.minutes')}}</p>
                     <h3>{{ trans('general.language') }}</h3>
@@ -45,8 +43,6 @@
                             <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded" style="height:64px;width:64px;">
                         </p>
                     @endif
-                    <h3>{{ trans('general.forms.labels.zoo') }}</h3>
-                    <p>{{ $activity->getZoo() }}</p>
                     <h3>{{ trans('general.forms.labels.activity-items') }}</h3>
                     @if ( count($activity->activityItems) === 0 )
                         <div class="well">{{ trans('pages.activity-items.index.none-found') }}</div>
