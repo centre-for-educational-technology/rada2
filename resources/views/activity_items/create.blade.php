@@ -67,7 +67,7 @@
                     </span>
                 </div>
 
-                <p class="help-block">
+                <p class="help-block" data-loading-text="{{ trans('general.forms.help.loading_text') }}">
                     {{ trans('general.forms.help.image') }}
                 </p>
 

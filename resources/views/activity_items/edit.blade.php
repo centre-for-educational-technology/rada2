@@ -78,7 +78,7 @@
                     </span>
                 </div>
 
-                <p class="help-block">
+                <p class="help-block" data-loading-text="{{ trans('general.forms.help.loading_text') }}">
                     @if ($activity_item->hasImage())
                         <img src="{!! $activity_item->getImageUrl() !!}" alt="image" class="img-rounded pull-left sz-uploaded-image-preview">
                     @endif

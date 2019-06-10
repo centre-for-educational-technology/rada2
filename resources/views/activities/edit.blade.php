@@ -178,7 +178,7 @@
                     </span>
                 </div>
 
-                <p class="help-block">
+                <p class="help-block" data-loading-text="{{ trans('general.forms.help.loading_text') }}">
                     @if ($activity->hasFeaturedImage())
                         <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded pull-left sz-uploaded-image-preview">
                     @endif
