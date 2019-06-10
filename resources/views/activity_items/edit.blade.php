@@ -316,6 +316,9 @@
 
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
+                <div class="alert alert-info hidden submit-loading-text">
+                    {{ trans('general.forms.submit.loading_text') }}
+                </div>
                 {!! Form::submit(trans('general.forms.buttons.save'), [
                     'class' => 'btn btn-primary btn-bypass-unload-protection',
                 ])!!}

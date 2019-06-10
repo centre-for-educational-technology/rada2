@@ -300,3 +300,7 @@ $('[name="image"]').on('change', function () {
         reader.readAsDataURL(input.files[0]);
     }
 });
+
+$('#edit-activity-item').on('submit', function () {
+    $('.submit-loading-text').removeClass('hidden');
+});
