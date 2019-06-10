@@ -83,7 +83,7 @@ Route::group(['prefix' => 'activity_items'], function()
     Route::get('{activity_item}', 'ActivityItemController@show')->name('activity_item.show');
 
     Route::get('{activity_item}/edit', 'ActivityItemController@edit')->name('activity_item.edit');
-    Route::s('{activity_item}', 'ActivityItemController@update');
+    Route::put('{activity_item}', 'ActivityItemController@update');
 
     Route::delete('{activity_item}', 'ActivityItemController@destroy')->name('activity_item.delete');
 });
