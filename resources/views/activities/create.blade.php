@@ -53,31 +53,6 @@
             </div>
         </div>
 
-        <div class="form-group{{ $errors->has('difficulty_level') ? ' has-error' : '' }}">
-            {!! Form::label('difficulty_level', trans('general.forms.labels.difficulty-level'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    <div class="btn-group btn-group-lg btn-group-justified" role="group" ref="difficultyLevelButtons">
-                        @include('activities.includes.difficulty_level_buttons', [ 'difficultyLevel' => 2 ])
-                    </div>
-
-                    {!! Form::hidden('difficulty_level', '2', [
-                        'id' => 'difficulty_level',
-                        'class' => 'form-control',
-                        'ref' => 'difficultyLevel',
-                    ]) !!}
-                </div>
-
-                @if ($errors->has('difficulty_level'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('difficulty_level') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
         <div class="form-group{{ $errors->has('playing_time') ? ' has-error' : '' }}">
             {!! Form::label('playing_time', trans('general.forms.labels.playing-time'), [
                 'class' => 'col-md-4 control-label',

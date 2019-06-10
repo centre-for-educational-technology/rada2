@@ -64,10 +64,6 @@
                                         {{ $activity->getLanguage() }}
                                     </div>
                                     <div class="sz-metadata">
-                                        <i class="mdi mdi-hexagon-multiple" aria-hidden="true"></i>
-                                        {{ $activity->getDifficultyLevel() }}
-                                    </div>
-                                    <div class="sz-metadata">
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                                         {{ $activity->playing_time}} {{ trans('general.minutes')}}
                                     </div>

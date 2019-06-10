@@ -4,6 +4,8 @@ namespace App\Options;
 
 class DifficultyLevelOptions extends OptionsBase
 {
+    const DEFAULT_LEVEL = 1;
+    
     /**
      * Create instance and set available options
      */

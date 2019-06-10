@@ -5,23 +5,6 @@
     </div>
 
     <div class="form-group">
-        <label for="difficulty-level">{{ trans('general.forms.labels.difficulty-level') }}</label>
-        <div class="input-group col-xs-12">
-            <div class="btn-group btn-group-lg btn-group-justified" role="group">
-                @include('activities.includes.difficulty_level_buttons', [ 'difficultyLevel' => $search['difficulty-level'] ])
-            </div>
-
-            <input type="hidden"
-               class="form-control"
-               id="difficulty-level"
-               name="difficulty-level"
-               value="{{ $search['difficulty-level'] }}"
-               min="1"
-               max="3">
-        </div>
-    </div>
-
-    <div class="form-group">
         <label for="zoo">{{ trans('general.forms.labels.zoo') }}</label>
         <select class="form-control" name="zoo" id="zoo">
             <option value="0">{{ trans('general.forms.options.any') }}</option>

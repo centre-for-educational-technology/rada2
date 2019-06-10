@@ -164,10 +164,6 @@ class ActivityController extends Controller
             });
         }
 
-        if ( $request->has('difficulty-level') ) {
-            $query->where('difficulty_level', '=', (int)$request->get('difficulty-level'));
-        }
-
         if ( $request->has('zoo') && (int)$request->get('zoo') !== 0 )
         {
             $query->where('zoo', '=', (int)$request->get('zoo'));
@@ -232,7 +228,7 @@ class ActivityController extends Controller
 
         $activity->title = $request->title;
         $activity->description = $request->description;
-        $activity->difficulty_level = $request->difficulty_level;
+        $activity->difficulty_level = DifficultyLevelOptions::DEFAULT_LEVEL;
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
@@ -341,7 +337,7 @@ class ActivityController extends Controller
     {
         $activity->title = $request->title;
         $activity->description = $request->description;
-        $activity->difficulty_level = $request->difficulty_level;
+        $activity->difficulty_level = DifficultyLevelOptions::DEFAULT_LEVEL;
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;

@@ -17,13 +17,6 @@ const activityApp = new Vue({
             vm.hasFeaturedImage = true;
         }
 
-        $(vm.$refs.difficultyLevelButtons).find('button').on('click', (e) => {
-            var buttonElement = $(e.target);
-            $(vm.$refs.difficultyLevelButtons).find('button').removeClass('active');
-            buttonElement.addClass('active');
-            $(vm.$refs.difficultyLevel).val(buttonElement.data('value'));
-        });
-
         $(vm.$refs.proximityCheck).on('change', (e) => {
             const isChecked = $(vm.$refs.proximityCheck).prop('checked');
             $(vm.$refs.proximityRadius).prop('disabled', !isChecked);
