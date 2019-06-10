@@ -181,8 +181,6 @@
                             </div>
                         @endcannot
                     @endif
-                    <h3>{{ trans('general.forms.labels.zoo') }}</h3>
-                    <p>{{ $activity_item->getZoo() }}</p>
                     <h3>{{ trans('general.language') }}</h3>
                     <p>{{ trans('general.languages.' . $activity_item->language) }}</p>
                     <h3>{{ trans('general.forms.labels.location') }}</h3>

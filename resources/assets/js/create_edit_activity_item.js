@@ -122,7 +122,9 @@ window.initMap = function() {
             };
         }
 
-        return window.Laravel.zooGeolocationOptions[$(document).find('select[name="zoo"]').val()];
+        var defaultZoo = 3;
+        // return window.Laravel.zooGeolocationOptions[$(document).find('select[name="zoo"]').val()];
+        return window.Laravel.zooGeolocationOptions[defaultZoo];
     }
 
     var mapOptions, map, marker;

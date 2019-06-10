@@ -226,7 +226,7 @@ class ActivityItemController extends Controller
           $item->embedded_content = $request->{'embedded-content'};
       }
 
-      $item->zoo = $request->zoo;
+      $item->zoo = ZooOptions::DEFAULT_OPTION;
       $item->language = $request->language;
       $item->latitude = $request->latitude;
       $item->longitude = $request->longitude;
@@ -453,7 +453,7 @@ class ActivityItemController extends Controller
       }
 
       if ( auth()->user()->can('changeZoo', $activity_item) ) {
-          $activity_item->zoo = $request->zoo;
+          $activity_item->zoo = ZooOptions::DEFAULT_OPTION;
       }
 
       $activity_item->language = $request->language;

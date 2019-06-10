@@ -168,30 +168,6 @@
             </div>
         </div>
 
-        <div class="form-group{{ $errors->has('zoo') ? ' has-error' : '' }}">
-            {!! Form::label('zoo', trans('general.forms.labels.zoo'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    <span class="input-group-addon">
-                        <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                    </span>
-                    @php ( $zooSelectOptions = [ 'class' => 'form-control'] )
-                    @cannot('changeZoo', $activity)
-                        @php ( $zooSelectOptions['disabled'] = true )
-                    @endcannot
-                    {!! Form::select('zoo', $zooOptions, $activity->zoo, $zooSelectOptions) !!}
-                </div>
-
-                @if ($errors->has('zoo'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('zoo') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-
         <div class="form-group{{ ( $errors->has('proximity_radius') || $errors->has('proximity_check') ) ? ' has-error' : '' }}">
             {!! Form::label('radius', trans('general.forms.labels.proximity'), [
                 'class' => 'col-md-4 control-label',

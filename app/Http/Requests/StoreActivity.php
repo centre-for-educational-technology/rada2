@@ -42,7 +42,6 @@ class StoreActivity extends FormRequest
             'language' => 'required|in:' . implode(',', $languages),
             'contact_information' => 'max:255',
             'featured_image' => 'image|mimes:jpeg,jpg,png',
-            'zoo' => ( $activity && auth()->user()->cannot('changeZoo', $activity) ) ? 'in:1,2,3' : 'required|in:1,2,3',
             'proximity_check' => 'integer|in:1',
             'proximity_radius' => 'integer|between:25,100',
         ];

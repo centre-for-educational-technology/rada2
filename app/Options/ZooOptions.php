@@ -4,6 +4,9 @@ namespace App\Options;
 
 class ZooOptions extends OptionsBase
 {
+
+    const DEFAULT_OPTION = 3;
+
     /**
      * Create instance and set available options
      */

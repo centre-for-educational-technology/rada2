@@ -232,7 +232,7 @@ class ActivityController extends Controller
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
-        $activity->zoo = $request->zoo;
+        $activity->zoo = ZooOptions::DEFAULT_OPTION;
 
         if ( $request->has('proximity_check') )
         {
@@ -358,7 +358,7 @@ class ActivityController extends Controller
         }
         if ( auth()->user()->can('changeZoo', $activity) )
         {
-            $activity->zoo = $request->zoo;
+            $activity->zoo = ZooOptions::DEFAULT_OPTION;
         }
 
         if ( $request->has('proximity_check') )
