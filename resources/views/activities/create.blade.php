@@ -254,30 +254,6 @@
             </div>
         </div>
 
-        @can('addDiscountVoucher', 'App\Activity')
-        <div class="form-group{{ $errors->has('discount_voucher') ? ' has-error' : '' }}">
-            {!! Form::label('type', trans('general.forms.labels.discount-voucher'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                    <span class="input-group-addon">
-                        <i class="mdi mdi-sale" aria-hidden="true"></i>
-                    </span>
-                    {!! Form::select('discount_voucher', $discountVoucherOptions, null, [
-                        'class' => 'form-control',
-                    ]) !!}
-                </div>
-
-                @if ($errors->has('discount_voucher'))
-                    <span class="help-block">
-                        <strong>{{ $errors->first('discount_voucher') }}</strong>
-                    </span>
-                @endif
-            </div>
-        </div>
-        @endcan
-
         @can('addPromoted', 'App\Activity')
         <div class="form-group">
             <div class="checkbox col-md-6 col-md-offset-4">
