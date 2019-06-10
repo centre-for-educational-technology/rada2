@@ -6,7 +6,6 @@
 
 @section('content')
 <div class="container">
-    @include('activities.includes.discount-voucher-modal')
     @include('activities.includes.qrcode_modal')
     @include('activities.includes.play_modal')
     <div class="row">
@@ -29,7 +28,6 @@
                             @include('activities.includes.actions')
                         </div>
                     </div>
-                    @include('activities.includes.discount_voucher', ['activity' => $activity])
                     @include('activities.includes.play', ['activity' => $activity])
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>

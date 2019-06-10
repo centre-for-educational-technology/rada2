@@ -125,7 +125,7 @@ class ActivityPolicy
      */
     public function addDiscountVoucher(User $user)
     {
-        return $user->isZooAdmin();
+        return false;
     }
 
     /**
@@ -135,7 +135,7 @@ class ActivityPolicy
      * @return boolean
      */
     public function changeDiscountVoucher(User $user, Activity $activity) {
-        return $user->isZooAdmin($activity->zoo);
+        return false;
     }
 
     /**
