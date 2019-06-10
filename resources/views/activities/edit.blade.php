@@ -178,7 +178,7 @@
                     </span>
                 </div>
 
-                <p class="help-block">
+                <p class="help-block" data-loading-text="{{ trans('general.forms.alerts.image-loading-text') }}">
                     @if ($activity->hasFeaturedImage())
                         <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded pull-left sz-uploaded-image-preview">
                     @endif
@@ -305,6 +305,9 @@
 
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
+                <div class="alert alert-info hidden submit-loading-text">
+                    {{ trans('general.forms.alerts.form-submit-loading-text') }}
+                </div>
                 {!! Form::submit(trans('general.forms.buttons.save'), [
                     'class' => 'btn btn-primary btn-bypass-unload-protection',
                 ])!!}

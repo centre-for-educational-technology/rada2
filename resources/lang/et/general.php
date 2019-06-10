@@ -125,6 +125,10 @@ return [
        'warnings' => [
            'readd-pictures' => 'Kui oled eelnevalt pilte lisanud, lisa need uuesti. Vabandame.',
        ],
+       'alerts' => [
+           'image-loading-text' => 'Laen ...',
+           'form-submit-loading-text' => 'Laen ...'
+       ]
    ],
    'actions' => [
        'create' => 'Loo',

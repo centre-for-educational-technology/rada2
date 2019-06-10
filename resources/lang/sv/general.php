@@ -125,6 +125,10 @@ return [
        'warnings' => [
            'readd-pictures' => 'Om du hade lagt till bilder måste du tyvärr göra om det igen.',
        ],
+       'alerts' => [
+           'image-loading-text' => 'Läser in ...',
+           'form-submit-loading-text' => 'Läser in ...'
+       ]
    ],
    'actions' => [
        'create' => 'Skapa',

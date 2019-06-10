@@ -125,6 +125,10 @@ return [
        'warnings' => [
            'readd-pictures' => 'Если вы добавили какие-либо фотографии, вы должны добавить их снова. Приносим извинения.',
        ],
+       'alerts' => [
+           'image-loading-text' => 'загрузка ...',
+           'form-submit-loading-text' => 'загрузка ...'
+       ]
    ],
    'actions' => [
        'create' => 'Создать',

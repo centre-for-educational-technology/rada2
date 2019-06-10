@@ -125,6 +125,10 @@ return [
        'warnings' => [
            'readd-pictures' => 'Jos olit lisännyt kuvan, sinun on valitettavasti pakko tehdä uudestaan.',
        ],
+       'alerts' => [
+           'image-loading-text' => 'Ladataan ...',
+           'form-submit-loading-text' => 'Ladataan ...'
+       ]
    ],
    'actions' => [
        'create' => 'Luo',

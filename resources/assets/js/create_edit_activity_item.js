@@ -275,3 +275,32 @@ const addActivityItemApp = new Vue({
         }
     }
 });
+
+$('[name="image"]').on('change', function () {
+    var self = $(this);
+    var input = self.get(0);
+    if (input.files && input.files[0]) {
+        if (self.parent().parent().find('.help-block').length > 0) {
+            var loadingText = self.parent().parent().find('.help-block').data('loading-text');
+            self.parent().parent().find('.help-block').prepend(
+                $('<div>').addClass('alert alert-info loading-text').html(loadingText)
+            );
+        }
+        var reader = new FileReader();
+        reader.onload = function(e) {
+            if (self.parent().parent().find('.help-block .sz-uploaded-image-preview').length <= 0) {
+                self.parent().parent().find('.help-block').prepend(
+                    $('<img>').addClass('img-rounded pull-left sz-uploaded-image-preview').attr('alt', 'image')
+                );
+            }
+            self.parent().parent().find('.help-block .sz-uploaded-image-preview').attr('src', e.target.result);
+            self.parent().parent().find('.help-block .alert.loading-text').remove();
+        }
+
+        reader.readAsDataURL(input.files[0]);
+    }
+});
+
+$('#edit-activity-item').on('submit', function () {
+    $('.submit-loading-text').removeClass('hidden');
+});
