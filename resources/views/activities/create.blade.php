@@ -224,7 +224,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::text('keywords', $activity->keywords, [
+                    {!! Form::text('keywords', [], [
                         'class' => 'form-control',
                         'min' => 0,
                         'data-role' => 'tagsinput'
