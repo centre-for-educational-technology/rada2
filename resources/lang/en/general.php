@@ -136,6 +136,7 @@ return [
    ],
    'actions' => [
        'create' => 'Create',
+       'duplicate' => 'Generate duplicate',
        'edit' => 'Edit',
        'delete' => 'Delete',
        'play' => 'Play',
