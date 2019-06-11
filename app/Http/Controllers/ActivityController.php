@@ -225,71 +225,7 @@ class ActivityController extends Controller
      */
     public function store(StoreActivity $request, ImageService $imageService)
     {
-        $activity = new Activity;
-        $randomStringGenerator = new RandomStringGenerator();
-
-        $activity->title = $request->title;
-        $activity->description = $request->description;
-        $activity->difficulty_level = DifficultyLevelOptions::DEFAULT_LEVEL;
-        $activity->playing_time = $request->playing_time;
-        $activity->language = $request->language;
-        $activity->contact_information = $request->contact_information;
-        $activity->zoo = ZooOptions::DEFAULT_OPTION;
-        $activity->pin = $randomStringGenerator->generate(config('services.activity.pin_length'));
-        $activity->keywords = $request->keywords;
-
-        if ( $request->has('proximity_check') )
-        {
-            if ( $request->has('proximity_radius') && (int)$request->proximity_radius )
-            {
-                $activity->proximity_radius = (int)$request->proximity_radius;
-            }
-        } else {
-            $activity->proximity_check = false;
-        }
-
-        $activity->user()->associate( auth()->user() );
-
-        if ( auth()->user()->can('addDiscountVoucher', Activity::class) && $request->has('discount_voucher') )
-        {
-            $voucherId = $request->discount_voucher;
-
-            if ( !$this->isEmptyDiscountVoucher($voucherId) )
-            {
-                $voucher = DiscountVoucher::find($request->discount_voucher);
-
-                if ( $voucher ) {
-                    $activity->discountVoucher()->associate($voucher);
-                }
-            }
-        }
-
-        if ( auth()->user()->can('addPromoted', Activity::class) && $request->has('promoted') )
-        {
-            $activity->promoted = (bool)$request->promoted;
-        }
-
-        $activity->save();
-
-        if ( $request->hasFile('featured_image') )
-        {
-            $fileName = $this->processFeaturedImage($imageService, $request, $activity->getStoragePath());
-            DB::table('activities')
-                ->where('id', $activity->id)
-                ->update(['featured_image' => $fileName]);
-        }
-
-        if ( $request->has('activity_items') ) {
-            $items = [];
-            foreach( $request->activity_items as $index => $item ) {
-                $items[$item] = [ 'position' => $index + 1 ];
-
-            }
-
-            if ( $items && count($items) > 0 ) {
-                $activity->activityItems()->attach($items);
-            }
-        }
+        $activity = $this->storeActivity($request, $imageService);
 
         return redirect()->route('activity.show', [ 'id' => $activity->id ]);
     }
