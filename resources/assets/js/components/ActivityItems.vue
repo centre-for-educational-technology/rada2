@@ -105,11 +105,17 @@
             <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
         </button>
         <ul class="list-group sz-sortable-list">
-            <draggable :list="items" :options="options">
-                <li class="list-group-item" v-for="item in items" v-bind:title="item.description">
+            <draggable :list="items" :options="options" @change="onChange">
+                <li class="list-group-item" v-for="(item, index) in items" v-bind:title="item.description">
                     <input type="hidden" class="form-control" name="activity_items[]" v-bind:value="item.id">
                     <i class="mdi mdi-drag-vertical"></i>
                     <span class="pull-right">
+                        <input type="number"
+                               v-if="enforceItemsOrder"
+                               v-bind:name="'order['+item.id+']'"
+                               v-bind:value="item.order"
+                               v-bind:data-item-index="index"
+                               @change="itemOrderChange" />
                         <button type="button" class="btn btn-primary btn-sm" v-on:click="showQuestionPreview(item)"><i class="mdi mdi-open-in-app"></i></button>
                         <button type="button" class="btn btn-danger btn-sm" v-on:click="removeItem(item)"><i class="mdi mdi-minus"></i></button>
                     </span>
@@ -121,7 +127,14 @@
                 </li>
             </draggable>
         </ul>
-    </div>
+
+        <div class="checkbox">
+            <label for="enforce-items-order">
+                <input id="enforce-items-order" type="checkbox" name="enforce_items_order" @click="enforceItemsOrderChange" />
+                Enforce items order
+            </label>
+        </div>
+    </div>foo 1
 </template>
 
 <script>
@@ -139,6 +152,10 @@
             // TODO Consider moving options definition to the App instance and passing those on to component
             if ( window.Laravel.activityItems ) {
                 this.items = window.Laravel.activityItems;
+                for (let i in this.items) {
+                    this.items[i].order = i;
+                    this.items[i].order ++;
+                }
             }
             if ( window.Laravel.zooOptions ) {
                 this.zooOptions = _.merge(window.Laravel.zooOptions, this.zooOptions);
@@ -201,7 +218,8 @@
                     language: '0'
                 },
                 fakeGameId: 0,
-                previewItem: null
+                previewItem: null,
+                enforceItemsOrder: false
             };
         },
         computed: {
@@ -214,6 +232,38 @@
             }
         },
         methods: {
+            enforceItemsOrderChange: function (evt) {
+                this.enforceItemsOrder = evt.target.checked;
+            },
+            onChange: function(evt){
+                let newOrder = evt.moved.newIndex;
+                newOrder ++;
+                if (evt.moved.newIndex > 0 && this.items.length > newOrder) {
+                    let itemBeforeOrder = this.items[newOrder-2].order;
+                    let itemAfterOrder = this.items[newOrder].order;
+                    newOrder = itemBeforeOrder;
+                    if (itemBeforeOrder < itemAfterOrder) {
+                        newOrder ++;
+                    }
+                } else if (this.items.length === newOrder) {
+                    newOrder = this.items[newOrder-2].order;
+                    newOrder ++;
+                }
+
+                let newItem = this.items[evt.moved.newIndex];
+                newItem.order = newOrder;
+                this.items.splice(evt.moved.newIndex, 1, newItem);
+            },
+            itemOrderChange: function(evt) {
+                let index = evt.target.attributes['data-item-index'].value;
+                let item = this.items[index];
+                let order = evt.target.value;
+                let newIndex = order;
+                newIndex --;
+                item.order = order;
+                this.items.splice(index, 1);
+                this.items.splice(newIndex, 0, item);
+            },
             openDialog() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
