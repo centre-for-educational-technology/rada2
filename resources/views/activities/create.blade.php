@@ -218,6 +218,31 @@
         </div>
         @endcan
 
+        <div class="form-group{{ $errors->has('keywords') ? ' has-error' : '' }}">
+            {!! Form::label('keywords', trans('general.forms.labels.keywords'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                    {!! Form::text('keywords', $activity->keywords, [
+                        'class' => 'form-control',
+                        'min' => 0,
+                        'data-role' => 'tagsinput'
+                    ]) !!}
+                </div>
+
+                <p class="help-block">
+                    {{ trans('general.forms.help.keywords') }}
+                </p>
+
+                @if ($errors->has('keywords'))
+                    <span class="help-block">
+                                <strong>{{ $errors->first('keywords') }}</strong>
+                            </span>
+                @endif
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <div class="alert alert-info hidden submit-loading-text">
