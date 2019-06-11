@@ -39,6 +39,10 @@
                     <p>{{ $activity->getLanguage() }}</p>
                     <h3>{{ trans('general.forms.labels.contact-information') }}</h3>
                     <p>{{ $activity->contact_information }}</p>
+                    <h3>{{ trans('general.forms.labels.keywords') }}</h3>
+                    @foreach ($activity->getKeywordsAsArray() as $keyword)
+                    <span class="label-info label">{{ $keyword }}</span>
+                    @endforeach
                     @if ($activity->hasFeaturedImage())
                         <h3>{{ trans('general.forms.labels.featured-image') }}</h3>
                         <p>

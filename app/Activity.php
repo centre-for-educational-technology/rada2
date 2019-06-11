@@ -232,4 +232,9 @@ class Activity extends Model
     {
         return (bool)$this->promoted;
     }
+
+    public function getKeywordsAsArray()
+    {
+        return explode(',', $this->keywords);
+    }
 }

@@ -72,7 +72,8 @@ return [
            'until' => 'Kuni',
            'question-or-information' => 'Küsimus/informatsioon',
            'promoted' => 'Tõsta esile, kuvatakse spetsiaalset ikooni mängu juures ning liiguta nimekirjas ettepoole',
-           'pin-code' => 'PIN kood'
+           'pin-code' => 'PIN kood',
+           'keywords' => 'Märksõnad'
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
@@ -84,6 +85,7 @@ return [
                'embedded-content' => 'Mängijale kuvatakse vistutatud koodi taga olev meediaobjekt.',
                'photo' => 'Mängija postitab vastuseks foto.',
            ],
+           'keywords' => 'Eralda märksanad komaga'
        ],
        'buttons' => [
            'create' => 'Loo',
