@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Utils\RandomStringGenerator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Requests\StoreActivity;
@@ -225,6 +226,7 @@ class ActivityController extends Controller
     public function store(StoreActivity $request, ImageService $imageService)
     {
         $activity = new Activity;
+        $randomStringGenerator = new RandomStringGenerator();
 
         $activity->title = $request->title;
         $activity->description = $request->description;
@@ -233,6 +235,7 @@ class ActivityController extends Controller
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
         $activity->zoo = ZooOptions::DEFAULT_OPTION;
+        $activity->pin = $randomStringGenerator->generate(config('services.activity.pin_length'));
 
         if ( $request->has('proximity_check') )
         {

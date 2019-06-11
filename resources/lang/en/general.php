@@ -72,6 +72,7 @@ return [
            'until' => 'Until',
            'question-or-information' => 'Question/Information',
            'promoted' => 'Promote, show special icon and put to the top of the lists',
+           'pin-code' => 'PIN code'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
