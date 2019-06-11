@@ -85,7 +85,7 @@ return [
                'embedded-content' => 'Mängijale kuvatakse vistutatud koodi taga olev meediaobjekt.',
                'photo' => 'Mängija postitab vastuseks foto.',
            ],
-           'keywords' => 'Eralda märksanad komaga'
+           'keywords' => 'Eralda märksõnad komaga'
        ],
        'buttons' => [
            'create' => 'Loo',
