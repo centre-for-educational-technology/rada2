@@ -236,6 +236,7 @@ class ActivityController extends Controller
         $activity->contact_information = $request->contact_information;
         $activity->zoo = ZooOptions::DEFAULT_OPTION;
         $activity->pin = $randomStringGenerator->generate(config('services.activity.pin_length'));
+        $activity->keywords = $request->keywords;
 
         if ( $request->has('proximity_check') )
         {
@@ -344,6 +345,8 @@ class ActivityController extends Controller
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
+        $activity->keywords = $request->keywords;
+        
         if ( $request->hasFile('featured_image') ) {
             if ( $activity->hasFeaturedImage() )
             {

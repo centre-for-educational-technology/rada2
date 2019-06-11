@@ -72,7 +72,8 @@ return [
            'until' => 'Until',
            'question-or-information' => 'Question/Information',
            'promoted' => 'Promote, show special icon and put to the top of the lists',
-           'pin-code' => 'PIN code'
+           'pin-code' => 'PIN code',
+           'keywords' => 'Keywords'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -84,6 +85,7 @@ return [
                'embedded-content' => 'Embed code added into the textarea will be displayed to the player.',
                'photo' => 'Player will be able to submit an existing photo or take one as an answer.',
            ],
+           'keywords' => 'Separate keywords with commas'
        ],
        'buttons' => [
            'create' => 'Create',

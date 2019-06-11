@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('./bootstrap-tagsinput');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

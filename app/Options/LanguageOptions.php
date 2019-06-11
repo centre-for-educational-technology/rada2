@@ -21,9 +21,9 @@ class LanguageOptions extends OptionsBase
         $this->options = [
             'en' => trans('general.languages.en'),
             'et' => trans('general.languages.et'),
-            'ru' => trans('general.languages.ru'),
-            'fi' => trans('general.languages.fi'),
-            'sv' => trans('general.languages.sv'),
+//            'ru' => trans('general.languages.ru'),
+//            'fi' => trans('general.languages.fi'),
+//            'sv' => trans('general.languages.sv'),
         ];
     }
 }
