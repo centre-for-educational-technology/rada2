@@ -59,5 +59,8 @@ return [
     'sentry' => [
         'sdn' => env('SENTRY_SDN', null),
     ],
+    'activity' => [
+        'pin_length' => env('ACTIVITY_PIN_LENGTH', 5)
+    ]
 
 ];
