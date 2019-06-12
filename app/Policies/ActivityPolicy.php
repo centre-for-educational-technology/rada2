@@ -72,6 +72,11 @@ class ActivityPolicy
         return $user->id === $activity->user_id || $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
     }
 
+    public function duplicate(User $user)
+    {
+        return $user->isZooAdmin() || $user->isZooMember();
+    }
+
     /**
      * Determine whether the user can view Activities results list.
      *

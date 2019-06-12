@@ -136,6 +136,7 @@ return [
    ],
    'actions' => [
        'create' => 'Loo',
+       'duplicate' => 'Genereeri duplikaat',
        'edit' => 'Muuda',
        'delete' => 'Kustuta',
        'play' => 'Mängi',

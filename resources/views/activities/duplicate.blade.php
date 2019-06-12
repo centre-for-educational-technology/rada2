@@ -6,6 +6,7 @@
 <script>
     window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
     window.Laravel.canCreateActivityItem = <?php echo json_encode(Auth::user()->can('create', 'App\Activity')); ?>;
+    window.Laravel.hasFeaturedImage = <?php echo json_encode($activity->hasFeaturedImage()); ?>;
 </script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
@@ -13,10 +14,11 @@
 @section('content')
 <div class="container">
     {!! Form::open([
-        'url' => 'activities',
+        'url' => 'activities/' . $activity->id . '/duplicate',
         'files' => true,
-        'class' => 'form-horizontal activity-create',
+        'class' => 'form-horizontal activity-edit',
         'role' => 'form',
+        'method' => 'put',
         'data-unload-protection' => 'true',
     ]) !!}
         @include('includes.readd-pictures-alert', [ 'errors' => $errors, ])
@@ -26,7 +28,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::text('title', null, [
+                    {!! Form::text('title', $activity->title, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>
@@ -45,7 +47,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::textarea('description', null, [
+                    {!! Form::textarea('description', $activity->description, [
                         'class' => 'form-control',
                         'rows' => '3',
                     ]) !!}
@@ -62,7 +64,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                     </span>
-                    {!! Form::number('playing_time', 0, [
+                    {!! Form::number('playing_time', $activity->playing_time, [
                         'class' => 'form-control',
                         'min' => 0,
                     ]) !!}
@@ -89,7 +91,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-translate" aria-hidden="true"></i>
                     </span>
-                    {!! Form::select('language', $languageOptions, null, [
+                    {!! Form::select('language', $languageOptions, $activity->language, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>
@@ -111,7 +113,7 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-contact-mail" aria-hidden="true"></i>
                     </span>
-                    {!! Form::text('contact_information', null, [
+                    {!! Form::text('contact_information', $activity->contact_information, [
                         'class' => 'form-control',
                     ]) !!}
                 </div>
@@ -138,14 +140,23 @@
                         'ref' => 'featuredImage',
                         'accept' => 'image/jpeg, image/png',
                     ]) !!}
+                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" data-container="body" title="{{ trans('general.forms.tooltips.remove-image') }}">
+                        {!! Form::checkbox('remove_featured_image', 1, false, [
+                            'ref' => 'removeFeaturedImage',
+                            'v-bind:disabled' => 'canRemoveFeaturedImage()',
+                        ]) !!}
+                    </span>
                     <span class="input-group-addon">
-                        <a href="#" class="btn btn-warning btn-xs" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
+                        <a href="#" class="btn btn-warning btn-xs" v-on:click="resetFeaturedImage" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
                             <i class="mdi mdi-delete" aria-hidden="true"></i>
                         </a>
                     </span>
                 </div>
 
                 <p class="help-block" data-loading-text="{{ trans('general.forms.alerts.image-loading-text') }}">
+                    @if ($activity->hasFeaturedImage())
+                        <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded pull-left sz-uploaded-image-preview">
+                    @endif
                     {{ trans('general.forms.help.image') }}
                 </p>
 
@@ -166,14 +177,14 @@
                     <span class="input-group-addon">
                         <i class="mdi mdi-radar" aria-hidden="true"></i>
                     </span>
-                    {!! Form::number('proximity_radius', '', [
+                    {!! Form::number('proximity_radius', $activity->proximity_radius, [
                         'class' => 'form-control',
                         'min' => 25,
                         'max' => 100,
                         'ref' => 'proximityRadius',
                     ]) !!}
                     <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" title="{{ trans('pages.activities.create-or-edit.tooltips.proximity-check') }}">
-                        {!! Form::checkbox('proximity_check', 1, true, [
+                        {!! Form::checkbox('proximity_check', 1, $activity->proximity_check, [
                             'ref' => 'proximityCheck',
                         ]) !!}
                     </span>
@@ -207,11 +218,12 @@
             </div>
         </div>
 
-        @can('addPromoted', 'App\Activity')
+        @can('changePromoted', $activity)
         <div class="form-group">
             <div class="checkbox col-md-6 col-md-offset-4">
                 <label>
-                    {!! Form::checkbox('promoted', 1, true) !!}
+                    {!! Form::hidden('promoted', 0) !!}
+                    {!! Form::checkbox('promoted', 1, (bool)$activity->promoted) !!}
                     {{ trans('general.forms.labels.promoted') }}
                 </label>
             </div>
@@ -224,7 +236,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::text('keywords', '', [
+                    {!! Form::text('keywords', $activity->keywords, [
                         'class' => 'form-control',
                         'min' => 0,
                         'data-role' => 'tagsinput'
@@ -248,7 +260,7 @@
                 <div class="alert alert-info hidden submit-loading-text">
                     {{ trans('general.forms.alerts.form-submit-loading-text') }}
                 </div>
-                {!! Form::submit(trans('general.forms.buttons.create'), [
+                {!! Form::submit(trans('general.forms.buttons.save'), [
                     'class' => 'btn btn-primary btn-bypass-unload-protection',
                 ])!!}
                 {!! Html::link(route('activity.index'), trans('general.forms.buttons.cancel'), [
