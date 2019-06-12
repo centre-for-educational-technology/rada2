@@ -236,34 +236,78 @@
                 this.enforceItemsOrder = evt.target.checked;
             },
             onChange: function(evt){
-                let newOrder = evt.moved.newIndex;
-                newOrder ++;
-                if (evt.moved.newIndex > 0 && this.items.length > newOrder) {
-                    let itemBeforeOrder = this.items[newOrder-2].order;
-                    let itemAfterOrder = this.items[newOrder].order;
-                    newOrder = itemBeforeOrder;
+                let newIndex = parseInt(evt.moved.newIndex);
+                let oldIndex = parseInt(evt.moved.oldIndex);
+                let itemsLength = this.items.length;
+                let oldItemBeforeOrder = oldIndex - 1 >= 0 ? this.items[oldIndex - 1].order : 0;
+                let oldItemAfterOrder = oldIndex + 1 < itemsLength ? this.items[oldIndex + 1].order : 0;
+                let itemBeforeOrder = newIndex - 1 >= 0 ? this.items[newIndex - 1].order : 0;
+                let itemAfterOrder = newIndex + 1 < itemsLength ? this.items[newIndex + 1].order : 0;
+
+                if (newIndex > oldIndex) {
+                    for (let i=oldIndex; i<newIndex; i++) {
+                        let currentItemOrder = this.items[i].order;
+                        if ((itemBeforeOrder === itemAfterOrder && itemBeforeOrder === currentItemOrder) ||
+                            (oldItemBeforeOrder === oldItemAfterOrder && oldItemBeforeOrder === currentItemOrder)) {
+                            continue;
+                        }
+                        this.decreaseItemOrder(i);
+                    }
+                } else {
+                    for (let i=newIndex + 1; i<=oldIndex; i++) {
+                        let currentItemOrder = this.items[i].order;
+                        if ((itemBeforeOrder === itemAfterOrder && itemBeforeOrder === currentItemOrder) ||
+                            (oldItemBeforeOrder === oldItemAfterOrder && oldItemBeforeOrder === currentItemOrder)) {
+                            continue;
+                        }
+                        this.increaseItemOrder(i);
+                    }
+                }
+
+                if (newIndex === 0) {
+                    this.changeItemOrder(newIndex, function (item) {
+                        item.order = 1;
+                    });
+                } else if (newIndex > 0 && itemsLength - 1 > newIndex) {
+                    let newOrder = newIndex - 1 >= 0 ? this.items[newIndex - 1].order : 0;
                     if (itemBeforeOrder < itemAfterOrder) {
                         newOrder ++;
                     }
-                } else if (this.items.length === newOrder) {
-                    newOrder = this.items[newOrder-2].order;
-                    newOrder ++;
+                    this.changeItemOrder(newIndex, function (item) {
+                        item.order = newOrder;
+                    });
+                } else {
+                    this.changeItemOrder(newIndex, function (item) {
+                        item.order = itemsLength;
+                    });
                 }
-
-                let newItem = this.items[evt.moved.newIndex];
-                newItem.order = newOrder;
-                this.items.splice(evt.moved.newIndex, 1, newItem);
+            },
+            increaseItemOrder: function (index) {
+                this.changeItemOrder(index, function (item) {
+                    item.order ++;
+                });
+            },
+            decreaseItemOrder: function (index) {
+                this.changeItemOrder(index, function (item) {
+                    item.order --;
+                });
+            },
+            changeItemOrder: function(index, callback) {
+                let newItem = this.items[index];
+                callback(newItem);
+                this.items.splice(index, 1, newItem);
             },
             itemOrderChange: function(evt) {
                 let index = evt.target.attributes['data-item-index'].value;
                 let item = this.items[index];
-                let order = evt.target.value;
+                let order = parseInt(evt.target.value);
                 let newIndex = order;
                 newIndex --;
                 item.order = order;
                 this.items.splice(index, 1);
                 this.items.splice(newIndex, 0, item);
             },
+
             openDialog() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
