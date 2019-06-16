@@ -115,7 +115,9 @@
                                v-bind:name="'order['+item.id+']'"
                                v-bind:value="item.order"
                                v-bind:data-item-index="index"
-                               @change="itemOrderChange" />
+                               @change="itemOrderChange"
+                               class="draggable-order-number"
+                        />
                         <button type="button" class="btn btn-primary btn-sm" v-on:click="showQuestionPreview(item)"><i class="mdi mdi-open-in-app"></i></button>
                         <button type="button" class="btn btn-danger btn-sm" v-on:click="removeItem(item)"><i class="mdi mdi-minus"></i></button>
                     </span>
@@ -236,19 +238,23 @@
                 this.enforceItemsOrder = evt.target.checked;
             },
             onChange: function(evt){
+                let itemsLength = this.items.length;
                 let newIndex = parseInt(evt.moved.newIndex);
                 let oldIndex = parseInt(evt.moved.oldIndex);
-                let itemsLength = this.items.length;
-                let oldItemBeforeOrder = oldIndex - 1 >= 0 ? this.items[oldIndex - 1].order : 0;
-                let oldItemAfterOrder = oldIndex + 1 < itemsLength ? this.items[oldIndex + 1].order : 0;
-                let itemBeforeOrder = newIndex - 1 >= 0 ? this.items[newIndex - 1].order : 0;
-                let itemAfterOrder = newIndex + 1 < itemsLength ? this.items[newIndex + 1].order : 0;
+                let oldItemBeforeIndex = oldIndex < newIndex ? oldIndex - 1 : oldIndex;
+                let oldItemAfterIndex = oldIndex < newIndex ? oldIndex : oldIndex + 1;
+                let newItemBeforeIndex = newIndex - 1;
+                let newItemAfterIndex = newIndex + 1;
+                let oldItemBeforeOrder = oldItemBeforeIndex >= 0 ? this.items[oldItemBeforeIndex].order : 0;
+                let oldItemAfterOrder = oldItemAfterIndex < itemsLength ? this.items[oldItemAfterIndex].order : 0;
+                let newItemBeforeOrder = newItemBeforeIndex >= 0 ? this.items[newItemBeforeIndex].order : 0;
+                let newItemAfterOrder = newItemAfterIndex < itemsLength ? this.items[newItemAfterIndex].order : 0;
 
                 if (newIndex > oldIndex) {
                     for (let i=oldIndex; i<newIndex; i++) {
                         let currentItemOrder = this.items[i].order;
-                        if ((itemBeforeOrder === itemAfterOrder && itemBeforeOrder === currentItemOrder) ||
-                            (oldItemBeforeOrder === oldItemAfterOrder && oldItemBeforeOrder === currentItemOrder)) {
+                        if ((newItemBeforeOrder === newItemAfterOrder && newItemBeforeOrder === currentItemOrder) ||
+                            (oldItemAfterOrder === currentItemOrder)) {
                             continue;
                         }
                         this.decreaseItemOrder(i);
@@ -256,31 +262,27 @@
                 } else {
                     for (let i=newIndex + 1; i<=oldIndex; i++) {
                         let currentItemOrder = this.items[i].order;
-                        if ((itemBeforeOrder === itemAfterOrder && itemBeforeOrder === currentItemOrder) ||
-                            (oldItemBeforeOrder === oldItemAfterOrder && oldItemBeforeOrder === currentItemOrder)) {
+                        if ((newItemBeforeOrder === newItemAfterOrder && newItemBeforeOrder === currentItemOrder)) {
                             continue;
                         }
                         this.increaseItemOrder(i);
                     }
                 }
 
+                let newItemOrder = 0;
                 if (newIndex === 0) {
-                    this.changeItemOrder(newIndex, function (item) {
-                        item.order = 1;
-                    });
+                    newItemOrder = 1;
                 } else if (newIndex > 0 && itemsLength - 1 > newIndex) {
-                    let newOrder = newIndex - 1 >= 0 ? this.items[newIndex - 1].order : 0;
-                    if (itemBeforeOrder < itemAfterOrder) {
-                        newOrder ++;
+                    newItemOrder = newItemBeforeOrder;
+                    if (newItemBeforeOrder < newItemAfterOrder) {
+                        newItemOrder ++;
                     }
-                    this.changeItemOrder(newIndex, function (item) {
-                        item.order = newOrder;
-                    });
                 } else {
-                    this.changeItemOrder(newIndex, function (item) {
-                        item.order = itemsLength;
-                    });
+                    newItemOrder = itemsLength;
                 }
+                this.changeItemOrder(newIndex, function (item) {
+                    item.order = newItemOrder;
+                });
             },
             increaseItemOrder: function (index) {
                 this.changeItemOrder(index, function (item) {
@@ -301,13 +303,27 @@
                 let index = evt.target.attributes['data-item-index'].value;
                 let item = this.items[index];
                 let order = parseInt(evt.target.value);
-                let newIndex = order;
-                newIndex --;
-                item.order = order;
+                if (order > this.items.length) {
+                    order = this.items.length;
+                } else if (order < 1) {
+                    order = 1;
+                }
+                let newIndex = this.findNewIndex(order, index);
                 this.items.splice(index, 1);
+                item.order = order;
                 this.items.splice(newIndex, 0, item);
             },
-
+            findNewIndex: function (newOrder, oldIndex) {
+                let itemsLength = this.items.length;
+                for (let i=0; i<itemsLength; i++) {
+                    let currentItem = this.items[i];
+                    let currentOrder = currentItem.order;
+                    if (currentOrder >= newOrder) {
+                        return oldIndex < i ? i - 1 : i;
+                    }
+                }
+                return itemsLength - 1;
+            },
             openDialog() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
