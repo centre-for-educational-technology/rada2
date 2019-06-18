@@ -112,8 +112,8 @@
                     <span class="pull-right">
                         <input type="number"
                                v-if="enforceItemsOrder"
-                               v-bind:name="'order['+item.id+']'"
-                               v-bind:value="item.order"
+                               v-bind:name="'order['+index+']'"
+                               v-bind:value="item.order || (index+1)"
                                v-bind:data-item-index="index"
                                @change="itemOrderChange"
                                class="draggable-order-number"
@@ -132,8 +132,8 @@
 
         <div class="checkbox">
             <label for="enforce-items-order">
-                <input id="enforce-items-order" type="checkbox" name="enforce_items_order" @click="enforceItemsOrderChange" />
-                Enforce items order
+                <input id="enforce-items-order" type="checkbox" name="enforce_items_order" value="1" v-model="enforceItemsOrder" @click="enforceItemsOrderChange" />
+                {{ $t('enforce_items_order') }}
             </label>
         </div>
     </div>foo 1
@@ -154,9 +154,9 @@
             // TODO Consider moving options definition to the App instance and passing those on to component
             if ( window.Laravel.activityItems ) {
                 this.items = window.Laravel.activityItems;
+                let positions = window.Laravel.activityItemPositions;
                 for (let i in this.items) {
-                    this.items[i].order = i;
-                    this.items[i].order ++;
+                    this.items[i].order = parseInt(positions[i]) || (i+1);
                 }
             }
             if ( window.Laravel.zooOptions ) {
@@ -167,6 +167,9 @@
             }
             if ( window.Laravel.languageOptions ) {
                 this.languageOptions = _.merge(window.Laravel.languageOptions, this.languageOptions);
+            }
+            if (window.Laravel.enforceItemsOrder) {
+                this.enforceItemsOrder = window.Laravel.enforceItemsOrder;
             }
 
             this.$nextTick(() => {
