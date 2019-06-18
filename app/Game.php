@@ -119,10 +119,16 @@ class Game extends Model
             'proximity_check' => (bool)$activity->proximity_check,
             'proximity_radius' => $activity->proximity_radius ? $activity->proximity_radius : (int)config('services.maps.allowed_distance'),
             'questions' => [],
+            'enforce_items_order' => (int) $activity->enforce_items_order > 0 ? 1 : 0
         ];
 
         if ( $activity->activityItems ) {
+            $position = 1;
             foreach( $activity->activityItems as $item ) {
+                if ( $item->pivot ) {
+                    $position = $item->pivot->getAttribute('position');
+                }
+
                 $tmp = [
                     'id' => $item->id,
                     'title' => $item->title,
@@ -137,6 +143,7 @@ class Game extends Model
                     'read_more' => $item->read_more,
                     'options' => [],
                     'pairs' => [],
+                    'position' => $position
                 ];
 
                 if ( $item->options ) {
@@ -163,6 +170,8 @@ class Game extends Model
                 }
 
                 $data['activity']['questions'][] = $tmp;
+
+                $position ++;
             }
         }
 

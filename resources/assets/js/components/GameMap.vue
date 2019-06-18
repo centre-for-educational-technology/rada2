@@ -462,6 +462,9 @@
             getProximityRadius() {
                 return this.game.activity.proximity_radius || 25;
             },
+            getEnforceItemsOrder() {
+                return parseInt(this.game.activity.enforce_items_order) || 0;
+            },
             openQuestionModal(question, answer) {
                 this.question = question;
                 this.answer = answer ? answer : null;
@@ -530,9 +533,13 @@
 
                 return _.size(answered);
             },
+            getUnansweredMarkers() {
+                let vm = this;
+                return _.filter(this.mapData.markers, marker => { return !vm.isAnswered(marker.questionId); });
+            },
             getClosestUnansweredMarker() {
-                var vm = this,
-                    unansweredMarkers = _.filter(this.mapData.markers, marker => { return !vm.isAnswered(marker.questionId); }),
+                let vm = this,
+                    unansweredMarkers = vm.getUnansweredMarkers(),
                     playerMarker = this.mapData.playerMarker;
 
                 if ( unansweredMarkers.length > 0 ) {
@@ -543,9 +550,30 @@
 
                 return null;
             },
+            getNextUnansweredMarker() {
+                let vm = this,
+                    unansweredMarkers = vm.getUnansweredMarkers();
+
+                if ( unansweredMarkers.length > 0 ) {
+                    return _.minBy(unansweredMarkers, marker => {
+                        let question = vm.findQuestionById(marker.questionId);
+                        if (question) {
+                            return parseInt(question.position);
+                        }
+                        return 10000;
+                    });
+                }
+
+                return null;
+            },
             initUpdateClosestUnansweredMarkerArrow() {
-                var vm = this,
+                let vm = this;
+                let marker = null;
+                if(vm.getEnforceItemsOrder() > 0) {
+                    marker = vm.getNextUnansweredMarker();
+                } else {
                     marker = vm.getClosestUnansweredMarker();
+                }
 
                 if ( !marker ) {
                     if ( vm.mapData.closestUnansweredMarkerArrow ) {
