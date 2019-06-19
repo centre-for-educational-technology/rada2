@@ -22,6 +22,6 @@
   "dependencies": {
     "hammerjs": "^2.0.8",
     "moment": "^2.19.0",
-    "raven-js": "^3.15.0"
+    "raven-js": "^3.27.2"
   }
 }
