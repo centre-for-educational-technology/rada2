@@ -670,6 +670,12 @@ class ActivityController extends Controller
             $activity->promoted = (bool)$request->promoted;
         }
 
+        if ($request->has('enforce_items_order')) {
+            $activity->enforce_items_order = (int) $request->enforce_items_order;
+        } else {
+            $activity->enforce_items_order = 0;
+        }
+
         $activity->save();
 
         if ( $request->hasFile('featured_image') )
