@@ -73,7 +73,8 @@ return [
            'question-or-information' => 'Question/Information',
            'promoted' => 'Promote, show special icon and put to the top of the lists',
            'pin-code' => 'PIN code',
-           'keywords' => 'Keywords'
+           'keywords' => 'Keywords',
+           'enforce_items_order' => 'Enforce items order'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',

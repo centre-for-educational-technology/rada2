@@ -250,6 +250,31 @@
                                 return;
                             }
 
+                            if (_this.getEnforceItemsOrder() > 0) {
+                                let nextMarkers = _this.getNextUnansweredMarkers();
+                                if (nextMarkers.length > 0) {
+                                    let found = false;
+                                    for (let nextMarkerIndex in nextMarkers) {
+                                        let nextMarker = nextMarkers[nextMarkerIndex];
+                                        if (marker.questionId === nextMarker.questionId) {
+                                            found = true;
+                                            break;
+                                        }
+                                    }
+                                    if (found === false) {
+                                        _this.closeInfoWindow();
+                                        infoWindow.setContent(marker.title);
+                                        infoWindow.open(map, marker);
+                                        return ;
+                                    }
+                                } else {
+                                    _this.closeInfoWindow();
+                                    infoWindow.setContent(marker.title);
+                                    infoWindow.open(map, marker);
+                                    return ;
+                                }
+                            }
+
                             if ( _this.hasProximityCheck() ) {
                                 var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
 
@@ -462,6 +487,9 @@
             getProximityRadius() {
                 return this.game.activity.proximity_radius || 25;
             },
+            getEnforceItemsOrder() {
+                return parseInt(this.game.activity.enforce_items_order) || 0;
+            },
             openQuestionModal(question, answer) {
                 this.question = question;
                 this.answer = answer ? answer : null;
@@ -479,27 +507,44 @@
             detectMarkerIconState(marker) {
                 // TODO Check if we should fail in case question could not be found
                 const question = this.findQuestionById(marker.questionId);
+                const distance = google.maps.geometry.spherical.computeDistanceBetween(
+                    this.mapData.playerMarker.getPosition(),
+                    marker.getPosition()
+                );
 
                 if ( this.isAnswered(question.id) ) {
                     return this.isCorrect(question.id) ? 'correct' : 'incorrect';
-                } else if ( this.hasProximityCheck() ) {
-                    const distance = google.maps.geometry.spherical.computeDistanceBetween(this.mapData.playerMarker.getPosition(), marker.getPosition());
-
-                    if ( distance > this.getProximityRadius() ) {
+                } else if (this.getEnforceItemsOrder() > 0) {
+                    let nextMarkers = this.getNextUnansweredMarkers();
+                    if (nextMarkers.length > 0) {
+                        for (let nextMarkerIndex in nextMarkers) {
+                            let nextMarker = nextMarkers[nextMarkerIndex];
+                            if (marker.questionId === nextMarker.questionId) {
+                                return 'active';
+                            }
+                        }
+                        return 'inactive';
+                    } else {
                         return 'inactive';
                     }
+                } else if ( this.hasProximityCheck() && distance > this.getProximityRadius()) {
+                    return 'inactive';
                 }
 
                 return 'active';
             },
             detectAndSetMarkerIcon(marker) {
                 const state = this.detectMarkerIconState(marker);
+                let hasAccessCode = marker.hasAccessCode;
+                if (this.getEnforceItemsOrder() > 0) {
+                    hasAccessCode = false;
+                }
 
                 marker.setIcon({
                     anchor: this.mapData.iconAnchor,
                     size: this.mapData.iconSize,
                     scaledSize: this.mapData.iconScaledSize,
-                    url: this.getIconUrl(state, marker.questionType, marker.hasAccessCode)
+                    url: this.getIconUrl(state, marker.questionType, hasAccessCode)
                 });
             },
             getMarkerBounds() {
@@ -530,9 +575,13 @@
 
                 return _.size(answered);
             },
+            getUnansweredMarkers() {
+                let vm = this;
+                return _.filter(this.mapData.markers, marker => { return !vm.isAnswered(marker.questionId); });
+            },
             getClosestUnansweredMarker() {
-                var vm = this,
-                    unansweredMarkers = _.filter(this.mapData.markers, marker => { return !vm.isAnswered(marker.questionId); }),
+                let vm = this,
+                    unansweredMarkers = vm.getUnansweredMarkers(),
                     playerMarker = this.mapData.playerMarker;
 
                 if ( unansweredMarkers.length > 0 ) {
@@ -543,9 +592,57 @@
 
                 return null;
             },
+            getNextUnansweredMarker() {
+                let vm = this,
+                    unansweredMarkers = vm.getUnansweredMarkers(),
+                    playerMarker = this.mapData.playerMarker;
+
+                if ( unansweredMarkers.length > 0 ) {
+                    return _.minBy(unansweredMarkers, marker => {
+                        let question = vm.findQuestionById(marker.questionId);
+                        if (question) {
+                            let position = parseInt(question.position);
+                            let distance = google.maps.geometry.spherical.computeDistanceBetween(
+                                playerMarker.getPosition(),
+                                marker.getPosition()
+                            );
+                            return parseFloat(position + '.' + distance);
+                        }
+                        return 10000;
+                    });
+                }
+
+                return null;
+            },
+            getNextUnansweredMarkers() {
+                let vm = this,
+                    unansweredMarkers = vm.getUnansweredMarkers(),
+                    markers = [];
+                if ( unansweredMarkers.length > 0 ) {
+                    let nextMarker = this.getNextUnansweredMarker();
+                    if (nextMarker && nextMarker.questionId) {
+                        let nextQuestionId = nextMarker.questionId;
+                        let nextQuestion = this.findQuestionById(nextQuestionId);
+                        let nextPosition = nextQuestion.position;
+                        _.each(unansweredMarkers, marker => {
+                            let question = vm.findQuestionById(marker.questionId);
+                            if (question && question.position === nextPosition) {
+                                markers.push(marker);
+                            }
+                        });
+                    }
+                }
+
+                return markers;
+            },
             initUpdateClosestUnansweredMarkerArrow() {
-                var vm = this,
+                let vm = this;
+                let marker = null;
+                if(vm.getEnforceItemsOrder() > 0) {
+                    marker = vm.getNextUnansweredMarker();
+                } else {
                     marker = vm.getClosestUnansweredMarker();
+                }
 
                 if ( !marker ) {
                     if ( vm.mapData.closestUnansweredMarkerArrow ) {

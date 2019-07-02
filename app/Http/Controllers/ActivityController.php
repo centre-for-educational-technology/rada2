@@ -254,6 +254,13 @@ class ActivityController extends Controller
     {
         $this->authorize('update', $activity);
 
+        $itemPositions = [];
+        /** @var ActivityItem $activityItem */
+        foreach ($activity->activityItems as $activityItem) {
+            $relations = $activityItem->pivot;
+            $itemPositions[] = $relations->getAttribute('position');
+        }
+
         return view('activities/edit')->with([
             'activity' => $activity,
             'zooOptions' => $zooOptions->options(),
@@ -261,6 +268,7 @@ class ActivityController extends Controller
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
+            'activity_item_positions' => $itemPositions,
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(false),
         ]);
     }
@@ -344,12 +352,19 @@ class ActivityController extends Controller
             $activity->promoted = (bool)$request->promoted;
         }
 
+        if ($request->has('enforce_items_order')) {
+            $activity->enforce_items_order = (int) $request->enforce_items_order;
+        } else {
+            $activity->enforce_items_order = 0;
+        }
+
         $activity->save();
 
-        if ( $request->has('activity_items') ) {
+        if ( ( $request->has('activity_items') && $request->has('order') ) ||
+            ( $request->has('activity_items') && !$request->has('enforce_items_order') ) ) {
             $items = [];
             foreach( $request->activity_items as $index => $item ) {
-                $items[$item] = [ 'position' => $index + 1 ];
+                $items[$item] = [ 'position' => $request->order[$index] ?? ($index + 1) ];
 
             }
 

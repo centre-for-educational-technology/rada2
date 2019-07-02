@@ -73,7 +73,8 @@ return [
            'question-or-information' => 'Küsimus/informatsioon',
            'promoted' => 'Tõsta esile, kuvatakse spetsiaalset ikooni mängu juures ning liiguta nimekirjas ettepoole',
            'pin-code' => 'PIN kood',
-           'keywords' => 'Märksõnad'
+           'keywords' => 'Märksõnad',
+           'enforce_items_order' => 'Rakendage üksuste järjekord'
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',

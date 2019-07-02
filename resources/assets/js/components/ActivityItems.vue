@@ -105,11 +105,19 @@
             <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
         </button>
         <ul class="list-group sz-sortable-list">
-            <draggable :list="items" :options="options">
-                <li class="list-group-item" v-for="item in items" v-bind:title="item.description">
+            <draggable :list="items" :options="options" @change="onChange">
+                <li class="list-group-item" v-for="(item, index) in items" v-bind:title="item.description">
                     <input type="hidden" class="form-control" name="activity_items[]" v-bind:value="item.id">
                     <i class="mdi mdi-drag-vertical"></i>
                     <span class="pull-right">
+                        <input type="number"
+                               v-if="enforceItemsOrder"
+                               v-bind:name="'order['+index+']'"
+                               v-bind:value="item.order || (index+1)"
+                               v-bind:data-item-index="index"
+                               @change="itemOrderChange"
+                               class="draggable-order-number"
+                        />
                         <button type="button" class="btn btn-primary btn-sm" v-on:click="showQuestionPreview(item)"><i class="mdi mdi-open-in-app"></i></button>
                         <button type="button" class="btn btn-danger btn-sm" v-on:click="removeItem(item)"><i class="mdi mdi-minus"></i></button>
                     </span>
@@ -121,7 +129,14 @@
                 </li>
             </draggable>
         </ul>
-    </div>
+
+        <div class="checkbox">
+            <label for="enforce-items-order">
+                <input id="enforce-items-order" type="checkbox" name="enforce_items_order" value="1" v-model="enforceItemsOrder" @click="enforceItemsOrderChange" />
+                {{ $t('enforce_items_order') }}
+            </label>
+        </div>
+    </div>foo 1
 </template>
 
 <script>
@@ -139,6 +154,10 @@
             // TODO Consider moving options definition to the App instance and passing those on to component
             if ( window.Laravel.activityItems ) {
                 this.items = window.Laravel.activityItems;
+                let positions = window.Laravel.activityItemPositions;
+                for (let i in this.items) {
+                    this.items[i].order = parseInt(positions[i]) || (i+1);
+                }
             }
             if ( window.Laravel.zooOptions ) {
                 this.zooOptions = _.merge(window.Laravel.zooOptions, this.zooOptions);
@@ -148,6 +167,9 @@
             }
             if ( window.Laravel.languageOptions ) {
                 this.languageOptions = _.merge(window.Laravel.languageOptions, this.languageOptions);
+            }
+            if (window.Laravel.enforceItemsOrder) {
+                this.enforceItemsOrder = window.Laravel.enforceItemsOrder;
             }
 
             this.$nextTick(() => {
@@ -201,7 +223,8 @@
                     language: '0'
                 },
                 fakeGameId: 0,
-                previewItem: null
+                previewItem: null,
+                enforceItemsOrder: false
             };
         },
         computed: {
@@ -214,6 +237,160 @@
             }
         },
         methods: {
+            enforceItemsOrderChange: function (evt) {
+                this.enforceItemsOrder = evt.target.checked;
+            },
+            getNewOrder: function(newIndex, oldIndex, oldItemBeforeIndex, oldItemAfterIndex, newItemBeforeIndex, newItemAfterIndex, oldOrder, oldItemBeforeOrder, oldItemAfterOrder, newItemBeforeOrder, newItemAfterOrder) {
+                let newOrder = newItemBeforeOrder + 1;
+
+                if (oldOrder < newItemBeforeOrder && newItemBeforeOrder === newItemAfterOrder && (oldOrder === oldItemAfterOrder || oldOrder === oldItemBeforeOrder)) {
+                    newOrder = newItemBeforeOrder;
+                } else if (oldOrder < newItemBeforeOrder && newItemBeforeOrder === newItemAfterOrder) {
+                    newOrder = newItemBeforeOrder;
+                } else if (oldOrder === newItemBeforeOrder && newItemBeforeOrder === newItemAfterOrder) {
+                    newOrder = newItemBeforeOrder;
+                } else if (oldOrder > newItemAfterOrder && newItemBeforeOrder === newItemAfterOrder) {
+                    newOrder = newItemBeforeOrder;
+                } else if (oldOrder < newItemBeforeOrder && oldOrder !== oldItemAfterOrder) {
+                    newOrder = newItemBeforeOrder;
+                } else if (oldOrder > newItemAfterOrder && newItemBeforeOrder < 0) {
+                    newOrder = 1;
+                }
+                return newOrder;
+
+            },
+            changeOtherItemsOrder: function (newOrder, oldOrder, newIndex, oldIndex, oldItemBeforeIndex, oldItemAfterIndex, newItemBeforeIndex, newItemAfterIndex, oldItemBeforeOrder, oldItemAfterOrder, newItemBeforeOrder, newItemAfterOrder) {
+                const itemsLength = this.items.length;
+
+                if (oldOrder === newItemBeforeOrder && oldOrder === newOrder) {
+                    // do nothing
+                } else if (newItemBeforeOrder === newItemAfterOrder && (oldOrder === oldItemAfterOrder || oldOrder === oldItemBeforeOrder)) {
+                    // do nothing
+                } else if (oldIndex < newIndex) {
+                    if (newOrder === newItemBeforeOrder && newOrder === newItemAfterOrder) {
+                        for (let i=oldIndex; i<itemsLength; i++) {
+                            this.decreaseItemOrder(i);
+                        }
+                    } else if (oldOrder === oldItemBeforeOrder && oldOrder === oldItemAfterOrder && oldOrder < newOrder) {
+                        for (let i=(newIndex+1); i<itemsLength; i++) {
+                            if (this.getItemOrder(i) === newOrder) {
+                                continue;
+                            }
+                            this.increaseItemOrder(i);
+                        }
+                    } else if (oldOrder > oldItemBeforeOrder && oldOrder < oldItemAfterOrder && newOrder === newItemBeforeOrder) {
+                        for (let i=oldItemAfterIndex; i<newIndex; i++) {
+                            this.decreaseItemOrder(i);
+                        }
+                    }
+                } else {
+                    if (newItemBeforeOrder === newItemAfterOrder) {
+                        for (let i=oldItemAfterIndex; i<itemsLength; i++) {
+                            let currentItemOrder = this.getItemOrder(i);
+                            if (currentItemOrder === newItemAfterOrder || currentItemOrder === oldItemBeforeOrder) {
+                                continue;
+                            }
+                            this.decreaseItemOrder(i);
+                        }
+                    } else if (oldOrder === oldItemAfterOrder) {
+                        for (let i=(newIndex+1); i<itemsLength; i++) {
+                            this.increaseItemOrder(i);
+                        }
+                    } else {
+                        for (let i=(newIndex+1); i<=oldIndex; i++) {
+                            this.increaseItemOrder(i);
+                        }
+                    }
+                }
+            },
+            onChange: function(evt){
+                let itemsLength = this.items.length;
+                let newIndex = parseInt(evt.moved.newIndex);
+                let oldIndex = parseInt(evt.moved.oldIndex);
+                let oldItemBeforeIndex = oldIndex < newIndex ? oldIndex - 1 : oldIndex;
+                let oldItemAfterIndex = oldIndex < newIndex ? oldIndex : oldIndex + 1;
+                let newItemBeforeIndex = newIndex === 0 ? false : newIndex - 1;
+                let newItemAfterIndex = newIndex + 1 === itemsLength ? false : newIndex + 1;
+                let oldOrder = this.items[newIndex].order;
+                let oldItemBeforeOrder = oldItemBeforeIndex >= 0 ? this.items[oldItemBeforeIndex].order : -1;
+                let oldItemAfterOrder = oldItemAfterIndex < itemsLength ? this.items[oldItemAfterIndex].order : 999999;
+                let newItemBeforeOrder = newItemBeforeIndex !== false ? this.items[newItemBeforeIndex].order : -1;
+                let newItemAfterOrder = newItemAfterIndex !== false ? this.items[newItemAfterIndex].order : 999999;
+
+                let newOrder = this.getNewOrder(newIndex, oldIndex, oldItemBeforeIndex, oldItemAfterIndex, newItemBeforeIndex, newItemAfterIndex, oldOrder, oldItemBeforeOrder, oldItemAfterOrder, newItemBeforeOrder, newItemAfterOrder);
+                this.changeItemOrder(newIndex, function (item) {
+                    item.order = newOrder;
+                });
+                this.changeOtherItemsOrder(newOrder, oldOrder, newIndex, oldIndex, oldItemBeforeIndex, oldItemAfterIndex, newItemBeforeIndex, newItemAfterIndex, oldItemBeforeOrder, oldItemAfterOrder, newItemBeforeOrder, newItemAfterOrder);
+            },
+            itemOrderChange: function(evt) {
+                const itemsLength = this.items.length;
+                let index = parseInt(evt.target.attributes['data-item-index'].value);
+                let item = this.items[index];
+                let oldOrder = item.order;
+                let oldItemBeforeOrder = this.getItemOrder(index - 1);
+                let oldItemAfterOrder = this.getItemOrder(index + 1)
+                let order = parseInt(evt.target.value);
+                if (order < 1) {
+                    order = 1;
+                }
+                let newIndex = this.findNewIndex(order, index);
+                this.items.splice(index, 1);
+                item.order = order;
+                this.items.splice(newIndex, 0, item);
+
+                if (order < oldOrder && oldOrder !== oldItemBeforeOrder && oldOrder !== oldItemAfterOrder) {
+                    for (let i=(index+1); i<itemsLength; i++) {
+                        this.decreaseItemOrder(i);
+                    }
+                } else if (order > oldOrder) {
+                    let orderBefore = this.getItemOrder(index-1);
+                    let firstOrder = this.getItemOrder(index);
+                    if (firstOrder - 1 !== orderBefore) {
+                        for (let i = index; i < itemsLength; i++) {
+                            let currentOrder = this.getItemOrder(i);
+                            if (currentOrder === orderBefore) {
+                                break;
+                            }
+                            this.decreaseItemOrder(i);
+                        }
+                    }
+                }
+            },
+            increaseItemOrder: function (index) {
+                console.log('increase');
+                this.changeItemOrder(index, function (item) {
+                    item.order ++;
+                });
+            },
+            decreaseItemOrder: function (index) {
+                this.changeItemOrder(index, function (item) {
+                    item.order --;
+                });
+            },
+            getItemOrder: function(index) {
+                if (index < this.items.length && index >= 0) {
+                    return this.items[index].order;
+                }
+
+                return 0;
+            },
+            changeItemOrder: function(index, callback) {
+                let newItem = this.items[index];
+                callback(newItem);
+                this.items.splice(index, 1, newItem);
+            },
+            findNewIndex: function (newOrder, oldIndex) {
+                let itemsLength = this.items.length;
+                for (let i=0; i<itemsLength; i++) {
+                    let currentItem = this.items[i];
+                    let currentOrder = currentItem.order;
+                    if (currentOrder >= newOrder) {
+                        return oldIndex < i ? i - 1 : i;
+                    }
+                }
+                return itemsLength - 1;
+            },
             openDialog() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
