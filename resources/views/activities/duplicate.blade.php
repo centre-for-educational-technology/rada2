@@ -7,6 +7,8 @@
     window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
     window.Laravel.canCreateActivityItem = <?php echo json_encode(Auth::user()->can('create', 'App\Activity')); ?>;
     window.Laravel.hasFeaturedImage = <?php echo json_encode($activity->hasFeaturedImage()); ?>;
+    window.Laravel.enforceItemsOrder = <?php echo $activity->enforce_items_order; ?>;
+    window.Laravel.subjects = <?php echo json_encode(array_values($subjectOptions)); ?>;
 </script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
@@ -250,6 +252,41 @@
                 @if ($errors->has('keywords'))
                     <span class="help-block">
                                 <strong>{{ $errors->first('keywords') }}</strong>
+                            </span>
+                @endif
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
+            {!! Form::label('subject', trans('general.forms.labels.subject'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12" id="subject">
+                    <autocomplete name="subject" default-value="{{ $activity->subject  }}" :search="subjectSearch" base-class="form-control autocomplete"></autocomplete>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group{{ $errors->has('age_of_participants') ? ' has-error' : '' }}">
+            {!! Form::label('age_of_participants', trans('general.forms.labels.age_of_participants'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                            <span class="input-group-addon">
+                                <i class="mdi mdi-cake" aria-hidden="true"></i>
+                            </span>
+                    {!! Form::select('age_of_participants', $ageOfParticipantsOptions, $activity->getAgeOfParticipants(), [
+                        'class' => 'form-control',
+                        'multiple'=>'multiple',
+                        'name' => 'age_of_participants[]'
+                    ]) !!}
+                </div>
+
+                @if ($errors->has('age_of_participants'))
+                    <span class="help-block">
+                                <strong>{{ $errors->first('age_of_participants') }}</strong>
                             </span>
                 @endif
             </div>

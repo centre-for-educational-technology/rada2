@@ -3,7 +3,10 @@ Vue.use(VueI18n);
 Vue.config.lang = window.Laravel.locale;
 Vue.locale(window.Laravel.locale, _.cloneDeep(window.Laravel.translations));
 
+import Autocomplete from '@trevoreyre/autocomplete-vue'
+
 Vue.component('activity-items', require('./components/ActivityItems.vue'));
+Vue.component('autocomplete', Autocomplete);
 
 const activityApp = new Vue({
     el: 'form.activity-create,form.activity-edit',
@@ -15,6 +18,10 @@ const activityApp = new Vue({
         vm.canCreateActivityItem = window.Laravel.canCreateActivityItem;
         if ( window.Laravel.hasFeaturedImage ) {
             vm.hasFeaturedImage = true;
+        }
+
+        if (window.Laravel.subjects) {
+            vm.subjects = window.Laravel.subjects;
         }
 
         $(vm.$refs.proximityCheck).on('change', (e) => {
@@ -38,10 +45,18 @@ const activityApp = new Vue({
             apiUrl: '/api',
             canCreateActivityItem: false,
             canResetFeaturedImage: false,
-            hasFeaturedImage: false
+            hasFeaturedImage: false,
+            subjects: []
         };
     },
     methods: {
+        subjectSearch (input) {
+            if (input.length < 1) { return [] }
+            return this.subjects.filter(subject => {
+                return subject.toLowerCase()
+                    .startsWith(input.toLowerCase())
+            })
+        },
         resetFeaturedImage(e) {
             e.preventDefault();
 

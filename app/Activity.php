@@ -237,4 +237,14 @@ class Activity extends Model
     {
         return explode(',', $this->keywords);
     }
+
+    public function getAgeOfParticipants()
+    {
+        $list = json_decode($this->age_of_participants, true);
+        if (is_array($list)){
+            return $list;
+        }
+
+        return [];
+    }
 }

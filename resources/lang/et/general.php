@@ -74,7 +74,9 @@ return [
            'promoted' => 'Tõsta esile, kuvatakse spetsiaalset ikooni mängu juures ning liiguta nimekirjas ettepoole',
            'pin-code' => 'PIN kood',
            'keywords' => 'Märksõnad',
-           'enforce_items_order' => 'Rakendage üksuste järjekord'
+           'enforce_items_order' => 'Rakendage üksuste järjekord',
+           'subject' => 'Teema',
+           'age_of_participants' => 'Osalejate vanus'
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
@@ -191,4 +193,28 @@ return [
            'account-email-verified' => 'Sinu konto on edukalt verifitseeritud. Sa võid nüüd sisse logida.',
        ],
    ],
+    'activity' => [
+        'subject' => [
+            'arts' => 'Kunst',
+            'biology' => 'Bioloogia',
+            'Cchemistry' => 'Keemia',
+            'crafts' => 'Käsitöö',
+            'english' => 'Inglise keel',
+            'ethics' => 'Eetika',
+            'estonian' => 'Eesti keel',
+            'french' => 'Prantsuse keel',
+            'geography' => 'Geograafia',
+            'german' => 'Saksa keel',
+            'health_education' => 'Terviseharidus',
+            'higher_education_studies' => 'Kõrghariduse uuringud',
+            'history' => 'Ajalugu',
+            'maths' => 'Matemaatika',
+            'matural_sciences' => 'Loodusteadused',
+            'other' => 'Muu',
+            'philosophy' => 'Filosoofia',
+            'physics' => 'Füüsika',
+            'psychology' => 'Psühholoogia',
+            'spanish' => 'Hispaania keel'
+        ]
+    ]
 ];

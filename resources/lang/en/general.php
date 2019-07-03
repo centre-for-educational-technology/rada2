@@ -74,7 +74,9 @@ return [
            'promoted' => 'Promote, show special icon and put to the top of the lists',
            'pin-code' => 'PIN code',
            'keywords' => 'Keywords',
-           'enforce_items_order' => 'Enforce items order'
+           'enforce_items_order' => 'Enforce items order',
+           'subject' => 'Subject',
+           'age_of_participants' => 'Age of participants'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -191,4 +193,28 @@ return [
            'account-email-verified' => 'Your account has been successfully verified. You can now log in.',
        ],
    ],
+    'activity' => [
+        'subject' => [
+            'arts' => 'Arts',
+            'biology' => 'Biology',
+            'Cchemistry' => 'Chemistry',
+            'crafts' => 'Crafts',
+            'english' => 'English',
+            'ethics' => 'Ethics',
+            'estonian' => 'Estonian',
+            'french' => 'French',
+            'geography' => 'Geography',
+            'german' => 'German',
+            'health_education' => 'Health-education',
+            'higher_education_studies' => 'Higher education studies',
+            'history' => 'History',
+            'maths' => 'Maths',
+            'matural_sciences' => 'Natural sciences',
+            'other' => 'Other',
+            'philosophy' => 'Philosophy',
+            'physics' => 'Physics',
+            'psychology' => 'Psychology',
+            'spanish' => 'Spanish'
+        ]
+    ]
 ];
