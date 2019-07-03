@@ -268,6 +268,30 @@
             </div>
         </div>
 
+        <div class="form-group{{ $errors->has('age_of_participants') ? ' has-error' : '' }}">
+            {!! Form::label('age_of_participants', trans('general.forms.labels.age_of_participants'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                        <span class="input-group-addon">
+                            <i class="mdi mdi-cake" aria-hidden="true"></i>
+                        </span>
+                    {!! Form::select('age_of_participants', $ageOfParticipantsOptions, $activity->getAgeOfParticipants(), [
+                        'class' => 'form-control',
+                        'multiple'=>'multiple',
+                        'name' => 'age_of_participants[]'
+                    ]) !!}
+                </div>
+
+                @if ($errors->has('age_of_participants'))
+                    <span class="help-block">
+                            <strong>{{ $errors->first('age_of_participants') }}</strong>
+                        </span>
+                @endif
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <div class="alert alert-info hidden submit-loading-text">

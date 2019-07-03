@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Options\AgeOfParticipantsOptions;
 use App\Utils\RandomStringGenerator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -200,10 +201,22 @@ class ActivityController extends Controller
     /**
      * Show the form for creating a new activity.
      *
+     * @param ZooOptions               $zooOptions
+     * @param LanguageOptions          $languageOptions
+     * @param QuestionTypeOptions      $questionTypeOptions
+     * @param DifficultyLevelOptions   $difficultyLevelOptions
+     * @param AgeOfParticipantsOptions $ageOfParticipantsOptions
+     *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function create(ZooOptions $zooOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
-    {
+    public function create(
+        ZooOptions $zooOptions,
+        LanguageOptions $languageOptions,
+        QuestionTypeOptions $questionTypeOptions,
+        DifficultyLevelOptions $difficultyLevelOptions,
+        AgeOfParticipantsOptions $ageOfParticipantsOptions
+    ) {
         $this->authorize('create', Activity::class);
 
         return view('activities/create')->with([
@@ -213,6 +226,7 @@ class ActivityController extends Controller
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : [],
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(true),
+            'ageOfParticipantsOptions' => $ageOfParticipantsOptions->options()
         ]);
     }
 
@@ -248,10 +262,24 @@ class ActivityController extends Controller
      * Show the form for editing the specified activity.
      *
      * @param \App\Activity
+     * @param ZooOptions               $zooOptions
+     * @param LanguageOptions          $languageOptions
+     * @param QuestionTypeOptions      $questionTypeOptions
+     * @param DifficultyLevelOptions   $difficultyLevelOptions
+     *
+     * @param AgeOfParticipantsOptions $ageOfParticipantsOptions
+     *
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Auth\Access\AuthorizationException
      */
-    public function edit(Activity $activity, ZooOptions $zooOptions, LanguageOptions $languageOptions, QuestionTypeOptions $questionTypeOptions, DifficultyLevelOptions $difficultyLevelOptions)
-    {
+    public function edit(
+        Activity $activity,
+        ZooOptions $zooOptions,
+        LanguageOptions $languageOptions,
+        QuestionTypeOptions $questionTypeOptions,
+        DifficultyLevelOptions $difficultyLevelOptions,
+        AgeOfParticipantsOptions $ageOfParticipantsOptions
+    ) {
         $this->authorize('update', $activity);
 
         $itemPositions = [];
@@ -270,6 +298,7 @@ class ActivityController extends Controller
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
             'activity_item_positions' => $itemPositions,
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(false),
+            'ageOfParticipantsOptions' => $ageOfParticipantsOptions->options()
         ]);
     }
 
@@ -291,6 +320,7 @@ class ActivityController extends Controller
         $activity->contact_information = $request->contact_information;
         $activity->keywords = $request->keywords;
         $activity->subject = $request->subject ? $request->subject : '';
+        $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
         
         if ( $request->hasFile('featured_image') ) {
             if ( $activity->hasFeaturedImage() )
@@ -580,11 +610,13 @@ class ActivityController extends Controller
     }
 
     /**
-     * @param Activity $activity
-     * @param ZooOptions $zooOptions
-     * @param LanguageOptions $languageOptions
-     * @param QuestionTypeOptions $questionTypeOptions
-     * @param DifficultyLevelOptions $difficultyLevelOptions
+     * @param Activity                 $activity
+     * @param ZooOptions               $zooOptions
+     * @param LanguageOptions          $languageOptions
+     * @param QuestionTypeOptions      $questionTypeOptions
+     * @param DifficultyLevelOptions   $difficultyLevelOptions
+     * @param AgeOfParticipantsOptions $ageOfParticipantsOptions
+     *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
@@ -593,7 +625,8 @@ class ActivityController extends Controller
         ZooOptions $zooOptions,
         LanguageOptions $languageOptions,
         QuestionTypeOptions $questionTypeOptions,
-        DifficultyLevelOptions $difficultyLevelOptions
+        DifficultyLevelOptions $difficultyLevelOptions,
+        AgeOfParticipantsOptions $ageOfParticipantsOptions
     ) {
         $this->authorize('duplicate', Activity::class);
 
@@ -606,6 +639,7 @@ class ActivityController extends Controller
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(false),
+            'ageOfParticipantsOptions' => $ageOfParticipantsOptions->options()
         ]);
     }
 
@@ -640,6 +674,7 @@ class ActivityController extends Controller
         $activity->pin = $randomStringGenerator->generate(config('services.activity.pin_length'));
         $activity->keywords = $request->keywords ? $request->keywords : '';
         $activity->subject = $request->subject ? $request->subject : '';
+        $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
 
         if ( $request->has('proximity_check') )
         {

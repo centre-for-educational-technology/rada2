@@ -75,7 +75,8 @@ return [
            'pin-code' => 'PIN kood',
            'keywords' => 'Märksõnad',
            'enforce_items_order' => 'Rakendage üksuste järjekord',
-           'subject' => 'Teema'
+           'subject' => 'Teema',
+           'age_of_participants' => 'Osalejate vanus'
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
