@@ -75,7 +75,8 @@ return [
            'pin-code' => 'PIN code',
            'keywords' => 'Keywords',
            'enforce_items_order' => 'Enforce items order',
-           'subject' => 'Subject'
+           'subject' => 'Subject',
+           'age_of_participants' => 'Age of participants'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
