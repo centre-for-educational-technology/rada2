@@ -74,7 +74,8 @@ return [
            'promoted' => 'Promote, show special icon and put to the top of the lists',
            'pin-code' => 'PIN code',
            'keywords' => 'Keywords',
-           'enforce_items_order' => 'Enforce items order'
+           'enforce_items_order' => 'Enforce items order',
+           'subject' => 'Subject'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
