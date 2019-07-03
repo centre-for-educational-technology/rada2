@@ -43,6 +43,10 @@
                     @foreach ($activity->getKeywordsAsArray() as $keyword)
                     <span class="label-info label">{{ $keyword }}</span>
                     @endforeach
+                    <h3>{{ trans('general.forms.labels.subject') }}</h3>
+                    <p>{{ $activity->subject }}</p>
+                    <h3>{{ trans('general.forms.labels.age_of_participants') }}</h3>
+                    <p>{{ $activity->getAgeOfParticipantsTranslation() }}</p>
                     @if ($activity->hasFeaturedImage())
                         <h3>{{ trans('general.forms.labels.featured-image') }}</h3>
                         <p>
