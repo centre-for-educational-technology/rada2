@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Options\AgeOfParticipantsOptions;
+use App\Options\SubjectOptions;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -246,5 +248,18 @@ class Activity extends Model
         }
 
         return [];
+    }
+
+    public function getAgeOfParticipantsString()
+    {
+        $translationList = [];
+        $list = $this->getAgeOfParticipants();
+        $ageOfParticipantsOptions = new AgeOfParticipantsOptions();
+        $options = $ageOfParticipantsOptions->options();
+        foreach($list as $key) {
+            $translationList[] = $options[$key];
+        }
+
+        return implode(', ', $translationList);
     }
 }
