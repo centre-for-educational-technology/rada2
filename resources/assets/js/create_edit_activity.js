@@ -42,7 +42,7 @@ const activityApp = new Vue({
             canCreateActivityItem: false,
             canResetFeaturedImage: false,
             hasFeaturedImage: false,
-            subjects: ['Arts','Biology','Chemistry','Crafts','English','Ethics','Estonian','French','Geography','German','Helth-education','Higher education studies','History','Maths','Natural sciences','Other','Philosophy','Physics','Psychology','Spanish]']
+            subjects: []
         };
     },
     methods: {

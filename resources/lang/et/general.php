@@ -192,4 +192,28 @@ return [
            'account-email-verified' => 'Sinu konto on edukalt verifitseeritud. Sa võid nüüd sisse logida.',
        ],
    ],
+    'activity' => [
+        'subject' => [
+            'arts' => 'Kunst',
+            'biology' => 'Bioloogia',
+            'Cchemistry' => 'Keemia',
+            'crafts' => 'Käsitöö',
+            'english' => 'Inglise keel',
+            'ethics' => 'Eetika',
+            'estonian' => 'Eesti keel',
+            'french' => 'Prantsuse keel',
+            'geography' => 'Geograafia',
+            'german' => 'Saksa keel',
+            'helth_education' => 'Terviseharidus',
+            'higher_education_studies' => 'Kõrghariduse uuringud',
+            'history' => 'Ajalugu',
+            'maths' => 'Matemaatika',
+            'matural_sciences' => 'Loodusteadused',
+            'other' => 'Muu',
+            'philosophy' => 'Filosoofia',
+            'physics' => 'Füüsika',
+            'psychology' => 'Psühholoogia',
+            'spanish' => 'Hispaania keel'
+        ]
+    ]
 ];

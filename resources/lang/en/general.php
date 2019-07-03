@@ -192,4 +192,28 @@ return [
            'account-email-verified' => 'Your account has been successfully verified. You can now log in.',
        ],
    ],
+    'activity' => [
+        'subject' => [
+            'arts' => 'Arts',
+            'biology' => 'Biology',
+            'Cchemistry' => 'Chemistry',
+            'crafts' => 'Crafts',
+            'english' => 'English',
+            'ethics' => 'Ethics',
+            'estonian' => 'Estonian',
+            'french' => 'French',
+            'geography' => 'Geography',
+            'german' => 'German',
+            'helth_education' => 'Helth-education',
+            'higher_education_studies' => 'Higher education studies',
+            'history' => 'History',
+            'maths' => 'Maths',
+            'matural_sciences' => 'Natural sciences',
+            'other' => 'Other',
+            'philosophy' => 'Philosophy',
+            'physics' => 'Physics',
+            'psychology' => 'Psychology',
+            'spanish' => 'Spanish'
+        ]
+    ]
 ];
