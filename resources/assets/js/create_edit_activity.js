@@ -99,3 +99,15 @@ $('[name="featured_image"]').on('change', function () {
 $('#edit-activity-item').on('submit', function () {
     $('.submit-loading-text').removeClass('hidden');
 });
+
+$('.keywords-input').tagsinput({
+    trimValue: true
+});
+$('.keywords-input').parent().find('.bootstrap-tagsinput input').on('keyup', function(event) {
+    if(event.keyCode == 188) {
+        var self = $(this);
+        setTimeout(function () {
+            self.val('');
+        }, 100);
+    }
+});
