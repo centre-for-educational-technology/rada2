@@ -243,6 +243,17 @@
             </div>
         </div>
 
+        <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
+            {!! Form::label('subject', trans('general.forms.labels.subject'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12" id="subject">
+                    <autocomplete name="subject" :search="subjectSearch" base-class="form-control autocomplete"></autocomplete>
+                </div>
+            </div>
+        </div>
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <div class="alert alert-info hidden submit-loading-text">

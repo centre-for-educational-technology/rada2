@@ -290,6 +290,7 @@ class ActivityController extends Controller
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
         $activity->keywords = $request->keywords;
+        $activity->subject = $request->subject ? $request->subject : '';
         
         if ( $request->hasFile('featured_image') ) {
             if ( $activity->hasFeaturedImage() )
@@ -638,6 +639,7 @@ class ActivityController extends Controller
         $activity->zoo = ZooOptions::DEFAULT_OPTION;
         $activity->pin = $randomStringGenerator->generate(config('services.activity.pin_length'));
         $activity->keywords = $request->keywords ? $request->keywords : '';
+        $activity->subject = $request->subject ? $request->subject : '';
 
         if ( $request->has('proximity_check') )
         {
