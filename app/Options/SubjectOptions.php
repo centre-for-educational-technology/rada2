@@ -26,7 +26,7 @@ class SubjectOptions extends OptionsBase
             trans('general.activity.subject.french') => trans('general.activity.subject.french'),
             trans('general.activity.subject.geography') => trans('general.activity.subject.geography'),
             trans('general.activity.subject.german') => trans('general.activity.subject.german'),
-            trans('general.activity.subject.helth_education') => trans('general.activity.subject.helth_education'),
+            trans('general.activity.subject.health_education') => trans('general.activity.subject.health_education'),
             trans('general.activity.subject.higher_education_studies') => trans('general.activity.subject.higher_education_studies'),
             trans('general.activity.subject.history') => trans('general.activity.subject.history'),
             trans('general.activity.subject.maths') => trans('general.activity.subject.maths'),

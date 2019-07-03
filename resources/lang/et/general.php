@@ -205,7 +205,7 @@ return [
             'french' => 'Prantsuse keel',
             'geography' => 'Geograafia',
             'german' => 'Saksa keel',
-            'helth_education' => 'Terviseharidus',
+            'health_education' => 'Terviseharidus',
             'higher_education_studies' => 'Kõrghariduse uuringud',
             'history' => 'Ajalugu',
             'maths' => 'Matemaatika',

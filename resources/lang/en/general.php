@@ -205,7 +205,7 @@ return [
             'french' => 'French',
             'geography' => 'Geography',
             'german' => 'German',
-            'helth_education' => 'Helth-education',
+            'health_education' => 'Health-education',
             'higher_education_studies' => 'Higher education studies',
             'history' => 'History',
             'maths' => 'Maths',
