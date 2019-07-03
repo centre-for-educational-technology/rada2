@@ -20,6 +20,10 @@ const activityApp = new Vue({
             vm.hasFeaturedImage = true;
         }
 
+        if (window.Laravel.subjects) {
+            vm.subjects = window.Laravel.subjects;
+        }
+
         $(vm.$refs.proximityCheck).on('change', (e) => {
             const isChecked = $(vm.$refs.proximityCheck).prop('checked');
             $(vm.$refs.proximityRadius).prop('disabled', !isChecked);

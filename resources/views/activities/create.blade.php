@@ -6,6 +6,7 @@
 <script>
     window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
     window.Laravel.canCreateActivityItem = <?php echo json_encode(Auth::user()->can('create', 'App\Activity')); ?>;
+    window.Laravel.subjects = <?php echo json_encode(array_values($subjectOptions)); ?>;
 </script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection

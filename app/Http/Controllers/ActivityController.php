@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Options\AgeOfParticipantsOptions;
+use App\Options\SubjectOptions;
 use App\Utils\RandomStringGenerator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -205,6 +206,7 @@ class ActivityController extends Controller
      * @param LanguageOptions          $languageOptions
      * @param QuestionTypeOptions      $questionTypeOptions
      * @param DifficultyLevelOptions   $difficultyLevelOptions
+     * @param SubjectOptions           $subjectOptions
      * @param AgeOfParticipantsOptions $ageOfParticipantsOptions
      *
      * @return \Illuminate\Http\Response
@@ -215,6 +217,7 @@ class ActivityController extends Controller
         LanguageOptions $languageOptions,
         QuestionTypeOptions $questionTypeOptions,
         DifficultyLevelOptions $difficultyLevelOptions,
+        SubjectOptions $subjectOptions,
         AgeOfParticipantsOptions $ageOfParticipantsOptions
     ) {
         $this->authorize('create', Activity::class);
@@ -226,6 +229,7 @@ class ActivityController extends Controller
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : [],
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(true),
+            'subjectOptions' => $subjectOptions->options(),
             'ageOfParticipantsOptions' => $ageOfParticipantsOptions->options()
         ]);
     }
@@ -267,6 +271,7 @@ class ActivityController extends Controller
      * @param QuestionTypeOptions      $questionTypeOptions
      * @param DifficultyLevelOptions   $difficultyLevelOptions
      *
+     * @param SubjectOptions           $subjectOptions
      * @param AgeOfParticipantsOptions $ageOfParticipantsOptions
      *
      * @return \Illuminate\Http\Response
@@ -278,6 +283,7 @@ class ActivityController extends Controller
         LanguageOptions $languageOptions,
         QuestionTypeOptions $questionTypeOptions,
         DifficultyLevelOptions $difficultyLevelOptions,
+        SubjectOptions $subjectOptions,
         AgeOfParticipantsOptions $ageOfParticipantsOptions
     ) {
         $this->authorize('update', $activity);
@@ -298,6 +304,7 @@ class ActivityController extends Controller
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
             'activity_item_positions' => $itemPositions,
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(false),
+            'subjectOptions' => $subjectOptions->options(),
             'ageOfParticipantsOptions' => $ageOfParticipantsOptions->options()
         ]);
     }
@@ -615,6 +622,7 @@ class ActivityController extends Controller
      * @param LanguageOptions          $languageOptions
      * @param QuestionTypeOptions      $questionTypeOptions
      * @param DifficultyLevelOptions   $difficultyLevelOptions
+     * @param SubjectOptions           $subjectOptions
      * @param AgeOfParticipantsOptions $ageOfParticipantsOptions
      *
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
@@ -626,6 +634,7 @@ class ActivityController extends Controller
         LanguageOptions $languageOptions,
         QuestionTypeOptions $questionTypeOptions,
         DifficultyLevelOptions $difficultyLevelOptions,
+        SubjectOptions $subjectOptions,
         AgeOfParticipantsOptions $ageOfParticipantsOptions
     ) {
         $this->authorize('duplicate', Activity::class);
@@ -639,6 +648,7 @@ class ActivityController extends Controller
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(false),
+            'subjectOptions' => $subjectOptions->options(),
             'ageOfParticipantsOptions' => $ageOfParticipantsOptions->options()
         ]);
     }
