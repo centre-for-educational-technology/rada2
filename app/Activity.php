@@ -250,7 +250,7 @@ class Activity extends Model
         return [];
     }
 
-    public function getAgeOfParticipantsTranslation()
+    public function getAgeOfParticipantsString()
     {
         $translationList = [];
         $list = $this->getAgeOfParticipants();
