@@ -30,9 +30,6 @@
                         <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
                     </li>
                 @endif
-                <li class="{{ Request::is('badges')? 'active': '' }}">
-                    <a href="{{ route('badge.index') }}">{{ trans('navbar.badges') }}</a>
-                </li>
             </ul>
 
             <!-- Right Side Of Navbar -->
