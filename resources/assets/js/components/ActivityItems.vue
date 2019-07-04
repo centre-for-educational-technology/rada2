@@ -297,8 +297,19 @@
                             this.increaseItemOrder(i);
                         }
                     } else {
+                        let lastItemOrder = this.getItemOrder(newIndex);
+                        let oldLastItemOrder = 0;
                         for (let i=(newIndex+1); i<=oldIndex; i++) {
+                            let currentOrder = this.getItemOrder(i);
+                            if ( (currentOrder > lastItemOrder) ||
+                                (oldLastItemOrder === lastItemOrder && lastItemOrder === currentOrder) ) {
+                                lastItemOrder = currentOrder;
+                                oldLastItemOrder = currentOrder;
+                                continue;
+                            }
+                            oldLastItemOrder = currentOrder;
                             this.increaseItemOrder(i);
+                            lastItemOrder = this.getItemOrder(i);
                         }
                     }
                 }
@@ -324,12 +335,8 @@
                 this.changeOtherItemsOrder(newOrder, oldOrder, newIndex, oldIndex, oldItemBeforeIndex, oldItemAfterIndex, newItemBeforeIndex, newItemAfterIndex, oldItemBeforeOrder, oldItemAfterOrder, newItemBeforeOrder, newItemAfterOrder);
             },
             itemOrderChange: function(evt) {
-                const itemsLength = this.items.length;
                 let index = parseInt(evt.target.attributes['data-item-index'].value);
                 let item = this.items[index];
-                let oldOrder = item.order;
-                let oldItemBeforeOrder = this.getItemOrder(index - 1);
-                let oldItemAfterOrder = this.getItemOrder(index + 1)
                 let order = parseInt(evt.target.value);
                 if (order < 1) {
                     order = 1;
@@ -338,27 +345,8 @@
                 this.items.splice(index, 1);
                 item.order = order;
                 this.items.splice(newIndex, 0, item);
-
-                if (order < oldOrder && oldOrder !== oldItemBeforeOrder && oldOrder !== oldItemAfterOrder) {
-                    for (let i=(index+1); i<itemsLength; i++) {
-                        this.decreaseItemOrder(i);
-                    }
-                } else if (order > oldOrder) {
-                    let orderBefore = this.getItemOrder(index-1);
-                    let firstOrder = this.getItemOrder(index);
-                    if (firstOrder - 1 !== orderBefore) {
-                        for (let i = index; i < itemsLength; i++) {
-                            let currentOrder = this.getItemOrder(i);
-                            if (currentOrder === orderBefore) {
-                                break;
-                            }
-                            this.decreaseItemOrder(i);
-                        }
-                    }
-                }
             },
             increaseItemOrder: function (index) {
-                console.log('increase');
                 this.changeItemOrder(index, function (item) {
                     item.order ++;
                 });
