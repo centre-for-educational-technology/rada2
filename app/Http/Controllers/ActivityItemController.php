@@ -230,6 +230,8 @@ class ActivityItemController extends Controller
       $item->language = $request->language;
       $item->latitude = $request->latitude;
       $item->longitude = $request->longitude;
+      $item->answering_time_check = $request->answering_time_check ? $request->answering_time_check : false;
+      $item->answering_time = $request->answering_time ? $request->answering_time : 0;
 
       if ( $request->has('access_code') )
       {
@@ -431,6 +433,8 @@ class ActivityItemController extends Controller
 
       $activity_item->title = $request->title;
       $activity_item->description = $request->description;
+      $activity_item->answering_time_check = $request->answering_time_check ? $request->answering_time_check : false;
+      $activity_item->answering_time = $request->answering_time ? $request->answering_time : 0;
 
       if ( $request->hasFile('image') ) {
           if ( $activity_item->hasImage() )

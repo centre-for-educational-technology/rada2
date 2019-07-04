@@ -93,6 +93,43 @@
             </div>
         </div>
 
+        <div class="form-group{{ ( $errors->has('answering_time') || $errors->has('answering_time') ) ? ' has-error' : '' }}">
+            {!! Form::label('answering_time', trans('general.forms.labels.answering_time'), [
+                'class' => 'col-md-4 control-label',
+            ]) !!}
+            <div class="col-md-6">
+                <div class="input-group col-xs-12">
+                    {!! Form::hidden('answering_time', $activity_item->answering_time, [
+                        'ref' => 'answeringTime',
+                    ]) !!}
+                    {!! Form::text('answering_time_string', null, [
+                        'class' => 'form-control',
+                        'ref' => 'answeringTimeString',
+                    ]) !!}
+                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" title="{{ trans('pages.activity-items.create-or-edit.tooltips.answering-time') }}">
+                            {!! Form::checkbox('answering_time_check', 1, $activity_item->answering_time_check, [
+                                'ref' => 'answeringTimeCheck',
+                            ]) !!}
+                        </span>
+                </div>
+                <p class="help-block">
+                    {{ trans('pages.activity-items.create-or-edit.help.answering_time') }}
+                </p>
+
+                @if ($errors->has('answering_time'))
+                    <span class="help-block">
+                            <strong>{{ $errors->first('answering_time') }}</strong>
+                        </span>
+                @endif
+
+                @if ($errors->has('answering_time'))
+                    <span class="help-block">
+                            <strong>{{ $errors->first('answering_time') }}</strong>
+                        </span>
+                @endif
+            </div>
+        </div>
+
         <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
             {!! Form::label('type', trans('general.forms.labels.question-type'), [
                 'class' => 'col-md-4 control-label',

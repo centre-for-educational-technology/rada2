@@ -52,7 +52,13 @@ return [
         'create-or-edit' => [
             'set-current-position' => 'Set current position',
             'geolocation-error' => 'Error: Geolocation could not be determined',
-        ],
+            'tooltips' => [
+                'answering-time' => 'Enforce answering time'
+            ],
+            'help' => [
+                'answering_time' => 'Answering time format: 1h 1m 55s'
+            ],
+        ]
     ],
     'discount-vouchers' => [
         'index' => [
