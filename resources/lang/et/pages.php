@@ -56,7 +56,7 @@ return [
                 'answering-time' => 'Piirake vastamise aega'
             ],
             'help' => [
-                'answering_time' => 'Vastgamise aja vorming: 1h 1m 55s'
+                'answering_time' => 'Vastamise aja vorming: 1h 1m 55s'
             ],
         ]
     ],
