@@ -52,7 +52,13 @@ return [
         'create-or-edit' => [
             'set-current-position' => 'Määra praegune asukoht',
             'geolocation-error' => 'Viga: Asukohta ei õnnestunud tuvastada',
-        ],
+            'tooltips' => [
+                'answering-time' => 'Piirake vastamise aega'
+            ],
+            'help' => [
+                'answering_time' => 'Vastamise aja vorming: 1h 1m 55s'
+            ],
+        ]
     ],
     'discount-vouchers' => [
         'index' => [

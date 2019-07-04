@@ -220,6 +220,35 @@ const addActivityItemApp = new Vue({
         $(vm.$refs.image).on('change', (e) => {
             this.canResetImage = true;
         });
+
+        $(vm.$refs.answeringTimeCheck).on('change', (e) => {
+            const isChecked = $(vm.$refs.answeringTimeCheck).prop('checked');
+            $(vm.$refs.answeringTime).prop('disabled', !isChecked);
+            $(vm.$refs.answeringTimeString).prop('disabled', !isChecked);
+        });
+
+        if ( !$(vm.$refs.answeringTimeCheck).prop('checked') ) {
+            $(vm.$refs.answeringTime).prop('disabled', true);
+            $(vm.$refs.answeringTimeString).prop('disabled', true);
+        }
+
+        $(vm.$refs.answeringTimeString).on('keyup', function () {
+            $(vm.$refs.answeringTime).val(
+                vm.convertTimeStringToInt(
+                    $(this).val()
+                )
+            );
+        }).on('blur', function () {
+            $(this).val(
+                vm.convertTimeIntToString(
+                    $(vm.$refs.answeringTime).val()
+                )
+            );
+        }).val(
+            vm.convertTimeIntToString(
+                $(vm.$refs.answeringTime).val()
+            )
+        );
     },
     data() {
         return {
@@ -229,6 +258,70 @@ const addActivityItemApp = new Vue({
         };
     },
     methods: {
+        convertTimeStringToInt(timeString) {
+            let parts = timeString.split(' ');
+            let seconds = 0;
+            for (let i=0; i<parts.length; i++) {
+                let part = parts[i];
+                let partLength = part.length;
+                if (partLength < 2) {
+                    continue;
+                }
+                let char = part.charAt(partLength-1).toLowerCase();
+                let time = parseInt(part.substr(0, partLength-1));
+
+                if (char === 's') {
+                    seconds += time;
+                } else if (char === 'm') {
+                    seconds += (time * 60);
+                } else if (char === 'h') {
+                    seconds += (time * 60 * 60);
+                } else if (char === 'd') {
+                    seconds += (time * 60 * 60 * 24);
+                }
+            }
+
+            return seconds;
+        },
+        convertTimeIntToString(time) {
+            let oneMinute = 60;
+            let oneHour = oneMinute*60;
+            let oneDay = oneHour*24;
+            let days = (time - (time % oneDay)) / oneDay;
+            let daysInSeconds = days * oneDay;
+            time -= daysInSeconds;
+            let hours = (time - (time % oneHour)) / oneHour;
+            let hoursInSeconds = hours * oneHour;
+            time -= hoursInSeconds;
+            let minutes = (time - ((time) % oneMinute)) / oneMinute;
+            let minuesInSeconds = minutes * oneMinute;
+            let seconds = time - minuesInSeconds;
+            let str = '';
+
+            if (days > 0) {
+                str += days + 'd';
+            }
+            if (hours > 0) {
+                if (str.length > 0) {
+                    str += ' ';
+                }
+                str += hours + 'h';
+            }
+            if (minutes > 0) {
+                if (str.length > 0) {
+                    str += ' ';
+                }
+                str += minutes + 'm';
+            }
+            if (seconds > 0) {
+                if (str.length > 0) {
+                    str += ' ';
+                }
+                str += seconds + 's';
+            }
+
+            return str;
+        },
         hasQuestionData() {
             return window.Laravel.activityItemQuestionData && window.Laravel.activityItemQuestionData.length > 0;
         },
