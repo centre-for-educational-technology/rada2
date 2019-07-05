@@ -143,7 +143,9 @@ class Game extends Model
                     'read_more' => $item->read_more,
                     'options' => [],
                     'pairs' => [],
-                    'position' => $position
+                    'position' => $position,
+                    'answering_time_check' => $item->answering_time_check,
+                    'answering_time' => $item->answering_time
                 ];
 
                 if ( $item->options ) {

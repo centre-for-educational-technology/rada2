@@ -3,7 +3,21 @@
         <game-image-dialog ref="correctImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_correct.png'" v-bind:in-animation-class="'bounceInUp'" v-bind:out-animation-class="'bounceOut'"></game-image-dialog>
         <game-image-dialog ref="incorrectImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_incorrect.png'" v-bind:in-animation-class="'bounceInDown'" v-bind:out-animation-class="'bounceOutDown'"></game-image-dialog>
         <game-image-dialog ref="submittedImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_submitted.png'" v-bind:in-animation-class="'bounceInRight'" v-bind:out-animation-class="'bounceOutLeft'"></game-image-dialog>
-        <game-question-modal v-bind:question="question" v-bind:answer="answer" v-bind:game-id="game.id" v-bind:base-url="baseUrl" v-if="question" ref="questionModal"></game-question-modal>
+        <game-question-modal
+                v-bind:question="question"
+                v-bind:answer="answer"
+                v-bind:game-id="game.id"
+                v-bind:base-url="baseUrl"
+                v-if="question"
+                ref="questionModal">
+        </game-question-modal>
+        <game-answering-time-modal
+                v-bind:question="question"
+                v-bind:game-id="game.id"
+                v-bind:base-url="baseUrl"
+                v-if="question"
+                ref="answeringTimeModal">
+        </game-answering-time-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <div id="map">
         </div>
@@ -133,6 +147,7 @@
     export default {
         components: {
             'game-question-modal': require('./GameQuestionModal.vue'),
+            'game-answering-time-modal': require('./GameAnsweringTimeModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue')
         },
@@ -253,25 +268,14 @@
                             if (_this.getEnforceItemsOrder() > 0) {
                                 let nextMarkers = _this.getNextUnansweredMarkers();
                                 if (nextMarkers.length > 0) {
-                                    let found = false;
-                                    for (let nextMarkerIndex in nextMarkers) {
-                                        let nextMarker = nextMarkers[nextMarkerIndex];
-                                        if (marker.questionId === nextMarker.questionId) {
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    if (found === false) {
-                                        _this.closeInfoWindow();
-                                        infoWindow.setContent(marker.title);
-                                        infoWindow.open(map, marker);
-                                        return ;
+                                    let nextMarker = nextMarkers.find(thisMarker => {
+                                        return marker.questionId === thisMarker.questionId;
+                                    });
+                                    if (nextMarker === 'undefined') {
+                                        return _this.openNewInfoWindow(infoWindow, marker, map);
                                     }
                                 } else {
-                                    _this.closeInfoWindow();
-                                    infoWindow.setContent(marker.title);
-                                    infoWindow.open(map, marker);
-                                    return ;
+                                    return _this.openNewInfoWindow(infoWindow, marker, map);
                                 }
                             }
 
@@ -283,9 +287,7 @@
                                 } else if ( _this.hasAccessCode(question) ) {
                                     _this.openAccessCodeModal(question);
                                 } else {
-                                    _this.closeInfoWindow();
-                                    infoWindow.setContent(marker.title);
-                                    infoWindow.open(map, marker);
+                                    _this.openNewInfoWindow(infoWindow, marker, map);
                                 }
                             } else {
                                 _this.openQuestionModal(question);
@@ -366,6 +368,13 @@
                 if ( infoWindow && infoWindow.getMap() ) {
                     infoWindow.close();
                 }
+            },
+            openNewInfoWindow(infoWindow, marker, map) {
+                this.closeInfoWindow();
+                infoWindow.setContent(marker.title);
+                infoWindow.open(map, marker);
+
+                return true;
             },
             initPlayerMarker() {
                 var circle,
@@ -490,12 +499,33 @@
             getEnforceItemsOrder() {
                 return parseInt(this.game.activity.enforce_items_order) || 0;
             },
-            openQuestionModal(question, answer) {
+            openAnsweringTimeModal(question) {
                 this.question = question;
-                this.answer = answer ? answer : null;
                 this.$nextTick(() => {
-                    this.$refs.questionModal.open();
+                    this.$refs.answeringTimeModal.open();
                 });
+            },
+            isAnsweringTimeStarted(question) {
+                console.log(question);
+                if (this.isAnswered(question.questionId)) {
+                    let answer = this.game.answers.find(question.questionId);
+                    console.log(answer);
+                    return true;
+                }
+                return false;
+            },
+            openQuestionModal(question, answer) {
+                if (question.answering_time_check &&
+                    this.isAnsweringTimeStarted(question) === false &&
+                    this.isAnswered(question.questionId) === false) {
+                    this.openAnsweringTimeModal(question);
+                } else {
+                    this.question = question;
+                    this.answer = answer ? answer : null;
+                    this.$nextTick(() => {
+                        this.$refs.questionModal.open();
+                    });
+                }
             },
             openAccessCodeModal(question) {
                 this.question = question;

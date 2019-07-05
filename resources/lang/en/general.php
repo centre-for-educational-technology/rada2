@@ -76,7 +76,8 @@ return [
            'keywords' => 'Keywords',
            'enforce_items_order' => 'Enforce items order',
            'subject' => 'Subject',
-           'age_of_participants' => 'Age of participants'
+           'age_of_participants' => 'Age of participants',
+           'answering_time' => 'Answering time'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',

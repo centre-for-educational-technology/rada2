@@ -16,6 +16,7 @@ use App\PlayerPosition;
 
 use App\DiscountVoucher;
 
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\File;
@@ -65,7 +66,7 @@ class GameController extends Controller
         $exitUrl = route('activity.index');
         if ( $request->has('exit_url') )
         {
-            if ( starts_with( $request->get('exit_url'), url('/') ) )
+            if ( Str::startsWith( $request->get('exit_url'), url('/') ) )
             {
                 $exitUrl = $request->get('exit_url');
             }
@@ -157,6 +158,19 @@ class GameController extends Controller
         }
 
         return $answer->getGameData();
+    }
+
+    public function startAnsweringTimer(Request $request, Game $game)
+    {
+        $activity = $game->activity;
+
+        /** @var ActivityItem $activityItem */
+        $activityItem = $activity->activityItems()->where('id', $request->get('question_id'))->first();
+
+        return [
+            'activityItemId' => $activityItem->id,
+            'gameId' => $game->id
+        ];
     }
 
     /**

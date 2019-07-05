@@ -107,6 +107,10 @@
                             'title' => trans('pages.play.game.items.help_others.title'),
                             'description' => trans('pages.play.game.items.help_others.description'),
                         ],
+                        'answering_time' => [
+                            'description' => trans('pages.play.game.items.answering_time.description'),
+                            'start_timer' => trans('pages.play.game.items.answering_time.start_timer')
+                        ]
                     ],
                     'vouchers' => [
                         'heading' => trans('pages.play.game.vouchers.heading'),

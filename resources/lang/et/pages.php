@@ -161,6 +161,10 @@ return [
                     'title' => 'Aidake üksteist',
                     'description' => 'Aita oma sõpru ja veetke koos meeldivalt aega!',
                 ],
+                'answering_time' => [
+                    'description' => 'Sellel küsimusel on ajaline piirang. Küsimuse vaatamiseks klõpsake nuppu "Alusta".',
+                    'start_timer' => 'Alusta'
+                ]
             ],
             'vouchers' => [
                 'heading' => 'Oled saanud kupongi!',

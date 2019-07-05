@@ -22,6 +22,7 @@ Route::group(['prefix' => 'games'], function()
     Route::post('answer', 'GameController@answer');
     Route::post('position', 'GameController@logPlayerPosition');
     Route::get('{game}/voucher', 'GameController@voucher');
+    Route::post('start-answering-timer', 'GameController@startAnsweringTimer');
 });
 
 Route::group(['prefix' => 'activity_items'], function() {

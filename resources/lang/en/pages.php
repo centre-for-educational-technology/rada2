@@ -161,6 +161,10 @@ return [
                     'title' => 'Help each other',
                     'description' => 'Help your friends and have fun together!',
                 ],
+                'answering_time' => [
+                    'description' => 'There is a time limit on this question. Click the "Start" button to see the question.',
+                    'start_timer' => 'Start'
+                ]
             ],
             'vouchers' => [
                 'heading' => 'You have received a voucher!',
