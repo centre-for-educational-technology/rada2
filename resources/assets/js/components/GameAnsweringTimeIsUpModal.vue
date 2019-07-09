@@ -9,11 +9,11 @@
                     <h4 class="modal-title">{{ title() }}</h4>
                 </div>
                 <div class="modal-body">
-                    {{ $t('items.answering_time.description') }}
+                    {{ $t('items.answering_time.time_is_up') }}
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" v-on:click="startTimer()" v-bind:title="$t('items.answering_time.start_timer')">
-                        {{ $t('items.answering_time.start_timer') }} <i class="mdi mdi-play-circle-outline"></i>
+                    <button type="button" class="btn btn-default" v-on:click="close()" v-bind:title="$t('close')">
+                        <i class="mdi mdi-close"></i>
                     </button>
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
 <script>
     export default {
-        props: ['question', 'gameId', 'baseUrl'],
+        props: ['question'],
         mixins: [],
         mounted() {},
         data() {
@@ -32,25 +32,6 @@
             }
         },
         methods: {
-            startTimer() {
-                let vm = this;
-                let data = {
-                    game_id: this.gameId,
-                    question_id: this.question.id
-                };
-                this.inAjaxCall = true;
-                this.$http.post(vm.baseUrl + '/api/games/start-answering-timer', data).then(response => {
-                    vm.inAjaxCall = false;
-                    vm.$parent.markAnswered(vm.question.id, response.body);
-                    vm.$parent.openQuestionModal(vm.question, vm.$parent.getAnswer(vm.question.id));
-                    vm.close();
-                }, response => {
-                    vm.inAjaxCall = false;
-                    setTimeout(() => {
-                        vm.startTimer()
-                    }, 200);
-                });
-            },
             title() {
                 return this.question ? this.question.title : '';
             },

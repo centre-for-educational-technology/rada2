@@ -18,6 +18,11 @@
                 v-if="question"
                 ref="answeringTimeModal">
         </game-answering-time-modal>
+        <game-answering-time-is-up-modal
+                v-bind:question="question"
+                v-if="question"
+                ref="answeringTimeIsUpModal">
+        </game-answering-time-is-up-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <div id="map">
         </div>
@@ -148,6 +153,7 @@
         components: {
             'game-question-modal': require('./GameQuestionModal.vue'),
             'game-answering-time-modal': require('./GameAnsweringTimeModal.vue'),
+            'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue')
         },
@@ -259,8 +265,9 @@
                         markers.push(marker);
 
                         marker.addListener('click', function() {
+                            const answer = _this.getAnswer(question.id);
+
                             if ( _this.isAnswered(question.id) ) {
-                                const answer = _.get(_this.game.answers, question.id, null);
                                 _this.openQuestionModal(question, answer);
                                 return;
                             }
@@ -283,14 +290,14 @@
                                 var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
 
                                 if ( distance <= _this.getProximityRadius() ) {
-                                    _this.openQuestionModal(question);
+                                    _this.openQuestionModal(question, answer);
                                 } else if ( _this.hasAccessCode(question) ) {
                                     _this.openAccessCodeModal(question);
                                 } else {
                                     _this.openNewInfoWindow(infoWindow, marker, map);
                                 }
                             } else {
-                                _this.openQuestionModal(question);
+                                _this.openQuestionModal(question, answer);
                             }
                         });
                     });
@@ -430,10 +437,14 @@
                 return _.find(this.game.activity.questions, ['id', id]);
             },
             isAnswered(questionId) {
-                return _.has(this.game.answers, questionId);
+                const answer = this.getAnswer(questionId);
+                if (answer === null) {
+                    return false;
+                }
+                return answer.is_answered > 0;
             },
             isCorrect(questionId) {
-                const answer = _.get(this.game.answers, questionId, null);
+                const answer = this.getAnswer(questionId);
 
                 return answer && answer.correct === true;
             },
@@ -505,19 +516,30 @@
                     this.$refs.answeringTimeModal.open();
                 });
             },
-            isAnsweringTimeStarted(question) {
-                console.log(question);
-                if (this.isAnswered(question.questionId)) {
-                    let answer = this.game.answers.find(question.questionId);
-                    console.log(answer);
+            getAnswer(questionId, defaultValue) {
+                if (typeof defaultValue === 'undefined') {
+                    defaultValue = null;
+                }
+                return _.get(this.game.answers, questionId, defaultValue);
+            },
+            isAnswering(questionId) {
+                let answer = this.getAnswer(questionId);
+                if (answer === null || answer.is_answered === 1) {
+                    return false;
+                } else if (answer.answering_start_time != null) {
                     return true;
                 }
                 return false;
             },
+            openAnsweringTimeIsUpModal() {
+                this.$nextTick(() => {
+                    this.$refs.answeringTimeIsUpModal.open();
+                });
+            },
             openQuestionModal(question, answer) {
                 if (question.answering_time_check &&
-                    this.isAnsweringTimeStarted(question) === false &&
-                    this.isAnswered(question.questionId) === false) {
+                    this.isAnswering(question.id) === false &&
+                    this.isAnswered(question.id) === false) {
                     this.openAnsweringTimeModal(question);
                 } else {
                     this.question = question;

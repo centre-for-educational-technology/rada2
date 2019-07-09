@@ -163,7 +163,8 @@ return [
                 ],
                 'answering_time' => [
                     'description' => 'There is a time limit on this question. Click the "Start" button to see the question.',
-                    'start_timer' => 'Start'
+                    'start_timer' => 'Start',
+                    'time_is_up' => 'Time is up'
                 ]
             ],
             'vouchers' => [

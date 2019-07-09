@@ -109,7 +109,8 @@
                         ],
                         'answering_time' => [
                             'description' => trans('pages.play.game.items.answering_time.description'),
-                            'start_timer' => trans('pages.play.game.items.answering_time.start_timer')
+                            'start_timer' => trans('pages.play.game.items.answering_time.start_timer'),
+                            'time_is_up' => trans('pages.play.game.items.answering_time.time_is_up')
                         ]
                     ],
                     'vouchers' => [

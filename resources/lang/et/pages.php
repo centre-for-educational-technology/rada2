@@ -163,7 +163,8 @@ return [
                 ],
                 'answering_time' => [
                     'description' => 'Sellel küsimusel on ajaline piirang. Küsimuse vaatamiseks klõpsake nuppu "Alusta".',
-                    'start_timer' => 'Alusta'
+                    'start_timer' => 'Alusta',
+                    'time_is_up' => 'Aeg sai läbi'
                 ]
             ],
             'vouchers' => [

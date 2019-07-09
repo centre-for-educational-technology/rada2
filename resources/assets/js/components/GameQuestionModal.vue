@@ -4,7 +4,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" aria-label="Close" v-on:click="close()" v-bind:diabled="inAjaxCall"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title">{{ title() }}</h4>
+                    <h4 class="modal-title">
+                        {{ title() }}
+                        <span class="pull-right" style="padding-right: 15px;" v-if="answeringTime != null">{{ answeringTime }}</span>
+                    </h4>
                 </div>
                 <div class="modal-body">
                     <div v-if="hasImage()">
@@ -171,12 +174,58 @@
                     'min-height': '100px'
                 },
                 inAjaxCall: false,
-                incorrectImageFormat: false
+                incorrectImageFormat: false,
+                answeringTime: null
             };
         },
         methods: {
+            calculateRemainingAnsweringTime() {
+                if (this.answer && this.answer.answering_start_time !== null) {
+                    let startTimeString = this.answer.answering_start_time;
+                    let startTimeDate = new Date(startTimeString);
+                    let nowDate = new Date();
+                    let totalTimeInMilliseconds = 1000 * this.question.answering_time;
+                    let usedTime = nowDate.getTime() - startTimeDate.getTime();
+                    let usedTimeInMilliseconds = 1000 * Math.round(usedTime / 1000);
+                    let remainingTimeInMilliseconds = totalTimeInMilliseconds - usedTimeInMilliseconds;
+                    if (remainingTimeInMilliseconds < 0) {
+                        this.$nextTick(() => {
+                            this.closeQuestion();
+                        });
+                        return false;
+                    }
+                    let remainingTimeDate = new Date(remainingTimeInMilliseconds);
+
+                    this.answeringTime = remainingTimeDate.getUTCHours() + ':' + remainingTimeDate.getUTCMinutes() + ':' + remainingTimeDate.getUTCSeconds();
+
+                    setTimeout(() => {
+                        this.calculateRemainingAnsweringTime();
+                    }, 1000);
+                }
+            },
+            closeQuestion() {
+                let vm = this;
+                let data = {
+                    game_id: this.gameId,
+                    question_id: this.question.id
+                };
+                this.inAjaxCall = true;
+                this.$http.post(vm.baseUrl + '/api/games/close-question', data).then(response => {
+                    vm.inAjaxCall = false;
+                    vm.$parent.markAnswered(vm.question.id, response.body);
+                    vm.$parent.openAnsweringTimeIsUpModal();
+                    vm.close();
+                }, response => {
+                    vm.inAjaxCall = false;
+                    setTimeout(() => {
+                        vm.closeQuestion()
+                    }, 200);
+                });
+            },
             open() {
                 this.$nextTick(() => {
+                    this.calculateRemainingAnsweringTime();
+
                     if ( this.isMatchPairs() ) {
                         if ( this.pairs().length > 0 ) {
                             if ( !this.isAnswered() ) {
