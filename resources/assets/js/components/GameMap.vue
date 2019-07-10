@@ -524,7 +524,7 @@
             },
             isAnswering(questionId) {
                 let answer = this.getAnswer(questionId);
-                if (answer === null || answer.is_answered === 1) {
+                if (answer === null || answer.is_answered > 0) {
                     return false;
                 } else if (answer.answering_start_time != null) {
                     return true;
@@ -537,7 +537,7 @@
                 });
             },
             openQuestionModal(question, answer) {
-                if (question.answering_time_check &&
+                if (!!question.answering_time_check &&
                     this.isAnswering(question.id) === false &&
                     this.isAnswered(question.id) === false) {
                     this.openAnsweringTimeModal(question);

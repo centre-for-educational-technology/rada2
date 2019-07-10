@@ -179,10 +179,15 @@ class GameController extends Controller
         /** @var ActivityItem $activityItem */
         $activityItem = $activity->activityItems()->where('id', $request->get('question_id'))->first();
 
+        $date = Carbon::now('UTC');
+        $date->setTimezone('Europe/Tallinn');
         $answer = new GameAnswer();
         $answer->correct = false;
         $answer->is_answered = false;
-        $answer->answering_start_time = Carbon::now();
+        $answer->answering_start_time = $date;
+        $answer->answer = json_encode([
+            'options' => [],
+        ]);
         $answer->game()->associate( $game );
         $answer->activityItem()->associate( $activityItem );
 
@@ -201,6 +206,9 @@ class GameController extends Controller
         $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
         $answer->correct = false;
         $answer->is_answered = true;
+        $answer->answer = json_encode([
+            'options' => [],
+        ]);
         $answer->save();
 
         // Determine completion status and mark as completed

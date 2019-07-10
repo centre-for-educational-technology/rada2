@@ -133,6 +133,7 @@ return [
             'access-code-placeholder' => 'Please enter the code or text to override positional restriction',
             'not-logged-in' => 'Not logged in',
             'complete' => 'Complete!',
+            'remaining_time' => 'Remaining time',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',
@@ -164,7 +165,7 @@ return [
                 'answering_time' => [
                     'description' => 'There is a time limit on this question. Click the "Start" button to see the question.',
                     'start_timer' => 'Start',
-                    'time_is_up' => 'Time is up'
+                    'time_is_up' => 'The time that was meant to answer this question is over.'
                 ]
             ],
             'vouchers' => [

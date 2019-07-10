@@ -79,6 +79,7 @@
                     'tips-text' => trans('pages.play.game.tips-text'),
                     'access-code-placeholder' => trans('pages.play.game.access-code-placeholder'),
                     'complete' => trans('pages.play.game.complete'),
+                    'remaining_time' => trans('pages.play.game.remaining_time'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),

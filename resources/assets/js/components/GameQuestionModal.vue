@@ -6,7 +6,7 @@
                     <button type="button" class="close" aria-label="Close" v-on:click="close()" v-bind:diabled="inAjaxCall"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">
                         {{ title() }}
-                        <span class="pull-right" style="padding-right: 15px;" v-if="answeringTime != null">{{ answeringTime }}</span>
+                        <span class="pull-right" style="padding-right: 15px;" v-if="answeringTime != null">{{ $t('remaining_time') }}: {{ answeringTime }}</span>
                     </h4>
                 </div>
                 <div class="modal-body">
@@ -194,9 +194,21 @@
                         });
                         return false;
                     }
+
                     let remainingTimeDate = new Date(remainingTimeInMilliseconds);
 
-                    this.answeringTime = remainingTimeDate.getUTCHours() + ':' + remainingTimeDate.getUTCMinutes() + ':' + remainingTimeDate.getUTCSeconds();
+                    this.answeringTime = '';
+
+                    if (remainingTimeDate.getUTCHours() > 0) {
+                        this.answeringTime += ('0' + remainingTimeDate.getUTCHours()).slice(-2);
+                        this.answeringTime += ':';
+                    }
+                    if (remainingTimeDate.getUTCMinutes() > 0) {
+                        this.answeringTime += ('0' + remainingTimeDate.getUTCMinutes()).slice(-2);
+                        this.answeringTime += ':';
+                    }
+
+                    this.answeringTime += ( '0' + remainingTimeDate.getUTCSeconds()).slice(-2);
 
                     setTimeout(() => {
                         this.calculateRemainingAnsweringTime();
@@ -488,7 +500,7 @@
                 return this.matchedPairs.indexOf(pair.id) !== -1;
             },
             isAnswered() {
-                return !!this.answer;
+                return !!this.answer && this.answer.is_answered;
             },
             isCorrectOption(option) {
                 return !!option.correct;
