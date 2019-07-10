@@ -293,6 +293,7 @@
                     this.inAjaxCall = false;
                     $(this.$refs.image).val('');
                     this.incorrectImageFormat = false;
+                    this.answeringTime = null;
                 });
             },
             submit() {
