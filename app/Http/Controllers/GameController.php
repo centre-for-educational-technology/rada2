@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Activity;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -16,6 +17,7 @@ use App\PlayerPosition;
 
 use App\DiscountVoucher;
 
+use Illuminate\Support\Str;
 use Intervention\Image\Facades\Image;
 
 use Illuminate\Support\Facades\File;
@@ -65,7 +67,7 @@ class GameController extends Controller
         $exitUrl = route('activity.index');
         if ( $request->has('exit_url') )
         {
-            if ( starts_with( $request->get('exit_url'), url('/') ) )
+            if ( Str::startsWith( $request->get('exit_url'), url('/') ) )
             {
                 $exitUrl = $request->get('exit_url');
             }
@@ -86,12 +88,21 @@ class GameController extends Controller
      */
     public function answer(Request $request, ImageService $imageService, Game $game)
     {
+        /** @var Activity $activity */
         $activity = $game->activity;
 
+        /** @var ActivityItem $item */
         $item = $activity->activityItems()->where('id', $request->get('question_id'))->first();
 
-        $answer = new GameAnswer();
+        $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
+        if (!$answer) {
+            $answer = new GameAnswer();
+
+            $answer->game()->associate( $game );
+            $answer->activityItem()->associate( $item );
+        }
         $answer->correct = true;
+        $answer->is_answered = true;
 
         if ( $item->type === 2 || $item->type === 3 )
         {
@@ -140,9 +151,64 @@ class GameController extends Controller
             $answer->image = $fileName;
         }
 
-        $answer->game()->associate( $game );
-        $answer->activityItem()->associate( $item );
+        $answer->save();
 
+        // Determine completion status and mark as completed
+        $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
+        $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
+        $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
+        if ( count($unansweredItemIds) === 0 ) {
+            $game->complete = true;
+            $game->save();
+            // TODO Consider creating a special event type for this one
+            Event::fire('game.complete', $game);
+        }
+
+        return $answer->getGameData();
+    }
+
+    /**
+     * @param Request $request
+     * @param Game $game
+     * @return array
+     */
+    public function startAnsweringTimer(Request $request, Game $game)
+    {
+        $activity = $game->activity;
+
+        /** @var ActivityItem $activityItem */
+        $activityItem = $activity->activityItems()->where('id', $request->get('question_id'))->first();
+
+        $date = Carbon::now('UTC');
+        $date->setTimezone('Europe/Tallinn');
+        $answer = new GameAnswer();
+        $answer->correct = false;
+        $answer->is_answered = false;
+        $answer->answering_start_time = $date;
+        $answer->answer = json_encode([
+            'options' => [],
+        ]);
+        $answer->game()->associate( $game );
+        $answer->activityItem()->associate( $activityItem );
+
+        $answer->save();
+
+        return $answer->getGameData();
+    }
+
+    public function closeQuestion(Request $request, Game $game)
+    {
+        /** @var Activity $activity */
+        $activity = $game->activity;
+
+        /** @var ActivityItem $item */
+        $item = $activity->activityItems()->where('id', $request->get('question_id'))->first();
+        $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
+        $answer->correct = false;
+        $answer->is_answered = true;
+        $answer->answer = json_encode([
+            'options' => [],
+        ]);
         $answer->save();
 
         // Determine completion status and mark as completed

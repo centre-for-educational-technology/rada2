@@ -225,6 +225,10 @@ const addActivityItemApp = new Vue({
             const isChecked = $(vm.$refs.answeringTimeCheck).prop('checked');
             $(vm.$refs.answeringTime).prop('disabled', !isChecked);
             $(vm.$refs.answeringTimeString).prop('disabled', !isChecked);
+            if (!isChecked) {
+                $(vm.$refs.answeringTimeString).val('');
+                $(vm.$refs.answeringTime).val('');
+            }
         });
 
         if ( !$(vm.$refs.answeringTimeCheck).prop('checked') ) {
@@ -249,6 +253,10 @@ const addActivityItemApp = new Vue({
                 $(vm.$refs.answeringTime).val()
             )
         );
+        let typeVal = parseInt($('select[name="type"]').val());
+        if (typeVal === 1 || typeVal === 6 || typeVal === 7 || typeVal === 0) {
+            $(vm.$refs.answeringTime).closest('.form-group').hide();
+        }
     },
     data() {
         return {
@@ -328,9 +336,15 @@ const addActivityItemApp = new Vue({
         getQuestionData() {
             return window.Laravel.activityItemQuestionData;
         },
-        changedQuestionType() {
+        changedQuestionType(event) {
             if ( this.hasQuestionData() ) {
                 delete window.Laravel.activityItemQuestionData;
+            }
+            let val = parseInt($(event.target).val());
+            if (val === 1 || val === 6 || val === 7) {
+                $(this.$refs.answeringTime).closest('.form-group').hide();
+            } else {
+                $(this.$refs.answeringTime).closest('.form-group').show();
             }
         },
         getOptionImageUrl(image) {

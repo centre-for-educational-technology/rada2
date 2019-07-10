@@ -76,7 +76,8 @@ return [
            'keywords' => 'Märksõnad',
            'enforce_items_order' => 'Rakendage üksuste järjekord',
            'subject' => 'Teema',
-           'age_of_participants' => 'Osalejate vanus'
+           'age_of_participants' => 'Osalejate vanus',
+           'answering_time' => 'Vastamise aja limiit'
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',

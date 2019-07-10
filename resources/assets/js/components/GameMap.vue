@@ -3,7 +3,26 @@
         <game-image-dialog ref="correctImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_correct.png'" v-bind:in-animation-class="'bounceInUp'" v-bind:out-animation-class="'bounceOut'"></game-image-dialog>
         <game-image-dialog ref="incorrectImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_incorrect.png'" v-bind:in-animation-class="'bounceInDown'" v-bind:out-animation-class="'bounceOutDown'"></game-image-dialog>
         <game-image-dialog ref="submittedImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_submitted.png'" v-bind:in-animation-class="'bounceInRight'" v-bind:out-animation-class="'bounceOutLeft'"></game-image-dialog>
-        <game-question-modal v-bind:question="question" v-bind:answer="answer" v-bind:game-id="game.id" v-bind:base-url="baseUrl" v-if="question" ref="questionModal"></game-question-modal>
+        <game-question-modal
+                v-bind:question="question"
+                v-bind:answer="answer"
+                v-bind:game-id="game.id"
+                v-bind:base-url="baseUrl"
+                v-if="question"
+                ref="questionModal">
+        </game-question-modal>
+        <game-answering-time-modal
+                v-bind:question="question"
+                v-bind:game-id="game.id"
+                v-bind:base-url="baseUrl"
+                v-if="question"
+                ref="answeringTimeModal">
+        </game-answering-time-modal>
+        <game-answering-time-is-up-modal
+                v-bind:question="question"
+                v-if="question"
+                ref="answeringTimeIsUpModal">
+        </game-answering-time-is-up-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <div id="map">
         </div>
@@ -133,6 +152,8 @@
     export default {
         components: {
             'game-question-modal': require('./GameQuestionModal.vue'),
+            'game-answering-time-modal': require('./GameAnsweringTimeModal.vue'),
+            'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue')
         },
@@ -244,8 +265,9 @@
                         markers.push(marker);
 
                         marker.addListener('click', function() {
+                            const answer = _this.getAnswer(question.id);
+
                             if ( _this.isAnswered(question.id) ) {
-                                const answer = _.get(_this.game.answers, question.id, null);
                                 _this.openQuestionModal(question, answer);
                                 return;
                             }
@@ -253,25 +275,14 @@
                             if (_this.getEnforceItemsOrder() > 0) {
                                 let nextMarkers = _this.getNextUnansweredMarkers();
                                 if (nextMarkers.length > 0) {
-                                    let found = false;
-                                    for (let nextMarkerIndex in nextMarkers) {
-                                        let nextMarker = nextMarkers[nextMarkerIndex];
-                                        if (marker.questionId === nextMarker.questionId) {
-                                            found = true;
-                                            break;
-                                        }
-                                    }
-                                    if (found === false) {
-                                        _this.closeInfoWindow();
-                                        infoWindow.setContent(marker.title);
-                                        infoWindow.open(map, marker);
-                                        return ;
+                                    let nextMarker = nextMarkers.find(thisMarker => {
+                                        return marker.questionId === thisMarker.questionId;
+                                    });
+                                    if (nextMarker === 'undefined') {
+                                        return _this.openNewInfoWindow(infoWindow, marker, map);
                                     }
                                 } else {
-                                    _this.closeInfoWindow();
-                                    infoWindow.setContent(marker.title);
-                                    infoWindow.open(map, marker);
-                                    return ;
+                                    return _this.openNewInfoWindow(infoWindow, marker, map);
                                 }
                             }
 
@@ -279,16 +290,14 @@
                                 var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
 
                                 if ( distance <= _this.getProximityRadius() ) {
-                                    _this.openQuestionModal(question);
+                                    _this.openQuestionModal(question, answer);
                                 } else if ( _this.hasAccessCode(question) ) {
                                     _this.openAccessCodeModal(question);
                                 } else {
-                                    _this.closeInfoWindow();
-                                    infoWindow.setContent(marker.title);
-                                    infoWindow.open(map, marker);
+                                    _this.openNewInfoWindow(infoWindow, marker, map);
                                 }
                             } else {
-                                _this.openQuestionModal(question);
+                                _this.openQuestionModal(question, answer);
                             }
                         });
                     });
@@ -367,6 +376,13 @@
                     infoWindow.close();
                 }
             },
+            openNewInfoWindow(infoWindow, marker, map) {
+                this.closeInfoWindow();
+                infoWindow.setContent(marker.title);
+                infoWindow.open(map, marker);
+
+                return true;
+            },
             initPlayerMarker() {
                 var circle,
                     playerMarker,
@@ -421,10 +437,14 @@
                 return _.find(this.game.activity.questions, ['id', id]);
             },
             isAnswered(questionId) {
-                return _.has(this.game.answers, questionId);
+                const answer = this.getAnswer(questionId);
+                if (answer === null) {
+                    return false;
+                }
+                return answer.is_answered > 0;
             },
             isCorrect(questionId) {
-                const answer = _.get(this.game.answers, questionId, null);
+                const answer = this.getAnswer(questionId);
 
                 return answer && answer.correct === true;
             },
@@ -490,12 +510,44 @@
             getEnforceItemsOrder() {
                 return parseInt(this.game.activity.enforce_items_order) || 0;
             },
-            openQuestionModal(question, answer) {
+            openAnsweringTimeModal(question) {
                 this.question = question;
-                this.answer = answer ? answer : null;
                 this.$nextTick(() => {
-                    this.$refs.questionModal.open();
+                    this.$refs.answeringTimeModal.open();
                 });
+            },
+            getAnswer(questionId, defaultValue) {
+                if (typeof defaultValue === 'undefined') {
+                    defaultValue = null;
+                }
+                return _.get(this.game.answers, questionId, defaultValue);
+            },
+            isAnswering(questionId) {
+                let answer = this.getAnswer(questionId);
+                if (answer === null || answer.is_answered > 0) {
+                    return false;
+                } else if (answer.answering_start_time != null) {
+                    return true;
+                }
+                return false;
+            },
+            openAnsweringTimeIsUpModal() {
+                this.$nextTick(() => {
+                    this.$refs.answeringTimeIsUpModal.open();
+                });
+            },
+            openQuestionModal(question, answer) {
+                if (!!question.answering_time_check &&
+                    this.isAnswering(question.id) === false &&
+                    this.isAnswered(question.id) === false) {
+                    this.openAnsweringTimeModal(question);
+                } else {
+                    this.question = question;
+                    this.answer = answer ? answer : null;
+                    this.$nextTick(() => {
+                        this.$refs.questionModal.open();
+                    });
+                }
             },
             openAccessCodeModal(question) {
                 this.question = question;

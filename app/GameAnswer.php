@@ -57,6 +57,8 @@ class GameAnswer extends Model
             'answer' => json_decode($this->answer, true),
             'image' => $this->getImageUrl(),
             'correct' => (bool)$this->correct,
+            'is_answered' => $this->is_answered,
+            'answering_start_time' => $this->answering_start_time ? $this->answering_start_time : null
         ];
     }
 }

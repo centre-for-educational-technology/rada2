@@ -133,6 +133,7 @@ return [
             'access-code-placeholder' => 'Sisesta kood, et vastata küsimusele ilma positsioneerimise piiranguta',
             'not-logged-in' => 'Ei ole sisse logitud',
             'complete' => 'Lõpetatud!',
+            'remaining_time' => 'Alles jäänud aega',
             'icons' => [
                 'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
                 'active' => 'Vastamata',
@@ -161,6 +162,11 @@ return [
                     'title' => 'Aidake üksteist',
                     'description' => 'Aita oma sõpru ja veetke koos meeldivalt aega!',
                 ],
+                'answering_time' => [
+                    'description' => 'Sellel küsimusel on ajaline piirang. Küsimuse vaatamiseks klõpsake nuppu "Alusta".',
+                    'start_timer' => 'Alusta',
+                    'time_is_up' => 'Aeg mis oli mõeldud selle küsimuse vastamiseks sai läbi.'
+                ]
             ],
             'vouchers' => [
                 'heading' => 'Oled saanud kupongi!',
