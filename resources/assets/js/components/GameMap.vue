@@ -340,6 +340,59 @@
                 });
 
                 this.initPlayerPositionLogging();
+                this.getPositionOfPlayersWhoPlayMyGame();
+            },
+            getPositionOfPlayersWhoPlayMyGame() {
+                let _this = this;
+                let data = {
+                    game_id: this.game.id
+                };
+                this.$http.post(_this.baseUrl + '/api/games/get-position-of-players-who-play-my-game', data).then(response => {
+                    let items = response.body;
+                    if (items === 'false') {
+                        return ;
+                    }
+                    let markers = _this.mapData.markers;
+                    let markersLength = markers.length;
+                    for (let i=0; i<markersLength; i++) {
+                        if (typeof markers[i].isUser !== 'undefined') {
+                            markers[i].setMap(null);
+                        }
+                    }
+
+                    let map = _this.mapData.map;
+                    let itemsLength = items.length;
+                    for (let i=0; i<itemsLength; i++) {
+                        let item = items[i];
+                        let marker = new google.maps.Marker({
+                            title: item.name,
+                            position: {
+                                lat: Number(item.lat),
+                                lng: Number(item.lng)
+                            },
+                            map: map,
+                            // animation: google.maps.Animation.DROP,
+                            optimized: false,
+                            isUser: true
+                        });
+                        let circle = {
+                            path: google.maps.SymbolPath.CIRCLE,
+                            fillColor: item.status === 'active' ? 'orange' : 'gray',
+                            fillOpacity: 1.0,
+                            scale: 4.5,
+                            strokeColor: 'orange',
+                            strokeWeight: 1
+                        };
+                        marker.setIcon(circle);
+                        markers.push(marker);
+                    }
+
+                    setTimeout(() => {
+                        _this.getPositionOfPlayersWhoPlayMyGame();
+                    }, 10000);
+                }, response => {
+                    console.log(response.body);
+                });
             },
             initGroundOverlays() {
                 this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay(this.baseUrl + '/img/map/overlays/skansen.png',{

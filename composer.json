@@ -16,7 +16,8 @@
         "firebase/php-jwt": "^5.0",
         "spatie/laravel-activitylog": "3.*",
         "simplesoftwareio/simple-qrcode": "2.*",
-        "jrean/laravel-user-verification": "7.0.*"
+        "jrean/laravel-user-verification": "7.0.*",
+        "ext-json": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.8",

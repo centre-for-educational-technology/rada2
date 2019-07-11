@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\User;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -223,6 +224,42 @@ class GameController extends Controller
         }
 
         return $answer->getGameData();
+    }
+
+    public function getPositionOfPlayersWhoPlayMyActivity(Request $request, Game $game)
+    {
+        $players = [];
+        /** @var Activity $activity */
+        $activity = $game->activity;
+        if ($activity->user_id !== null && $activity->user_id === $game->user_id) {
+            $tenMinutesAgo = Carbon::now()->subMinutes(10)->toDateTimeString();
+            $fiveMinutesAgo = Carbon::now()->subMinutes(5);
+            $games = Game::where('activity_id', $activity->id)->where('complete', 0)->where('id', '<>', $game->id)->get();
+            /** @var Game $game */
+            foreach ($games as $_game) {
+                /** @var User $player */
+                $player = User::find($_game->user_id);
+                $positions = PlayerPosition::where('game_id', $_game->id)
+                    ->where('created_at', '>', $tenMinutesAgo)
+                    ->orderBy('created_at', 'DESC')
+                    ->take(1)
+                    ->get();
+                /** @var PlayerPosition $position */
+                foreach ($positions as $position) {
+                    $players[] = [
+                        'game_id' => $position->game_id,
+                        'lat' => $position->latitude,
+                        'lng' => $position->longitude,
+                        'status' => Carbon::parse($position->created_at) > $fiveMinutesAgo ? 'active' : 'inactive',
+                        'name' => $player ? $player->name : '-'
+                    ];
+                }
+            }
+        } else {
+            return 'false';
+        }
+
+        return $players;
     }
 
     /**
