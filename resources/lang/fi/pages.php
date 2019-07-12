@@ -14,19 +14,19 @@ return [
     'welcome' => [
         'jumbotron' => [
             'information' => [
-                'heading' => 'Mikä on SmartZoos?',
-                'content' => 'SmartZoos on palvelu paikallistetuille peleille, missä toiminnat vievät sinut ympäristöösi ja saattavat opettaa asian tai toisen.',
+                'heading' => 'Mikä on RADA?',
+                'content' => 'RADA on palvelu paikallistetuille peleille, missä toiminnat vievät sinut ympäristöösi ja saattavat opettaa asian tai toisen.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos kouluille',
-                'content' => 'Siirrä luokkahuone ulos.<br>SmartZoos on nykyinen tapa yhdistää koulua ja pelillistämistä.  Hankimalla luojatilin, voit luoda huvittavia toimintoja itsellesi ja toisille SmartZoos-käyttäjille.',
+                'heading' => 'RADA kouluille',
+                'content' => 'Siirrä luokkahuone ulos.<br>RADA on nykyinen tapa yhdistää koulua ja pelillistämistä.  Hankimalla luojatilin, voit luoda huvittavia toimintoja itsellesi ja toisille RADA-käyttäjille.',
             ],
         ],
         'choose-location' => 'Valitse paikka',
         'btn' => [
-            'play-smart-zoos' => 'Pelaa SmartZoos',
+            'play-smart-zoos' => 'Pelaa RADA',
         ],
-        'project-information' => 'SmartZoos tuo Itämereä ympäröivat eläintarhat yhteiseksi matkailukohteeksi kehittämällä opettavia kännykkäpelejä.',
+        'project-information' => 'RADA tuo Itämereä ympäröivat eläintarhat yhteiseksi matkailukohteeksi kehittämällä opettavia kännykkäpelejä.',
     ],
     'activities' => [
         'index' => [
@@ -208,7 +208,7 @@ return [
     ],
     'badges' => [
         'introduction' => [
-            'general' => 'Suorittamalla tiettyjä tehtäviä SmartZoossa, saat arvomerkkejä.',
+            'general' => 'Suorittamalla tiettyjä tehtäviä RADAsa, saat arvomerkkejä.',
             'authenticated' => 'Keräämäsi arvomerkit näkyvät  <a href=":profileUrl">profiilissasi</a>.',
             'guest' => 'Kerätääksen arvomerkkejä sinun täytyy  <a href=":loginUrl">kirjautua sisään</a>.',
         ],

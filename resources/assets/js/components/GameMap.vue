@@ -144,8 +144,8 @@
         });
     }
 
-    var connectMarkers =  window.SmartZoos.config.connect_markers || false;
-    var enableStreetView = window.SmartZoos.config.map.enableStreetView || false;
+    var connectMarkers =  window.RADA.config.connect_markers || false;
+    var enableStreetView = window.RADA.config.map.enableStreetView || false;
 
     import MarkerIconMixin from './../mixins/MarkerIcon.js';
 

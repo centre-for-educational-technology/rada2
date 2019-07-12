@@ -14,19 +14,19 @@ return [
     'welcome' => [
         'jumbotron' => [
             'information' => [
-                'heading' => 'Mis on SmartZoos?',
-                'content' => 'SmartZoos on asukohapõhine mäng, mis võimaldab mängijatel osa võtta loovast ja koostööle orienteeritud teadmiste loomisest läbi mängustamise ja interaktiivsete ülesannete.',
+                'heading' => 'Mis on RADA?',
+                'content' => 'RADA on asukohapõhine mäng, mis võimaldab mängijatel osa võtta loovast ja koostööle orienteeritud teadmiste loomisest läbi mängustamise ja interaktiivsete ülesannete.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos koolidele',
-                'content' => 'SmartZoos pakub võimaluse viia õppetöö klassiruumist välja ning koostada mängulisi tegevusi asukohapõhiste õpperadade näol.',
+                'heading' => 'RADA koolidele',
+                'content' => 'RADA pakub võimaluse viia õppetöö klassiruumist välja ning koostada mängulisi tegevusi asukohapõhiste õpperadade näol.',
             ],
         ],
         'choose-location' => 'Vali asukoht',
         'btn' => [
             'play-smart-zoos' => 'Mängima',
         ],
-        'project-information' => 'SmartZoos ühendab Kesk-Läänemeremaade loomaaiad ühiseks turismi atraktsiooniks läbi mobiilse seikluspõhise teenuste paketi.',
+        'project-information' => 'RADA ühendab Kesk-Läänemeremaade loomaaiad ühiseks turismi atraktsiooniks läbi mobiilse seikluspõhise teenuste paketi.',
     ],
     'activities' => [
         'index' => [

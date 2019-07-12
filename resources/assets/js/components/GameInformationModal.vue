@@ -81,7 +81,7 @@
         props: ['activity'],
         mixins: [MarkerIconMixin],
         mounted() {
-            this.baseUrl = window.SmartZoos.config.base_url;
+            this.baseUrl = window.RADA.config.base_url;
         },
         data() {
             return {

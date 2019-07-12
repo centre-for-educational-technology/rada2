@@ -839,17 +839,17 @@ h6 {
   <ol class="c5 lst-kix_list_1-0 start" start="1">
     <li class="c20" id="h.gjdgxs"><span class="c10">Tingimused </span></li>
   </ol>
-  <p class="c17"><span class="c21">SmartZoos platvorm</span></p>
+  <p class="c17"><span class="c21">RADA platvorm</span></p>
   <p class="c14"><span class="c3">&nbsp;</span></p>
   <p class="c0"><span class="c3"></span></p>
-  <p class="c4"><span class="c6">Allj&auml;rgnevad tingimused annavad &uuml;levaate sellest, millised on SmartZoos platvormi </span><span class="c11"><a class="c2" href="https://www.google.com/url?q=https://smartzoos.eu/&amp;sa=D&amp;ust=1526379438404000">https://smartzoos.eu/</a></span>
+  <p class="c4"><span class="c6">Allj&auml;rgnevad tingimused annavad &uuml;levaate sellest, millised on RADA platvormi </span><span class="c11"><a class="c2" href="https://www.google.com/url?q=https://RADA.eu/&amp;sa=D&amp;ust=1526379438404000">https://RADA.eu/</a></span>
     <span
     class="c6">&nbsp;kasutusreeglid.</span>
   </p>
   <p class="c0"><span class="c3"></span></p>
   <p class="c4"><span class="c6">Platvormi iga kasutaja peab t&auml;itma allj&auml;rgnevaid tingimusi.</span></p>
   <p class="c0"><span class="c3"></span></p>
-  <p class="c4"><span class="c6">K&auml;esolevas dokumendis kasutatakse j&auml;rgmisi m&otilde;isteid. &ldquo;Kasutaja&rdquo; v&otilde;i &ldquo;teie&rdquo; viitab teile, s.t. platvormi kasutavale ja k&auml;esolevate tingimustega n&otilde;ustuvale isikule. &ldquo;SmartZoos konsortsium&rdquo; v&otilde;i &ldquo;meie&rdquo; viitab projektimeeskonnale, mille on kokku pannud k&otilde;ik &nbsp;SmartZoos projekti partnerorganisatsioonid (https://project.smartzoos.eu/partners/). </span></p>
+  <p class="c4"><span class="c6">K&auml;esolevas dokumendis kasutatakse j&auml;rgmisi m&otilde;isteid. &ldquo;Kasutaja&rdquo; v&otilde;i &ldquo;teie&rdquo; viitab teile, s.t. platvormi kasutavale ja k&auml;esolevate tingimustega n&otilde;ustuvale isikule. &ldquo;RADA konsortsium&rdquo; v&otilde;i &ldquo;meie&rdquo; viitab projektimeeskonnale, mille on kokku pannud k&otilde;ik &nbsp;RADA projekti partnerorganisatsioonid (https://project.RADA.eu/partners/). </span></p>
   <p
   class="c0"><span class="c3"></span></p>
   <p class="c4"><span class="c1">K&uuml;psised</span></p>
@@ -873,12 +873,12 @@ h6 {
     <p class="c4"><span class="c1">Isikuandmete kogumine</span></p>
     <p class="c4"><span class="c6">Teie isikuandmed, mida te platvormi kasutajaks registreerimise k&auml;igus meiega jagate h&otilde;lmavad teie e-posti aadressi. Platvorm k&uuml;sib seda teavet, kuna see on vajalik registreerimiseks. </span></p>
     <p class="c0"><span class="c3"></span></p>
-    <p class="c4"><span class="c6">SmartZoos ei jaga teie isikuandmeid &uuml;hegi teise organisatsiooni ega teiste projektidega. Kogutud isikuandmed s&auml;ilitatakse turvaliselt serveris. Kogutud isikuandmeid v&otilde;idakse kuvada ainult platvormi privaatses osas, mis on k&auml;ttesaadav ainult platvormi moderaatorile v&otilde;i administraatorile. Kogutud andmeid s&auml;ilitatakse kuni konto eemaldamiseni. </span></p>
+    <p class="c4"><span class="c6">RADA ei jaga teie isikuandmeid &uuml;hegi teise organisatsiooni ega teiste projektidega. Kogutud isikuandmed s&auml;ilitatakse turvaliselt serveris. Kogutud isikuandmeid v&otilde;idakse kuvada ainult platvormi privaatses osas, mis on k&auml;ttesaadav ainult platvormi moderaatorile v&otilde;i administraatorile. Kogutud andmeid s&auml;ilitatakse kuni konto eemaldamiseni. </span></p>
     <p
     class="c0"><span class="c3"></span></p>
     <p class="c4"><span class="c1">Kasutaja sisu</span></p>
     <ol class="c5 lst-kix_list_2-0 start" start="1">
-      <li class="c4 c15"><span class="c6 c9">Platvorm pakub vastavate &otilde;igustega kasutajatele v&otilde;imalust uute m&auml;ngutegevuste v&otilde;i tegevusobjektide loomiseks ning k&otilde;igile kasutajatele v&otilde;imalust olemasolevate m&auml;ngutegevuste kasutamiseks (&ldquo;sisu&rdquo;). See sisu esindab vastavate sisu loojate vaateid ja seisukohti ning ei kajasta tingimata SmartZoos konsortsiumi ja SmartZoos projekti (https://project.smartzoos.eu/) v&otilde;i Euroopa Komisjoni seisukohta. SmartZoos konsortsium ei vastuta platvormi v&otilde;i selle sisu kasutamisest tuleneva kahju, kadude ega kulude eest.</span></li>
+      <li class="c4 c15"><span class="c6 c9">Platvorm pakub vastavate &otilde;igustega kasutajatele v&otilde;imalust uute m&auml;ngutegevuste v&otilde;i tegevusobjektide loomiseks ning k&otilde;igile kasutajatele v&otilde;imalust olemasolevate m&auml;ngutegevuste kasutamiseks (&ldquo;sisu&rdquo;). See sisu esindab vastavate sisu loojate vaateid ja seisukohti ning ei kajasta tingimata RADA konsortsiumi ja RADA projekti (https://project.RADA.eu/) v&otilde;i Euroopa Komisjoni seisukohta. RADA konsortsium ei vastuta platvormi v&otilde;i selle sisu kasutamisest tuleneva kahju, kadude ega kulude eest.</span></li>
       <li
       class="c4 c15"><span class="c6 c9">Teie vastutate kogu teie poolt platvormil postitatud teabe eest.</span></li>
       <li class="c4 c15"><span class="c6 c9">J&auml;tame endale &otilde;iguse kontrollida kogu loodud sisu ja eemaldada mistahes objektid, mida me peame ebasobivaks, solvavaks v&otilde;i muul viisil k&auml;eolevaid tingimusi rikkuvaks.</span></li>
@@ -904,7 +904,7 @@ h6 {
       <li class="c4 c12"><span class="c6 c9">&Auml;rge avaldage isikuandmeid.</span></li>
     </ol>
     <p class="c0"><span class="c3"></span></p>
-    <p class="c4"><span class="c6">Kui teile tundub, et teie kommentaar eemaldati eksikombel, siis saatke meile sellekohane e-mail aadressil </span><span class="c11"><a class="c2" href="mailto:info@smartzoos.eu">info@smartzoos.eu</a></span></p>
+    <p class="c4"><span class="c6">Kui teile tundub, et teie kommentaar eemaldati eksikombel, siis saatke meile sellekohane e-mail aadressil </span><span class="c11"><a class="c2" href="mailto:info@RADA.eu">info@RADA.eu</a></span></p>
     <p class="c13"><span class="c3"></span></p>
     <p class="c4"><span class="c1">Raamid</span></p>
     <p class="c4"><span class="c6">Ilma vastavate administraatori &otilde;igusteta ei ole teil lubatud luua platvormi veebilehtede raame ega kasutada muid tehnikaid, mis muudavad mistahes viisil platvormi visuaalset esitust v&otilde;i v&auml;ljan&auml;gemist.</span></p>
@@ -914,7 +914,7 @@ h6 {
     <p class="c4"><span class="c6">Me j&auml;tame endale &otilde;iguse n&otilde;uda teilt igal ajal ja meie &auml;ran&auml;gemisel k&otilde;igi linkide v&otilde;i mistahes &uuml;ksiku lingi eemaldamist platvormilt ning teil tuleb selline link/lingid p&otilde;hjendamatu viivituseta eemaldada.</span></p>
     <p
     class="c0"><span class="c3"></span></p>
-    <p class="c4"><span class="c6">Kui te leiate, et platvormile suunav v&otilde;i platvormil olev link on taunitav, siis andke sellest palun teada, saates meile e-maili projekti e-posti aadressil (info@ismartzoos.eu). Me kaalume k&otilde;iki selliseid taotlusi, kuid j&auml;tame endale &otilde;iguse teha l&otilde;plik otsus ning mitte vastata teile otse. </span></p>
+    <p class="c4"><span class="c6">Kui te leiate, et platvormile suunav v&otilde;i platvormil olev link on taunitav, siis andke sellest palun teada, saates meile e-maili projekti e-posti aadressil (info@iRADA.eu). Me kaalume k&otilde;iki selliseid taotlusi, kuid j&auml;tame endale &otilde;iguse teha l&otilde;plik otsus ning mitte vastata teile otse. </span></p>
     <p
     class="c0"><span class="c3"></span></p>
     <p class="c4"><span class="c6">Me ei garanteeri avaldatud sisu &otilde;igsust v&otilde;i korrektsust ega kindlusta platvormi k&auml;ttesaadavust ega platvormil oleva materjali ajakohastatust.</span></p>
@@ -927,7 +927,7 @@ h6 {
     <p
     class="c0"><span class="c3"></span></p>
     <p class="c4"><span class="c1">Piiratud vastutus</span></p>
-    <p class="c4"><span class="c6">SmartZoos konsortsiumi liikmed ega &uuml;kski selle ametnik, direktor ega t&ouml;&ouml;taja pole mingil juhul vastutav k&auml;esoleva platvormi teie poolsest kasutamisest tulenevate v&otilde;i sellega seotud tagaj&auml;rgede eest. SmartZoos konsortsiumi liikmed, sealhulgas selle ametnikud, direktorid ja t&ouml;&ouml;tajad ei vastuta k&auml;esoleva platvormi kasutamisest tuleneva v&otilde;i sellega mistahes viisil seotud kaudse v&otilde;i tegevusest tuleneva kahju eest.</span></p>
+    <p class="c4"><span class="c6">RADA konsortsiumi liikmed ega &uuml;kski selle ametnik, direktor ega t&ouml;&ouml;taja pole mingil juhul vastutav k&auml;esoleva platvormi teie poolsest kasutamisest tulenevate v&otilde;i sellega seotud tagaj&auml;rgede eest. RADA konsortsiumi liikmed, sealhulgas selle ametnikud, direktorid ja t&ouml;&ouml;tajad ei vastuta k&auml;esoleva platvormi kasutamisest tuleneva v&otilde;i sellega mistahes viisil seotud kaudse v&otilde;i tegevusest tuleneva kahju eest.</span></p>
     <p
     class="c0"><span class="c3"></span></p>
     <p class="c4"><span class="c1">Vastutusest loobumine</span></p>
@@ -936,7 +936,7 @@ h6 {
     <p class="c4"><span class="c6">K&auml;esolevas dokumendis esitatud teabele ei saa tugineda v&otilde;i toimida &uuml;ksnes selle teabe alusel. Juurdep&auml;&auml;s platvormil olevale teabele ei loo teenusepakkuja/kliendi suhet ega kujuta endast platvormi hosti ja k&uuml;lastaja vahelist lepingut.</span></p>
     <p
     class="c0"><span class="c3"></span></p>
-    <p class="c4"><span class="c6">K&auml;esolevat platvormi saab kasutada selle hetkel kehtivas vormis koos k&otilde;igi selle vigadega ning SmartZoos konsortsium ei garanteeri ega esinda mingil moel seda platvormi ega platvormil olevaid materjale. </span></p>
+    <p class="c4"><span class="c6">K&auml;esolevat platvormi saab kasutada selle hetkel kehtivas vormis koos k&otilde;igi selle vigadega ning RADA konsortsium ei garanteeri ega esinda mingil moel seda platvormi ega platvormil olevaid materjale. </span></p>
     <p
     class="c0"><span class="c3"></span></p>
     <p class="c4"><span class="c6">K&auml;esolev platvorm v&otilde;ib sisaldada linke, raame ja viiteid, mis on m&otilde;eldud juurdep&auml;&auml;su h&otilde;lbustamiseks seotud sisule ja materjalile. Platvorm ei garanteeri nendel saitidel sisalduva sisu ja materjali &otilde;igsust ega asjakohasust. </span></p>
@@ -955,7 +955,7 @@ h6 {
     <p
     class="c0"><span class="c3"></span></p>
     <p class="c4"><span class="c1">T&auml;nus&otilde;nad</span></p>
-    <p class="c4"><span class="c6">K&auml;esoleva dokumendi loomisel kasutati http://termsandconditionstemplate.com/generate/. Kui teil on k&uuml;simusi, siis saatke need e-mailiga aadressil </span><span class="c11"><a class="c2" href="mailto:info@smartzoos.eu">info@smartzoos.eu</a></span>
+    <p class="c4"><span class="c6">K&auml;esoleva dokumendi loomisel kasutati http://termsandconditionstemplate.com/generate/. Kui teil on k&uuml;simusi, siis saatke need e-mailiga aadressil </span><span class="c11"><a class="c2" href="mailto:info@RADA.eu">info@RADA.eu</a></span>
       <span
       class="c6">. </span>
     </p>
@@ -963,6 +963,6 @@ h6 {
     <p class="c4"><span class="c6">T&auml;name teid k&auml;esolevatest tingimustest kinni pidamise eest! </span></p>
     <p class="c14"><span class="c6">Soovime teile nauditavat ja l&otilde;busat m&auml;ngukogemust platvormil!</span></p>
     <p class="c13"><span class="c3"><br></span></p>
-    <p class="c18"><span class="c6">SmartZoos konsortsium</span></p>
+    <p class="c18"><span class="c6">RADA konsortsium</span></p>
     <p class="c19"><span class="c9 c23"></span></p>
   </div>

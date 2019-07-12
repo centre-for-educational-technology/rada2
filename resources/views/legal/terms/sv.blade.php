@@ -756,19 +756,19 @@ h6 {
 
 <div class="c15">
     <p class="c23 title" id="h.gjdgxs"><span class="c22">Anv&auml;ndaravtal</span></p>
-    <p class="c5 subtitle" id="h.13w71swvt8vx"><span class="c13">SmartZoos-plattformen</span></p>
+    <p class="c5 subtitle" id="h.13w71swvt8vx"><span class="c13">RADA-plattformen</span></p>
     <p class="c10 c6"><span class="c0"></span></p>
     <p class="c6 c10"><span class="c0"></span></p>
-    <p class="c2"><span class="c4">De f&ouml;ljande villkoren g&auml;ller f&ouml;r anv&auml;ndande av SmartZoos-plattformen, vilken finns tillg&auml;nglig p&aring; </span><span class="c1"><a class="c9" href="https://www.google.com/url?q=https://smartzoos.eu/&amp;sa=D&amp;ust=1526989035756000">https://smartzoos.eu/</a></span>
+    <p class="c2"><span class="c4">De f&ouml;ljande villkoren g&auml;ller f&ouml;r anv&auml;ndande av RADA-plattformen, vilken finns tillg&auml;nglig p&aring; </span><span class="c1"><a class="c9" href="https://www.google.com/url?q=https://RADA.eu/&amp;sa=D&amp;ust=1526989035756000">https://RADA.eu/</a></span>
         <span
         class="c0">.</span>
     </p>
     <p class="c2 c6"><span class="c0"></span></p>
     <p class="c2"><span class="c0">Alla anv&auml;ndare av plattformen m&aring;ste godk&auml;nna villkoren.</span></p>
     <p class="c2 c6"><span class="c0"></span></p>
-    <p class="c2"><span class="c4">F&ouml;ljande begrepp anv&auml;nds i detta dokument: &rdquo;Anv&auml;ndaren&rdquo; och &ldquo;Du&rdquo; anger dig som avser anv&auml;nda plattformen och godk&auml;nner villkoren f&ouml;r detta. &rdquo;SmartZoos-konsortiet&rdquo; eller &rdquo;Vi&rdquo; anger alla deltagarorganisationer i SmartZoos-projektet (</span>
+    <p class="c2"><span class="c4">F&ouml;ljande begrepp anv&auml;nds i detta dokument: &rdquo;Anv&auml;ndaren&rdquo; och &ldquo;Du&rdquo; anger dig som avser anv&auml;nda plattformen och godk&auml;nner villkoren f&ouml;r detta. &rdquo;RADA-konsortiet&rdquo; eller &rdquo;Vi&rdquo; anger alla deltagarorganisationer i RADA-projektet (</span>
         <span
-        class="c1"><a class="c9" href="https://www.google.com/url?q=https://project.smartzoos.eu/partners/&amp;sa=D&amp;ust=1526989035757000">https://project.smartzoos.eu/partners/</a></span><span class="c0">). </span></p>
+        class="c1"><a class="c9" href="https://www.google.com/url?q=https://project.RADA.eu/partners/&amp;sa=D&amp;ust=1526989035757000">https://project.RADA.eu/partners/</a></span><span class="c0">). </span></p>
         <h2 class="c3" id="h.kg6zdorp2jy"><span class="c11">Kakor</span></h2>
         <p class="c2"><span class="c0">Som de flesta interaktiva webbsajter anv&auml;nder Plattformen kakor, varav somliga &auml;r n&ouml;dv&auml;ndiga f&ouml;r att den ska fungera. &nbsp;Genom att anv&auml;nda Plattformen, anses du ha godk&auml;nd anv&auml;ndandet av kakor.</span></p>
         <p
@@ -787,13 +787,13 @@ h6 {
         class="c3" id="h.5vaco4gyslso"><span class="c11">Insamling av persondata</span></h2>
         <p class="c2"><span class="c0">Den personliga information du delar med oss n&auml;r du registrerar dig p&aring; Plattformen omfattar din epostadress, som &auml;r n&ouml;dv&auml;ndig f&ouml;r registreringsprocessen. </span></p>
         <p class="c2 c6"><span class="c0"></span></p>
-        <p class="c2"><span class="c0">SmartZoos kommer inte att dela med sig av dina personliga data till andra organisationer eller projekt. &nbsp;Insamlade persondata kommer att sparas p&aring; ett s&auml;kert s&auml;tt p&aring; servern och kan endast ses av Plattformens administrat&ouml;r eller moderator. &nbsp;Insamlade data beh&aring;lls tills kontot avslutas.</span></p>
+        <p class="c2"><span class="c0">RADA kommer inte att dela med sig av dina personliga data till andra organisationer eller projekt. &nbsp;Insamlade persondata kommer att sparas p&aring; ett s&auml;kert s&auml;tt p&aring; servern och kan endast ses av Plattformens administrat&ouml;r eller moderator. &nbsp;Insamlade data beh&aring;lls tills kontot avslutas.</span></p>
         <h2
         class="c3" id="h.r1iu802g6qvz"><span>Anv&auml;ndarproducerat inneh&aring;ll</span></h2>
         <ol class="c12 lst-kix_vcekqu946qxo-0 start" start="1">
-            <li class="c2 c21"><span class="c4">Plattformen erbjuder anv&auml;ndare som mottagit relevanta r&auml;ttigheter att skapa Aktiviteter och Uppgifter s&aring; att alla anv&auml;ndare kan spela dessa Aktiviteter (&rdquo;Inneh&aring;ll&rdquo;). &nbsp;Detta Inneh&aring;ll st&aring;r f&ouml;r de respektive anv&auml;ndare som skapat det och motsvarar inte n&ouml;dv&auml;ndigtvis SmartZoos-konsortiets, SmartZoos-projektets (</span>
+            <li class="c2 c21"><span class="c4">Plattformen erbjuder anv&auml;ndare som mottagit relevanta r&auml;ttigheter att skapa Aktiviteter och Uppgifter s&aring; att alla anv&auml;ndare kan spela dessa Aktiviteter (&rdquo;Inneh&aring;ll&rdquo;). &nbsp;Detta Inneh&aring;ll st&aring;r f&ouml;r de respektive anv&auml;ndare som skapat det och motsvarar inte n&ouml;dv&auml;ndigtvis RADA-konsortiets, RADA-projektets (</span>
                 <span
-                class="c1"><a class="c9" href="https://www.google.com/url?q=https://project.smartzoos.eu/&amp;sa=D&amp;ust=1526989035760000">https://project.smartzoos.eu/</a></span><span class="c4">) eller EU-kommissionens h&aring;llning. &nbsp;SmartZoos-konsortiet ansvarar inte f&ouml;r f&ouml;rluster, skador eller utgifter som orsakas av anv&auml;ndningen av Plattformen eller dess Inneh&aring;ll.</span></li>
+                class="c1"><a class="c9" href="https://www.google.com/url?q=https://project.RADA.eu/&amp;sa=D&amp;ust=1526989035760000">https://project.RADA.eu/</a></span><span class="c4">) eller EU-kommissionens h&aring;llning. &nbsp;RADA-konsortiet ansvarar inte f&ouml;r f&ouml;rluster, skador eller utgifter som orsakas av anv&auml;ndningen av Plattformen eller dess Inneh&aring;ll.</span></li>
                 <li
                 class="c2 c21"><span class="c0">Du &auml;r ansvarig f&ouml;r all information du laddar upp p&aring; Plattformen.</span></li>
                 <li class="c2 c21"><span class="c0">Vi f&ouml;rbeh&aring;ller oss r&auml;tten att g&aring; igenom allt skapat Inneh&aring;ll och avl&auml;gsna det vi bed&ouml;mer som ol&auml;mpligt, st&ouml;tande eller p&aring; annat vis brytande mot detta Anv&auml;ndaravtal.</span></li>
@@ -820,14 +820,14 @@ h6 {
                 <li class="c2 c18"><span class="c0">Ladda inte upp personuppgifter, som namn, adresser, telefonnummer, osv.</span></li>
             </ol>
             <p class="c2 c6"><span class="c0"></span></p>
-            <p class="c2"><span class="c4">Om du tror att ditt bidrag tagits bort av misstag, skriv till oss p&aring; </span><span class="c16 c4"><a class="c9" href="mailto:info@smartzoos.eu">info@smartzoos.eu</a></span></p>
+            <p class="c2"><span class="c4">Om du tror att ditt bidrag tagits bort av misstag, skriv till oss p&aring; </span><span class="c16 c4"><a class="c9" href="mailto:info@RADA.eu">info@RADA.eu</a></span></p>
             <h2 class="c3" id="h.9n4gi282nj1c"><span class="c20">Iframes</span></h2>
             <p class="c2"><span class="c4">Det &auml;r inte till&aring;tet att skapa ramar runt Plattformens webbsidor eller anv&auml;nda andra metoder f&ouml;r att p&aring; n&aring;got s&auml;tt &auml;ndra Plattformens grafiska utformning. </span></p>
             <h2 class="c3"
             id="h.plcjphvr3v58"><span class="c11">Borttagning av l&auml;nkar p&aring; Plattformen</span></h2>
             <p class="c2"><span class="c0">Vi f&ouml;rbeh&aring;ller oss r&auml;tten att kr&auml;va att du snarast tar bort alla eller vissa specifika l&auml;nkar till Plattformen.</span></p>
             <p class="c2 c6"><span class="c0"></span></p>
-            <p class="c2"><span class="c4">Om du hittar en l&auml;nk p&aring; eller till Plattformen som du anser vara ol&auml;mplig, v&auml;nlig meddela oss via e-brev till </span><span class="c1"><a class="c9" href="mailto:info@smartzoos.eu">info@smartzoos.eu</a></span>
+            <p class="c2"><span class="c4">Om du hittar en l&auml;nk p&aring; eller till Plattformen som du anser vara ol&auml;mplig, v&auml;nlig meddela oss via e-brev till </span><span class="c1"><a class="c9" href="mailto:info@RADA.eu">info@RADA.eu</a></span>
                 <span
                 class="c0">. Vi kommer att behandla alla f&ouml;rfr&aring;gningar, men f&ouml;rbeh&aring;ller oss r&auml;tten att ta slutgiltigt beslut i fr&aring;gan utan att meddela dig enskilt. </span>
             </p>
@@ -839,7 +839,7 @@ h6 {
             id="h.utu3c77qm1hr"><span class="c11">Skiljbarhet</span></h2>
             <p class="c2"><span class="c4">Om n&aring;gon del av detta Anv&auml;ndaravtal visar sig strida mot n&aring;gon till&auml;mplig lag, kommer den delen att tas bort utan att p&aring;verka &ouml;vriga delar av avtalet.</span></p>
             <h2 class="c3" id="h.530lrtdstn2g"><span class="c11">Ansvarsbegr&auml;nsning</span></h2>
-            <p class="c2"><span class="c4">Under inga omst&auml;ndigheter kan medlemmar av SmartZoos-konsortiet, inte heller dess handl&auml;ggare, ledare, eller anst&auml;llda, h&aring;llas ansvariga f&ouml;r n&aring;got som orsakas av ditt anv&auml;ndande av Plattformen. </span></p>
+            <p class="c2"><span class="c4">Under inga omst&auml;ndigheter kan medlemmar av RADA-konsortiet, inte heller dess handl&auml;ggare, ledare, eller anst&auml;llda, h&aring;llas ansvariga f&ouml;r n&aring;got som orsakas av ditt anv&auml;ndande av Plattformen. </span></p>
             <h2
             class="c3" id="h.wf8upov9zmst"><span class="c11">Friskrivning</span></h2>
             <p class="c2"><span class="c0">Den information som publicerats p&aring; Plattformen kan komma att &auml;ndras n&auml;r som helst utan f&ouml;reg&aring;ende varning.</span></p>
@@ -847,7 +847,7 @@ h6 {
             <p class="c2"><span class="c4">Informationen i detta dokument ska inte tas som juridisk r&aring;dgivning och du b&ouml;r inte f&ouml;rlita dig eller agera enbart p&aring; grundval av vad som st&aring;r h&auml;r. &nbsp;Tillg&aring;ngen till informationen p&aring; Plattformen inneb&auml;r inte ett kundf&ouml;rh&aring;llande eller ett kontrakt mellan Plattformens &auml;gare och bes&ouml;karna p&aring; den.</span></p>
             <p
             class="c2 c6"><span class="c0"></span></p>
-            <p class="c2"><span class="c0">Plattformen g&ouml;rs tillg&auml;nglig i befintligt skick, inklusive eventuella brister, och SmartZoos-konsortiet utst&auml;ller inga garantier vare sig vad g&auml;ller Plattformen eller dess inneh&aring;ll.</span></p>
+            <p class="c2"><span class="c0">Plattformen g&ouml;rs tillg&auml;nglig i befintligt skick, inklusive eventuella brister, och RADA-konsortiet utst&auml;ller inga garantier vare sig vad g&auml;ller Plattformen eller dess inneh&aring;ll.</span></p>
             <p
             class="c2 c6"><span class="c0"></span></p>
             <p class="c2"><span class="c0">Plattformen kan inneh&aring;lla l&auml;nkar, ramar och h&auml;nvisningar avsedda att hj&auml;lpa anv&auml;ndare att hitta ytterligare information och material. &nbsp;Plattformen kan inte garantera att inneh&aring;llet och informationen p&aring; dessa sajter &auml;r korrekt eller relevant. </span></p>
@@ -866,7 +866,7 @@ h6 {
             class="c3" id="h.r6w6epftxygq"><span class="c11">Tack</span></h2>
             <p class="c2"><span class="c4">Detta dokument har skapats med </span><span class="c1"><a class="c9" href="https://www.google.com/url?q=http://termsandconditionstemplate.com/generate/&amp;sa=D&amp;ust=1526989035769000">http://termsandconditionstemplate.com/generate/</a></span>
                 <span
-                class="c4">. Om du har n&aring;gra fr&aring;gor, skicka ett e-brev till oss p&aring; adressen </span><span class="c4 c16"><a class="c9" href="mailto:info@smartzoos.eu">info@smartzoos.eu</a></span><span class="c0">. </span></p>
+                class="c4">. Om du har n&aring;gra fr&aring;gor, skicka ett e-brev till oss p&aring; adressen </span><span class="c4 c16"><a class="c9" href="mailto:info@RADA.eu">info@RADA.eu</a></span><span class="c0">. </span></p>
                 <p class="c2 c6"><span class="c0"></span></p>
                 <p class="c2 c6"><span class="c0"></span></p>
                 <p class="c2" id="h.1fob9te"><span class="c0">Tack f&ouml;r att du f&ouml;ljer detta Anv&auml;ndaravtal! </span></p>
@@ -874,7 +874,7 @@ h6 {
                 <p class="c2 c6"><span class="c0"></span></p>
                 <p class="c2 c6"><span class="c0"></span></p>
                 <p class="c2 c6"><span class="c0"></span></p>
-                <p class="c14"><span class="c0">SmartZoos-konsortiet</span></p>
+                <p class="c14"><span class="c0">RADA-konsortiet</span></p>
                 <p class="c2 c6"><span class="c0"></span></p>
                 <p class="c6 c17"><span class="c19"></span></p>
 </div>

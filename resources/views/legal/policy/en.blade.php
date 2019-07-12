@@ -1860,19 +1860,19 @@ h6 {
     <div>
         <p class="c11"><span class="c7 c1"></span></p>
     </div>
-    <p class="c2"><span class="c6 c5">1. SmartZoos STATEMENT ON PRIVACY</span></p>
-    <p class="c2"><span class="c1">SmartZoos</span><span class="c5 c1">&nbsp;</span><span class="c1">(platform SmartZoos.eu / &ldquo;Platform&rdquo;) is managed by the </span><span class="c1">Tallinn University</span><span class="c3 c1">&nbsp;on behalf of SmartZoos project. The purpose of this Privacy Policy is to explain how SmartZoos (&ldquo;SmartZoos&rdquo; &ldquo;us,&rdquo; &ldquo;we,&rdquo; or &ldquo;our&rdquo;) collects, uses and shares information about you through our Platform and services. <br>This document addresses privacy aspects in SmartZoos, whereby SmartZoos refers to the Platform and related services. SmartZoos collects different types of data from the user: personal information, log information and non personally-identifiable information, and information about the user activities. </span></p>
+    <p class="c2"><span class="c6 c5">1. RADA STATEMENT ON PRIVACY</span></p>
+    <p class="c2"><span class="c1">RADA</span><span class="c5 c1">&nbsp;</span><span class="c1">(platform RADA.eu / &ldquo;Platform&rdquo;) is managed by the </span><span class="c1">Tallinn University</span><span class="c3 c1">&nbsp;on behalf of RADA project. The purpose of this Privacy Policy is to explain how RADA (&ldquo;RADA&rdquo; &ldquo;us,&rdquo; &ldquo;we,&rdquo; or &ldquo;our&rdquo;) collects, uses and shares information about you through our Platform and services. <br>This document addresses privacy aspects in RADA, whereby RADA refers to the Platform and related services. RADA collects different types of data from the user: personal information, log information and non personally-identifiable information, and information about the user activities. </span></p>
     <p
-    class="c2"><span class="c3 c1"><br>SmartZoos platform and related services ensure that data is tracked and stored only for SmartZoos purposes and treated in accordance with the EU directive. </span></p>
-    <p class="c2"><span class="c3 c1"><br>Before accessing the Platform, users must be aware of the SmartZoos Privacy Policy, which informs and regulates data use and describes the purpose of SmartZoos monitoring services. </span></p>
-    <p class="c2"><span class="c3 c1"><br>SmartZoos privacy policy is addressed to all SmartZoos users - in any role - when they register to the SmartZoos platform or play Activities anonymously. SmartZoos has done all in its power to ensure that all the requisite technical and organisational security measures to prevent unauthorised access to users&rsquo; personal information are put in place. </span></p>
+    class="c2"><span class="c3 c1"><br>RADA platform and related services ensure that data is tracked and stored only for RADA purposes and treated in accordance with the EU directive. </span></p>
+    <p class="c2"><span class="c3 c1"><br>Before accessing the Platform, users must be aware of the RADA Privacy Policy, which informs and regulates data use and describes the purpose of RADA monitoring services. </span></p>
+    <p class="c2"><span class="c3 c1"><br>RADA privacy policy is addressed to all RADA users - in any role - when they register to the RADA platform or play Activities anonymously. RADA has done all in its power to ensure that all the requisite technical and organisational security measures to prevent unauthorised access to users&rsquo; personal information are put in place. </span></p>
     <p
-    class="c2"><span class="c3 c1"><br>The SmartZoos platform may contain links to external websites published by other content providers. These other websites are not under our control and we encourage you to review the privacy policies of each website you visit and use. </span></p>
+    class="c2"><span class="c3 c1"><br>The RADA platform may contain links to external websites published by other content providers. These other websites are not under our control and we encourage you to review the privacy policies of each website you visit and use. </span></p>
     <p
     class="c2"><span class="c5 c1">1.1 Definition of personal information</span></p>
-    <p class="c2"><span class="c3 c1">Personal information is information which you provide to SmartZoos which personally identifies you, such as your name, email address or other data which can be reasonably linked to such information. You provide this when you register as a user. </span></p>
+    <p class="c2"><span class="c3 c1">Personal information is information which you provide to RADA which personally identifies you, such as your name, email address or other data which can be reasonably linked to such information. You provide this when you register as a user. </span></p>
     <p
-    class="c2"><span class="c3 c1">SmartZoos acts in accordance with European legislation for collection and treatment of personal data, and in particular SmartZoos aims to follow the principles of the OECD Privacy Framework (OECD, 2013):</span></p>
+    class="c2"><span class="c3 c1">RADA acts in accordance with European legislation for collection and treatment of personal data, and in particular RADA aims to follow the principles of the OECD Privacy Framework (OECD, 2013):</span></p>
     <ol
     class="c9 lst-kix_list_2-0 start" start="1">
     <li class="c0"><span class="c3 c1">Data should be obtained by lawful and fair means and, where appropriate, with the knowledge or consent of the data subject; </span></li>
@@ -1882,35 +1882,35 @@ h6 {
     <li class="c0"><span class="c1 c3">Personal data should be protected by reasonable security safeguards against loss or unauthorised access, destruction, use, modification or disclosure;</span></li>
     <li class="c0"><span class="c3 c1">Information on the existence and nature of personal data, purpose of their use and the identity and location of the data controller should be available.</span></li>
 </ol>
-<p class="c2"><span class="c3 c1">Please read this notice carefully to understand what we do with the information you leave through your navigation in SmartZoos. <br></span></p>
-<p class="c2"><span class="c1">If you do not understand any aspects of our Privacy Policy you can contact us at </span><span class="c3 c10">info@smartzoos.eu</span></p>
+<p class="c2"><span class="c3 c1">Please read this notice carefully to understand what we do with the information you leave through your navigation in RADA. <br></span></p>
+<p class="c2"><span class="c1">If you do not understand any aspects of our Privacy Policy you can contact us at </span><span class="c3 c10">info@RADA.eu</span></p>
 <p class="c2 c13"><span class="c3 c1"></span></p>
 <p class="c2"><span class="c6 c5">2. COLLECTION OF INFORMATION</span></p>
-<p class="c2"><span class="c1 c5">2.1 Data collected in SmartZoos can be of two types: </span></p>
+<p class="c2"><span class="c1 c5">2.1 Data collected in RADA can be of two types: </span></p>
 <ol class="c9 lst-kix_list_4-0 start" start="1">
     <li class="c0"><span class="c3 c1">Data provided by the user, i.e. through registration forms, mail contacts etc.</span></li>
-    <li class="c0"><span class="c3 c1">Data collected through the use of SmartZoos services, i.e. navigation, activities, games.</span></li>
+    <li class="c0"><span class="c3 c1">Data collected through the use of RADA services, i.e. navigation, activities, games.</span></li>
     <li class="c0"><span class="c3 c1">When you create content or information using the Activity or Activity Item content type, be aware that you are allowing everyone, to access and use that information, and to associate it with you (i.e., your username and profile picture).</span></li>
 </ol>
-<p class="c2"><span class="c5 c1">2.1.1 Personal information - </span><span class="c3 c1">when a user registers in SmartZoos platform, the following data is being collected and stored: full name, email address and role (e.g., Zoo Member). After creation of Activity or Activity Item, the following information is made public: name of the creator and any information you voluntarily add into the creation form.</span></p>
+<p class="c2"><span class="c5 c1">2.1.1 Personal information - </span><span class="c3 c1">when a user registers in RADA platform, the following data is being collected and stored: full name, email address and role (e.g., Zoo Member). After creation of Activity or Activity Item, the following information is made public: name of the creator and any information you voluntarily add into the creation form.</span></p>
 <p
 class="c2"><span class="c1">Personal information is collected and used with the following purposes:</span><span class="c5 c1">&nbsp;</span></p>
 <ol class="c9 lst-kix_list_6-0 start" start="1">
-    <li class="c0"><span class="c3 c1">to provide, maintain, protect and improve the quality of the Platform and the content that SmartZoos offers; this includes conducting anonymised user research; </span></li>
+    <li class="c0"><span class="c3 c1">to provide, maintain, protect and improve the quality of the Platform and the content that RADA offers; this includes conducting anonymised user research; </span></li>
     <li class="c0"><span class="c1">to provide you with personalised feedback; </span></li>
     <li class="c0"><span class="c3 c1">to conduct evidence-based pedagogical improvements;</span></li>
     <li class="c0"><span class="c3 c1">for purposes of scientific research, mainly in the areas of technology-enhanced learning; </span></li>
     <li class="c0"><span class="c3 c1">to manage your account that you hold with us; </span></li>
-    <li class="c0"><span class="c3 c1">to allow you to make full use of SmartZoos features and services. </span></li>
+    <li class="c0"><span class="c3 c1">to allow you to make full use of RADA features and services. </span></li>
 </ol>
-<p class="c2"><span class="c3 c1">Personal information is stored in secured servers. SmartZoos has put in place technical and organisational security measures to prevent the loss or unauthorised access of users&rsquo; personal information.</span></p>
+<p class="c2"><span class="c3 c1">Personal information is stored in secured servers. RADA has put in place technical and organisational security measures to prevent the loss or unauthorised access of users&rsquo; personal information.</span></p>
 <p
 class="c2 c13"><span class="c3 c1"></span></p>
-<p class="c2"><span class="c5 c1">2.1.2 Tracking </span><span class="c3 c1">SmartZoos tracks user activities related to participation in our Activities, your performance while answering the question and the occasional GPS position, for the aim of scientific research. </span></p>
+<p class="c2"><span class="c5 c1">2.1.2 Tracking </span><span class="c3 c1">RADA tracks user activities related to participation in our Activities, your performance while answering the question and the occasional GPS position, for the aim of scientific research. </span></p>
 <p
-class="c2"><span class="c5 c1">2.2.</span><span class="c3 c1">&nbsp;No individual analytics will be knowingly made available to other people outside SmartZoos. </span></p>
+class="c2"><span class="c5 c1">2.2.</span><span class="c3 c1">&nbsp;No individual analytics will be knowingly made available to other people outside RADA. </span></p>
 <p class="c2"><span class="c6 c5">3. CONSENT </span></p>
-<p class="c2"><span class="c5 c1">3.1.</span><span class="c3 c1">&nbsp;The SmartZoos platform is hosted on servers located in Estonia. Data concerning registration to the Platform, platform cookies, data related to game results are all collected and stored on those servers.&nbsp; Since Estonia belongs to the European Economic Area (EEA), the EEA legislation on privacy and the protection of personal data has been implemented. However, some usage data - mainly concerning analytics and client-side error tracking - may be stored in non-EU (e.g., Switzerland) or non-European Countries (e.g., United States). All of that data is anonymous and cannot be directly associated with users of the platform.</span></p>
+<p class="c2"><span class="c5 c1">3.1.</span><span class="c3 c1">&nbsp;The RADA platform is hosted on servers located in Estonia. Data concerning registration to the Platform, platform cookies, data related to game results are all collected and stored on those servers.&nbsp; Since Estonia belongs to the European Economic Area (EEA), the EEA legislation on privacy and the protection of personal data has been implemented. However, some usage data - mainly concerning analytics and client-side error tracking - may be stored in non-EU (e.g., Switzerland) or non-European Countries (e.g., United States). All of that data is anonymous and cannot be directly associated with users of the platform.</span></p>
 <p
 class="c2"><span class="c5 c1">3.1.1</span><span class="c3 c1">&nbsp;When registering, you are asked for consent before any data is collected, in accordance with the European Union (EU) Data Protection Directive 95/46/EC.</span></p>
 <p
@@ -1927,9 +1927,9 @@ class="c2"><span class="c5 c1">4.3</span><span class="c3 c1">. You have the righ
 <p
 class="c2"><span class="c5 c1">4.5.</span><span class="c3 c1">&nbsp;You have the choice to use an anonymous name or your clear name when registering as display name. </span></p>
 <p class="c2"><span class="c5 c6">5. SECURITY</span></p>
-<p class="c2"><span class="c5 c1">5.1</span><span class="c3 c1">. SmartZoos cares for your privacy and procedural and technological measures are in place to protect your Personal Information. Such procedures protect the confidentiality of the personal information or user traffic that SmartZoos creates, receives, stores and transmits. </span></p>
+<p class="c2"><span class="c5 c1">5.1</span><span class="c3 c1">. RADA cares for your privacy and procedural and technological measures are in place to protect your Personal Information. Such procedures protect the confidentiality of the personal information or user traffic that RADA creates, receives, stores and transmits. </span></p>
 <p
-class="c2"><span class="c5 c1">5.2.</span><span class="c3 c1">&nbsp;SmartZoos has done all in its power to ensure that all the requisite technical and organisational security measures to prevent unauthorised access to users&rsquo; personal information are in place. As far as security measures under the direct control of SmartZoos are concerned, we ensure: </span></p>
+class="c2"><span class="c5 c1">5.2.</span><span class="c3 c1">&nbsp;RADA has done all in its power to ensure that all the requisite technical and organisational security measures to prevent unauthorised access to users&rsquo; personal information are in place. As far as security measures under the direct control of RADA are concerned, we ensure: </span></p>
 <ol
 class="c9 lst-kix_list_8-0 start" start="1">
 <li class="c0"><span class="c3 c1">Authenticated access control using a password - all administrator users accessing the system will be required to use passwords; </span></li>
@@ -1937,19 +1937,19 @@ class="c9 lst-kix_list_8-0 start" start="1">
 <li class="c0"><span class="c3 c1">Security Socket Layer - SSL &quot;Secure Sockets Layer&quot; installed (see 7.); </span></li>
 <li class="c0"><span class="c3 c1">Regular back-ups of the system</span></li>
 </ol>
-<p class="c2"><span class="c5 c1">5.2</span><span class="c1">. SmartZoos protects all stored data from misuse and respects the rights of the data owners which are guaranteed by the European Union&#39;s (EU) Data Protection Directive 95/46/EC.&nbsp; <br></span>
+<p class="c2"><span class="c5 c1">5.2</span><span class="c1">. RADA protects all stored data from misuse and respects the rights of the data owners which are guaranteed by the European Union&#39;s (EU) Data Protection Directive 95/46/EC.&nbsp; <br></span>
     <span
-    class="c5 c1">5.3.</span><span class="c3 c1">&nbsp;SmartZoos protects all personal data no matter where it is sent, processed or stored, even outside the EU, and therefore must comply with the EU standard contractual clauses. </span></p>
+    class="c5 c1">5.3.</span><span class="c3 c1">&nbsp;RADA protects all personal data no matter where it is sent, processed or stored, even outside the EU, and therefore must comply with the EU standard contractual clauses. </span></p>
     <p
-    class="c2"><span class="c5 c1">5.5</span><span class="c3 c1">. SmartZoos may disclose your Personal Information only: <br>(a) if we are required to do so by law, regulation or other government authority or otherwise in cooperation with an investigation of a governmental authority; <br>(b) to enforce the SmartZoos Terms and Conditions of Use; <br>(c) to protect the safety of users of the SmartZoos platform and services. </span></p>
+    class="c2"><span class="c5 c1">5.5</span><span class="c3 c1">. RADA may disclose your Personal Information only: <br>(a) if we are required to do so by law, regulation or other government authority or otherwise in cooperation with an investigation of a governmental authority; <br>(b) to enforce the RADA Terms and Conditions of Use; <br>(c) to protect the safety of users of the RADA platform and services. </span></p>
     <a
     id="id.gjdgxs"></a>
     <p class="c2"><span class="c6 c5">6. COOKIES AND SIMILAR TECHNOLOGIES</span></p>
-    <p class="c2"><span class="c5 c1">6.1. </span><span class="c3 c1">SmartZoos uses cookies and similar technologies. Cookies are text files containing small amounts of information which are downloaded to your device when you visit a website.&nbsp; Cookies are used by our servers to identify the user and its device.&nbsp; We use cookies to adapt to the user needs and improve the user experience. Informed consent on cookies is required by the so-called &ldquo;Cookies Law&rdquo; on the SmartZoos platform. </span></p>
+    <p class="c2"><span class="c5 c1">6.1. </span><span class="c3 c1">RADA uses cookies and similar technologies. Cookies are text files containing small amounts of information which are downloaded to your device when you visit a website.&nbsp; Cookies are used by our servers to identify the user and its device.&nbsp; We use cookies to adapt to the user needs and improve the user experience. Informed consent on cookies is required by the so-called &ldquo;Cookies Law&rdquo; on the RADA platform. </span></p>
     <p
     class="c2"><span class="c5 c1">Cookies features:</span></p>
     <ol class="c9 lst-kix_list_10-0 start" start="1">
-        <li class="c0"><span class="c3 c1">Cookie name(s): __utma, __utmb, __utmc, __utmv, __utmz are for example the names of Cookies used by Google Analytics; laravel_session is the name of the Cookie used by SmartZoos to identify any authenticated users.</span></li>
+        <li class="c0"><span class="c3 c1">Cookie name(s): __utma, __utmb, __utmc, __utmv, __utmz are for example the names of Cookies used by Google Analytics; laravel_session is the name of the Cookie used by RADA to identify any authenticated users.</span></li>
         <li
         class="c0"><span class="c3 c1">Data stored:&nbsp;A random unique number or string of letters and numbers to identify your browser, the times and dates that you interacted with the site recently and the marketing materials or referring pages that led you to the site. </span></li>
         <li
@@ -1963,16 +1963,16 @@ class="c9 lst-kix_list_8-0 start" start="1">
         <li
         class="c14"><span class="c3 c1">Expiry: Any entries from Session Storage will be deleted as soon as the browser is closed. Local storage would be stored for a longer period of time that could either be explicitly deleted by the user, from browser settings, or by the browser, in case there is a need for that.</span></li>
     </ol>
-    <p class="c2"><span class="c5 c1">6.2</span><span class="c3 c1">. SmartZoos uses Google Analytics.&nbsp;Google Analytics is a web analytics service provided by Google, Inc. (&ldquo;Google&rdquo;), to help us see how our Platform is used. The data collected by Google Analytics is used to analyse how frequently the same people revisit the Platform, how the Platform is found (from advertising or referring websites), and which pages are most frequently viewed. This information is combined with data from other users to create an overall picture of Platform use. </span></p>
+    <p class="c2"><span class="c5 c1">6.2</span><span class="c3 c1">. RADA uses Google Analytics.&nbsp;Google Analytics is a web analytics service provided by Google, Inc. (&ldquo;Google&rdquo;), to help us see how our Platform is used. The data collected by Google Analytics is used to analyse how frequently the same people revisit the Platform, how the Platform is found (from advertising or referring websites), and which pages are most frequently viewed. This information is combined with data from other users to create an overall picture of Platform use. </span></p>
     <p
-    class="c2"><span class="c5 c15">7. </span><span class="c1">SmartZoos uses Secure Sockets Layer (SSL). The Secure Sockets Layer is a protocol that aims to allow the applications to transmit&nbsp;information in a secure and protected way. The applications that use the SSL certificates are able to manage sending and receiving of the protection keys, and encrypt and decrypt information transmitted using the same keys. In this way, all sensitive data that travels inside the Platform maintains a heightened level of security. The same SSL certificate technology is used by SmartZoos partners when&nbsp;communication between different platforms is needed; this keeps the data transfer secure not only within the SmartZoos platform but also when transferring data to and from the partner platforms. </span>
+    class="c2"><span class="c5 c15">7. </span><span class="c1">RADA uses Secure Sockets Layer (SSL). The Secure Sockets Layer is a protocol that aims to allow the applications to transmit&nbsp;information in a secure and protected way. The applications that use the SSL certificates are able to manage sending and receiving of the protection keys, and encrypt and decrypt information transmitted using the same keys. In this way, all sensitive data that travels inside the Platform maintains a heightened level of security. The same SSL certificate technology is used by RADA partners when&nbsp;communication between different platforms is needed; this keeps the data transfer secure not only within the RADA platform but also when transferring data to and from the partner platforms. </span>
     <span
     class="c6 c5">&nbsp;</span>
 </p>
 <p class="c2" id="h.30j0zll"><span class="c6 c5">8. CHANGES/MODIFICATIONS IN OUR PRIVACY POLICY </span></p>
-<p class="c2"><span class="c3 c1">We will review our privacy policy from time to time. Our privacy policies are subject to change and modification. Any change, update or modification will be effective immediately upon posting on our Platform.&nbsp; Any material change to this Privacy Policy will be made known by changing the effective date (located at the bottom of this page). An alert will also be published on the SmartZoos platform to inform users of any significant changes. Please return to this page periodically to make sure that you are up to date with the most current version of this Privacy Policy.</span></p>
+<p class="c2"><span class="c3 c1">We will review our privacy policy from time to time. Our privacy policies are subject to change and modification. Any change, update or modification will be effective immediately upon posting on our Platform.&nbsp; Any material change to this Privacy Policy will be made known by changing the effective date (located at the bottom of this page). An alert will also be published on the RADA platform to inform users of any significant changes. Please return to this page periodically to make sure that you are up to date with the most current version of this Privacy Policy.</span></p>
 <p
-class="c2"><span class="c1">For any additional information please contact: </span><span class="c1 c12">info@smartzoos.eu</span><span class="c1"><br>Effective as of </span>
+class="c2"><span class="c1">For any additional information please contact: </span><span class="c1 c12">info@RADA.eu</span><span class="c1"><br>Effective as of </span>
 <span
 class="c5 c1">01/01/ 2018</span>
 </p>

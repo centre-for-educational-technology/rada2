@@ -6,12 +6,12 @@ import RavenVue from 'raven-js/plugins/vue';
 import Hammer from 'hammerjs';
 
 Vue.use(VueI18n);
-Vue.config.lang = window.SmartZoos.config.locale;
-Vue.locale(window.SmartZoos.config.locale, _.cloneDeep(window.SmartZoos.data.translations));
+Vue.config.lang = window.RADA.config.locale;
+Vue.locale(window.RADA.config.locale, _.cloneDeep(window.RADA.data.translations));
 
-if ( SmartZoos.config.sentry && SmartZoos.config.sentry.sdn) {
+if ( RADA.config.sentry && RADA.config.sentry.sdn) {
     Raven
-        .config(SmartZoos.config.sentry.sdn)
+        .config(RADA.config.sentry.sdn)
         .addPlugin(RavenVue, Vue)
         .install();
 }
@@ -27,11 +27,11 @@ const playGameApp = new Vue({
     created: function() {
         var vm = this;
 
-        vm.baseUrl = window.SmartZoos.config.base_url;
-        vm.exitUrl = window.SmartZoos.config.exit_url;
+        vm.baseUrl = window.RADA.config.base_url;
+        vm.exitUrl = window.RADA.config.exit_url;
         vm.isLoggedIn = window.Laravel.isLoggedIn;
         vm.userName = window.Laravel.userName;
-        vm.game = window.SmartZoos.data.game;
+        vm.game = window.RADA.data.game;
 
         window.addEventListener('beforeunload', vm.leaving);
 
@@ -53,7 +53,7 @@ const playGameApp = new Vue({
 
             var script = document.createElement('script');
             script.type = 'text/javascript';
-            script.src = '//maps.googleapis.com/maps/api/js?key=' + window.SmartZoos.config.map.key + '&callback=initMap&libraries=geometry';
+            script.src = '//maps.googleapis.com/maps/api/js?key=' + window.RADA.config.map.key + '&callback=initMap&libraries=geometry';
             document.body.appendChild(script);
         }
     },

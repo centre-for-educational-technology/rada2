@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'SmartZoos',
+    'name' => 'RADA',
 
     /*
     |--------------------------------------------------------------------------
@@ -52,6 +52,7 @@ return [
     */
 
     'url' => env('APP_URL', 'http://localhost'),
+    'email' => env('APP_EMAIL', 'info@example.com'),
 
     /*
     |--------------------------------------------------------------------------
