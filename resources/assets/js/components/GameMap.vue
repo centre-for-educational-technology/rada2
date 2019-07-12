@@ -353,6 +353,7 @@
                         return ;
                     }
                     let markers = _this.mapData.markers;
+                    let infoWindow = _this.mapData.infoWindow;
                     let markersLength = markers.length;
                     for (let i=0; i<markersLength; i++) {
                         if (typeof markers[i].isUser !== 'undefined') {
@@ -384,12 +385,15 @@
                             strokeWeight: 1
                         };
                         marker.setIcon(circle);
+                        marker.addListener('click', function() {
+                            _this.openNewInfoWindow(infoWindow, marker, map);
+                        });
                         markers.push(marker);
                     }
 
                     setTimeout(() => {
                         _this.getPositionOfPlayersWhoPlayMyGame();
-                    }, 10000);
+                    }, 60000);
                 }, response => {
                     console.log(response.body);
                 });
