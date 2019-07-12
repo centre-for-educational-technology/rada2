@@ -14,19 +14,19 @@ return [
     'welcome' => [
         'jumbotron' => [
             'information' => [
-                'heading' => 'What is SmartZoos?',
-                'content' => 'SmartZoos is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+                'heading' => 'What is RADA?',
+                'content' => 'RADA is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos for Schools',
-                'content' => 'Move the classroom to the great outdoors!<br>SmartZoos is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other SmartZoos users.',
+                'heading' => 'RADA for Schools',
+                'content' => 'Move the classroom to the great outdoors!<br>RADA is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other RADA users.',
             ],
         ],
         'choose-location' => 'Choose location',
         'btn' => [
-            'play-smart-zoos' => 'Play SmartZoos',
+            'play-smart-zoos' => 'Play RADA',
         ],
-        'project-information' => 'SmartZoos integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
+        'project-information' => 'RADA integrates the zoos of the CB region to form a joint tourist attraction through developing, implementing and joint marketing of a cross-border service package of creative adventure learning with mobile devices.',
     ],
     'activities' => [
         'index' => [
@@ -220,7 +220,7 @@ return [
     ],
     'badges' => [
         'introduction' => [
-            'general' => 'By accomplishing certain tasks within SmartZoos, you will be rewarded with badges.',
+            'general' => 'By accomplishing certain tasks within RADA, you will be rewarded with badges.',
             'authenticated' => 'The badges you have collected can be seen on your <a href=":profileUrl">Profile</a>.',
             'guest' => 'In order to collect badges, you must be <a href=":loginUrl">logged in</a>.',
         ],

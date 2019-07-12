@@ -736,14 +736,14 @@ h6 {
     <ol class="c7 lst-kix_list_2-0 start" start="1">
         <li class="c20" id="h.gjdgxs"><span class="c17">Terms and Conditions</span></li>
     </ol>
-    <p class="c19"><span class="c6">SmartZoos Platform</span></p>
+    <p class="c19"><span class="c6">RADA Platform</span></p>
     <p class="c10 c3"><span class="c0"></span></p>
     <p class="c10 c3"><span class="c0"></span></p>
-    <p class="c2"><span class="c0">The following terms and conditions outline the rules and regulations for the use of the SmartZoos platform located at https://smartzoos.eu/.</span></p>
+    <p class="c2"><span class="c0">The following terms and conditions outline the rules and regulations for the use of the RADA platform located at https://RADA.eu/.</span></p>
     <p class="c2 c3"><span class="c0"></span></p>
     <p class="c2"><span class="c0">Each Platform user must comply with the following terms and conditions.</span></p>
     <p class="c2 c3"><span class="c0"></span></p>
-    <p class="c2"><span class="c0">The following terminology is used in this document. &ldquo;User&rdquo;, &ldquo;You&rdquo; or &ldquo;Your&rdquo; refers to you, the person accessing the Platform and accepting these terms and conditions. &ldquo;The SmartZoos consortium&rdquo; or &ldquo;We&rdquo; refers to the project team composed by all the partner organisations of the SmartZoos project (https://project.smartzoos.eu/partners/). </span></p>
+    <p class="c2"><span class="c0">The following terminology is used in this document. &ldquo;User&rdquo;, &ldquo;You&rdquo; or &ldquo;Your&rdquo; refers to you, the person accessing the Platform and accepting these terms and conditions. &ldquo;The RADA consortium&rdquo; or &ldquo;We&rdquo; refers to the project team composed by all the partner organisations of the RADA project (https://project.RADA.eu/partners/). </span></p>
     <p
     class="c2 c3"><span class="c0"></span></p>
     <p class="c2"><span class="c1">Cookies</span></p>
@@ -765,12 +765,12 @@ h6 {
     <p class="c2"><span class="c0">Personal information you share with us when you register on the platform includes your email address. This piece of information is requested by the platform as it is necessary for the registration process. </span></p>
     <p
     class="c2 c3"><span class="c0"></span></p>
-    <p class="c2"><span>SmartZoos will not share your personal information to any other organisation or to other projects. Collected personal data will be stored in a secure way on the server. Collected personal data might be displayed only in the private area of the Platform available only to the moderator or administrator of the platform. </span><span>Collected data will be retained until the account is removed.</span></p>
+    <p class="c2"><span>RADA will not share your personal information to any other organisation or to other projects. Collected personal data will be stored in a secure way on the server. Collected personal data might be displayed only in the private area of the Platform available only to the moderator or administrator of the platform. </span><span>Collected data will be retained until the account is removed.</span></p>
     <p
     class="c2 c3"><span class="c0"></span></p>
     <p class="c2"><span class="c1">User Content</span></p>
     <ol class="c7 lst-kix_list_3-0 start" start="1">
-        <li class="c2 c12"><span class="c0">The Platform offers the opportunity for users with respective rights to create Activities, Activity Item and everyone to play existing Activities (&ldquo;Content&rdquo;). This Content represents the views and opinions of the respective contributors submitting it and does not necessarily reflect the position of the SmartZoos consortium and the SmartZoos project (https://project.smartzoos.eu/), or the European Commission. The SmartZoos consortium is not responsible or liable for any losses, damages or expenses caused by the use of the Platform or its Content.</span></li>
+        <li class="c2 c12"><span class="c0">The Platform offers the opportunity for users with respective rights to create Activities, Activity Item and everyone to play existing Activities (&ldquo;Content&rdquo;). This Content represents the views and opinions of the respective contributors submitting it and does not necessarily reflect the position of the RADA consortium and the RADA project (https://project.RADA.eu/), or the European Commission. The RADA consortium is not responsible or liable for any losses, damages or expenses caused by the use of the Platform or its Content.</span></li>
         <li
         class="c2 c12"><span class="c0">You are responsible for all the information you post on the Platform.</span></li>
         <li class="c2 c12"><span class="c0">We reserve the right to monitor all created content and remove any items which we consider to be inappropriate, offensive or otherwise in breach of these Terms and Conditions.</span></li>
@@ -796,7 +796,7 @@ h6 {
         <li class="c2 c5"><span class="c0">Do not mention any personal data.</span></li>
     </ol>
     <p class="c2 c3"><span class="c0"></span></p>
-    <p class="c2"><span>If you feel that your comment was removed by mistake, please feel free to email us at </span><span class="c9"><a class="c18" href="mailto:info@smartzoos.eu">info@smartzoos.eu</a></span></p>
+    <p class="c2"><span>If you feel that your comment was removed by mistake, please feel free to email us at </span><span class="c9"><a class="c18" href="mailto:info@RADA.eu">info@RADA.eu</a></span></p>
     <p class="c2 c3"><span class="c0"></span></p>
     <p class="c2 c3"><span class="c0"></span></p>
     <p class="c2"><span class="c1">Iframes</span></p>
@@ -806,7 +806,7 @@ h6 {
     <p class="c2"><span class="c1">Removal of Links from the Platform</span></p>
     <p class="c2"><span class="c0">We reserve the right to request that you remove all links or any particular link to the Platform at any time and in sole discretion, which you agree to do without an unjustified delay.</span></p>
     <p class="c2 c3"><span class="c0"></span></p>
-    <p class="c2"><span class="c0">If you find any link on or to the Platform objectionable, please report it to us by emailing us at project email address (info@ismartzoos.eu). We will consider all such requests, but reserve the right to make the final decision and to not respond to you directly. </span></p>
+    <p class="c2"><span class="c0">If you find any link on or to the Platform objectionable, please report it to us by emailing us at project email address (info@iRADA.eu). We will consider all such requests, but reserve the right to make the final decision and to not respond to you directly. </span></p>
     <p
     class="c2 c3"><span class="c0"></span></p>
     <p class="c2"><span class="c0">We do not warrant completeness or accuracy of the published Content, nor do we commit to ensuring that the Platform remains available or that the material on the Platform is kept up to date.</span></p>
@@ -819,7 +819,7 @@ h6 {
     <p class="c2"><span class="c0">If any provision of these terms and conditions is found to be invalid under any applicable law, such provisions shall be deleted without affecting the remaining provisions herein.</span></p>
     <p class="c2 c3"><span class="c1"></span></p>
     <p class="c2"><span class="c1">Limitation of liability</span></p>
-    <p class="c2"><span class="c0">In no event shall SmartZoos Consortium members, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this Platform whether such liability is under contract. SmartZoos Consortium members, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related the use of this Platform.</span></p>
+    <p class="c2"><span class="c0">In no event shall RADA Consortium members, nor any of its officers, directors and employees, shall be held liable for anything arising out of or in any way connected with your use of this Platform whether such liability is under contract. RADA Consortium members, including its officers, directors and employees shall not be held liable for any indirect, consequential or special liability arising out of or in any way related the use of this Platform.</span></p>
     <p
     class="c2 c3"><span class="c1"></span></p>
     <p class="c2"><span class="c1">Disclaimer</span></p>
@@ -828,7 +828,7 @@ h6 {
     <p class="c2"><span class="c0">The information presented in this document does not constitute legal advice and you should not rely or act solely on the basis of this information. Access to information on the Platform does not create either a relationship of solicitor/client or formulate a contract between the Platform hosts and visitors.</span></p>
     <p
     class="c2 c3"><span class="c0"></span></p>
-    <p class="c2"><span class="c0">This Platform is provided &ldquo;as is,&rdquo; with all faults, and SmartZoos Consortium expresses no representation or warranty of any kind related to this Platform or the materials contained on this Platform. </span></p>
+    <p class="c2"><span class="c0">This Platform is provided &ldquo;as is,&rdquo; with all faults, and RADA Consortium expresses no representation or warranty of any kind related to this Platform or the materials contained on this Platform. </span></p>
     <p
     class="c2 c3"><span class="c0"></span></p>
     <p class="c2"><span class="c0">This Platform may contain links, frames, and references designed to assist in accessing related content and material. The Platform makes no warranty that the content and material contained in those sites is accurate or relevant. </span></p>
@@ -847,7 +847,7 @@ h6 {
     <p
     class="c2 c3"><span class="c1"></span></p>
     <p class="c2"><span class="c1">Acknowledgments</span></p>
-    <p class="c2"><span>This document was created using the http://termsandconditionstemplate.com/generate/. If you have any questions, please feel free to email at </span><span class="c9"><a class="c18" href="mailto:info@smartzoos.eu">info@smartzoos.eu</a></span>
+    <p class="c2"><span>This document was created using the http://termsandconditionstemplate.com/generate/. If you have any questions, please feel free to email at </span><span class="c9"><a class="c18" href="mailto:info@RADA.eu">info@RADA.eu</a></span>
         <span
         class="c0">. </span>
     </p>
@@ -858,7 +858,7 @@ h6 {
     <p class="c2 c3"><span class="c0"></span></p>
     <p class="c2 c3"><span class="c0"></span></p>
     <p class="c2 c3"><span class="c0"></span></p>
-    <p class="c13"><span class="c0">The SmartZoos Consortium</span></p>
+    <p class="c13"><span class="c0">The RADA Consortium</span></p>
     <p class="c2 c3"><span class="c0"></span></p>
     <div>
         <p class="c10 c3 c11"><span class="c4"></span></p>

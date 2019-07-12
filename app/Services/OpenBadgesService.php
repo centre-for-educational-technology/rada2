@@ -101,11 +101,11 @@ class OpenBadgesService
             '@context' => self::getContextUri(),
             'id' => route('api.badge.issuer'),
             'type' => 'Issuer',
-            'name' => 'Smart Zoos',
-            'url' => 'https://smartzoos.eu/',
-            'description' => 'Smart Zoos Project',
+            'name' => 'RADA',
+            'url' => config('app.url'),
+            'description' => 'RADA Project',
             'image' => asset('img/logos/logo-square.png'),
-            'email' => 'info@smartzoos.eu',
+            'email' => config('app.email'),
         ];
     }
 
@@ -125,7 +125,7 @@ class OpenBadgesService
             'image' => $badge->getImageUrl(false),
             'criteria' => $badge->getCriteriaUrl(),
             'issuer' => route('api.badge.issuer'),
-            'tags' => ['smartzoos', 'toolset', 'badge',],
+            'tags' => ['RADA', 'toolset', 'badge',],
         ];
     }
 

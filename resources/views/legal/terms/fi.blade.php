@@ -747,14 +747,14 @@ h6 {
   <ol class="c10 lst-kix_list_3-0 start" start="1">
     <li class="c2" id="h.gjdgxs"><span class="c15">K&auml;ytt&ouml;ehdot</span></li>
   </ol>
-  <p class="c17"><span class="c19">SmartZoos-alusta</span></p>
+  <p class="c17"><span class="c19">RADA-alusta</span></p>
   <p class="c18 c6"><span class="c0"></span></p>
   <p class="c6 c18"><span class="c0"></span></p>
-  <p class="c5" id="h.30j0zll"><span class="c0">N&auml;m&auml; k&auml;ytt&ouml;ehdot m&auml;&auml;r&auml;&auml;v&auml;t osoitteessa https://smartzoos.eu sijaitsevan SmartZoos-alustan k&auml;yt&ouml;st&auml;.</span></p>
+  <p class="c5" id="h.30j0zll"><span class="c0">N&auml;m&auml; k&auml;ytt&ouml;ehdot m&auml;&auml;r&auml;&auml;v&auml;t osoitteessa https://RADA.eu sijaitsevan RADA-alustan k&auml;yt&ouml;st&auml;.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c0">Jokaisen Alustan k&auml;ytt&auml;j&auml;n on noudatettava t&auml;ss&auml; kuvattuja k&auml;ytt&ouml;ehtoja.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
-  <p class="c5"><span class="c0">T&auml;ss&auml; asiakirjassa k&auml;ytet&auml;&auml;n seuraavia termej&auml;: &rdquo;K&auml;ytt&auml;j&auml;&rdquo; tai &rdquo;sin&auml;&rdquo; viittaa sinuun, Alustaa k&auml;ytt&auml;v&auml;&auml;n henkil&ouml;&ouml;n, joka hyv&auml;ksyy n&auml;m&auml; k&auml;ytt&ouml;ehdot. &rdquo;SmartZoos-yhteenliittym&auml;&rdquo; tai &rdquo;me&rdquo; viittaa projektity&ouml;ryhm&auml;&auml;n, joka koostuu kaikista SmartZoos-projektin yhteistoimintaorganisaatioista (https://project.smartzoos.eu/partners/). </span></p>
+  <p class="c5"><span class="c0">T&auml;ss&auml; asiakirjassa k&auml;ytet&auml;&auml;n seuraavia termej&auml;: &rdquo;K&auml;ytt&auml;j&auml;&rdquo; tai &rdquo;sin&auml;&rdquo; viittaa sinuun, Alustaa k&auml;ytt&auml;v&auml;&auml;n henkil&ouml;&ouml;n, joka hyv&auml;ksyy n&auml;m&auml; k&auml;ytt&ouml;ehdot. &rdquo;RADA-yhteenliittym&auml;&rdquo; tai &rdquo;me&rdquo; viittaa projektity&ouml;ryhm&auml;&auml;n, joka koostuu kaikista RADA-projektin yhteistoimintaorganisaatioista (https://project.RADA.eu/partners/). </span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c3">Ev&auml;steet</span></p>
   <p class="c5"><span class="c0">Useimpien nykyaikaisten, vuorovaikutteisten verkkosivujen tapaan Alusta k&auml;ytt&auml;&auml; ev&auml;steit&auml;, joista osa on v&auml;ltt&auml;m&auml;tt&ouml;mi&auml;, jotta Alusta toimisi sujuvasti. Alustaa k&auml;ytt&auml;m&auml;ll&auml; hyv&auml;ksyt ev&auml;steiden k&auml;yt&ouml;n.</span></p>
@@ -771,11 +771,11 @@ h6 {
   <p class="c5"><span class="c3">Henkil&ouml;tietojen ker&auml;&auml;minen</span></p>
   <p class="c5"><span class="c0">Kun kirjaudut Alustan k&auml;ytt&auml;j&auml;ksi, luovutat meille henkil&ouml;tietojasi, kuten s&auml;hk&ouml;postiosoitteesi. Alusta tarvitsee n&auml;it&auml; tietoja, jotta voi kirjata sinut k&auml;ytt&auml;j&auml;ksi.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
-  <p class="c5"><span class="c0">SmartZoos ei jaa henkil&ouml;tietojasi millek&auml;&auml;n muulle taholle tai muille projekteille. Ker&auml;tyt henkil&ouml;tiedot s&auml;ilytet&auml;&auml;n palvelimella turvatusti. Ker&auml;ttyj&auml; henkil&ouml;tietoja n&auml;ytet&auml;&auml;n vain Alustan yksityisell&auml; alueella, jota vain Alustan moderaattori tai p&auml;&auml;k&auml;ytt&auml;j&auml; saa k&auml;ytt&auml;&auml;. Ker&auml;tyt tiedot pidet&auml;&auml;n tallessa kunnes k&auml;ytt&auml;j&auml;tili poistetaan.</span></p>
+  <p class="c5"><span class="c0">RADA ei jaa henkil&ouml;tietojasi millek&auml;&auml;n muulle taholle tai muille projekteille. Ker&auml;tyt henkil&ouml;tiedot s&auml;ilytet&auml;&auml;n palvelimella turvatusti. Ker&auml;ttyj&auml; henkil&ouml;tietoja n&auml;ytet&auml;&auml;n vain Alustan yksityisell&auml; alueella, jota vain Alustan moderaattori tai p&auml;&auml;k&auml;ytt&auml;j&auml; saa k&auml;ytt&auml;&auml;. Ker&auml;tyt tiedot pidet&auml;&auml;n tallessa kunnes k&auml;ytt&auml;j&auml;tili poistetaan.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c3">K&auml;ytt&auml;j&auml;n sis&auml;lt&ouml;</span></p>
   <ol class="c10 lst-kix_list_4-0 start" start="1">
-    <li class="c5 c8"><span class="c0">Alusta tarjoaa niille k&auml;ytt&auml;jille, joilla on asianmukaiset oikeudet, mahdollisuuden luoda toimintoja ja teht&auml;vi&auml; sek&auml; kaikille k&auml;ytt&auml;jille mahdollisuuden pelata olemassa olevia toimintoja (&ldquo;Sis&auml;lt&ouml;&rdquo;). T&auml;m&auml; Sis&auml;lt&ouml; edustaa kulloisenkin sit&auml; tuottavan k&auml;ytt&auml;j&auml;n n&auml;kemyksi&auml; ja mielipiteit&auml; eik&auml; se v&auml;ltt&auml;m&auml;tt&auml; edusta SmartZoos-yhteenliittym&auml;n ja SmartZoos-projektin (https://project.smartzoos.eu/) tai Euroopan komission kantaa. SmartZoos-yhteenliittym&auml; ei ole vastuussa mist&auml;&auml;n menetyksist&auml;, vahingoista tai menoerist&auml;, jotka johtuvat Alustan tai sen Sis&auml;ll&ouml;n k&auml;yt&ouml;st&auml;.</span></li>
+    <li class="c5 c8"><span class="c0">Alusta tarjoaa niille k&auml;ytt&auml;jille, joilla on asianmukaiset oikeudet, mahdollisuuden luoda toimintoja ja teht&auml;vi&auml; sek&auml; kaikille k&auml;ytt&auml;jille mahdollisuuden pelata olemassa olevia toimintoja (&ldquo;Sis&auml;lt&ouml;&rdquo;). T&auml;m&auml; Sis&auml;lt&ouml; edustaa kulloisenkin sit&auml; tuottavan k&auml;ytt&auml;j&auml;n n&auml;kemyksi&auml; ja mielipiteit&auml; eik&auml; se v&auml;ltt&auml;m&auml;tt&auml; edusta RADA-yhteenliittym&auml;n ja RADA-projektin (https://project.RADA.eu/) tai Euroopan komission kantaa. RADA-yhteenliittym&auml; ei ole vastuussa mist&auml;&auml;n menetyksist&auml;, vahingoista tai menoerist&auml;, jotka johtuvat Alustan tai sen Sis&auml;ll&ouml;n k&auml;yt&ouml;st&auml;.</span></li>
     <li class="c5 c8"><span class="c0">Sin&auml; olet vastuussa kaikesta Alustalle lis&auml;&auml;m&auml;st&auml;si tiedosta.</span></li>
     <li class="c5 c8"><span class="c0">Pid&auml;t&auml;mme oikeuden valvoa kaikkea luotua sis&auml;lt&ouml;&auml; ja poistaa kohdat, joiden katsomme olevan sopimattomia, loukkaavia tai muulla tavoin n&auml;iden k&auml;ytt&ouml;ehtojen vastaisia.</span></li>
     <li class="c5 c8"><span class="c0">Sin&auml; vakuutat, ett&auml;:</span></li>
@@ -798,7 +798,7 @@ h6 {
     <li class="c5 c7"><span class="c0">&Auml;l&auml; kerro henkil&ouml;tietojasi.</span></li>
   </ol>
   <p class="c5 c6"><span class="c0"></span></p>
-  <p class="c5"><span>Jos uskot, ett&auml; kommenttisi poistettiin vahingossa, ota meihin yhteytt&auml; osoitteessa </span><span class="c14">info@smartzoos.eu</span></p>
+  <p class="c5"><span>Jos uskot, ett&auml; kommenttisi poistettiin vahingossa, ota meihin yhteytt&auml; osoitteessa </span><span class="c14">info@RADA.eu</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c3">Kehykset</span></p>
@@ -807,7 +807,7 @@ h6 {
   <p class="c5"><span class="c3">Alustaan liittyvien linkkien poistaminen</span></p>
   <p class="c5"><span class="c0">Pid&auml;t&auml;mme oikeuden pyyt&auml;&auml; sinua poistamaan kaikki Alustaan johtavat linkit tai mink&auml; tahansa yksitt&auml;isen linkin milloin tahansa oman harkintamme mukaan, ja sitoudut suostumaan pyynt&ouml;&ouml;n ilman aiheetonta viiv&auml;styst&auml;.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
-  <p class="c5"><span class="c0">Jos pid&auml;t jotain Alustalla olevaa tai Alustaan johtavaa linkki&auml; loukkaavana, ilmoita se meille kirjallisesti projektin s&auml;hk&ouml;postiosoitteeseen (info@smartzoos.eu). Otamme huomioon kaikki saamamme pyynn&ouml;t, mutta pid&auml;t&auml;mme oikeuden tehd&auml; lopullisen p&auml;&auml;t&ouml;ksen ja olla vastaamatta sinulle suoraan. </span></p>
+  <p class="c5"><span class="c0">Jos pid&auml;t jotain Alustalla olevaa tai Alustaan johtavaa linkki&auml; loukkaavana, ilmoita se meille kirjallisesti projektin s&auml;hk&ouml;postiosoitteeseen (info@RADA.eu). Otamme huomioon kaikki saamamme pyynn&ouml;t, mutta pid&auml;t&auml;mme oikeuden tehd&auml; lopullisen p&auml;&auml;t&ouml;ksen ja olla vastaamatta sinulle suoraan. </span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c0">Emme takaa sit&auml;, ett&auml; julkaistu Sis&auml;lt&ouml; on t&auml;ydellist&auml; tai pit&auml;&auml; paikkansa, emmek&auml; sitoudu varmistamaan sit&auml;, ett&auml; Alusta pysyy k&auml;yt&ouml;ss&auml; tai ett&auml; Alustalla oleva materiaali pysyy ajankohtaisena.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
@@ -818,14 +818,14 @@ h6 {
   <p class="c5"><span class="c0">Jos k&auml;y ilmi, ett&auml; mik&auml; tahansa n&auml;iden k&auml;ytt&ouml;ehtojen ehto ei p&auml;de sovellettavan lain puitteissa, kyseinen ehto poistetaan, mutta se ei vaikuta muihin t&auml;ss&auml; m&auml;&auml;riteltyihin k&auml;ytt&ouml;ehtoihin.</span></p>
   <p class="c5 c6"><span class="c3"></span></p>
   <p class="c5"><span class="c3">Vastuunrajoitus</span></p>
-  <p class="c5"><span class="c0">SmartZoos-yhteenliittym&auml;n j&auml;senet tai sen toimihenkil&ouml;t, johtajat tai ty&ouml;ntekij&auml;t eiv&auml;t ole miss&auml;&auml;n tapauksessa vastuussa mist&auml;&auml;n, joka johtuu siit&auml; tai liittyy siihen, ett&auml; k&auml;yt&auml;t Alustaa, riippumatta siit&auml;, perustuuko se sopimukseen. SmartZoos-yhteenliittym&auml;n j&auml;senet, mukaan lukien sen toimihenkil&ouml;t, johtajat ja ty&ouml;ntekij&auml;t, eiv&auml;t ole vastuussa mist&auml;&auml;n ep&auml;suorista, v&auml;lillisist&auml; tai erityisist&auml; vastuista, jotka johtuvat t&auml;m&auml;n Alustan k&auml;yt&ouml;st&auml; tai liittyv&auml;t siihen mill&auml;&auml;n tavoin.</span></p>
+  <p class="c5"><span class="c0">RADA-yhteenliittym&auml;n j&auml;senet tai sen toimihenkil&ouml;t, johtajat tai ty&ouml;ntekij&auml;t eiv&auml;t ole miss&auml;&auml;n tapauksessa vastuussa mist&auml;&auml;n, joka johtuu siit&auml; tai liittyy siihen, ett&auml; k&auml;yt&auml;t Alustaa, riippumatta siit&auml;, perustuuko se sopimukseen. RADA-yhteenliittym&auml;n j&auml;senet, mukaan lukien sen toimihenkil&ouml;t, johtajat ja ty&ouml;ntekij&auml;t, eiv&auml;t ole vastuussa mist&auml;&auml;n ep&auml;suorista, v&auml;lillisist&auml; tai erityisist&auml; vastuista, jotka johtuvat t&auml;m&auml;n Alustan k&auml;yt&ouml;st&auml; tai liittyv&auml;t siihen mill&auml;&auml;n tavoin.</span></p>
   <p class="c5 c6"><span class="c3"></span></p>
   <p class="c5"><span class="c3">Vastuuvapautuslauseke</span></p>
   <p class="c5"><span class="c0">Alustalla julkaistut tiedot saattavat muuttua milloin tahansa ilman erillist&auml; ilmoitusta.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c0">T&auml;ss&auml; asiakirjassa esitetyt tiedot eiv&auml;t ole oikeusneuvoja eik&auml; sinun tule nojata yksinomaan t&auml;h&auml;n tietoon tai toimia yksinomaan sen pohjalta. Alustalla olevien tietojen k&auml;ytt&ouml; ei muodosta asianajajan ja p&auml;&auml;miehen suhdetta eik&auml; sopimusta Alustan yll&auml;pit&auml;jien ja vierailijoiden v&auml;lill&auml;.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
-  <p class="c5"><span class="c0">Alusta tarjotaan sellaisenaan, kaikkine virheineen, eik&auml; SmartZoos-yhteenliittym&auml; mill&auml;&auml;n tavalla takaa Alustaa tai sen sis&auml;lt&auml;m&auml;&auml; materiaalia.</span></p>
+  <p class="c5"><span class="c0">Alusta tarjotaan sellaisenaan, kaikkine virheineen, eik&auml; RADA-yhteenliittym&auml; mill&auml;&auml;n tavalla takaa Alustaa tai sen sis&auml;lt&auml;m&auml;&auml; materiaalia.</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c0">Alusta voi sis&auml;lt&auml;&auml; linkkej&auml;, kehyksi&auml; ja viitteit&auml;, joiden tarkoitus on auttaa l&ouml;yt&auml;m&auml;&auml;n aiheeseen liittyv&auml;&auml; sis&auml;lt&ouml;&auml; ja materiaalia. Alusta ei takaa, ett&auml; muilla verkkosivuilla oleva sis&auml;lt&ouml; tai materiaali on virheet&ouml;nt&auml; tai asiaan liittyv&auml;&auml;. </span></p>
   <p class="c5 c6"><span class="c0"></span></p>
@@ -839,13 +839,13 @@ h6 {
   <p class="c5"><span class="c0">N&auml;iden k&auml;ytt&ouml;ehtojen alkuper&auml;inen englanninkielinen versio on voitu k&auml;&auml;nt&auml;&auml; muille kielille. K&auml;&auml;nn&ouml;stoimistoissa k&auml;&auml;nnetyt versiot on tarkoitettu ainoataan lis&auml;palveluksi k&auml;ytt&auml;jille, eik&auml; sinulla ole oikeuksia k&auml;&auml;nnetyn version perusteella. Jos k&auml;ytt&ouml;ehtojen sis&auml;ll&ouml;n tai tulkinnan suhteen on erimielisyyksi&auml; tai jos englanninkielisen ja muun kielisten versioiden v&auml;lill&auml; on eroja tai ristiriitoja, englanninkielist&auml; versiota pidet&auml;&auml;n ensisijaisesti voimassa olevana ja ratkaisevana lain sallimissa rajoissa. Englanninkieliset k&auml;ytt&ouml;ehdot l&ouml;ytyv&auml;t Alustalta, kun valitset kieleksi englannin.</span></p>
   <p class="c5 c6"><span class="c3"></span></p>
   <p class="c5"><span class="c3">Kiitokset</span></p>
-  <p class="c5"><span>T&auml;m&auml; asiakirja on luotu verkkosivun http://termsandconditionstemplate.com/generate/ avulla. Jos sinulla on kysymyksi&auml;, l&auml;het&auml; s&auml;hk&ouml;postia osoitteeseen </span><span class="c14">info@smartzoos.eu</span><span class="c0">. </span></p>
+  <p class="c5"><span>T&auml;m&auml; asiakirja on luotu verkkosivun http://termsandconditionstemplate.com/generate/ avulla. Jos sinulla on kysymyksi&auml;, l&auml;het&auml; s&auml;hk&ouml;postia osoitteeseen </span><span class="c14">info@RADA.eu</span><span class="c0">. </span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5"><span class="c0">Kiitos siit&auml;, ett&auml; noudatat n&auml;it&auml; k&auml;ytt&ouml;ehtoja!</span></p>
   <p class="c5"><span class="c0">Toivottavasti Alustan k&auml;ytt&ouml; on hauska kokemus!</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <p class="c5 c6"><span class="c0"></span></p>
-  <p class="c4"><span class="c0">SmartZoos-yhteenliittym&auml;</span></p>
+  <p class="c4"><span class="c0">RADA-yhteenliittym&auml;</span></p>
   <p class="c5 c6"><span class="c0"></span></p>
   <div>
     <p class="c6 c13"><span class="c1"></span></p>

@@ -1,6 +1,6 @@
 # Toolset
 
-Gaming platform for SmartZoos project
+Gaming platform for RADA project
 
 The main objective of the current project is to integrate the zoos of the CB region into joint tourist attraction through developing and implementing a cross-border service package for creative adventure learning. It consists of a set of creative online multimedia game-based learning tools and related apps for mobile devices.
 
@@ -23,7 +23,7 @@ This tool set includes:
 - Clone the repository
   - Please make sure to switch to `production` branch if you are running on production server
   - In case of development instance, please make sure to build the static assets. Refer to [working with compiled assets](#working-with-compiled-assets) for more information
-- Move into the directory (`cd SmartZoos`)
+- Move into the directory (`cd RADA`)
 - Install the dependencies `composer install`
 - Make sure that .env file is present and configured as needed (copy .env.example to .env and fill in with data)
   - Either create application key manually or do that with a command `php artisan key:generate`
@@ -121,7 +121,7 @@ If you need to be running in production mode, then please use the branch named `
 
 MIT License
 
-Copyright (c) 2018 SmartZoos Project
+Copyright (c) 2018 RADA Project
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal

@@ -14,19 +14,19 @@ return [
     'welcome' => [
         'jumbotron' => [
             'information' => [
-                'heading' => 'Vad är SmartZoos?',
-                'content' => 'SmartZoos är en speltjänst för platsberoende spel, där uppgifterna leder dig genom omgivningen och du kanske lär dig ett eller annat.',
+                'heading' => 'Vad är RADA?',
+                'content' => 'RADA är en speltjänst för platsberoende spel, där uppgifterna leder dig genom omgivningen och du kanske lär dig ett eller annat.',
             ],
             'schools' => [
-                'heading' => 'SmartZoos för skolor',
-                'content' => 'Flytta klassrummet utomhus!<br>SmartZoos är ett modernt sätt att kombinera skola med pedagogisk lek.  Med ett skaparkonto kan du skapa aktiviteter för dig och andra SmartZoos-användare.',
+                'heading' => 'RADA för skolor',
+                'content' => 'Flytta klassrummet utomhus!<br>RADA är ett modernt sätt att kombinera skola med pedagogisk lek.  Med ett skaparkonto kan du skapa aktiviteter för dig och andra RADA-användare.',
             ],
         ],
         'choose-location' => 'Välj plats',
         'btn' => [
             'play-smart-zoos' => 'Spela',
         ],
-        'project-information' => 'SmartZoos knyter samman djurparkerna i Östersjöområdet som en gemensam turistattraktion genom gemensamma pedagogiska mobilspel.',
+        'project-information' => 'RADA knyter samman djurparkerna i Östersjöområdet som en gemensam turistattraktion genom gemensamma pedagogiska mobilspel.',
     ],
     'activities' => [
         'index' => [
@@ -208,7 +208,7 @@ return [
     ],
     'badges' => [
         'introduction' => [
-            'general' => 'Genom att klara av vissa uppgifter i SmartZoos, får du belöningsmärken.',
+            'general' => 'Genom att klara av vissa uppgifter i RADA, får du belöningsmärken.',
             'authenticated' => 'Märkena du samlat kan du se i din  <a href=":profileUrl">profil</a>.',
             'guest' => 'För att kunna samla märken måste du <a href=":loginUrl">logga in</a>.',
         ],
