@@ -161,8 +161,6 @@ class GameController extends Controller
         if ( count($unansweredItemIds) === 0 ) {
             $game->complete = true;
             $game->save();
-            // TODO Consider creating a special event type for this one
-            Event::fire('game.complete', $game);
         }
 
         return $answer->getGameData();
@@ -219,8 +217,6 @@ class GameController extends Controller
         if ( count($unansweredItemIds) === 0 ) {
             $game->complete = true;
             $game->save();
-            // TODO Consider creating a special event type for this one
-            Event::fire('game.complete', $game);
         }
 
         return $answer->getGameData();

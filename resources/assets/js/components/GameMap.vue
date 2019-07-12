@@ -278,7 +278,7 @@
                                     let nextMarker = nextMarkers.find(thisMarker => {
                                         return marker.questionId === thisMarker.questionId;
                                     });
-                                    if (nextMarker === 'undefined') {
+                                    if (typeof nextMarker === 'undefined') {
                                         return _this.openNewInfoWindow(infoWindow, marker, map);
                                     }
                                 } else {
