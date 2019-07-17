@@ -263,7 +263,11 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12" id="subject">
-                    <autocomplete name="subject" default-value="{{ $activity->subject  }}" :search="subjectSearch" base-class="form-control autocomplete"></autocomplete>
+                    <autocomplete name="subject" d
+                                  efault-value="{{ $activity->subject  }}"
+                                  :search="subjectSearch"
+                                  base-class="form-control autocomplete">
+                    </autocomplete>
                 </div>
             </div>
         </div>
