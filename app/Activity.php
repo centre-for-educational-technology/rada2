@@ -240,6 +240,11 @@ class Activity extends Model
         return explode(',', $this->keywords);
     }
 
+    public function getSubjectsAsArray()
+    {
+        return explode(',', $this->subject);
+    }
+
     public function getAgeOfParticipants()
     {
         $list = json_decode($this->age_of_participants, true);

@@ -3,10 +3,11 @@ Vue.use(VueI18n);
 Vue.config.lang = window.Laravel.locale;
 Vue.locale(window.Laravel.locale, _.cloneDeep(window.Laravel.translations));
 
-import Autocomplete from '@trevoreyre/autocomplete-vue'
+// import Autocomplete from '@trevoreyre/autocomplete-vue'
 
 Vue.component('activity-items', require('./components/ActivityItems.vue'));
-Vue.component('autocomplete', Autocomplete);
+// Vue.component('autocomplete', Autocomplete);
+Vue.component('autocomplete', require('./components/MultiAutocomplete.vue'));
 
 const activityApp = new Vue({
     el: 'form.activity-create,form.activity-edit',

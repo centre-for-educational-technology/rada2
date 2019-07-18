@@ -248,9 +248,11 @@
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">
-                <div class="input-group col-xs-12" id="subject">
-                    <autocomplete name="subject" :search="subjectSearch" base-class="form-control autocomplete"></autocomplete>
-                </div>
+                <autocomplete
+                        name="subject"
+                        :search="subjectSearch"
+                        base-class="form-control input-group col-xs-12">
+                </autocomplete>
             </div>
         </div>
 
