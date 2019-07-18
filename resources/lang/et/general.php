@@ -75,7 +75,7 @@ return [
            'pin-code' => 'PIN kood',
            'keywords' => 'Märksõnad',
            'enforce_items_order' => 'Rakendage üksuste järjekord',
-           'subject' => 'Teema',
+           'subject' => 'Teemad',
            'age_of_participants' => 'Osalejate vanus',
            'answering_time' => 'Vastamise aja limiit'
        ],

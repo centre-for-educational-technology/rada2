@@ -44,7 +44,9 @@
                     <span class="label-info label">{{ $keyword }}</span>
                     @endforeach
                     <h3>{{ trans('general.forms.labels.subject') }}</h3>
-                    <p>{{ $activity->subject }}</p>
+                    @foreach ($activity->getSubjectsAsArray() as $subject)
+                    <span class="label-info label">{{ $subject }}</span>
+                    @endforeach
                     <h3>{{ trans('general.forms.labels.age_of_participants') }}</h3>
                     <p>{{ $activity->getAgeOfParticipantsString() }}</p>
                     @if ($activity->hasFeaturedImage())
