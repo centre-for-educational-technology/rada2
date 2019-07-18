@@ -77,6 +77,11 @@ class ActivityPolicy
         return $user->isZooAdmin() || $user->isZooMember();
     }
 
+    public function startStop(User $user, Activity $activity)
+    {
+        return $user->isZooAdmin() || ( $user->isZooMember() && $activity->user->id === $user->id);
+    }
+
     /**
      * Determine whether the user can view Activities results list.
      *

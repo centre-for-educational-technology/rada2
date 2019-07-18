@@ -68,6 +68,9 @@ Route::group(['prefix' => 'activities'], function()
     Route::delete('{activity}', 'ActivityController@destroy')->name('activity.delete');
 
     Route::post('{activity}/start', 'ActivityController@start')->name('activity.start');
+
+    Route::get('{activity}/mark-started', 'ActivityController@markStarted')->name('activity.mark-started');
+    Route::get('{activity}/mark-stopped', 'ActivityController@markStopped')->name('activity.mark-stopped');
 });
 
 Route::group(['prefix' => 'games'], function()

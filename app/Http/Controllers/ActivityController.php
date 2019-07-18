@@ -747,4 +747,28 @@ class ActivityController extends Controller
 
         return $activity;
     }
+
+    public function markStarted(Activity $activity)
+    {
+        if (auth()->user()->can('startStop', $activity)) {
+            $activity->started = true;
+            $activity->save();
+        }
+
+        return redirect()->route('activity.show', [
+            'id' => $activity->id
+        ]);
+    }
+
+    public function markStopped(Activity $activity)
+    {
+        if (auth()->user()->can('startStop', $activity)) {
+            $activity->started = false;
+            $activity->save();
+        }
+
+        return redirect()->route('activity.show', [
+            'id' => $activity->id
+        ]);
+    }
 }
