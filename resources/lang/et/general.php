@@ -150,6 +150,8 @@ return [
        'discount-voucher-spend' => 'Kuluta kupong',
        'get-qr-code' => 'Näita QR-koodi',
        'reveal-discount' => 'Näita kupongi',
+       'mark-started' => 'Mark activity as started',
+       'mark-stopped' => 'Mark activity as stopped'
    ],
    'minutes' => 'minutid',
    'confirmations' => [

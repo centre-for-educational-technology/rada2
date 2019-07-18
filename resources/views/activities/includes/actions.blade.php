@@ -3,6 +3,25 @@
         <i class="mdi mdi-qrcode"></i>
     </a>
     @if(Auth::check())
+        @can('startStop', $activity)
+            @if ($activity->started)
+                <a href="{!! route('activity.mark-stopped', [
+                    'id' => $activity->id
+                ]) !!}"
+                   class="btn btn-danger btn-sm"
+                   title="{{ trans('general.actions.mark-stopped') }}">
+                    <i class="mdi mdi-stop"></i>
+                </a>
+            @else
+                <a href="{!! route('activity.mark-started', [
+                    'id' => $activity->id
+                ]) !!}"
+                   class="btn btn-success btn-sm"
+                   title="{{ trans('general.actions.mark-started') }}">
+                    <i class="mdi mdi-play"></i>
+                </a>
+            @endif
+        @endcan
         @can('duplicate', $activity)
             <a href="{!! route('activity.duplicate', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.duplicate') }}">
                 <i class="mdi mdi-content-copy"></i>

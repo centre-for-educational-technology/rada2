@@ -150,6 +150,8 @@ return [
        'discount-voucher-spend' => 'Spend Discount Voucher',
        'get-qr-code' => 'Get QR Code',
        'reveal-discount' => 'Reveal discount',
+       'mark-started' => 'Mark activity as started',
+       'mark-stopped' => 'Mark activity as stopped'
    ],
    'minutes' => 'minutes',
    'confirmations' => [
