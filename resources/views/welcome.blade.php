@@ -44,36 +44,5 @@
             @endif
         </div>
     </div>
-
-    <div class="row">
-        <div class="col-xs-6 col-md-3">
-            <a href="http://centralbaltic.eu" class="thumbnail" target="_blank">
-                <img src="{{ asset('img/logos/interreg.png') }}" alt="logo">
-            </a>
-        </div>
-        <div class="col-xs-6 col-md-3">
-            <a href="http://www.skansen.se" class="thumbnail" target="_blank">
-                <img src="{{ asset('img/logos/skansen.png') }}" alt="logo">
-            </a>
-        </div>
-        <div class="col-xs-6 col-md-3">
-            <a href="http://www.korkeasaari.fi" class="thumbnail" target="_blank">
-                <img src="{{ asset('img/logos/korkeasaari.png') }}" alt="Korkeasaari">
-            </a>
-        </div>
-        <div class="col-xs-6 col-md-3">
-            <a href="http://tallinnzoo.ee" class="thumbnail" target="_blank">
-                <img src="{{ asset('img/logos/tallinn-zoo.jpg') }}" alt="logo">
-            </a>
-        </div>
-    </div>
-
-    <hr>
-
-    <div class="row">
-        <div class="well well-xs col-xs-12">
-            <p class="text-center">{{ trans('pages.welcome.project-information') }}</p>
-        </div>
-    </div>
 </div>
 @endsection
