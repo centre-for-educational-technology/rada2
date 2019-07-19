@@ -65,6 +65,10 @@ class GameController extends Controller
             }
         }
 
+        if ( auth()->user()->can('playGame', $game->activity) === false ) {
+            abort(404);
+        }
+
         $exitUrl = route('activity.index');
         if ( $request->has('exit_url') )
         {

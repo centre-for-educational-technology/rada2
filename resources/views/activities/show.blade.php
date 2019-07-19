@@ -28,7 +28,9 @@
                             @include('activities.includes.actions')
                         </div>
                     </div>
+                    @can ('playGame', $activity)
                     @include('activities.includes.play', ['activity' => $activity])
+                    @endcan
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
                     <h3>{{ trans('general.forms.labels.pin-code') }}</h3>

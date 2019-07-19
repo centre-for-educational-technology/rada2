@@ -72,14 +72,33 @@ class ActivityPolicy
         return $user->id === $activity->user_id || $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
     }
 
+    /**
+     * @param User $user
+     * @return bool
+     */
     public function duplicate(User $user)
     {
         return $user->isZooAdmin() || $user->isZooMember();
     }
 
+    /**
+     * @param User $user
+     * @param Activity $activity
+     * @return bool
+     */
     public function startStop(User $user, Activity $activity)
     {
         return $user->isZooAdmin() || ( $user->isZooMember() && $activity->user->id === $user->id);
+    }
+
+    /**
+     * @param User $user
+     * @param Activity $activity
+     * @return bool
+     */
+    public function playGame(User $user, Activity $activity)
+    {
+        return $user->isZooAdmin() || $activity->user->id === $user->id || $activity->started;
     }
 
     /**
