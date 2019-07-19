@@ -8,6 +8,7 @@ Vue.locale(window.Laravel.locale, _.cloneDeep(window.Laravel.translations));
 Vue.component('activity-items', require('./components/ActivityItems.vue'));
 // Vue.component('autocomplete', Autocomplete);
 Vue.component('autocomplete', require('./components/MultiAutocomplete.vue'));
+Vue.component('instructor-search', require('./components/InstructorSearch.vue'));
 
 const activityApp = new Vue({
     el: 'form.activity-create,form.activity-edit',
