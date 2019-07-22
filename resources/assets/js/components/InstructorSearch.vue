@@ -144,7 +144,6 @@
             },
             onInstructorRemoveClick(evt) {
                 const userId = parseInt(evt.target.getAttribute('data-user-id'));
-                console.log(userId);
                 this.instructors = this.instructors.filter(instructor => {
                     return instructor.user_id !== userId;
                 });
