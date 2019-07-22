@@ -77,7 +77,8 @@ return [
            'enforce_items_order' => 'Enforce items order',
            'subject' => 'Subjects',
            'age_of_participants' => 'Age of participants',
-           'answering_time' => 'Answering time limit'
+           'answering_time' => 'Answering time limit',
+           'instructors' => 'Instructors'
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
@@ -89,7 +90,8 @@ return [
                'embedded-content' => 'Embed code added into the textarea will be displayed to the player.',
                'photo' => 'Player will be able to submit an existing photo or take one as an answer.',
            ],
-           'keywords' => 'Separate keywords with commas'
+           'keywords' => 'Separate keywords with commas',
+           'instructors' => 'Users can be searched by name and email.'
        ],
        'buttons' => [
            'create' => 'Create',
@@ -132,6 +134,7 @@ return [
        ],
        'warnings' => [
            'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
+           'no_results_found' => 'No results found for this query!'
        ],
        'alerts' => [
            'image-loading-text' => 'Loading ...',

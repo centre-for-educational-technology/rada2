@@ -235,14 +235,62 @@ class Activity extends Model
         return (bool)$this->promoted;
     }
 
+    /**
+     * @return array
+     */
     public function getKeywordsAsArray()
     {
         return explode(',', $this->keywords);
     }
 
+    /**
+     * @return array
+     */
     public function getSubjectsAsArray()
     {
         return explode(',', $this->subject);
+    }
+
+    /**
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function instructors()
+    {
+        return $this->hasMany(ActivityInstructor::class);
+    }
+
+    /**
+     * @return array
+     */
+    public function getInstructors()
+    {
+        return $this->instructors()
+            ->orderBy('created_at', 'desc')
+            ->getResults();
+    }
+
+    /**
+     * @return array
+     */
+    public function getInstructorsAsArray()
+    {
+        /** @var array $instructors */
+        $instructors = $this->getInstructors();
+        $array = [];
+        /** @var ActivityInstructor $instructor */
+        foreach ($instructors as $instructor) {
+            /** @var User $user */
+            $user = $instructor->getUser();
+            $array[] = [
+                'id' => $instructor->id,
+                'user_id' => $user->id,
+                'name' => $user->name,
+                'email' => $user->email,
+                'created_at' => $instructor->created_at->format('d.m.Y')
+            ];
+        }
+
+        return $array;
     }
 
     public function getAgeOfParticipants()
