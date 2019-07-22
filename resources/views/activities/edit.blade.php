@@ -10,6 +10,11 @@
     window.Laravel.hasFeaturedImage = <?php echo json_encode($activity->hasFeaturedImage()); ?>;
     window.Laravel.enforceItemsOrder = <?php echo $activity->enforce_items_order; ?>;
     window.Laravel.subjects = <?php echo json_encode(array_values($subjectOptions)); ?>;
+    window.RADA = <?php echo json_encode([
+            'config' => [
+                'base_url' => url('/')
+            ]
+    ]); ?>;
 </script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection
@@ -299,10 +304,14 @@
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">
-                <instructor-search name="instructors"
+                <instructor-search name="instructors[]"
                                   activity="{{ $activity->id  }}"
                                   default-instructors="{{ json_encode( $activity->getInstructorsAsArray() ) }}"
                 ></instructor-search>
+
+                <p class="help-block">
+                    {{ trans('general.forms.help.instructors') }}
+                </p>
             </div>
         </div>
 

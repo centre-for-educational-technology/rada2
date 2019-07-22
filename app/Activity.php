@@ -283,6 +283,7 @@ class Activity extends Model
             $user = $instructor->getUser();
             $array[] = [
                 'id' => $instructor->id,
+                'user_id' => $user->id,
                 'name' => $user->name,
                 'email' => $user->email,
                 'created_at' => $instructor->created_at->format('d.m.Y')

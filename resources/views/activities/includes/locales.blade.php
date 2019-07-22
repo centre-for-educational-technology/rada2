@@ -20,6 +20,7 @@
         'read-more-about' => trans('pages.play.game.read-more-about'),
         'textual-answer-placeholder' => trans('pages.play.game.textual-answer-placeholder'),
         'image-format-hint' => trans('pages.play.game.image-format-hint'),
-        'enforce_items_order' => trans('general.forms.labels.enforce_items_order')
+        'enforce_items_order' => trans('general.forms.labels.enforce_items_order'),
+        'no_results_found' => trans('general.forms.warnings.no_results_found')
     ]); ?>
 </script>

@@ -77,7 +77,8 @@ return [
            'enforce_items_order' => 'Rakendage üksuste järjekord',
            'subject' => 'Teemad',
            'age_of_participants' => 'Osalejate vanus',
-           'answering_time' => 'Vastamise aja limiit'
+           'answering_time' => 'Vastamise aja limiit',
+           'instructors' => 'Istruktorid'
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
@@ -89,7 +90,8 @@ return [
                'embedded-content' => 'Mängijale kuvatakse vistutatud koodi taga olev meediaobjekt.',
                'photo' => 'Mängija postitab vastuseks foto.',
            ],
-           'keywords' => 'Eralda märksõnad komaga'
+           'keywords' => 'Eralda märksõnad komaga',
+           'instructors' => 'Kasutajaid saab otsida nime ja e-posti järgi.'
        ],
        'buttons' => [
            'create' => 'Loo',
@@ -132,6 +134,7 @@ return [
        ],
        'warnings' => [
            'readd-pictures' => 'Kui oled eelnevalt pilte lisanud, lisa need uuesti. Vabandame.',
+           'no_results_found' => 'Selle päringu kohta tulemusi ei leitud!'
        ],
        'alerts' => [
            'image-loading-text' => 'Laen ...',

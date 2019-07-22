@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\ActivityInstructor;
 use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
+use App\User;
 use App\Utils\RandomStringGenerator;
 use Illuminate\Http\Request;
 use App\Http\Requests;
@@ -328,6 +330,8 @@ class ActivityController extends Controller
         $activity->keywords = $request->keywords;
         $activity->subject = $request->subject ? $request->subject : '';
         $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
+
+        $this->saveInstructors($request, $activity);
         
         if ( $request->hasFile('featured_image') ) {
             if ( $activity->hasFeaturedImage() )
@@ -725,6 +729,8 @@ class ActivityController extends Controller
 
         $activity->save();
 
+        $this->saveInstructors($request, $activity);
+
         if ( $request->hasFile('featured_image') )
         {
             $fileName = $this->processFeaturedImage($imageService, $request, $activity->getStoragePath());
@@ -746,6 +752,32 @@ class ActivityController extends Controller
         }
 
         return $activity;
+    }
+
+    protected function saveInstructors(Request $request, Activity $activity)
+    {
+        $foundInstructors = [];
+        if ($request->instructors) {
+            foreach($request->instructors as $userId) {
+                $instructor = ActivityInstructor::where('user_id', $userId)->where('activity_id', $activity->id)->first();
+                if (!$instructor) {
+                    $instructor = new ActivityInstructor();
+                    $instructor->activity_id = $activity->id;
+                    $instructor->user_id = $userId;
+                    $instructor->save();
+                    $foundInstructors[] = $instructor->id;
+                } else {
+                    $foundInstructors[] = $instructor->id;
+                }
+            }
+        }
+
+        $allInstructors = ActivityInstructor::where('activity_id', $activity->id)->get();
+        foreach ($allInstructors as $instructor) {
+            if (in_array($instructor->id, $foundInstructors) === false) {
+                $instructor->delete();
+            }
+        }
     }
 
     public function markStarted(Activity $activity)
@@ -770,5 +802,24 @@ class ActivityController extends Controller
         return redirect()->route('activity.show', [
             'id' => $activity->id
         ]);
+    }
+
+    public function findInstructors(Request $request)
+    {
+        $response = [];
+        $query = $request->get('query');
+        if ($query && trim($query) !== '') {
+            $users = User::where('name', $query)->orWhere('email', $query)->get();
+            /** @var User $user */
+            foreach ($users as $user) {
+                $response[] = [
+                    'user_id' => $user->id,
+                    'name' => $user->name,
+                    'email' => $user->email
+                ];
+            }
+        }
+
+        return $response;
     }
 }
