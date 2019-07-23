@@ -657,7 +657,7 @@ class ActivityController extends Controller
         ]);
     }
 
-    public function storeDuplication(Activity $activity, StoreActivity $request, ImageService $imageService)
+    public function storeDuplication(Activity $activity, Request $request, ImageService $imageService)
     {
         $newActivity = $this->storeActivity($request, $imageService);
         $newActivity->parent_id = $activity->id;
@@ -673,7 +673,7 @@ class ActivityController extends Controller
         return redirect()->route('activity.show', [ 'id' => $newActivity->id ]);
     }
 
-    protected function storeActivity(StoreActivity $request, ImageService $imageService)
+    protected function storeActivity(Request $request, ImageService $imageService)
     {
         $activity = new Activity;
         $randomStringGenerator = new RandomStringGenerator();
