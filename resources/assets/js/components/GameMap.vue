@@ -529,7 +529,7 @@
 
                 this.initUpdateClosestUnansweredMarkerArrow();
 
-                if ( _.intersection(questionIds, answerIds).length === questionIds.length ) {
+                if ( _.intersection(questionIds, answerIds).length === questionIds.length && answer.is_answered) {
                     this.game.complete = true;
                 }
             },

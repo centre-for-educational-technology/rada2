@@ -179,6 +179,15 @@ class ActivityController extends Controller
             $query->where('language', '=', $request->get('language'));
         }
 
+        $user = auth()->user();
+        if ( Auth::check() ) {
+            $query->where(function ($subQuery) use ($user) {
+                $subQuery->where('promoted', 1)->orWhere('user_id', $user->id);
+            });
+        } else {
+            $query->where('promoted', 1);
+        }
+
         $activities = $query->paginate( config('paginate.limit') );
 
         if ( $search['search-submitted'] )

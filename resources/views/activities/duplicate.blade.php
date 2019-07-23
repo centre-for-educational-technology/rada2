@@ -275,16 +275,10 @@
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                            <span class="input-group-addon">
-                                <i class="mdi mdi-cake" aria-hidden="true"></i>
-                            </span>
-                    {!! Form::select('age_of_participants', $ageOfParticipantsOptions, $activity->getAgeOfParticipants(), [
-                        'class' => 'form-control',
-                        'multiple'=>'multiple',
-                        'name' => 'age_of_participants[]'
-                    ]) !!}
-                </div>
+                @foreach($ageOfParticipantsOptions as $key => $value)
+                    {!! Form::checkbox('age_of_participants[]', $key, in_array($key, $activity->getAgeOfParticipants())) !!}
+                    <span>{{ $value }}</span><br />
+                @endforeach
 
                 @if ($errors->has('age_of_participants'))
                     <span class="help-block">
@@ -293,6 +287,22 @@
                 @endif
             </div>
         </div>
+
+    <div class="form-group">
+        {!! Form::label('instructors', trans('general.forms.labels.instructors'), [
+            'class' => 'col-md-4 control-label',
+        ]) !!}
+        <div class="col-md-6">
+            <instructor-search name="instructors[]"
+                               activity="{{ $activity->id  }}"
+                               default-instructors="{{ json_encode( $activity->getInstructorsAsArray() ) }}"
+            ></instructor-search>
+
+            <p class="help-block">
+                {{ trans('general.forms.help.instructors') }}
+            </p>
+        </div>
+    </div>
 
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
