@@ -260,7 +260,9 @@
                             optimized: false
                         });
 
-                        _this.detectAndSetMarkerIcon(marker);
+                        _this.$nextTick(function() {
+                            _this.detectAndSetMarkerIcon(marker);
+                        });
 
                         markers.push(marker);
 
