@@ -294,6 +294,22 @@
             </div>
         </div>
 
+    <div class="form-group">
+        {!! Form::label('instructors', trans('general.forms.labels.instructors'), [
+            'class' => 'col-md-4 control-label',
+        ]) !!}
+        <div class="col-md-6">
+            <instructor-search name="instructors[]"
+                               activity="{{ $activity->id  }}"
+                               default-instructors="{{ json_encode( $activity->getInstructorsAsArray() ) }}"
+            ></instructor-search>
+
+            <p class="help-block">
+                {{ trans('general.forms.help.instructors') }}
+            </p>
+        </div>
+    </div>
+
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
                 <div class="alert alert-info hidden submit-loading-text">
