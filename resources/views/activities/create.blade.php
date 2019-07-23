@@ -261,16 +261,10 @@
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">
-                <div class="input-group col-xs-12">
-                            <span class="input-group-addon">
-                                <i class="mdi mdi-cake" aria-hidden="true"></i>
-                            </span>
-                    {!! Form::select('age_of_participants', $ageOfParticipantsOptions, null, [
-                        'class' => 'form-control',
-                        'multiple'=>'multiple',
-                        'name' => 'age_of_participants[]'
-                    ]) !!}
-                </div>
+                @foreach($ageOfParticipantsOptions as $key => $value)
+                    {!! Form::checkbox('age_of_participants[]', $key) !!}
+                    <span>{{ $value }}</span><br />
+                @endforeach
 
                 @if ($errors->has('age_of_participants'))
                     <span class="help-block">
