@@ -16,10 +16,8 @@ class WelcomeController extends Controller
      * 
      * @return \Illuminate\Http\Response
      */
-    public function welcome(ZooOptions $zooOptions)
+    public function welcome()
     {
-        return view('welcome')->with([
-            'zooOptions' => $zooOptions->options(),
-        ]);
+        return view('welcome')->with([]);
     }
 }
