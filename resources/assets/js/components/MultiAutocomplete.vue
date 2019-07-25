@@ -18,14 +18,15 @@
                         v-bind:value="value"
                         v-bind:typeof="type"
                         @keyup="onChange"
+                        v-on:keydown.enter.prevent="onEnter"
                         ref="input"
                 />
             </div>
         </div>
         <div class="multi-autocomplete-list-container" ref="listContainer">
-            <ul class="multi-autocomplete-list" v-if="list.length > 0">
-                <li class="multi-autocomplete-item"
-                    v-for="item in list"
+            <ul v-if="list.length > 0">
+                <li v-for="(item, index) in list"
+                    :class="{ 'selected' : selectedValueIndex === index }"
                     @click="onItemClick"
                 >{{ item }}</li>
             </ul>
@@ -50,20 +51,65 @@
                 value: '',
                 hiddenValue: '',
                 list: [],
-                hiddenList: []
+                hiddenList: [],
+                selectedValueIndex: null
             }
         },
         watch: {},
         methods: {
+            onEnter() {
+                let item = this.list[this.selectedValueIndex];
+                this.addValueToHiddenList(item);
+                this.value = '';
+                this.list = [];
+                this.selectedValueIndex = null;
+                return false;
+            },
             onChange(evt) {
                 if( evt.keyCode === 188) {
+                    // Comma
                     if (this.list.length > 0) {
                         let firstItem = this.list.shift();
                         this.addValueToHiddenList(firstItem);
                     }
                     this.value = '';
                     return true;
+                } else if (evt.keyCode === 8) {
+                    // Backspace
+                    if (this.value.length === 0) {
+                        this.hiddenList.pop();
+                    }
+                } else if (evt.keyCode === 40) {
+                    // Arrow down
+                    if (this.list.length > 0) {
+                        if (this.selectedValueIndex === null) {
+                            this.selectedValueIndex = 0;
+                        } else {
+                            this.selectedValueIndex++;
+                        }
+                        if (this.selectedValueIndex === this.list.length) {
+                            this.selectedValueIndex = 0;
+                        }
+                    }
+                    return false;
+                } else if (evt.keyCode === 38) {
+                    // Arrow up
+                    if (this.list.length > 0) {
+                        if(this.selectedValueIndex === null) {
+                            this.selectedValueIndex = this.list.length - 1;
+                        } else {
+                            this.selectedValueIndex --;
+                        }
+                        if (this.selectedValueIndex === -1) {
+                            this.selectedValueIndex = this.list.length - 1;
+                        }
+                    }
+                    return false;
+                } else if (evt.keyCode === 13) {
+                    // Enter
+                    return false;
                 }
+                this.selectedValueIndex = null;
                 this.value = evt.target.value;
                 this.list = this.search(this.value);
                 if (this.value !== '') {
@@ -135,6 +181,9 @@
     .multi-autocomplete-list-container ul li {
         margin: 0;
         padding: 10px;
+    }
+    .multi-autocomplete-list-container ul li.selected {
+        background: #dedede;
     }
     .multi-autocomplete-container .form-control {
         height: auto;
