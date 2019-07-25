@@ -198,6 +198,10 @@ return [
            'account-email-verification-sent' => 'Your account has been created. We have sent you an email containing verification instructions.',
            'account-email-verified' => 'Your account has been successfully verified. You can now log in.',
        ],
+       'error' => [
+           'game-not-found' => 'Game not found',
+           'invalid-pin-code' => 'Invalid pin code'
+       ]
    ],
     'activity' => [
         'subject' => [

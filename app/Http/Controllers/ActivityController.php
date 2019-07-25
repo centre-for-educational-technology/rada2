@@ -831,4 +831,51 @@ class ActivityController extends Controller
 
         return $response;
     }
+
+    public function findGame(Request $request)
+    {
+        $response = [
+            'url' => null,
+            'name' => null,
+            'error' => null
+        ];
+        $pin = $request->get('pin');
+        if ($pin && trim($pin) !== '') {
+            $activity = Activity::where('pin', $pin)->first();
+            if ($activity) {
+
+                $response['name'] = $activity->title;
+                $game = null;
+
+                if ( Auth::check() ) {
+                    $game = Game::where([
+                        'activity_id' => $activity->id,
+                        'user_id' => auth()->user()->id
+                    ])->first();
+                }
+
+                if ( !$game ) {
+                    $game = new Game;
+
+                    if ( Auth::check() )
+                    {
+                        $game->user()->associate( auth()->user() );
+                    }
+                    $game->activity()->associate($activity);
+                    $game->save();
+                }
+
+                $routeParams = [
+                    'id' => $game->id,
+                ];
+                $response['url'] = route('game.play', $routeParams);
+            } else {
+                $response['error'] = trans('general.messages.error.game-not-found');
+            }
+        } else {
+            $response['error'] = trans('general.messages.error.invalid-pin-code');
+        }
+
+        return $response;
+    }
 }

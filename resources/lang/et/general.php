@@ -198,6 +198,10 @@ return [
            'account-email-verification-sent' => 'Sinu konto on loodud. Saatsime sinu e-posti peale kinnituskirja konto verifitseerimiseks.',
            'account-email-verified' => 'Sinu konto on edukalt verifitseeritud. Sa võid nüüd sisse logida.',
        ],
+       'error' => [
+           'game-not-found' => 'Mängu ei leitud',
+           'invalid-pin-code' => 'Vigane pin kood'
+       ]
    ],
     'activity' => [
         'subject' => [

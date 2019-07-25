@@ -1,31 +1,28 @@
 @extends('layouts.app')
 
 @section('footer-scripts')
-<script src="{{ elixir('js/welcome.js') }}"></script>
+    <script>
+        window.RADA = <?php echo json_encode([
+            'config' => [
+                'base_url' => url('/'),
+                'pin_length' => 5
+            ]
+        ]); ?>;
+        window.Laravel.locale = '<?php echo App::getLocale(); ?>';
+        window.Laravel.translations = <?php echo json_encode([
+            'play' => trans('general.actions.play')
+        ]); ?>
+    </script>
+    <script src="{{ elixir('js/welcome.js') }}"></script>
 @endsection
 
 @section('content')
 <div class="container sz-welcome-page">
     <div class="row" id="sz-quick-play">
         <div class="col-xs-12">
-            <button class="btn btn-default sz-quick-play-btn">
-                <i class="mdi mdi-map-marker" aria-hidden="true"></i>
-                {{ trans('pages.welcome.btn.play-smart-zoos') }}
-            </button>
-        </div>
-
-        <div class="col-xs-12" style="display:none;">
             <div class="text-center">
-                <h2>
-                    {{ trans('pages.welcome.choose-location')}}:
-                </h2>
+                <open-game-by-entering-pin-code></open-game-by-entering-pin-code>
             </div>
-
-            @foreach ( $zooOptions as $key => $option)
-                <a href="{!! route('activity.index', ['zoo' => $key]) !!}" class="btn btn-default sz-quick-play-btn sz-quick-play-zoo-btn">
-                    {{ $option }}
-                </a>
-            @endforeach
         </div>
     </div>
 
