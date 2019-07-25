@@ -219,6 +219,19 @@
         </div>
         @endcan
 
+    <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
+        {!! Form::label('subject', trans('general.forms.labels.subject'), [
+            'class' => 'col-md-4 control-label',
+        ]) !!}
+        <div class="col-md-6">
+            <autocomplete
+                    name="subject"
+                    :search="subjectSearch"
+                    base-class="form-control input-group col-xs-12">
+            </autocomplete>
+        </div>
+    </div>
+
         <div class="form-group{{ $errors->has('keywords') ? ' has-error' : '' }}">
             {!! Form::label('keywords', trans('general.forms.labels.keywords'), [
                 'class' => 'col-md-4 control-label',
@@ -240,19 +253,6 @@
                                 <strong>{{ $errors->first('keywords') }}</strong>
                             </span>
                 @endif
-            </div>
-        </div>
-
-        <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
-            {!! Form::label('subject', trans('general.forms.labels.subject'), [
-                'class' => 'col-md-4 control-label',
-            ]) !!}
-            <div class="col-md-6">
-                <autocomplete
-                        name="subject"
-                        :search="subjectSearch"
-                        base-class="form-control input-group col-xs-12">
-                </autocomplete>
             </div>
         </div>
 
