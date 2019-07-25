@@ -281,8 +281,13 @@
             ]) !!}
             <div class="col-md-6">
                 @foreach($ageOfParticipantsOptions as $key => $value)
-                    {!! Form::checkbox('age_of_participants[]', $key, in_array($key, $activity->getAgeOfParticipants())) !!}
-                    <span>{{ $value }}</span><br />
+                    <input
+                            @if (in_array($key, $activity->getAgeOfParticipants()))checked="checked"@endif
+                            id="age_of_participants_{{ $key }}"
+                            name="age_of_participants[]"
+                            type="checkbox"
+                            value="{{ $key }}">
+                    <label for="age_of_participants_{{ $key }}">{{ $value }}</label><br />
                 @endforeach
 
                 @if ($errors->has('age_of_participants'))
