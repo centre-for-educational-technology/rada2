@@ -1,7 +1,27 @@
 <template>
     <div class="open-game-by-entering-pin-code-container">
-        <input type="password" v-model="pin" class="pin-input" />
-        <button v-if="showStartButton === true" @click="onStartButtonClick">Start</button>
+        <div class="col-xs-12" ref="markerButtonContainer">
+            <button class="btn btn-default sz-quick-play-btn" @click="onMarkerButtonClick">
+                <i class="mdi mdi-map-marker" aria-hidden="true"></i>
+                {{ $t('play') }}
+            </button>
+        </div>
+        <div class="center-block hidden" ref="pinContainer">
+            <div class="alert alert-danger" v-if="game && game.error !== null">{{ game.error }}</div>
+            <input type="text"
+                   v-model="pin"
+                   class="pin-input"
+                   v-bind:maxlength="pinLength"
+                   v-on:keyup.enter="onEnter"
+                   ref="pinInput"
+            />
+            <button @click="onPlayButtonClick"
+                    v-bind:class="buttonClass"
+                    ref="playButton"
+            >
+                {{ $t('play') }}
+            </button>
+        </div>
     </div>
 </template>
 
@@ -11,10 +31,12 @@
     function Game(data) {
         const url = data.url;
         const name = data.name;
+        const error = data.error;
 
         return {
             url: url,
-            name: name
+            name: name,
+            error: error
         }
     }
     export default {
@@ -24,6 +46,8 @@
         created() {},
         beforeMount() {},
         mounted() {
+            this.defaultButtonClass = 'btn btn-success btn-lg pull-right';
+            this.buttonClass = this.defaultButtonClass + ' hidden';
             this.$nextTick(() => {
                 this.baseUrl = window.RADA.config.base_url;
                 this.pinLength = window.RADA.config.pin_length;
@@ -40,26 +64,39 @@
                 pin: '',
                 game: null,
                 pinLength: 5,
-                showStartButton: false
+                defaultButtonClass: '',
+                buttonClass: ''
             }
         },
         watch: {
             pin: debounce(function(pin) {
+                this.game = null;
                 this.showHideStartButton(pin);
             }, 500)
         },
         methods: {
             showHideStartButton(pin) {
-                this.showStartButton = pin.length === this.pinLength;
+                if (pin.length === this.pinLength) {
+                    this.buttonClass = this.defaultButtonClass;
+                } else {
+                    this.buttonClass = this.defaultButtonClass + ' hidden';
+                }
             },
-            onStartButtonClick(evt) {
-                evt.target.setAttribute('disabled', 'disabled');
+            onPlayButtonClick() {
+                this.$refs.playButton.setAttribute('disabled', 'disabled');
+                this.$refs.pinInput.setAttribute('disabled', 'disabled');
                 this.loading = true;
                 this.wait(() => {
                     this.findGame(responseData => {
                         this.loading = false;
                         if (responseData !== null) {
                             this.game = new Game(responseData);
+                            this.$refs.playButton.removeAttribute('disabled');
+                            this.$refs.pinInput.removeAttribute('disabled');
+
+                            if (this.game.url !== null) {
+                                window.location.href = this.game.url;
+                            }
                         }
                     });
                 });
@@ -80,6 +117,13 @@
                     callback(null);
                     console.log('Error: ' + response);
                 });
+            },
+            onEnter() {
+                this.onPlayButtonClick();
+            },
+            onMarkerButtonClick() {
+                this.$refs.pinContainer.classList.remove('hidden');
+                this.$refs.markerButtonContainer.classList.add('hidden');
             }
         }
     }
@@ -87,6 +131,19 @@
 
 <style scoped>
     .open-game-by-entering-pin-code-container .pin-input {
-
+        margin-top: 1px;
+        float: left;
+        letter-spacing: 15px;
+        width: 190px;
+        padding-left: 15px;
+        font-size: 32px;
+        font-family: MONOSPACE;
+    }
+    .open-game-by-entering-pin-code-container .center-block {
+        width: 305px;
+    }
+    .open-game-by-entering-pin-code-container .center-block .btn {
+        padding: 13px 20px;
+        font-size: 22px;
     }
 </style>

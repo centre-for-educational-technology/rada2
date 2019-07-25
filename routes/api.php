@@ -55,4 +55,5 @@ Route::group(['prefix' => 'activities'], function()
 {
     Route::get('{activity}/qrcode', 'ActivityController@qrCode')->name('api.activity.qrcode');
     Route::post('find-instructors', 'ActivityController@findInstructors');
+    Route::post('find-game', 'ActivityController@findGame');
 });
