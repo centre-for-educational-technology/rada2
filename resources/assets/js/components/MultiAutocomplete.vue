@@ -58,6 +58,14 @@
         watch: {},
         methods: {
             onEnter() {
+                if (this.list.length === 0) {
+                    this.value = '';
+                    this.selectedValueIndex = null;
+                    return false;
+                }
+                if (this.selectedValueIndex === null) {
+                    this.selectedValueIndex = 0;
+                }
                 let item = this.list[this.selectedValueIndex];
                 this.addValueToHiddenList(item);
                 this.value = '';
