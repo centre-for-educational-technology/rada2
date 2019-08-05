@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\ActivityInstructor;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -228,10 +229,19 @@ class GameController extends Controller
 
     public function getPositionOfPlayersWhoPlayMyActivity(Request $request, Game $game)
     {
+        if ($game->user_id === null) {
+            return 'false';
+        }
+
         $players = [];
         /** @var Activity $activity */
         $activity = $game->activity;
-        if ($activity->user_id !== null && $activity->user_id === $game->user_id) {
+        $instructors = $activity->getInstructors();
+        $foundInstructors = array_filter($instructors, static function (ActivityInstructor $instructor) use ($game) {
+            return $instructor->id === $game->user_id;
+        });
+        $instructor = count($foundInstructors) > 0 ? $foundInstructors[0] : null;
+        if ($activity->user_id === $game->user_id || $instructor !== null) {
             $tenMinutesAgo = Carbon::now()->subMinutes(10)->toDateTimeString();
             $fiveMinutesAgo = Carbon::now()->subMinutes(5);
             $games = Game::where('activity_id', $activity->id)->where('complete', 0)->where('id', '<>', $game->id)->get();

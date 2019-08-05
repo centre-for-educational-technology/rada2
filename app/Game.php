@@ -13,6 +13,19 @@ use App\Activity;
 
 use Illuminate\Support\Facades\File;
 
+/**
+ * Class Game
+ * @package App
+ * @property $id
+ * @property $activity_id
+ * @property $user_id
+ * @property $complete
+ * @property $created_at
+ * @property $updated_at
+ * @property $activity
+ * @property $user
+ * @property $answers
+ */
 class Game extends Model
 {
     use UuidModel;

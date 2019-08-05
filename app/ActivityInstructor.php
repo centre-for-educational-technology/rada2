@@ -6,6 +6,15 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
+/**
+ * Class ActivityInstructor
+ * @package App
+ * @property $id
+ * @property $activity_id
+ * @property $user_id
+ * @property $created_at
+ * @property $updated_at
+ */
 class ActivityInstructor extends Model
 {
     /**
