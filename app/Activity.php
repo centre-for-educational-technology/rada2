@@ -298,6 +298,18 @@ class Activity extends Model
     }
 
     /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isInstructor(User $user): bool
+    {
+        return $this->instructors()
+            ->where('user_id', '=', $user->id)
+            ->count() > 0;
+    }
+
+    /**
      * @return array
      */
     public function getInstructorsAsArray()

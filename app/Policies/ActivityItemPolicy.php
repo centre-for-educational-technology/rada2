@@ -102,4 +102,13 @@ class ActivityItemPolicy
     {
         return $this->viewCorrectAnswer($user, $item);
     }
+
+    public function activateDeactivateFlashExercises(User $user, ActivityItem $item)
+    {
+        $activity = $item->getActivity();
+        if ($activity) {
+            return $activity->isInstructor($user);
+        }
+        return false;
+    }
 }
