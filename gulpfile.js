@@ -27,7 +27,21 @@ elixir(mix => {
        .webpack('login.js')
        .webpack('discount_vouchers.js')
        .webpack('manage_users.js')
-       .version(['css/app.css', 'js/create_edit_activity_item.js', 'js/create_edit_activity.js', 'js/play.js', 'js/app.js', 'js/profile.js', 'js/welcome.js', 'js/search_activities.js', 'js/qr_code_modal.js', 'js/login.js', 'js/discount_vouchers.js', 'js/manage_users.js'])
+       .webpack('grading.js')
+       .version([
+           'css/app.css',
+           'js/create_edit_activity_item.js',
+           'js/create_edit_activity.js',
+           'js/play.js', 'js/app.js',
+           'js/profile.js',
+           'js/welcome.js',
+           'js/search_activities.js',
+           'js/qr_code_modal.js',
+           'js/login.js',
+           'js/discount_vouchers.js',
+           'js/manage_users.js',
+           'js/grading.js'
+       ])
        .copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts')
        .copy('node_modules/mdi/fonts', 'public/build/fonts');
 });

@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\ActivityInstructor;
 use App\User;
 use App\Activity;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -186,5 +187,21 @@ class ActivityPolicy
     public function changePromoted(User $user, Activity $activity)
     {
         return $user->isAdmin();
+    }
+
+    /**
+     * @param User          $user
+     * @param Activity|null $activity
+     *
+     * @return bool
+     */
+    public function addGrades(User $user, Activity $activity = null)
+    {
+        if ($activity === null) {
+            return count(ActivityInstructor::where('user_id', $user->id)->results()) > 0;
+        }
+        return count(array_filter($activity->getInstructors(), static function (ActivityInstructor $instructor) use ($user) {
+                return $user->id === $instructor->user_id;
+            })) > 0;
     }
 }
