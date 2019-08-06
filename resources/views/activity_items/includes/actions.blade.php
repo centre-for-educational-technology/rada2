@@ -1,5 +1,10 @@
 @if(Auth::check())
     <div class="pull-right">
+        @can('activateDeactivateFlashExercises', $activity_item)
+            <a href="javascript:alert('test');" class="btn btn-success btn-sm" title="Test">
+                <i class="mdi mdi-flash"></i>
+            </a>
+        @endcan
         @can('update', $activity_item)
             <a href="{!! route('activity_item.edit', ['id' => $activity_item->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.edit') }}">
                 <i class="mdi mdi-pencil"></i>

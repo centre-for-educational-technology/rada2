@@ -16,6 +16,34 @@ use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use App\Options\DifficultyLevelOptions;
 
+/**
+ * Class Activity
+ * @package App
+ * @property $id
+ * @property $title
+ * @property $description
+ * @property $difficulty_level
+ * @property $playing_time
+ * @property $language
+ * @property $contact_information
+ * @property $featured_image
+ * @property $zoo
+ * @property $proximity_check
+ * @property $proximity_radius
+ * @property $user_id
+ * @property $discount_voucher_id
+ * @property $promoted
+ * @property $created_at
+ * @property $updated_at
+ * @property $deleted_at
+ * @property $pin
+ * @property $keywords
+ * @property $parent_id
+ * @property $enforce_items_order
+ * @property $subject
+ * @property $age_of_participants
+ * @property $started
+ */
 class Activity extends Model
 {
     use SoftDeletes;
@@ -267,6 +295,18 @@ class Activity extends Model
         return $this->instructors()
             ->orderBy('created_at', 'desc')
             ->getResults();
+    }
+
+    /**
+     * @param User $user
+     *
+     * @return bool
+     */
+    public function isInstructor(User $user): bool
+    {
+        return $this->instructors()
+            ->where('user_id', '=', $user->id)
+            ->count() > 0;
     }
 
     /**

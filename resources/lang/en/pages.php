@@ -225,5 +225,11 @@ return [
             'guest' => 'In order to collect badges, you must be <a href=":loginUrl">logged in</a>.',
         ],
     ],
+    'grading' => [
+        'index' => [
+            'heading' => 'Grading',
+            'none-found' => 'No gradable items found'
+        ]
+    ]
 
 ];

@@ -11,6 +11,21 @@ use Carbon\Carbon;
 use App\Notifications\ResetPassword;
 use Jrean\UserVerification\Traits\UserVerification;
 
+/**
+ * Class User
+ * @package App
+ * @property $id
+ * @property $name
+ * @property $email
+ * @property $password
+ * @property $remember_token
+ * @property $created_at
+ * @property $updated_at
+ * @property $blocked_at
+ * @property $verified
+ * @property $verification_token
+ * @property $email_verified_at
+ */
 class User extends Authenticatable
 {
     use Notifiable;

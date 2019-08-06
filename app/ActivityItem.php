@@ -286,4 +286,16 @@ class ActivityItem extends Model
 
         return false;
     }
+
+    /**
+     * @return Activity|null
+     */
+    public function getActivity(): ?Activity
+    {
+        $activity = $this->activities()->first();
+        if ($activity instanceof Activity) {
+            return $activity;
+        }
+        return null;
+    }
 }

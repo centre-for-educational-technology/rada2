@@ -30,6 +30,11 @@
                         <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
                     </li>
                 @endif
+                @can('addGrades', \App\Activity::class)
+                    <li class="{{ Request::is('grading', 'grading/*') ? 'active' : '' }}">
+                        <a href="{{ url('/grading') }}">{{ trans('navbar.grading') }}</a>
+                    </li>
+                @endcan
             </ul>
 
             <!-- Right Side Of Navbar -->
