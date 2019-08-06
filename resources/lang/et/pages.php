@@ -225,5 +225,11 @@ return [
             'guest' => 'Õpimärkide kogumiseks tuleb <a href=":loginUrl">sisse logida</a>.',
         ],
     ],
+    'grading' => [
+        'index' => [
+            'heading' => 'Hindamine',
+            'none-found' => 'Midagi ei ole hinnata'
+        ]
+    ]
 
 ];
