@@ -153,6 +153,18 @@
                         {{ trans('general.forms.help.question-types.photo') }}
                     </span>
                 </div>
+
+                <div id="question-type-missing-word" class="sz-question" v-if="questionType == 8">
+                    {!! Form::textarea('missing-word', null, [
+                        'class' => 'form-control',
+                        'rows' => '3',
+                        'placeholder' => trans('general.forms.placeholders.missing-word'),
+                    ]) !!}
+
+                    <span class="help-block">
+                        {{ trans('general.forms.help.question-types.missing-word') }}
+                    </span>
+                </div>
             </div>
         </div>
 

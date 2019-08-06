@@ -134,6 +134,11 @@ class ActivityItem extends Model
         return $this->isQuestionOfType(6);
     }
 
+    public function isMissingWord()
+    {
+        return $this->isQuestionOfType(8);
+    }
+
     /**
      * Determines if question has type of one-correct-answer
      * @return boolean

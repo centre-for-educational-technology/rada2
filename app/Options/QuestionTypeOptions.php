@@ -17,6 +17,7 @@ class QuestionTypeOptions extends OptionsBase
             5 => trans('general.question-types.match-pairs'),
             6 => trans('general.question-types.embedded-content'),
             7 => trans('general.question-types.photo'),
+            8 => trans('general.question-types.missing-word')
         ];
     }
 }
