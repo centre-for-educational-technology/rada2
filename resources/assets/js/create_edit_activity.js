@@ -113,3 +113,11 @@ $('.keywords-input').parent().find('.bootstrap-tagsinput input').on('keyup', fun
         }, 100);
     }
 });
+$(document).ready(function() {
+    $(document).on('keypress', ':input:not(textarea):not([type=submit])', function(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
