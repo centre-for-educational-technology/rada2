@@ -42,6 +42,7 @@ return [
      'embedded-content' => 'Vistutatud sisu',
      'photo' => 'Foto',
      'information' => 'Informatsioon',
+       'missing-word' => 'Puuduv sõna'
    ],
    'forms' => [
        'labels' => [
@@ -89,6 +90,7 @@ return [
                'freeform-answer' => 'Mängijale kuvatakse tekstikasti sisestaud tekstI.',
                'embedded-content' => 'Mängijale kuvatakse vistutatud koodi taga olev meediaobjekt.',
                'photo' => 'Mängija postitab vastuseks foto.',
+               'missing-word' => 'Lorem {ipsum} dolor sit amet, consectetur adipiscing elit. {Nam} et turpis dui. Sed diam enim, finibus vitae hendrerit vestibulum, euismod in lectus. '
            ],
            'keywords' => 'Eralda märksõnad komaga',
            'instructors' => 'Kasutajaid saab otsida nime ja e-posti järgi.'
@@ -119,6 +121,7 @@ return [
            'access-code-clues' => 'Vihjed sellele mis Kood olla võiks või kust seda leiab',
            'datetime' => 'Kuupäev või kuupäev ja kellaaeg',
            'question-or-information' => 'Palun kirjuta Küsimust või Lisainfot, sõltuvalt valitud küsimuse tüübist',
+           'missing-word' => 'Sisesta puuduvate sõnadega tekst siia'
        ],
        'options' => [
            'any' => 'Kõik',

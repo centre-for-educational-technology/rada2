@@ -42,6 +42,7 @@ return [
      'embedded-content' => 'Embedded content',
      'photo' => 'Photo',
      'information' => 'Information',
+       'missing-word' => 'Missing word'
    ],
    'forms' => [
        'labels' => [
@@ -89,6 +90,7 @@ return [
                'freeform-answer' => 'Input textarea will be displayed to the player.',
                'embedded-content' => 'Embed code added into the textarea will be displayed to the player.',
                'photo' => 'Player will be able to submit an existing photo or take one as an answer.',
+               'missing-word' => 'Lorem {ipsum} dolor sit amet, consectetur adipiscing elit. {Nam} et turpis dui. Sed diam enim, finibus vitae hendrerit vestibulum, euismod in lectus. '
            ],
            'keywords' => 'Separate keywords with commas',
            'instructors' => 'Users can be searched by name and email.'
@@ -119,6 +121,7 @@ return [
            'access-code-clues' => 'Clues to what/where the Access Code is',
            'datetime' => 'Date or Date and Time',
            'question-or-information' => 'Please write Question or Information, depending on chosen Question Type',
+           'missing-word' => 'Enter a text with missing words here'
        ],
        'options' => [
            'any' => 'Any',

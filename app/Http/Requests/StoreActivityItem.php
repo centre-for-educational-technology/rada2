@@ -38,7 +38,7 @@ class StoreActivityItem extends FormRequest
 
         return [
             'title' => 'required|max:255',
-            'type' => 'required|integer|between:1,7',
+            'type' => 'required|integer|between:1,8',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'read_more' => 'url',

@@ -106,11 +106,16 @@ class ActivityItemController extends Controller
       }
   }
 
-  /**
-   * Display a listing of ActivityItems.
-   *
-   * @return \Illuminate\Http\Response
-   */
+    /**
+     * Display a listing of ActivityItems.
+     *
+     * @param Request             $request
+     * @param QuestionTypeOptions $questionTypeOptions
+     * @param ZooOptions          $zooOptions
+     * @param LanguageOptions     $languageOptions
+     *
+     * @return \Illuminate\Http\Response
+     */
   public function index(Request $request, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
   {
       $search = [
@@ -224,6 +229,8 @@ class ActivityItemController extends Controller
 
       if ( $item->isEmbeddedContent() && $request->{'embedded-content'} ) {
           $item->embedded_content = $request->{'embedded-content'};
+      } else if ( $item->isMissingWord() && $request->{'missing-word'} ) {
+          $item->missing_word = $request->{'missing-word'};
       }
 
       $item->zoo = ZooOptions::DEFAULT_OPTION;
@@ -454,6 +461,8 @@ class ActivityItemController extends Controller
 
       if ( $activity_item->isEmbeddedContent() ) {
           $activity_item->embedded_content = $request->input('embedded-content', '');
+      } else if ( $activity_item->isMissingWord() ) {
+          $activity_item->missing_word = $request->input('missing-word', '');
       }
 
       if ( auth()->user()->can('changeZoo', $activity_item) ) {
