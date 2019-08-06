@@ -413,3 +413,11 @@ $('[name="image"]').on('change', function () {
 $('#edit-activity-item').on('submit', function () {
     $('.submit-loading-text').removeClass('hidden');
 });
+$(document).ready(function() {
+    $(document).on('keypress', ':input:not(textarea):not([type=submit])', function(e) {
+        if (e.keyCode === 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+});
