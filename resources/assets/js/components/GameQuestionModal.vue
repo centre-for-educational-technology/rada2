@@ -155,26 +155,13 @@
 </template>
 
 <script>
-    function MissingWord(data) {
-        const type = data.type;
-        const text = data.text;
-        const answer = data.answer;
-        const isCorrect = data.isCorrect;
-
-        return {
-            type: type,
-            text: text,
-            answer: answer,
-            isCorrect: isCorrect
-        }
-    }
-
     import ImageMixin from './../mixins/Image.js'
+    import MissingWordMixin from './../mixins/MissingWord.js'
     import debounce from '../debounce';
 
     export default {
         props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview'],
-        mixins: [ImageMixin],
+        mixins: [ImageMixin, MissingWordMixin],
         mounted() {
             var vm = this;
 
@@ -184,7 +171,6 @@
                         e.preventDefault();
                     }
                 });
-                this.generateMissingWords();
             });
         },
         data() {
@@ -244,6 +230,8 @@
                     setTimeout(() => {
                         this.calculateRemainingAnsweringTime();
                     }, 1000);
+                } else {
+                    this.answeringTime = null;
                 }
             },
             closeQuestion() {
@@ -267,6 +255,7 @@
             },
             open() {
                 this.$nextTick(() => {
+                    this.generateMissingWords();
                     this.calculateRemainingAnsweringTime();
 
                     if ( this.isMatchPairs() ) {
@@ -358,7 +347,7 @@
                 }
 
                 if ( this.isMissingWord() ) {
-                    data.text = this.missingWordsToString();
+                    data.text = this.missingWordsToString(this.missingWords);
                 }
 
                 this.$http.post(vm.baseUrl + '/api/games/answer', data).then(response => {
@@ -439,6 +428,9 @@
                 this.isMissingWordFilled = words.length === 0;
             }, 500),
             generateMissingWords() {
+                if (!this.isMissingWord()) {
+                    return false;
+                }
                 let question = this.question.missing_word;
                 let answer = '';
                 let questionArray = this.missingWordsToArray(question);
@@ -457,50 +449,6 @@
                 }
 
                 this.missingWords = questionArray;
-            },
-            missingWordsToArray(words) {
-                let wordsArray = [];
-                let startParts = words.split('{');
-                wordsArray.push(new MissingWord({
-                    type: 'text',
-                    text: startParts.shift(),
-                    answer: '',
-                    isCorrect: false
-                }));
-                let startPartsLength = startParts.length;
-                for (let i=0; i<startPartsLength; i++) {
-                    let str = startParts[i];
-                    let endParts = str.split('}');
-                    if (endParts.length === 2) {
-                        wordsArray.push(new MissingWord({
-                            type: 'input',
-                            text: endParts.shift(),
-                            answer: '',
-                            isCorrect: false
-                        }));
-
-                        wordsArray.push(new MissingWord({
-                            type: 'text',
-                            text: endParts.shift(),
-                            answer: '',
-                            isCorrect: false
-                        }));
-                    }
-                }
-                return wordsArray;
-            },
-            missingWordsToString() {
-                const length = this.missingWords.length;
-                let text = '';
-                for (let i=0; i<length; i++) {
-                    let word = this.missingWords[i];
-                    if (word.type === 'input') {
-                        text += '{' + word.answer + '}';
-                    } else {
-                        text += word.text;
-                    }
-                }
-                return text;
             },
             isSelectedOption(id) {
                 let options;
