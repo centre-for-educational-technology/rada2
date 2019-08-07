@@ -122,6 +122,19 @@
                     <div v-if="isPhoto() && isAnswered()" class="sz-photo">
                         <img v-bind:src="answer.image" alt="uploaded-image" class="img-responsive center-block sz-image-taken" v-if="isAnswered()">
                     </div>
+
+                    <div v-if="isMissingWord()" class="missing-word-container">
+                        <div class="form-group">
+                            <span v-for="(word, index) in missingWords">
+                                <span v-if="word.type === 'text'">{{ word.text }}</span>
+                                <input v-if="word.type === 'input' && !isAnswered()" type="text" :data-index="index" @keyup="onMissingWordChange" />
+                                <span v-if="word.type === 'input' && isAnswered()">
+                                    <span v-if="word.isCorrect === false" class="incorrect">{{ word.answer }} <span class="correct">({{ word.text }})</span></span>
+                                    <span v-if="word.isCorrect === true" class="correct">{{ word.answer }}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -142,7 +155,22 @@
 </template>
 
 <script>
+    function MissingWord(data) {
+        const type = data.type;
+        const text = data.text;
+        const answer = data.answer;
+        const isCorrect = data.isCorrect;
+
+        return {
+            type: type,
+            text: text,
+            answer: answer,
+            isCorrect: isCorrect
+        }
+    }
+
     import ImageMixin from './../mixins/Image.js'
+    import debounce from '../debounce';
 
     export default {
         props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview'],
@@ -156,6 +184,7 @@
                         e.preventDefault();
                     }
                 });
+                this.generateMissingWords();
             });
         },
         data() {
@@ -175,7 +204,9 @@
                 },
                 inAjaxCall: false,
                 incorrectImageFormat: false,
-                answeringTime: null
+                answeringTime: null,
+                missingWords: [],
+                isMissingWordFilled: false
             };
         },
         methods: {
@@ -326,6 +357,10 @@
                     data = formData;
                 }
 
+                if ( this.isMissingWord() ) {
+                    data.text = this.missingWordsToString();
+                }
+
                 this.$http.post(vm.baseUrl + '/api/games/answer', data).then(response => {
                     vm.inAjaxCall = false;
 
@@ -389,6 +424,83 @@
             },
             isPhoto() {
                 return this.question ? this.question.type == 7 : false;
+            },
+            isMissingWord() {
+                return this.question ? this.question.type == 8 : false;
+            },
+            onMissingWordChange: debounce(function (e) {
+                let input = e.target;
+                let index = input.getAttribute('data-index');
+                this.$set(this.missingWords[index], 'answer', input.value);
+                this.$set(this.missingWords[index], 'isCorrect', input.value.trim() === this.missingWords[index].text.trim());
+                let words = this.missingWords.filter(word => {
+                    return word.type === 'input' && word.answer.trim().length === 0;
+                });
+                this.isMissingWordFilled = words.length === 0;
+            }, 500),
+            generateMissingWords() {
+                let question = this.question.missing_word;
+                let answer = '';
+                let questionArray = this.missingWordsToArray(question);
+                let answerArray = [];
+                if (this.isAnswered()) {
+                    answer = this.answer.answer.text;
+                    answerArray = this.missingWordsToArray(answer);
+                    let questionArrayLength = questionArray.length;
+                    let answerArrayLength = answerArray.length;
+                    if (questionArrayLength === answerArrayLength) {
+                        for (let i=0; i<questionArrayLength; i++) {
+                            questionArray[i].answer = answerArray[i].text;
+                            questionArray[i].isCorrect = questionArray[i].text === answerArray[i].text;
+                        }
+                    }
+                }
+
+                this.missingWords = questionArray;
+            },
+            missingWordsToArray(words) {
+                let wordsArray = [];
+                let startParts = words.split('{');
+                wordsArray.push(new MissingWord({
+                    type: 'text',
+                    text: startParts.shift(),
+                    answer: '',
+                    isCorrect: false
+                }));
+                let startPartsLength = startParts.length;
+                for (let i=0; i<startPartsLength; i++) {
+                    let str = startParts[i];
+                    let endParts = str.split('}');
+                    if (endParts.length === 2) {
+                        wordsArray.push(new MissingWord({
+                            type: 'input',
+                            text: endParts.shift(),
+                            answer: '',
+                            isCorrect: false
+                        }));
+
+                        wordsArray.push(new MissingWord({
+                            type: 'text',
+                            text: endParts.shift(),
+                            answer: '',
+                            isCorrect: false
+                        }));
+                    }
+                }
+                return wordsArray;
+            },
+            missingWordsToString() {
+                const length = this.missingWords.length;
+                let text = '';
+                for (let i=0; i<length; i++) {
+                    let word = this.missingWords[i];
+                    if (word.type === 'input') {
+                        text += '{' + word.answer + '}';
+                    } else {
+                        text += word.text;
+                    }
+                }
+                return text;
             },
             isSelectedOption(id) {
                 let options;
@@ -455,6 +567,8 @@
                     return this.matchedPairs.length === this.pairs().length;
                 } else if ( this.isPhoto() ) {
                     return this.hasImageSelected;
+                } else if (this.isMissingWord()) {
+                    return this.isMissingWordFilled;
                 }
 
                 return false;
@@ -538,3 +652,24 @@
         }
     }
 </script>
+<style scoped>
+    .missing-word-container span {
+        line-height: 24px;
+        height: 34px;
+        display: inline-block;
+    }
+    .missing-word-container input {
+        margin: 0 10px;
+        padding: 0 10px;
+    }
+    .missing-word-container .incorrect {
+        color: red;
+        font-weight: bold;
+        padding: 0 5px;
+    }
+    .missing-word-container .correct {
+        color: green;
+        font-weight: bold;
+        padding: 0 5px;
+    }
+</style>

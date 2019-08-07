@@ -110,6 +110,7 @@ class Game extends Model
         ];
 
         if ( $this->answers ) {
+            /** @var GameAnswer $answer */
             foreach ( $this->answers as $answer ) {
                 $data['answers'][$answer->activity_item_id] = $answer->getGameData();
             }
@@ -148,6 +149,7 @@ class Game extends Model
                     'description' => $item->description,
                     'image_url' => $item->getImageUrl(),
                     'embedded_content' => $item->embedded_content,
+                    'missing_word' => $item->missing_word,
                     'type' => $item->type,
                     'latitude' => $item->latitude,
                     'longitude' => $item->longitude,

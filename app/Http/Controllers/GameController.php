@@ -127,11 +127,15 @@ class GameController extends Controller
             }
             $answer->correct = ( count($correctOptionIds) === count($chosenOptionIds) && count( array_intersect($correctOptionIds, $chosenOptionIds) ) === count($correctOptionIds) );
         }
-        else if ( $item->type === 4 || $item->type === 6 )
+        else if ( $item->type === 4 || $item->type === 6 || $item->type === 8 )
         {
             $answer->answer = json_encode([
                 'text' => $request->get('text'),
             ]);
+
+            if ($item->type === 8) {
+                $answer->correct = trim($request->get('text')) === trim($item->missing_word);
+            }
         }
         else if ( $item->type === 7 )
         {
