@@ -792,6 +792,8 @@
                         marker.getPosition()
                     ]);
                 }
+
+                this.detectAndSetMarkerIcon(marker);
             },
             initPlayerPositionLogging() {
                 if ( this.game.complete ) return;
@@ -845,7 +847,7 @@
 
                 // TODO Consider creating a mixin that would have methods to
                 // determine question types
-                if ( question.type === 2 || question.type === 3 ) {
+                if ( question.type === 2 || question.type === 3 || question.type === 8 ) {
                     if ( answer.correct === true ) {
                         dialog = this.$refs.correctImageDialog;
                     } else {
