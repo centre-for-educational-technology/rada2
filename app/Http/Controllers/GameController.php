@@ -240,11 +240,10 @@ class GameController extends Controller
         $players = [];
         /** @var Activity $activity */
         $activity = $game->activity;
-        $instructors = $activity->getInstructors();
-        $foundInstructors = array_filter($instructors, static function (ActivityInstructor $instructor) use ($game) {
+        $instructors = $activity->getInstructors()->filter(static function (ActivityInstructor $instructor) use ($game) {
             return $instructor->id === $game->user_id;
         });
-        $instructor = count($foundInstructors) > 0 ? $foundInstructors[0] : null;
+        $instructor = $instructors->count() > 0 ? $instructors->first() : null;
         if ($activity->user_id === $game->user_id || $instructor !== null) {
             $tenMinutesAgo = Carbon::now()->subMinutes(10)->toDateTimeString();
             $fiveMinutesAgo = Carbon::now()->subMinutes(5);

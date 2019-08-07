@@ -4,6 +4,7 @@ namespace App;
 
 use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -288,7 +289,7 @@ class Activity extends Model
     }
 
     /**
-     * @return array
+     * @return Collection|array
      */
     public function getInstructors()
     {
