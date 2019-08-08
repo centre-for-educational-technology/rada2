@@ -122,6 +122,19 @@
                     <div v-if="isPhoto() && isAnswered()" class="sz-photo">
                         <img v-bind:src="answer.image" alt="uploaded-image" class="img-responsive center-block sz-image-taken" v-if="isAnswered()">
                     </div>
+
+                    <div v-if="isMissingWord()" class="missing-word-container">
+                        <div class="form-group">
+                            <span v-for="(word, index) in missingWords">
+                                <span v-if="word.type === 'text'">{{ word.text }}</span>
+                                <input v-if="word.type === 'input' && !isAnswered()" type="text" :data-index="index" @keyup="onMissingWordChange" />
+                                <span v-if="word.type === 'input' && isAnswered()">
+                                    <span v-if="word.isCorrect === false" class="incorrect">{{ word.answer }} <span class="correct">({{ word.text }})</span></span>
+                                    <span v-if="word.isCorrect === true" class="correct">{{ word.answer }}</span>
+                                </span>
+                            </span>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="modal-footer">
@@ -143,10 +156,12 @@
 
 <script>
     import ImageMixin from './../mixins/Image.js'
+    import MissingWordMixin from './../mixins/MissingWord.js'
+    import debounce from '../debounce';
 
     export default {
         props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview'],
-        mixins: [ImageMixin],
+        mixins: [ImageMixin, MissingWordMixin],
         mounted() {
             var vm = this;
 
@@ -175,7 +190,9 @@
                 },
                 inAjaxCall: false,
                 incorrectImageFormat: false,
-                answeringTime: null
+                answeringTime: null,
+                missingWords: [],
+                isMissingWordFilled: false
             };
         },
         methods: {
@@ -213,6 +230,8 @@
                     setTimeout(() => {
                         this.calculateRemainingAnsweringTime();
                     }, 1000);
+                } else {
+                    this.answeringTime = null;
                 }
             },
             closeQuestion() {
@@ -236,6 +255,7 @@
             },
             open() {
                 this.$nextTick(() => {
+                    this.generateMissingWords();
                     this.calculateRemainingAnsweringTime();
 
                     if ( this.isMatchPairs() ) {
@@ -326,6 +346,10 @@
                     data = formData;
                 }
 
+                if ( this.isMissingWord() ) {
+                    data.text = this.missingWordsToString(this.missingWords);
+                }
+
                 this.$http.post(vm.baseUrl + '/api/games/answer', data).then(response => {
                     vm.inAjaxCall = false;
 
@@ -389,6 +413,42 @@
             },
             isPhoto() {
                 return this.question ? this.question.type == 7 : false;
+            },
+            isMissingWord() {
+                return this.question ? this.question.type == 8 : false;
+            },
+            onMissingWordChange: debounce(function (e) {
+                let input = e.target;
+                let index = input.getAttribute('data-index');
+                this.$set(this.missingWords[index], 'answer', input.value);
+                this.$set(this.missingWords[index], 'isCorrect', input.value.trim() === this.missingWords[index].text.trim());
+                let words = this.missingWords.filter(word => {
+                    return word.type === 'input' && word.answer.trim().length === 0;
+                });
+                this.isMissingWordFilled = words.length === 0;
+            }, 500),
+            generateMissingWords() {
+                if (!this.isMissingWord()) {
+                    return false;
+                }
+                let question = this.question.missing_word;
+                let answer = '';
+                let questionArray = this.missingWordsToArray(question);
+                let answerArray = [];
+                if (this.isAnswered()) {
+                    answer = this.answer.answer.text;
+                    answerArray = this.missingWordsToArray(answer);
+                    let questionArrayLength = questionArray.length;
+                    let answerArrayLength = answerArray.length;
+                    if (questionArrayLength === answerArrayLength) {
+                        for (let i=0; i<questionArrayLength; i++) {
+                            questionArray[i].answer = answerArray[i].text;
+                            questionArray[i].isCorrect = questionArray[i].text === answerArray[i].text;
+                        }
+                    }
+                }
+
+                this.missingWords = questionArray;
             },
             isSelectedOption(id) {
                 let options;
@@ -455,6 +515,8 @@
                     return this.matchedPairs.length === this.pairs().length;
                 } else if ( this.isPhoto() ) {
                     return this.hasImageSelected;
+                } else if (this.isMissingWord()) {
+                    return this.isMissingWordFilled;
                 }
 
                 return false;
@@ -538,3 +600,24 @@
         }
     }
 </script>
+<style scoped>
+    .missing-word-container span {
+        line-height: 24px;
+        height: 34px;
+        display: inline-block;
+    }
+    .missing-word-container input {
+        margin: 0 10px;
+        padding: 0 10px;
+    }
+    .missing-word-container .incorrect {
+        color: red;
+        font-weight: bold;
+        padding: 0 5px;
+    }
+    .missing-word-container .correct {
+        color: green;
+        font-weight: bold;
+        padding: 0 5px;
+    }
+</style>

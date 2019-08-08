@@ -55,6 +55,10 @@
                             <div class="well well-sm sz-display-new-lines" v-if="hasText(question)">{{ getText(question) }}</div>
                         </div>
 
+                        <div v-if="isMissingWord(question)">
+                            <div class="well well-sm sz-display-new-lines missing-word-container" v-if="hasText(question)" v-html="getMissingWordText(question)"></div>
+                        </div>
+
                         <div v-if="isMatchPairs(question)" class="sz-pairs-list">
                             <div v-for="pair in question.pairs" class="row">
                                 <div class="col-xs-6">
@@ -106,8 +110,10 @@
 </template>
 
 <script>
+    import MissingWordMixin from './../mixins/MissingWord.js'
     export default {
         props: ['game', 'baseUrl'],
+        mixins: [MissingWordMixin],
         mounted() {
             const vm = this;
             this.$http.get(vm.baseUrl + '/api/games/' + vm.game.id + '/voucher', {}).then(response => {
@@ -167,6 +173,9 @@
             isPhoto(question) {
                 return question ? question.type == 7 : false;
             },
+            isMissingWord(question) {
+                return question ? question.type == 8 : false;
+            },
             hasAnswer(question) {
                 return !!(this.game.answers && this.game.answers[question.id]);
             },
@@ -203,6 +212,39 @@
             },
             getText(question) {
                 return this.game.answers[question.id].answer.text;
+            },
+            getMissingWordText(question) {
+                const answerText = this.getText(question);
+                const questionText = question.missing_word;
+                const answerArray = this.missingWordsToArray(answerText);
+                const questionArray = this.missingWordsToArray(questionText);
+                const questionArrayLength = questionArray.length;
+                let text = '';
+
+                for (let i=0; i<questionArrayLength; i++) {
+                    /** @type {MissingWord} questionWord **/
+                    let questionWord = questionArray[i];
+                    /** @type {MissingWord} answerWord **/
+                    let answerWord = answerArray[i];
+                    if (questionWord.type === 'text') {
+                        text += questionWord.text;
+                    } else if (questionWord.type === 'input') {
+                        if (answerWord.text === questionWord.text) {
+                            text += '<span class="correct">';
+                            text += answerWord.text;
+                            text += '</span>';
+                        } else {
+                            text += '<span class="incorrect">';
+                            text += answerWord.text;
+                            text += '<span class="correct">( ';
+                            text += questionWord.text;
+                            text += ' )</span>';
+                            text += '</span>';
+                        }
+                    }
+                }
+
+                return text;
             },
             hasImage(question) {
                 if ( !this.hasAnswer(question) ) {
@@ -261,3 +303,13 @@
         }
     }
 </script>
+<style>
+    .missing-word-container .correct, .missing-word-container .incorrect {
+        color: #2ab27b;
+        font-weight: bold;
+        padding: 0 5px;
+    }
+    .missing-word-container .incorrect {
+        color: red;
+    }
+</style>
