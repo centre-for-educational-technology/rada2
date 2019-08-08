@@ -4,9 +4,24 @@
 @include('activities.includes.locales')
 @include('activities.includes.options')
 <script>
-    window.Laravel.activityItems = <?php echo json_encode($activity_items); ?>;
-    window.Laravel.canCreateActivityItem = <?php echo json_encode(Auth::user()->can('create', 'App\Activity')); ?>;
-    window.Laravel.subjects = <?php echo json_encode(array_values($subjectOptions)); ?>;
+    window.Laravel.activityItems = {!! json_encode($activity_items) !!};
+    window.Laravel.canCreateActivityItem = {!! json_encode(Auth::user()->can('create', 'App\Activity')) !!};
+    window.Laravel.subjects = {!! json_encode(array_values($subjectOptions)) !!};
+    window.RADA = {!! json_encode([
+        'config' => [
+            'base_url' => url('/')
+        ]
+    ]) !!};
+    window.Laravel.questionTypeConstants = {!! json_encode([
+        'INFORMATION' => \App\Options\QuestionTypeOptions::INFORMATION,
+        'ONE_CORRECT_ANSWER' => \App\Options\QuestionTypeOptions::ONE_CORRECT_ANSWER,
+        'MULTIPLE_CORRECT_ANSWERS' => \App\Options\QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS,
+        'FREEFORM_ANSWER' => \App\Options\QuestionTypeOptions::FREEFORM_ANSWER,
+        'MATCH_PAIRS' => \App\Options\QuestionTypeOptions::MATCH_PAIRS,
+        'EMBEDDED_CONTENT' => \App\Options\QuestionTypeOptions::EMBEDDED_CONTENT,
+        'PHOTO' => \App\Options\QuestionTypeOptions::PHOTO,
+        'MISSING_WORD' => \App\Options\QuestionTypeOptions::MISSING_WORD
+    ]) !!};
 </script>
 <script src="{{ elixir('js/create_edit_activity.js') }}"></script>
 @endsection

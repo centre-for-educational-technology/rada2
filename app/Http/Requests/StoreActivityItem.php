@@ -43,6 +43,7 @@ class StoreActivityItem extends FormRequest
             'longitude' => 'required|numeric',
             'read_more' => 'url',
             'image' => 'image|mimes:jpeg,jpg,png',
+            'missing-word' => 'regex:/^.*(\{.+\})+.*$/i'
         ];
     }
 }

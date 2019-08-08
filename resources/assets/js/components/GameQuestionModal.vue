@@ -394,34 +394,38 @@
                 return ( this.question && this.question.pairs ) ? this.question.pairs : [];
             },
             isInformation() {
-                return this.question ? this.question.type == 1 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.INFORMATION : false;
             },
             isOneCorrectAnswer() {
-                return this.question ? this.question.type == 2 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.ONE_CORRECT_ANSWER : false;
             },
             isMultipleCorrectAnswers() {
-                return this.question ? this.question.type == 3 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.MULTIPLE_CORRECT_ANSWERS : false;
             },
             isFreeformAnswer() {
-                return this.question ? this.question.type == 4 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.FREEFORM_ANSWER : false;
             },
             isMatchPairs() {
-                return this.question ? this.question.type == 5 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.MATCH_PAIRS : false;
             },
             isEmbeddedContent() {
-                return this.question ? this.question.type == 6 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.EMBEDDED_CONTENT : false;
             },
             isPhoto() {
-                return this.question ? this.question.type == 7 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.PHOTO : false;
             },
             isMissingWord() {
-                return this.question ? this.question.type == 8 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.MISSING_WORD : false;
             },
             onMissingWordChange: debounce(function (e) {
                 let input = e.target;
                 let index = input.getAttribute('data-index');
                 this.$set(this.missingWords[index], 'answer', input.value);
-                this.$set(this.missingWords[index], 'isCorrect', input.value.trim() === this.missingWords[index].text.trim());
+                this.$set(
+                    this.missingWords[index],
+                    'isCorrect',
+                    input.value.trim().toLowerCase() === this.missingWords[index].text.trim().toLowerCase()
+                );
                 let words = this.missingWords.filter(word => {
                     return word.type === 'input' && word.answer.trim().length === 0;
                 });
@@ -443,7 +447,7 @@
                     if (questionArrayLength === answerArrayLength) {
                         for (let i=0; i<questionArrayLength; i++) {
                             questionArray[i].answer = answerArray[i].text;
-                            questionArray[i].isCorrect = questionArray[i].text === answerArray[i].text;
+                            questionArray[i].isCorrect = questionArray[i].text.trim().toLowerCase() === answerArray[i].text.trim().toLowerCase();
                         }
                     }
                 }

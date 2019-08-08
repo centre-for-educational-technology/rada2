@@ -90,7 +90,7 @@ return [
                'freeform-answer' => 'Input textarea will be displayed to the player.',
                'embedded-content' => 'Embed code added into the textarea will be displayed to the player.',
                'photo' => 'Player will be able to submit an existing photo or take one as an answer.',
-               'missing-word' => 'Lorem {ipsum} dolor sit amet, consectetur adipiscing elit. {Nam} et turpis dui. Sed diam enim, finibus vitae hendrerit vestibulum, euismod in lectus. '
+               'missing-word' => 'Wrap missing words inside curly brackets. E.g. "Capital of Estonia is {Tallinn}".'
            ],
            'keywords' => 'Separate keywords with commas',
            'instructors' => 'Users can be searched by name and email.'
@@ -203,7 +203,8 @@ return [
        ],
        'error' => [
            'game-not-found' => 'Game not found',
-           'invalid-pin-code' => 'Invalid pin code'
+           'invalid-pin-code' => 'Invalid pin code',
+           'missing-word' => 'At least one missing word must be entered.'
        ]
    ],
     'activity' => [

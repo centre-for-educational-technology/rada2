@@ -254,7 +254,10 @@ const addActivityItemApp = new Vue({
             )
         );
         let typeVal = parseInt($('select[name="type"]').val());
-        if (typeVal === 1 || typeVal === 6 || typeVal === 7 || typeVal === 0) {
+        if (typeVal === window.Laravel.questionTypeConstants.INFORMATION ||
+            typeVal === window.Laravel.questionTypeConstants.EMBEDDED_CONTENT ||
+            typeVal === window.Laravel.questionTypeConstants.PHOTO ||
+            typeVal === 0) {
             $(vm.$refs.answeringTime).closest('.form-group').hide();
         }
     },

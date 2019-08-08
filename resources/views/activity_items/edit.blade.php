@@ -133,26 +133,26 @@
 
         <div class="form-group">
             <div class="col-md-6 col-md-offset-4">
-                <div id="question-type-information" class="sz-question" v-if="questionType == 1">
+                <div id="question-type-information" class="sz-question" v-if="questionType == {{ \App\Options\QuestionTypeOptions::INFORMATION }}">
                         <span class="help-block">
                             {{ trans('general.forms.help.question-types.information') }}
                         </span>
                 </div>
 
-                <one-correct-answer v-if="questionType == 2"></one-correct-answer>
+                <one-correct-answer v-if="questionType == {{ \App\Options\QuestionTypeOptions::ONE_CORRECT_ANSWER }}"></one-correct-answer>
 
-                <multiple-correct-answers v-if="questionType == 3"></multiple-correct-answers>
+                <multiple-correct-answers v-if="questionType == {{ \App\Options\QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS }}"></multiple-correct-answers>
 
-                <div id="question-type-freeform-answer" class="sz-question" v-if="questionType == 4">
+                <div id="question-type-freeform-answer" class="sz-question" v-if="questionType == {{ \App\Options\QuestionTypeOptions::FREEFORM_ANSWER }}">
                         <span class="help-block">
                             {{ trans('general.forms.help.question-types.freeform-answer') }}
                         </span>
                 </div>
 
-                <match-pairs v-if="questionType == 5"></match-pairs>
+                <match-pairs v-if="questionType == {{ \App\Options\QuestionTypeOptions::MATCH_PAIRS }}"></match-pairs>
 
 
-                <div id="question-type-embedded-content" class="sz-question" v-if="questionType == 6">
+                <div id="question-type-embedded-content" class="sz-question" v-if="questionType == {{ \App\Options\QuestionTypeOptions::EMBEDDED_CONTENT }}">
                     {!! Form::textarea('embedded-content', $activity_item->embedded_content, [
                         'class' => 'form-control',
                         'rows' => '3',
@@ -164,13 +164,13 @@
                         </span>
                 </div>
 
-                <div id="question-type-photo" class="sz-question" v-if="questionType == 7">
+                <div id="question-type-photo" class="sz-question" v-if="questionType == {{ \App\Options\QuestionTypeOptions::PHOTO }}">
                         <span class="help-block">
                             {{ trans('general.forms.help.question-types.photo') }}
                         </span>
                 </div>
 
-                <div id="question-type-missing-word" class="sz-question" v-if="questionType == 8">
+                <div id="question-type-missing-word" class="sz-question" v-if="questionType == {{ \App\Options\QuestionTypeOptions::MISSING_WORD }}">
                     {!! Form::textarea('missing-word', $activity_item->missing_word, [
                         'class' => 'form-control',
                         'rows' => '3',
@@ -180,6 +180,12 @@
                     <span class="help-block">
                         {{ trans('general.forms.help.question-types.missing-word') }}
                     </span>
+
+                    @if ($errors->has('missing-word'))
+                        <span class="help-block">
+                            <strong>{{ trans('general.messages.error.missing-word') }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
         </div>
