@@ -394,28 +394,28 @@
                 return ( this.question && this.question.pairs ) ? this.question.pairs : [];
             },
             isInformation() {
-                return this.question ? this.question.type == 1 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.INFORMATION : false;
             },
             isOneCorrectAnswer() {
-                return this.question ? this.question.type == 2 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.ONE_CORRECT_ANSWER : false;
             },
             isMultipleCorrectAnswers() {
-                return this.question ? this.question.type == 3 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.MULTIPLE_CORRECT_ANSWERS : false;
             },
             isFreeformAnswer() {
-                return this.question ? this.question.type == 4 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.FREEFORM_ANSWER : false;
             },
             isMatchPairs() {
-                return this.question ? this.question.type == 5 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.MATCH_PAIRS : false;
             },
             isEmbeddedContent() {
-                return this.question ? this.question.type == 6 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.EMBEDDED_CONTENT : false;
             },
             isPhoto() {
-                return this.question ? this.question.type == 7 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.PHOTO : false;
             },
             isMissingWord() {
-                return this.question ? this.question.type == 8 : false;
+                return this.question ? this.question.type == window.Laravel.questionTypeConstants.MISSING_WORD : false;
             },
             onMissingWordChange: debounce(function (e) {
                 let input = e.target;

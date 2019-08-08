@@ -153,28 +153,28 @@
                 this.$parent.exit();
             },
             isInformation(question) {
-                return question ? question.type == 1 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.INFORMATION : false;
             },
             isOneCorrectAnswer(question) {
-                return question ? question.type == 2 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.ONE_CORRECT_ANSWER : false;
             },
             isMultipleCorrectAnswers(question) {
-                return question ? question.type == 3 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.MULTIPLE_CORRECT_ANSWERS : false;
             },
             isFreeformAnswer(question) {
-                return question ? question.type == 4 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.FREEFORM_ANSWER : false;
             },
             isMatchPairs(question) {
-                return question ? question.type == 5 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.MATCH_PAIRS : false;
             },
             isEmbeddedContent(question) {
-                return question ? question.type == 6 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.EMBEDDED_CONTENT : false;
             },
             isPhoto(question) {
-                return question ? question.type == 7 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.PHOTO : false;
             },
             isMissingWord(question) {
-                return question ? question.type == 8 : false;
+                return question ? question.type == window.Laravel.questionTypeConstants.MISSING_WORD : false;
             },
             hasAnswer(question) {
                 return !!(this.game.answers && this.game.answers[question.id]);
