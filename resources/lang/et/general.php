@@ -203,7 +203,8 @@ return [
        ],
        'error' => [
            'game-not-found' => 'Mängu ei leitud',
-           'invalid-pin-code' => 'Vigane pin kood'
+           'invalid-pin-code' => 'Vigane pin kood',
+           'missing-word' => 'Vähemalt ühe puuduva sõna peab sisestama'
        ]
    ],
     'activity' => [

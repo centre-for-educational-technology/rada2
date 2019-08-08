@@ -180,6 +180,12 @@
                     <span class="help-block">
                         {{ trans('general.forms.help.question-types.missing-word') }}
                     </span>
+
+                    @if ($errors->has('missing-word'))
+                        <span class="help-block">
+                            <strong>{{ trans('general.messages.error.missing-word') }}</strong>
+                        </span>
+                    @endif
                 </div>
             </div>
         </div>

@@ -203,7 +203,8 @@ return [
        ],
        'error' => [
            'game-not-found' => 'Game not found',
-           'invalid-pin-code' => 'Invalid pin code'
+           'invalid-pin-code' => 'Invalid pin code',
+           'missing-word' => 'At least one missing word must be entered.'
        ]
    ],
     'activity' => [
