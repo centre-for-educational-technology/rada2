@@ -90,7 +90,7 @@ return [
                'freeform-answer' => 'Mängijale kuvatakse tekstikasti sisestaud tekstI.',
                'embedded-content' => 'Mängijale kuvatakse vistutatud koodi taga olev meediaobjekt.',
                'photo' => 'Mängija postitab vastuseks foto.',
-               'missing-word' => 'Lorem {ipsum} dolor sit amet, consectetur adipiscing elit. {Nam} et turpis dui. Sed diam enim, finibus vitae hendrerit vestibulum, euismod in lectus. '
+               'missing-word' => 'Lisage sulud puuduvate sõnade ümber. Näiteks "Eesti pealinn on {Tallinn}".'
            ],
            'keywords' => 'Eralda märksõnad komaga',
            'instructors' => 'Kasutajaid saab otsida nime ja e-posti järgi.'
