@@ -421,7 +421,11 @@
                 let input = e.target;
                 let index = input.getAttribute('data-index');
                 this.$set(this.missingWords[index], 'answer', input.value);
-                this.$set(this.missingWords[index], 'isCorrect', input.value.trim() === this.missingWords[index].text.trim());
+                this.$set(
+                    this.missingWords[index],
+                    'isCorrect',
+                    input.value.trim().toLowerCase() === this.missingWords[index].text.trim().toLowerCase()
+                );
                 let words = this.missingWords.filter(word => {
                     return word.type === 'input' && word.answer.trim().length === 0;
                 });
@@ -443,7 +447,7 @@
                     if (questionArrayLength === answerArrayLength) {
                         for (let i=0; i<questionArrayLength; i++) {
                             questionArray[i].answer = answerArray[i].text;
-                            questionArray[i].isCorrect = questionArray[i].text === answerArray[i].text;
+                            questionArray[i].isCorrect = questionArray[i].text.trim().toLowerCase() === answerArray[i].text.trim().toLowerCase();
                         }
                     }
                 }
