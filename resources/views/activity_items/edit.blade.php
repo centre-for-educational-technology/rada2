@@ -10,6 +10,16 @@
     window.Laravel.removedImages = <?php echo json_encode(old('removed-option-images') ? old('removed-option-images') : []); ?>;
     window.Laravel.removedImageMatches = <?php echo json_encode(old('removed-option-match-images') ? old('removed-option-match-images') : []); ?>;
     window.Laravel.map = <?php echo json_encode(['enableStreetView' => config('services.maps.google.enable_street_view'),]); ?>;
+    window.Laravel.questionTypeConstants = {!! json_encode([
+        'INFORMATION' => \App\Options\QuestionTypeOptions::INFORMATION,
+        'ONE_CORRECT_ANSWER' => \App\Options\QuestionTypeOptions::ONE_CORRECT_ANSWER,
+        'MULTIPLE_CORRECT_ANSWERS' => \App\Options\QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS,
+        'FREEFORM_ANSWER' => \App\Options\QuestionTypeOptions::FREEFORM_ANSWER,
+        'MATCH_PAIRS' => \App\Options\QuestionTypeOptions::MATCH_PAIRS,
+        'EMBEDDED_CONTENT' => \App\Options\QuestionTypeOptions::EMBEDDED_CONTENT,
+        'PHOTO' => \App\Options\QuestionTypeOptions::PHOTO,
+        'MISSING_WORD' => \App\Options\QuestionTypeOptions::MISSING_WORD
+    ]) !!};
 </script>
 @endsection
 
@@ -199,24 +209,64 @@
                     {!! Form::hidden('answering_time', $activity_item->answering_time, [
                         'ref' => 'answeringTime',
                     ]) !!}
-                    {!! Form::text('answering_time_string', null, [
-                        'class' => 'form-control',
-                        'ref' => 'answeringTimeString',
-                    ]) !!}
-                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" title="{{ trans('pages.activity-items.create-or-edit.tooltips.answering-time') }}">
-                                {!! Form::checkbox('answering_time_check', 1, $activity_item->answering_time_check, [
-                                    'ref' => 'answeringTimeCheck',
-                                ]) !!}
-                            </span>
+                    <?php
+                    $hours = [];
+                    $minutes = [];
+                    $seconds = [];
+                    for($i=0; $i<100; $i++) {
+                        if ($i<60) {
+                            $seconds[] = $i;
+                            $minutes[] = $i;
+                        }
+                        $hours[] = $i;
+                    }
+                    ?>
+                    <div style="display: block; float: left; width: 30%;">
+                        {!! Form::select('answering_time_hour', $hours, null, [
+                            'class' => 'form-control answering-time',
+                            'style' => 'display: table-cell; width: 70%;',
+                        ]) !!}
+                        {!! Form::label('answering_time_hour', trans('general.forms.labels.time.hour'), [
+                            'class' => 'control-label answering-time-label'
+                        ]) !!}
+                    </div>
+                    <div style="display: block; float: left; width: 30%;">
+                        {!! Form::select('answering_time_minute', $minutes, null, [
+                            'class' => 'form-control answering-time',
+                            'style' => 'display: table-cell; width: 70%; border-radius: 0;'
+                        ]) !!}
+                        {!! Form::label('answering_time_minute', trans('general.forms.labels.time.minute'), [
+                            'class' => 'control-label answering-time-label'
+                        ]) !!}
+                    </div>
+                    <div style="display: block; float: left; width: 30%;">
+                        {!! Form::select('answering_time_second', $seconds, null, [
+                            'class' => 'form-control answering-time',
+                            'style' => 'display: table-cell; width: 70%; border-radius: 0;'
+                        ]) !!}
+                        {!! Form::label('answering_time_second', trans('general.forms.labels.time.second'), [
+                            'class' => 'control-label answering-time-label'
+                        ]) !!}
+                    </div>
+                    <div style="display: block;float: left;width: 10%;border-right: 1px solid #ccc;border-radius: 3px;">
+                        <span class="input-group-addon"
+                              data-toggle="tooltip"
+                              data-placement="left"
+                              data-trigger="hover"
+                              title="{{ trans('pages.activity-items.create-or-edit.tooltips.answering-time') }}"
+                              style="height: 36px;"
+                        >
+                            {!! Form::checkbox('answering_time_check', 1, $activity_item->answering_time_check, [
+                                'ref' => 'answeringTimeCheck',
+                            ]) !!}
+                        </span>
+                    </div>
                 </div>
-                <p class="help-block">
-                    {{ trans('pages.activity-items.create-or-edit.help.answering_time') }}
-                </p>
 
                 @if ($errors->has('answering_time'))
                     <span class="help-block">
-                                <strong>{{ $errors->first('answering_time') }}</strong>
-                            </span>
+                        <strong>{{ $errors->first('answering_time') }}</strong>
+                    </span>
                 @endif
 
                 @if ($errors->has('answering_time'))

@@ -6,6 +6,16 @@
     window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'create-activity-item';
     window.Laravel.map = <?php echo json_encode(['enableStreetView' => config('services.maps.google.enable_street_view'),]); ?>;
+    window.Laravel.questionTypeConstants = {!! json_encode([
+        'INFORMATION' => \App\Options\QuestionTypeOptions::INFORMATION,
+        'ONE_CORRECT_ANSWER' => \App\Options\QuestionTypeOptions::ONE_CORRECT_ANSWER,
+        'MULTIPLE_CORRECT_ANSWERS' => \App\Options\QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS,
+        'FREEFORM_ANSWER' => \App\Options\QuestionTypeOptions::FREEFORM_ANSWER,
+        'MATCH_PAIRS' => \App\Options\QuestionTypeOptions::MATCH_PAIRS,
+        'EMBEDDED_CONTENT' => \App\Options\QuestionTypeOptions::EMBEDDED_CONTENT,
+        'PHOTO' => \App\Options\QuestionTypeOptions::PHOTO,
+        'MISSING_WORD' => \App\Options\QuestionTypeOptions::MISSING_WORD
+    ]) !!};
 </script>
 @endsection
 

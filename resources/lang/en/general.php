@@ -79,7 +79,12 @@ return [
            'subject' => 'Subjects',
            'age_of_participants' => 'Age of participants',
            'answering_time' => 'Answering time limit',
-           'instructors' => 'Instructors'
+           'instructors' => 'Instructors',
+           'time' => [
+               'hour' => 'H',
+               'minute' => 'm',
+               'second' => 's'
+           ]
        ],
        'help' => [
            'playing-time' => 'Activity time in minutes',
