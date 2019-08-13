@@ -225,16 +225,36 @@ const addActivityItemApp = new Vue({
             const isChecked = $(vm.$refs.answeringTimeCheck).prop('checked');
             $(vm.$refs.answeringTime).prop('disabled', !isChecked);
             $(vm.$refs.answeringTimeString).prop('disabled', !isChecked);
+            $('.answering-time').prop('disabled', !isChecked);
             if (!isChecked) {
                 $(vm.$refs.answeringTimeString).val('');
                 $(vm.$refs.answeringTime).val('');
+                $('.answering-time').val('');
             }
         });
 
         if ( !$(vm.$refs.answeringTimeCheck).prop('checked') ) {
             $(vm.$refs.answeringTime).prop('disabled', true);
             $(vm.$refs.answeringTimeString).prop('disabled', true);
+            $('.answering-time').prop('disabled', true);
         }
+
+        $('.answering-time').on('change', function () {
+            let hours = $('select[name="answering_time_hour"]').val();
+            let minute = $('select[name="answering_time_minute"]').val();
+            let second = $('select[name="answering_time_second"]').val();
+            let val = 0 + (hours * 60 * 60) + (minute * 60) + (second * 1);
+            $(vm.$refs.answeringTime).val(val);
+        });
+
+        let time = $(vm.$refs.answeringTime).val();
+        let hours = Math.floor(time / (60 * 60));
+        time -= (hours * 60 * 60);
+        let minutes = Math.floor(time / 60);
+        let seconds = time - (minutes * 60);
+        $('select[name="answering_time_hour"]').val(hours);
+        $('select[name="answering_time_minute"]').val(minutes);
+        $('select[name="answering_time_second"]').val(seconds);
 
         $(vm.$refs.answeringTimeString).on('keyup', function () {
             $(vm.$refs.answeringTime).val(

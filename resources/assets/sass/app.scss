@@ -791,3 +791,19 @@ img.sz-uploaded-image-preview {
 .form-control.autocomplete .autocomplete-result-list li {
     border: 0;
 }
+
+.answering-time-label {
+    display: inline-block;
+    width: 30%;
+    line-height: 23px;
+    border-top: 1px solid #ccd0d2;
+    height: 36px;
+    position: relative;
+    border-bottom: 1px solid #ccd0d2;
+    text-align: left;
+    padding-left: 5px;
+    vertical-align: middle;
+    background: #eee;
+    text-align: left !important;
+    float: right;
+}
