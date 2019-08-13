@@ -206,7 +206,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    {!! Form::hidden('answering_time', $activity_item->answering_time, [
+                    {!! Form::hidden('answering_time', null, [
                         'ref' => 'answeringTime',
                     ]) !!}
                     <?php
@@ -256,7 +256,7 @@
                               title="{{ trans('pages.activity-items.create-or-edit.tooltips.answering-time') }}"
                               style="height: 36px;"
                         >
-                            {!! Form::checkbox('answering_time_check', 1, $activity_item->answering_time_check, [
+                            {!! Form::checkbox('answering_time_check', 1, null, [
                                 'ref' => 'answeringTimeCheck',
                             ]) !!}
                         </span>
@@ -267,12 +267,6 @@
                     <span class="help-block">
                         <strong>{{ $errors->first('answering_time') }}</strong>
                     </span>
-                @endif
-
-                @if ($errors->has('answering_time'))
-                    <span class="help-block">
-                                <strong>{{ $errors->first('answering_time') }}</strong>
-                            </span>
                 @endif
             </div>
         </div>
