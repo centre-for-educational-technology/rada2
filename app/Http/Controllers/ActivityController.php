@@ -870,9 +870,11 @@ class ActivityController extends Controller
                 ];
                 $response['url'] = route('game.play', $routeParams);
             } else {
+                sleep(2);
                 $response['error'] = trans('general.messages.error.game-not-found');
             }
         } else {
+            sleep(2);
             $response['error'] = trans('general.messages.error.invalid-pin-code');
         }
 

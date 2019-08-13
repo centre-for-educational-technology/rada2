@@ -7,20 +7,26 @@
             </button>
         </div>
         <div class="center-block hidden" ref="pinContainer">
-            <div class="alert alert-danger" v-if="game && game.error !== null">{{ game.error }}</div>
-            <input type="text"
-                   v-model="pin"
-                   class="pin-input"
-                   v-bind:maxlength="pinLength"
-                   v-on:keyup.enter="onEnter"
-                   ref="pinInput"
-            />
-            <button @click="onPlayButtonClick"
-                    v-bind:class="buttonClass"
-                    ref="playButton"
-            >
-                {{ $t('play') }}
-            </button>
+            <div class="input-button-container">
+                <input type="text"
+                       v-model="pin"
+                       class="pin-input"
+                       v-bind:maxlength="pinLength"
+                       v-on:keyup.enter="onEnter"
+                       ref="pinInput"
+                />
+                <button
+                        v-bind:class="buttonClass"
+                        ref="playButton"
+                        @click="onPlayButtonClick"
+                >
+                    <i class="mdi mdi-map-marker"></i>
+                    {{ $t('play') }}
+                </button>
+            </div>
+            <div>
+                <div class="alert alert-danger" v-if="game && game.error !== null">{{ game.error }}</div>
+            </div>
         </div>
     </div>
 </template>
@@ -46,8 +52,8 @@
         created() {},
         beforeMount() {},
         mounted() {
-            this.defaultButtonClass = 'btn btn-success btn-lg pull-right';
-            this.buttonClass = this.defaultButtonClass + ' hidden';
+            this.defaultButtonClass = 'btn btn-default sz-quick-play-btn btn-lg pull-right play-button';
+            this.buttonClass = this.defaultButtonClass;
             this.$nextTick(() => {
                 this.baseUrl = window.RADA.config.base_url;
                 this.pinLength = window.RADA.config.pin_length;
@@ -65,7 +71,8 @@
                 game: null,
                 pinLength: 5,
                 defaultButtonClass: '',
-                buttonClass: ''
+                buttonClass: '',
+                searchGame: false
             }
         },
         watch: {
@@ -77,28 +84,29 @@
         methods: {
             showHideStartButton(pin) {
                 if (pin.length === this.pinLength) {
-                    this.buttonClass = this.defaultButtonClass;
+                    this.searchGame = true;
                 } else {
-                    this.buttonClass = this.defaultButtonClass + ' hidden';
+                    this.searchGame = false;
                 }
             },
             onPlayButtonClick() {
+                if (this.searchGame === false) {
+                    return false;
+                }
                 this.$refs.playButton.setAttribute('disabled', 'disabled');
                 this.$refs.pinInput.setAttribute('disabled', 'disabled');
                 this.loading = true;
-                this.wait(() => {
-                    this.findGame(responseData => {
-                        this.loading = false;
-                        if (responseData !== null) {
-                            this.game = new Game(responseData);
-                            this.$refs.playButton.removeAttribute('disabled');
-                            this.$refs.pinInput.removeAttribute('disabled');
+                this.findGame(responseData => {
+                    this.loading = false;
+                    if (responseData !== null) {
+                        this.game = new Game(responseData);
+                        this.$refs.playButton.removeAttribute('disabled');
+                        this.$refs.pinInput.removeAttribute('disabled');
 
-                            if (this.game.url !== null) {
-                                window.location.href = this.game.url;
-                            }
+                        if (this.game.url !== null) {
+                            window.location.href = this.game.url;
                         }
-                    });
+                    }
                 });
             },
             wait(callback) {
@@ -134,16 +142,45 @@
         margin-top: 1px;
         float: left;
         letter-spacing: 15px;
-        width: 190px;
+        width: 80%;
         padding-left: 15px;
-        font-size: 32px;
+        font-size: 43px;
         font-family: MONOSPACE;
+        text-align: center;
+        height: 75px;
+    }
+    #sz-quick-play .open-game-by-entering-pin-code-container .btn.sz-quick-play-btn.play-button {
+        padding: 0;
+        width: 18%;
+    }
+    #sz-quick-play .open-game-by-entering-pin-code-container .btn.sz-quick-play-btn.play-button i.mdi {
+        margin-top: 10px;
+        margin-bottom: 0px;
+    }
+    #sz-quick-play .open-game-by-entering-pin-code-container .btn.sz-quick-play-btn.play-button i.mdi:before {
+        font-size: 40px;
+        top: 4px;
     }
     .open-game-by-entering-pin-code-container .center-block {
-        width: 305px;
+        width: 100%;
     }
     .open-game-by-entering-pin-code-container .center-block .btn {
         padding: 13px 20px;
         font-size: 22px;
+    }
+    .input-button-container {
+        position: relative;
+        display: block;
+        overflow: hidden;
+        margin-bottom: 15px;
+    }
+    @media (max-width: 450px) {
+        .open-game-by-entering-pin-code-container .pin-input {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+        #sz-quick-play .open-game-by-entering-pin-code-container .btn.sz-quick-play-btn.play-button {
+            width: 100%
+        }
     }
 </style>
