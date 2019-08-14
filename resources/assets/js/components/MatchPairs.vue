@@ -1,7 +1,7 @@
 <template>
 <div id="question-type-match-pairs" class="sz-question">
     <div class="row sz-option-row" v-for="(option, index) in options">
-        <div class="col-xs-5">
+        <div class="col-xs-4">
             <div class="input-group">
                 <span class="input-group-addon" v-if="$parent.hasPreview(option)">
                     <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image)">
@@ -12,22 +12,33 @@
                 <input type="text" class="form-control" name="options[]" v-model="option.option" v-bind:placeholder="$t('option-text')">
             </div>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-4">
             <div class="input-group">
                 <span class="input-group-addon" v-if="$parent.hasPreview(option, 'image_match', 'imageMatchPreview')">
                     <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image_match)">
                         <img class="sz-option-image-small" alt="option-match-image" v-bind:src="$parent.getOptionImageUrl(option.image_match)">
                     </a>
                 </span>
-                <input type="text" class="form-control" name="matches[]" v-model="option.option_match" v-bind:placeholder="$t('option-text')">
+                <input
+                        type="text"
+                        class="form-control"
+                        name="matches[]"
+                        v-model="option.option_match"
+                        v-bind:placeholder="$t('option-text')">
             </div>
         </div>
-        <div class="col-xs-2 sz-btn-controls">
+        <div class="col-xs-4 sz-btn-controls">
+            <input
+                    type="number"
+                    class="form-control points-input"
+                    name="points[]"
+                    v-bind:value="getPoints(index)"
+            >
             <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: options.length < 2}">
                 <i class="mdi mdi-close-circle-outline" aria-hidden="true"></i>
             </a>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-4">
             <input type="file" accept="image/jpeg, image/png" capture="camera" style="display:none;" v-bind:name="'option-image-' + index" v-on:change="imageSelected($event, index, 'add-image')" ref="option-image">
             <input type="checkbox" style="display:none;" v-bind:name="'removed-option-images[]'" ref="removed-option-images" v-bind:value="option.id" v-model="removedImages">
 
@@ -44,7 +55,7 @@
                 </a>
             </div>
         </div>
-        <div class="col-xs-5">
+        <div class="col-xs-4">
             <input type="file" accept="image/jpeg, image/png" capture="camera" style="display:none;" v-bind:name="'option-match-image-' + index" v-on:change="imageSelected($event, index, 'add-match-image')" ref="option-match-image">
             <input type="checkbox" style="display:none;" v-bind:name="'removed-option-match-images[]'" ref="removed-option-match-images" v-bind:value="option.id" v-model="removedMatchImages">
 
@@ -130,6 +141,9 @@
             };
         },
         methods: {
+            getPoints: function(index) {
+                return this.options[index].points;
+            },
             addImage: function(index, ref) {
                 $(this.$refs[ref][index]).trigger('click');
             },
@@ -235,3 +249,11 @@
         }
     }
 </script>
+<style>
+    .sz-option-remove, .points-input {
+        width: 50%;
+    }
+    .points-input {
+        float: left;
+    }
+</style>

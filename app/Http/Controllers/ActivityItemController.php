@@ -227,6 +227,23 @@ class ActivityItemController extends Controller
       $item->description = $request->description;
       $item->type = $request->type;
 
+      $points = $request->points;
+      if (is_array($points) && in_array($item->type, [
+              QuestionTypeOptions::ONE_CORRECT_ANSWER,
+              QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS,
+              QuestionTypeOptions::MATCH_PAIRS
+          ])) {
+          $item->points = json_encode($points);
+      } else if (is_scalar($points) && in_array($item->type, [
+              QuestionTypeOptions::FREEFORM_ANSWER,
+              QuestionTypeOptions::MISSING_WORD,
+              QuestionTypeOptions::PHOTO
+          ])) {
+          $item->points = $points;
+      } else {
+          $item->points = 0;
+      }
+
       if ( $item->isEmbeddedContent() && $request->{'embedded-content'} ) {
           $item->embedded_content = $request->{'embedded-content'};
       } else if ( $item->isMissingWord() && $request->{'missing-word'} ) {
@@ -380,6 +397,14 @@ class ActivityItemController extends Controller
       {
           $correct = is_array( old('correct') ) ? old('correct') : [ old('correct') ];
           $options = $activity_item->options->keyBy('id');
+          $points = $activity_item->points;
+          if (in_array($activity_item->type, [
+              QuestionTypeOptions::ONE_CORRECT_ANSWER,
+              QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS,
+              QuestionTypeOptions::MATCH_PAIRS
+          ])) {
+              $points = json_decode($points);
+          }
 
           foreach ( old('options') as $index => $option )
           {
@@ -393,6 +418,7 @@ class ActivityItemController extends Controller
                   'image' => $optionObject ? $optionObject->image : '',
                   'image_url' => ( $optionObject && $optionObject->hasImage() ) ? $optionObject->getImageUrl() : '',
                   'activity_item_id' => $activity_item->id,
+                  'points' => $points[$index] ?? ''
               ];
           }
       } else if ( (int)old('type') === 5 )
@@ -413,6 +439,7 @@ class ActivityItemController extends Controller
                   'image_match' => $pair ? $pair->image_match : '',
                   'image_match_url' => ( $pair && $pair->hasImageMatch() ) ? $pair->getOptionMatchImageUrl($pair->image_match) : '',
                   'activity_item_id' => $activity_item->id,
+                  'points' => $points[$index] ?? ''
               ];
           }
       }
@@ -442,6 +469,23 @@ class ActivityItemController extends Controller
       $activity_item->description = $request->description;
       $activity_item->answering_time_check = $request->answering_time_check ? $request->answering_time_check : false;
       $activity_item->answering_time = $request->answering_time ? $request->answering_time : 0;
+
+      $points = $request->points;
+      if (is_array($points) && in_array($activity_item->type, [
+              QuestionTypeOptions::ONE_CORRECT_ANSWER,
+              QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS,
+              QuestionTypeOptions::MATCH_PAIRS
+          ])) {
+          $activity_item->points = json_encode($points);
+      } else if (is_scalar($points) && in_array($activity_item->type, [
+              QuestionTypeOptions::FREEFORM_ANSWER,
+              QuestionTypeOptions::MISSING_WORD,
+              QuestionTypeOptions::PHOTO
+          ])) {
+          $activity_item->points = $points;
+      } else {
+          $activity_item->points = 0;
+      }
 
       if ( $request->hasFile('image') ) {
           if ( $activity_item->hasImage() )

@@ -244,15 +244,22 @@ class ActivityItem extends Model
      */
     public function getQuestionData()
     {
+        $points = $this->points;
+        if ($this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers() || $this->isMatchPairs()) {
+            $points = json_decode($points, true);
+        }
         if ( $this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers() )
         {
-            return $this->options()->get(['id', 'option', 'correct', 'image', 'activity_item_id'])->each(function($item, $key) {
+            return $this->options()->get(['id', 'option', 'correct', 'image', 'activity_item_id'])->each(function($item, $key) use ($points) {
                 $item->correct = (bool)$item->correct;
+                $item->points = $points[$key] ?? '';
             });
         }
         else if ( $this->isMatchPairs() )
         {
-            return $this->pairs()->get(['id', 'option', 'image', 'option_match', 'image_match', 'activity_item_id']);
+            return $this->pairs()->get(['id', 'option', 'image', 'option_match', 'image_match', 'activity_item_id'])->each(function($item, $key) use ($points) {
+                $item->points = $points[$key] ?? '';
+            });
         }
 
         return [];

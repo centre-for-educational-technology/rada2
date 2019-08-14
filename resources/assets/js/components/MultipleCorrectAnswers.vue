@@ -1,22 +1,56 @@
 <template>
 <div id="question-type-multiple-correct-answers" class="sz-question">
     <div class="row sz-option-row" v-for="(option, index) in options">
-        <div class="col-xs-10">
+        <div class="col-xs-9">
             <div class="input-group">
                 <span class="input-group-addon" v-if="$parent.hasPreview(option)">
                     <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image)">
-                        <img class="sz-option-image-small" alt="option-image" v-bind:src="$parent.getOptionImageUrl(option.image)" v-bind:class="{ removed: hasImageRemoved(index) }">
+                        <img
+                                class="sz-option-image-small"
+                                alt="option-image"
+                                v-bind:src="$parent.getOptionImageUrl(option.image)"
+                                v-bind:class="{ removed: hasImageRemoved(index) }"
+                        >
                     </a>
                 </span>
                 <input type="hidden" name="ids[]" v-model="option.id">
-                <input type="text" class="form-control" name="options[]" v-model="option.option" v-bind:placeholder="$t('option-text')">
+                <input
+                        type="text"
+                        class="form-control"
+                        name="options[]"
+                        v-model="option.option"
+                        v-bind:placeholder="$t('option-text')"
+                >
                 <span class="input-group-addon">
-                    <input type="checkbox" name="correct[]" aria-label="Correct" tabindex="-1" v-bind:value="index" v-model="option.correct" v-on:change="enforceCorrectOption()" data-toggle="tooltip" data-placement="left" v-bind:title="$t('mark-option-as-correct')">
+                    <input
+                            type="checkbox"
+                            name="correct[]"
+                            aria-label="Correct"
+                            tabindex="-1"
+                            v-bind:value="index"
+                            v-model="option.correct"
+                            v-on:change="enforceCorrectOption()"
+                            data-toggle="tooltip"
+                            data-placement="left"
+                            v-bind:title="$t('mark-option-as-correct')"
+                    >
                 </span>
             </div>
         </div>
-        <div class="col-xs-2 sz-btn-controls">
-            <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: !canRemoveOptions() }">
+        <div class="col-xs-3 sz-btn-controls">
+            <input
+                    type="number"
+                    class="form-control points-input"
+                    name="points[]"
+                    v-bind:disabled="option.correct === false"
+                    v-bind:value="getPoints(index)"
+            >
+            <a href="#"
+               class="btn sz-option-remove"
+               tabindex="-1"
+               v-on:click.prevent="removeOption(index)"
+               v-bind:class="{ disabled: !canRemoveOptions() }"
+            >
                 <i class="mdi mdi-close-circle-outline" aria-hidden="true"></i>
             </a>
         </div>
@@ -102,6 +136,9 @@
             };
         },
         methods: {
+            getPoints: function(index) {
+                return this.options[index].points;
+            },
             addImage: function(index) {
                 $(this.$refs['option-image'][index]).trigger('click');
             },
@@ -138,3 +175,11 @@
         }
     }
 </script>
+<style>
+    .sz-option-remove, .points-input {
+        width: 50%;
+    }
+    .points-input {
+        float: left;
+    }
+</style>
