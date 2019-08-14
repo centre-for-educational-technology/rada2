@@ -80,6 +80,7 @@ return [
            'age_of_participants' => 'Age of participants',
            'answering_time' => 'Answering time limit',
            'instructors' => 'Instructors',
+           'maximum-points-available' => 'Maximum points available',
            'time' => [
                'hour' => 'H',
                'minute' => 'm',

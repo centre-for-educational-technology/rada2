@@ -79,7 +79,13 @@ return [
            'subject' => 'Teemad',
            'age_of_participants' => 'Osalejate vanus',
            'answering_time' => 'Vastamise aja limiit',
-           'instructors' => 'Istruktorid'
+           'instructors' => 'Istruktorid',
+           'maximum-points-available' => 'Maximum points available',
+           'time' => [
+               'hour' => 'H',
+               'minute' => 'm',
+               'second' => 's'
+           ]
        ],
        'help' => [
            'playing-time' => 'Raja läbimiseks kuluv aeg minutites',
