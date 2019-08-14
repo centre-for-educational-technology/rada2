@@ -80,7 +80,7 @@ return [
            'age_of_participants' => 'Osalejate vanus',
            'answering_time' => 'Vastamise aja limiit',
            'instructors' => 'Istruktorid',
-           'maximum-points-available' => 'Maximum points available',
+           'maximum-points-available' => 'Maksimaalne saadaolevate punktide arv',
            'time' => [
                'hour' => 'H',
                'minute' => 'm',
