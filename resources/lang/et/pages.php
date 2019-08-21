@@ -228,7 +228,9 @@ return [
     'grading' => [
         'index' => [
             'heading' => 'Hindamine',
-            'none-found' => 'Midagi ei ole hinnata'
+            'none-found' => 'Midagi ei ole hinnata',
+            'graded' => 'Hinnatud',
+            'switch-label' => 'Näita hinnatud küsimusi'
         ]
     ]
 

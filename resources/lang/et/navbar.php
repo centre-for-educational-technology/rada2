@@ -16,4 +16,5 @@ return [
     'activity-items' => 'Rajapunktid',
     'badges' => 'Õpimärgid',
     'discount_vouchers' => 'Kupongid',
+    'grading' => 'Hindamine'
 ];

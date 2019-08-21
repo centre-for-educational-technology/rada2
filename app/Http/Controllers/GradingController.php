@@ -47,6 +47,31 @@ class GradingController extends Controller
 
     /**
      * @param Request $request
+     * @param QuestionTypeOptions $questionTypeOptions
+     * @param GameAnswer $answer
+     * @return Factory|View
+     */
+    public function edit(Request $request, QuestionTypeOptions $questionTypeOptions, GameAnswer $answer)
+    {
+        return view('grading/edit')->with([
+            'answer' => $answer
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param GameAnswer $answer
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
+     */
+    public function update(Request $request, GameAnswer $answer)
+    {
+        return redirect(url('grading.edit', [
+            'answer' => $answer
+        ]));
+    }
+
+    /**
+     * @param Request $request
      *
      * @return array|Collection
      */
@@ -61,7 +86,11 @@ class GradingController extends Controller
                 ->leftJoin('games', 'game_answers.game_id', '=', 'games.id')
                 ->leftJoin('activity_instructors', 'games.activity_id', '=', 'activity_instructors.activity_id')
                 ->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
-                ->where('activity_instructors.user_id', '=', $user->id);
+                ->leftJoin('activities', 'activities.id', '=', 'games.activity_id')
+                ->leftJoin('users', 'users.id', '=', 'games.user_id')
+                ->where('activity_instructors.user_id', '=', $user->id)
+                ->where('game_answers.is_answered', '=', 1)
+            ;
             if ($showGradedAnswers === false) {
                 $query->where('game_answers', 'is', 'NULL');
             }
@@ -72,12 +101,15 @@ class GradingController extends Controller
                 'game_answers.correct',
                 'game_answers.is_answered',
                 'game_answers.grade',
+                'game_answers.created_at',
                 'activity_items.title',
                 'activity_items.description',
                 'activity_items.type',
-                'activity_items.image'
+                'activity_items.image',
+                'activities.title AS activity_title',
+                'users.name AS user_name'
             );
-            $query->orderBy('game_answers.id', 'desc');
+            $query->orderBy('game_answers.id', 'asc');
             $answers = $query->get();
         }
 
