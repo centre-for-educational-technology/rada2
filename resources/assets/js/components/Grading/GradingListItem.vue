@@ -6,19 +6,49 @@
                      :src="getQuestionTypeImageUrl()"
                      alt="featured-image">
             </a>
+            <div v-if="answer.correct === 1 && answer.grade !== null" class="grade-container">
+                <div class="grade-label">{{ $t('pages.grading.index.graded') }}</div>
+                <div class="grade">{{ answer.grade }}p</div>
+            </div>
         </div>
         <div class="media-body">
             <h4 class="media-heading">
-                    Title: {{ answer.title }}
-            </h4><br>
-            ID: {{ answer.id }}<br>
-            Type: {{ this.getQuestionTypeTranslation() }}<br>
-            Answer: {{ answer.answer }}<br>
-            Correct: {{ answer.correct }}<br>
-            Description: {{ answer.description }}<br>
-            Grade: {{ answer.grade }}<br>
-            Image: {{ answer.image }}<br>
-            Is answered: {{ answer.is_answered}}
+                <a :href="href">{{ answer.title }}</a>
+            </h4>
+            <div>{{ answer.activity_title }}</div>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <div class="media sz-author">
+                        <div class="media-left">
+                            <i class="mdi mdi-account-circle" aria-hidden="true"></i>
+                        </div>
+                        <div class="media-body">
+                            <div>{{ answer.user_name }}</div>
+                            <div class="sz-date">
+                                <i class="mdi mdi-clock" aria-hidden="true"></i>
+                                {{ answer.created_at }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="sz-metadata">
+                        <i class="mdi mdi-translate" aria-hidden="true"></i>
+                        English
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12 col-md-6">
+                    <div class="sz-metadata">
+                        <i class="mdi mdi-crosshairs" aria-hidden="true"></i>
+                        {{ this.getQuestionTypeTranslation() }}
+                    </div>
+                </div>
+            </div>
+            <hr />
         </div>
     </div>
 </template>
@@ -29,12 +59,14 @@
             this.$nextTick(() => {
                 this.$nextTick(() => {
                     this.baseUrl = window.RADA.config.base_url;
+                    this.href = '/grading/' + this.answer.id + '/edit'
                 });
             });
         },
         data() {
             return {
-                baseUrl: ''
+                baseUrl: '',
+                href: ''
             };
         },
         methods: {
@@ -48,7 +80,11 @@
                     6: 'embedded-content',
                     7: 'photo',
                 };
-                return this.baseUrl + '/img/icons/item/' + list[this.answer.type] + '.png';
+                let url = '/img/logos/logo-square.png';
+                if (typeof list[this.answer.type] !== 'undefined') {
+                    url = '/img/icons/item/' + list[this.answer.type] + '.png';
+                }
+                return this.baseUrl + url;
             },
             getQuestionTypeTranslation() {
                 return window.Laravel.questionTypes[this.answer.type];
@@ -56,4 +92,20 @@
         }
     }
 </script>
-<style scoped></style>
+<style scoped>
+    .media .media-left {
+        position: relative;
+    }
+    .media .media-left .grade-container {
+        padding-top: 15px;
+    }
+    .media .media-left .grade-container .grade-label {
+        color: green;
+        font-weight: bold;
+        text-align: center;
+        text-transform: uppercase;
+    }
+    .media .media-left .grade-container .grade {
+        text-align: center;
+    }
+</style>

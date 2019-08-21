@@ -10,7 +10,9 @@
         window.Laravel.locale = '{{ App::getLocale() }}';
         window.Laravel.translations = {!! json_encode([
             'pages.grading.index.heading' => trans('pages.grading.index.heading'),
-            'pages.grading.index.none-found' => trans('pages.grading.index.none-found')
+            'pages.grading.index.none-found' => trans('pages.grading.index.none-found'),
+            'pages.grading.index.graded' => trans('pages.grading.index.graded'),
+            'pages.grading.index.switch-label' => trans('pages.grading.index.switch-label')
         ]) !!};
         window.Laravel.answers = {!! json_encode($answers) !!};
         window.Laravel.questionTypes = {!! json_encode($questionTypes) !!}

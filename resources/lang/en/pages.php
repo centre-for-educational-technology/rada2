@@ -228,7 +228,9 @@ return [
     'grading' => [
         'index' => [
             'heading' => 'Grading',
-            'none-found' => 'No gradable items found'
+            'none-found' => 'No gradable items found',
+            'graded' => 'Graded',
+            'switch-label' => 'Show already graded questions'
         ]
     ]
 

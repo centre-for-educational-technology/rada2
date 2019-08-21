@@ -16,4 +16,5 @@ return [
     'activity-items' => 'Activity Items',
     'badges' => 'Badges',
     'discount_vouchers' => 'Discount Vouchers',
+    'grading' => 'Grading'
 ];
