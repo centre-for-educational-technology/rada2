@@ -13,9 +13,20 @@
         </div>
         <div class="media-body">
             <h4 class="media-heading">
-                <a :href="href">{{ answer.title }}</a>
+                <div class="col-xs-12 col-md-8">
+                    <div class="row">
+                        <a class="question-title" v-on:click="onClickOpenEditView">{{ answer.title }}</a>
+                        <div class="activity-title">{{ answer.activity_title }}</div>
+                    </div>
+                </div>
+                <div class="col-xs-12 col-md-4">
+                    <div class="row">
+                        <a class="pull-right" v-on:click="onClickOpenEditView">
+                            <i class="mdi mdi-school mdi-48px" aria-hidden="true"></i>
+                        </a>
+                    </div>
+                </div>
             </h4>
-            <div>{{ answer.activity_title }}</div>
             <div class="row">
                 <div class="col-xs-12 col-sm-6">
                     <div class="media sz-author">
@@ -70,6 +81,17 @@
             };
         },
         methods: {
+            onClickOpenEditView(e) {
+                e.preventDefault();
+                let editUrl = '/grading/' + this.answer.id + '/edit';
+                let data = this.$parent.getData();
+                data.currentAnswer = this.answer;
+                data.viewType = 'edit';
+                this.$emit('setData', data);
+                this.$parent.setEditAnswer(this.answer, true);
+                history.pushState(data, this.answer.title, editUrl);
+                return false;
+            },
             getQuestionTypeImageUrl() {
                 let list = {
                     1: 'information',
@@ -107,5 +129,17 @@
     }
     .media .media-left .grade-container .grade {
         text-align: center;
+    }
+    .question-title {
+        padding: 5px 0;
+        display: block;
+    }
+    .activity-title {
+        font-size: 14px;
+    }
+    .mdi-school {
+        height: 38px;
+        line-height: 60px;
+        cursor: pointer;
     }
 </style>

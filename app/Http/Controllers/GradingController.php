@@ -31,17 +31,21 @@ class GradingController extends Controller
     }
 
     /**
-     * @param Request             $request
+     * @param Request $request
      *
      * @param QuestionTypeOptions $questionTypeOptions
      *
+     * @param int $page
      * @return Factory|View
      */
-    public function index(Request $request, QuestionTypeOptions $questionTypeOptions)
+    public function index(Request $request, QuestionTypeOptions $questionTypeOptions, int $page = 0)
     {
         return view('grading/index')->with([
             'answers' => $this->getAnswers($request),
-            'questionTypes' => $questionTypeOptions->options()
+            'questionTypes' => $questionTypeOptions->options(),
+            'viewType' => 'list',
+            'currentAnswerId' => 0,
+            'currentPage' => $page
         ]);
     }
 
@@ -53,8 +57,12 @@ class GradingController extends Controller
      */
     public function edit(Request $request, QuestionTypeOptions $questionTypeOptions, GameAnswer $answer)
     {
-        return view('grading/edit')->with([
-            'answer' => $answer
+        return view('grading/index')->with([
+            'answers' => $this->getAnswers($request),
+            'questionTypes' => $questionTypeOptions->options(),
+            'viewType' => 'edit',
+            'currentAnswerId' => $answer->id,
+            'currentPage' => 0
         ]);
     }
 
@@ -102,12 +110,16 @@ class GradingController extends Controller
                 'game_answers.is_answered',
                 'game_answers.grade',
                 'game_answers.created_at',
+                'game_answers.image as answer_image',
                 'activity_items.title',
                 'activity_items.description',
                 'activity_items.type',
                 'activity_items.image',
+                'activity_items.id AS activity_item_id',
                 'activities.title AS activity_title',
-                'users.name AS user_name'
+                'activities.id as activity_id',
+                'users.name AS user_name',
+                'games.id as game_id'
             );
             $query->orderBy('game_answers.id', 'asc');
             $answers = $query->get();

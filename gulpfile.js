@@ -19,7 +19,6 @@ elixir(mix => {
        .webpack('app.js')
        .webpack('create_edit_activity_item.js')
        .webpack('create_edit_activity.js')
-       .webpack('edit_grading.js')
        .webpack('play.js')
        .webpack('profile.js')
        .webpack('welcome.js')

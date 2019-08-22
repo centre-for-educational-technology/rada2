@@ -8,9 +8,7 @@ Vue.component('grading-list', require('./components/Grading/GradingList.vue'));
 const activityApp = new Vue({
     el: '#grading-list-container',
     mounted() {
-        this.$nextTick(() => {
-            this.answers = window.Laravel.answers;
-        });
+        this.answers = window.Laravel.answers;
     },
     data() {
         return {
