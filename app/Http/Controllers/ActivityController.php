@@ -48,7 +48,7 @@ class ActivityController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'start', 'qrCode', 'qrCodeDownload']]);
+        $this->middleware('auth', ['except' => ['index', 'show', 'start', 'qrCode', 'qrCodeDownload', 'findGame']]);
     }
 
     /**
