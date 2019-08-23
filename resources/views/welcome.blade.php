@@ -10,7 +10,8 @@
         ]); ?>;
         window.Laravel.locale = '<?php echo App::getLocale(); ?>';
         window.Laravel.translations = <?php echo json_encode([
-            'play' => trans('general.actions.play')
+            'play' => trans('general.actions.play'),
+            'pin-placeholder' => trans('general.forms.placeholders.pin-placeholder')
         ]); ?>
     </script>
     <script src="{{ elixir('js/welcome.js') }}"></script>

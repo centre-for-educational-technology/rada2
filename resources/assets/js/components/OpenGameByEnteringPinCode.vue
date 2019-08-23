@@ -11,6 +11,7 @@
                 <input type="text"
                        v-model="pin"
                        class="pin-input"
+                       :placeholder="placeholder"
                        v-bind:maxlength="pinLength"
                        v-on:keyup.enter="onEnter"
                        ref="pinInput"
@@ -72,7 +73,8 @@
                 pinLength: 5,
                 defaultButtonClass: '',
                 buttonClass: '',
-                searchGame: false
+                searchGame: false,
+                placeholder: this.$t('pin-placeholder')
             }
         },
         watch: {
@@ -144,7 +146,7 @@
         letter-spacing: 15px;
         width: 80%;
         padding-left: 15px;
-        font-size: 43px;
+        font-size: 60px;
         font-family: MONOSPACE;
         text-align: center;
         height: 75px;
@@ -173,6 +175,7 @@
         display: block;
         overflow: hidden;
         margin-bottom: 15px;
+        padding: 25px 0px;
     }
     @media (max-width: 450px) {
         .open-game-by-entering-pin-code-container .pin-input {

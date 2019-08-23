@@ -127,7 +127,8 @@ return [
            'access-code-clues' => 'Clues to what/where the Access Code is',
            'datetime' => 'Date or Date and Time',
            'question-or-information' => 'Please write Question or Information, depending on chosen Question Type',
-           'missing-word' => 'Enter a text with missing words here'
+           'missing-word' => 'Enter a text with missing words here',
+           'pin-placeholder' => 'GAME PIN'
        ],
        'options' => [
            'any' => 'Any',
