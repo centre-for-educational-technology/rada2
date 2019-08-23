@@ -141,7 +141,7 @@
             </div>
         </div>
 
-        <div class="form-group">
+        <div class="form-group{{ $errors->has('missing-word') ? ' has-error' : '' }}">
             <div class="col-md-6 col-md-offset-4">
                 <div id="question-type-information" class="sz-question" v-if="questionType == {{ \App\Options\QuestionTypeOptions::INFORMATION }}">
                         <span class="help-block">
