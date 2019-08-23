@@ -116,6 +116,7 @@ class GradingController extends Controller
                 'activity_items.type',
                 'activity_items.image',
                 'activity_items.id AS activity_item_id',
+                'activity_items.points AS max_points',
                 'activities.title AS activity_title',
                 'activities.id as activity_id',
                 'users.name AS user_name',

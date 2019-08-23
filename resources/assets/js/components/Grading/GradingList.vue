@@ -29,13 +29,14 @@
                     <pagination
                             v-model="paginationPage"
                             :page-count="pages"
+                            :generateUrl="generatePaginationUrl"
                             :classes="bootstrapPaginationClasses"
                             :labels="paginationAnchorTexts"
                     ></pagination>
                 </div>
             </div>
         </div>
-        <grading-edit :viewType="viewType" ref="gradingEditComponent" :key="editFormKey" :answer="currentAnswer"></grading-edit>
+        <grading-edit :viewType="viewType" ref="gradingEditComponent"  :answerId="currentAnswerId"></grading-edit>
     </div>
 </template>
 <script>
@@ -80,7 +81,8 @@
                     return answer.id === window.Laravel.currentAnswerId;
                 });
                 if (currentAnswers.length > 0) {
-                    this.setEditAnswer(currentAnswers[0]);
+                    const answer = currentAnswers[0];
+                    this.currentAnswerId = answer.id;
                 }
             }
         },
@@ -92,9 +94,8 @@
                 currentPage: 0,
                 showGraded: false,
                 viewType: 'list',
-                editFormKey: 0,
                 canUpdateEditKey: false,
-                currentAnswer: null,
+                currentAnswerId: null,
                 bootstrapPaginationClasses: {
                     ul: 'pagination',
                     li: 'page-item',
@@ -130,26 +131,15 @@
             }
         },
         methods: {
-            setEditAnswer(answer, canUpdateEditKey) {
-                if (typeof canUpdateEditKey !== 'undefined') {
-                    this.canUpdateEditKey = true;
-                }
-                if (this.canUpdateEditKey) {
-                    this.editFormKey ++;
-                }
-                this.$nextTick(() => {
-                    this.currentAnswer = answer;
-                    // this.$refs.gradingEditComponent.setAnswer(answer);
-                });
-            },
             resetEdit() {
-                this.$refs.gradingEditComponent.reset();
+                this.currentAnswerId = null;
             },
             reset() {
                 this.setData({
                     currentPage: 1,
                     showGraded: false,
-                    viewType: 'list'
+                    viewType: 'list',
+                    currentAnswerId: null
                 });
             },
             setData(data) {
@@ -157,12 +147,14 @@
                 this.paginationPage = data.currentPage;
                 this.showGraded = data.showGraded;
                 this.viewType = data.viewType;
+                this.currentAnswerId = data.currentAnswerId;
             },
             getData() {
                 return {
                     currentPage: this.currentPage,
                     showGraded: this.showGraded,
-                    viewType: this.viewType
+                    viewType: this.viewType,
+                    currentAnswerId: this.currentAnswerId
                 };
             },
             onSwitchChange(isChecked) {
@@ -170,6 +162,9 @@
             },
             changePage() {
                 window.history.pushState(this.getData(), 'index (' + this.currentPage + ')', '/grading/page/' + this.currentPage);
+            },
+            generatePaginationUrl(page) {
+                return '/grading/page/' + page;
             }
         }
     }

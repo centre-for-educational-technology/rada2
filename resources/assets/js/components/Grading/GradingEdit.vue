@@ -57,7 +57,7 @@
 </template>
 <script>
     export default {
-        props: ['answer', 'viewType'],
+        props: ['answerId', 'viewType'],
         components: {
             'freeform': require('./QuestionTypes/Freeform'),
             'photo': require('./QuestionTypes/Photo')
@@ -72,20 +72,25 @@
         data() {
             return {
                 image:  null,
-                baseUrl: '',
-                answerx: null
+                baseUrl: ''
+            }
+        },
+        computed: {
+            answer() {
+                const answers = window.Laravel.answers.filter(answer => {
+                    return answer.id === this.answerId;
+                });
+                if (answers.length > 0) {
+                    return answers[0];
+                }
+
+                this.reset();
+                return null;
             }
         },
         methods: {
             reset() {
                 this.image = null;
-                this.$set(this, 'answer', null);
-            },
-            setAnswer(answer) {
-                this.$set(this, 'answer', answer);
-                if (this.answer && this.answer.image) {
-                    this.image = '/uploads/images/activity_items/' + this.answer.activity_item_id + '/' + this.answer.image;
-                }
             },
             getQuestionTypeTranslation() {
                 return window.Laravel.questionTypes[this.answer.type];

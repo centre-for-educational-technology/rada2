@@ -4,24 +4,26 @@
                 v-if="paginationLabels.first"
                 :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`"
         >
-            <span
+            <a
+                    :href="getHref(1)"
                     @click="first"
                     :disabled="hasFirst"
                     :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`"
                     v-html="paginationLabels.first"
-            ></span>
+            ></a>
         </li>
 
         <li
                 v-if="paginationLabels.prev"
                 :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`"
         >
-            <span
+            <a
+                    :href="getHref(value - 1)"
                     @click="prev"
                     :disabled="hasFirst"
                     :class="`${paginationClasses.button} ${hasFirst ? paginationClasses.buttonDisable : ''}`"
                     v-html="paginationLabels.prev"
-            ></span>
+            ></a>
         </li>
 
         <li
@@ -35,37 +37,40 @@
       >
         ...
       </span>
-            <span
+            <a
                     v-else
-                    @click="goto(page.label)"
+                    :href="getHref(page.label)"
+                    @click="goto(page.label, this.event)"
                     :class="`${paginationClasses.button} ${page.active ? paginationClasses.buttonActive : ''}`"
             >
                 {{ page.label }}
-            </span>
+            </a>
         </li>
 
         <li
                 v-if="paginationLabels.next"
                 :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`"
         >
-            <span
+            <a
+                    :href="getHref(parseInt(value) + 1)"
                     @click="next"
                     :disabled="hasLast"
                     :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`"
                     v-html="paginationLabels.next"
-            ></span>
+            ></a>
         </li>
 
         <li
                 v-if="paginationLabels.last"
                 :class="`${paginationClasses.li} ${hasLast ? paginationClasses.liDisable : ''}`"
         >
-            <span
+            <a
+                    :href="getHref(pageCount)"
                     @click="last"
                     :disabled="hasLast"
                     :class="`${paginationClasses.button} ${hasLast ? paginationClasses.buttonDisable : ''}`"
                     v-html="paginationLabels.last"
-            ></span>
+            ></a>
         </li>
     </ul>
 </template>
@@ -94,6 +99,10 @@
             },
             pageCount: { // page numbers
                 type: Number,
+                required: true
+            },
+            generateUrl: {
+                type: Function,
                 required: true
             },
             classes: {
@@ -157,29 +166,42 @@
             }
         },
         methods: {
-            first() {
+            first(e) {
+                e.preventDefault();
                 if (!this.hasFirst) {
                     this.$emit('input', 1)
                 }
+                return false;
             },
-            prev() {
+            prev(e) {
+                e.preventDefault();
                 if (!this.hasFirst) {
                     this.$emit('input', (this.value - 1))
                 }
+                return false;
             },
-            goto(page) {
+            goto(page, e) {
+                e.preventDefault();
                 this.$emit('input', page)
+                return false;
             },
-            next() {
+            next(e) {
+                e.preventDefault();
                 if (!this.hasLast) {
                     this.$emit('input', (this.value + 1))
                 }
+                return false;
             },
-            last() {
+            last(e) {
+                e.preventDefault();
                 if (!this.hasLast) {
                     this.$emit('input', this.pageCount)
                 }
+                return false;
             },
+            getHref(page) {
+                return this.generateUrl(page);
+            }
         }
     }
 </script>

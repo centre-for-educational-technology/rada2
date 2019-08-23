@@ -15,13 +15,13 @@
             <h4 class="media-heading">
                 <div class="col-xs-12 col-md-8">
                     <div class="row">
-                        <a class="question-title" v-on:click="onClickOpenEditView">{{ answer.title }}</a>
+                        <a :href="href" class="question-title" v-on:click="onClickOpenEditView">{{ answer.title }}</a>
                         <div class="activity-title">{{ answer.activity_title }}</div>
                     </div>
                 </div>
                 <div class="col-xs-12 col-md-4">
                     <div class="row">
-                        <a class="pull-right" v-on:click="onClickOpenEditView">
+                        <a :href="href" class="pull-right" v-on:click="onClickOpenEditView">
                             <i class="mdi mdi-school mdi-48px" aria-hidden="true"></i>
                         </a>
                     </div>
@@ -85,10 +85,9 @@
                 e.preventDefault();
                 let editUrl = '/grading/' + this.answer.id + '/edit';
                 let data = this.$parent.getData();
-                data.currentAnswer = this.answer;
+                data.currentAnswerId = this.answer.id;
                 data.viewType = 'edit';
                 this.$emit('setData', data);
-                this.$parent.setEditAnswer(this.answer, true);
                 history.pushState(data, this.answer.title, editUrl);
                 return false;
             },
