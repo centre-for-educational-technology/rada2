@@ -223,6 +223,8 @@
                     if (remainingTimeDate.getUTCMinutes() > 0) {
                         this.answeringTime += ('0' + remainingTimeDate.getUTCMinutes()).slice(-2);
                         this.answeringTime += ':';
+                    } else {
+                        this.answeringTime += '00:';
                     }
 
                     this.answeringTime += ( '0' + remainingTimeDate.getUTCSeconds()).slice(-2);
