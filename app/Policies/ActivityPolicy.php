@@ -198,7 +198,7 @@ class ActivityPolicy
     public function addGrades(User $user, Activity $activity = null)
     {
         if ($activity === null) {
-            return count(ActivityInstructor::where('user_id', $user->id)->results()) > 0;
+            return count(ActivityInstructor::where('user_id', $user->id)->get()) > 0;
         }
         return count(array_filter($activity->getInstructors(), static function (ActivityInstructor $instructor) use ($user) {
                 return $user->id === $instructor->user_id;
