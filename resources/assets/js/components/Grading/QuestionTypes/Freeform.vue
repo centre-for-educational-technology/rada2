@@ -1,13 +1,13 @@
 <template>
     <div v-if="show()">
-        <h4>Answer text</h4>
+        <h4>{{ $t('pages.grading.index.heading-answer')}}</h4>
         <p>
             {{ answerText }}
         </p>
         <single-grading
                 :maxGrade="maxPoints"
-                :buttonValue="buttonValue"
-                :onSubmit="onSubmit"
+                :answerId="answer.id"
+                :grade="grade"
         ></single-grading>
     </div>
 </template>
@@ -19,7 +19,7 @@
         },
         data() {
             return {
-                buttonValue: 'Submit text'
+                inAjaxCall: false
             }
         },
         computed: {
@@ -32,14 +32,20 @@
             },
             maxPoints() {
                 return parseInt(this.answer.max_points);
+            },
+            grade() {
+                return this.answer.grade ? parseInt(this.answer.grade) : this.maxPoints;
             }
         },
         methods: {
             show() {
                 return this.$parent.isFreeformAnswer();
             },
-            onSubmit(grade) {
-                console.log(grade);
+            showAlert(message) {
+                this.$parent.showAlert(message);
+            },
+            markGraded(answerId, grade) {
+                this.$parent.markGraded(answerId, grade);
             }
         }
     }

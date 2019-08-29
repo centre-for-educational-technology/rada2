@@ -12,6 +12,7 @@
                             <form-element-switch
                                     :onSwitchChange="onSwitchChange"
                                     :label="$t('pages.grading.index.switch-label')"
+                                    :defaultValue="showGraded"
                             ></form-element-switch>
                         </div>
                     </div>
@@ -36,7 +37,7 @@
                 </div>
             </div>
         </div>
-        <grading-edit :viewType="viewType" ref="gradingEditComponent"  :answerId="currentAnswerId"></grading-edit>
+        <grading-edit :viewType="viewType" :answerId="currentAnswerId"></grading-edit>
     </div>
 </template>
 <script>
@@ -53,14 +54,17 @@
 
             this.$nextTick(() => {
                 this.baseUrl = window.RADA.config.base_url;
-                this.viewType = window.Laravel.viewType;
-                if (this.viewType === 'list') {
+                if (this.viewType === 'list' && !window.history.state) {
+                    this.viewType = window.Laravel.viewType;
                     let currentPage = window.Laravel.currentPage;
-                    this.currentPage = currentPage;
                     if (currentPage === 0) {
                         currentPage = 1;
                     }
+                    this.currentPage = currentPage;
                     this.paginationPage = currentPage;
+                    this.changePage();
+                } else {
+                    this.setData(window.history.state);
                 }
             });
 
@@ -76,7 +80,7 @@
             });
         },
         updated() {
-            if (this.viewType === 'edit') {
+            if (this.viewType === 'edit' && this.currentAnswerId === null) {
                 let currentAnswers = this.answers.filter(answer => {
                     return answer.id === window.Laravel.currentAnswerId;
                 });
@@ -85,6 +89,9 @@
                     this.currentAnswerId = answer.id;
                 }
             }
+            this.$nextTick(() => {
+                this.isUpdated = true;
+            });
         },
         data() {
             return {
@@ -96,6 +103,7 @@
                 viewType: 'list',
                 canUpdateEditKey: false,
                 currentAnswerId: null,
+                isUpdated: false,
                 bootstrapPaginationClasses: {
                     ul: 'pagination',
                     li: 'page-item',
@@ -124,13 +132,27 @@
         },
         watch: {
             paginationPage() {
+                if (this.isUpdated === false) {
+                    return false;
+                }
                 if (this.currentPage !== this.paginationPage) {
                     this.currentPage = this.paginationPage;
                     this.changePage();
                 }
+            },
+            showGraded() {
+                this.changePage(true);
             }
         },
         methods: {
+            markGraded (answerId, grade) {
+                this.$set(this, 'answers', this.answers.map(answer => {
+                    if (answer.id === answerId) {
+                        answer.grade = grade;
+                    }
+                    return answer;
+                }));
+            },
             resetEdit() {
                 this.currentAnswerId = null;
             },
@@ -148,6 +170,7 @@
                 this.showGraded = data.showGraded;
                 this.viewType = data.viewType;
                 this.currentAnswerId = data.currentAnswerId;
+                this.$set(this, 'currentAnswerId', data.currentAnswerId);
             },
             getData() {
                 return {
@@ -160,8 +183,35 @@
             onSwitchChange(isChecked) {
                 this.showGraded = isChecked;
             },
-            changePage() {
-                window.history.pushState(this.getData(), 'index (' + this.currentPage + ')', '/grading/page/' + this.currentPage);
+            changePage(replaceState) {
+                let name = 'index (' + this.currentPage + ')';
+                let url = '/grading/page/' + this.currentPage;
+                if (this.viewType === 'edit' && this.currentAnswerId > 0) {
+                    name = this.answers.filter(answer => {
+                        return answer.id === this.currentAnswerId;
+                    })[0].title;
+                    url = '/grading/' + this.currentAnswerId + '/edit';
+                }
+                if (typeof window.history.state !== 'undefined' && window.history.state !== null) {
+                    const stateData = window.history.state;
+                    const data = this.getData();
+                    if (stateData.viewType === data.viewType &&
+                        stateData.currentPage === data.currentPage &&
+                        stateData.showGraded === data.showGraded &&
+                        stateData.currentAnswerId === data.currentAnswerId) {
+                        return false;
+                    }
+                }
+                let data = this.getData();
+                if (parseInt(data.currentPage) === 0) {
+                    this.currentPage = 1;
+                    data.currentPage = 1;
+                }
+                if (typeof replaceState === 'undefined' || replaceState !== true) {
+                    window.history.pushState(data, name, url);
+                } else {
+                    window.history.replaceState(data, name, url);
+                }
             },
             generatePaginationUrl(page) {
                 return '/grading/page/' + page;

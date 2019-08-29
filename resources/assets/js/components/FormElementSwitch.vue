@@ -9,7 +9,19 @@
 </template>
 <script>
     export default {
-        props: ['onSwitchChange', 'label'],
+        props: ['onSwitchChange', 'label', 'defaultValue'],
+        mounted() {
+            setTimeout(() => {
+                if (typeof this.defaultValue !== 'undefined' && this.defaultValue === true) {
+                    this.$refs.input.checked = this.defaultValue === true;
+                }
+            }, 500);
+        },
+        watch: {
+            defaultValue() {
+                this.$refs.input.checked = this.defaultValue === true;
+            }
+        },
         methods: {
             onChange(e) {
                 if (typeof this.onSwitchChange !== 'undefined') {

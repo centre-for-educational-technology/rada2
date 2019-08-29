@@ -6,7 +6,7 @@
                      :src="getQuestionTypeImageUrl()"
                      alt="featured-image">
             </a>
-            <div v-if="answer.correct === 1 && answer.grade !== null" class="grade-container">
+            <div v-if="answer.grade !== null" class="grade-container">
                 <div class="grade-label">{{ $t('pages.grading.index.graded') }}</div>
                 <div class="grade">{{ answer.grade }}p</div>
             </div>

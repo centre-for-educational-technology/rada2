@@ -140,7 +140,7 @@ Route::group(['prefix' => 'legal'], function()
 Route::group(['prefix' => 'grading'], static function ()
 {
     Route::get('/', 'GradingController@index')->name('grading.index');
-    Route::get('/page/{page}', 'GradingController@index')->name('grading.index');
+    Route::get('/page/{page}', 'GradingController@index')->name('grading.index.page');
     Route::get('/{answer}/edit', 'GradingController@edit')->name('grading.edit');
     Route::put('/{answer}', 'GradingController@update')->name('grading.update');
 });

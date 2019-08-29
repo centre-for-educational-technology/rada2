@@ -1,18 +1,19 @@
 <template>
     <div>
-        <h4>Grade text</h4>
-        <div>
+        <h4>{{ $t('pages.grading.index.heading-grade')}}</h4>
+        <div class="form-group">
             <input
-                    v-model="grade"
-                    type="text"
+                    v-model="inputGrade"
+                    type="number"
+                    class="form-control pull-left grade-input"
             />
             <input
                     v-on:click="onButtonSubmit"
-                    :value="buttonValue"
+                    :value="$t('pages.grading.index.submit-grade')"
                     type="button"
-                    class="btn btn-xs btn-primary"
+                    class="btn btn-primary"
             />
-            <span>You can enter value between 0 and {{ maxGrade }} text</span>
+            <div>{{ $t('pages.grading.index.grading-info') }} {{ maxGrade }}</div>
         </div>
     </div>
 </template>
@@ -24,24 +25,41 @@
                 type: Number,
                 required: true
             },
-            onSubmit: {
-                type: Function,
+            answerId: {
+                type: Number,
                 required: true
             },
-            buttonValue: {
-                type: String,
+            grade: {
+                type: Number,
                 required: true
             }
         },
         mixins: [gradingMixin],
         data() {
             return {
-                grade: 0
+                inputGrade: 0
+            }
+        },
+        watch: {
+            inputGrade () {
+                const maxGrade = this.getMaxGrade();
+                if (this.inputGrade > maxGrade) {
+                    this.inputGrade = maxGrade;
+                } else if (this.inputGrade < 0) {
+                    this.inputGrade = 0;
+                }
+            },
+            grade () {
+                this.inputGrade = this.grade;
             }
         },
         mounted() {
             this.$nextTick(() => {
-                this.grade = this.maxGrade
+                if (this.grade !== null) {
+                    this.inputGrade = this.grade;
+                } else {
+                    this.inputGrade = this.maxGrade;
+                }
             });
         },
         methods: {
@@ -49,5 +67,8 @@
     }
 </script>
 <style scoped>
-
+    .grade-input {
+        width: 100px;
+        margin-right: 15px;
+    }
 </style>

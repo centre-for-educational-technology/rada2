@@ -230,7 +230,22 @@ return [
             'heading' => 'Hindamine',
             'none-found' => 'Midagi ei ole hinnata',
             'graded' => 'Hinnatud',
-            'switch-label' => 'Näita hinnatud küsimusi'
+            'switch-label' => 'Näita hinnatud küsimusi',
+            'grading-info' => 'Saad sisestada väärtusei vahemikus 0 ja',
+            'success' => 'Edukalt salvestatud',
+            'go-back-to-list' => 'Mine tagasi nimekirja',
+            'submit-grade' => 'Salvesta',
+            'heading-answer' => 'Vastus',
+            'heading-grade' => 'Hinne',
+            'heading-question-information' => 'Küsimus/Informatsioon',
+            'heading-previous-grades' => 'Eelnevalt hinnatud',
+            'answer_table' => [
+                'option' => 'Valik',
+                'correct' => 'Õige vastus',
+                'answer' => 'Vastus',
+                'points' => 'Punktid',
+                'image' => 'Pilt'
+            ]
         ]
     ]
 

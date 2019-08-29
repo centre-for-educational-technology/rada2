@@ -1,5 +1,5 @@
 <template>
-    <ul :class="paginationClasses.ul" role="navigation">
+    <ul v-if="pageCount > 0" :class="paginationClasses.ul" role="navigation">
         <li
                 v-if="paginationLabels.first"
                 :class="`${paginationClasses.li} ${hasFirst ? paginationClasses.liDisable : ''}`"

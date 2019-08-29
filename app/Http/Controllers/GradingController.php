@@ -7,11 +7,13 @@
 
 namespace App\Http\Controllers;
 
-use App\ActivityInstructor;
+use App\Activity;
+use App\ActivityItem;
 use App\GameAnswer;
 use App\Options\QuestionTypeOptions;
 use App\User;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -67,15 +69,36 @@ class GradingController extends Controller
     }
 
     /**
+     * @param ActivityItem $activityItem
+     * @return array
+     */
+    public function getQuestionData(Request $request, ActivityItem $activityItem): array
+    {
+        /** @var Collection $data */
+        $data = $activityItem->getQuestionData();
+        if (is_array($data)) {
+            return $data;
+        }
+
+        return $data->toArray();
+    }
+
+    /**
      * @param Request $request
      * @param GameAnswer $answer
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function update(Request $request, GameAnswer $answer)
     {
-        return redirect(url('grading.edit', [
-            'answer' => $answer
-        ]));
+        $grade = $request->get('grade', null);
+        if ($grade !== null) {
+            $answer->grade = $grade;
+            $answer->save();
+        }
+        return response()->json([
+            'message' => trans('pages.grading.index.success'),
+            'redirect' => url( route('grading.index'))
+        ]);
     }
 
     /**
@@ -98,14 +121,15 @@ class GradingController extends Controller
                 ->leftJoin('users', 'users.id', '=', 'games.user_id')
                 ->where('activity_instructors.user_id', '=', $user->id)
                 ->where('game_answers.is_answered', '=', 1)
+                ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
+                ->where('activity_items.type', '!=', QuestionTypeOptions::EMBEDDED_CONTENT)
             ;
             if ($showGradedAnswers === false) {
-                $query->where('game_answers', 'is', 'NULL');
+                $query->where('game_answers.answer', 'is', 'NULL');
             }
             $query->select(
                 'game_answers.id',
                 'game_answers.answer',
-                'game_answers.image',
                 'game_answers.correct',
                 'game_answers.is_answered',
                 'game_answers.grade',
@@ -117,6 +141,7 @@ class GradingController extends Controller
                 'activity_items.image',
                 'activity_items.id AS activity_item_id',
                 'activity_items.points AS max_points',
+                'activity_items.missing_word',
                 'activities.title AS activity_title',
                 'activities.id as activity_id',
                 'users.name AS user_name',
@@ -126,6 +151,48 @@ class GradingController extends Controller
             $answers = $query->get();
         }
 
+        return $answers;
+    }
+
+    /**
+     * @param Request $request
+     * @param GameAnswer $answer
+     * @return array|Collection
+     */
+    public function getOtherGradedAnswers(Request $request, GameAnswer $answer)
+    {
+        $answers = [];
+        $user = Auth::user();
+        if ($user && $answer) {
+            /** @var ActivityItem $activityItem */
+            $activityItem = $answer->activityItem()->first();
+            $query = DB::table('game_answers')
+                ->select(
+                    'game_answers.id',
+                    'game_answers.answer',
+                    'game_answers.grade',
+                    'game_answers.image as answer_image',
+                    'activity_items.type',
+                    'users.name as user_name'
+                )
+                ->leftJoin('games', 'game_answers.game_id', '=', 'games.id')
+                ->leftJoin('activity_items', 'activity_items.id', '=', 'game_answers.activity_item_id')
+                ->leftJoin('activity_activity_item', 'game_answers.activity_item_id', '=', 'activity_activity_item.activity_item_id')
+                ->leftJoin('activity_instructors', 'activity_activity_item.activity_id', '=', 'activity_instructors.activity_id')
+                ->leftJoin('users', 'users.id', '=', 'games.user_id')
+                ->whereIn('activity_activity_item.activity_id', DB::table('activities')
+                    ->select('activities.id')
+                    ->leftJoin('activity_activity_item', 'activity_activity_item.activity_id', '=', 'activities.id')
+                    ->leftJoin('game_answers', 'game_answers.activity_item_id', '=', 'activity_activity_item.activity_item_id')
+                    ->where('game_answers.id', '=', $answer->id))
+                ->where('game_answers.id', '!=', $answer->id)
+                ->where('activity_items.type', '=', $activityItem->type)
+                ->where('activity_instructors.user_id', '=', $user->id)
+                ->whereNotNull('game_answers.grade')
+                ->orderBy('game_answers.id', 'desc')
+            ;
+            $answers = $query->get();
+        }
         return $answers;
     }
 }

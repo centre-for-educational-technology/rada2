@@ -1,7 +1,11 @@
 <template>
     <div v-if="show()">
+        <br />
+        <p>{{ answer.missing_word }}</p>
         <h4>{{ $t('pages.grading.index.heading-answer')}}</h4>
-        <img class="image" v-if="image != null" :src="image" />
+        <p>
+            {{ answerText }}
+        </p>
         <single-grading
                 :maxGrade="maxPoints"
                 :answerId="answer.id"
@@ -17,11 +21,7 @@
         },
         data() {
             return {
-                inAjaxCall: false,
-                image: this.answer.answer_image ? '/uploads/images/activities/'
-                    + this.answer.activity_id + '/'
-                    + this.answer.game_id + '/'
-                    + this.answer.answer_image : null,
+                inAjaxCall: false
             }
         },
         computed: {
@@ -41,7 +41,7 @@
         },
         methods: {
             show() {
-                return this.$parent.isPhoto();
+                return this.$parent.isMissingWord();
             },
             showAlert(message) {
                 this.$parent.showAlert(message);
@@ -52,8 +52,3 @@
         }
     }
 </script>
-<style scoped>
-    .image {
-        max-width: 100%;
-    }
-</style>
