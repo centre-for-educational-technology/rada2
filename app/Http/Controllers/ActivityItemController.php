@@ -249,7 +249,7 @@ class ActivityItemController extends Controller
       if ( $item->isEmbeddedContent() && $request->{'embedded-content'} ) {
           $item->embedded_content = $request->{'embedded-content'};
       } else if ( $item->isMissingWord() && $request->{'missing-word'} ) {
-          $item->missing_word = $request->{'missing-word'};
+          $item->missing_word = trim(preg_replace('/[^\S\r\n]+/', ' ',$request->{'missing-word'}));
       }
 
       $item->zoo = ZooOptions::DEFAULT_OPTION;
@@ -527,7 +527,7 @@ class ActivityItemController extends Controller
       if ( $activity_item->isEmbeddedContent() ) {
           $activity_item->embedded_content = $request->input('embedded-content', '');
       } else if ( $activity_item->isMissingWord() ) {
-          $activity_item->missing_word = $request->input('missing-word', '');
+          $activity_item->missing_word = trim(preg_replace('/[^\S\r\n]+/', ' ',$request->input('missing-word', '')));
       }
 
       if ( auth()->user()->can('changeZoo', $activity_item) ) {
@@ -588,7 +588,6 @@ class ActivityItemController extends Controller
                   if ( $request->hasFile('option-image-' . $key) ) {
                       if ( $tmp->image ) {
                           $tmp->deleteImage();
-                          $tmp->image = null;
                       }
                       $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
@@ -635,7 +634,6 @@ class ActivityItemController extends Controller
                   if ( $request->hasFile('option-image-' . $key) ) {
                       if ( $tmp->image ) {
                           $tmp->deleteImage();
-                          $tmp->image = null;
                       }
                       $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
@@ -682,7 +680,6 @@ class ActivityItemController extends Controller
                   {
                       if ( $tmp->image ) {
                           $tmp->deleteImage();
-                          $tmp->image = null;
                       }
                       $tmp->image = $this->processUploadedOptionImage($imageService, $request, 'option-image-' . $key, $path);
                   }
@@ -696,7 +693,6 @@ class ActivityItemController extends Controller
                   {
                       if ( $tmp->image_match ) {
                           $tmp->deleteImageMatch();
-                          $tmp->image_match = null;
                       }
                       $tmp->image_match = $this->processUploadedOptionImage($imageService, $request, 'option-match-image-' . $key, $path);
                   }

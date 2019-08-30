@@ -302,8 +302,8 @@ class ActivityItem extends Model
             } else if ($this->isMissingWord()) {
                 $answer = $answerObject['text'] ?? null;
                 if ($answer !== null) {
-                    $text = $this->missing_word;
-                    if ($text === $answer) {
+                    $text = \mb_strtoupper(\preg_replace('/\s+/', '', $this->missing_word));
+                    if ($text === \mb_strtoupper(\preg_replace('/\s+/', '', $answer))) {
                         $totalPoints += $points;
                     }
                 }
