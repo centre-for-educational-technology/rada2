@@ -7,6 +7,8 @@ use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
 use App\User;
 use App\Utils\RandomStringGenerator;
+use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreActivity;
 
@@ -165,32 +167,40 @@ class ActivityController extends Controller
             'difficulty-level' => $request->has('difficulty-level') ? $request->get('difficulty-level') : '',
             'zoo' => $request->has('zoo') ? $request->get('zoo') : '',
             'language' => $request->has('language') ? $request->get('language') : '',
-            'search-submitted' => ( $request->has('search-submitted') && (int) $request->get('search-submitted') === 1 ) ? true : false,
+            'search-submitted' => $request->has('search-submitted') && (int)$request->get('search-submitted') === 1,
         ];
 
-        $query = Activity::orderBy('promoted', 'desc')->orderBy('id', 'desc')->with(['user', 'discountVoucher',]);
+        /** @var Builder $query */
+        $query = Activity::orderBy('promoted', 'desc')->orderBy('activities.id', 'desc')->with(['user', 'discountVoucher',]);
 
         if ( $request->has('search-text') && trim($request->get('search-text')) )
         {
-            $query->where(function($query) use ($request) {
-                $query->where('title', 'like', '%' . trim($request->get('search-text')) . '%')->orWhere('description', 'like', '%' . trim($request->get('search-text')) . '%');
+            $query->where(static function(Builder $query) use ($request) {
+                $query->where('activities.title', 'like', '%' . trim($request->get('search-text')) . '%')
+                    ->orWhere('activities.description', 'like', '%' . trim($request->get('search-text')) . '%');
             });
         }
 
         if ( $request->has('zoo') && (int)$request->get('zoo') !== 0 )
         {
-            $query->where('zoo', '=', (int)$request->get('zoo'));
+            $query->where('activities.zoo', '=', (int)$request->get('zoo'));
         }
 
         if ( $request->has('language') && $request->get('language') !== '0' )
         {
-            $query->where('language', '=', $request->get('language'));
+            $query->where('activities.language', '=', $request->get('language'));
         }
 
         $user = auth()->user();
         if ( Auth::check() ) {
-            $query->where(function ($subQuery) use ($user) {
-                $subQuery->where('promoted', 1)->orWhere('user_id', $user->id);
+            $query->leftJoin('activity_instructors', 'activity_instructors.activity_id', '=', 'activities.id');
+            $query->select('activities.*');
+            // If instructor and game creator are same person
+            $query->groupBy('activities.id');
+            $query->where(static function (Builder $subQuery) use ($user) {
+                $subQuery->where('promoted', 1)
+                    ->orWhere('activities.user_id', $user->id)
+                    ->orWhere('activity_instructors.user_id', $user->id);
             });
         } else {
             $query->where('promoted', 1);
@@ -458,8 +468,11 @@ class ActivityController extends Controller
 
     /**
      * [start description]
-     * @param  Activity $activity [description]
-     * @return [type]             [description]
+     *
+     * @param Request  $request
+     * @param Activity $activity [description]
+     *
+     * @return RedirectResponse [type]             [description]
      */
     public function start(Request $request, Activity $activity)
     {

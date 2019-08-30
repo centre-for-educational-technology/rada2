@@ -245,7 +245,7 @@ class GameController extends Controller
         /** @var Activity $activity */
         $activity = $game->activity;
         $instructors = $activity->getInstructors()->filter(static function (ActivityInstructor $instructor) use ($game) {
-            return $instructor->id === $game->user_id;
+            return $instructor->user_id === $game->user_id;
         });
         $instructor = $instructors->count() > 0 ? $instructors->first() : null;
         if ($activity->user_id === $game->user_id || $instructor !== null) {
