@@ -127,7 +127,8 @@ return [
            'access-code-clues' => 'Vihjed sellele mis Kood olla võiks või kust seda leiab',
            'datetime' => 'Kuupäev või kuupäev ja kellaaeg',
            'question-or-information' => 'Palun kirjuta Küsimust või Lisainfot, sõltuvalt valitud küsimuse tüübist',
-           'missing-word' => 'Sisesta puuduvate sõnadega tekst siia'
+           'missing-word' => 'Sisesta puuduvate sõnadega tekst siia',
+           'pin-placeholder' => 'MÄNGU PIN'
        ],
        'options' => [
            'any' => 'Kõik',
