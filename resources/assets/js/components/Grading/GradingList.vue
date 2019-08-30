@@ -45,7 +45,7 @@
         props: ['answers'],
         components: {
             'grading-list-item': require('./GradingListItem.vue'),
-            'pagination': require('../vue-plain-pagination'),
+            'pagination': require('../vue-plain-pagination.vue'),
             'form-element-switch': require('../FormElementSwitch.vue'),
             'grading-edit': require('./GradingEdit.vue')
         },

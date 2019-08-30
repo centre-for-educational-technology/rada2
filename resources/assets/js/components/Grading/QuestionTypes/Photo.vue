@@ -13,7 +13,7 @@
     export default {
         props: ['answer'],
         components: {
-            'single-grading': require('./Grading/Single')
+            'single-grading': require('./Grading/Single.vue')
         },
         data() {
             return {
