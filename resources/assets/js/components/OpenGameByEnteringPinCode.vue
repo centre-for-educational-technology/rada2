@@ -150,6 +150,7 @@
         font-family: MONOSPACE;
         text-align: center;
         height: 75px;
+        text-transform: uppercase;
     }
     #sz-quick-play .open-game-by-entering-pin-code-container .btn.sz-quick-play-btn.play-button {
         padding: 0;
