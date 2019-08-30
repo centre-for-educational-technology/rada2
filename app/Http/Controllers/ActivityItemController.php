@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
 
 use App\Http\Requests;
@@ -18,6 +19,7 @@ use App\Options\ZooGeolocationOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
 use App\Services\ImageService;
 
@@ -114,7 +116,7 @@ class ActivityItemController extends Controller
      * @param ZooOptions          $zooOptions
      * @param LanguageOptions     $languageOptions
      *
-     * @return \Illuminate\Http\Response
+     * @return Response
      */
   public function index(Request $request, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
   {
@@ -169,7 +171,7 @@ class ActivityItemController extends Controller
   /**
    * Show the form for creating a new ActivityItem.
    *
-   * @return \Illuminate\Http\Response
+   * @return Response
    */
   public function create(ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
   {
@@ -217,7 +219,7 @@ class ActivityItemController extends Controller
    * Store newly created activity in database.
    *
    * @param \App\Http\Requests\StoreActivityItem';
-   * @return \Illuminate\Http\Response
+   * @return Response
    */
   public function store(StoreActivityItem $request, ImageService $imageService)
   {
@@ -363,12 +365,12 @@ class ActivityItemController extends Controller
       return redirect()->route('activity_item.show', [ 'id' => $item->id ]);
   }
 
-  /**
-   * Display the specified ActivityItem.
-   *
-   * @param \App\Activity
-   * @return \Illuminate\Http\Response
-   */
+    /**
+     * Display the specified ActivityItem.
+     *
+     * @param ActivityItem $activity_item
+     * @return Response
+     */
   public function show(ActivityItem $activity_item)
   {
       // XXX This seems to fail for guests
@@ -381,19 +383,44 @@ class ActivityItemController extends Controller
       return view('activity_items/show')->with('activity_item', $activity_item);
   }
 
-  /**
-   * Show the form for editing the specified activity.
-   *
-   * @param \App\ActivityItem
-   * @return \Illuminate\Http\Response
-   */
-  public function edit(ActivityItem $activity_item, ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
+    /**
+     * Show the form for editing the specified activity.
+     *
+     * @param ActivityItem $activity_item
+     * @param ZooGeolocationOptions $zooGeolocationOptions
+     * @param QuestionTypeOptions $questionTypeOptions
+     * @param ZooOptions $zooOptions
+     * @param LanguageOptions $languageOptions
+     * @return Response
+     * @throws AuthorizationException
+     */
+  public function edit(
+      ActivityItem $activity_item,
+      ZooGeolocationOptions $zooGeolocationOptions,
+      QuestionTypeOptions $questionTypeOptions,
+      ZooOptions $zooOptions,
+      LanguageOptions $languageOptions
+  )
   {
       $this->authorize('update', $activity_item);
 
+      $questionData = static::getQuestionData($activity_item);
+
+      return view('activity_items/edit')->with([
+          'activity_item' => $activity_item,
+          'zooGeolocationOptions' => $zooGeolocationOptions->options(),
+          'questionTypeOptions' => $questionTypeOptions->options(),
+          'zooOptions' => $zooOptions->options(),
+          'languageOptions' => $languageOptions->options(),
+          'questionData' => $questionData ? $questionData : $activity_item->getQuestionData(),
+      ]);
+  }
+
+  public static function getQuestionData(ActivityItem $activity_item): array
+  {
       $questionData = [];
 
-      if ( (int)old('type') === 2 || (int)old('type') === 3 )
+      if ( (int)old('type') === QuestionTypeOptions::ONE_CORRECT_ANSWER || (int)old('type') === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS )
       {
           $correct = is_array( old('correct') ) ? old('correct') : [ old('correct') ];
           $options = $activity_item->options->keyBy('id');
@@ -402,26 +429,27 @@ class ActivityItemController extends Controller
               QuestionTypeOptions::ONE_CORRECT_ANSWER,
               QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS,
               QuestionTypeOptions::MATCH_PAIRS
-          ])) {
+          ], true)) {
               $points = json_decode($points);
           }
 
           foreach ( old('options') as $index => $option )
           {
               $optionId = old('ids')[$index];
+              /** @var ActivityItemOption $optionObject */
               $optionObject = $options->get($optionId);
 
               $questionData[] = [
                   'id' => $optionId,
                   'option' => $option,
-                  'correct' => in_array($index, $correct),
+                  'correct' => in_array($index, $correct, true),
                   'image' => $optionObject ? $optionObject->image : '',
                   'image_url' => ( $optionObject && $optionObject->hasImage() ) ? $optionObject->getImageUrl() : '',
                   'activity_item_id' => $activity_item->id,
                   'points' => $points[$index] ?? ''
               ];
           }
-      } else if ( (int)old('type') === 5 )
+      } else if ( (int)old('type') === QuestionTypeOptions::MATCH_PAIRS )
       {
           $pairs = $activity_item->pairs->keyBy('id');
 
@@ -444,22 +472,15 @@ class ActivityItemController extends Controller
           }
       }
 
-      return view('activity_items/edit')->with([
-          'activity_item' => $activity_item,
-          'zooGeolocationOptions' => $zooGeolocationOptions->options(),
-          'questionTypeOptions' => $questionTypeOptions->options(),
-          'zooOptions' => $zooOptions->options(),
-          'languageOptions' => $languageOptions->options(),
-          'questionData' => $questionData ? $questionData : $activity_item->getQuestionData(),
-      ]);
+      return $questionData;
   }
 
   /**
    * Update the specified activity in database.
    *
    * @param \App\Http\Requests\StoreActivityItem;
-   * @param \App\ActivityItem
-   * @return \Illuminate\Http\Response
+   * @param ActivityItem
+   * @return Response
    */
   public function update(StoreActivityItem $request, ActivityItem $activity_item, ImageService $imageService)
   {
@@ -713,8 +734,8 @@ class ActivityItemController extends Controller
   /**
    * Remove the specified activity from database.
    *
-   * @param \App\ActivityItem
-   * @return \Illuminate\Http\Response
+   * @param ActivityItem
+   * @return Response
    */
   public function destroy(ActivityItem $activity_item)
   {
@@ -729,7 +750,7 @@ class ActivityItemController extends Controller
   /**
    * Returns paginated ActivityItem results matching search criteria
    * @param  \Illuminate\Http\Request $request Request object
-   * @return \Illuminate\Http\Response
+   * @return Response
    */
   public function search(Request $request)
   {

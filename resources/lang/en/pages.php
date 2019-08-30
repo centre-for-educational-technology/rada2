@@ -230,7 +230,22 @@ return [
             'heading' => 'Grading',
             'none-found' => 'No gradable items found',
             'graded' => 'Graded',
-            'switch-label' => 'Show already graded questions'
+            'switch-label' => 'Show already graded questions',
+            'grading-info' => 'You can enter value between 0 and',
+            'success' => 'Successfully saved',
+            'go-back-to-list' => 'Go back to list',
+            'submit-grade' => 'Save',
+            'heading-answer' => 'Answer',
+            'heading-grade' => 'Grade',
+            'heading-question-information' => 'Question/Information',
+            'heading-previous-grades' => 'Previous grades',
+            'answer_table' => [
+                'option' => 'Option',
+                'correct' => 'Correct answer',
+                'answer' => 'Answer',
+                'points' => 'Points',
+                'image' => 'Image'
+            ]
         ]
     ]
 

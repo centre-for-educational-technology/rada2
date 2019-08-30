@@ -13,11 +13,11 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::get('/user', function (Request $request) {
+Route::get('/user', static function (Request $request) {
     return $request->user();
 })->middleware('auth:api');
 
-Route::group(['prefix' => 'games'], function()
+Route::group(['prefix' => 'games'], static function ()
 {
     Route::post('answer', 'GameController@answer');
     Route::post('position', 'GameController@logPlayerPosition');
@@ -27,16 +27,16 @@ Route::group(['prefix' => 'games'], function()
     Route::post('get-position-of-players-who-play-my-game', 'GameController@getPositionOfPlayersWhoPlayMyActivity');
 });
 
-Route::group(['prefix' => 'activity_items'], function() {
+Route::group(['prefix' => 'activity_items'], static function () {
     Route::get('search', 'ActivityItemController@search');
 });
 
-Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], function()
+Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], static function ()
 {
     Route::delete('users/{user}/roles/{role}', 'UserController@removeRole');
 });
 
-Route::group(['prefix' => 'badges'], function()
+Route::group(['prefix' => 'badges'], static function ()
 {
     Route::get('issuer', 'BadgeController@issuer')->name('api.badge.issuer');
     Route::get('key', 'BadgeController@publicKey')->name('api.badge.key');
@@ -46,14 +46,20 @@ Route::group(['prefix' => 'badges'], function()
     Route::get('{badge}/user/{user}', 'BadgeController@assertion')->name('api.badge.assertion');
 });
 
-Route::group(['prefix' => 'vouchers'], function()
+Route::group(['prefix' => 'vouchers'], static function ()
 {
     Route::delete('{voucher}', 'UserController@spendDiscountVoucher');
 });
 
-Route::group(['prefix' => 'activities'], function()
+Route::group(['prefix' => 'activities'], static function ()
 {
     Route::get('{activity}/qrcode', 'ActivityController@qrCode')->name('api.activity.qrcode');
     Route::post('find-instructors', 'ActivityController@findInstructors');
     Route::post('find-game', 'ActivityController@findGame');
+});
+
+Route::group(['prefix' => 'grading'], static function () {
+    Route::post('{answer}/update', 'GradingController@update');
+    Route::get('get-question-data/{activityItem}', 'GradingController@getQuestionData');
+    Route::get('get-other-graded-answers/{answer}', 'GradingController@getOtherGradedAnswers');
 });

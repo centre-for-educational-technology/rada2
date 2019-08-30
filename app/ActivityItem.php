@@ -176,6 +176,14 @@ class ActivityItem extends Model
     }
 
     /**
+     * @return bool
+     */
+    public function isPhotoAnswer()
+    {
+        return $this->isQuestionOfType(QuestionTypeOptions::PHOTO);
+    }
+
+    /**
      * Get user account current social one belongs to.
      * @return User Application local user account
      */
@@ -263,6 +271,52 @@ class ActivityItem extends Model
         }
 
         return [];
+    }
+
+    /**
+     * @param GameAnswer $gameAnswer
+     * @return bool|int|mixed
+     */
+    public function calculateTotalPoints(GameAnswer $gameAnswer)
+    {
+        $totalPoints = 0;
+        $answerObject = $gameAnswer->answer !== null ? json_decode($gameAnswer->answer, true) : null;
+        if ($answerObject !== null) {
+            if ($this->isFreeformAnswer() || $this->isEmbeddedContent() || $this->isPhotoAnswer()) {
+                return false;
+            }
+            $points = $this->points;
+            if ($this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers()) {
+                $points = json_decode($points, true);
+                $answers = $answerObject['options'] ?? null;
+                $options = $this->options()->get();
+                /** @var ActivityItemOption $option */
+                foreach ($options as $key => $option) {
+                    if ($option->isCorrect()) {
+                        $tmpPoints = $points[$key];
+                        if (in_array($option->id, $answers)) {
+                            $totalPoints += $tmpPoints;
+                        }
+                    }
+                }
+            } else if ($this->isMissingWord()) {
+                $answer = $answerObject['text'] ?? null;
+                if ($answer !== null) {
+                    $text = $this->missing_word;
+                    if ($text === $answer) {
+                        $totalPoints += $points;
+                    }
+                }
+            } else {
+                $totalPoints = $points;
+            }
+        } else if($this->isMatchPairs()) {
+            $points = json_decode($this->points, true);
+            foreach ($points as $point) {
+                $totalPoints += $point;
+            }
+        }
+        return $totalPoints;
     }
 
     /**

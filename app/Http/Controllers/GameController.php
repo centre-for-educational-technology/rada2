@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Activity;
 use App\ActivityInstructor;
+use App\Options\QuestionTypeOptions;
 use App\User;
 use Illuminate\Http\Request;
 
@@ -106,7 +107,7 @@ class GameController extends Controller
         $answer->correct = true;
         $answer->is_answered = true;
 
-        if ( $item->type === 2 || $item->type === 3 )
+        if ( $item->type === QuestionTypeOptions::ONE_CORRECT_ANSWER || $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS )
         {
             $chosenOptionIds = $request->get('options');
             if ( !is_array($chosenOptionIds) ) {
@@ -123,17 +124,17 @@ class GameController extends Controller
             }
             $answer->correct = ( count($correctOptionIds) === count($chosenOptionIds) && count( array_intersect($correctOptionIds, $chosenOptionIds) ) === count($correctOptionIds) );
         }
-        else if ( $item->type === 4 || $item->type === 6 || $item->type === 8 )
+        else if ( $item->type === QuestionTypeOptions::FREEFORM_ANSWER || $item->type === QuestionTypeOptions::EMBEDDED_CONTENT || $item->type === QuestionTypeOptions::MISSING_WORD )
         {
             $answer->answer = json_encode([
                 'text' => $request->get('text'),
             ]);
 
-            if ($item->type === 8) {
+            if ($item->type === QuestionTypeOptions::MISSING_WORD) {
                 $answer->correct = trim($request->get('text')) === trim($item->missing_word);
             }
         }
-        else if ( $item->type === 7 )
+        else if ( $item->type === QuestionTypeOptions::PHOTO )
         {
             $validator = Validator::make(
                 [
@@ -155,6 +156,13 @@ class GameController extends Controller
             $imageService->process($request->file('image')->getRealPath(), $directoryPath, $fileName, 800);
 
             $answer->image = $fileName;
+        }
+
+        if ($answer->correct && $item->points !== null) {
+            $points = $item->calculateTotalPoints($answer);
+            if ($points !== false) {
+                $answer->grade = $points;
+            }
         }
 
         $answer->save();

@@ -44,7 +44,7 @@
             <input
                     type="number"
                     class="form-control points-input"
-                    name="points[]"
+                    :name="'points['+index+']'"
                     v-bind:disabled="checkedOption !== index"
                     v-bind:value="getPoints(index)"
             >
