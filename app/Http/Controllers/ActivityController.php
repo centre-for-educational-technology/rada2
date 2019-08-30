@@ -8,7 +8,6 @@ use App\Options\SubjectOptions;
 use App\User;
 use App\Utils\RandomStringGenerator;
 use Illuminate\Http\Request;
-use App\Http\Requests;
 use App\Http\Requests\StoreActivity;
 
 use App\Activity;
@@ -148,10 +147,19 @@ class ActivityController extends Controller
     /**
      * Display a listing of activities.
      *
+     * @param Request                $request
+     * @param ZooOptions             $zooOptions
+     * @param LanguageOptions        $languageOptions
+     * @param DifficultyLevelOptions $difficultyLevelOptions
+     *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, ZooOptions $zooOptions, LanguageOptions $languageOptions, DifficultyLevelOptions $difficultyLevelOptions)
-    {
+    public function index(
+        Request $request,
+        ZooOptions $zooOptions,
+        LanguageOptions $languageOptions,
+        DifficultyLevelOptions $difficultyLevelOptions
+    ) {
         $search = [
             'search-text' => $request->has('search-text') ? $request->get('search-text') : '',
             'difficulty-level' => $request->has('difficulty-level') ? $request->get('difficulty-level') : '',

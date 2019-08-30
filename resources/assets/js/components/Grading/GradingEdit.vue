@@ -74,12 +74,12 @@
     export default {
         props: ['answerId', 'viewType'],
         components: {
-            'freeform': require('./QuestionTypes/Freeform'),
-            'photo': require('./QuestionTypes/Photo'),
-            'one-correct': require('./QuestionTypes/OneCorrect'),
-            'missing-word': require('./QuestionTypes/MissingWord'),
-            'multiple-correct': require('./QuestionTypes/MultipleCorrect'),
-            'match-pairs': require('./QuestionTypes/MatchPairs')
+            'freeform': require('./QuestionTypes/Freeform.vue'),
+            'photo': require('./QuestionTypes/Photo.vue'),
+            'one-correct': require('./QuestionTypes/OneCorrect.vue'),
+            'missing-word': require('./QuestionTypes/MissingWord.vue'),
+            'multiple-correct': require('./QuestionTypes/MultipleCorrect.vue'),
+            'match-pairs': require('./QuestionTypes/MatchPairs.vue')
         },
         mounted() {
             this.$nextTick(() => {
