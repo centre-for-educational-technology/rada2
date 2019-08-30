@@ -706,7 +706,7 @@ class ActivityController extends Controller
     protected function storeActivity(Request $request, ImageService $imageService)
     {
         $activity = new Activity;
-        $randomStringGenerator = new RandomStringGenerator();
+        $randomStringGenerator = new RandomStringGenerator(implode(range('A', 'Z')) . implode(range(0, 9)));
 
         $activity->title = $request->title;
         $activity->description = $request->description;
@@ -860,7 +860,7 @@ class ActivityController extends Controller
             'name' => null,
             'error' => null
         ];
-        $pin = $request->get('pin');
+        $pin = strtoupper($request->get('pin'));
         if ($pin && trim($pin) !== '') {
             $activity = Activity::where('pin', $pin)->first();
             if ($activity) {
