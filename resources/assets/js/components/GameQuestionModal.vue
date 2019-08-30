@@ -610,7 +610,8 @@
     .missing-word-container span {
         line-height: 24px;
         height: 34px;
-        display: inline-block;
+        display: inline;
+        white-space: pre-line;
     }
     .missing-word-container input {
         margin: 0 10px;

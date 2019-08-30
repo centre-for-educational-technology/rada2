@@ -131,7 +131,7 @@ class GameController extends Controller
             ]);
 
             if ($item->type === QuestionTypeOptions::MISSING_WORD) {
-                $answer->correct = trim($request->get('text')) === trim($item->missing_word);
+                $answer->correct = \mb_strtoupper(\preg_replace('/\s+/', '', $request->get('text'))) === \mb_strtoupper(\preg_replace('/\s+/', '', $item->missing_word));
             }
         }
         else if ( $item->type === QuestionTypeOptions::PHOTO )
