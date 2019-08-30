@@ -158,7 +158,7 @@ class GameController extends Controller
             $answer->image = $fileName;
         }
 
-        if ($answer->correct && $item->points !== null) {
+        if (($answer->correct ||  $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS) && $item->points !== null) {
             $points = $item->calculateTotalPoints($answer);
             if ($points !== false) {
                 $answer->grade = $points;

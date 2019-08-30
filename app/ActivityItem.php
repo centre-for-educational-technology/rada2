@@ -2,6 +2,7 @@
 
 namespace App;
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
@@ -286,7 +287,7 @@ class ActivityItem extends Model
                 return false;
             }
             $points = $this->points;
-            if ($this->isOneCorrectAnswer() || $this->isMultipleCorrectAnswers()) {
+            if ($this->isOneCorrectAnswer()) {
                 $points = json_decode($points, true);
                 $answers = $answerObject['options'] ?? null;
                 $options = $this->options()->get();
@@ -298,6 +299,29 @@ class ActivityItem extends Model
                             $totalPoints += $tmpPoints;
                         }
                     }
+                }
+            } else if ($this->isMultipleCorrectAnswers()) {
+                $points = json_decode($points, true);
+                $answers = $answerObject['options'] ?? null;
+                /** @var Collection $options */
+                $options = $this->options()->get();
+                $index = 0;
+                $maxPoints = $options->sum(static function(ActivityItemOption $option) use ($points, &$index) {
+                    $index ++;
+                    return $option->isCorrect() ? (int) $points[$index-1] : 0;
+                });
+                $countCorrectOptions = $options->filter(static function(ActivityItemOption $option) {
+                    return $option->isCorrect();
+                })->count();
+                $avgPoints = $maxPoints / $countCorrectOptions;
+                $index = 0;
+                $totalPoints = $options->sum(static function(ActivityItemOption $option) use ($avgPoints, $answers, $points, &$index) {
+                    $index ++;
+                    $inArray = in_array((int) $option->id, $answers, true);
+                    return $option->isCorrect() && $inArray ? $points[$index-1] : ($inArray ? - $avgPoints : 0);
+                });
+                if ($totalPoints < 0) {
+                    $totalPoints = 0;
                 }
             } else if ($this->isMissingWord()) {
                 $answer = $answerObject['text'] ?? null;
