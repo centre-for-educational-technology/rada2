@@ -80,6 +80,34 @@
             }
         });
 
+        const gradingControlItem = document.createElement('i');
+        gradingControlItem.className = 'mdi mdi-owl grading-control-item hidden';
+        const gradingControlItemBadge = document.createElement('span');
+        gradingControlItemBadge.className = 'badge badge-light';
+        gradingControlItemBadge.innerText = '0';
+        gradingControlItem.appendChild(gradingControlItemBadge);
+        controlUI.appendChild(gradingControlItem);
+
+        gradingControlItem.addEventListener('click', function() {
+            window.open('/grading/', '_blank');
+        });
+
+        function getCountOfUngradedAnswers() {
+            vm.$http.get('/api/games/' + vm.game.id + '/get-count-of-ungraded-answers').then(response => {
+                gradingControlItemBadge.innerText = response.body.count;
+
+                if (response.body.count !== null) {
+                    gradingControlItem.className = 'mdi mdi-owl grading-control-item';
+                    setTimeout(() => {
+                        getCountOfUngradedAnswers();
+                    }, 10000);
+                }
+            }, error => {
+                gradingControlItemBadge.innerText = '0';
+            });
+        }
+        getCountOfUngradedAnswers();
+
         const informationControlItem = document.createElement('i');
         informationControlItem.className = 'mdi mdi-information-outline';
         informationControlItem.title = vm.$t('info');
@@ -865,3 +893,14 @@
         }
     }
 </script>
+<style>
+    .grading-control-item {
+        position: relative;
+    }
+    .grading-control-item .badge {
+        position: absolute;
+        top: 0;
+        right: -5px;
+        background: #3097d1;
+    }
+</style>

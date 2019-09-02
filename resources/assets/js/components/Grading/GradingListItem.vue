@@ -21,8 +21,8 @@
                 </div>
                 <div class="col-xs-12 col-md-4">
                     <div class="row">
-                        <a :href="href" class="pull-right" v-on:click="onClickOpenEditView">
-                            <i class="mdi mdi-school mdi-48px" aria-hidden="true"></i>
+                        <a :href="href" class="pull-right btn btn-primary" v-on:click="onClickOpenEditView">
+                            <i class="mdi mdi-school" aria-hidden="true"></i>
                         </a>
                     </div>
                 </div>
@@ -135,10 +135,5 @@
     }
     .activity-title {
         font-size: 14px;
-    }
-    .mdi-school {
-        height: 38px;
-        line-height: 60px;
-        cursor: pointer;
     }
 </style>

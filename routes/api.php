@@ -22,6 +22,7 @@ Route::group(['prefix' => 'games'], static function ()
     Route::post('answer', 'GameController@answer');
     Route::post('position', 'GameController@logPlayerPosition');
     Route::get('{game}/voucher', 'GameController@voucher');
+    Route::get('{game}/get-count-of-ungraded-answers', 'GameController@getCountOfUngradedAnswers');
     Route::post('start-answering-timer', 'GameController@startAnsweringTimer');
     Route::post('close-question', 'GameController@closeQuestion');
     Route::post('get-position-of-players-who-play-my-game', 'GameController@getPositionOfPlayersWhoPlayMyActivity');

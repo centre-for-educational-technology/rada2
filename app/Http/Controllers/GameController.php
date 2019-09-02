@@ -6,9 +6,8 @@ use App\Activity;
 use App\ActivityInstructor;
 use App\Options\QuestionTypeOptions;
 use App\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 use App\Game;
 
@@ -20,18 +19,14 @@ use App\PlayerPosition;
 
 use App\DiscountVoucher;
 
+use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
-use Intervention\Image\Facades\Image;
-
-use Illuminate\Support\Facades\File;
 
 use Illuminate\Support\Facades\Validator;
 
 use App\Services\ImageService;
 
 use Auth;
-
-use Illuminate\Support\Facades\Event;
 
 use Carbon\Carbon;
 
@@ -46,7 +41,7 @@ class GameController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('game.verify', ['except' => ['play', 'voucher', 'downloadPlayerPositions']]);
+        $this->middleware('game.verify', ['except' => ['play', 'voucher', 'downloadPlayerPositions', 'getCountOfUngradedAnswers']]);
     }
 
     /**
@@ -389,5 +384,39 @@ class GameController extends Controller
         };
 
         return response()->stream($callback, 200, $headers);
+    }
+
+    /**
+     * @param Request $request
+     * @param Game $game
+     * @return JsonResponse|Collection|null
+     */
+    public function getCountOfUngradedAnswers(Request $request, Game $game)
+    {
+        $count = null;
+
+        if ($game && Auth::check()) {
+            $user = Auth::user();
+            if ($user->isAdmin() === false) {
+                /** @var Activity $activity */
+                $activity = Activity::find($game->activity_id);
+                if ($activity->isInstructor($user) === false) {
+                    return $count;
+                }
+            }
+            $query = DB::table('game_answers')
+                ->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
+                ->where('game_answers.game_id', '=', $game->id)
+                ->whereNull('game_answers.grade')
+                ->where('game_answers.is_answered', '=', 1)
+                ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
+                ->where('activity_items.type', '!=', QuestionTypeOptions::EMBEDDED_CONTENT)
+            ;
+            $count = $query->count();
+        }
+
+        return response()->json([
+            'count' => $count
+        ]);
     }
 }
