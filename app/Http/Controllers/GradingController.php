@@ -7,13 +7,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
 use App\ActivityItem;
 use App\GameAnswer;
 use App\Options\QuestionTypeOptions;
 use App\User;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Query\Builder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\Auth;
@@ -114,12 +113,19 @@ class GradingController extends Controller
         $answers = [];
         if ($user) {
             $query = DB::table('game_answers')
-                ->leftJoin('games', 'game_answers.game_id', '=', 'games.id')
-                ->leftJoin('activity_instructors', 'games.activity_id', '=', 'activity_instructors.activity_id')
-                ->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
+                ->leftJoin('games', 'game_answers.game_id', '=', 'games.id');
+            if (Auth::user()->isAdmin() === false) {
+                $query->leftJoin('activity_instructors', 'games.activity_id', '=', 'activity_instructors.activity_id');
+            }
+            $query->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
                 ->leftJoin('activities', 'activities.id', '=', 'games.activity_id')
                 ->leftJoin('users', 'users.id', '=', 'games.user_id')
-                ->where('activity_instructors.user_id', '=', $user->id)
+                ->where(static function(Builder $query) use ($user) {
+                    if (Auth::user()->isAdmin() === false) {
+                        $query->where('activity_instructors.user_id', '=', $user->id)
+                            ->orWhere('activities.user_id', '=', $user->id);
+                    }
+                })
                 ->where('game_answers.is_answered', '=', 1)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::EMBEDDED_CONTENT)
@@ -148,6 +154,7 @@ class GradingController extends Controller
                 'games.id as game_id'
             );
             $query->orderBy('game_answers.id', 'asc');
+            $query->groupBy('game_answers.id');
             $answers = $query->get();
         }
 
@@ -176,10 +183,13 @@ class GradingController extends Controller
                     'users.name as user_name'
                 )
                 ->leftJoin('games', 'game_answers.game_id', '=', 'games.id')
+                ->leftJoin('activities', 'activities.id', '=', 'games.activity_id')
                 ->leftJoin('activity_items', 'activity_items.id', '=', 'game_answers.activity_item_id')
-                ->leftJoin('activity_activity_item', 'game_answers.activity_item_id', '=', 'activity_activity_item.activity_item_id')
-                ->leftJoin('activity_instructors', 'activity_activity_item.activity_id', '=', 'activity_instructors.activity_id')
-                ->leftJoin('users', 'users.id', '=', 'games.user_id')
+                ->leftJoin('activity_activity_item', 'game_answers.activity_item_id', '=', 'activity_activity_item.activity_item_id');
+            if (Auth::user()->isAdmin() === false) {
+                $query->leftJoin('activity_instructors', 'activity_activity_item.activity_id', '=', 'activity_instructors.activity_id');
+            }
+            $query->leftJoin('users', 'users.id', '=', 'games.user_id')
                 ->whereIn('activity_activity_item.activity_id', DB::table('activities')
                     ->select('activities.id')
                     ->leftJoin('activity_activity_item', 'activity_activity_item.activity_id', '=', 'activities.id')
@@ -187,7 +197,12 @@ class GradingController extends Controller
                     ->where('game_answers.id', '=', $answer->id))
                 ->where('game_answers.id', '!=', $answer->id)
                 ->where('activity_items.type', '=', $activityItem->type)
-                ->where('activity_instructors.user_id', '=', $user->id)
+                ->where(static function(Builder $query) use ($user) {
+                    if (Auth::user()->isAdmin() === false) {
+                        $query->where('activity_instructors.user_id', '=', $user->id)
+                            ->orWhere('activities.user_id', '=', $user->id);
+                    }
+                })
                 ->whereNotNull('game_answers.grade')
                 ->orderBy('game_answers.id', 'desc')
             ;

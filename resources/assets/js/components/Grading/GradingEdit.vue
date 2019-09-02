@@ -89,7 +89,7 @@
                     this.image = this.getImage();
                     setTimeout(() => {
                         this.loadOtherAnswers();
-                    }, 500);
+                    }, 100);
                 });
             });
         },

@@ -95,7 +95,7 @@
         },
         data() {
             return {
-                itemsPerPage: 3,
+                itemsPerPage: 5,
                 baseUrl: '',
                 paginationPage: 0,
                 currentPage: 0,
