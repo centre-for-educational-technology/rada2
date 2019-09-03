@@ -24,7 +24,8 @@
             'pages.grading.index.answer_table.image' => trans('pages.grading.index.answer_table.image'),
             'pages.grading.index.heading-grade' => trans('pages.grading.index.heading-grade'),
             'pages.grading.index.heading-question-information' => trans('pages.grading.index.heading-question-information'),
-            'pages.grading.index.heading-previous-grades' => trans('pages.grading.index.heading-previous-grades')
+            'pages.grading.index.heading-previous-grades' => trans('pages.grading.index.heading-previous-grades'),
+            'pages.grading.index.question-type' => trans('pages.grading.index.question-type')
         ]) !!};
         window.Laravel.answers = {!! json_encode($answers) !!};
         window.Laravel.questionTypes = {!! json_encode($questionTypes) !!};
