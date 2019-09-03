@@ -128,7 +128,7 @@ return [
            'datetime' => 'Kuupäev või kuupäev ja kellaaeg',
            'question-or-information' => 'Palun kirjuta Küsimust või Lisainfot, sõltuvalt valitud küsimuse tüübist',
            'missing-word' => 'Sisesta puuduvate sõnadega tekst siia',
-           'pin-placeholder' => 'PIN'
+           'pin-placeholder' => 'INSERT PIN'
        ],
        'options' => [
            'any' => 'Kõik',

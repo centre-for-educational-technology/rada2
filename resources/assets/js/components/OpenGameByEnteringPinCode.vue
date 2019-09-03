@@ -143,9 +143,8 @@
     .open-game-by-entering-pin-code-container .pin-input {
         margin-top: 1px;
         float: left;
-        letter-spacing: 15px;
+        letter-spacing: 1px;
         width: 80%;
-        padding-left: 15px;
         font-size: 60px;
         font-family: MONOSPACE;
         text-align: center;
