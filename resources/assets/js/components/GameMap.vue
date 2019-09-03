@@ -651,7 +651,7 @@
                     marker.getPosition()
                 );
 
-                if ( this.isAnswered(question.id) ) {
+                if ( question && this.isAnswered(question.id) ) {
                     return this.isCorrect(question.id) ? 'correct' : 'incorrect';
                 } else if (this.getEnforceItemsOrder() > 0) {
                     let nextMarkers = this.getNextUnansweredMarkers();
