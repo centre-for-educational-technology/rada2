@@ -54,16 +54,18 @@
 
             <h4 v-if="otherAnswers.length > 0" class="previous-grades" style="clear: both;">{{ $t('pages.grading.index.heading-previous-grades')}}</h4>
             <div class="previous-grades-container">
-                <div class="previous-grade-item" v-for="otherAnswer in otherAnswers">
-                    <div class="previous-grade">{{ otherAnswer.grade }}</div>
-                    <div class="previous-grade-info">
-                        <p class="previous-grade-answer">{{ getOtherAnswerAnswer(otherAnswer) }}</p>
-                        <span class="previous-grade-user">{{ otherAnswer.user_name }}</span>
-                    </div>
-                    <div class="previous-grade-actions">
-                        <a :href="'/grading/'+otherAnswer.id+'/edit'"
-                           v-on:click="openOtherAnswerDetail(otherAnswer.id, this.event)"
-                           class="btn btn-default">Details btn</a>
+                <div class="panel panel-default" v-for="otherAnswer in otherAnswers">
+                    <div class="panel-body">
+                        <div class="previous-grade">{{ otherAnswer.grade }}</div>
+                        <div class="previous-grade-info">
+                            <p class="previous-grade-answer">{{ getOtherAnswerAnswer(otherAnswer) }}</p>
+                            <span class="previous-grade-user">{{ otherAnswer.user_name }}</span>
+                        </div>
+                        <div class="previous-grade-actions">
+                            <a :href="'/grading/'+otherAnswer.id+'/edit'"
+                               v-on:click="openOtherAnswerDetail(otherAnswer.id, this.event)"
+                               class="btn btn-default">{{ $t('pages.grading.index.details-btn')}}</a>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -260,13 +262,6 @@
     }
     .alert-text {
         padding: 6px 15px 6px 6px;
-    }
-    .previous-grades-container {}
-    .previous-grade-item {
-        border: 1px solid #000;
-        margin-bottom: 15px;
-        overflow: hidden;
-        padding: 15px;
     }
     .previous-grade {
         float: left;

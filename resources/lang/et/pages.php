@@ -239,6 +239,7 @@ return [
             'heading-grade' => 'Hinne',
             'heading-question-information' => 'Küsimus/Informatsioon',
             'heading-previous-grades' => 'Eelnevalt hinnatud',
+            'details-btn' => 'Detailid',
             'question-type' => 'Küsimuse tüüp',
             'answer_table' => [
                 'option' => 'Valik',
