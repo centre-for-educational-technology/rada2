@@ -239,6 +239,7 @@ return [
             'heading-grade' => 'Grade',
             'heading-question-information' => 'Question/Information',
             'heading-previous-grades' => 'Previous grades',
+            'details-btn' => 'Details',
             'answer_table' => [
                 'option' => 'Option',
                 'correct' => 'Correct answer',

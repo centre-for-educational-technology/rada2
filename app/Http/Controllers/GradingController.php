@@ -204,6 +204,7 @@ class GradingController extends Controller
                     }
                 })
                 ->whereNotNull('game_answers.grade')
+                ->whereNotNull('games.user_id')
                 ->groupBy('game_answers.id')
                 ->orderBy('game_answers.id', 'desc')
             ;
