@@ -204,6 +204,7 @@ class GradingController extends Controller
                     }
                 })
                 ->whereNotNull('game_answers.grade')
+                ->groupBy('game_answers.id')
                 ->orderBy('game_answers.id', 'desc')
             ;
             $answers = $query->get();
