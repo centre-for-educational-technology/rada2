@@ -407,7 +407,6 @@ class GameController extends Controller
             $query = DB::table('game_answers')
                 ->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
                 ->leftJoin('activity_activity_item', 'activity_activity_item.activity_item_id', '=', 'activity_items.id')
-                ->where('game_answers.activity_item_id', '=', 'activity_items.id')
                 ->where('activity_activity_item.activity_id', '=', $game->activity_id)
                 ->whereNull('game_answers.grade')
                 ->where('game_answers.is_answered', '=', 1)
