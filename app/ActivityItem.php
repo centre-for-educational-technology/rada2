@@ -328,16 +328,16 @@ class ActivityItem extends Model
                 if ($answer !== null) {
                     $text = \mb_strtoupper(\preg_replace('/\s+/', '', $this->missing_word));
                     if ($text === \mb_strtoupper(\preg_replace('/\s+/', '', $answer))) {
-                        $totalPoints += $points;
+                        $totalPoints +=  (int) $points;
                     }
                 }
             } else {
-                $totalPoints = $points;
+                $totalPoints = (int) $points;
             }
         } else if($this->isMatchPairs()) {
             $points = json_decode($this->points, true);
             foreach ($points as $point) {
-                $totalPoints += $point;
+                $totalPoints += (int) $point;
             }
         }
         return $totalPoints;
