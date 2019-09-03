@@ -145,7 +145,7 @@
         float: left;
         letter-spacing: 1px;
         width: 80%;
-        font-size: 60px;
+        font-size: 50px;
         font-family: MONOSPACE;
         text-align: center;
         height: 75px;
