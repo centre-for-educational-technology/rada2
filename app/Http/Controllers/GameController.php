@@ -243,7 +243,7 @@ class GameController extends Controller
             return $instructor->user_id === $game->user_id;
         });
         $instructor = $instructors->count() > 0 ? $instructors->first() : null;
-        if ($activity->user_id === $game->user_id || $instructor !== null) {
+        if ($activity->user_id === $game->user_id || $instructor !== null || auth()->user()->isAdmin()) {
             $tenMinutesAgo = Carbon::now()->subMinutes(10)->toDateTimeString();
             $fiveMinutesAgo = Carbon::now()->subMinutes(5);
             $games = Game::where('activity_id', $activity->id)->where('complete', 0)->where('id', '<>', $game->id)->get();
