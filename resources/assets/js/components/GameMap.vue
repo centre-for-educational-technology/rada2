@@ -673,7 +673,7 @@
                 return 'active';
             },
             detectAndSetMarkerIcon(marker) {
-                if (marker.isUser) {
+                if (typeof marker.isUser !== 'undefined') {
                     return false;
                 }
                 const state = this.detectMarkerIconState(marker);
@@ -719,7 +719,9 @@
             },
             getUnansweredMarkers() {
                 let vm = this;
-                return _.filter(this.mapData.markers, marker => { return !vm.isAnswered(marker.questionId); });
+                return _.filter(this.mapData.markers, marker => {
+                    return typeof marker.isUser === 'undefined' && !vm.isAnswered(marker.questionId);
+                });
             },
             getClosestUnansweredMarker() {
                 let vm = this,
