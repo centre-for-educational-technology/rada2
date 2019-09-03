@@ -141,8 +141,6 @@
                     <span class="help-block">
                         {{ trans('general.forms.help.question-types.freeform-answer') }}
                     </span>
-                    <input type="number" name="points" />
-                    <label>{{ trans('general.forms.labels.maximum-points-available') }}</label>
                 </div>
 
                 <match-pairs v-if="questionType == {{ \App\Options\QuestionTypeOptions::MATCH_PAIRS }}"></match-pairs>
@@ -164,8 +162,6 @@
                     <span class="help-block">
                         {{ trans('general.forms.help.question-types.photo') }}
                     </span>
-                    <input type="number" name="points" />
-                    <label>{{ trans('general.forms.labels.maximum-points-available') }}</label>
                 </div>
 
                 <div id="question-type-missing-word" class="sz-question" v-if="questionType == {{ \App\Options\QuestionTypeOptions::MISSING_WORD }}">
@@ -178,8 +174,6 @@
                     <span class="help-block">
                         {{ trans('general.forms.help.question-types.missing-word') }}
                     </span>
-                    <input type="number" name="points" />
-                    <label>{{ trans('general.forms.labels.maximum-points-available') }}</label>
 
                     @if ($errors->has('missing-word'))
                         <span class="help-block">
@@ -189,6 +183,8 @@
                 </div>
             </div>
         </div>
+
+    @include('activity_items.includes.points-element', [ 'points' => '' ])
 
     <div class="form-group{{ ( $errors->has('answering_time') || $errors->has('answering_time') ) ? ' has-error' : '' }}">
         {!! Form::label('answering_time', trans('general.forms.labels.answering_time'), [
