@@ -673,6 +673,9 @@
                 return 'active';
             },
             detectAndSetMarkerIcon(marker) {
+                if (marker.isUser) {
+                    return false;
+                }
                 const state = this.detectMarkerIconState(marker);
                 let hasAccessCode = marker.hasAccessCode;
                 if (this.getEnforceItemsOrder() > 0) {
