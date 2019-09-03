@@ -195,7 +195,7 @@
             'class' => 'col-md-4 control-label',
         ]) !!}
         <div class="col-md-6">
-            <div class="input-group col-xs-12">
+            <div class="input-group col-xs-12 col-sm-8">
                 {!! Form::hidden('answering_time', null, [
                     'ref' => 'answeringTime',
                 ]) !!}
@@ -211,7 +211,7 @@
                     $hours[] = $i;
                 }
                 ?>
-                <div style="display: block; float: left; width: 30%;">
+                <div style="display: block; float: left; width: 29%;">
                     {!! Form::select('answering_time_hour', $hours, null, [
                         'class' => 'form-control answering-time',
                         'style' => 'display: table-cell; width: 70%;',
@@ -220,7 +220,7 @@
                         'class' => 'control-label answering-time-label'
                     ]) !!}
                 </div>
-                <div style="display: block; float: left; width: 30%;">
+                <div style="display: block; float: left; width: 29%;">
                     {!! Form::select('answering_time_minute', $minutes, null, [
                         'class' => 'form-control answering-time',
                         'style' => 'display: table-cell; width: 70%; border-radius: 0;'
@@ -229,7 +229,7 @@
                         'class' => 'control-label answering-time-label'
                     ]) !!}
                 </div>
-                <div style="display: block; float: left; width: 30%;">
+                <div style="display: block; float: left; width: 29%;">
                     {!! Form::select('answering_time_second', $seconds, null, [
                         'class' => 'form-control answering-time',
                         'style' => 'display: table-cell; width: 70%; border-radius: 0;'
@@ -238,7 +238,7 @@
                         'class' => 'control-label answering-time-label'
                     ]) !!}
                 </div>
-                <div style="display: block;float: left;width: 10%;border-right: 1px solid #ccc;border-radius: 3px;">
+                <div style="display: block;float: left;width: 13%;border-right: 1px solid #ccc;border-radius: 3px;">
                         <span class="input-group-addon"
                               data-toggle="tooltip"
                               data-placement="left"

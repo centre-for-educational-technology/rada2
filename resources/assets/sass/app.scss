@@ -806,4 +806,10 @@ img.sz-uploaded-image-preview {
     background: #eee;
     text-align: left !important;
     float: right;
+    vertical-align: middle;
+}
+@media (max-width: 400px) {
+    .answering-time-label {
+        line-height: 36px;
+    }
 }

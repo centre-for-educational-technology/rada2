@@ -1,7 +1,7 @@
 <template>
     <div v-if="viewType === 'edit' && answer != null" class="panel panel-default">
         <div class="panel-heading">
-            {{ $t('pages.grading.index.heading') }}
+            {{ answer.title }}
         </div>
         <div class="panel-body">
             <div class="media sz-author">
@@ -20,7 +20,7 @@
                 <div class="media-heading">
                     <div class="col-xs-12">
                         <div class="row">
-                            <h4 class="question-title">{{ answer.title }}</h4>
+                            <h4 class="question-title">{{ $t('pages.grading.index.question-type')}}</h4>
                             <div class="activity-title">{{ this.getQuestionTypeTranslation() }}</div>
 
                             <img class="image" v-if="image != null" :src="image" />
