@@ -863,7 +863,7 @@ class ActivityController extends Controller
         $pin = strtoupper($request->get('pin'));
         if ($pin && trim($pin) !== '') {
             $activity = Activity::where('pin', $pin)->first();
-            if ($activity) {
+            if ($activity && $activity->started) {
 
                 $response['name'] = $activity->title;
                 $game = null;
