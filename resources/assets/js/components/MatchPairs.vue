@@ -32,6 +32,7 @@
                     type="number"
                     class="form-control points-input"
                     :name="'points['+index+']'"
+                    required="required"
                     v-bind:value="getPoints(index)"
             >
             <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: options.length < 2}">
