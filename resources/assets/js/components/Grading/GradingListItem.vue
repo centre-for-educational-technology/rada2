@@ -2,7 +2,7 @@
     <div class="media">
         <div class="media-left">
             <a>
-                <img class="media-object img-rounded sz-img-64x64"
+                <img class="media-object img-rounded sz-img-52x60"
                      :src="getQuestionTypeImageUrl()"
                      alt="featured-image">
             </a>
@@ -59,13 +59,13 @@
                     </div>
                 </div>
             </div>
-            <hr />
         </div>
+        <hr v-if="isLast === false" />
     </div>
 </template>
 <script>
     export default {
-        props: ['answer'],
+        props: ['answer', 'isLast'],
         mounted() {
             this.$nextTick(() => {
                 this.$nextTick(() => {
@@ -135,5 +135,8 @@
     }
     .activity-title {
         font-size: 14px;
+    }
+    .mdi-school {
+        line-height: 36px;
     }
 </style>

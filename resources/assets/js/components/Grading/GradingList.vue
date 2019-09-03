@@ -23,17 +23,22 @@
                 <div v-if="answers.length === 0" class="well">{{ $t('pages.grading.index.none-found') }}</div>
                 <div v-if="answers.length > 0">
                     <grading-list-item
-                            v-for="answer in answersPerPage"
+                            v-for="(answer,index)  in answersPerPage"
                             :answer="answer"
+                            :isLast="index === (answersPerPage.length - 1)"
                             v-on:setData="setData"
                     ></grading-list-item>
-                    <pagination
-                            v-model="paginationPage"
-                            :page-count="pages"
-                            :generateUrl="generatePaginationUrl"
-                            :classes="bootstrapPaginationClasses"
-                            :labels="paginationAnchorTexts"
-                    ></pagination>
+
+                    <div class="pagination-container" v-if="pages > 1">
+                        <pagination
+                                v-model="paginationPage"
+                                :page-count="pages"
+                                :generateUrl="generatePaginationUrl"
+                                :classes="bootstrapPaginationClasses"
+                                :labels="paginationAnchorTexts"
+                        ></pagination>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -91,6 +96,7 @@
             }
             this.$nextTick(() => {
                 this.isUpdated = true;
+                this.calulatePaginationPosition();
             });
         },
         data() {
@@ -142,9 +148,20 @@
             },
             showGraded() {
                 this.changePage(true);
+                this.$nextTick(() => {
+                    this.calulatePaginationPosition();
+                });
             }
         },
         methods: {
+            calulatePaginationPosition() {
+                let paginations = window.document.querySelectorAll('.pagination-container .pagination');
+                for (let i = 0; i < paginations.length; i++) {
+                    let pagination = paginations[i];
+                    let width = pagination.offsetWidth;
+                    pagination.style = 'margin-left: ' + (-width / 2) + 'px';
+                }
+            },
             markGraded (answerId, grade) {
                 this.$set(this, 'answers', this.answers.map(answer => {
                     if (answer.id === answerId) {
@@ -219,4 +236,15 @@
         }
     }
 </script>
-<style scoped></style>
+<style>
+    .pagination-container {
+        padding: 36px 0;
+        position: relative;
+    }
+    .pagination-container .pagination {
+        position: absolute;
+        top: 0;
+        left: 50%;
+        margin-left: -95px;
+    }
+</style>
