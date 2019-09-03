@@ -211,7 +211,7 @@
                 'class' => 'col-md-4 control-label',
             ]) !!}
             <div class="col-md-6">
-                <div class="input-group col-xs-8">
+                <div class="input-group col-xs-12 col-sm-8">
                     {!! Form::hidden('answering_time', $activity_item->answering_time, [
                         'ref' => 'answeringTime',
                     ]) !!}
