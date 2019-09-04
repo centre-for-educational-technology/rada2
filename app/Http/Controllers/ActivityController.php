@@ -192,7 +192,7 @@ class ActivityController extends Controller
         }
 
         $user = auth()->user();
-        if ( Auth::check() ) {
+        if ( Auth::check() && $user->isAdmin() === false) {
             $query->leftJoin('activity_instructors', 'activity_instructors.activity_id', '=', 'activities.id');
             $query->select('activities.*');
             // If instructor and game creator are same person
@@ -202,7 +202,7 @@ class ActivityController extends Controller
                     ->orWhere('activities.user_id', $user->id)
                     ->orWhere('activity_instructors.user_id', $user->id);
             });
-        } else {
+        } else if ($user->isAdmin() === false) {
             $query->where('promoted', 1);
         }
 
