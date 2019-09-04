@@ -400,8 +400,10 @@ class GameController extends Controller
             if ($user->isAdmin() === false) {
                 /** @var Activity $activity */
                 $activity = Activity::find($game->activity_id);
-                if ($activity->isInstructor($user) === false) {
-                    return $count;
+                if ($activity->user_id !== $user->id && $activity->isInstructor($user) === false) {
+                    return response()->json([
+                        'count' => $count
+                    ]);
                 }
             }
             $query = DB::table('game_answers')
