@@ -316,6 +316,8 @@
                     $(this.$refs.image).val('');
                     this.incorrectImageFormat = false;
                     this.answeringTime = null;
+                    this.missingWords = [];
+                    this.isMissingWordFilled = false;
                 });
             },
             submit() {
@@ -432,7 +434,7 @@
                     return word.type === 'input' && word.answer.trim().length === 0;
                 });
                 this.isMissingWordFilled = words.length === 0;
-            }, 500),
+            }, 100),
             generateMissingWords() {
                 if (!this.isMissingWord()) {
                     return false;
