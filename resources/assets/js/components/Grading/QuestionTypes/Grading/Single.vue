@@ -5,6 +5,8 @@
             <input
                     v-model="inputGrade"
                     type="number"
+                    min="1"
+                    required="required"
                     class="form-control pull-left grade-input"
             />
             <input
