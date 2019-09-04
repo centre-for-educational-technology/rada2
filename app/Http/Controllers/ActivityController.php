@@ -202,7 +202,7 @@ class ActivityController extends Controller
                     ->orWhere('activities.user_id', $user->id)
                     ->orWhere('activity_instructors.user_id', $user->id);
             });
-        } else if ($user->isAdmin() === false) {
+        } else if (!Auth::check()) {
             $query->where('promoted', 1);
         }
 
