@@ -48,20 +48,34 @@
             replaceAnswerText() {
                 let answerText = this.getAnswerText();
                 let questionMissingWordsLength = this.questionMissingWords.length;
+                let answerMissingWordsLength = this.answerMissingWords.length;
 
-                for (let i=0; i<questionMissingWordsLength; i++) {
-                    let originalWord = this.questionMissingWords[i];
-                    let answerWord = this.answerMissingWords[i];
-                    let search = '{' + answerWord.word + '}';
-                    let replacer = '';
-                    if (answerWord.word !== originalWord.word) {
-                        replacer = '{<span style="color: red; font-weight: bold;">' + answerWord.word + '</span> | ';
-                        replacer += '<span style="color: green; font-weight: bold;">' + originalWord.word + '</span>}';
-                    } else {
-                        replacer = '{<span style="color: green; font-weight: bold;">' + originalWord.word + '</span>}';
+                if (answerMissingWordsLength > 0 && questionMissingWordsLength > 0) {
+                    for (let i = 0; i < questionMissingWordsLength; i++) {
+                        let originalWord = this.questionMissingWords[i];
+                        let answerWord = this.answerMissingWords[i];
+                        let search = '{' + answerWord.word + '}';
+                        let replacer = '';
+                        if (answerWord.word !== originalWord.word) {
+                            replacer = '{<span style="color: red; font-weight: bold;">' + answerWord.word + '</span> | ';
+                            replacer += '<span style="color: green; font-weight: bold;">' + originalWord.word + '</span>}';
+                        } else {
+                            replacer = '{<span style="color: green; font-weight: bold;">' + originalWord.word + '</span>}';
+                        }
+
+                        answerText = answerText.replace(search, replacer);
                     }
+                } else {
+                    answerText = this.answer.missing_word;
+                    for (let i = 0; i < questionMissingWordsLength; i++) {
+                        let originalWord = this.questionMissingWords[i];
+                        let search = '{' + originalWord.word + '}';
+                        let replacer = '';
+                        replacer = '{<span style="color: red; font-weight: bold;">-</span> | ';
+                        replacer += '<span style="color: green; font-weight: bold;">' + originalWord.word + '</span>}';
 
-                    answerText = answerText.replace(search, replacer);
+                        answerText = answerText.replace(search, replacer);
+                    }
                 }
 
                 return answerText;
