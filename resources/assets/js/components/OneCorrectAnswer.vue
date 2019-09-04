@@ -49,7 +49,7 @@
                     :placeholder="pts"
                     min="1"
                     v-bind:disabled="checkedOption !== index"
-                    v-bind:value="getPoints(index)"
+                    v-model="option.points"
             >
             <a href="#"
                class="btn sz-option-remove"
@@ -105,22 +105,26 @@
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     },
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     },
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     },
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     }
                 ];
             }
