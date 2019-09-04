@@ -74,7 +74,7 @@
                 return '-';
             },
             getMissingWords(str) {
-                const regex = RegExp('\{[A-Za-z0-9\.\s-]+\}','g');
+                const regex = RegExp('\\{[A-Za-z0-9\\.\\s-]+\\}','g');
                 let missingWords = [];
                 let array;
                 let index = 0;
