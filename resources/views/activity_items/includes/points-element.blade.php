@@ -17,6 +17,7 @@
                 style="width: 150px"
                 required="required"
                 value="{{ $points }}"
+                min="1"
         />
     </div>
 

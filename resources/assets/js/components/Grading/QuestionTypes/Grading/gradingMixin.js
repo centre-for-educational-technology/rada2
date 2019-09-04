@@ -9,7 +9,7 @@ export default {
         canSubmit() {
             const finalGrade = this.getFinalGrade();
             const maxGrade = this.getMaxGrade();
-            return finalGrade >= 0 && finalGrade <= maxGrade;
+            return finalGrade !== '' && finalGrade >= 0 && finalGrade <= maxGrade;
         },
         onButtonSubmit(e) {
             e.preventDefault();
