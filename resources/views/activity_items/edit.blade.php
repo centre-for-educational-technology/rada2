@@ -20,6 +20,9 @@
         'PHOTO' => \App\Options\QuestionTypeOptions::PHOTO,
         'MISSING_WORD' => \App\Options\QuestionTypeOptions::MISSING_WORD
     ]) !!};
+    window.Laravel.translations = <?php echo json_encode([
+        'pts' => trans('general.forms.placeholders.pts')
+    ]); ?>;
 </script>
 @endsection
 
