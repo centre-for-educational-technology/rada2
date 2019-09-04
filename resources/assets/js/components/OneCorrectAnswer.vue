@@ -1,7 +1,7 @@
 <template>
 <div id="question-type-one-correct-answer" class="sz-question">
     <div class="row sz-option-row" v-for="(option, index) in options">
-        <div class="col-xs-9">
+        <div class="col-xs-8">
             <div class="input-group">
                 <span class="input-group-addon" v-if="$parent.hasPreview(option)">
                     <a target="_blank" v-bind:href="$parent.getOptionImageUrl(option.image)">
@@ -40,14 +40,16 @@
                 </span>
             </div>
         </div>
-        <div class="col-xs-3 sz-btn-controls">
+        <div class="col-xs-4 sz-btn-controls">
             <input
                     type="number"
                     class="form-control points-input"
                     :name="'points['+index+']'"
                     required="required"
+                    :placeholder="pts"
+                    min="1"
                     v-bind:disabled="checkedOption !== index"
-                    v-bind:value="getPoints(index)"
+                    v-model="option.points"
             >
             <a href="#"
                class="btn sz-option-remove"
@@ -103,22 +105,26 @@
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     },
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     },
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     },
                     {
                         id: 0,
                         option: '',
-                        image: ''
+                        image: '',
+                        points: ''
                     }
                 ];
             }
@@ -135,7 +141,8 @@
             return  {
                 options: [],
                 checkedOption: 0,
-                removedImages: []
+                removedImages: [],
+                pts: this.$t('pts')
             };
         },
         methods: {

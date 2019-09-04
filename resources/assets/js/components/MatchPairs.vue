@@ -33,7 +33,9 @@
                     class="form-control points-input"
                     :name="'points['+index+']'"
                     required="required"
-                    v-bind:value="getPoints(index)"
+                    :placeholder="pts"
+                    min="1"
+                    v-model="option.points"
             >
             <a href="#" class="btn sz-option-remove" tabindex="-1" v-on:click.prevent="removeOption(index)" v-bind:class="{ disabled: options.length < 2}">
                 <i class="mdi mdi-close-circle-outline" aria-hidden="true"></i>
@@ -97,6 +99,7 @@
                         image: '',
                         option_match: '',
                         image_match: '',
+                        points: ''
                     },
                     {
                         id: 0,
@@ -104,6 +107,7 @@
                         image: '',
                         option_match: '',
                         image_match: '',
+                        points: ''
                     },
                     {
                         id: 0,
@@ -111,13 +115,15 @@
                         image: '',
                         option_match: '',
                         image_match: '',
+                        points: ''
                     },
                     {
                         id: 0,
                         option: '',
                         image: '',
                         option_match: '',
-                        image_match: ''
+                        image_match: '',
+                        points: ''
                     }
                 ];
             }
@@ -138,7 +144,8 @@
             return  {
                 options: [],
                 removedImages: [],
-                removedMatchImages: []
+                removedMatchImages: [],
+                pts: this.$t('pts')
             };
         },
         methods: {
