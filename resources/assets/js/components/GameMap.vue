@@ -97,6 +97,11 @@
                 gradingControlItemBadge.innerText = response.body.count;
 
                 if (response.body.count !== null) {
+                    if (response.body.count > 0) {
+                        gradingControlItemBadge.className = 'badge badge-light';
+                    } else {
+                        gradingControlItemBadge.className = 'badge badge-light hidden';
+                    }
                     gradingControlItem.className = 'mdi mdi-owl grading-control-item';
                     setTimeout(() => {
                         getCountOfUngradedAnswers();
@@ -104,6 +109,7 @@
                 }
             }, error => {
                 gradingControlItemBadge.innerText = '0';
+                gradingControlItemBadge.className = 'badge badge-light hidden';
             });
         }
         getCountOfUngradedAnswers();
