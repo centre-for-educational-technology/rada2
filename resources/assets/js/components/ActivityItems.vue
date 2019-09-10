@@ -402,7 +402,7 @@
                     language: vm.searchForm.language
                 };
                 vm.inAjaxCall= true;
-                this.$http.get(vm.apiUrl + '/activity_items/search', { params: params }).then(response => {
+                this.$http.get(vm.apiUrl + '/tasks/search', { params: params }).then(response => {
                     vm.inAjaxCall = false;
                     vm.searchResults.total = response.body.total;
                     vm.searchResults.currentPage = response.body.current_page;
@@ -419,7 +419,7 @@
                 const vm = this;
                 vm.inAjaxCall = true;
                 vm.searchResults.params.page = vm.searchResults.currentPage + 1;
-                this.$http.get(vm.apiUrl + '/activity_items/search', { params: vm.searchResults.params }).then(response => {
+                this.$http.get(vm.apiUrl + '/tasks/search', { params: vm.searchResults.params }).then(response => {
                     vm.inAjaxCall = false;
                     vm.searchResults.data.push(..._.cloneDeep(response.body.data));
                     vm.searchResults.currentPage = response.body.current_page;
@@ -499,7 +499,7 @@
                 });
             },
             createNewActivityItem() {
-                window.open(this.baseUrl + '/activity_items/create', '_blank');
+                window.open(this.baseUrl + '/tasks/create', '_blank');
             }
         }
     }

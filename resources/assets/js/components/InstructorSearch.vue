@@ -123,7 +123,7 @@
                 }) !== 'undefined';
             },
             findInstructors(callback) {
-                const url = this.baseUrl + '/api/activities/find-instructors';
+                const url = this.baseUrl + '/api/game/find-instructors';
                 const data = {
                     query: this.query
                 };

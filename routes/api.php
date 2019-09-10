@@ -28,7 +28,7 @@ Route::group(['prefix' => 'games'], static function ()
     Route::post('get-position-of-players-who-play-my-game', 'GameController@getPositionOfPlayersWhoPlayMyActivity');
 });
 
-Route::group(['prefix' => 'activity_items'], static function () {
+Route::group(['prefix' => 'tasks'], static function () {
     Route::get('search', 'ActivityItemController@search');
 });
 
@@ -52,7 +52,7 @@ Route::group(['prefix' => 'vouchers'], static function ()
     Route::delete('{voucher}', 'UserController@spendDiscountVoucher');
 });
 
-Route::group(['prefix' => 'activities'], static function ()
+Route::group(['prefix' => 'game'], static function ()
 {
     Route::get('{activity}/qrcode', 'ActivityController@qrCode')->name('api.activity.qrcode');
     Route::post('find-instructors', 'ActivityController@findInstructors');

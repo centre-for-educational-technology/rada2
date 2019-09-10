@@ -1889,10 +1889,10 @@ h6 {
 <p class="c2"><span class="c1 c5">2.1 Data collected in RADA can be of two types: </span></p>
 <ol class="c9 lst-kix_list_4-0 start" start="1">
     <li class="c0"><span class="c3 c1">Data provided by the user, i.e. through registration forms, mail contacts etc.</span></li>
-    <li class="c0"><span class="c3 c1">Data collected through the use of RADA services, i.e. navigation, activities, games.</span></li>
-    <li class="c0"><span class="c3 c1">When you create content or information using the Activity or Activity Item content type, be aware that you are allowing everyone, to access and use that information, and to associate it with you (i.e., your username and profile picture).</span></li>
+    <li class="c0"><span class="c3 c1">Data collected through the use of RADA services, i.e. navigation, games.</span></li>
+    <li class="c0"><span class="c3 c1">When you create content or information using the Game or Task content type, be aware that you are allowing everyone, to access and use that information, and to associate it with you (i.e., your username and profile picture).</span></li>
 </ol>
-<p class="c2"><span class="c5 c1">2.1.1 Personal information - </span><span class="c3 c1">when a user registers in RADA platform, the following data is being collected and stored: full name, email address and role (e.g., Zoo Member). After creation of Activity or Activity Item, the following information is made public: name of the creator and any information you voluntarily add into the creation form.</span></p>
+<p class="c2"><span class="c5 c1">2.1.1 Personal information - </span><span class="c3 c1">when a user registers in RADA platform, the following data is being collected and stored: full name, email address and role (e.g., Zoo Member). After creation of Game or Task, the following information is made public: name of the creator and any information you voluntarily add into the creation form.</span></p>
 <p
 class="c2"><span class="c1">Personal information is collected and used with the following purposes:</span><span class="c5 c1">&nbsp;</span></p>
 <ol class="c9 lst-kix_list_6-0 start" start="1">
@@ -1906,7 +1906,7 @@ class="c2"><span class="c1">Personal information is collected and used with the 
 <p class="c2"><span class="c3 c1">Personal information is stored in secured servers. RADA has put in place technical and organisational security measures to prevent the loss or unauthorised access of users&rsquo; personal information.</span></p>
 <p
 class="c2 c13"><span class="c3 c1"></span></p>
-<p class="c2"><span class="c5 c1">2.1.2 Tracking </span><span class="c3 c1">RADA tracks user activities related to participation in our Activities, your performance while answering the question and the occasional GPS position, for the aim of scientific research. </span></p>
+<p class="c2"><span class="c5 c1">2.1.2 Tracking </span><span class="c3 c1">RADA tracks user activities related to participation in our Games, your performance while answering the question and the occasional GPS position, for the aim of scientific research. </span></p>
 <p
 class="c2"><span class="c5 c1">2.2.</span><span class="c3 c1">&nbsp;No individual analytics will be knowingly made available to other people outside RADA. </span></p>
 <p class="c2"><span class="c6 c5">3. CONSENT </span></p>

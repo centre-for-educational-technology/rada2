@@ -770,7 +770,7 @@ h6 {
     class="c2 c3"><span class="c0"></span></p>
     <p class="c2"><span class="c1">User Content</span></p>
     <ol class="c7 lst-kix_list_3-0 start" start="1">
-        <li class="c2 c12"><span class="c0">The Platform offers the opportunity for users with respective rights to create Activities, Activity Item and everyone to play existing Activities (&ldquo;Content&rdquo;). This Content represents the views and opinions of the respective contributors submitting it and does not necessarily reflect the position of the RADA consortium and the RADA project (https://project.RADA.eu/), or the European Commission. The RADA consortium is not responsible or liable for any losses, damages or expenses caused by the use of the Platform or its Content.</span></li>
+        <li class="c2 c12"><span class="c0">The Platform offers the opportunity for users with respective rights to create Games, Task and everyone to play existing Games (&ldquo;Content&rdquo;). This Content represents the views and opinions of the respective contributors submitting it and does not necessarily reflect the position of the RADA consortium and the RADA project (https://project.RADA.eu/), or the European Commission. The RADA consortium is not responsible or liable for any losses, damages or expenses caused by the use of the Platform or its Content.</span></li>
         <li
         class="c2 c12"><span class="c0">You are responsible for all the information you post on the Platform.</span></li>
         <li class="c2 c12"><span class="c0">We reserve the right to monitor all created content and remove any items which we consider to be inappropriate, offensive or otherwise in breach of these Terms and Conditions.</span></li>

@@ -35,7 +35,7 @@
 @section('content')
 <div class="container">
     {!! Form::open([
-        'url' => 'activity_items/' . $activity_item->id,
+        'url' => 'tasks/' . $activity_item->id,
         'files' => true,
         'class' => 'form-horizontal',
         'role' => 'form',

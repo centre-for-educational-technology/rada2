@@ -31,7 +31,7 @@
 @section('content')
 <div class="container">
     {!! Form::open([
-        'url' => 'activities/' . $activity->id . '/duplicate',
+        'url' => 'game/' . $activity->id . '/duplicate',
         'files' => true,
         'class' => 'form-horizontal activity-edit',
         'role' => 'form',

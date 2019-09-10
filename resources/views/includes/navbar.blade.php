@@ -22,12 +22,12 @@
                 <li class="{{ Request::is('/')? 'active': '' }}">
                     <a href="{{ url('/') }}">{{ trans('navbar.home') }}</a>
                 </li>
-                <li class="{{ Request::is('activities', 'activities/*') ? 'active': '' }}">
-                    <a href="{{ url('/activities') }}">{{ trans('navbar.activities') }}</a>
+                <li class="{{ Request::is('activities', 'game/*') ? 'active': '' }}">
+                    <a href="{{ url('/game') }}">{{ trans('navbar.activities') }}</a>
                 </li>
                 @if ( Auth::check() )
-                    <li class="{{ Request::is('activity_items', 'activity_items/*') ? 'active': '' }}">
-                        <a href="{{ url('/activity_items') }}">{{ trans('navbar.activity-items') }}</a>
+                    <li class="{{ Request::is('activity_items', 'tasks/*') ? 'active': '' }}">
+                        <a href="{{ url('/tasks') }}">{{ trans('navbar.activity-items') }}</a>
                     </li>
                 @endif
                 @can('addGrades', \App\Activity::class)

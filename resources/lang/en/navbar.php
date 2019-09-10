@@ -12,8 +12,8 @@ return [
     */
 
     'home' => 'Home',
-    'activities'     => 'Activities',
-    'activity-items' => 'Activity Items',
+    'activities'     => 'Games',
+    'activity-items' => 'Tasks',
     'badges' => 'Badges',
     'discount_vouchers' => 'Discount Vouchers',
     'grading' => 'Grading'
