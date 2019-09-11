@@ -13,35 +13,35 @@ return [
 
     'novice_gamer' => [
         'name' => 'Novice Gamer',
-        'description' => 'For completing first Activity.',
+        'description' => 'For completing first Game.',
     ],
     'pro_gamer' => [
         'name' => 'Professional Gamer',
-        'description' => 'Become a true game master by completing twenty-five Activities.',
+        'description' => 'Become a true game master by completing twenty-five Games.',
     ],
     'seasoned_creator' => [
         'name' => 'Seasoned Creator',
-        'description' => 'For creating five Activities.',
+        'description' => 'For creating five Games.',
     ],
     'novice_creator' => [
         'name' => 'Novice Creator',
-        'description' => 'For creating first Activity.',
+        'description' => 'For creating first Game.',
     ],
     'seasoned_gamer' => [
         'name' => 'Seasoned Gamer',
-        'description' => 'For completing five Activities.',
+        'description' => 'For completing five Games.',
     ],
     'pro_creator' => [
         'name' => 'Professional Creator',
-        'description' => 'Master the art of creation by bringing twenty-five Activities into existence.',
+        'description' => 'Master the art of creation by bringing twenty-five Games into existence.',
     ],
     'veteran_creator' => [
         'name' => 'Veteran Creator',
-        'description' => 'For creating ten Activities.',
+        'description' => 'For creating ten Games.',
     ],
     'veteran_gamer' => [
         'name' => 'Veteran Gamer',
-        'description' => 'For completing ten Activities.',
+        'description' => 'For completing ten Games.',
     ],
     'social' => [
         'name' => 'Socializer',

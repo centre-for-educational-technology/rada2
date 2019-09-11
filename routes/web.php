@@ -49,7 +49,7 @@ Route::group(['prefix' => 'profile'], function() {
 });
 
 // Activity Routes
-Route::group(['prefix' => 'activities'], function()
+Route::group(['prefix' => 'game'], function()
 {
     Route::get('/', 'ActivityController@index')->name('activity.index');
 
@@ -79,7 +79,7 @@ Route::group(['prefix' => 'games'], function()
 });
 
 // ActivityItem Routes
-Route::group(['prefix' => 'activity_items'], function()
+Route::group(['prefix' => 'tasks'], function()
 {
     Route::get('/', 'ActivityItemController@index')->name('activity_item.index');
 

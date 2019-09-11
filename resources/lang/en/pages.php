@@ -15,11 +15,11 @@ return [
         'jumbotron' => [
             'information' => [
                 'heading' => 'What is RADA?',
-                'content' => 'RADA is a location-based game service, where the activities will guide you throughout your environment and teach you a thing or two.',
+                'content' => 'RADA is a location-based game service, where the tasks will guide you throughout your environment and teach you a thing or two.',
             ],
             'schools' => [
                 'heading' => 'RADA for Schools',
-                'content' => 'Move the classroom to the great outdoors!<br>RADA is a modern way to combine school with gamified fun. With a Creator account, you can create fun and activities to be used by you and other RADA users.',
+                'content' => 'Move the classroom to the great outdoors!<br>RADA is a modern way to combine school with gamified fun. With a Creator account, you can create fun and games to be used by you and other RADA users.',
             ],
         ],
         'choose-location' => 'Choose location',
@@ -30,8 +30,8 @@ return [
     ],
     'activities' => [
         'index' => [
-            'heading' => 'Activities',
-            'none-found' => 'No Activities could be found.',
+            'heading' => 'Games',
+            'none-found' => 'No Games could be found.',
         ],
         'create-or-edit' => [
             'keywords' => 'Keywords',
@@ -46,8 +46,8 @@ return [
     ],
     'activity-items' => [
         'index' => [
-          'heading' => 'Activity Items',
-          'none-found' => 'No Activity Items could be found.',
+          'heading' => 'Tasks',
+          'none-found' => 'No Tasks could be found.',
         ],
         'create-or-edit' => [
             'set-current-position' => 'Set current position',
@@ -89,18 +89,18 @@ return [
         'statistics' => [
             'heading' => 'Statistics',
             'users' => 'Users',
-            'activities' => 'Activities',
-            'activity-items' => 'Activity Items',
+            'activities' => 'Games',
+            'activity-items' => 'Tasks',
             'games' => 'Games',
             'discount-vouchers' => 'Vouchers',
             'blocked-users' => 'Blocked',
             'unverified-users' => 'Unverified',
             'captions' => [
-                'activities-by-zoo' => 'Activities by Zoo',
-                'activities-by-language' => 'Activities by Language',
-                'activity-items-by-zoo' => 'Activity Items by Zoo',
-                'activity-items-by-question-type' => 'Activity Items by Question Type',
-                'activity-items-by-language' => 'Activity Items by Language',
+                'activities-by-zoo' => 'Games by Zoo',
+                'activities-by-language' => 'Games by Language',
+                'activity-items-by-zoo' => 'Tasks by Zoo',
+                'activity-items-by-question-type' => 'Tasks by Question Type',
+                'activity-items-by-language' => 'Tasks by Language',
                 'games-by-status' => 'Games by Status',
             ],
             'columns' => [
@@ -120,7 +120,7 @@ return [
             'change-map-type' => 'Change map type',
             'textual-answer-placeholder' => 'Answer text...',
             'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
-            'apply-item-bounds' => 'Show all available Activity Item points on the map',
+            'apply-item-bounds' => 'Show all available Task points on the map',
             'results-heading' => 'These are your results',
             'number-of-questions' => 'No. of Questions',
             'gps-error' => 'GPS signal not found.',
@@ -177,8 +177,8 @@ return [
     'dashboard' => [
         'title' => 'Dashboard',
         'heading' => 'Welcome, :name!',
-        'none-found' => 'No Games or Activities found',
-        'games-and-activities' => 'Games & activities',
+        'none-found' => 'No Games found',
+        'games-and-activities' => 'Games',
         'finished' => 'Finished :date',
         'started' => 'Started :date',
         'btn' => [
@@ -187,8 +187,8 @@ return [
         ],
     ],
     'activity-results-index' => [
-        'title' => 'Activities',
-        'heading' => 'Results of Activities',
+        'title' => 'Games',
+        'heading' => 'Results of Games',
         'zoos' => 'Displayed activities belong to these Zoos',
     ],
     'activity-results' => [
@@ -209,7 +209,7 @@ return [
             'discount-voucher-spend' => 'Are you sure you want to spend this Discount Voucher?',
         ],
         'discount-vouchers' => [
-            'information' => 'Vouchers are rewarded for completing Activities. Show the voucher to the staff to redeem. All vouchers are valid for a certain period of time and could only be redeemed within a certain time frame.',
+            'information' => 'Vouchers are rewarded for completing Games. Show the voucher to the staff to redeem. All vouchers are valid for a certain period of time and could only be redeemed within a certain time frame.',
             'how-to-redeem' => 'Please let the staff member press the button and confirm the process. This can not be undone.',
         ],
     ],

@@ -117,7 +117,7 @@
                 }, 2000);
             },
             findGame(callback) {
-                const url = this.baseUrl + '/api/activities/find-game';
+                const url = this.baseUrl + '/api/game/find-game';
                 const data = {
                     pin: this.pin
                 };

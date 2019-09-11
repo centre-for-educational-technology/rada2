@@ -111,68 +111,24 @@ class ActivityItemController extends Controller
     /**
      * Display a listing of ActivityItems.
      *
-     * @param Request             $request
-     * @param QuestionTypeOptions $questionTypeOptions
-     * @param ZooOptions          $zooOptions
-     * @param LanguageOptions     $languageOptions
-     *
      * @return Response
      */
-  public function index(Request $request, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
+  public function index()
   {
-      $search = [
-          'search-text' => $request->has('search-text') ? $request->get('search-text') : '',
-          'question-type' => $request->has('question-type') ? $request->get('question-type') : '',
-          'zoo' => $request->has('zoo') ? $request->get('zoo') : '',
-          'language' => $request->has('language') ? $request->get('language') : '',
-          'search-submitted' => ( $request->has('search-submitted') && (int) $request->get('search-submitted') === 1 ) ? true : false,
-      ];
-
-      $query = ActivityItem::orderBy('id', 'desc')->with('user');
-
-      if ( $request->has('search-text') && trim($request->get('search-text')) )
-      {
-          $query->where(function($query) use ($request) {
-              $query->where('title', 'like', '%' . trim($request->get('search-text')) . '%')->orWhere('description', 'like', '%' . trim($request->get('search-text')) . '%');
-          });
-      }
-
-      if ( $request->has('question-type') && (int)$request->get('question-type') !== 0 )
-      {
-          $query->where('type', '=', (int)$request->get('question-type'));
-      }
-
-      if ( $request->has('zoo') && (int)$request->get('zoo') !== 0 )
-      {
-          $query->where('zoo', '=', (int)$request->get('zoo'));
-      }
-
-      if ( $request->has('language') && $request->get('language') !== '0' )
-      {
-          $query->where('language', '=', $request->get('language'));
-      }
-
-      $items = $query->paginate( config('paginate.limit') );
-
-      if ( $search['search-submitted'] ) {
-          $items->appends($search);
-          $items->fragment('search-results');
-      }
-
-      return view('activity_items/index')->with([
-          'activity_items' => $items,
-          'questionTypeOptions' => $questionTypeOptions->options(),
-          'zooOptions' => $zooOptions->options(),
-          'languageOptions' => $languageOptions->options(),
-          'search' => $search,
-      ]);
+      // Hide activity items list and redirect to activities list
+      return redirect(route('activity.index'));
   }
 
-  /**
-   * Show the form for creating a new ActivityItem.
-   *
-   * @return Response
-   */
+    /**
+     * Show the form for creating a new ActivityItem.
+     *
+     * @param ZooGeolocationOptions $zooGeolocationOptions
+     * @param QuestionTypeOptions $questionTypeOptions
+     * @param ZooOptions $zooOptions
+     * @param LanguageOptions $languageOptions
+     * @return Response
+     * @throws AuthorizationException
+     */
   public function create(ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
   {
       $this->authorize('create', ActivityItem::class);

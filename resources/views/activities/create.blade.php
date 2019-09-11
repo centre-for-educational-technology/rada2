@@ -29,7 +29,7 @@
 @section('content')
 <div class="container">
     {!! Form::open([
-        'url' => 'activities',
+        'url' => 'game',
         'files' => true,
         'class' => 'form-horizontal activity-create',
         'role' => 'form',

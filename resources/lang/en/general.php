@@ -14,8 +14,8 @@ return [
     */
 
    'activity-status' => [
-       'complete' => 'Complete Activity',
-       'ongoing' => 'Ongoing Activity',
+       'complete' => 'Complete Games',
+       'ongoing' => 'Ongoing Games',
    ],
    'discount-voucher-status' => [
        'inactive' => 'Inactive',
@@ -56,7 +56,7 @@ return [
            'zoo' => 'Zoo',
            'question-type' => 'Question Type',
            'location' => 'Location',
-           'activity-items' => 'Activity Items',
+           'activity-items' => 'Tasks',
            'proximity' => 'Proximity',
            'search-text' => 'Search text',
            'read-more' => 'Read more',
@@ -88,7 +88,7 @@ return [
            ]
        ],
        'help' => [
-           'playing-time' => 'Activity time in minutes',
+           'playing-time' => 'Games time in minutes',
            'image' => 'An image in JPEG or PNG format. Uploaded image will be resized to 800 by 800 pixels.',
            'map' => 'Please select the correct Zoo and drag the marker to the specific location.',
            'question-types' => [
@@ -112,8 +112,8 @@ return [
            'add-option' => 'Add option',
            'reset' => 'Reset',
            'apply-filters' => 'Apply filters',
-           'search-activity-items' => 'Search Activity Items',
-           'create-new-activity-item' => 'Create new Activity Item',
+           'search-activity-items' => 'Search Tasks',
+           'create-new-activity-item' => 'Create new Task',
            'login-or-register' => 'Login/Register',
        ],
        'placeholders' => [
@@ -164,8 +164,8 @@ return [
        'discount-voucher-spend' => 'Spend Discount Voucher',
        'get-qr-code' => 'Get QR Code',
        'reveal-discount' => 'Reveal discount',
-       'mark-started' => 'Mark activity as started',
-       'mark-stopped' => 'Mark activity as stopped'
+       'mark-started' => 'Mark Game as started',
+       'mark-stopped' => 'Mark Game as stopped'
    ],
    'minutes' => 'minutes',
    'confirmations' => [
