@@ -22,14 +22,9 @@
                 <li class="{{ Request::is('/')? 'active': '' }}">
                     <a href="{{ url('/') }}">{{ trans('navbar.home') }}</a>
                 </li>
-                <li class="{{ Request::is('activities', 'game/*') ? 'active': '' }}">
+                <li class="{{ Request::is('activities', 'game/*') || Request::is('grading', 'tasks/*') ? 'active': '' }}">
                     <a href="{{ url('/game') }}">{{ trans('navbar.activities') }}</a>
                 </li>
-                @if ( Auth::check() )
-                    <li class="{{ Request::is('activity_items', 'tasks/*') ? 'active': '' }}">
-                        <a href="{{ url('/tasks') }}">{{ trans('navbar.activity-items') }}</a>
-                    </li>
-                @endif
                 @can('addGrades', \App\Activity::class)
                     <li class="{{ Request::is('grading', 'grading/*') ? 'active' : '' }}">
                         <a href="{{ url('/grading') }}">{{ trans('navbar.grading') }}</a>
