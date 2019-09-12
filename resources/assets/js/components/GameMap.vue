@@ -176,6 +176,10 @@
 
             map.setMapTypeId(mapTypeIds[nextIndex]);
         });
+
+        const flashExercisesContainer = document.createElement('div');
+        flashExercisesContainer.className = 'flash-exercises-container';
+        controlDiv.appendChild(flashExercisesContainer);
     }
 
     var connectMarkers =  window.RADA.config.connect_markers || false;
@@ -231,7 +235,8 @@
                 question: null,
                 answer: null,
                 gpsError: false,
-                position: null
+                position: null,
+                flashExercises: []
             };
         },
         watch: {
@@ -280,6 +285,10 @@
                         playerMarker = _this.mapData.playerMarker;
 
                     _.each(_this.game.activity.questions, function(question) {
+                        if (question.is_flash) {
+                            _this.flashExercises.push(question);
+                            return true;
+                        }
                         var marker = new google.maps.Marker({
                             title: question.title,
                             position: {
@@ -377,6 +386,85 @@
 
                 this.initPlayerPositionLogging();
                 this.getPositionOfPlayersWhoPlayMyGame();
+                this.initFlashExercises();
+            },
+            initFlashExercises() {
+                console.log('int');
+                let _this = this;
+                if ($('.flash-exercises-container').length <= 0) {
+                    setTimeout(() => {
+                        this.initFlashExercises();
+                    }, 500);
+                    return false;
+                }
+                $('.flash-exercises-container').each(function () {
+                    console.log($(this));
+                    $(this).innerHtml = '';
+                    let countQuestions = _this.flashExercises.length;
+                    for (let i=0; i<countQuestions; i++) {
+                        let question = _this.flashExercises[i];
+
+                        let item = document.createElement('div');
+                        item.className = 'item';
+                        item.style = 'padding: 6px;' +
+                            '    background: #fff;' +
+                            '    border-top: 1px solid #fff;' +
+                            '    border-left: 1px solid #fff;' +
+                            '    box-shadow: rgba(0,0,0,.3) 0 1px 4px -1px;';
+                        $(this).append(item);
+
+                        let activateBtn = document.createElement('button');
+                        activateBtn.className = 'btn btn-success';
+                        activateBtn.setAttribute('data-id', question.id);
+                        item.appendChild(activateBtn);
+
+                        activateBtn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            let id = $(e.target).data('id');
+                            if (typeof id === 'undefined') {
+                                id = $(e.target).parent().data('id');
+                                $(e.target).parent().hide();
+                            } else {
+                                $(e.target).hide();
+                            }
+                            console.log(id);
+                            $(e.target).closest('.item').find('.btn-danger').show();
+                            return false;
+                        });
+
+                        let stopBtn = document.createElement('button');
+                        stopBtn.className = 'btn btn-danger';
+                        stopBtn.setAttribute('data-id', question.id);
+                        item.appendChild(stopBtn);
+                        $(stopBtn).hide();
+
+                        stopBtn.addEventListener('click', function (e) {
+                            e.preventDefault();
+                            e.stopPropagation();
+                            let id = $(e.target).data('id');
+                            if (typeof id === 'undefined') {
+                                id = $(e.target).parent().data('id');
+                                $(e.target).parent().hide();
+                            } else {
+                                $(e.target).hide();
+                            }
+                            console.log(id);
+                            $(e.target).closest('.item').find('.btn-success').show();
+                            return false;
+                        })
+
+                        let btnIcon = document.createElement('i');
+                        btnIcon.className = 'mdi mdi-flash';
+                        activateBtn.appendChild(btnIcon);
+                        stopBtn.appendChild(btnIcon.cloneNode(true));
+
+                        let title = document.createElement('span');
+                        title.innerText = question.title;
+                        title.style = 'margin-left: 15px;';
+                        item.appendChild(title);
+                    }
+                })
             },
             getPositionOfPlayersWhoPlayMyGame() {
                 let _this = this;

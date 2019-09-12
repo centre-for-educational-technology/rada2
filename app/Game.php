@@ -160,7 +160,8 @@ class Game extends Model
                     'pairs' => [],
                     'position' => $position,
                     'answering_time_check' => $item->answering_time_check,
-                    'answering_time' => $item->answering_time
+                    'answering_time' => $item->answering_time,
+                    'is_flash' => $item->is_flash
                 ];
 
                 if ( $item->options ) {
