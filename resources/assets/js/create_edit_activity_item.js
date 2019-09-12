@@ -280,6 +280,17 @@ const addActivityItemApp = new Vue({
             typeVal === 0) {
             $(vm.$refs.answeringTime).closest('.form-group').hide();
         }
+
+        if($('.is-flash-checkbox:checked').length > 0) {
+            $('.location-container').hide();
+        }
+        $('.is-flash-checkbox').on('change', function () {
+            if($('.is-flash-checkbox:checked').length > 0) {
+                $('.location-container').hide();
+            } else {
+                $('.location-container').show();
+            }
+        });
     },
     data() {
         return {

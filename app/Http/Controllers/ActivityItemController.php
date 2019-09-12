@@ -184,6 +184,7 @@ class ActivityItemController extends Controller
       $item->title = $request->title;
       $item->description = $request->description;
       $item->type = $request->type;
+      $item->is_flash = $request->is_flash;
 
       $points = $request->points;
       if (is_array($points) && in_array($item->type, [
@@ -446,6 +447,7 @@ class ActivityItemController extends Controller
       $activity_item->description = $request->description;
       $activity_item->answering_time_check = $request->answering_time_check ? $request->answering_time_check : false;
       $activity_item->answering_time = $request->answering_time ? $request->answering_time : 0;
+      $activity_item->is_flash = $request->is_flash;
 
       $points = $request->points;
       if (is_array($points) && in_array($activity_item->type, [

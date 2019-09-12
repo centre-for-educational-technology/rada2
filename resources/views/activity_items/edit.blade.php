@@ -298,7 +298,23 @@
             </div>
         </div>
 
-        <div class="form-group{{ ( $errors->has('latitude') || $errors->has('longitude') ) ? ' has-error' : '' }}">
+    <div class="form-group">
+        {!! Form::label('is_flash', trans('general.forms.labels.is-flash'), [
+            'class' => 'col-md-4 control-label',
+            'for' => 'is-flash'
+        ]) !!}
+        <div class="col-md-6">
+            <div class="input-group col-xs-12">
+                {!! Form::checkbox('is_flash', 1, $activity_item->is_flash, [
+                    'class' => 'is-flash-checkbox',
+                    'id' => 'is_flash',
+                    'style' => 'margin-top: 11px;'
+                ]) !!}
+            </div>
+        </div>
+    </div>
+
+        <div class="form-group location-container{{ ( $errors->has('latitude') || $errors->has('longitude') ) ? ' has-error' : '' }}">
             {!! Form::label('location', trans('general.forms.labels.location'), [
                 'class' => 'col-md-4 control-label',
             ]) !!}
