@@ -81,6 +81,7 @@ return [
            'answering_time' => 'Vastamise aja limiit',
            'instructors' => 'Istruktorid',
            'maximum-points-available' => 'Maksimaalne saadaolevate punktide arv',
+           'is-flash' => 'Välk ülesanne',
            'time' => [
                'hour' => 'H',
                'minute' => 'm',

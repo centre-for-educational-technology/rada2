@@ -183,10 +183,18 @@
                     @endif
                     <h3>{{ trans('general.language') }}</h3>
                     <p>{{ trans('general.languages.' . $activity_item->language) }}</p>
+                    @if (!$activity_item->is_flash)
                     <h3>{{ trans('general.forms.labels.location') }}</h3>
                     <p>
-                        <iframe width="100%" height="240" frameborder="0" style="border:0" src="https://www.google.com/maps/embed/v1/place?key={{ config('services.maps.google.api_key') }}&amp;center={{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;zoom=18&amp;maptype=satellite&amp;q={{ $activity_item->latitude}},{{ $activity_item->longitude }}"></iframe>
+                        <iframe
+                                width="100%"
+                                height="240"
+                                frameborder="0"
+                                style="border:0"
+                                src="https://www.google.com/maps/embed/v1/place?key={{ config('services.maps.google.api_key') }}&amp;center={{ $activity_item->latitude}},{{ $activity_item->longitude }}&amp;zoom=18&amp;maptype=satellite&amp;q={{ $activity_item->latitude}},{{ $activity_item->longitude }}"
+                        ></iframe>
                     </p>
+                    @endif
                     @can('viewAccessCode', $activity_item)
                         @if ( $activity_item->access_code )
                             <h3>{{ trans('general.forms.labels.access-code') }}</h3>

@@ -81,6 +81,7 @@ return [
            'answering_time' => 'Answering time limit',
            'instructors' => 'Instructors',
            'maximum-points-available' => 'Maximum points available',
+           'is-flash' => 'Is flash task',
            'time' => [
                'hour' => 'H',
                'minute' => 'm',
