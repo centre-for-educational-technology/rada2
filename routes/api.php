@@ -26,6 +26,8 @@ Route::group(['prefix' => 'games'], static function ()
     Route::post('start-answering-timer', 'GameController@startAnsweringTimer');
     Route::post('close-question', 'GameController@closeQuestion');
     Route::post('get-position-of-players-who-play-my-game', 'GameController@getPositionOfPlayersWhoPlayMyActivity');
+    Route::post('{game}/start-stop-flash-exercise', 'GameController@startStopFlashExercise');
+    Route::get('{game}/get-active-flash-exercise', 'GameController@getActiveFlashExercise');
 });
 
 Route::group(['prefix' => 'tasks'], static function () {

@@ -23,6 +23,11 @@
                 v-if="question"
                 ref="answeringTimeIsUpModal">
         </game-answering-time-is-up-modal>
+        <flash-exercises-list-modal
+                v-bind:questions="flashExercises"
+                v-bind:game_id="game.id"
+                ref="flashExercisesListModal"
+        ></flash-exercises-list-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <div id="map">
         </div>
@@ -177,9 +182,17 @@
             map.setMapTypeId(mapTypeIds[nextIndex]);
         });
 
-        const flashExercisesContainer = document.createElement('div');
-        flashExercisesContainer.className = 'flash-exercises-container';
-        controlDiv.appendChild(flashExercisesContainer);
+        const adminControls = document.createElement('div');
+        adminControls.className = 'admin-controls';
+        controlDiv.appendChild(adminControls);
+
+        const flashExerciseAdminControlItem = document.createElement('i');
+        flashExerciseAdminControlItem.className = 'btn mdi mdi-flash';
+        adminControls.appendChild(flashExerciseAdminControlItem);
+
+        flashExerciseAdminControlItem.addEventListener('click', function () {
+            vm.openFlashExercisesListModal();
+        });
     }
 
     var connectMarkers =  window.RADA.config.connect_markers || false;
@@ -193,7 +206,8 @@
             'game-answering-time-modal': require('./GameAnsweringTimeModal.vue'),
             'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
-            'game-image-dialog': require('./GameImageDialog.vue')
+            'game-image-dialog': require('./GameImageDialog.vue'),
+            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],
@@ -391,13 +405,17 @@
             initFlashExercises() {
                 console.log('int');
                 let _this = this;
-                if ($('.flash-exercises-container').length <= 0) {
+                if ($('.admin-controls').length <= 0) {
                     setTimeout(() => {
                         this.initFlashExercises();
                     }, 500);
                     return false;
                 }
-                $('.flash-exercises-container').each(function () {
+                $('.admin-controls2').each(function () {
+
+                    const flashExerciseBtn = document.createElement('button');
+                    flashExerciseBtn.className = 'mdi mdi-flash';
+
                     console.log($(this));
                     $(this).innerHtml = '';
                     let countQuestions = _this.flashExercises.length;
@@ -433,38 +451,14 @@
                             return false;
                         });
 
-                        let stopBtn = document.createElement('button');
-                        stopBtn.className = 'btn btn-danger';
-                        stopBtn.setAttribute('data-id', question.id);
-                        item.appendChild(stopBtn);
-                        $(stopBtn).hide();
-
-                        stopBtn.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            let id = $(e.target).data('id');
-                            if (typeof id === 'undefined') {
-                                id = $(e.target).parent().data('id');
-                                $(e.target).parent().hide();
-                            } else {
-                                $(e.target).hide();
-                            }
-                            console.log(id);
-                            $(e.target).closest('.item').find('.btn-success').show();
-                            return false;
-                        })
-
                         let btnIcon = document.createElement('i');
                         btnIcon.className = 'mdi mdi-flash';
                         activateBtn.appendChild(btnIcon);
-                        stopBtn.appendChild(btnIcon.cloneNode(true));
-
-                        let title = document.createElement('span');
-                        title.innerText = question.title;
-                        title.style = 'margin-left: 15px;';
-                        item.appendChild(title);
                     }
                 })
+            },
+            openFlashExercisesListModal() {
+                this.$refs.flashExercisesListModal.open();
             },
             getPositionOfPlayersWhoPlayMyGame() {
                 let _this = this;
@@ -1001,5 +995,20 @@
         top: 0;
         right: -5px;
         background: #3097d1;
+    }
+    .admin-controls {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        box-shadow: rgba(0,0,0,.3) 0 1px 4px -1px;
+        background-color: #fff;
+        border: 2px solid #fff;
+    }
+    .btn.mdi-flash {
+        color: #000;
+    }
+    .btn.mdi-flash:hover {
+        color: #FF9800;
     }
 </style>
