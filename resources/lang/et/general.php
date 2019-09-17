@@ -81,6 +81,7 @@ return [
            'answering_time' => 'Vastamise aja limiit',
            'instructors' => 'Istruktorid',
            'maximum-points-available' => 'Maksimaalne saadaolevate punktide arv',
+           'maximum-points-available-missing-word' => 'Täiesti õiged vastused hinnatakse automaatselt, ülejäänud vajavad käsitsi hindamist.',
            'is-flash' => 'Välk ülesanne',
            'time' => [
                'hour' => 'H',
