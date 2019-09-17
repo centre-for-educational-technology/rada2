@@ -400,62 +400,6 @@
 
                 this.initPlayerPositionLogging();
                 this.getPositionOfPlayersWhoPlayMyGame();
-                this.initFlashExercises();
-            },
-            initFlashExercises() {
-                console.log('int');
-                let _this = this;
-                if ($('.admin-controls').length <= 0) {
-                    setTimeout(() => {
-                        this.initFlashExercises();
-                    }, 500);
-                    return false;
-                }
-                $('.admin-controls2').each(function () {
-
-                    const flashExerciseBtn = document.createElement('button');
-                    flashExerciseBtn.className = 'mdi mdi-flash';
-
-                    console.log($(this));
-                    $(this).innerHtml = '';
-                    let countQuestions = _this.flashExercises.length;
-                    for (let i=0; i<countQuestions; i++) {
-                        let question = _this.flashExercises[i];
-
-                        let item = document.createElement('div');
-                        item.className = 'item';
-                        item.style = 'padding: 6px;' +
-                            '    background: #fff;' +
-                            '    border-top: 1px solid #fff;' +
-                            '    border-left: 1px solid #fff;' +
-                            '    box-shadow: rgba(0,0,0,.3) 0 1px 4px -1px;';
-                        $(this).append(item);
-
-                        let activateBtn = document.createElement('button');
-                        activateBtn.className = 'btn btn-success';
-                        activateBtn.setAttribute('data-id', question.id);
-                        item.appendChild(activateBtn);
-
-                        activateBtn.addEventListener('click', function (e) {
-                            e.preventDefault();
-                            e.stopPropagation();
-                            let id = $(e.target).data('id');
-                            if (typeof id === 'undefined') {
-                                id = $(e.target).parent().data('id');
-                                $(e.target).parent().hide();
-                            } else {
-                                $(e.target).hide();
-                            }
-                            console.log(id);
-                            $(e.target).closest('.item').find('.btn-danger').show();
-                            return false;
-                        });
-
-                        let btnIcon = document.createElement('i');
-                        btnIcon.className = 'mdi mdi-flash';
-                        activateBtn.appendChild(btnIcon);
-                    }
-                })
             },
             openFlashExercisesListModal() {
                 this.$refs.flashExercisesListModal.open();
