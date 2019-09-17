@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\ActivityFlashExercise;
 use App\ActivityInstructor;
 use App\Options\QuestionTypeOptions;
 use App\User;
@@ -41,7 +42,7 @@ class GameController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('game.verify', ['except' => ['play', 'voucher', 'downloadPlayerPositions', 'getCountOfUngradedAnswers']]);
+        $this->middleware('game.verify', ['except' => ['play', 'voucher', 'downloadPlayerPositions', 'getCountOfUngradedAnswers', 'startStopFlashExercise', 'getActiveFlashExercise']]);
     }
 
     /**
@@ -407,9 +408,11 @@ class GameController extends Controller
                 }
             }
             $query = DB::table('game_answers')
+                ->leftJoin('games', 'games.id', '=', 'game_answers.game_id')
                 ->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
                 ->leftJoin('activity_activity_item', 'activity_activity_item.activity_item_id', '=', 'activity_items.id')
                 ->where('activity_activity_item.activity_id', '=', $game->activity_id)
+                ->where('games.activity_id', '=', 'activity_activity_item.activity_id')
                 ->whereNull('game_answers.grade')
                 ->where('game_answers.is_answered', '=', 1)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
@@ -421,5 +424,76 @@ class GameController extends Controller
         return response()->json([
             'count' => $count
         ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Game $game
+     * @return JsonResponse
+     */
+    public function startStopFlashExercise(Request $request, Game $game)
+    {
+        $activityId = $game->activity_id;
+        $activityItemId = $request->get('questionId');
+        $active = $request->get('active');
+
+        if ((int) $activityId <= 0 || (int) $activityItemId <= 0) {
+            return response()->json([
+                'error' => 'Invalid data'
+            ]);
+        }
+
+        $query = DB::table(ActivityFlashExercise::TABLE_NAME)
+            ->select(['id'])
+            ->where('activity_id','=', $activityId)
+            ->where('activity_item_id', '=', $activityItemId)
+            ->where('active', '=', 1)
+        ;
+        $data = $query->get();
+        if ($data->count() > 0) {
+            $activityFlashExercise = ActivityFlashExercise::find($data->first()->id);
+        } else {
+            $activityFlashExercise = new ActivityFlashExercise();
+            $activityFlashExercise->activity_id = $activityId;
+            $activityFlashExercise->activity_item_id = $activityItemId;
+            $activityFlashExercise->user_id = $game->user_id;
+            $activityFlashExercise->created_at = Carbon::now();
+        }
+        $activityFlashExercise->active = $active;
+        $activityFlashExercise->updated_at = Carbon::now();
+        $activityFlashExercise->save();
+
+        return response()->json([
+            'id' => $activityFlashExercise->id,
+            'active' => $activityFlashExercise->active
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @param Game $game
+     * @return JsonResponse
+     */
+    public function getActiveFlashExercise(Request $request, Game $game)
+    {
+        $activityId = $game->activity_id;
+
+        if ((int) $activityId <= 0) {
+            return response()->json([
+                'error' => 'Invalid data'
+            ]);
+        }
+
+        $query = DB::table(ActivityFlashExercise::TABLE_NAME)
+            ->select(['activity_item_id'])
+            ->where('activity_id','=', $activityId)
+            ->where('active', '=', 1)
+        ;
+        $data = $query->get();
+        if ($data->count() > 0) {
+            return response()->json(['id' => $data->first()->activity_item_id]);
+        }
+
+        return response()->json([]);
     }
 }
