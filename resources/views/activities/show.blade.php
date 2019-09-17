@@ -67,6 +67,11 @@
                                     <a href="{!! route('activity_item.show', ['id' => $item->id]) !!}">
                                         <i class="mdi mdi-link pull-right"></i>
                                     </a>
+                                    @can('update', $item)
+                                    <a href="{!! route('activity_item.edit', ['id' => $item->id]) !!}">
+                                        <i class="mdi mdi-pencil pull-right"></i>
+                                    </a>
+                                    @endcan
                                     <img class="sz-img-w30" src="{{ $item->icon_url }}" alt="icon">
                                     &nbsp;
                                     {{ $item->title }}
