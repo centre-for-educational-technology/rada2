@@ -81,6 +81,7 @@ return [
            'answering_time' => 'Answering time limit',
            'instructors' => 'Instructors',
            'maximum-points-available' => 'Maximum points available',
+           'maximum-points-available-missing-word' => 'Completely correct answers are automatically graded, the rest need manual grading.',
            'is-flash' => 'Is flash task',
            'time' => [
                'hour' => 'H',

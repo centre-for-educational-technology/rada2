@@ -6,7 +6,7 @@
             class="col-md-4 control-label"
             for="points"
     >
-        {{ trans('general.forms.labels.maximum-points-available') }}
+        {{ trans('general.forms.labels.'.$pointsText) }}
     </label>
     <div class="col-md-6">
         <input
