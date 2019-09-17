@@ -195,6 +195,7 @@ class GradingController extends Controller
                     ->leftJoin('activity_activity_item', 'activity_activity_item.activity_id', '=', 'activities.id')
                     ->leftJoin('game_answers', 'game_answers.activity_item_id', '=', 'activity_activity_item.activity_item_id')
                     ->where('game_answers.id', '=', $answer->id))
+                ->where('activity_activity_item.activity_item_id', '=', $answer->activity_item_id)
                 ->where('game_answers.id', '!=', $answer->id)
                 ->where('activity_items.type', '=', $activityItem->type)
                 ->where(static function(Builder $query) use ($user) {
