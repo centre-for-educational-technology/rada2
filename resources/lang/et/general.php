@@ -215,6 +215,12 @@ return [
            'game-not-found' => 'Mängu ei leitud',
            'invalid-pin-code' => 'Vigane pin kood',
            'missing-word' => 'Vähemalt ühe puuduva sõna peab sisestama'
+       ],
+       'notifications' => [
+           'new-flash-message' => [
+               'title' => 'Aktiveeriti välk ülesanne!',
+               'message' => 'Välk ülesandeid saab lahendada piiratud aja jooksul. Tegutse kiirelt!'
+           ]
        ]
    ],
     'activity' => [

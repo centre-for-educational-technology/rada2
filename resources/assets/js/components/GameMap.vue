@@ -29,8 +29,12 @@
                 ref="flashExercisesListModal"
         ></flash-exercises-list-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
-        <div id="map">
-        </div>
+        <notification-modal
+                v-bind:title="notificationTitle"
+                v-bind:message="notificationMessage"
+                ref="notificationModal"
+        ></notification-modal>
+        <div id="map"></div>
     </div>
 </template>
 
@@ -210,7 +214,8 @@
             'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue'),
-            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue')
+            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue'),
+            'notification-modal': require('./NotificationModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],
@@ -244,6 +249,7 @@
 
             this.$nextTick(() => {
                 this.initMap();
+                this.initActiveFlashExercise();
             });
 
         },
@@ -253,7 +259,10 @@
                 answer: null,
                 gpsError: false,
                 position: null,
-                flashExercises: []
+                flashExercises: [],
+                activeFlashExerciseId: null,
+                notificationTitle: null,
+                notificationMessage: null
             };
         },
         watch: {
@@ -403,6 +412,35 @@
 
                 this.initPlayerPositionLogging();
                 this.getPositionOfPlayersWhoPlayMyGame();
+            },
+            initActiveFlashExercise() {
+                this.getActiveFlashExercise();
+            },
+            getActiveFlashExercise() {
+                this.$http.get('/api/games/' + this.game.id + '/get-active-flash-exercise').then(response => {
+                    if (typeof response.body.id !== 'undefined') {
+                        if (this.activeFlashExerciseId === null) {
+                            this.activeFlashExerciseId = parseInt(response.body.id);
+                            this.showNotification(
+                                this.$t('new-flash-exercise-title'),
+                                this.$t('new-flash-exercise-message')
+                            )
+                        }
+                    } else {
+                        this.activeFlashExerciseId = null;
+                    }
+                    setTimeout(() => {
+                        this.getActiveFlashExercise();
+                    }, 2000);
+                }, error => {
+
+                });
+            },
+            showNotification(title, message) {
+                this.$refs.notificationModal.close();
+                this.notificationTitle = title;
+                this.notificationMessage = message;
+                this.$refs.notificationModal.open();
             },
             openFlashExercisesListModal() {
                 this.$refs.flashExercisesListModal.open();
