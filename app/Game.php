@@ -102,11 +102,21 @@ class Game extends Model
      * @return array All the data required for the game
      */
     public function getGameData() {
+        /** @var Activity $activity */
         $activity = $this->activity;
+        $userId = $this->user_id;
+        $instructors = $activity->getInstructors()->filter(static function (ActivityInstructor $instructor) use ($userId) {
+            return $instructor->user_id === $userId;
+        });
         $data = [
             'id' => $this->id,
             'complete' => (bool)$this->complete,
             'answers' => [],
+            'player' => [
+                'id' => $this->user_id,
+                'is_admin' => auth()->user()->isAdmin(),
+                'is_instructor' => $instructors->count() > 0
+            ]
         ];
 
         if ( $this->answers ) {

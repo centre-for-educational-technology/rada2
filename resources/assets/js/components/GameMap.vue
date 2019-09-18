@@ -182,17 +182,20 @@
             map.setMapTypeId(mapTypeIds[nextIndex]);
         });
 
-        const adminControls = document.createElement('div');
-        adminControls.className = 'admin-controls';
-        controlDiv.appendChild(adminControls);
+        const player = vm.game.player;
+        if (player.is_admin || player.is_instructor) {
+            const adminControls = document.createElement('div');
+            adminControls.className = 'admin-controls';
+            controlDiv.appendChild(adminControls);
 
-        const flashExerciseAdminControlItem = document.createElement('i');
-        flashExerciseAdminControlItem.className = 'btn mdi mdi-flash';
-        adminControls.appendChild(flashExerciseAdminControlItem);
+            const flashExerciseAdminControlItem = document.createElement('i');
+            flashExerciseAdminControlItem.className = 'btn mdi mdi-flash';
+            adminControls.appendChild(flashExerciseAdminControlItem);
 
-        flashExerciseAdminControlItem.addEventListener('click', function () {
-            vm.openFlashExercisesListModal();
-        });
+            flashExerciseAdminControlItem.addEventListener('click', function () {
+                vm.openFlashExercisesListModal();
+            });
+        }
     }
 
     var connectMarkers =  window.RADA.config.connect_markers || false;
