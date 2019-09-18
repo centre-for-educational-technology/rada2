@@ -108,7 +108,6 @@ class Game extends Model
         $instructors = $activity->getInstructors()->filter(static function (ActivityInstructor $instructor) use ($userId) {
             return $instructor->user_id === $userId;
         });
-        $instructor = $instructors->count() > 0 ? $instructors->first() : null;
         $data = [
             'id' => $this->id,
             'complete' => (bool)$this->complete,
@@ -116,7 +115,7 @@ class Game extends Model
             'player' => [
                 'id' => $this->user_id,
                 'is_admin' => auth()->user()->isAdmin(),
-                'is_instructor' => $instructor !== null
+                'is_instructor' => $instructors->count() > 0
             ]
         ];
 
