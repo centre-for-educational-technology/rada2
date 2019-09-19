@@ -20,7 +20,6 @@
         </game-answering-time-modal>
         <game-answering-time-is-up-modal
                 v-bind:question="question"
-                v-if="question"
                 ref="answeringTimeIsUpModal">
         </game-answering-time-is-up-modal>
         <flash-exercises-list-modal
@@ -58,6 +57,36 @@
 
         vm.$watch('game.answers', function() {
             completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
+        });
+
+        const flashExerciseControlItem = document.createElement('i');
+        flashExerciseControlItem.className = 'mdi mdi-flash';
+        if (vm.activeFlashExerciseId === null) {
+            flashExerciseControlItem.className += ' hidden';
+        }
+        flashExerciseControlItem.id = 'user-flash-exercise-control-item';
+        controlUI.appendChild(flashExerciseControlItem);
+
+        function toggleFlashColor() {
+            setTimeout(() => {
+                flashExerciseControlItem.style = 'color: #ff9800';
+                setTimeout(() => {
+                    flashExerciseControlItem.style = 'color: #000000';
+                    toggleFlashColor();
+                }, 2000);
+            }, 1000);
+        }
+        toggleFlashColor();
+
+        flashExerciseControlItem.addEventListener('click', function () {
+            const questions = vm.game.activity.questions.filter(question => {
+                return question.id === vm.activeFlashExerciseId;
+            });
+            if (questions.length > 0) {
+                const question = questions[0];
+                const answer = vm.getAnswer(question.id);
+                vm.openQuestionModal(question, answer);
+            }
         });
 
         const userControlItem = document.createElement('i');
@@ -419,6 +448,7 @@
             getActiveFlashExercise() {
                 this.$http.get('/api/games/' + this.game.id + '/get-active-flash-exercise').then(response => {
                     if (typeof response.body.id !== 'undefined') {
+                        $('#user-flash-exercise-control-item').removeClass('hidden');
                         if (this.activeFlashExerciseId === null) {
                             this.activeFlashExerciseId = parseInt(response.body.id);
                             this.showNotification(
@@ -427,11 +457,15 @@
                             )
                         }
                     } else {
-                        this.activeFlashExerciseId = null;
+                        if (this.activeFlashExerciseId !== null) {
+                            this.activeFlashExerciseId = null;
+                            $('#user-flash-exercise-control-item').addClass('hidden');
+                            this.$refs.questionModal.closeQuestion();
+                        }
                     }
                     setTimeout(() => {
                         this.getActiveFlashExercise();
-                    }, 2000);
+                    }, 5000);
                 }, error => {
 
                 });
@@ -840,13 +874,15 @@
                     if (nextMarker && nextMarker.questionId) {
                         let nextQuestionId = nextMarker.questionId;
                         let nextQuestion = this.findQuestionById(nextQuestionId);
-                        let nextPosition = nextQuestion.position;
-                        _.each(unansweredMarkers, marker => {
-                            let question = vm.findQuestionById(marker.questionId);
-                            if (question && question.position === nextPosition) {
-                                markers.push(marker);
-                            }
-                        });
+                        if (typeof nextQuestion !== 'undefined') {
+                            let nextPosition = nextQuestion.position;
+                            _.each(unansweredMarkers, marker => {
+                                let question = vm.findQuestionById(marker.questionId);
+                                if (question && question.position === nextPosition) {
+                                    markers.push(marker);
+                                }
+                            });
+                        }
                     }
                 }
 

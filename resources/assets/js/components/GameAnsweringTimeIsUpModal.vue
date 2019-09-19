@@ -6,7 +6,6 @@
                     <button type="button" class="close" aria-label="Close" v-on:click="close()" v-bind:diabled="inAjaxCall">
                         <span aria-hidden="true">&times;</span>
                     </button>
-                    <h4 class="modal-title">{{ title() }}</h4>
                 </div>
                 <div class="modal-body">
                     {{ $t('items.answering_time.time_is_up') }}
@@ -32,9 +31,6 @@
             }
         },
         methods: {
-            title() {
-                return this.question ? this.question.title : '';
-            },
             open() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
