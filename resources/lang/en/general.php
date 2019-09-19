@@ -215,6 +215,12 @@ return [
            'game-not-found' => 'Game not found',
            'invalid-pin-code' => 'Invalid pin code',
            'missing-word' => 'At least one missing word must be entered.'
+       ],
+       'notifications' => [
+           'new-flash-message' => [
+               'title' => 'A flash exercise was activated!',
+               'message' => 'Flash exercises are available for limited time only so act quickly!'
+           ]
        ]
    ],
     'activity' => [

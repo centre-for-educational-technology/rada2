@@ -183,21 +183,24 @@ class GameController extends Controller
     public function startAnsweringTimer(Request $request, Game $game)
     {
         $activity = $game->activity;
-
-        /** @var ActivityItem $activityItem */
-        $activityItem = $activity->activityItems()->where('id', $request->get('question_id'))->first();
-
         $date = Carbon::now('UTC');
         $date->setTimezone('Europe/Tallinn');
-        $answer = new GameAnswer();
+        $answer = GameAnswer::firstOrNew([
+            'game_id' => $game->id,
+            'activity_item_id' => $request->get('question_id')
+        ]);
+        if (!$answer->id) {
+            /** @var ActivityItem $activityItem */
+            $activityItem = $activity->activityItems()->where('id', $request->get('question_id'))->first();
+            $answer->game()->associate( $game );
+            $answer->activityItem()->associate( $activityItem );
+        }
         $answer->correct = false;
         $answer->is_answered = false;
         $answer->answering_start_time = $date;
         $answer->answer = json_encode([
             'options' => [],
         ]);
-        $answer->game()->associate( $game );
-        $answer->activityItem()->associate( $activityItem );
 
         $answer->save();
 

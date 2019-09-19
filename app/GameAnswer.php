@@ -15,6 +15,10 @@ class GameAnswer extends Model
      */
     protected static $logAttributes = ['game_id', 'activity_item_id'];
 
+    protected $fillable = [
+        'game_id', 'activity_item_id'
+    ];
+
     /**
      * Get Activity current Game is connected with,.
      * @return Activity Activity object.

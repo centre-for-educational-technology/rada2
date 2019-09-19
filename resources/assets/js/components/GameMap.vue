@@ -20,7 +20,6 @@
         </game-answering-time-modal>
         <game-answering-time-is-up-modal
                 v-bind:question="question"
-                v-if="question"
                 ref="answeringTimeIsUpModal">
         </game-answering-time-is-up-modal>
         <flash-exercises-list-modal
@@ -29,8 +28,12 @@
                 ref="flashExercisesListModal"
         ></flash-exercises-list-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
-        <div id="map">
-        </div>
+        <notification-modal
+                v-bind:title="notificationTitle"
+                v-bind:message="notificationMessage"
+                ref="notificationModal"
+        ></notification-modal>
+        <div id="map"></div>
     </div>
 </template>
 
@@ -54,6 +57,36 @@
 
         vm.$watch('game.answers', function() {
             completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
+        });
+
+        const flashExerciseControlItem = document.createElement('i');
+        flashExerciseControlItem.className = 'mdi mdi-flash';
+        if (vm.activeFlashExerciseId === null) {
+            flashExerciseControlItem.className += ' hidden';
+        }
+        flashExerciseControlItem.id = 'user-flash-exercise-control-item';
+        controlUI.appendChild(flashExerciseControlItem);
+
+        function toggleFlashColor() {
+            setTimeout(() => {
+                flashExerciseControlItem.style = 'color: #ff9800';
+                setTimeout(() => {
+                    flashExerciseControlItem.style = 'color: #000000';
+                    toggleFlashColor();
+                }, 2000);
+            }, 1000);
+        }
+        toggleFlashColor();
+
+        flashExerciseControlItem.addEventListener('click', function () {
+            const questions = vm.game.activity.questions.filter(question => {
+                return question.id === vm.activeFlashExerciseId;
+            });
+            if (questions.length > 0) {
+                const question = questions[0];
+                const answer = vm.getAnswer(question.id);
+                vm.openQuestionModal(question, answer);
+            }
         });
 
         const userControlItem = document.createElement('i');
@@ -210,7 +243,8 @@
             'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue'),
-            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue')
+            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue'),
+            'notification-modal': require('./NotificationModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],
@@ -244,6 +278,7 @@
 
             this.$nextTick(() => {
                 this.initMap();
+                this.initActiveFlashExercise();
             });
 
         },
@@ -253,7 +288,10 @@
                 answer: null,
                 gpsError: false,
                 position: null,
-                flashExercises: []
+                flashExercises: [],
+                activeFlashExerciseId: null,
+                notificationTitle: null,
+                notificationMessage: null
             };
         },
         watch: {
@@ -403,6 +441,40 @@
 
                 this.initPlayerPositionLogging();
                 this.getPositionOfPlayersWhoPlayMyGame();
+            },
+            initActiveFlashExercise() {
+                this.getActiveFlashExercise();
+            },
+            getActiveFlashExercise() {
+                this.$http.get('/api/games/' + this.game.id + '/get-active-flash-exercise').then(response => {
+                    if (typeof response.body.id !== 'undefined') {
+                        $('#user-flash-exercise-control-item').removeClass('hidden');
+                        if (this.activeFlashExerciseId === null) {
+                            this.activeFlashExerciseId = parseInt(response.body.id);
+                            this.showNotification(
+                                this.$t('new-flash-exercise-title'),
+                                this.$t('new-flash-exercise-message')
+                            )
+                        }
+                    } else {
+                        if (this.activeFlashExerciseId !== null) {
+                            this.activeFlashExerciseId = null;
+                            $('#user-flash-exercise-control-item').addClass('hidden');
+                            this.$refs.questionModal.closeQuestion();
+                        }
+                    }
+                    setTimeout(() => {
+                        this.getActiveFlashExercise();
+                    }, 5000);
+                }, error => {
+
+                });
+            },
+            showNotification(title, message) {
+                this.$refs.notificationModal.close();
+                this.notificationTitle = title;
+                this.notificationMessage = message;
+                this.$refs.notificationModal.open();
             },
             openFlashExercisesListModal() {
                 this.$refs.flashExercisesListModal.open();
@@ -802,13 +874,15 @@
                     if (nextMarker && nextMarker.questionId) {
                         let nextQuestionId = nextMarker.questionId;
                         let nextQuestion = this.findQuestionById(nextQuestionId);
-                        let nextPosition = nextQuestion.position;
-                        _.each(unansweredMarkers, marker => {
-                            let question = vm.findQuestionById(marker.questionId);
-                            if (question && question.position === nextPosition) {
-                                markers.push(marker);
-                            }
-                        });
+                        if (typeof nextQuestion !== 'undefined') {
+                            let nextPosition = nextQuestion.position;
+                            _.each(unansweredMarkers, marker => {
+                                let question = vm.findQuestionById(marker.questionId);
+                                if (question && question.position === nextPosition) {
+                                    markers.push(marker);
+                                }
+                            });
+                        }
                     }
                 }
 

@@ -197,7 +197,7 @@
         },
         methods: {
             calculateRemainingAnsweringTime() {
-                if (this.answer && this.answer.answering_start_time !== null) {
+                if (this.answer && this.answer.answering_start_time !== null && this.$parent.isAnswered(this.question.id) === false) {
                     let startTimeString = this.answer.answering_start_time;
                     let startTimeDate = new Date(startTimeString);
                     let nowDate = new Date();
@@ -246,8 +246,13 @@
                 this.$http.post(vm.baseUrl + '/api/games/close-question', data).then(response => {
                     vm.inAjaxCall = false;
                     vm.$parent.markAnswered(vm.question.id, response.body);
-                    vm.$parent.openAnsweringTimeIsUpModal();
                     vm.close();
+                    $('.modal-backdrop').remove();
+                    vm.$parent.question = null;
+                    vm.$parent.answer = null;
+                    vm.$nextTick(() => {
+                        vm.$parent.openAnsweringTimeIsUpModal();
+                    });
                 }, response => {
                     vm.inAjaxCall = false;
                     setTimeout(() => {
@@ -298,8 +303,6 @@
                 return $(this.$refs.modal);
             },
             close() {
-                if ( this.inAjaxCall ) return;
-
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('hide');
 

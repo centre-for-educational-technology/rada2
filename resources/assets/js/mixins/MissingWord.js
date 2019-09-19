@@ -3,6 +3,9 @@ export default {
     methods: {
         missingWordsToArray(words) {
             let wordsArray = [];
+            if (typeof words === 'undefined' || words.length <= 0) {
+                return wordsArray;
+            }
             let startParts = words.split('{');
             wordsArray.push(new MissingWord({
                 type: 'text',
