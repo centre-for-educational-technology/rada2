@@ -4,6 +4,7 @@
     @php ( $nav[]= [ 'key' => 'results', 'route' => 'results', 'trans' => 'pages.activity-results-index.title', ])
 @endcan
 
+@if (false)
 <ul class="nav nav-tabs">
     @foreach( $nav as $single )
         <li role="presentation" class="{{ $activeTab === $single['key'] ? 'active' : '' }}">
@@ -11,3 +12,4 @@
         </li>
     @endforeach
 </ul>
+@endif
