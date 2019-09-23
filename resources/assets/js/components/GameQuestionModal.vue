@@ -248,7 +248,6 @@
                     vm.$parent.markAnswered(vm.question.id, response.body);
                     vm.close();
                     $('.modal-backdrop').remove();
-                    vm.$parent.question = null;
                     vm.$parent.answer = null;
                     vm.$nextTick(() => {
                         vm.$parent.openAnsweringTimeIsUpModal();

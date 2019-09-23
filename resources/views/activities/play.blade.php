@@ -82,6 +82,7 @@
                     'remaining_time' => trans('pages.play.game.remaining_time'),
                     'new-flash-exercise-title' => trans('general.messages.notifications.new-flash-message.title'),
                     'new-flash-exercise-message' => trans('general.messages.notifications.new-flash-message.message'),
+                    'flash-exercises-list-modal-title' => trans('pages.play.game.flash-exercises-list-modal-title'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),
