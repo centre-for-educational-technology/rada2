@@ -19,6 +19,11 @@
                 value="{{ $points }}"
                 min="1"
         />
+        @if (isset($pointsDescription) && $pointsDescription != '')
+            <span class="help-block">
+                {{ trans('general.forms.labels.'.$pointsDescription) }}
+            </span>
+        @endif
     </div>
 
     @if ($errors->has('points'))
