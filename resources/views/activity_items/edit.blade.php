@@ -204,10 +204,17 @@
         </div>
 
     <div v-if="questionType == {{ \App\Options\QuestionTypeOptions::MISSING_WORD }}">
-        @include('activity_items.includes.points-element', [ 'points' => $activity_item->points, 'pointsText' => 'maximum-points-available-missing-word' ])
+        @include('activity_items.includes.points-element', [
+        'points' => $activity_item->points,
+        'pointsText' => 'maximum-points-available',
+        'pointsDescription' => 'maximum-points-available-missing-word'
+        ])
     </div>
     <div v-if="questionType != {{ \App\Options\QuestionTypeOptions::MISSING_WORD }}">
-        @include('activity_items.includes.points-element', [ 'points' => $activity_item->points, 'pointsText' => 'maximum-points-available' ])
+        @include('activity_items.includes.points-element', [
+        'points' => $activity_item->points,
+        'pointsText' => 'maximum-points-available'
+        ])
     </div>
 
         <div class="form-group{{ ( $errors->has('answering_time') || $errors->has('answering_time') ) ? ' has-error' : '' }}">
