@@ -114,7 +114,7 @@ class Game extends Model
             'answers' => [],
             'player' => [
                 'id' => $this->user_id,
-                'is_admin' => auth()->user()->isAdmin(),
+                'is_admin' => Auth::check() && auth()->user()->isAdmin(),
                 'is_instructor' => $instructors->count() > 0
             ]
         ];
