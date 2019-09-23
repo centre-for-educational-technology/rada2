@@ -222,7 +222,8 @@
             controlDiv.appendChild(adminControls);
 
             const flashExerciseAdminControlItem = document.createElement('i');
-            flashExerciseAdminControlItem.className = 'btn mdi mdi-flash';
+            flashExerciseAdminControlItem.className = 'btn mdi mdi-flash hidden';
+            flashExerciseAdminControlItem.id = 'admin-flash-exercises-control-item';
             adminControls.appendChild(flashExerciseAdminControlItem);
 
             flashExerciseAdminControlItem.addEventListener('click', function () {
@@ -342,6 +343,9 @@
                     _.each(_this.game.activity.questions, function(question) {
                         if (question.is_flash) {
                             _this.flashExercises.push(question);
+                            setTimeout(() => {
+                                $('#admin-flash-exercises-control-item').removeClass('hidden');
+                            }, 2500);
                             return true;
                         }
                         var marker = new google.maps.Marker({

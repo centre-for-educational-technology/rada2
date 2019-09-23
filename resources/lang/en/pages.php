@@ -134,6 +134,7 @@ return [
             'not-logged-in' => 'Not logged in',
             'complete' => 'Complete!',
             'remaining_time' => 'Remaining time',
+            'flash-exercises-list-modal-title' => 'Flash exercises',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',
