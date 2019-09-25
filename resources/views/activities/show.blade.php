@@ -31,14 +31,15 @@
                     @can ('playGame', $activity)
                     @include('activities.includes.play', ['activity' => $activity])
                     @endcan
-                    <h3>{{ trans('general.forms.labels.description') }}</h3>
-                    <p class="sz-display-new-lines">{{ $activity->description }}</p>
+                    <br />
                     <div class="panel panel-primary">
                         <div class="panel-heading">{{ trans('general.forms.labels.pin-code') }}</div>
                         <div class="panel-body">
                             {{ $activity->pin }}
                         </div>
                     </div>
+                    <h3>{{ trans('general.forms.labels.description') }}</h3>
+                    <p class="sz-display-new-lines">{{ $activity->description }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>
                     <p>{{ $activity->playing_time}} {{ trans('general.minutes')}}</p>
                     <h3>{{ trans('general.language') }}</h3>
