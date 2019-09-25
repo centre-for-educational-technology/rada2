@@ -33,6 +33,12 @@
                     @endcan
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
+                    <div class="panel panel-primary">
+                        <div class="panel-heading">{{ trans('general.forms.labels.pin-code') }}</div>
+                        <div class="panel-body">
+                            {{ $activity->pin }}
+                        </div>
+                    </div>
                     <h3>{{ trans('general.forms.labels.pin-code') }}</h3>
                     <p>{{ $activity->pin }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>

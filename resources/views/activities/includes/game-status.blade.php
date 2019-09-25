@@ -1,12 +1,11 @@
 @if ( Auth::check() )
-    @php( $gameStatus = $activity->getUserGameStatus() )
-    @if ( $gameStatus === 1 )
+    @if ( $activity->started )
         <div class="alert alert-success sz-activity-status" role="alert">
-            {{ trans('general.activity-status.complete') }}
-        </div>
-    @elseif ( $gameStatus === 0)
-        <div class="alert alert-info sz-activity-status" role="alert">
             {{ trans('general.activity-status.ongoing') }}
+        </div>
+    @else
+        <div class="alert alert-danger sz-activity-status" role="alert">
+            {{ trans('general.activity-status.stopped') }}
         </div>
     @endif
 @endif

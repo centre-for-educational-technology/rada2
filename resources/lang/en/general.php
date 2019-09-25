@@ -15,7 +15,8 @@ return [
 
    'activity-status' => [
        'complete' => 'Complete Games',
-       'ongoing' => 'Ongoing Games',
+       'ongoing' => 'Ongoing Game',
+       'stopped' => 'Stopped Game'
    ],
    'discount-voucher-status' => [
        'inactive' => 'Inactive',
@@ -73,7 +74,7 @@ return [
            'until' => 'Until',
            'question-or-information' => 'Question/Information',
            'promoted' => 'Promote, show special icon and put to the top of the lists',
-           'pin-code' => 'PIN code',
+           'pin-code' => 'Game PIN code. Share the PIN code with the players to access the game.',
            'keywords' => 'Keywords',
            'enforce_items_order' => 'Enforce items order',
            'subject' => 'Subjects',
