@@ -39,8 +39,6 @@
                             {{ $activity->pin }}
                         </div>
                     </div>
-                    <h3>{{ trans('general.forms.labels.pin-code') }}</h3>
-                    <p>{{ $activity->pin }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>
                     <p>{{ $activity->playing_time}} {{ trans('general.minutes')}}</p>
                     <h3>{{ trans('general.language') }}</h3>
