@@ -7,6 +7,7 @@ use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
 use App\User;
 use App\Utils\RandomStringGenerator;
+use App\Utils\RandomUniqueNumberGenerator;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -715,7 +716,6 @@ class ActivityController extends Controller
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
         $activity->zoo = ZooOptions::DEFAULT_OPTION;
-        $activity->pin = $randomStringGenerator->generate(config('services.activity.pin_length'));
         $activity->keywords = $request->keywords ? $request->keywords : '';
         $activity->subject = $request->subject ? $request->subject : '';
         $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
@@ -757,6 +757,9 @@ class ActivityController extends Controller
             $activity->enforce_items_order = 0;
         }
 
+        $activity->pin = 0;
+        $activity->save();
+        $activity->pin = RandomUniqueNumberGenerator::generate($activity->id, 6);
         $activity->save();
 
         $this->saveInstructors($request, $activity);
