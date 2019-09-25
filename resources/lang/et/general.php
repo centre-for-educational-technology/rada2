@@ -14,8 +14,9 @@ return [
     */
 
    'activity-status' => [
-       'complete' => 'Lõpeta tegevus',
-       'ongoing' => 'Käimasolev tegevus',
+       'complete' => 'Lõpeta mäng',
+       'ongoing' => 'Käimasolev mäng',
+       'stopped' => 'Peatatud mäng'
    ],
    'discount-voucher-status' => [
        'inactive' => 'Mitte aktiivne',
@@ -73,7 +74,7 @@ return [
            'until' => 'Kuni',
            'question-or-information' => 'Küsimus/informatsioon',
            'promoted' => 'Tõsta esile, kuvatakse spetsiaalset ikooni mängu juures ning liiguta nimekirjas ettepoole',
-           'pin-code' => 'PIN kood',
+           'pin-code' => 'Mängu PIN kood. Jaga PIN koodi mängijatega, et nad saaksid mängule ligi',
            'keywords' => 'Märksõnad',
            'enforce_items_order' => 'Rakendage üksuste järjekord',
            'subject' => 'Teemad',
