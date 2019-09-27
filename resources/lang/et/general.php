@@ -167,8 +167,8 @@ return [
        'discount-voucher-spend' => 'Kuluta kupong',
        'get-qr-code' => 'Näita QR-koodi',
        'reveal-discount' => 'Näita kupongi',
-       'mark-started' => 'Mark Game as started',
-       'mark-stopped' => 'Mark Game as stopped'
+       'mark-started' => 'Märgi mäng alustatuks',
+       'mark-stopped' => 'Märgi mäng lõppenuks'
    ],
    'minutes' => 'minutid',
    'confirmations' => [

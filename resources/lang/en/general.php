@@ -167,8 +167,8 @@ return [
        'discount-voucher-spend' => 'Spend Discount Voucher',
        'get-qr-code' => 'Get QR Code',
        'reveal-discount' => 'Reveal discount',
-       'mark-started' => 'Mark Game as started',
-       'mark-stopped' => 'Mark Game as stopped'
+       'mark-started' => 'Mark game as started',
+       'mark-stopped' => 'Mark game as stopped'
    ],
    'minutes' => 'minutes',
    'confirmations' => [

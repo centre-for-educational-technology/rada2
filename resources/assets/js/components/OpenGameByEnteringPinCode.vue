@@ -8,7 +8,7 @@
         </div>
         <div class="center-block hidden" ref="pinContainer">
             <div class="input-button-container">
-                <input type="text"
+                <input type="number"
                        v-model="pin"
                        class="pin-input"
                        :placeholder="placeholder"
