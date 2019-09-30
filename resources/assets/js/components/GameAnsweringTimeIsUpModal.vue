@@ -33,7 +33,7 @@
         },
         methods: {
             title() {
-                return this.question.title;
+                return this.question ? this.question.title : '';
             },
             open() {
                 this.$nextTick(() => {
