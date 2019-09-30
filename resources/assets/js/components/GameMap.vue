@@ -464,7 +464,9 @@
                         if (this.activeFlashExerciseId !== null) {
                             this.activeFlashExerciseId = null;
                             $('#user-flash-exercise-control-item').addClass('hidden');
-                            this.$refs.questionModal.closeQuestion();
+                            this.$refs.questionModal.closeQuestion(
+                                this.$t('flash-exercise-has-been-deactivated')
+                            );
                         }
                     }
                     setTimeout(() => {
@@ -729,9 +731,9 @@
                 }
                 return false;
             },
-            openAnsweringTimeIsUpModal() {
+            openAnsweringTimeIsUpModal(message) {
                 this.$nextTick(() => {
-                    this.$refs.answeringTimeIsUpModal.open();
+                    this.$refs.answeringTimeIsUpModal.open(message);
                 });
             },
             openQuestionModal(question, answer) {

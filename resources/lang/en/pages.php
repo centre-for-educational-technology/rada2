@@ -136,6 +136,7 @@ return [
             'complete' => 'Complete!',
             'remaining_time' => 'Remaining time',
             'flash-exercises-list-modal-title' => 'Flash exercises',
+            'flash-exercise-has-been-deactivated' => 'Flash exercise has been deactivated. It is not possible to submit an answer anymore.',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',

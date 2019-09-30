@@ -175,6 +175,7 @@
         },
         data() {
             return {
+                isOpen: false,
                 selectedOptions: [],
                 textualAnswer: '',
                 hasImageSelected: false,
@@ -236,7 +237,7 @@
                     this.answeringTime = null;
                 }
             },
-            closeQuestion() {
+            closeQuestion(closeMessage) {
                 let vm = this;
                 let data = {
                     game_id: this.gameId,
@@ -244,14 +245,17 @@
                 };
                 this.inAjaxCall = true;
                 this.$http.post(vm.baseUrl + '/api/games/close-question', data).then(response => {
+                    let isOpen = vm.isOpen;
                     vm.inAjaxCall = false;
                     vm.$parent.markAnswered(vm.question.id, response.body);
                     vm.close();
                     $('.modal-backdrop').remove();
                     vm.$parent.answer = null;
-                    vm.$nextTick(() => {
-                        vm.$parent.openAnsweringTimeIsUpModal();
-                    });
+                    if (isOpen === true) {
+                        vm.$nextTick(() => {
+                            vm.$parent.openAnsweringTimeIsUpModal(closeMessage);
+                        });
+                    }
                 }, response => {
                     vm.inAjaxCall = false;
                     setTimeout(() => {
@@ -261,6 +265,7 @@
             },
             open() {
                 this.$nextTick(() => {
+                    this.isOpen = true;
                     this.generateMissingWords();
                     this.calculateRemainingAnsweringTime();
 
@@ -305,6 +310,7 @@
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('hide');
 
+                    this.isOpen = false;
                     this.selectedOptions = [];
                     this.textualAnswer = '';
                     this.hasImageSelected = false;

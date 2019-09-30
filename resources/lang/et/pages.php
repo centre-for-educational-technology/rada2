@@ -136,6 +136,7 @@ return [
             'complete' => 'Lõpetatud!',
             'remaining_time' => 'Alles jäänud aega',
             'flash-exercises-list-modal-title' => 'Välk ülesanded',
+            'flash-exercise-has-been-deactivated' => 'Ülesanne on deaktiveeritud. Enam ei ole võimalik küsimusele vastata.',
             'icons' => [
                 'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
                 'active' => 'Vastamata',
