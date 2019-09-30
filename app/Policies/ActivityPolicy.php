@@ -46,7 +46,7 @@ class ActivityPolicy
      */
     public function create(User $user)
     {
-        return $user->isZooAdmin() || $user->isZooMember();
+        return true;
     }
 
     /**
@@ -79,7 +79,7 @@ class ActivityPolicy
      */
     public function duplicate(User $user)
     {
-        return $user->isZooAdmin() || $user->isZooMember();
+        return true;
     }
 
     /**
@@ -89,7 +89,7 @@ class ActivityPolicy
      */
     public function startStop(User $user, Activity $activity)
     {
-        return $user->isZooAdmin() || ( $user->isZooMember() && $activity->user->id === $user->id);
+        return $activity->user_id === $user->id;
     }
 
     /**
