@@ -43,7 +43,7 @@ class ActivityItemPolicy
      */
     public function create(User $user)
     {
-        return $user->isZooAdmin() || $user->isZooMember();
+        return $user instanceof User;
     }
 
     /**
@@ -101,14 +101,5 @@ class ActivityItemPolicy
     public function viewAccessCode(User $user, ActivityItem $item)
     {
         return $this->viewCorrectAnswer($user, $item);
-    }
-
-    public function activateDeactivateFlashExercises(User $user, ActivityItem $item)
-    {
-        $activity = $item->getActivity();
-        if ($activity) {
-            return $activity->isInstructor($user);
-        }
-        return false;
     }
 }
