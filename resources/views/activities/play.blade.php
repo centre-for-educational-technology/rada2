@@ -84,6 +84,7 @@
                     'new-flash-exercise-title' => trans('general.messages.notifications.new-flash-message.title'),
                     'new-flash-exercise-message' => trans('general.messages.notifications.new-flash-message.message'),
                     'flash-exercises-list-modal-title' => trans('pages.play.game.flash-exercises-list-modal-title'),
+                    'flash-exercise-has-been-deactivated' => trans('pages.play.game.flash-exercise-has-been-deactivated'),
                     'start' => trans('general.actions.start'),
                     'stop' => trans('general.actions.stop'),
                     'icons' => [

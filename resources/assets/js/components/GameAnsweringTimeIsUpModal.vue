@@ -9,7 +9,7 @@
                     <h4 class="modal-title">{{ title() }}</h4>
                 </div>
                 <div class="modal-body">
-                    {{ $t('items.answering_time.time_is_up') }}
+                    {{ message }}
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" v-on:click="close()" v-bind:title="$t('close')">
@@ -28,17 +28,21 @@
         mounted() {},
         data() {
             return {
-                inAjaxCall: false
+                inAjaxCall: false,
+                message: this.$t('items.answering_time.time_is_up')
             }
         },
         methods: {
             title() {
                 return this.question ? this.question.title : '';
             },
-            open() {
+            open(message) {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
                 });
+                if (typeof message !== 'undefined') {
+                    this.message = message;
+                }
                 return $(this.$refs.modal);
             },
             close() {
