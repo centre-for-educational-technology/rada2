@@ -13,7 +13,8 @@
                         <span class="name">{{ exercise.title }}</span>
                         <button
                                 class="btn btn-success pull-right"
-                                v-if="canStart(exercise.id)"
+                                v-if="canStop(exercise.id) === false"
+                                v-bind:disabled="canStart(exercise.id) === false"
                                 v-on:click="startExercise(exercise.id)"
                         >
                             {{ $t('start') }}

@@ -168,7 +168,9 @@ return [
        'get-qr-code' => 'Get QR Code',
        'reveal-discount' => 'Reveal discount',
        'mark-started' => 'Mark game as started',
-       'mark-stopped' => 'Mark game as stopped'
+       'mark-stopped' => 'Mark game as stopped',
+       'start' => 'Start',
+       'stop' => 'Stop'
    ],
    'minutes' => 'minutes',
    'confirmations' => [
