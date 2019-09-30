@@ -62,7 +62,8 @@ class GameAnswer extends Model
             'image' => $this->getImageUrl(),
             'correct' => (bool)$this->correct,
             'is_answered' => $this->is_answered,
-            'answering_start_time' => $this->answering_start_time ? $this->answering_start_time : null
+            'answering_start_time' => $this->answering_start_time ? $this->answering_start_time : null,
+            'grade' => $this->grade ?? null
         ];
     }
 }

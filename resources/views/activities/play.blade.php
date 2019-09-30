@@ -69,6 +69,7 @@
                     'image-format-hint' => trans('pages.play.game.image-format-hint'),
                     'apply-item-bounds' => trans('pages.play.game.apply-item-bounds'),
                     'results-heading' => trans('pages.play.game.results-heading'),
+                    'task-is-pending-an-evaluation' => trans('pages.play.game.task-is-pending-an-evaluation'),
                     'number-of-questions' => trans('pages.play.game.number-of-questions'),
                     'go' => trans('pages.play.game.go'),
                     'gps-error' => trans('pages.play.game.gps-error'),
