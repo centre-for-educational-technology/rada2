@@ -168,7 +168,9 @@ return [
        'get-qr-code' => 'Näita QR-koodi',
        'reveal-discount' => 'Näita kupongi',
        'mark-started' => 'Märgi mäng alustatuks',
-       'mark-stopped' => 'Märgi mäng lõppenuks'
+       'mark-stopped' => 'Märgi mäng lõppenuks',
+       'start' => 'Alusta',
+       'stop' => 'Lõpta'
    ],
    'minutes' => 'minutid',
    'confirmations' => [
