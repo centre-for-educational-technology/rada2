@@ -69,6 +69,7 @@ class ActivityItem extends Model
             5 => 'match-pairs',
             6 => 'embedded-content',
             7 => 'photo',
+            8 => 'missing-word'
         ];
 
         if ( array_key_exists( (int)$this->type, $typeMap ) )
