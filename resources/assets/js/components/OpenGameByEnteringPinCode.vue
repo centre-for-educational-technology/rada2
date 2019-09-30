@@ -12,7 +12,6 @@
                        v-model="pin"
                        class="pin-input"
                        :placeholder="placeholder"
-                       v-bind:maxlength="pinLength"
                        v-on:keyup.enter="onEnter"
                        ref="pinInput"
                 />
@@ -70,7 +69,7 @@
                 loading: false,
                 pin: '',
                 game: null,
-                pinLength: 5,
+                pinLength: 6,
                 defaultButtonClass: '',
                 buttonClass: '',
                 searchGame: false,
@@ -78,10 +77,14 @@
             }
         },
         watch: {
-            pin: debounce(function(pin) {
+            pin: function(pin) {
+                if (pin.length > this.pinLength) {
+                    pin = pin.substring(0, this.pinLength);
+                    this.pin = pin;
+                }
                 this.game = null;
                 this.showHideStartButton(pin);
-            }, 500)
+            }
         },
         methods: {
             showHideStartButton(pin) {

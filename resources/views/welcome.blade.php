@@ -5,7 +5,7 @@
         window.RADA = <?php echo json_encode([
             'config' => [
                 'base_url' => url('/'),
-                'pin_length' => 5
+                'pin_length' => 6
             ]
         ]); ?>;
         window.Laravel.locale = '<?php echo App::getLocale(); ?>';
