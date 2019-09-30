@@ -46,7 +46,7 @@ class ActivityPolicy
      */
     public function create(User $user)
     {
-        return $user instanceof User;
+        return true;
     }
 
     /**
@@ -79,7 +79,7 @@ class ActivityPolicy
      */
     public function duplicate(User $user)
     {
-        return $user instanceof User;
+        return true;
     }
 
     /**

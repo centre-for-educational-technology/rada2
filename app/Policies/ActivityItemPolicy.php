@@ -43,7 +43,7 @@ class ActivityItemPolicy
      */
     public function create(User $user)
     {
-        return $user instanceof User;
+        return true;
     }
 
     /**
