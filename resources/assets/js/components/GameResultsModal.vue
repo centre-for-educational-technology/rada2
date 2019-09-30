@@ -29,6 +29,7 @@
                     <div v-for="(question, index) in game.activity.questions">
                         <h3>{{ index + 1 }}. {{ question.title }}</h3>
                         <p class="sz-display-new-lines">{{question.description}}</p>
+                        <p v-if="hasGrade(question) === false" class="alert alert-info">{{ $t('task-is-pending-an-evaluation') }}</p>
                         <div v-if="isOneCorrectAnswer(question) || isMultipleCorrectAnswers(question)">
                             <ul class="media-list sz-options-list" v-for="option in question.options">
                                 <li class="media sz-option">
@@ -185,6 +186,13 @@
                 }
 
                 return this.game.answers[question.id].correct;
+            },
+            hasGrade(question) {
+                if ( !this.hasAnswer(question) ) {
+                    return false;
+                }
+
+                return this.game.answers[question.id].grade !== null;
             },
             hasOptions(question) {
                 if ( !this.hasAnswer(question) ) {

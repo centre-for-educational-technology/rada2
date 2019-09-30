@@ -122,6 +122,7 @@ return [
             'image-format-hint' => 'Palun kasuta ainult PNG või JPG/JPEG formaadis pilte.',
             'apply-item-bounds' => 'Kuva kaardil kõik rajapunktid',
             'results-heading' => 'Need on sinu tulemused',
+            'task-is-pending-an-evaluation' => 'Ülesanne ootab hindamist',
             'number-of-questions' => 'Küsimuste arv',
             'gps-error' => 'GPS signaal puudub.',
             'go' => 'Mängima!',
