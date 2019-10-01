@@ -132,7 +132,8 @@ return [
            'question-or-information' => 'Palun kirjuta Küsimust või Lisainfot, sõltuvalt valitud küsimuse tüübist',
            'missing-word' => 'Sisesta puuduvate sõnadega tekst siia',
            'pin-placeholder' => 'INSERT PIN',
-           'pts' => 'pkt'
+           'pts' => 'pkt',
+           'enter-your-name' => 'Sisesta oma nimi siia'
        ],
        'options' => [
            'any' => 'Kõik',

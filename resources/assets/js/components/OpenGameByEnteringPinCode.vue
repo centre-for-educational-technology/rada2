@@ -28,6 +28,37 @@
                 <div class="alert alert-danger" v-if="game && game.error !== null">{{ game.error }}</div>
             </div>
         </div>
+
+        <div ref="modal" class="modal fade" tabindex="-1" role="dialog">
+            <div class="modal-dialog modal-sm" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title"></h4>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>{{ $t('general.confirmations.play') }}</p>
+                        <div class="form-group">
+                            <input v-model="nickname" type="text" class="form-control" :placeholder="$t('enter-your-name')" />
+                        </div>
+                    </div>
+                    <div class="modal-footer text-center">
+                        <button type="button" class="btn btn-default" :title="$t('general.buttons.cancel')" data-dismiss="modal">
+                            <i class="mdi mdi-close"></i>
+                        </button>
+                        <button
+                                type="button"
+                                class="btn btn-success btn-play"
+                                :title="$t('general.actions.play')"
+                                v-on:click="onConfirmButtonClick"
+                                :disabled="nickname.length < 2"
+                        >
+                            <i class="mdi mdi-play-circle-outline"></i>
+                        </button>
+                    </div>
+                </div><!-- /.modal-content -->
+            </div><!-- /.modal-dialog -->
+        </div><!-- /.modal -->
     </div>
 </template>
 
@@ -73,7 +104,8 @@
                 defaultButtonClass: '',
                 buttonClass: '',
                 searchGame: false,
-                placeholder: this.$t('pin-placeholder')
+                placeholder: this.$t('pin-placeholder'),
+                nickname: ''
             }
         },
         watch: {
@@ -98,6 +130,15 @@
                 if (this.searchGame === false) {
                     return false;
                 }
+                let isLoggedIn = typeof window.Laravel.isLoggedIn !== 'undefined' && window.Laravel.isLoggedIn === true;
+                if (this.nickname === '' && isLoggedIn === false) {
+                    $(this.$refs.modal).modal('show');
+                } else {
+                    this.onConfirmButtonClick();
+                }
+            },
+            onConfirmButtonClick() {
+                $(this.$refs.modal).modal('hide');
                 this.$refs.playButton.setAttribute('disabled', 'disabled');
                 this.$refs.pinInput.setAttribute('disabled', 'disabled');
                 this.loading = true;
@@ -122,7 +163,8 @@
             findGame(callback) {
                 const url = this.baseUrl + '/api/game/find-game';
                 const data = {
-                    pin: this.pin
+                    pin: this.pin,
+                    nickname: this.nickname
                 };
                 this.$http.post(url, data).then(response => {
                     callback(response.body);

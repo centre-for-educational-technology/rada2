@@ -151,7 +151,8 @@ class GradingController extends Controller
                 'activities.title AS activity_title',
                 'activities.id as activity_id',
                 'users.name AS user_name',
-                'games.id as game_id'
+                'games.id as game_id',
+                'games.nickname'
             );
             $query->orderBy('game_answers.id', 'asc');
             $query->groupBy('game_answers.id');
