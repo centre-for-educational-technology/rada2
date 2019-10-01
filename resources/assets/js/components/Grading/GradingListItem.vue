@@ -100,6 +100,7 @@
                     5: 'match-pairs',
                     6: 'embedded-content',
                     7: 'photo',
+                    8: 'missing-word'
                 };
                 let url = '/img/logos/logo-square.png';
                 if (typeof list[this.answer.type] !== 'undefined') {
