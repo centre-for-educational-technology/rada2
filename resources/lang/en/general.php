@@ -132,7 +132,8 @@ return [
            'question-or-information' => 'Please write Question or Information, depending on chosen Question Type',
            'missing-word' => 'Enter a text with missing words here',
            'pin-placeholder' => 'INSERT PIN',
-           'pts' => 'pts'
+           'pts' => 'pts',
+           'enter-your-name' => 'Enter your name here'
        ],
        'options' => [
            'any' => 'Any',

@@ -864,6 +864,7 @@ class ActivityController extends Controller
             'error' => null
         ];
         $pin = strtoupper($request->get('pin'));
+        $nickname = $request->get('nickname', null);
         if ($pin && trim($pin) !== '') {
             $activity = Activity::where('pin', $pin)->first();
             if ($activity && $activity->started) {
@@ -884,6 +885,8 @@ class ActivityController extends Controller
                     if ( Auth::check() )
                     {
                         $game->user()->associate( auth()->user() );
+                    } else if($nickname !== null) {
+                        $game->nickname = $nickname;
                     }
                     $game->activity()->associate($activity);
                     $game->save();

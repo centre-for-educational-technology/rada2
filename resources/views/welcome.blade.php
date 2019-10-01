@@ -11,7 +11,11 @@
         window.Laravel.locale = '<?php echo App::getLocale(); ?>';
         window.Laravel.translations = <?php echo json_encode([
             'play' => trans('general.actions.play'),
-            'pin-placeholder' => trans('general.forms.placeholders.pin-placeholder')
+            'pin-placeholder' => trans('general.forms.placeholders.pin-placeholder'),
+            'general.confirmations.play' => trans('general.confirmations.play'),
+            'general.buttons.cancel' => trans('general.buttons.cancel'),
+            'general.actions.play' => trans('general.actions.play'),
+            'enter-your-name' => trans('general.forms.placeholders.enter-your-name')
         ]); ?>
     </script>
     <script src="{{ elixir('js/welcome.js') }}"></script>

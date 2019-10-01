@@ -9,7 +9,7 @@
                     <i class="mdi mdi-account-circle" aria-hidden="true"></i>
                 </div>
                 <div class="media-body">
-                    <div>{{ answer.user_name }}</div>
+                    <div>{{ answer.user_name || answer.nickname }}</div>
                     <div class="sz-date">
                         <i class="mdi mdi-clock" aria-hidden="true"></i>
                         {{ answer.created_at }}
