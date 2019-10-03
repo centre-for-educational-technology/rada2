@@ -19,7 +19,8 @@ elixir(mix => {
        .webpack('app.js')
        .webpack('create_edit_activity_item.js')
        .webpack('create_edit_activity.js')
-       .webpack('play.js')
+        .webpack('play.js')
+        .webpack('stopped.js')
        .webpack('profile.js')
        .webpack('welcome.js')
        .webpack('search_activities.js')
@@ -33,6 +34,7 @@ elixir(mix => {
            'js/create_edit_activity_item.js',
            'js/create_edit_activity.js',
            'js/play.js', 'js/app.js',
+           'js/stopped.js',
            'js/profile.js',
            'js/welcome.js',
            'js/search_activities.js',

@@ -26,7 +26,7 @@
                     </div>
 
                     <h2 class="text-center">{{ $t('results-heading')}}</h2>
-                    <div v-for="(question, index) in game.activity.questions">
+                    <div v-for="(question, index) in getResultQuestions">
                         <h3>{{ index + 1 }}. {{ question.title }}</h3>
                         <p class="sz-display-new-lines">{{question.description}}</p>
                         <p v-if="hasGrade(question) === false" class="alert alert-info">{{ $t('task-is-pending-an-evaluation') }}</p>
@@ -142,6 +142,15 @@
                         return question;
                     }
                 }).length;
+            },
+            getResultQuestions: function() {
+                if (this.game.activity.complete === true) {
+                    return his.game.activity.questions;
+                }
+                let answers = this.game.answers;
+                return this.game.activity.questions.filter(question => {
+                    return typeof answers[question.id] !== 'undefined';
+                });
             }
         },
         methods: {

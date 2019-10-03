@@ -122,6 +122,7 @@ return [
             'image-format-hint' => 'Please use only PNG or JPG/JPEG images.',
             'apply-item-bounds' => 'Show all available Task points on the map',
             'results-heading' => 'These are your results',
+            'stopped-heading' => 'Game has been stopped',
             'task-is-pending-an-evaluation' => 'Task is pending an evaluation',
             'number-of-questions' => 'No. of Questions',
             'gps-error' => 'GPS signal not found.',

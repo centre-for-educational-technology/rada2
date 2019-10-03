@@ -76,6 +76,7 @@ Route::group(['prefix' => 'game'], function()
 Route::group(['prefix' => 'games'], function()
 {
     Route::get('{game}/play', 'GameController@play')->name('game.play');
+    Route::get('{game}/stopped', 'GameController@stopped')->name('game.stopped');
 });
 
 // ActivityItem Routes

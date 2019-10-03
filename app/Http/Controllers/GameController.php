@@ -42,7 +42,16 @@ class GameController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('game.verify', ['except' => ['play', 'voucher', 'downloadPlayerPositions', 'getCountOfUngradedAnswers', 'startStopFlashExercise', 'getActiveFlashExercise']]);
+        $this->middleware('game.verify', ['except' => [
+            'play',
+            'stopped',
+            'voucher',
+            'downloadPlayerPositions',
+            'getCountOfUngradedAnswers',
+            'startStopFlashExercise',
+            'getActiveFlashExercise',
+            'getGameData'
+        ]]);
     }
 
     /**
@@ -75,6 +84,26 @@ class GameController extends Controller
         return view('activities/play')->with([
             'game_data' => $game->getGameData(),
             'exit_url' => $exitUrl,
+        ]);
+    }
+
+    public function stopped(Request $request, Game $game)
+    {
+        if (!$game->activity) {
+            abort(404);
+        }
+
+        if ( $game->user_id ) {
+            if ( !( Auth::check() && Auth::user()->id === $game->user_id ) ) {
+                abort(403);
+            }
+        }
+
+        return view('activities.stopped')->with([
+            'game_data' => $game->getGameData(),
+            'game_url' => route('game.play', [
+                'game' => $game->id
+            ])
         ]);
     }
 
@@ -473,11 +502,16 @@ class GameController extends Controller
     }
 
     /**
-     * @param Request $request
      * @param Game $game
+     * @return array
      * @return JsonResponse
      */
-    public function getActiveFlashExercise(Request $request, Game $game)
+    public function getActiveFlashExercise(Game $game)
+    {
+        return response()->json($this->getFlashExerciseData($game));
+    }
+
+    protected function getFlashExerciseData(Game $game): array
     {
         $activityId = $game->activity_id;
 
@@ -494,9 +528,31 @@ class GameController extends Controller
         ;
         $data = $query->get();
         if ($data->count() > 0) {
-            return response()->json(['id' => $data->first()->activity_item_id]);
+            return ['id' => $data->first()->activity_item_id];
         }
 
-        return response()->json([]);
+        return [];
+    }
+
+    protected function isGameStarted(Game $game)
+    {
+        /** @var Activity $activity */
+        $activity = $game->activity;
+
+        return $activity->started;
+    }
+
+    /**
+     * @param Game $game
+     * @return JsonResponse
+     */
+    public function getGameData(Game $game)
+    {
+        return response()->json([
+            'flash_exercise' => $this->getFlashExerciseData($game),
+            'start_stop' => [
+                'started' => $this->isGameStarted($game)
+            ]
+        ]);
     }
 }

@@ -279,7 +279,7 @@
 
             this.$nextTick(() => {
                 this.initMap();
-                this.initActiveFlashExercise();
+                this.getGameData();
             });
 
         },
@@ -292,7 +292,8 @@
                 flashExercises: [],
                 activeFlashExerciseId: null,
                 notificationTitle: null,
-                notificationMessage: null
+                notificationMessage: null,
+                gameIsStopped: false
             };
         },
         watch: {
@@ -475,6 +476,44 @@
                 }, error => {
 
                 });
+            },
+            getGameData() {
+                this.$http.get('/api/games/' + this.game.id + '/get-game-data').then(response => {
+                    if (typeof response.body !== 'undefined') {
+                        let data = response.body;
+                        this.showHideFlashExercises(data.flash_exercise);
+                        this.showHideGameIsStopped(data.start_stop);
+                    }
+                    setTimeout(() => {
+                        this.getGameData();
+                    }, 5000);
+                });
+            },
+            showHideFlashExercises(data) {
+                if (typeof data.id !== 'undefined') {
+                    $('#user-flash-exercise-control-item').removeClass('hidden');
+                    if (this.activeFlashExerciseId === null) {
+                        this.activeFlashExerciseId = parseInt(data.id);
+                        this.showNotification(
+                            this.$t('new-flash-exercise-title'),
+                            this.$t('new-flash-exercise-message')
+                        )
+                    }
+                } else {
+                    if (this.activeFlashExerciseId !== null) {
+                        this.activeFlashExerciseId = null;
+                        $('#user-flash-exercise-control-item').addClass('hidden');
+                        this.$refs.questionModal.closeQuestion(
+                            this.$t('flash-exercise-has-been-deactivated')
+                        );
+                    }
+                }
+            },
+            showHideGameIsStopped(data) {
+                if ((typeof data.started !== 'undefined' && data.started === 1) === false) {
+                    this.$parent.checkUnload = false;
+                    window.location.href = '/games/' + this.game.id + '/stopped'
+                }
             },
             showNotification(title, message) {
                 this.$refs.notificationModal.close();
