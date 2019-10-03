@@ -145,7 +145,7 @@
             },
             getResultQuestions: function() {
                 if (this.game.activity.complete === true) {
-                    return his.game.activity.questions;
+                    return this.game.activity.questions;
                 }
                 let answers = this.game.answers;
                 return this.game.activity.questions.filter(question => {
