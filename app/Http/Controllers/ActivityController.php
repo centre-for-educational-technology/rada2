@@ -896,6 +896,20 @@ class ActivityController extends Controller
                     'id' => $game->id,
                 ];
                 $response['url'] = route('game.play', $routeParams);
+            } else if($activity && Auth::check()) {
+                $game = Game::where([
+                    'activity_id' => $activity->id,
+                    'user_id' => auth()->user()->id
+                ])->first();
+                if ($game) {
+                    $routeParams = [
+                        'id' => $game->id,
+                    ];
+                    $response['url'] = route('game.play', $routeParams);
+                } else {
+                    sleep(2);
+                    $response['error'] = trans('general.messages.error.game-not-found');
+                }
             } else {
                 sleep(2);
                 $response['error'] = trans('general.messages.error.game-not-found');
