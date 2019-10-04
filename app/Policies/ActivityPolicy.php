@@ -92,6 +92,11 @@ class ActivityPolicy
         return $activity->user_id === $user->id;
     }
 
+    public function startMonitoring(User $user, Activity $activity)
+    {
+        return $activity->user_id === $user->id;
+    }
+
     /**
      * @param User $user
      * @param Activity $activity

@@ -71,12 +71,15 @@ Route::group(['prefix' => 'game'], function()
 
     Route::get('{activity}/mark-started', 'ActivityController@markStarted')->name('activity.mark-started');
     Route::get('{activity}/mark-stopped', 'ActivityController@markStopped')->name('activity.mark-stopped');
+
+    Route::get('{activity}/start-monitoring', 'ActivityController@startMonitoring')->name('activity.start-monitoring');
 });
 
 Route::group(['prefix' => 'games'], function()
 {
     Route::get('{game}/play', 'GameController@play')->name('game.play');
     Route::get('{game}/stopped', 'GameController@stopped')->name('game.stopped');
+    Route::get('{game}/monitoring', 'GameController@monitoring')->name('game.monitoring');
 });
 
 // ActivityItem Routes

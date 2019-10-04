@@ -28,9 +28,6 @@
                             @include('activities.includes.actions')
                         </div>
                     </div>
-                    @can ('playGame', $activity)
-                    @include('activities.includes.play', ['activity' => $activity])
-                    @endcan
                     <br />
                     <div class="panel panel-primary">
                         <div class="panel-heading">{{ trans('general.forms.labels.pin-code') }}</div>

@@ -921,4 +921,31 @@ class ActivityController extends Controller
 
         return $response;
     }
+
+    public function startMonitoring(Activity $activity)
+    {
+        $game = null;
+
+        if ( Auth::check() ) {
+            $game = Game::where([
+                'activity_id' => $activity->id,
+                'user_id' => auth()->user()->id
+            ])->first();
+
+            if ( !$game ) {
+                $game = new Game;
+                $game->user()->associate( auth()->user() );
+                $game->activity()->associate($activity);
+                $game->save();
+            }
+
+            return redirect()->route('game.monitoring', [
+                'id' => $game->id
+            ]);
+        }
+
+        return redirect()->route('activity.show', [
+            'activity' => $activity->id
+        ]);
+    }
 }

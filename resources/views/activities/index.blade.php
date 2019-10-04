@@ -67,9 +67,6 @@
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                                         {{ $activity->playing_time}} {{ trans('general.minutes')}}
                                     </div>
-                                    @can ('playGame', $activity)
-                                    @include('activities.includes.play', ['activity' => $activity])
-                                    @endcan
                                 </div>
                                 @if ( !$loop->last)
                                     <hr>
