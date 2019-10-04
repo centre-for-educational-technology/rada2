@@ -145,7 +145,7 @@
 </head>
 <body>
     <div id="sz-play-app">
-        <div id="loading" v-if="isLoading() && !isGameComplete()">
+        <div id="loading" v-if="isLoading()">
             <span v-if="!hasGeoLocationError()" class="animated flash infinite">
                 <i class="mdi mdi-cloud-sync"></i>
                     {{ trans('pages.play.game.loading') }}
