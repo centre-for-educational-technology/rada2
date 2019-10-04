@@ -94,7 +94,9 @@ class ActivityPolicy
 
     public function startMonitoring(User $user, Activity $activity)
     {
-        return $activity->user_id === $user->id;
+        return $activity->user_id === $user->id || count(array_filter($activity->getInstructors(), static function (ActivityInstructor $instructor) use ($user) {
+            return $user->id === $instructor->user_id;
+        })) > 0;
     }
 
     /**
