@@ -58,6 +58,7 @@
                     'featured-image' => trans('general.forms.labels.featured-image'),
                     'zoo' => trans('general.forms.labels.zoo'),
                     'close' => trans('general.forms.buttons.close'),
+                    'open' => trans('general.forms.buttons.open'),
                     'submit' => trans('general.forms.buttons.submit'),
                     'its-you' => trans('pages.play.game.its-you'),
                     'info' => trans('pages.play.game.info'),

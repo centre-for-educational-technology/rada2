@@ -109,6 +109,7 @@ return [
            'save' => 'Save',
            'cancel' => 'Cancel',
            'close' => 'Close',
+           'open' => 'Open',
            'submit' => 'Submit',
            'search' => 'Search',
            'load-more' => 'Load more',
