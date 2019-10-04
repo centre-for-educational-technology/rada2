@@ -45,6 +45,7 @@ class GameController extends Controller
         $this->middleware('game.verify', ['except' => [
             'play',
             'stopped',
+            'monitoring',
             'voucher',
             'downloadPlayerPositions',
             'getCountOfUngradedAnswers',
@@ -553,6 +554,26 @@ class GameController extends Controller
             'start_stop' => [
                 'started' => $this->isGameStarted($game)
             ]
+        ]);
+    }
+
+    public function monitoring(Request $request, Game $game)
+    {
+        if ( !$game->activity ) {
+            abort(404);
+        }
+
+        if ($game->user_id && !(Auth::check() && Auth::user()->id === $game->user_id)) {
+            abort(403);
+        }
+
+        $exitUrl = route('activity.show', [
+            'activity' => $game->activity->id
+        ]);
+
+        return view('activities/monitoring')->with([
+            'game_data' => $game->getGameData(),
+            'exit_url' => $exitUrl,
         ]);
     }
 }

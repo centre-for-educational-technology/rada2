@@ -32,6 +32,14 @@
                 </a>
             @endif
         @endcan
+        @can('startMonitoring', $activity)
+            <a href="{!! route('activity.start-monitoring', [
+                'id' => $activity->id
+            ]) !!}"
+               class="btn btn-primary btn-sm">
+                <i class="mdi mdi-magnify"></i>
+            </a>
+        @endcan
         @can('duplicate', $activity)
             <a href="{!! route('activity.duplicate', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.duplicate') }}">
                 <i class="mdi mdi-content-copy"></i>
