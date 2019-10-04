@@ -33,6 +33,11 @@
                 v-bind:message="notificationMessage"
                 ref="notificationModal"
         ></notification-modal>
+        <player-info-modal
+                v-bind:tasks="currentPlayerCompletedTasks"
+                v-bind:title="currentPlayerName"
+                ref="playerInfoModal"
+        ></player-info-modal>
         <div id="map"></div>
     </div>
 </template>
@@ -245,7 +250,8 @@
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue'),
             'flash-exercises-list-modal': require('./FlashExercisesListModal.vue'),
-            'notification-modal': require('./NotificationModal.vue')
+            'notification-modal': require('./NotificationModal.vue'),
+            'player-info-modal': require('./PlayerInfoModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],
@@ -293,7 +299,9 @@
                 activeFlashExerciseId: null,
                 notificationTitle: null,
                 notificationMessage: null,
-                gameIsStopped: false
+                gameIsStopped: false,
+                currentPlayerCompletedTasks: [],
+                currentPlayerName: ''
             };
         },
         watch: {
@@ -534,7 +542,6 @@
                         return ;
                     }
                     let markers = _this.mapData.markers;
-                    let infoWindow = _this.mapData.infoWindow;
                     let markersLength = markers.length;
                     for (let i=0; i<markersLength; i++) {
                         if (typeof markers[i].isUser !== 'undefined') {
@@ -567,7 +574,7 @@
                         };
                         marker.setIcon(circle);
                         marker.addListener('click', function() {
-                            _this.openNewInfoWindow(infoWindow, marker, map);
+                            _this.openNewInfoModal(item);
                         });
                         markers.push(marker);
                     }
@@ -620,6 +627,11 @@
                 infoWindow.open(map, marker);
 
                 return true;
+            },
+            openNewInfoModal(data) {
+                this.currentPlayerName = data.name;
+                this.currentPlayerCompletedTasks = data.completed_tasks;
+                this.$refs.playerInfoModal.open();
             },
             initPlayerMarker() {
                 var circle,
@@ -1007,6 +1019,10 @@
                 dialog.$once('hidden:image:dialog', () => {
                     this.markAnswered(id, answer);
                 });
+            },
+            resetPlayerInfoModal() {
+                this.currentPlayerCompletedTasks = [];
+                this.currentPlayerName = null;
             }
         }
     }

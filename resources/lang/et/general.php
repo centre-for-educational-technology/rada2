@@ -109,6 +109,7 @@ return [
            'save' => 'Salvesta',
            'cancel' => 'Tühista',
            'close' => 'Sulge',
+           'open' => 'Ava',
            'submit' => 'Saada',
            'search' => 'Otsi',
            'load-more' => 'Lae veel',

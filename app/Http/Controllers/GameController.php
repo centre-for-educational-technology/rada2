@@ -292,12 +292,25 @@ class GameController extends Controller
                     ->get();
                 /** @var PlayerPosition $position */
                 foreach ($positions as $position) {
+                    $answers = GameAnswer::where('game_id', $_game->id)->where('is_answered', 1)->get();
+                    $completedTasks = [];
+                    /** @var GameAnswer $answer */
+                    foreach ($answers as $answer) {
+                        /** @var ActivityItem $activityItem */
+                        $activityItem = ActivityItem::find($answer->activity_item_id);
+                        $completedTasks[] = [
+                            'title' => $activityItem->title,
+                            'id' => $activityItem->id,
+                            'url' => ''
+                        ];
+                    }
                     $players[] = [
                         'game_id' => $position->game_id,
                         'lat' => $position->latitude,
                         'lng' => $position->longitude,
                         'status' => Carbon::parse($position->created_at) > $fiveMinutesAgo ? 'active' : 'inactive',
-                        'name' => $player ? $player->name : '-'
+                        'name' => $player ? $player->name : $_game->nickname,
+                        'completed_tasks' => $completedTasks
                     ];
                 }
             }
