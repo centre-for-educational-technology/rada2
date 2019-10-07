@@ -10,7 +10,7 @@
                 </div>
                 <div class="modal-body">
                     <div class="flash-exercise" v-for="exercise in questions">
-                        <span class="name">{{ exercise.title }}</span>
+                        <span class="name" @click="openTaskInfoModal(exercise)">{{ exercise.title }}</span>
                         <button
                                 class="btn btn-success pull-right"
                                 v-if="canStop(exercise.id) === false"
@@ -51,6 +51,12 @@
             }
         },
         methods: {
+            openTaskInfoModal(exercise) {
+                this.$parent.openNewTaskInfoModal({
+                    name: exercise.title,
+                    users: exercise.users
+                });
+            },
             canStart(id) {
                 if (this.startedExerciseId !== null) {
                     return false;

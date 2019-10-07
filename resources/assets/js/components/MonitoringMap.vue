@@ -1,33 +1,10 @@
 <template>
     <div style="height:100%;width:100%;">
-        <game-image-dialog ref="correctImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_correct.png'" v-bind:in-animation-class="'bounceInUp'" v-bind:out-animation-class="'bounceOut'"></game-image-dialog>
-        <game-image-dialog ref="incorrectImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_incorrect.png'" v-bind:in-animation-class="'bounceInDown'" v-bind:out-animation-class="'bounceOutDown'"></game-image-dialog>
-        <game-image-dialog ref="submittedImageDialog" v-bind:base-url="baseUrl" v-bind:image="'answer_submitted.png'" v-bind:in-animation-class="'bounceInRight'" v-bind:out-animation-class="'bounceOutLeft'"></game-image-dialog>
-        <game-question-modal
-                v-bind:question="question"
-                v-bind:answer="answer"
-                v-bind:game-id="game.id"
-                v-bind:base-url="baseUrl"
-                v-if="question"
-                ref="questionModal">
-        </game-question-modal>
-        <game-answering-time-modal
-                v-bind:question="question"
-                v-bind:game-id="game.id"
-                v-bind:base-url="baseUrl"
-                v-if="question"
-                ref="answeringTimeModal">
-        </game-answering-time-modal>
-        <game-answering-time-is-up-modal
-                v-bind:question="question"
-                ref="answeringTimeIsUpModal">
-        </game-answering-time-is-up-modal>
         <flash-exercises-list-modal
                 v-bind:questions="flashExercises"
                 v-bind:game_id="game.id"
                 ref="flashExercisesListModal"
         ></flash-exercises-list-modal>
-        <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <notification-modal
                 v-bind:title="notificationTitle"
                 v-bind:message="notificationMessage"
@@ -38,6 +15,11 @@
                 v-bind:title="currentPlayerName"
                 ref="playerInfoModal"
         ></player-info-modal>
+        <task-info-modal
+                v-bind:players="currentTaskCompletedPlayers"
+                v-bind:title="currentTaskName"
+                ref="taskInfoModal"
+        ></task-info-modal>
         <div id="map"></div>
     </div>
 </template>
@@ -49,50 +31,6 @@
         const controlUI = document.createElement('div');
         controlUI.id = 'sz-map-controls'
         controlDiv.appendChild(controlUI);
-
-        const completionControlItem = document.createElement('i');
-        completionControlItem.className = 'label label-success';
-        completionControlItem.style.fontSize = '20px';
-        completionControlItem.style.position = 'relative';
-        completionControlItem.style.top = '-7px';
-        completionControlItem.style.marginLeft = '5px';
-        completionControlItem.style.marginRight = '5px';
-        completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
-        controlUI.appendChild(completionControlItem);
-
-        vm.$watch('game.answers', function() {
-            completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
-        });
-
-        const flashExerciseControlItem = document.createElement('i');
-        flashExerciseControlItem.className = 'mdi mdi-flash';
-        if (vm.activeFlashExerciseId === null) {
-            flashExerciseControlItem.className += ' hidden';
-        }
-        flashExerciseControlItem.id = 'user-flash-exercise-control-item';
-        controlUI.appendChild(flashExerciseControlItem);
-
-        function toggleFlashColor() {
-            setTimeout(() => {
-                flashExerciseControlItem.style = 'color: #ff9800';
-                setTimeout(() => {
-                    flashExerciseControlItem.style = 'color: #000000';
-                    toggleFlashColor();
-                }, 2000);
-            }, 1000);
-        }
-        toggleFlashColor();
-
-        flashExerciseControlItem.addEventListener('click', function () {
-            const questions = vm.game.activity.questions.filter(question => {
-                return question.id === vm.activeFlashExerciseId;
-            });
-            if (questions.length > 0) {
-                const question = questions[0];
-                const answer = vm.getAnswer(question.id);
-                vm.openQuestionModal(question, answer);
-            }
-        });
 
         const userControlItem = document.createElement('i');
         userControlItem.className = 'mdi';
@@ -122,40 +60,6 @@
                 $(userControlItem).tooltip('show');
             }
         });
-
-        const gradingControlItem = document.createElement('i');
-        gradingControlItem.className = 'mdi mdi-owl grading-control-item hidden';
-        const gradingControlItemBadge = document.createElement('span');
-        gradingControlItemBadge.className = 'badge badge-light';
-        gradingControlItemBadge.innerText = '0';
-        gradingControlItem.appendChild(gradingControlItemBadge);
-        controlUI.appendChild(gradingControlItem);
-
-        gradingControlItem.addEventListener('click', function() {
-            window.open('/grading/', '_blank');
-        });
-
-        function getCountOfUngradedAnswers() {
-            vm.$http.get('/api/games/' + vm.game.id + '/get-count-of-ungraded-answers').then(response => {
-                gradingControlItemBadge.innerText = response.body.count;
-
-                if (response.body.count !== null) {
-                    if (response.body.count > 0) {
-                        gradingControlItemBadge.className = 'badge badge-light';
-                    } else {
-                        gradingControlItemBadge.className = 'badge badge-light hidden';
-                    }
-                    gradingControlItem.className = 'mdi mdi-owl grading-control-item';
-                    setTimeout(() => {
-                        getCountOfUngradedAnswers();
-                    }, 10000);
-                }
-            }, error => {
-                gradingControlItemBadge.innerText = '0';
-                gradingControlItemBadge.className = 'badge badge-light hidden';
-            });
-        }
-        getCountOfUngradedAnswers();
 
         const informationControlItem = document.createElement('i');
         informationControlItem.className = 'mdi mdi-information-outline';
@@ -220,38 +124,73 @@
             map.setMapTypeId(mapTypeIds[nextIndex]);
         });
 
-        const player = vm.game.player;
-        if (player.is_admin || player.is_instructor) {
-            const adminControls = document.createElement('div');
-            adminControls.className = 'admin-controls';
-            controlDiv.appendChild(adminControls);
 
-            const flashExerciseAdminControlItem = document.createElement('i');
-            flashExerciseAdminControlItem.className = 'btn mdi mdi-flash hidden';
-            flashExerciseAdminControlItem.id = 'admin-flash-exercises-control-item';
-            adminControls.appendChild(flashExerciseAdminControlItem);
+        /*
+         * --------- ADMIN CONTROLS
+         */
 
-            flashExerciseAdminControlItem.addEventListener('click', function () {
-                vm.openFlashExercisesListModal();
+        const adminControls = document.createElement('div');
+        adminControls.className = 'admin-controls';
+        controlDiv.appendChild(adminControls);
+
+        // ------------- FLASH EXERCISE ---------------------
+
+        const flashExerciseAdminControlItem = document.createElement('i');
+        flashExerciseAdminControlItem.className = 'btn mdi mdi-flash hidden';
+        flashExerciseAdminControlItem.id = 'admin-flash-exercises-control-item';
+        adminControls.appendChild(flashExerciseAdminControlItem);
+
+        flashExerciseAdminControlItem.addEventListener('click', function () {
+            vm.openFlashExercisesListModal();
+        });
+
+        // ------------- GRADING ----------------------------
+
+        const gradingControlItem = document.createElement('i');
+        gradingControlItem.className = 'btn mdi mdi-owl grading-control-item hidden';
+        const gradingControlItemBadge = document.createElement('span');
+        gradingControlItemBadge.className = 'badge badge-light';
+        gradingControlItemBadge.innerText = '0';
+        gradingControlItem.appendChild(gradingControlItemBadge);
+        adminControls.appendChild(gradingControlItem);
+
+        gradingControlItem.addEventListener('click', function() {
+            window.open('/grading/', '_blank');
+        });
+
+        function getCountOfUngradedAnswers() {
+            vm.$http.get('/api/games/' + vm.game.id + '/get-count-of-ungraded-answers').then(response => {
+                gradingControlItemBadge.innerText = response.body.count;
+
+                if (response.body.count !== null) {
+                    if (response.body.count > 0) {
+                        gradingControlItemBadge.className = 'badge badge-light';
+                    } else {
+                        gradingControlItemBadge.className = 'badge badge-light hidden';
+                    }
+                    gradingControlItem.className = 'btn mdi mdi-owl grading-control-item';
+                    setTimeout(() => {
+                        getCountOfUngradedAnswers();
+                    }, 10000);
+                }
+            }, error => {
+                gradingControlItemBadge.innerText = '0';
+                gradingControlItemBadge.className = 'badge badge-light hidden';
             });
         }
+        getCountOfUngradedAnswers();
     }
 
-    var connectMarkers =  window.RADA.config.connect_markers || false;
     var enableStreetView = window.RADA.config.map.enableStreetView || false;
 
     import MarkerIconMixin from './../mixins/MarkerIcon.js';
 
     export default {
         components: {
-            'game-question-modal': require('./GameQuestionModal.vue'),
-            'game-answering-time-modal': require('./GameAnsweringTimeModal.vue'),
-            'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
-            'game-access-code-modal': require('./GameAccessCodeModal.vue'),
-            'game-image-dialog': require('./GameImageDialog.vue'),
             'flash-exercises-list-modal': require('./FlashExercisesListModal.vue'),
             'notification-modal': require('./NotificationModal.vue'),
-            'player-info-modal': require('./PlayerInfoModal.vue')
+            'player-info-modal': require('./PlayerInfoModal.vue'),
+            'task-info-modal': require('./TaskInfoModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],
@@ -285,7 +224,6 @@
 
             this.$nextTick(() => {
                 this.initMap();
-                // this.getGameData();
             });
 
         },
@@ -301,7 +239,9 @@
                 notificationMessage: null,
                 gameIsStopped: false,
                 currentPlayerCompletedTasks: [],
-                currentPlayerName: ''
+                currentPlayerName: '',
+                currentTaskName: '',
+                currentTaskCompletedPlayers: []
             };
         },
         watch: {
@@ -345,9 +285,7 @@
 
                 if ( _this.game.activity.questions ) {
                     var map = _this.mapData.map,
-                        markers = _this.mapData.markers,
-                        infoWindow = _this.mapData.infoWindow,
-                        playerMarker = _this.mapData.playerMarker;
+                        markers = _this.mapData.markers;
 
                     _.each(_this.game.activity.questions, function(question) {
                         if (question.is_flash) {
@@ -368,7 +306,8 @@
                             questionId: question.id,
                             questionType: question.type,
                             hasAccessCode: _this.hasAccessCode(question),
-                            optimized: false
+                            optimized: false,
+                            users: []
                         });
 
                         _this.$nextTick(function() {
@@ -378,48 +317,12 @@
                         markers.push(marker);
 
                         marker.addListener('click', function() {
-                            const answer = _this.getAnswer(question.id);
-
-                            if ( _this.isAnswered(question.id) ) {
-                                _this.openQuestionModal(question, answer);
-                                return;
-                            }
-
-                            if (_this.getEnforceItemsOrder() > 0) {
-                                let nextMarkers = _this.getNextUnansweredMarkers();
-                                if (nextMarkers.length > 0) {
-                                    let nextMarker = nextMarkers.find(thisMarker => {
-                                        return marker.questionId === thisMarker.questionId;
-                                    });
-                                    if (typeof nextMarker === 'undefined') {
-                                        return _this.openNewInfoWindow(infoWindow, marker, map);
-                                    }
-                                } else {
-                                    return _this.openNewInfoWindow(infoWindow, marker, map);
-                                }
-                            }
-
-                            if ( _this.hasProximityCheck() ) {
-                                var distance = google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
-
-                                if ( distance <= _this.getProximityRadius() ) {
-                                    _this.openQuestionModal(question, answer);
-                                } else if ( _this.hasAccessCode(question) ) {
-                                    _this.openAccessCodeModal(question);
-                                } else {
-                                    _this.openNewInfoWindow(infoWindow, marker, map);
-                                }
-                            } else {
-                                _this.openQuestionModal(question, answer);
-                            }
+                            _this.openNewTaskInfoModal({
+                                name: marker.title,
+                                users: marker.users
+                            });
                         });
                     });
-
-                    if ( connectMarkers ) {
-                        _this.connectMarkers();
-                    }
-
-                    _this.initUpdateClosestUnansweredMarkerArrow();
                 }
 
                 this.$parent.getGeoLocation(function(position) {
@@ -435,17 +338,6 @@
                     if ( map.szTrackingEnabled === true ) {
                         map.panTo(playerMarker.getPosition());
                     }
-                    _this.initUpdateClosestUnansweredMarkerArrow();
-                    if ( _this.hasProximityCheck() ) {
-                        // TODO Might make sense to cancel in case location
-                        // does change rpidly
-                        // Giving it half a second or so should be good enough
-                        _.each(_this.mapData.markers, function(marker) {
-                            if ( !_this.isAnswered(marker.questionId) ) {
-                                _this.detectAndSetMarkerIcon(marker);
-                            }
-                        });
-                    }
 
                     _this.setPosition(position);
                 }, true, function(error) {
@@ -453,74 +345,6 @@
                 });
 
                 this.getPositionOfPlayersWhoPlayMyGame();
-            },
-            initActiveFlashExercise() {
-                this.getActiveFlashExercise();
-            },
-            getActiveFlashExercise() {
-                this.$http.get('/api/games/' + this.game.id + '/get-active-flash-exercise').then(response => {
-                    if (typeof response.body.id !== 'undefined') {
-                        $('#user-flash-exercise-control-item').removeClass('hidden');
-                        if (this.activeFlashExerciseId === null) {
-                            this.activeFlashExerciseId = parseInt(response.body.id);
-                            this.showNotification(
-                                this.$t('new-flash-exercise-title'),
-                                this.$t('new-flash-exercise-message')
-                            )
-                        }
-                    } else {
-                        if (this.activeFlashExerciseId !== null) {
-                            this.activeFlashExerciseId = null;
-                            $('#user-flash-exercise-control-item').addClass('hidden');
-                            this.$refs.questionModal.closeQuestion(
-                                this.$t('flash-exercise-has-been-deactivated')
-                            );
-                        }
-                    }
-                    setTimeout(() => {
-                        this.getActiveFlashExercise();
-                    }, 5000);
-                }, error => {
-
-                });
-            },
-            getGameData() {
-                this.$http.get('/api/games/' + this.game.id + '/get-game-data').then(response => {
-                    if (typeof response.body !== 'undefined') {
-                        let data = response.body;
-                        this.showHideFlashExercises(data.flash_exercise);
-                        this.showHideGameIsStopped(data.start_stop);
-                    }
-                    setTimeout(() => {
-                        this.getGameData();
-                    }, 5000);
-                });
-            },
-            showHideFlashExercises(data) {
-                if (typeof data.id !== 'undefined') {
-                    $('#user-flash-exercise-control-item').removeClass('hidden');
-                    if (this.activeFlashExerciseId === null) {
-                        this.activeFlashExerciseId = parseInt(data.id);
-                        this.showNotification(
-                            this.$t('new-flash-exercise-title'),
-                            this.$t('new-flash-exercise-message')
-                        )
-                    }
-                } else {
-                    if (this.activeFlashExerciseId !== null) {
-                        this.activeFlashExerciseId = null;
-                        $('#user-flash-exercise-control-item').addClass('hidden');
-                        this.$refs.questionModal.closeQuestion(
-                            this.$t('flash-exercise-has-been-deactivated')
-                        );
-                    }
-                }
-            },
-            showHideGameIsStopped(data) {
-                if ((typeof data.started !== 'undefined' && data.started === 1) === false) {
-                    this.$parent.checkUnload = false;
-                    window.location.href = '/games/' + this.game.id + '/stopped'
-                }
             },
             showNotification(title, message) {
                 this.$refs.notificationModal.close();
@@ -541,16 +365,29 @@
                     if (items === 'false') {
                         return ;
                     }
+                    let itemsLength = items.length;
                     let markers = _this.mapData.markers;
                     let markersLength = markers.length;
                     for (let i=0; i<markersLength; i++) {
                         if (typeof markers[i].isUser !== 'undefined') {
                             markers[i].setMap(null);
+                        } else {
+                            markers[i].users = [];
+                            for (let k=0; k<itemsLength; k++) {
+                                let item = items[k];
+                                let completedTasks = item.completed_tasks;
+                                let completedTasksLength = completedTasks.length;
+                                for (let j=0; j<completedTasksLength; j++) {
+                                    let completedTask = completedTasks[j];
+                                    if (completedTask.id === markers[i].questionId) {
+                                        markers[i].users.push(item);
+                                    }
+                                }
+                            }
                         }
                     }
 
                     let map = _this.mapData.map;
-                    let itemsLength = items.length;
                     for (let i=0; i<itemsLength; i++) {
                         let item = items[i];
                         let marker = new google.maps.Marker({
@@ -574,7 +411,7 @@
                         };
                         marker.setIcon(circle);
                         marker.addListener('click', function() {
-                            _this.openNewInfoModal(item);
+                            _this.openNewPlayerInfoModal(item);
                         });
                         markers.push(marker);
                     }
@@ -628,15 +465,18 @@
 
                 return true;
             },
-            openNewInfoModal(data) {
+            openNewPlayerInfoModal(data) {
                 this.currentPlayerName = data.name;
                 this.currentPlayerCompletedTasks = data.completed_tasks;
                 this.$refs.playerInfoModal.open();
             },
+            openNewTaskInfoModal(data) {
+                this.currentTaskName = data.name;
+                this.currentTaskCompletedPlayers = data.users;
+                this.$refs.taskInfoModal.open();
+            },
             initPlayerMarker() {
                 var circle,
-                    playerMarker,
-                    activeDistanceCircle,
                     _this = this,
                     map = this.mapData.map,
                     infoWindow = this.mapData.infoWindow;
@@ -666,19 +506,6 @@
                     infoWindow.open(map, this);
                 });
 
-                if ( this.hasProximityCheck() ) {
-                    var activeDistanceCircle = new google.maps.Circle({
-                        map: map,
-                        radius: this.getProximityRadius(),
-                        fillColor: 'blue',
-                        fillOpacity: 0.25,
-                        strokeColor: 'blue',
-                        strokeWeight: 1,
-                        strokeOpacity: 0.5
-                    });
-                    activeDistanceCircle.bindTo('center', playerMarker, 'position');
-                }
-
                 google.maps.event.trigger(playerMarker, 'click');
 
                 this.mapData.playerMarker = playerMarker;
@@ -700,56 +527,6 @@
             },
             hasAccessCode(question) {
                 return !!( question && question.access_code );
-            },
-            markAnswered(id, answer) {
-                this.$set(this.game.answers, id, answer);
-
-                // TODO Might make sense to raise an error if marker can not be found
-                var marker = _.find(this.mapData.markers, function(marker) { return marker.questionId === id; });
-
-                if ( marker ) {
-                    this.detectAndSetMarkerIcon(marker);
-                }
-
-                var answerIds = _.keys(this.game.answers).map(id => {
-                    return _.toNumber(id);
-                });
-                var questionIds = _.map(this.game.activity.questions, question => {
-                    return question.id;
-                });
-
-                this.initUpdateClosestUnansweredMarkerArrow();
-
-                if ( _.intersection(questionIds, answerIds).length === questionIds.length && answer.is_answered) {
-                    this.game.complete = true;
-                }
-            },
-            connectMarkers() {
-                var map = this.mapData.map,
-                    markers = this.mapData.markers;
-
-                if ( markers.length > 1 ) {
-                    _.each(markers, (marker, index) => {
-                        if ( index === 0 ) {
-                            return;
-                        }
-
-                        var line = new google.maps.Polyline({
-                            path: [
-                                markers[index-1].getPosition(),
-                                markers[index].getPosition()
-                            ],
-                            strokeWeight: 2,
-                            strokeOpacity: 0.5,
-                            icons: [{
-                                icon: {path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW},
-                                offset: '100%'
-                            }],
-                            geodesic: true,
-                            map: map
-                        });
-                    });
-                }
             },
             hasProximityCheck() {
                 return this.game.activity.proximity_check;
@@ -781,58 +558,7 @@
                 }
                 return false;
             },
-            openAnsweringTimeIsUpModal(message) {
-                this.$nextTick(() => {
-                    this.$refs.answeringTimeIsUpModal.open(message);
-                });
-            },
-            openQuestionModal(question, answer) {
-                if (!!question.answering_time_check &&
-                    this.isAnswering(question.id) === false &&
-                    this.isAnswered(question.id) === false) {
-                    this.openAnsweringTimeModal(question);
-                } else {
-                    this.question = question;
-                    this.answer = answer ? answer : null;
-                    this.$nextTick(() => {
-                        this.$refs.questionModal.open();
-                    });
-                }
-            },
-            openAccessCodeModal(question) {
-                this.question = question;
-                this.answer = null;
-                this.$nextTick(() => {
-                    this.$refs.accessCodeModal.open();
-                });
-            },
             detectMarkerIconState(marker) {
-                // TODO Check if we should fail in case question could not be found
-                const question = this.findQuestionById(marker.questionId);
-                const distance = google.maps.geometry.spherical.computeDistanceBetween(
-                    this.mapData.playerMarker.getPosition(),
-                    marker.getPosition()
-                );
-
-                if ( question && this.isAnswered(question.id) ) {
-                    return this.isCorrect(question.id) ? 'correct' : 'incorrect';
-                } else if (this.getEnforceItemsOrder() > 0) {
-                    let nextMarkers = this.getNextUnansweredMarkers();
-                    if (nextMarkers.length > 0) {
-                        for (let nextMarkerIndex in nextMarkers) {
-                            let nextMarker = nextMarkers[nextMarkerIndex];
-                            if (marker.questionId === nextMarker.questionId) {
-                                return 'active';
-                            }
-                        }
-                        return 'inactive';
-                    } else {
-                        return 'inactive';
-                    }
-                } else if ( this.hasProximityCheck() && distance > this.getProximityRadius()) {
-                    return 'inactive';
-                }
-
                 return 'active';
             },
             detectAndSetMarkerIcon(marker) {
@@ -840,10 +566,7 @@
                     return false;
                 }
                 const state = this.detectMarkerIconState(marker);
-                let hasAccessCode = marker.hasAccessCode;
-                if (this.getEnforceItemsOrder() > 0) {
-                    hasAccessCode = false;
-                }
+                let hasAccessCode = true;
 
                 marker.setIcon({
                     anchor: this.mapData.iconAnchor,
@@ -880,156 +603,32 @@
 
                 return _.size(answered);
             },
-            getUnansweredMarkers() {
-                let vm = this;
-                return _.filter(this.mapData.markers, marker => {
-                    return typeof marker.isUser === 'undefined' && !vm.isAnswered(marker.questionId);
-                });
-            },
-            getClosestUnansweredMarker() {
-                let vm = this,
-                    unansweredMarkers = vm.getUnansweredMarkers(),
-                    playerMarker = this.mapData.playerMarker;
-
-                if ( unansweredMarkers.length > 0 ) {
-                    return _.minBy(unansweredMarkers, marker => {
-                        return google.maps.geometry.spherical.computeDistanceBetween(playerMarker.getPosition(), marker.getPosition());
-                    });
-                }
-
-                return null;
-            },
-            getNextUnansweredMarker() {
-                let vm = this,
-                    unansweredMarkers = vm.getUnansweredMarkers(),
-                    playerMarker = this.mapData.playerMarker;
-
-                if ( unansweredMarkers.length > 0 ) {
-                    return _.minBy(unansweredMarkers, marker => {
-                        let question = vm.findQuestionById(marker.questionId);
-                        if (question) {
-                            let position = parseInt(question.position);
-                            let distance = google.maps.geometry.spherical.computeDistanceBetween(
-                                playerMarker.getPosition(),
-                                marker.getPosition()
-                            );
-                            return parseFloat(position + '.' + distance);
-                        }
-                        return 10000;
-                    });
-                }
-
-                return null;
-            },
-            getNextUnansweredMarkers() {
-                let vm = this,
-                    unansweredMarkers = vm.getUnansweredMarkers(),
-                    markers = [];
-                if ( unansweredMarkers.length > 0 ) {
-                    let nextMarker = this.getNextUnansweredMarker();
-                    if (nextMarker && nextMarker.questionId) {
-                        let nextQuestionId = nextMarker.questionId;
-                        let nextQuestion = this.findQuestionById(nextQuestionId);
-                        if (typeof nextQuestion !== 'undefined') {
-                            let nextPosition = nextQuestion.position;
-                            _.each(unansweredMarkers, marker => {
-                                let question = vm.findQuestionById(marker.questionId);
-                                if (question && question.position === nextPosition) {
-                                    markers.push(marker);
-                                }
-                            });
-                        }
-                    }
-                }
-
-                return markers;
-            },
-            initUpdateClosestUnansweredMarkerArrow() {
-                let vm = this;
-                let marker = null;
-                if(vm.getEnforceItemsOrder() > 0) {
-                    marker = vm.getNextUnansweredMarker();
-                } else {
-                    marker = vm.getClosestUnansweredMarker();
-                }
-
-                if ( !marker ) {
-                    if ( vm.mapData.closestUnansweredMarkerArrow ) {
-                        vm.mapData.closestUnansweredMarkerArrow.setMap(null);
-                    }
-                    return;
-                }
-
-                if ( !vm.mapData.closestUnansweredMarkerArrow ) {
-                    vm.mapData.closestUnansweredMarkerArrow = new google.maps.Polyline({
-                        path: [
-                            vm.mapData.playerMarker.getPosition(),
-                            marker.getPosition()
-                        ],
-                        strokeColor: 'red',
-                        strokeWeight: 2,
-                        strokeOpacity: 0.4,
-                        icons: [{
-                            icon: {
-                                path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
-                                fillColor: 'red',
-                                strokeColor: 'red',
-                                fillOpacity: 0.8,
-                                strokeOpacity: 0.8,
-                                scale: 4
-                            },
-                            offset: '50px',
-                        }],
-                        geodesic: true,
-                        map: vm.mapData.map,
-                        zIndex: 2
-                    });
-                } else {
-                    vm.mapData.closestUnansweredMarkerArrow.setPath([
-                        vm.mapData.playerMarker.getPosition(),
-                        marker.getPosition()
-                    ]);
-                }
-
-                this.detectAndSetMarkerIcon(marker);
-            },
             setPosition(position) {
                 this.position = position;
             },
             getPosition() {
                 return this.position;
             },
-            openImageDialog(id, answer) {
-                const question = this.findQuestionById(id);
-                let dialog;
-
-                // TODO Consider creating a mixin that would have methods to
-                // determine question types
-                if ( question.type === 2 || question.type === 3 || question.type === 8 ) {
-                    if ( answer.correct === true ) {
-                        dialog = this.$refs.correctImageDialog;
-                    } else {
-                        dialog = this.$refs.incorrectImageDialog;
-                    }
-                } else {
-                    dialog = this.$refs.submittedImageDialog;
-                }
-
-                dialog.open();
-                dialog.$once('hidden:image:dialog', () => {
-                    this.markAnswered(id, answer);
-                });
-            },
             resetPlayerInfoModal() {
                 this.currentPlayerCompletedTasks = [];
                 this.currentPlayerName = null;
+            },
+            resetTaskInfoModal()
+            {
+                this.currentTaskCompletedPlayers = [];
+                this.currentTaskName = null;
             }
         }
     }
 </script>
 <style>
-    .grading-control-item {
+    .btn.grading-control-item {
         position: relative;
+        color: #000;
+        padding: 6px 2px;
+    }
+    .btn.mdi-flash {
+        padding: 6px 2px;
     }
     .grading-control-item .badge {
         position: absolute;
