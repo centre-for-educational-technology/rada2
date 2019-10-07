@@ -136,7 +136,7 @@
         // ------------- FLASH EXERCISE ---------------------
 
         const flashExerciseAdminControlItem = document.createElement('i');
-        flashExerciseAdminControlItem.className = 'btn mdi mdi-flash hidden';
+        flashExerciseAdminControlItem.className = 'mdi mdi-flash hidden';
         flashExerciseAdminControlItem.id = 'admin-flash-exercises-control-item';
         adminControls.appendChild(flashExerciseAdminControlItem);
 
@@ -144,10 +144,16 @@
             vm.openFlashExercisesListModal();
         });
 
+        // ------------- MESSAGING --------------------------
+
+        const messagingControlItem = document.createElement('i');
+        messagingControlItem.className = 'mdi mdi-message-text-outline';
+        adminControls.appendChild(messagingControlItem);
+
         // ------------- GRADING ----------------------------
 
         const gradingControlItem = document.createElement('i');
-        gradingControlItem.className = 'btn mdi mdi-owl grading-control-item hidden';
+        gradingControlItem.className = 'mdi mdi-owl grading-control-item hidden';
         const gradingControlItemBadge = document.createElement('span');
         gradingControlItemBadge.className = 'badge badge-light';
         gradingControlItemBadge.innerText = '0';
@@ -168,7 +174,7 @@
                     } else {
                         gradingControlItemBadge.className = 'badge badge-light hidden';
                     }
-                    gradingControlItem.className = 'btn mdi mdi-owl grading-control-item';
+                    gradingControlItem.className = 'mdi mdi-owl grading-control-item';
                     setTimeout(() => {
                         getCountOfUngradedAnswers();
                     }, 10000);
@@ -179,6 +185,34 @@
             });
         }
         getCountOfUngradedAnswers();
+
+        // -------------- STATISTICS --------------------------
+
+        const statisticsControlItem = document.createElement('i');
+        statisticsControlItem.className = 'mdi mdi-chart-line';
+        adminControls.appendChild(statisticsControlItem);
+
+        // -------------- START STOP --------------------------
+
+        const startStopControlItem = document.createElement('i');
+        if (vm.game.activity.started === 1) {
+            startStopControlItem.className = 'mdi mdi-stop-circle-outline start-stop';
+        } else {
+            startStopControlItem.className = 'mdi mdi-play-circle-outline start-stop';
+        }
+        adminControls.appendChild(startStopControlItem);
+
+        startStopControlItem.addEventListener('click', function () {
+            let start = vm.game.activity.started === 1 ? 0 : 1;
+            vm.$http.get('/api/games/' + vm.game.id + '/start-stop-game?start=' + start).then(response => {
+                vm.game.activity.started = start;
+                if (vm.game.activity.started === 1) {
+                    startStopControlItem.className = 'mdi mdi-stop-circle-outline start-stop';
+                } else {
+                    startStopControlItem.className = 'mdi mdi-play-circle-outline start-stop';
+                }
+            });
+        });
     }
 
     var enableStreetView = window.RADA.config.map.enableStreetView || false;
@@ -622,13 +656,21 @@
     }
 </script>
 <style>
-    .btn.grading-control-item {
+    .grading-control-item {
         position: relative;
         color: #000;
-        padding: 6px 2px;
     }
-    .btn.mdi-flash {
-        padding: 6px 2px;
+    .admin-controls .mdi {
+        padding: 12px 5px;
+        position: relative;
+        display: inline-block;
+        line-height: 36px;
+        height: 36px;
+        color: #000;
+        cursor: pointer;
+    }
+    .admin-controls .mdi::before {
+        font-size: 30px;
     }
     .grading-control-item .badge {
         position: absolute;
@@ -645,10 +687,13 @@
         background-color: #fff;
         border: 2px solid #fff;
     }
-    .btn.mdi-flash {
-        color: #000;
-    }
-    .btn.mdi-flash:hover {
+    .admin-controls .mdi-flash:hover {
         color: #FF9800;
+    }
+    .admin-controls .start-stop.mdi-play-circle-outline {
+        color: green;
+    }
+    .admin-controls .start-stop.mdi-stop-circle-outline {
+        color: red;
     }
 </style>

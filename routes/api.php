@@ -29,6 +29,7 @@ Route::group(['prefix' => 'games'], static function ()
     Route::post('{game}/start-stop-flash-exercise', 'GameController@startStopFlashExercise');
     Route::get('{game}/get-active-flash-exercise', 'GameController@getActiveFlashExercise');
     Route::get('{game}/get-game-data', 'GameController@getGameData');
+    Route::get('{game}/start-stop-game', 'GameController@startStopGame');
 });
 
 Route::group(['prefix' => 'tasks'], static function () {

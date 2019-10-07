@@ -51,7 +51,8 @@ class GameController extends Controller
             'getCountOfUngradedAnswers',
             'startStopFlashExercise',
             'getActiveFlashExercise',
-            'getGameData'
+            'getGameData',
+            'startStopGame'
         ]]);
     }
 
@@ -588,5 +589,17 @@ class GameController extends Controller
             'game_data' => $game->getGameData(),
             'exit_url' => $exitUrl,
         ]);
+    }
+
+    public function startStopGame(Request $request, Game $game)
+    {
+        /** @var Activity $activity */
+        $activity = $game->activity;
+        if ($activity) {
+            $activity->started = $request->query->get('start');
+            $activity->save();
+        }
+
+        return response()->json([]);
     }
 }
