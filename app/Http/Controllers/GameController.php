@@ -51,7 +51,8 @@ class GameController extends Controller
             'getCountOfUngradedAnswers',
             'startStopFlashExercise',
             'getActiveFlashExercise',
-            'getGameData'
+            'getGameData',
+            'startStopGame'
         ]]);
     }
 
@@ -286,7 +287,7 @@ class GameController extends Controller
                 /** @var User $player */
                 $player = User::find($_game->user_id);
                 $positions = PlayerPosition::where('game_id', $_game->id)
-                    ->where('created_at', '>', $tenMinutesAgo)
+//                    ->where('created_at', '>', $tenMinutesAgo)
                     ->orderBy('created_at', 'DESC')
                     ->take(1)
                     ->get();
@@ -458,7 +459,7 @@ class GameController extends Controller
                 ->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
                 ->leftJoin('activity_activity_item', 'activity_activity_item.activity_item_id', '=', 'activity_items.id')
                 ->where('activity_activity_item.activity_id', '=', $game->activity_id)
-                ->where('games.activity_id', '=', 'activity_activity_item.activity_id')
+                ->where('games.activity_id', '=', $game->activity_id)
                 ->whereNull('game_answers.grade')
                 ->where('game_answers.is_answered', '=', 1)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
@@ -588,5 +589,17 @@ class GameController extends Controller
             'game_data' => $game->getGameData(),
             'exit_url' => $exitUrl,
         ]);
+    }
+
+    public function startStopGame(Request $request, Game $game)
+    {
+        /** @var Activity $activity */
+        $activity = $game->activity;
+        if ($activity) {
+            $activity->started = $request->query->get('start');
+            $activity->save();
+        }
+
+        return response()->json([]);
     }
 }

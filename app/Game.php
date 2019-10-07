@@ -144,7 +144,8 @@ class Game extends Model
             'proximity_check' => (bool)$activity->proximity_check,
             'proximity_radius' => $activity->proximity_radius ? $activity->proximity_radius : (int)config('services.maps.allowed_distance'),
             'questions' => [],
-            'enforce_items_order' => (int) $activity->enforce_items_order > 0 ? 1 : 0
+            'enforce_items_order' => (int) $activity->enforce_items_order > 0 ? 1 : 0,
+            'started' => $activity->started
         ];
 
         if ( $activity->activityItems ) {
