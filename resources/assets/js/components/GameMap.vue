@@ -22,11 +22,6 @@
                 v-bind:question="question"
                 ref="answeringTimeIsUpModal">
         </game-answering-time-is-up-modal>
-        <flash-exercises-list-modal
-                v-bind:questions="flashExercises"
-                v-bind:game_id="game.id"
-                ref="flashExercisesListModal"
-        ></flash-exercises-list-modal>
         <game-access-code-modal v-bind:question="question" ref="accessCodeModal"></game-access-code-modal>
         <notification-modal
                 v-bind:title="notificationTitle"
@@ -118,40 +113,6 @@
             }
         });
 
-        const gradingControlItem = document.createElement('i');
-        gradingControlItem.className = 'mdi mdi-owl grading-control-item hidden';
-        const gradingControlItemBadge = document.createElement('span');
-        gradingControlItemBadge.className = 'badge badge-light';
-        gradingControlItemBadge.innerText = '0';
-        gradingControlItem.appendChild(gradingControlItemBadge);
-        controlUI.appendChild(gradingControlItem);
-
-        gradingControlItem.addEventListener('click', function() {
-            window.open('/grading/', '_blank');
-        });
-
-        function getCountOfUngradedAnswers() {
-            vm.$http.get('/api/games/' + vm.game.id + '/get-count-of-ungraded-answers').then(response => {
-                gradingControlItemBadge.innerText = response.body.count;
-
-                if (response.body.count !== null) {
-                    if (response.body.count > 0) {
-                        gradingControlItemBadge.className = 'badge badge-light';
-                    } else {
-                        gradingControlItemBadge.className = 'badge badge-light hidden';
-                    }
-                    gradingControlItem.className = 'mdi mdi-owl grading-control-item';
-                    setTimeout(() => {
-                        getCountOfUngradedAnswers();
-                    }, 10000);
-                }
-            }, error => {
-                gradingControlItemBadge.innerText = '0';
-                gradingControlItemBadge.className = 'badge badge-light hidden';
-            });
-        }
-        getCountOfUngradedAnswers();
-
         const informationControlItem = document.createElement('i');
         informationControlItem.className = 'mdi mdi-information-outline';
         informationControlItem.title = vm.$t('info');
@@ -214,22 +175,6 @@
 
             map.setMapTypeId(mapTypeIds[nextIndex]);
         });
-
-        const player = vm.game.player;
-        if (player.is_admin || player.is_instructor) {
-            const adminControls = document.createElement('div');
-            adminControls.className = 'admin-controls';
-            controlDiv.appendChild(adminControls);
-
-            const flashExerciseAdminControlItem = document.createElement('i');
-            flashExerciseAdminControlItem.className = 'btn mdi mdi-flash hidden';
-            flashExerciseAdminControlItem.id = 'admin-flash-exercises-control-item';
-            adminControls.appendChild(flashExerciseAdminControlItem);
-
-            flashExerciseAdminControlItem.addEventListener('click', function () {
-                vm.openFlashExercisesListModal();
-            });
-        }
     }
 
     var connectMarkers =  window.RADA.config.connect_markers || false;
@@ -244,7 +189,6 @@
             'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue'),
-            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue'),
             'notification-modal': require('./NotificationModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
@@ -445,7 +389,6 @@
                 });
 
                 this.initPlayerPositionLogging();
-                this.getPositionOfPlayersWhoPlayMyGame();
             },
             initActiveFlashExercise() {
                 this.getActiveFlashExercise();
@@ -520,65 +463,6 @@
                 this.notificationTitle = title;
                 this.notificationMessage = message;
                 this.$refs.notificationModal.open();
-            },
-            openFlashExercisesListModal() {
-                this.$refs.flashExercisesListModal.open();
-            },
-            getPositionOfPlayersWhoPlayMyGame() {
-                let _this = this;
-                let data = {
-                    game_id: this.game.id
-                };
-                this.$http.post(_this.baseUrl + '/api/games/get-position-of-players-who-play-my-game', data).then(response => {
-                    let items = response.body;
-                    if (items === 'false') {
-                        return ;
-                    }
-                    let markers = _this.mapData.markers;
-                    let infoWindow = _this.mapData.infoWindow;
-                    let markersLength = markers.length;
-                    for (let i=0; i<markersLength; i++) {
-                        if (typeof markers[i].isUser !== 'undefined') {
-                            markers[i].setMap(null);
-                        }
-                    }
-
-                    let map = _this.mapData.map;
-                    let itemsLength = items.length;
-                    for (let i=0; i<itemsLength; i++) {
-                        let item = items[i];
-                        let marker = new google.maps.Marker({
-                            title: item.name,
-                            position: {
-                                lat: Number(item.lat),
-                                lng: Number(item.lng)
-                            },
-                            map: map,
-                            // animation: google.maps.Animation.DROP,
-                            optimized: false,
-                            isUser: true
-                        });
-                        let circle = {
-                            path: google.maps.SymbolPath.CIRCLE,
-                            fillColor: item.status === 'active' ? 'orange' : 'gray',
-                            fillOpacity: 1.0,
-                            scale: 4.5,
-                            strokeColor: 'orange',
-                            strokeWeight: 1
-                        };
-                        marker.setIcon(circle);
-                        marker.addListener('click', function() {
-                            _this.openNewInfoWindow(infoWindow, marker, map);
-                        });
-                        markers.push(marker);
-                    }
-
-                    setTimeout(() => {
-                        _this.getPositionOfPlayersWhoPlayMyGame();
-                    }, 60000);
-                }, response => {
-                    console.log(response.body);
-                });
             },
             initGroundOverlays() {
                 this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay(this.baseUrl + '/img/map/overlays/skansen.png',{
