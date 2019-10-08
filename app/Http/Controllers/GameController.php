@@ -224,13 +224,47 @@ class GameController extends Controller
         }
         $raw = $answer->grade ?? 0;
         $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
-        $result = new StatementData\Result('', '', new StatementData\Score(0, (int) $max, (int) $raw, $scaled));
+        $result = new StatementData\Result(true, $answer->correct, new StatementData\Score(0, (int) $max, (int) $raw, $scaled));
         $statementData = new StatementData($actor, $verb, $object, null, $context, $result);
         $lrsService = new LrsService();
         try {
             $lrsService->sendToLrs($statementData->getData());
         } catch (Exception $exception) {
             // error
+        }
+
+        if ($game->complete === true) {
+            $verb = new StatementData\Verb(StatementData\Verb::TYPE_COMPLETED);
+            $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
+                'game' => $game->id
+            ]), $activity->title);
+            $max = 0;
+            /** @var ActivityItem $_item */
+            foreach ($activity->activityItems()->getResults() as $_item) {
+                $points = $_item->points !== null ? json_decode($_item->points) : 0;
+                if (is_array($points)) {
+                    $max += (int) array_sum($points);
+                } else {
+                    $max += (int) $points;
+                }
+            }
+            $raw = 0;
+            $success = true;
+            /** @var GameAnswer $_answer */
+            foreach($game->answers()->getResults() as $_answer) {
+                if (!$_answer->correct) {
+                    $success = false;
+                }
+                $raw += (int) ($_answer->grade ?? 0);
+            }
+            $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
+            $result = new StatementData\Result(true, $success, new StatementData\Score(0, $max, $raw, $scaled));
+            $statementData = new StatementData($actor, $verb, $object, null, null, $result);
+            try {
+                $lrsService->sendToLrs($statementData->getData());
+            } catch (Exception $exception) {
+                // error
+            }
         }
 
         return $answer->getGameData();
