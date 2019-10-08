@@ -3,11 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\ActivityInstructor;
+use App\HT2Labs\XApi\LrsService;
+use App\HT2Labs\XApi\StatementData;
 use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
 use App\User;
 use App\Utils\RandomStringGenerator;
 use App\Utils\RandomUniqueNumberGenerator;
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -128,7 +131,7 @@ class ActivityController extends Controller
             try {
                 $dateObject = Carbon::parse($request->get($parameterName));
             }
-            catch (\Exception $e)
+            catch (Exception $e)
             {
                 // Parsing failed, nothing to be done
             }
@@ -917,6 +920,23 @@ class ActivityController extends Controller
         } else {
             sleep(2);
             $response['error'] = trans('general.messages.error.invalid-pin-code');
+        }
+
+
+        if (isset($response['url'])) {
+            $name = $game->getUserName();
+            $email = $game->getUserEmail();
+            $role = $game->getUserRole();
+            $actor = new StatementData\Actor($name, $email, $role);
+            $verb = new StatementData\Verb(StatementData\Verb::TYPE_STARTED);
+            $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_UUID, $game->id, $game->activity()->first()->title);
+            $statementData = new StatementData($actor, $verb, $object);
+            $lrsService = new LrsService();
+            try {
+                $lrsService->sendToLrs($statementData->getData());
+            } catch (Exception $exception) {
+                // error
+            }
         }
 
         return $response;

@@ -254,4 +254,27 @@ class Game extends Model
 
         return false;
     }
+
+    public function getUserName()
+    {
+        if ($this->user_id) {
+            return $this->user->name;
+        }
+
+        return $this->nickname;
+    }
+
+    public function getUserEmail()
+    {
+        if ($this->user_id) {
+            return $this->user->email;
+        }
+
+        return '';
+    }
+
+    public function getUserRole()
+    {
+        return Auth::check() && auth()->user()->isAdmin() ? 'admin' : 'user';
+    }
 }
