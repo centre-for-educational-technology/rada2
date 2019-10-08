@@ -10,7 +10,7 @@ class Score
     public $max;
     /** @var integer $raw */
     public $raw;
-    /** @var integer $scaled */
+    /** @var float $scaled */
     public $scaled;
 
     /**
@@ -18,9 +18,9 @@ class Score
      * @param int $min
      * @param int $max
      * @param int $raw
-     * @param int $scaled
+     * @param float $scaled
      */
-    public function __construct(int $min, int $max, int $raw, int $scaled)
+    public function __construct(int $min, int $max, int $raw, float $scaled)
     {
         $this->min = $min;
         $this->max = $max;

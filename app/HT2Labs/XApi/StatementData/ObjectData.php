@@ -6,6 +6,7 @@ class ObjectData
 {
 
     public const TYPE_UUID = 'StatementRef';
+    public const TYPE_ACTIVITY = 'Activity';
 
     /** @var string $id */
     public $id;

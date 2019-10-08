@@ -929,7 +929,9 @@ class ActivityController extends Controller
             $role = $game->getUserRole();
             $actor = new StatementData\Actor($name, $email, $role);
             $verb = new StatementData\Verb(StatementData\Verb::TYPE_STARTED);
-            $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_UUID, $game->id, $game->activity()->first()->title);
+            $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
+                'game' => $game->id
+            ]), $game->activity()->first()->title);
             $statementData = new StatementData($actor, $verb, $object);
             $lrsService = new LrsService();
             try {

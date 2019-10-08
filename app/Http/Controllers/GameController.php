@@ -5,8 +5,11 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\ActivityFlashExercise;
 use App\ActivityInstructor;
+use App\HT2Labs\XApi\LrsService;
+use App\HT2Labs\XApi\StatementData;
 use App\Options\QuestionTypeOptions;
 use App\User;
+use Exception;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
@@ -201,6 +204,33 @@ class GameController extends Controller
         if ( count($unansweredItemIds) === 0 ) {
             $game->complete = true;
             $game->save();
+        }
+
+        $name = $game->getUserName();
+        $email = $game->getUserEmail();
+        $role = $game->getUserRole();
+        $actor = new StatementData\Actor($name, $email, $role);
+        $verb = new StatementData\Verb(StatementData\Verb::TYPE_ANSWERED);
+        $activity = $game->activity()->first();
+        $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url(route('activity.show', [
+            'activity' => $activity->id
+        ])), $activity->title);
+        $context = new StatementData\Context(url(route('game.play', [
+            'game' => $game->id
+        ])));
+        $max = $item->points !== null ? json_decode($item->points) : 0;
+        if (is_array($max)) {
+            $max = array_sum($max);
+        }
+        $raw = $answer->grade ?? 0;
+        $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
+        $result = new StatementData\Result('', '', new StatementData\Score(0, (int) $max, (int) $raw, $scaled));
+        $statementData = new StatementData($actor, $verb, $object, null, $context, $result);
+        $lrsService = new LrsService();
+        try {
+            $lrsService->sendToLrs($statementData->getData());
+        } catch (Exception $exception) {
+            // error
         }
 
         return $answer->getGameData();

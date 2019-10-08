@@ -12,14 +12,16 @@ class Context
      * @param string $id
      * @param string $url
      */
-    public function __construct(string $id, string $url)
+    public function __construct(string $id, string $url = null)
     {
         $this->contextActivities = [
             'parent' => [
-                'id' => $id,
-                'url' => $url
+                'id' => $id
             ]
         ];
+        if ($url !== null) {
+            $this->contextActivities['parent']['url'] = $url;
+        }
     }
 
     /**
