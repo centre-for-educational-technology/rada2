@@ -119,7 +119,8 @@ class StatisticsController extends Controller
                `ai`.`points` AS `H`,
                `ga`.`grade` AS `I`,
                CONCAT( `ai`.`latitude`, \', \', `ai`.`longitude` ) AS `J`,
-               `ga`.`created_at` AS `K`
+               `ga`.`created_at` AS `K`,
+               `ai`.`missing_word`
           FROM `game_answers` AS `ga`
           JOIN `activity_items` AS `ai` ON `ai`.`id` = `ga`.`activity_item_id`
           JOIN `games` AS `g` ON `g`.`id` = `ga`.`game_id`
@@ -129,9 +130,15 @@ class StatisticsController extends Controller
 
         foreach ($results as $index => $row) {
             foreach ($row as $key => $value) {
+                if ($key === 'missing_word') {
+                    continue;
+                }
                 switch ($key) {
                     case 'C':
                         $value = $questionTypeOptionsArray[$value];
+                        break;
+                    case 'D':
+                        $value = ((int) $row->C === 8 && $row->missing_word !== ((json_decode($row->E, true))['text'] ?? '')) ? 1 : $value;
                         break;
                     case 'E':
                         $data = json_decode($value, true);
