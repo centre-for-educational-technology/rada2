@@ -112,7 +112,7 @@ class StatisticsController extends Controller
         SELECT IF( `u`.`id` IS NOT NULL,  `u`.`name`, `g`.`nickname` ) AS `A`,
                `ai`.`title` AS `B`,
                `ai`.`type` AS `C`,
-               IF( `ai`.`points` IS NULL OR `ai`.`points` = 0 OR `ai`.`type` = 4 OR `ai`.`type` = 6 OR `ai`.`type` = 7, 1, 0 ) AS `D`,
+               IF( `ai`.`points` IS NULL OR `ai`.`type` = 4 OR `ai`.`type` = 6 OR `ai`.`type` = 7, 1, 0 ) AS `D`,
                `ga`.`answer` AS `E`,
                `ai`.`is_flash` AS `F`,
                IF( `ai`.`answering_time` > 0, 1, 0 ) AS `G`,
@@ -138,7 +138,13 @@ class StatisticsController extends Controller
                         $value = $questionTypeOptionsArray[$value];
                         break;
                     case 'D':
-                        $value = ((int) $row->C === 8 && $row->missing_word !== ((json_decode($row->E, true))['text'] ?? '')) ? 1 : $value;
+                        $data = json_decode($row->E, true);
+                        $text = $data['text'] ?? false;
+                        if ((int) $row->C === 8) {
+                            $value = $row->missing_word !== $text ? 1 : $value;
+                        } else if ((int) $row->C !== 1 && $row->H === '0') {
+                            $value = 1;
+                        }
                         break;
                     case 'E':
                         $data = json_decode($value, true);
