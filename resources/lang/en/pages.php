@@ -32,6 +32,9 @@ return [
         'index' => [
             'heading' => 'Games',
             'none-found' => 'No Games could be found.',
+            'promoted' => 'Open Games',
+            'my_games' => 'My Games',
+            'templates' => 'Templates'
         ],
         'create-or-edit' => [
             'keywords' => 'Keywords',

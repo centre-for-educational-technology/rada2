@@ -210,7 +210,25 @@ class ActivityController extends Controller
             $query->where('promoted', 1);
         }
 
-        $activities = $query->paginate( config('paginate.limit') );
+        if ($request->request->has('promoted-index')) {
+            $promotedQuery = clone $query;
+            $activities = $promotedQuery
+                ->where('promoted', 1)
+                ->where('is_template', 0)
+                ->paginate(5);
+            $templates = null;
+        } else {
+            $templatesQuery = clone $query;
+            $templates = $templatesQuery
+                ->where('is_template', 1)
+                ->paginate(5, ['*'], 'page2');
+            $activitiesQuery = clone $query;
+            $activities = $activitiesQuery
+                ->where('is_template', 0)
+                ->where('promoted', 0)
+                ->paginate(5);
+        }
+
 
         if ( $search['search-submitted'] )
         {
@@ -225,11 +243,23 @@ class ActivityController extends Controller
 
         return view('activities/index')->with([
             'activities' => $activities,
+            'templates' => $templates,
             'zooOptions' => $zooOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'search' => $search,
         ]);
+    }
+
+    public function promotedIndex(
+        Request $request,
+        ZooOptions $zooOptions,
+        LanguageOptions $languageOptions,
+        DifficultyLevelOptions $difficultyLevelOptions
+    ) {
+        $request->request->set('promoted-index', true);
+
+        return $this->index($request, $zooOptions, $languageOptions, $difficultyLevelOptions);
     }
 
     /**

@@ -32,6 +32,9 @@ return [
         'index' => [
             'heading' => 'Rajad',
             'none-found' => 'Ühtegi rada ei leitud.',
+            'promoted' => 'Avalikud mängud',
+            'my_games' => 'Minu mängud',
+            'templates' => 'Mallid'
         ],
         'create-or-edit' => [
             'keywords' => 'Märksõnad',

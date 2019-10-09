@@ -16,5 +16,6 @@ return [
     'activity-items' => 'Tasks',
     'badges' => 'Badges',
     'discount_vouchers' => 'Discount Vouchers',
-    'grading' => 'Grading'
+    'grading' => 'Grading',
+    'promoted' => 'Open Games'
 ];
