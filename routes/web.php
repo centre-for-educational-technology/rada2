@@ -52,6 +52,7 @@ Route::group(['prefix' => 'profile'], function() {
 Route::group(['prefix' => 'game'], function()
 {
     Route::get('/', 'ActivityController@index')->name('activity.index');
+    Route::get('/promoted', 'ActivityController@promotedIndex')->name('activity.promoted');
 
     Route::get('create', 'ActivityController@create')->name('activity.create');
     Route::post('/', 'ActivityController@store');
