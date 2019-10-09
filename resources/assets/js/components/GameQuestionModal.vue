@@ -260,7 +260,7 @@
                     vm.inAjaxCall = false;
                     setTimeout(() => {
                         vm.closeQuestion()
-                    }, 200);
+                    }, 2000);
                 });
             },
             open() {
