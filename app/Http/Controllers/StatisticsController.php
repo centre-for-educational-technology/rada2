@@ -112,7 +112,7 @@ class StatisticsController extends Controller
         SELECT IF( `u`.`id` IS NOT NULL,  `u`.`name`, `g`.`nickname` ) AS `A`,
                `ai`.`title` AS `B`,
                `ai`.`type` AS `C`,
-               IF( `ai`.`points` IS NULL OR `ai`.`points` = 0, 0, 1 ) AS `D`,
+               IF( `ai`.`points` IS NULL OR `ai`.`points` = 0 OR `ai`.`type` = 4 OR `ai`.`type` = 6 OR `ai`.`type` = 7, 0, 1 ) AS `D`,
                `ga`.`answer` AS `E`,
                `ai`.`is_flash` AS `F`,
                IF( `ai`.`answering_time` > 0, 1, 0 ) AS `G`,
