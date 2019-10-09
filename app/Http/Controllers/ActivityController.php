@@ -361,6 +361,7 @@ class ActivityController extends Controller
         $activity->keywords = $request->keywords;
         $activity->subject = $request->subject ? $request->subject : '';
         $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
+        $activity->is_template = (bool) $request->is_template;
 
         $this->saveInstructors($request, $activity);
         
@@ -695,6 +696,7 @@ class ActivityController extends Controller
     {
         $newActivity = $this->storeActivity($request, $imageService);
         $newActivity->parent_id = $activity->id;
+        $newActivity->is_template = false;
 
         if ( $request->hasFile('featured_image') === false && $request->remove_featured_image && $newActivity->hasFeaturedImage() )
         {
@@ -722,6 +724,7 @@ class ActivityController extends Controller
         $activity->keywords = $request->keywords ? $request->keywords : '';
         $activity->subject = $request->subject ? $request->subject : '';
         $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
+        $activity->is_template = (bool) $request->is_template;
 
         if ( $request->has('proximity_check') )
         {
