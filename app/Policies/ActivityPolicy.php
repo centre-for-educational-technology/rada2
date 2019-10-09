@@ -94,9 +94,9 @@ class ActivityPolicy
 
     public function startMonitoring(User $user, Activity $activity)
     {
-        return $activity->user_id === $user->id || count(array_filter($activity->getInstructors()->toArray(), static function (ActivityInstructor $instructor) use ($user) {
+        return $activity->user_id === $user->id || $activity->getInstructors()->filter(static function(ActivityInstructor $instructor) use ($user) {
             return $user->id === $instructor->user_id;
-        })) > 0;
+        })->count() > 0;
     }
 
     /**
@@ -212,8 +212,8 @@ class ActivityPolicy
         if ($activity === null) {
             return count(ActivityInstructor::where('user_id', $user->id)->get()) > 0;
         }
-        return count(array_filter($activity->getInstructors()->toArray(), static function (ActivityInstructor $instructor) use ($user) {
+        return $activity->getInstructors()->filter(static function(ActivityInstructor $instructor) use ($user) {
                 return $user->id === $instructor->user_id;
-            })) > 0;
+            })->count() > 0;
     }
 }
