@@ -98,6 +98,7 @@ return [
             'discount-vouchers' => 'Vouchers',
             'blocked-users' => 'Blocked',
             'unverified-users' => 'Unverified',
+            'download-csv' => 'Export playing data',
             'captions' => [
                 'activities-by-zoo' => 'Games by Zoo',
                 'activities-by-language' => 'Games by Language',
