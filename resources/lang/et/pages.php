@@ -98,6 +98,7 @@ return [
             'discount-vouchers' => 'Kupongid',
             'blocked-users' => 'Blokeeritud',
             'unverified-users' => 'Kinnitamata',
+            'download-csv' => 'Eksprodi mänguandmed',
             'captions' => [
                 'activities-by-zoo' => 'Mändug loomaaedade kaupa',
                 'activities-by-language' => 'Mängud keele alusel',

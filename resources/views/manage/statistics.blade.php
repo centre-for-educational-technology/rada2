@@ -11,6 +11,9 @@
 
                 <div class="panel-body">
                     <div>
+                        <a href="{{ route('manage.statistics.export') }}" class="btn btn-primary" target="_blank">
+                            {{ trans('pages.manage.statistics.download-csv') }}
+                        </a>
                         <h2>
                             {{ trans('pages.manage.statistics.users') }}
                             <span class="badge">{{ $users }}</span>
