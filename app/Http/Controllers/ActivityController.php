@@ -929,8 +929,7 @@ class ActivityController extends Controller
         if (isset($response['url'])) {
             $name = $game->getUserName();
             $email = $game->getUserEmail();
-            $role = $game->getUserRole();
-            $actor = new StatementData\Actor($name, $email, $role);
+            $actor = new StatementData\Actor($name, $email);
             $verb = new StatementData\Verb(StatementData\Verb::TYPE_STARTED);
             $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
                 'game' => $game->id

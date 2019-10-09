@@ -15,13 +15,12 @@ class Actor
      * Actor constructor.
      * @param string $name
      * @param string $email
-     * @param string $role
      */
-    public function __construct(string $name, string $email, string $role)
+    public function __construct(string $name, string $email)
     {
         $this->name = $name;
-        $this->mbox = $email;
-        $this->objectType = $role;
+        $this->mbox = 'mailto:' . $email;
+        $this->objectType = 'Agent';
     }
 
     /**

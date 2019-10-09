@@ -208,8 +208,7 @@ class GameController extends Controller
 
         $name = $game->getUserName();
         $email = $game->getUserEmail();
-        $role = $game->getUserRole();
-        $actor = new StatementData\Actor($name, $email, $role);
+        $actor = new StatementData\Actor($name, $email);
         $verb = new StatementData\Verb(StatementData\Verb::TYPE_ANSWERED);
         $activity = $game->activity()->first();
         $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url(route('activity.show', [
