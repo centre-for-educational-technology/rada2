@@ -14,31 +14,35 @@
     @endif
     @if(Auth::check())
         @can('startStop', $activity)
-            @if ($activity->started)
-                <a href="{!! route('activity.mark-stopped', [
-                    'id' => $activity->id
-                ]) !!}"
-                   class="btn btn-danger btn-sm"
-                   title="{{ trans('general.actions.mark-stopped') }}">
-                    <i class="mdi mdi-stop"></i>
-                </a>
-            @else
-                <a href="{!! route('activity.mark-started', [
-                    'id' => $activity->id
-                ]) !!}"
-                   class="btn btn-success btn-sm"
-                   title="{{ trans('general.actions.mark-started') }}">
-                    <i class="mdi mdi-play"></i>
-                </a>
+            @if ($activity->is_template == false)
+                @if ($activity->started)
+                    <a href="{!! route('activity.mark-stopped', [
+                        'id' => $activity->id
+                    ]) !!}"
+                       class="btn btn-danger btn-sm"
+                       title="{{ trans('general.actions.mark-stopped') }}">
+                        <i class="mdi mdi-stop"></i>
+                    </a>
+                @else
+                    <a href="{!! route('activity.mark-started', [
+                        'id' => $activity->id
+                    ]) !!}"
+                       class="btn btn-success btn-sm"
+                       title="{{ trans('general.actions.mark-started') }}">
+                        <i class="mdi mdi-play"></i>
+                    </a>
+                @endif
             @endif
         @endcan
         @can('startMonitoring', $activity)
+            @if ($activity->is_template == false)
             <a href="{!! route('activity.start-monitoring', [
                 'id' => $activity->id
             ]) !!}"
                class="btn btn-primary btn-sm">
                 <i class="mdi mdi-magnify"></i>
             </a>
+            @endif
         @endcan
         @can('duplicate', $activity)
             <a href="{!! route('activity.duplicate', ['id' => $activity->id]) !!}" class="btn btn-primary btn-sm" title="{{ trans('general.actions.duplicate') }}">

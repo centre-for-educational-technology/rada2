@@ -69,6 +69,28 @@
             </div>
         </div>
 
+    @can('addPromoted', 'App\Activity')
+        <div class="form-group">
+            <div class="checkbox col-md-6 col-md-offset-4">
+                <label>
+                    {!! Form::checkbox('promoted', 1, true) !!}
+                    {{ trans('general.forms.labels.promoted') }}
+                </label>
+            </div>
+        </div>
+    @endcan
+
+    @can('setAsTemplate', 'App\Activity')
+        <div class="form-group">
+            <div class="checkbox col-md-6 col-md-offset-4">
+                <label>
+                    {!! Form::checkbox('is_template', 1, false) !!}
+                    {{ trans('general.forms.labels.is_template') }}
+                </label>
+            </div>
+        </div>
+    @endcan
+
         <div class="form-group{{ $errors->has('playing_time') ? ' has-error' : '' }}">
             {!! Form::label('playing_time', trans('general.forms.labels.playing-time'), [
                 'class' => 'col-md-4 control-label',
@@ -222,17 +244,6 @@
                 </div>
             </div>
         </div>
-
-        @can('addPromoted', 'App\Activity')
-        <div class="form-group">
-            <div class="checkbox col-md-6 col-md-offset-4">
-                <label>
-                    {!! Form::checkbox('promoted', 1, true) !!}
-                    {{ trans('general.forms.labels.promoted') }}
-                </label>
-            </div>
-        </div>
-        @endcan
 
     <div class="form-group{{ $errors->has('subject') ? ' has-error' : '' }}">
         {!! Form::label('subject', trans('general.forms.labels.subject'), [
