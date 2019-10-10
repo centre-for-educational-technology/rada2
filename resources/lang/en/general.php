@@ -86,6 +86,7 @@ return [
            'maximum-points-available-missing-word' => 'Completely correct answers are automatically graded, the rest need manual grading.',
            'is-flash' => 'Is flash task',
            'completed-tasks' => 'Completed tasks',
+           'users-who-have-completed-the-task' => 'Users who have completed the task',
            'time' => [
                'hour' => 'H',
                'minute' => 'm',
