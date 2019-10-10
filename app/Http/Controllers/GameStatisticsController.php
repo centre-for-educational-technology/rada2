@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Activity;
+use App\ActivityItem;
 use App\ActivityItemOption;
+use App\Game;
 use App\Options\QuestionTypeOptions;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
@@ -14,18 +18,36 @@ use Symfony\Component\HttpFoundation\StreamedResponse;
 class GameStatisticsController extends Controller
 {
 
-    public function index()
+    public function index(Game $game)
     {
-        return view('manage.game-statistics')->with([]);
+        /** @var Activity $activity */
+        $activity = $game->activity;
+        /** @var BelongsToMany $exercises */
+        $exercisesQuery = $activity->activityItems();
+        $exercises = $exercisesQuery->get();
+        $totalPoints = 0;
+        /** @var ActivityItem $exercise */
+        foreach ($exercises as $exercise) {
+            $data = json_decode($exercise->points, true);
+            $points = is_array($data) ? array_sum($data) : $exercise->points;
+            $totalPoints += $points;
+        }
+        return view('manage.game-statistics')->with([
+            'game' => $game,
+            'exercises' => $exercises,
+            'countExercises' => $exercisesQuery->count(),
+            'totalPoints' => $totalPoints
+        ]);
     }
 
 
     /**
      * @param QuestionTypeOptions $questionTypeOptions
+     * @param Game $game
      * @return StreamedResponse
      * @throws Exception
      */
-    public function export(QuestionTypeOptions $questionTypeOptions): StreamedResponse
+    public function export(QuestionTypeOptions $questionTypeOptions, Game $game): StreamedResponse
     {
         $questionTypeOptionsArray = $questionTypeOptions->options();
         $spreadsheet = new Spreadsheet();
@@ -64,6 +86,7 @@ class GameStatisticsController extends Controller
           JOIN `activity_items` AS `ai` ON `ai`.`id` = `ga`.`activity_item_id`
           JOIN `games` AS `g` ON `g`.`id` = `ga`.`game_id`
           LEFT JOIN `users` AS `u` ON `u`.`id` = `g`.`user_id`
+         WHERE `g`.`id` = "'.$game->id.'"
         ';
         $results = DB::select($sql);
 

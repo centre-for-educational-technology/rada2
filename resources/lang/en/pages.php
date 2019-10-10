@@ -112,6 +112,9 @@ return [
                 'discount-vouchers-redeemed' => 'Redeemed',
             ],
         ],
+        'game' => [
+            'exercises-and-points' => 'The game contains: :exercises Exercises / :points Points'
+        ]
     ],
     'play' => [
         'game' => [
