@@ -112,6 +112,9 @@ return [
                 'discount-vouchers-redeemed' => 'Lunastatud',
             ],
         ],
+        'game' => [
+            'exercises-and-points' => 'Mäng sisaldab: :exercises ülesannet / :points punkti'
+        ]
     ],
     'play' => [
         'game' => [

@@ -108,7 +108,8 @@ Route::group(['prefix' => 'manage'], function()
         Route::post('{user}', 'UserController@assignRoles');
     });
     Route::get('statistics', 'StatisticsController@index')->name('manage.statistics');
-    Route::get('export-statistics', 'StatisticsController@export')->name('manage.statistics.export');
+    Route::get('export-statistics/{game}', 'GameStatisticsController@export')->name('manage.statistics.export');
+    Route::get('game-statistics/{game}', 'GameStatisticsController@index')->name('manage.game-statistics');
 });
 
 // Badges

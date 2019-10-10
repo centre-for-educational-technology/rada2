@@ -192,6 +192,10 @@
         statisticsControlItem.className = 'mdi mdi-chart-line';
         adminControls.appendChild(statisticsControlItem);
 
+        statisticsControlItem.addEventListener('click', function () {
+            window.open('/manage/game-statistics/' + vm.game.id, '_blank');
+        });
+
         // -------------- START STOP --------------------------
 
         const startStopControlItem = document.createElement('i');
