@@ -428,6 +428,9 @@
                     let map = _this.mapData.map;
                     for (let i=0; i<itemsLength; i++) {
                         let item = items[i];
+                        if (item.status === 'hidden') {
+                            continue;
+                        }
                         let marker = new google.maps.Marker({
                             title: item.name,
                             position: {

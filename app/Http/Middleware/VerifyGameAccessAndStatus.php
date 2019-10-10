@@ -34,10 +34,10 @@ class VerifyGameAccessAndStatus
             }
         }
 
-        if ( $game->isComplete() )
-        {
-            return response()->json(['error' => 'Game has already been marked as completed.'], 403);
-        }
+//        if ( $game->isComplete() )
+//        {
+//            return response()->json(['error' => 'Game has already been marked as completed.'], 403);
+//        }
 
         app()->instance(Game::class, $game);
 
