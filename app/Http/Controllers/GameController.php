@@ -342,7 +342,7 @@ class GameController extends Controller
         });
         $instructor = $instructors->count() > 0 ? $instructors->first() : null;
         if ($activity->user_id === $game->user_id || $instructor !== null || auth()->user()->isAdmin()) {
-            $tenMinutesAgo = Carbon::now()->subMinutes(10)->toDateTimeString();
+            $tenMinutesAgo = Carbon::now()->subMinutes(10);
             $fiveMinutesAgo = Carbon::now()->subMinutes(5);
             $games = Game::where('activity_id', $activity->id)->where('complete', 0)->where('id', '<>', $game->id)->get();
             /** @var Game $game */
@@ -350,7 +350,6 @@ class GameController extends Controller
                 /** @var User $player */
                 $player = User::find($_game->user_id);
                 $positions = PlayerPosition::where('game_id', $_game->id)
-//                    ->where('created_at', '>', $tenMinutesAgo)
                     ->orderBy('created_at', 'DESC')
                     ->take(1)
                     ->get();
