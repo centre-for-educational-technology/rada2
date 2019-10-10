@@ -53,7 +53,7 @@ class ActivityController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'start', 'qrCode', 'qrCodeDownload', 'findGame']]);
+        $this->middleware('auth', ['except' => ['promotedIndex', 'show', 'start', 'qrCode', 'qrCodeDownload', 'findGame']]);
     }
 
     /**
@@ -526,6 +526,8 @@ class ActivityController extends Controller
             if ( Auth::check() )
             {
                 $game->user()->associate( auth()->user() );
+            } else {
+                $game->nickname = $request->get('nickname');
             }
             $game->activity()->associate($activity);
             $game->save();
