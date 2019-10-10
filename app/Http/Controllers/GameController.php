@@ -372,7 +372,7 @@ class GameController extends Controller
                         'game_id' => $position->game_id,
                         'lat' => $position->latitude,
                         'lng' => $position->longitude,
-                        'status' => Carbon::parse($position->created_at) > $fiveMinutesAgo ? 'active' : 'inactive',
+                        'status' => Carbon::parse($position->created_at) > $fiveMinutesAgo ? 'active' : (Carbon::parse($position->created_at) > $tenMinutesAgo ? 'inactive' : 'hidden'),
                         'name' => $player ? $player->name : $_game->nickname,
                         'completed_tasks' => $completedTasks
                     ];
