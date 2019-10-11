@@ -69,11 +69,13 @@
         const url = data.url;
         const name = data.name;
         const error = data.error;
+        const id = data.id;
 
         return {
             url: url,
             name: name,
-            error: error
+            error: error,
+            id: id
         }
     }
     export default {
@@ -150,7 +152,10 @@
                         this.$refs.pinInput.removeAttribute('disabled');
 
                         if (this.game.url !== null) {
-                            window.location.href = this.game.url;
+                            this.sendGameStartedToLrs(this.game.id);
+                            setTimeout(() => {
+                                window.location.href = this.game.url;
+                            }, 20);
                         }
                     }
                 });
@@ -172,6 +177,10 @@
                     callback(null);
                     console.log('Error: ' + response);
                 });
+            },
+            sendGameStartedToLrs(gameId) {
+                const url = this.baseUrl + '/api/tasks/' + gameId + '/send-game-started-to-lrs';
+                this.$http.get(url).then(response => {});
             },
             onEnter() {
                 this.onPlayButtonClick();

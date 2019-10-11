@@ -88,6 +88,8 @@
                     'flash-exercise-has-been-deactivated' => trans('pages.play.game.flash-exercise-has-been-deactivated'),
                     'start' => trans('general.actions.start'),
                     'stop' => trans('general.actions.stop'),
+                    'completed-tasks' => trans('general.forms.labels.completed-tasks'),
+                    'users-who-have-completed-the-task' => trans('general.forms.labels.users-who-have-completed-the-task'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),

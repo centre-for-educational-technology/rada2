@@ -31,7 +31,7 @@ class LrsService
             'headers' => [
                 'X-Experience-API-Version' => '1.0.1',
             ],
-            'timeout' => 45.0,
+            'timeout' => 10.0,
         ];
 
         return $this->httpClient->post($endpoint . '/statements', $options);

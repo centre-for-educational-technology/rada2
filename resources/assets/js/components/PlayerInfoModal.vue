@@ -9,6 +9,7 @@
                     <h4 class="modal-title">{{ title }}</h4>
                 </div>
                 <div class="modal-body">
+                    <h3 v-if="tasks.length >0">{{ $t('completed-tasks') }}:</h3>
                     <table class="table">
                         <tr v-for="task in tasks" class="table-row">
                             <td>{{ task.id }}</td>

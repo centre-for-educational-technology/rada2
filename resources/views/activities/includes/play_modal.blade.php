@@ -7,6 +7,9 @@
             </div>
             <div class="modal-body text-center">
                 {{ trans('general.confirmations.play') }}
+                <div class="form-group">
+                    <input id="nickname" type="text" class="form-control" placeholder="{{ trans('general.forms.placeholders.enter-your-name') }}" />
+                </div>
             </div>
             <div class="modal-footer text-center">
                 <button type="button" class="btn btn-default" title="{{ trans('general.buttons.cancel') }}" data-dismiss="modal">

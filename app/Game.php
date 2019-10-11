@@ -270,7 +270,7 @@ class Game extends Model
             return $this->user->email;
         }
 
-        return '';
+        return 'no-mail@mail.dev';
     }
 
     public function getUserRole()

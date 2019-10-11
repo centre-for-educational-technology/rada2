@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActivityInstructor;
 use App\HT2Labs\XApi\LrsService;
 use App\HT2Labs\XApi\StatementData;
+use App\Jobs\ProcessLrsRequest;
 use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
 use App\User;
@@ -53,7 +54,17 @@ class ActivityController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth', ['except' => ['index', 'show', 'start', 'qrCode', 'qrCodeDownload', 'findGame']]);
+        $this->middleware('auth', [
+            'except' => [
+                'promotedIndex',
+                'show',
+                'start',
+                'qrCode',
+                'qrCodeDownload',
+                'findGame',
+                'sendGameStartedToLrs'
+            ]
+        ]);
     }
 
     /**
@@ -526,6 +537,8 @@ class ActivityController extends Controller
             if ( Auth::check() )
             {
                 $game->user()->associate( auth()->user() );
+            } else {
+                $game->nickname = $request->get('nickname');
             }
             $game->activity()->associate($activity);
             $game->save();
@@ -895,6 +908,7 @@ class ActivityController extends Controller
     public function findGame(Request $request)
     {
         $response = [
+            'id' => null,
             'url' => null,
             'name' => null,
             'error' => null
@@ -932,6 +946,7 @@ class ActivityController extends Controller
                     'id' => $game->id,
                 ];
                 $response['url'] = route('game.play', $routeParams);
+                $response['id'] = (string) $game->id;
             } else if($activity && Auth::check()) {
                 $game = Game::where([
                     'activity_id' => $activity->id,
@@ -942,6 +957,7 @@ class ActivityController extends Controller
                         'id' => $game->id,
                     ];
                     $response['url'] = route('game.play', $routeParams);
+                    $response['id'] = (string) $game->id;
                 } else {
                     sleep(2);
                     $response['error'] = trans('general.messages.error.game-not-found');
@@ -955,25 +971,21 @@ class ActivityController extends Controller
             $response['error'] = trans('general.messages.error.invalid-pin-code');
         }
 
+        return response()->json($response);
+    }
 
-        if (isset($response['url'])) {
-            $name = $game->getUserName();
-            $email = $game->getUserEmail();
-            $actor = new StatementData\Actor($name, $email);
-            $verb = new StatementData\Verb(StatementData\Verb::TYPE_STARTED);
-            $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
-                'game' => $game->id
-            ]), $game->activity()->first()->title);
-            $statementData = new StatementData($actor, $verb, $object);
-            $lrsService = new LrsService();
-            try {
-                $lrsService->sendToLrs($statementData->getData());
-            } catch (Exception $exception) {
-                // error
-            }
-        }
+    public function sendGameStartedToLrs(Game $game)
+    {
+        $name = $game->getUserName();
+        $email = $game->getUserEmail();
+        $actor = new StatementData\Actor($name, $email);
+        $verb = new StatementData\Verb(StatementData\Verb::TYPE_STARTED);
+        $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
+            'game' => $game->id
+        ]), $game->activity()->first()->title);
+        $statementData = new StatementData($actor, $verb, $object);
 
-        return $response;
+        ProcessLrsRequest::dispatch($statementData);
     }
 
     public function startMonitoring(Activity $activity)

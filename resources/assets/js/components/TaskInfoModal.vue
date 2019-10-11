@@ -9,6 +9,9 @@
                     <h4 class="modal-title">{{ title }}</h4>
                 </div>
                 <div class="modal-body">
+                    <h3 v-if="players.length > 0">
+                        {{ $t('users-who-have-completed-the-task') }}:
+                    </h3>
                     <table class="table">
                         <tr v-for="player in players" class="table-row">
                             <td>{{ player.name }}</td>

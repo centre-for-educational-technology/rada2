@@ -7,6 +7,7 @@ use App\ActivityFlashExercise;
 use App\ActivityInstructor;
 use App\HT2Labs\XApi\LrsService;
 use App\HT2Labs\XApi\StatementData;
+use App\Jobs\ProcessLrsRequest;
 use App\Options\QuestionTypeOptions;
 use App\User;
 use Exception;
@@ -24,6 +25,7 @@ use App\PlayerPosition;
 use App\DiscountVoucher;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Validator;
@@ -55,7 +57,9 @@ class GameController extends Controller
             'startStopFlashExercise',
             'getActiveFlashExercise',
             'getGameData',
-            'startStopGame'
+            'startStopGame',
+            'sendQuestionAnswerToLrs',
+            'sendGameCompletedToLrs'
         ]]);
     }
 
@@ -206,6 +210,12 @@ class GameController extends Controller
             $game->save();
         }
 
+        return $answer->getGameData();
+    }
+
+    public function sendQuestionAnswerToLrs(Game $game, ActivityItem $item)
+    {
+        $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
         $name = $game->getUserName();
         $email = $game->getUserEmail();
         $actor = new StatementData\Actor($name, $email);
@@ -217,7 +227,7 @@ class GameController extends Controller
         $context = new StatementData\Context(url(route('game.play', [
             'game' => $game->id
         ])));
-        $max = $item->points !== null ? json_decode($item->points) : 0;
+        $max = $item->points !== null ? json_decode($item->points, true) : 0;
         if (is_array($max)) {
             $max = array_sum($max);
         }
@@ -225,14 +235,22 @@ class GameController extends Controller
         $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
         $result = new StatementData\Result(true, $answer->correct, new StatementData\Score(0, (int) $max, (int) $raw, $scaled));
         $statementData = new StatementData($actor, $verb, $object, null, $context, $result);
-        $lrsService = new LrsService();
-        try {
-            $lrsService->sendToLrs($statementData->getData());
-        } catch (Exception $exception) {
-            // error
-        }
 
+        ProcessLrsRequest::dispatch($statementData);
+
+        $this->sendGameCompletedToLrs($game);
+
+        return response()->json([]);
+    }
+
+    public function sendGameCompletedToLrs(Game $game)
+    {
         if ($game->complete === true) {
+            $name = $game->getUserName();
+            $email = $game->getUserEmail();
+            $actor = new StatementData\Actor($name, $email);
+            /** @var Activity $activity */
+            $activity = $game->activity;
             $verb = new StatementData\Verb(StatementData\Verb::TYPE_COMPLETED);
             $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
                 'game' => $game->id
@@ -240,7 +258,7 @@ class GameController extends Controller
             $max = 0;
             /** @var ActivityItem $_item */
             foreach ($activity->activityItems()->getResults() as $_item) {
-                $points = $_item->points !== null ? json_decode($_item->points) : 0;
+                $points = $_item->points !== null ? json_decode($_item->points, true) : 0;
                 if (is_array($points)) {
                     $max += (int) array_sum($points);
                 } else {
@@ -259,14 +277,13 @@ class GameController extends Controller
             $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
             $result = new StatementData\Result(true, $success, new StatementData\Score(0, $max, $raw, $scaled));
             $statementData = new StatementData($actor, $verb, $object, null, null, $result);
-            try {
-                $lrsService->sendToLrs($statementData->getData());
-            } catch (Exception $exception) {
-                // error
-            }
+
+            ProcessLrsRequest::dispatch($statementData);
+
+            return response()->json([]);
         }
 
-        return $answer->getGameData();
+        return null;
     }
 
     /**

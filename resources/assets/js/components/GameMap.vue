@@ -427,10 +427,10 @@
                         this.showHideFlashExercises(data.flash_exercise);
                         this.showHideGameIsStopped(data.start_stop);
                     }
-                    setTimeout(() => {
-                        this.getGameData();
-                    }, 5000);
                 });
+                setTimeout(() => {
+                    this.getGameData();
+                }, 5000);
             },
             showHideFlashExercises(data) {
                 if (typeof data.id !== 'undefined') {
@@ -445,6 +445,7 @@
                 } else {
                     if (this.activeFlashExerciseId !== null) {
                         this.activeFlashExerciseId = null;
+                        this.$refs.notificationModal.close();
                         $('#user-flash-exercise-control-item').addClass('hidden');
                         this.$refs.questionModal.closeQuestion(
                             this.$t('flash-exercise-has-been-deactivated')

@@ -86,6 +86,7 @@ $(document).ready(function() {
             const self = this;
 
             playModal.find('button.btn-play').on('click', function() {
+                $('#hidden-nickname').val($('#nickname').val());
                 $(self).parents('form.sz-play-action-form').trigger('submit');
                 playModal.modal('hide');
             });

@@ -365,6 +365,9 @@
                 this.$http.post(vm.baseUrl + '/api/games/answer', data).then(response => {
                     vm.inAjaxCall = false;
 
+                    const url = vm.baseUrl + '/api/games/' + vm.gameId + '/send-question-answer-to-lrs/' + vm.question.id;
+                    vm.$http.get(url).then(respone => {});
+
                     vm.$parent.openImageDialog(vm.question.id, response.body);
 
                     vm.close();

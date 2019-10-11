@@ -28,6 +28,7 @@
                             @include('activities.includes.actions')
                         </div>
                     </div>
+                    @include('activities.includes.play', ['activity' => $activity])
                     @if ($activity->is_template == false)
                     <br />
                     <div class="panel panel-primary">

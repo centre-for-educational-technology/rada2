@@ -85,6 +85,8 @@ return [
            'maximum-points-available' => 'Maksimaalne saadaolevate punktide arv',
            'maximum-points-available-missing-word' => 'Täiesti õiged vastused hinnatakse automaatselt, ülejäänud vajavad käsitsi hindamist.',
            'is-flash' => 'Välk ülesanne',
+           'completed-tasks' => 'Lõpetatud ülesanded',
+           'users-who-have-completed-the-task' => 'Kasutajad kes on lõpetund ülesande',
            'time' => [
                'hour' => 'H',
                'minute' => 'm',

@@ -30,10 +30,13 @@ Route::group(['prefix' => 'games'], static function ()
     Route::get('{game}/get-active-flash-exercise', 'GameController@getActiveFlashExercise');
     Route::get('{game}/get-game-data', 'GameController@getGameData');
     Route::get('{game}/start-stop-game', 'GameController@startStopGame');
+    Route::get('{game}/send-question-answer-to-lrs/{item}', 'GameController@sendQuestionAnswerToLrs');
+    Route::get('{game}/send-game-completed-to-lrs', 'GameController@sendGameCompletedToLrs');
 });
 
 Route::group(['prefix' => 'tasks'], static function () {
     Route::get('search', 'ActivityItemController@search');
+    Route::get('{game}/send-game-started-to-lrs', 'ActivityItemController@sendGameStartedToLrs');
 });
 
 Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], static function ()
