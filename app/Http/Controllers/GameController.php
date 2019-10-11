@@ -7,6 +7,7 @@ use App\ActivityFlashExercise;
 use App\ActivityInstructor;
 use App\HT2Labs\XApi\LrsService;
 use App\HT2Labs\XApi\StatementData;
+use App\Jobs\ProcessLrsRequest;
 use App\Options\QuestionTypeOptions;
 use App\User;
 use Exception;
@@ -24,6 +25,7 @@ use App\PlayerPosition;
 use App\DiscountVoucher;
 
 use Illuminate\Support\Collection;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Str;
 
 use Illuminate\Support\Facades\Validator;
@@ -233,18 +235,12 @@ class GameController extends Controller
         $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
         $result = new StatementData\Result(true, $answer->correct, new StatementData\Score(0, (int) $max, (int) $raw, $scaled));
         $statementData = new StatementData($actor, $verb, $object, null, $context, $result);
-        $lrsService = new LrsService();
-        try {
-            $response = $lrsService->sendToLrs($statementData->getData());
-        } catch (Exception $exception) {
-            return $this->sendQuestionAnswerToLrs($game, $item);
-        }
 
-        $completedResponse = $this->sendGameCompletedToLrs($game);
-        if ($completedResponse !== null) {
-            $response = $completedResponse;
-        }
-        return response()->json($response);
+        ProcessLrsRequest::dispatch($statementData);
+
+        $this->sendGameCompletedToLrs($game);
+
+        return response()->json([]);
     }
 
     public function sendGameCompletedToLrs(Game $game)
@@ -281,14 +277,10 @@ class GameController extends Controller
             $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
             $result = new StatementData\Result(true, $success, new StatementData\Score(0, $max, $raw, $scaled));
             $statementData = new StatementData($actor, $verb, $object, null, null, $result);
-            $lrsService = new LrsService();
-            try {
-                $response = $lrsService->sendToLrs($statementData->getData());
-            } catch (Exception $exception) {
-                return $this->sendGameCompletedToLrs($game);
-            }
 
-            return $response;
+            ProcessLrsRequest::dispatch($statementData);
+
+            return response()->json([]);
         }
 
         return null;

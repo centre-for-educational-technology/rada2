@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\ActivityInstructor;
 use App\HT2Labs\XApi\LrsService;
 use App\HT2Labs\XApi\StatementData;
+use App\Jobs\ProcessLrsRequest;
 use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
 use App\User;
@@ -983,12 +984,8 @@ class ActivityController extends Controller
             'game' => $game->id
         ]), $game->activity()->first()->title);
         $statementData = new StatementData($actor, $verb, $object);
-        $lrsService = new LrsService();
-        try {
-            return response()->json($lrsService->sendToLrs($statementData->getData()));
-        } catch (Exception $exception) {
-            return $this->sendGameStartedToLrs($game);
-        }
+
+        ProcessLrsRequest::dispatch($statementData);
     }
 
     public function startMonitoring(Activity $activity)
