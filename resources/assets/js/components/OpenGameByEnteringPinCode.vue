@@ -180,7 +180,7 @@
             },
             sendGameStartedToLrs(gameId) {
                 const url = this.baseUrl + '/api/tasks/' + gameId + '/send-game-started-to-lrs';
-                this.$http.get(url).then(respone => {});
+                this.$http.get(url).then(response => {});
             },
             onEnter() {
                 this.onPlayButtonClick();
