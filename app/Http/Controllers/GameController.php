@@ -208,6 +208,8 @@ class GameController extends Controller
         if ( count($unansweredItemIds) === 0 ) {
             $game->complete = true;
             $game->save();
+
+            $this->sendGameCompletedToLrs($game);
         }
 
         return $answer->getGameData();
@@ -238,52 +240,46 @@ class GameController extends Controller
 
         ProcessLrsRequest::dispatch($statementData);
 
-        $this->sendGameCompletedToLrs($game);
-
         return response()->json([]);
     }
 
     public function sendGameCompletedToLrs(Game $game)
     {
-        if ($game->complete === true) {
-            $name = $game->getUserName();
-            $email = $game->getUserEmail();
-            $actor = new StatementData\Actor($name, $email);
-            /** @var Activity $activity */
-            $activity = $game->activity;
-            $verb = new StatementData\Verb(StatementData\Verb::TYPE_COMPLETED);
-            $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
-                'game' => $game->id
-            ]), $activity->title);
-            $max = 0;
-            /** @var ActivityItem $_item */
-            foreach ($activity->activityItems()->getResults() as $_item) {
-                $points = $_item->points !== null ? json_decode($_item->points, true) : 0;
-                if (is_array($points)) {
-                    $max += (int) array_sum($points);
-                } else {
-                    $max += (int) $points;
-                }
+        $name = $game->getUserName();
+        $email = $game->getUserEmail();
+        $actor = new StatementData\Actor($name, $email);
+        /** @var Activity $activity */
+        $activity = $game->activity;
+        $verb = new StatementData\Verb(StatementData\Verb::TYPE_COMPLETED);
+        $object = new StatementData\ObjectData(StatementData\ObjectData::TYPE_ACTIVITY, url('game.play', [
+            'game' => $game->id
+        ]), $activity->title);
+        $max = 0;
+        /** @var ActivityItem $_item */
+        foreach ($activity->activityItems()->getResults() as $_item) {
+            $points = $_item->points !== null ? json_decode($_item->points, true) : 0;
+            if (is_array($points)) {
+                $max += (int) array_sum($points);
+            } else {
+                $max += (int) $points;
             }
-            $raw = 0;
-            $success = true;
-            /** @var GameAnswer $_answer */
-            foreach($game->answers()->getResults() as $_answer) {
-                if (!$_answer->correct) {
-                    $success = false;
-                }
-                $raw += (int) ($_answer->grade ?? 0);
-            }
-            $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
-            $result = new StatementData\Result(true, $success, new StatementData\Score(0, $max, $raw, $scaled));
-            $statementData = new StatementData($actor, $verb, $object, null, null, $result);
-
-            ProcessLrsRequest::dispatch($statementData);
-
-            return response()->json([]);
         }
+        $raw = 0;
+        $success = true;
+        /** @var GameAnswer $_answer */
+        foreach($game->answers()->getResults() as $_answer) {
+            if (!$_answer->correct) {
+                $success = false;
+            }
+            $raw += (int) ($_answer->grade ?? 0);
+        }
+        $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
+        $result = new StatementData\Result(true, $success, new StatementData\Score(0, $max, $raw, $scaled));
+        $statementData = new StatementData($actor, $verb, $object, null, null, $result);
 
-        return null;
+        ProcessLrsRequest::dispatch($statementData);
+
+        return response()->json([]);
     }
 
     /**
