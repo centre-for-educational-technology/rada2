@@ -674,10 +674,10 @@
         right: -5px;
         background: #3097d1;
     }
-    .sz-map-controls .start-stop.mdi-play-circle-outline {
+    .map-controls .start-stop.mdi-play-circle-outline {
         color: green;
     }
-    .sz-map-controls .start-stop.mdi-stop-circle-outline {
+    .map-controls .start-stop.mdi-stop-circle-outline {
         color: red;
     }
 </style>
