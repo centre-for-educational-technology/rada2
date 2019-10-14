@@ -29,7 +29,7 @@
         const mapTypeIds = _.values(google.maps.MapTypeId);
 
         const controlUI = document.createElement('div');
-        controlUI.id = 'sz-map-controls'
+        controlUI.className = 'sz-map-controls'
         controlDiv.appendChild(controlUI);
 
         const userControlItem = document.createElement('i');
@@ -130,7 +130,7 @@
          */
 
         const adminControls = document.createElement('div');
-        adminControls.className = 'admin-controls';
+        adminControls.className = 'sz-map-controls';
         controlDiv.appendChild(adminControls);
 
         // ------------- FLASH EXERCISE ---------------------
@@ -667,40 +667,16 @@
         position: relative;
         color: #000;
     }
-    .admin-controls .mdi {
-        padding: 12px 5px;
-        position: relative;
-        display: inline-block;
-        line-height: 36px;
-        height: 36px;
-        color: #000;
-        cursor: pointer;
-    }
-    .admin-controls .mdi::before {
-        font-size: 30px;
-    }
     .grading-control-item .badge {
         position: absolute;
         top: 0;
         right: -5px;
         background: #3097d1;
     }
-    .admin-controls {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        box-shadow: rgba(0,0,0,.3) 0 1px 4px -1px;
-        background-color: #fff;
-        border: 2px solid #fff;
-    }
-    .admin-controls .mdi-flash:hover {
-        color: #FF9800;
-    }
-    .admin-controls .start-stop.mdi-play-circle-outline {
+    .sz-map-controls .start-stop.mdi-play-circle-outline {
         color: green;
     }
-    .admin-controls .start-stop.mdi-stop-circle-outline {
+    .sz-map-controls .start-stop.mdi-stop-circle-outline {
         color: red;
     }
 </style>
