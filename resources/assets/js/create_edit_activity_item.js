@@ -26,6 +26,7 @@ window.initMap = function() {
             controlUI = document.createElement('div');
 
         controlUI.id = 'sz-map-controls';
+        controlUI.className = 'map-controls'
         gameControls.appendChild(controlUI);
 
         var navigationControlItem = document.createElement('i');

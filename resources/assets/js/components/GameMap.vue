@@ -38,6 +38,7 @@
 
         const controlUI = document.createElement('div');
         controlUI.id = 'sz-map-controls'
+        controlUI.className = 'map-controls'
         controlDiv.appendChild(controlUI);
 
         const completionControlItem = document.createElement('i');
@@ -946,15 +947,6 @@
         top: 0;
         right: -5px;
         background: #3097d1;
-    }
-    .admin-controls {
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
-        user-select: none;
-        box-shadow: rgba(0,0,0,.3) 0 1px 4px -1px;
-        background-color: #fff;
-        border: 2px solid #fff;
     }
     .btn.mdi-flash {
         color: #000;
