@@ -38,6 +38,7 @@
 
         const controlUI = document.createElement('div');
         controlUI.id = 'sz-map-controls'
+        controlUI.className = 'map-controls'
         controlDiv.appendChild(controlUI);
 
         const completionControlItem = document.createElement('i');

@@ -29,7 +29,8 @@
         const mapTypeIds = _.values(google.maps.MapTypeId);
 
         const controlUI = document.createElement('div');
-        controlUI.className = 'sz-map-controls'
+        controlUI.id = 'sz-map-controls'
+        controlUI.className = 'map-controls'
         controlDiv.appendChild(controlUI);
 
         const userControlItem = document.createElement('i');
@@ -130,7 +131,7 @@
          */
 
         const adminControls = document.createElement('div');
-        adminControls.className = 'sz-map-controls';
+        adminControls.className = 'map-controls';
         controlDiv.appendChild(adminControls);
 
         // ------------- FLASH EXERCISE ---------------------
