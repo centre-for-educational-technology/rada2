@@ -113,7 +113,18 @@ return [
             ],
         ],
         'game' => [
-            'exercises-and-points' => 'Mäng sisaldab: :exercises ülesannet / :points punkti'
+            'exercises-and-points' => 'Mäng sisaldab: :exercises ülesannet / :points punkti',
+            'player-summary' => [
+                'title' => 'Mängija kokkuvõte',
+                'place' => 'Koht',
+                'player' => 'Mängija',
+                'points' => 'Punktid',
+                'time' => 'Kulunud aeg',
+                'nr-exercises' => 'Number ülesandeid',
+                'answered' => 'Vastatud',
+                'graded' => 'Hinnatud',
+                'not-graded' => 'Hindamata'
+            ],
         ]
     ],
     'play' => [

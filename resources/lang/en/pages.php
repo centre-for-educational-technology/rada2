@@ -113,7 +113,18 @@ return [
             ],
         ],
         'game' => [
-            'exercises-and-points' => 'The game contains: :exercises Exercises / :points Points'
+            'exercises-and-points' => 'The game contains: :exercises Exercises / :points Points',
+            'player-summary' => [
+                'title' => 'Player summary',
+                'place' => 'Place',
+                'player' => 'Player',
+                'points' => 'Points',
+                'time' => 'Time spent',
+                'nr-exercises' => 'Number of exercises',
+                'answered' => 'Answered',
+                'graded' => 'Graded',
+                'not-graded' => 'Not graded'
+            ]
         ]
     ],
     'play' => [
