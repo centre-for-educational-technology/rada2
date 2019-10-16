@@ -125,6 +125,20 @@ return [
                 'graded' => 'Hinnatud',
                 'not-graded' => 'Hindamata'
             ],
+            'exercise-summary' => [
+                'title' => 'Ülesannete kokkuvõte',
+                'exercise' => 'Ülesanne',
+                'answered' => 'Vastatud',
+                'graded' => 'Hinnatud',
+                'not-graded' => 'Ei ole hinnatud',
+                'total' => 'Kokku',
+                'average' => 'Keskmine',
+                'min' => 'Min',
+                'max' => 'Max',
+                'player' => 'Mängija staatus',
+                'points' => 'Punktid',
+                'time-spent' => 'Aega kulutatud'
+            ]
         ]
     ],
     'play' => [

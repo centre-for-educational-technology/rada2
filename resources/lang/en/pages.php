@@ -124,6 +124,20 @@ return [
                 'answered' => 'Answered',
                 'graded' => 'Graded',
                 'not-graded' => 'Not graded'
+            ],
+            'exercise-summary' => [
+                'title' => 'Tasks summary',
+                'exercise' => 'Task',
+                'answered' => 'Answered',
+                'graded' => 'Graded',
+                'not-graded' => 'Not graded',
+                'total' => 'Total',
+                'average' => 'Average',
+                'min' => 'Min',
+                'max' => 'Max',
+                'player' => 'Player status',
+                'points' => 'Points',
+                'time-spent' => 'Time spent'
             ]
         ]
     ],
