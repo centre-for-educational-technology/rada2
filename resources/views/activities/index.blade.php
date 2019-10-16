@@ -100,15 +100,10 @@
                         </div>
 
                         <div class="col-xs-2 col-md-4">
-                            <div class="pull-right">
-                                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#search-form" aria-expanded="false" aria-controls="search-form" title="{{ trans('general.forms.buttons.search') }}">
-                                    <i class="mdi mdi-search-web" aria-hidden="true"></i>
-                                </a>
-                            </div>
+
                         </div>
                     </div>
 
-                    @include('activities.includes.search')
 
                 </div>
 
