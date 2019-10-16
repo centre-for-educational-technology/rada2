@@ -126,8 +126,8 @@ return [
                 'not-graded' => 'Not graded'
             ],
             'exercise-summary' => [
-                'title' => 'Exercise summary',
-                'exercise' => 'Exercise',
+                'title' => 'Tasks summary',
+                'exercise' => 'Task',
                 'answered' => 'Answered',
                 'graded' => 'Graded',
                 'not-graded' => 'Not graded',
