@@ -30,7 +30,7 @@
             height: 12px;
             vertical-align: middle;
         }
-        #players a {
+        #players a, #exercises a {
             color: #636b6f;
         }
     </style>
@@ -85,12 +85,12 @@
                            role="button"
                            aria-expanded="false">
                             <span class="h2">{{ trans('pages.manage.game.player-summary.title') }}</span>
-                            <i class="mdi mdi-chevron-down h2"></i>
+                            <i class="mdi @if($segmentType == 'player') mdi-chevron-up @else mdi-chevron-down @endif h2"></i>
                         </a>
                     </p>
                     <div>
-                        <div class="collapse" id="players">
-                            <table class="table">
+                        <div class="collapse @if($segmentType == 'player') in @endif" id="players">
+                            <table class="table table-bordered">
                                 <thead>
                                     <tr>
                                         <th>
@@ -98,6 +98,7 @@
                                         </th>
                                         <th>
                                             <a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'player',
                                                 'game' => $game->id,
                                                 'playersSortOrder' => 2,
                                                 'playersSortOrderDir' => $playersSortOrder == 2 && $playersSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
@@ -114,6 +115,7 @@
                                         </th>
                                         <th>
                                             <a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'player',
                                                 'game' => $game->id,
                                                 'playersSortOrder' => 1,
                                                 'playersSortOrderDir' => $playersSortOrder == 1 && $playersSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
@@ -130,6 +132,7 @@
                                         </th>
                                         <th>
                                             <a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'player',
                                                 'game' => $game->id,
                                                 'playersSortOrder' => 3,
                                                 'playersSortOrderDir' => $playersSortOrder == 3 && $playersSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
@@ -155,6 +158,7 @@
                                         <th></th>
                                         <th>
                                             <a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'player',
                                                 'game' => $game->id,
                                                 'playersSortOrder' => 4,
                                                 'playersSortOrderDir' => $playersSortOrder == 4 && $playersSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
@@ -171,6 +175,7 @@
                                         </th>
                                         <th>
                                             <a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'player',
                                                 'game' => $game->id,
                                                 'playersSortOrder' => 5,
                                                 'playersSortOrderDir' => $playersSortOrder == 5 && $playersSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
@@ -187,6 +192,7 @@
                                         </th>
                                         <th>
                                             <a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'player',
                                                 'game' => $game->id,
                                                 'playersSortOrder' => 6,
                                                 'playersSortOrderDir' => $playersSortOrder == 6 && $playersSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
@@ -217,6 +223,191 @@
                             </table>
                         </div>
                     </div>
+
+                    <!-- Player summary segment -->
+
+                    <p>
+                        <a class="box box-bg"
+                           data-toggle="collapse"
+                           href="#exercises"
+                           role="button"
+                           aria-expanded="false">
+                            <span class="h2">{{ trans('pages.manage.game.exercise-summary.title') }}</span>
+                            <i class="mdi @if($segmentType == 'exercise') mdi-chevron-up @else mdi-chevron-down @endif h2"></i>
+                        </a>
+                    </p>
+                    <div>
+                        <div class="collapse @if($segmentType == 'exercise') in @endif" id="exercises">
+                            <table class="table table-bordered">
+                                <thead>
+                                    <tr>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_EXERCISE,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_EXERCISE && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">
+                                                {{ trans('pages.manage.game.exercise-summary.exercise') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_EXERCISE)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th class="text-center" colspan="4">{{ trans('pages.manage.game.exercise-summary.player') }}</th>
+                                        <th class="text-center" colspan="4">{{ trans('pages.manage.game.exercise-summary.points') }}</th>
+                                    </tr>
+                                    <tr>
+                                        <th></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_ANSWERED,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_ANSWERED && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.answered') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_ANSWERED)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_GRADED,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_GRADED && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.graded') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_GRADED)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_NOT_GRADED,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_NOT_GRADED && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.not-graded') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_NOT_GRADED)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_TIME_SPENT,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_TIME_SPENT && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.time-spent') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_TIME_SPENT)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_TOTAL,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_TOTAL && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.total') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_TOTAL)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_AVERAGE,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_AVERAGE && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.average') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_AVERAGE)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_MIN,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_MIN && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.min') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_MIN)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                        <th><a href="{{ route('manage.game-statistics', [
+                                                'segmentType' => 'exercise',
+                                                'game' => $game->id,
+                                                'exerciseSortOrder' => \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_MAX,
+                                                'exerciseSortOrderDir' => $exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_MAX && $exerciseSortOrderDir == 'DESC' ? 'ASC' : 'DESC'
+                                            ]) }}">{{ trans('pages.manage.game.exercise-summary.max') }}
+                                                @if($exerciseSortOrder == \App\Http\Controllers\GameStatisticsController::E_ORDER_BY_TYPE_MAX)
+                                                    @if($exerciseSortOrderDir == 'DESC')
+                                                        <i class="mdi mdi-chevron-down"></i>
+                                                    @else
+                                                        <i class="mdi mdi-chevron-up"></i>
+                                                    @endif
+                                                @endif
+                                            </a></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($exercises as $exercise)
+                                        <tr>
+                                            <td>
+                                                {{ $exercise->exercise }}
+                                                <br />
+                                                <span class="sz-metadata">
+                                                    <i class="mdi mdi-crosshairs"></i>
+                                                    {{ $gameOptions[$exercise->exercise_type] }}
+                                                </span>
+                                                @if($exercise->is_flash == 1)
+                                                <i class="mdi mdi-flash"></i>
+                                                @endif
+                                                @if($exercise->time_limit == 1)
+                                                <i class="mdi mdi-timer-sand"></i>
+                                                @endif
+                                            </td>
+                                            <td>{{ $exercise->answered }} / {{ $countPlayers }}</td>
+                                            <td>{{ $exercise->graded }}</td>
+                                            <td>{{ $exercise->not_graded }}</td>
+                                            <td>{{ $exercise->time_spent }}</td>
+                                            <td>{{ $exercise->total }}</td>
+                                            <td>{{ $exercise->average }}</td>
+                                            <td>{{ $exercise->min }}</td>
+                                            <td>{{ $exercise->max }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+
                 </div>
             </div>
         </div>
@@ -225,8 +416,8 @@
 
 @section('footer-scripts')
     <script>
-        $('.box .mdi-chevron-down').each(function () {
-            var $box = $(this).closest('a').on('click', function () {
+        $('.box .mdi-chevron-down, .box .mdi-chevron-up').each(function () {
+            $(this).closest('a').on('click', function () {
                 var $mdi = $(this).find('.mdi');
                 if ($mdi.hasClass('mdi-chevron-down')) {
                     $mdi.removeClass('mdi-chevron-down');

@@ -7,6 +7,7 @@ use App\ActivityItem;
 use App\ActivityItemOption;
 use App\Game;
 use App\Options\QuestionTypeOptions;
+use App\Repository\GameRepository;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -26,20 +27,22 @@ class GameStatisticsController extends Controller
     public const P_ORDER_BY_TYPE_GRADED = 5;
     public const P_ORDER_BY_TYPE_NOT_GRADED = 6;
 
+    public const E_ORDER_BY_TYPE_EXERCISE = 1;
+    public const E_ORDER_BY_TYPE_ANSWERED = 2;
+    public const E_ORDER_BY_TYPE_GRADED = 3;
+    public const E_ORDER_BY_TYPE_NOT_GRADED = 4;
+    public const E_ORDER_BY_TYPE_TOTAL = 5;
+    public const E_ORDER_BY_TYPE_AVERAGE = 6;
+    public const E_ORDER_BY_TYPE_MIN = 7;
+    public const E_ORDER_BY_TYPE_MAX = 8;
+    public const E_ORDER_BY_TYPE_TIME_SPENT = 9;
+
     public function index(Request $request, Game $game)
     {
         /** @var Activity $activity */
         $activity = $game->activity;
         /** @var BelongsToMany $exercises */
         $exercisesQuery = $activity->activityItems();
-        $exercises = $exercisesQuery->get();
-        $totalPoints = 0;
-        /** @var ActivityItem $exercise */
-        foreach ($exercises as $exercise) {
-            $data = json_decode($exercise->points, true);
-            $points = is_array($data) ? array_sum($data) : $exercise->points;
-            $totalPoints += $points;
-        }
 
         $playersSortOrder = static::P_ORDER_BY_TYPE_POINTS;
         if ($request->get('playersSortOrder')) {
@@ -51,18 +54,83 @@ class GameStatisticsController extends Controller
         }
         $players = $this->getPlayers($game, $playersSortOrder, $playersSortOrderDir);
 
+        $segmentType = '';
+        if($request->get('segmentType')) {
+            $segmentType = $request->get('segmentType');
+        }
+
+        $exerciseSortOrder = static::E_ORDER_BY_TYPE_EXERCISE;
+        if ($request->get('exerciseSortOrder')) {
+            $exerciseSortOrder = $request->get('exerciseSortOrder');
+        }
+        $exerciseSortOrderDir = 'DESC';
+        if ($request->get('exerciseSortOrderDir')) {
+            $exerciseSortOrderDir = $request->get('exerciseSortOrderDir');
+        }
+
+        $exercises = $this->getExercises($game, $exerciseSortOrder, $exerciseSortOrderDir);
+        $totalPoints = 0;
+        /** @var ActivityItem $exercise */
+        foreach ($exercises as $exercise) {
+            $data = json_decode($exercise->points, true);
+            $points = is_array($data) ? array_sum($data) : $exercise->points;
+            $totalPoints += $points;
+        }
+
         return view('manage.game-statistics')->with([
             'game' => $game,
             'exercises' => $exercises,
             'countExercises' => $exercisesQuery->count(),
             'totalPoints' => $totalPoints,
             'players' => $players,
+            'countPlayers' => count($players),
             'playersSortOrder' => $playersSortOrder,
-            'playersSortOrderDir' => $playersSortOrderDir
+            'playersSortOrderDir' => $playersSortOrderDir,
+            'exerciseSortOrder' => $exerciseSortOrder,
+            'exerciseSortOrderDir' => $exerciseSortOrderDir,
+            'segmentType' => $segmentType,
+            'gameOptions' => (new QuestionTypeOptions())->options()
         ]);
     }
 
-    public function getPlayers(Game $game, int $orderByType, string $playersSortOrderDir): array
+    public function getExercises(Game $game, int $orderType, string $orderDir): ?array
+    {
+        switch($orderType) {
+            case static::E_ORDER_BY_TYPE_EXERCISE:
+                $orderBy = '`exercise` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_ANSWERED:
+                $orderBy = '`answered` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_GRADED:
+                $orderBy = '`graded` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_NOT_GRADED:
+                $orderBy = '`not_graded` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_TOTAL:
+                $orderBy = '`total` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_AVERAGE:
+                $orderBy = '`average` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_MIN:
+                $orderBy = '`min` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_MAX:
+                $orderBy = '`max` ' . $orderDir;
+                break;
+            case static::E_ORDER_BY_TYPE_TIME_SPENT:
+                $orderBy = '`time_spent` ' . $orderDir;
+                break;
+            default:
+                $orderBy = '`exercise` ' . $orderDir;
+        }
+
+        return GameRepository::getExercisesForGameStatistics($game, $orderBy);
+    }
+
+    public function getPlayers(Game $game, int $orderByType, string $playersSortOrderDir): ?array
     {
         switch($orderByType) {
             case static::P_ORDER_BY_TYPE_POINTS:
@@ -86,28 +154,8 @@ class GameStatisticsController extends Controller
             default:
                 $orderBy = '`points` ' . $playersSortOrderDir;
         }
-        $sql = '
-        SELECT IF( `u`.`id` IS NOT NULL, `u`.`name`, `g`.`nickname` ) AS user_name,
-               SUM(`ga`.`grade`) AS points,
-               TIMEDIFF(`pp2`.`created_at`, `pp1`.`created_at`) AS time,
-               (SELECT COUNT(`ga1`.`id`) FROM `game_answers` AS `ga1` WHERE `ga1`.`game_id` = `g`.`id`) AS count_answers,
-               (SELECT COUNT(`aa1`.`activity_item_id`) FROM `activity_activity_item` AS `aa1` WHERE `aa1`.`activity_id` = `g`.`activity_id`) AS count_questions,
-               (SELECT COUNT(`ga2`.`id`) FROM `game_answers` AS `ga2` WHERE `ga2`.`game_id` = `g`.`id` AND `ga2`.`grade` IS NOT NULL) AS graded,
-               (SELECT COUNT(`ga2`.`id`) FROM `game_answers` AS `ga2` WHERE `ga2`.`game_id` = `g`.`id` AND `ga2`.`grade` IS NULL) AS not_graded
-          FROM `games` AS `g`
-          LEFT JOIN `users` AS `u` ON `g`.`user_id` = `u`.`id`
-          LEFT JOIN `game_answers` AS `ga` ON `ga`.`game_id` = `g`.`id`
-          LEFT JOIN `player_positions` AS `pp1` ON `pp1`.`game_id` = `g`.`id`
-          LEFT JOIN `player_positions` AS `pp2` ON `pp2`.`game_id` = `g`.`id`
-         WHERE `g`.`activity_id` = :activity_id
-           AND `pp1`.`created_at` = (SELECT MIN(`pp11`.`created_at`) FROM `player_positions` AS `pp11` WHERE `pp11`.`game_id` = `g`.`id`)
-           AND `pp2`.`created_at` = (SELECT MAX(`pp22`.`created_at`) FROM `player_positions` AS `pp22` WHERE `pp22`.`game_id` = `g`.`id`)
-         GROUP BY `g`.`id`
-         ORDER BY '.$orderBy.'
-        ';
-        return DB::select($sql, [
-            'activity_id' => $game->activity_id
-        ]);
+
+        return GameRepository::getPlayersForGameStatistics($game, $orderBy);
     }
 
 
