@@ -15,7 +15,8 @@ class GameRepository
     public static function getPlayersForGameStatistics(Game $game, string $orderBy): ?array
     {
         $sql = '
-        SELECT IF( `u`.`id` IS NOT NULL, `u`.`name`, `g`.`nickname` ) AS user_name,
+        SELECT `g`.`id` as game_id,
+               IF( `u`.`id` IS NOT NULL, `u`.`name`, `g`.`nickname` ) AS user_name,
                SUM(`ga`.`grade`) AS points,
                TIMEDIFF(`pp2`.`created_at`, `pp1`.`created_at`) AS time,
                (SELECT COUNT(`ga1`.`id`) FROM `game_answers` AS `ga1` WHERE `ga1`.`game_id` = `g`.`id`) AS count_answers,
@@ -38,12 +39,43 @@ class GameRepository
         ]);
     }
 
+    public static function getGameDataForGameStatisticsByActivityItemId(Game $game, int $activityItemId): ?array
+    {
+        return DB::select('
+        SELECT `ga`.`id` AS answer_id,
+               `ga`.`answer`,
+               `ga`.`image` AS answer_image, 
+               `ga`.`updated_at` AS answer_time,
+               `ga`.`grade`,
+               `ai`.`is_flash`,
+               `g`.`id` AS game_id,
+               IF(`u`.`id` IS NOT NULL, `u`.`name`, `g`.`nickname`) AS user_name
+          FROM `activity_activity_item` AS `aai`
+          JOIN `activity_items` AS `ai` ON `ai`.`id` = `aai`.`activity_item_id`
+          JOIN `games` AS `g` ON `g`.`activity_id` = `aai`.`activity_id`
+          LEFT JOIN `game_answers` AS `ga` ON `ga`.`game_id` = `g`.`id`
+          LEFT JOIN `users` AS `u` ON `u`.`id` = `g`.`user_id`
+         WHERE `aai`.`activity_id` = :activity_id
+           AND `aai`.`activity_item_id` = :activity_item_id
+           AND `ga`.`activity_item_id` = `aai`.`activity_item_id`
+        ', [
+            'activity_id' => $game->activity_id,
+            'activity_item_id' => $activityItemId
+        ]);
+    }
+
     public static function getExercisesForGameStatistics(Game $game, string $orderBy): ?array
     {
         return DB::select('
         SELECT `ai`.`title` AS exercise,
                `ai`.`type` AS exercise_type,
                `ai`.`is_flash`,
+               `ai`.`description` AS question,
+               `aai`.`activity_id`,
+               `aai`.`activity_item_id` AS id,
+               `ai`.`image` AS question_image,
+               `ai`.`missing_word`,
+               `ai`.`embedded_content`,
                IF(`ai`.`answering_time` IS NOT NULL AND `ai`.`answering_time` > 0, 1, 0) AS time_limit,
                (
                    SELECT COUNT(`ga1`.`id`) 
@@ -116,6 +148,38 @@ class GameRepository
          ORDER BY '.$orderBy.'
         ', [
             'activity_id' => $game->activity_id
+        ]);
+    }
+
+    public static function getQuestionsForGameStatistics(Game $game, int $activityItemId): ?array
+    {
+        return DB::select('
+        SELECT `aio`.`option`,
+               `aio`.`correct`,
+               `aio`.`image`,
+               `aio`.`id`,
+               `aai`.`activity_item_id`
+          FROM `activity_activity_item` AS `aai`
+          JOIN `activity_item_options` AS `aio` ON `aio`.`activity_item_id` = `aai`.`activity_item_id`
+         WHERE `aai`.`activity_id` = :activity_id
+           AND `aai`.`activity_item_id` = :activity_item_id
+        ', [
+            'activity_id' => $game->activity_id,
+            'activity_item_id' => $activityItemId
+        ]);
+    }
+
+    public static function getMatchPairsForGameStatistics(Game $game, int $activityItemId): ?array
+    {
+        return DB::select('
+        SELECT `aip`.*
+          FROM `activity_activity_item` AS `aai`
+          JOIN `activity_item_pairs` AS `aip` ON `aip`.`activity_item_id` = `aai`.`activity_item_id`
+         WHERE `aai`.`activity_id` = :activity_id
+           AND `aai`.`activity_item_id` = :activity_item_id
+        ', [
+            'activity_id' => $game->activity_id,
+            'activity_item_id' => $activityItemId
         ]);
     }
 }

@@ -389,4 +389,47 @@ class ActivityItem extends Model
         }
         return null;
     }
+
+    public static function getMaxPoints(?string $points): int
+    {
+        if ($points === null) {
+            return 0;
+        }
+
+        $array = json_decode($points, true);
+        if (is_array($array)) {
+            return array_sum($array);
+        }
+
+        return is_scalar($points) ? $points : 0;
+    }
+
+    public static function getMissingWordText(string $missingWord, string $questionMissingWord = '')
+    {
+        preg_match_all('/{[A-Za-z0-9\.\s-]+}/', $missingWord,  $matches);
+        preg_match_all('/{[A-Za-z0-9\.\s-]+}/', $questionMissingWord,  $questionMatches);
+        foreach($matches as $rowIndex => $row) {
+            $equalCount = isset($questionMatches[$rowIndex]) && count($row) === count($questionMatches[$rowIndex]);
+            foreach($row as $index => $match) {
+                if ($equalCount) {
+                    $questionMatch = null;
+                    if($questionMissingWord !== '') {
+                        $questionMatch = $questionMatches[$rowIndex][$index];
+                    }
+                    if ($match === $questionMatch) {
+                        $word = str_replace(array('{', '}'), array('{<strong style="color:green;">', '</strong>}'), $match);
+                    } else {
+                        $questionWord = str_replace(array('{', '}'), array('<strong style="color:green;">', '</strong>}'), $questionMatch);
+                        $word = str_replace(array('{', '}'), array('{<strong style="color:red;">', '</strong>'), $match);
+                        $word .= ' | ' . $questionWord;
+                    }
+                } else {
+                    $word = str_replace(array('{', '}'), array('{<strong style="color:green;">', '</strong>}'), $match);
+                }
+                $missingWord = implode($word, explode($match, $missingWord, 2));
+            }
+        }
+
+        return $missingWord;
+    }
 }

@@ -138,6 +138,16 @@ return [
                 'player' => 'Player status',
                 'points' => 'Points',
                 'time-spent' => 'Time spent'
+            ],
+            'tasks' => [
+                'title' => 'Tasks',
+                'points' => 'Points',
+                'answer-from' => 'Answer from',
+                'graded' => 'Graded',
+                'not-graded' => 'Not graded',
+                'select-all-players' => 'Select all players',
+                'select-all-tasks' => 'Select all tasks',
+                'filter' => 'Filter'
             ]
         ]
     ],
