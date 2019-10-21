@@ -138,6 +138,16 @@ return [
                 'player' => 'Mängija staatus',
                 'points' => 'Punktid',
                 'time-spent' => 'Aega kulutatud'
+            ],
+            'tasks' => [
+                'title' => 'Ülesanded',
+                'points' => 'Punktid',
+                'answer-from' => 'Vastas',
+                'graded' => 'Hinnatud',
+                'not-graded' => 'Ei ole hinnatud',
+                'select-all-players' => 'Vali kõik mängijad',
+                'select-all-tasks' => 'Vali kõik ülesanded',
+                'filter' => 'Filter'
             ]
         ]
     ],
