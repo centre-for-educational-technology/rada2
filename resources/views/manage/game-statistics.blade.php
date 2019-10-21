@@ -55,6 +55,11 @@
         .mdi-close::before {
             font-size: 14px !important;
         }
+        .mdi-flash::before,
+        .mdi-crosshairs::before,
+        .mdi-timer-sand::before {
+            font-size: 16px !important;
+        }
 
         img {
             width: 100%;
@@ -409,14 +414,14 @@
                                                 {{ $exercise->exercise }}
                                                 <br />
                                                 <span class="sz-metadata">
-                                                    <i class="mdi mdi-crosshairs"></i>
+                                                    <i class="mdi mdi-crosshairs" title="{{ trans('pages.manage.game.exercise-summary.type-title') }}"></i>
                                                     {{ $gameOptions[$exercise->exercise_type] }}
                                                 </span>
                                                 @if($exercise->is_flash == 1)
-                                                <i class="mdi mdi-flash"></i>
+                                                <i class="mdi mdi-flash" title="{{ trans('pages.manage.game.exercise-summary.flash-title') }}"></i>
                                                 @endif
                                                 @if($exercise->time_limit == 1)
-                                                <i class="mdi mdi-timer-sand"></i>
+                                                <i class="mdi mdi-timer-sand" title="{{ trans('pages.manage.game.exercise-summary.time-title') }}"></i>
                                                 @endif
                                             </td>
                                             <td>{{ $exercise->answered }} / {{ $countPlayers }}</td>
@@ -483,7 +488,7 @@
 
                                                 <div class="question-container">
                                                     <span class="sz-metadata">
-                                                        <i class="mdi mdi-crosshairs"></i>
+                                                        <i class="mdi mdi-crosshairs" title="{{ trans('pages.manage.game.exercise-summary.type-title') }}"></i>
                                                         {{ $gameOptions[$exercise->exercise_type] }}
                                                     </span>
                                                     <br />
@@ -582,7 +587,7 @@
 
                                                             <div class="box box-bg-white">
                                                                 <span class="sz-metadata">
-                                                                    <i class="mdi mdi-crosshairs"></i>
+                                                                    <i class="mdi mdi-crosshairs" title="{{ trans('pages.manage.game.exercise-summary.type-title') }}"></i>
                                                                     {{ $gameOptions[$exercise->exercise_type] }}
                                                                 </span>
                                                                 <br />
