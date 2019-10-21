@@ -137,7 +137,10 @@ return [
                 'max' => 'Max',
                 'player' => 'Mängija staatus',
                 'points' => 'Punktid',
-                'time-spent' => 'Aega kulutatud'
+                'time-spent' => 'Aega kulutatud',
+                'type-title' => 'Ülesande tüüp',
+                'flash-title' => 'Välk ülesanne',
+                'time-title' => 'Aja piiranguga ülesanne'
             ],
             'tasks' => [
                 'title' => 'Ülesanded',

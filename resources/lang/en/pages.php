@@ -137,7 +137,10 @@ return [
                 'max' => 'Max',
                 'player' => 'Player status',
                 'points' => 'Points',
-                'time-spent' => 'Time spent'
+                'time-spent' => 'Time spent',
+                'type-title' => 'Task type',
+                'flash-title' => 'Flash task',
+                'time-title' => 'Time pressure task'
             ],
             'tasks' => [
                 'title' => 'Tasks',
