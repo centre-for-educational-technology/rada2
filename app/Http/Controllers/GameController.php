@@ -57,9 +57,7 @@ class GameController extends Controller
             'startStopFlashExercise',
             'getActiveFlashExercise',
             'getGameData',
-            'startStopGame',
-            'sendQuestionAnswerToLrs',
-            'sendGameCompletedToLrs'
+            'startStopGame'
         ]]);
     }
 
@@ -208,9 +206,9 @@ class GameController extends Controller
         if ( count($unansweredItemIds) === 0 ) {
             $game->complete = true;
             $game->save();
-
-            $this->sendGameCompletedToLrs($game);
         }
+
+        $this->sendQuestionAnswerToLrs($game,$item);
 
         return $answer->getGameData();
     }
@@ -239,6 +237,10 @@ class GameController extends Controller
         $statementData = new StatementData($actor, $verb, $object, null, $context, $result);
 
         ProcessLrsRequest::dispatch($statementData);
+
+        if($game->complete === true) {
+            $this->sendGameCompletedToLrs($game);
+        }
 
         return response()->json([]);
     }

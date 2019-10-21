@@ -36,7 +36,7 @@ Route::group(['prefix' => 'games'], static function ()
 
 Route::group(['prefix' => 'tasks'], static function () {
     Route::get('search', 'ActivityItemController@search');
-    Route::get('{game}/send-game-started-to-lrs', 'ActivityItemController@sendGameStartedToLrs');
+    Route::get('{game}/send-game-started-to-lrs', 'ActivityController@sendGameStartedToLrs');
 });
 
 Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], static function ()
