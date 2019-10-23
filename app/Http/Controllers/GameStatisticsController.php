@@ -8,6 +8,7 @@ use App\ActivityItemOption;
 use App\Game;
 use App\Options\QuestionTypeOptions;
 use App\Repository\GameRepository;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Exception;
@@ -266,9 +267,16 @@ class GameStatisticsController extends Controller
 
         });
 
+        /** @var Activity $activity */
+        $activity = $game->activity;
+        $activityName = $activity->title;
+        $now = new Carbon('NOW');
+        $timestamp = $now->getTimestamp();
+        $fileName = $activityName . '_' . $timestamp . '.xlsx';
+
         $streamedResponse->setStatusCode(Response::HTTP_OK);
         $streamedResponse->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-        $streamedResponse->headers->set('Content-Disposition', 'attachment; filename="playing-data.xlsx"');
+        $streamedResponse->headers->set('Content-Disposition', 'attachment; filename="'.$fileName.'"');
         return $streamedResponse->send();
     }
 }
