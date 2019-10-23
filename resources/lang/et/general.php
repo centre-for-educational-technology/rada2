@@ -210,6 +210,7 @@ return [
        'button-agree' => 'Nõustun',
    ],
    'system-requirements' => 'Miinimumnõuded: operatsioonisüsteem iOS (versioon 10) või Android 7. Vähemalt 3G kiirusega internetiühendus ja toimib GPS moodul on vajalik.',
+   'structural-aid' => 'Ellu viidud projekti Mobilitas Pluss MOBEC001 "Piireületav haridusuuendus tehnoloogiapõhiste teadusuuringute toel" tegevuskava raames.',
    'messages' => [
        'warnings' => [
            'account-blocked' => 'Konto on blokeeritud. Pöördu palun halduri poole küsimustega.',
