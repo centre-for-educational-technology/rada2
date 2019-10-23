@@ -227,7 +227,7 @@ return [
        'notifications' => [
            'new-flash-message' => [
                'title' => 'A flash exercise was activated!',
-               'message' => 'Flash exercises are available for limited time only so act quickly!'
+               'message' => 'Flash exercises are available for limited time only so act quickly! Click the flashing <i class="mdi mdi-flash"></i> icon to access the flash task!'
            ]
        ]
    ],

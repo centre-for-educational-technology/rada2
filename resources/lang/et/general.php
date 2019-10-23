@@ -227,7 +227,7 @@ return [
        'notifications' => [
            'new-flash-message' => [
                'title' => 'Aktiveeriti välk ülesanne!',
-               'message' => 'Välk ülesandeid saab lahendada piiratud aja jooksul. Tegutse kiirelt!'
+               'message' => 'Välk ülesandeid saab lahendada piiratud aja jooksul. Välk ülesande lahendamiseks vajuta kaardil vilkuvat <i class="mdi mdi-flash"></i> ikooni!'
            ]
        ]
    ],
