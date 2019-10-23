@@ -197,14 +197,18 @@ class GameStatisticsController extends Controller
                IF( `ai`.`answering_time` > 0, 1, 0 ) AS `G`,
                `ai`.`points` AS `H`,
                `ga`.`grade` AS `I`,
-               CONCAT( `ai`.`latitude`, \', \', `ai`.`longitude` ) AS `J`,
+               CONCAT( `ai`.`latitude`, ", ", `ai`.`longitude` ) AS `J`,
                `ga`.`created_at` AS `K`,
                `ai`.`missing_word`
           FROM `game_answers` AS `ga`
           JOIN `activity_items` AS `ai` ON `ai`.`id` = `ga`.`activity_item_id`
           JOIN `games` AS `g` ON `g`.`id` = `ga`.`game_id`
           LEFT JOIN `users` AS `u` ON `u`.`id` = `g`.`user_id`
-         WHERE `g`.`id` = "'.$game->id.'"
+         WHERE `g`.`activity_id`  = (
+             SELECT `g1`.`activity_id` 
+             FROM `games` AS `g1` 
+             WHERE `g1`.`id` = "'.$game->id.'"
+             )
         ';
         $results = DB::select($sql);
 
