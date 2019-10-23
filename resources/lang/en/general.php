@@ -210,6 +210,7 @@ return [
        'button-agree' => 'Agree',
    ],
    'system-requirements' => 'Minimum requirements: operating system iOS (version 10) or Android 7. At least 3G internet connection and working GPS module is needed.',
+   'structural-aid' => 'This project has been supported through and according to Mobilitas Plus MOBEC001 "Cross-Border Educational Innovation thru Technology-Enhanced Research" action plan.',
    'messages' => [
        'warnings' => [
            'account-blocked' => 'This account has been suspended. For more information please contact the administration.',
