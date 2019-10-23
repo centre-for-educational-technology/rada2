@@ -123,7 +123,8 @@ return [
                 'nr-exercises' => 'Number of exercises',
                 'answered' => 'Answered',
                 'graded' => 'Graded',
-                'not-graded' => 'Not graded'
+                'not-graded' => 'Not graded',
+                'at' => 'at'
             ],
             'exercise-summary' => [
                 'title' => 'Tasks summary',
