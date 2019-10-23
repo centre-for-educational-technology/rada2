@@ -8,9 +8,7 @@
                     </button>
                     <h4 class="modal-title">{{ title }}</h4>
                 </div>
-                <div class="modal-body">
-                    {{ message }}
-                </div>
+                <div class="modal-body" v-html="message"></div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-sm btn-success center-block" v-on:click="close()">
                         OK
