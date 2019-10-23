@@ -32,6 +32,7 @@ Route::group(['prefix' => 'games'], static function ()
     Route::get('{game}/start-stop-game', 'GameController@startStopGame');
     Route::get('{game}/send-question-answer-to-lrs/{item}', 'GameController@sendQuestionAnswerToLrs');
     Route::get('{game}/send-game-completed-to-lrs', 'GameController@sendGameCompletedToLrs');
+    Route::get('{game}/get-player-positions', 'GameController@getPlayerPositions');
 });
 
 Route::group(['prefix' => 'tasks'], static function () {

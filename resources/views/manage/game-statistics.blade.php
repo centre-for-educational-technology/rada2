@@ -65,6 +65,10 @@
             width: 100%;
             height: auto;
         }
+
+        #map {
+            height: 500px;
+        }
     </style>
 @endsection
 
@@ -128,7 +132,7 @@
                                         <th>
                                             {{ trans('pages.manage.game.player-summary.place') }}
                                         </th>
-                                        <th>
+                                        <th colspan="2">
                                             <a href="{{ route('manage.game-statistics', [
                                                 'segmentType' => 'player',
                                                 'game' => $game->id,
@@ -184,6 +188,7 @@
                                         </th>
                                     </tr>
                                     <tr>
+                                        <th></th>
                                         <th></th>
                                         <th></th>
                                         <th></th>
@@ -244,6 +249,12 @@
                             @foreach ($players as $index => $player)
                                 <tr>
                                     <td>{{ ($index + 1) }}</td>
+                                    <td>
+                                        <a href="#"
+                                           class="mdi mdi-google-maps pull-right mdi-18px open-player-map"
+                                           data-game-id="{{ $player->game_id }}"
+                                        ></a>
+                                    </td>
                                     <td>{{ $player->user_name }}</td>
                                     <td>{{ $player->points }}</td>
                                     <td>{{ $player->time }}</td>
@@ -694,6 +705,22 @@
             </div>
         </div>
     </div>
+
+
+    <div ref="modal" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close close-player-map" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="map"></div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 
 @section('footer-scripts')
@@ -731,5 +758,217 @@
                 $('.answer-item').removeClass('hidden');
             }
         });
+
+        var map;
+        var markers = [];
+        var lines = [];
+        var bestMarkers = [];
+        var infoWindow = null;
+
+        $('.open-player-map').on('click', function () {
+            resetMapData();
+            $('.modal').modal('show');
+            getPlayerPositions($(this).data('game-id'));
+        });
+        $('.close-player-map').on('click', function () {
+            $('.modal').modal('hide');
+            resetMapData();
+        });
+
+        function resetMapData() {
+            for(var i=0; i<markers.length; i++) {
+                var marker = markers[i];
+                marker.setMap(null);
+            }
+            for(var i=0; i<lines.length; i++) {
+                var line = lines[i];
+                line.setMap(null);
+            }
+            markers = [];
+            lines = [];
+            bestMarkers = [];
+        }
+
+        function getPlayerPositions(gameId) {
+            $.get('/api/games/' + gameId + '/get-player-positions', function(data) {
+                if (typeof data.positions !== 'undefined') {
+                    addMarkers({
+                        answers: data.answers,
+                        positions: data.positions
+                    })
+                }
+            });
+        }
+
+        function addMarkers(data) {
+            var positions = data.positions;
+            var answers = data.answers;
+            var positionsLength = positions.length;
+            var answersLength = answers.length;
+            var lastMarker = null;
+            for(var i=0; i<positionsLength; i++) {
+                var position = positions[i];
+                var latitude = position.latitude;
+                var longitude = position.longitude;
+                var time = position.created_at;
+                var marker = getNewMarker(time, latitude, longitude);
+                markers.push(marker);
+                if (lastMarker !== null) {
+                    addLine(marker, lastMarker);
+                }
+                lastMarker = marker;
+            }
+            for(var i=0; i<answersLength; i++) {
+                var answer = answers[i];
+                var time = answer.updated_at;
+                var id = answer.id;
+                var title = answer.title;
+                var answerDate = new Date(time);
+                var currDiff = 0;
+                var bestDiff = 10000000;
+                var bestDate = new Date(0,0,0);
+                var bestMarkerIndex = 0;
+                for(var j=0; j<positionsLength; j++) {
+                    var position = positions[j];
+                    var time = position.created_at;
+                    var date = new Date(time);
+                    currDiff = Math.abs(answerDate - date);
+                    if (currDiff < bestDiff) {
+                        bestDiff = currDiff;
+                        bestDate = date;
+                        bestMarkerIndex = j;
+                    }
+                }
+                if (bestMarkers.filter(marker => {
+                    return marker.infoWindowData.filter(data => {
+                        return data.date.getTime() === bestDate.getTime();
+                    }).length > 0;
+                }).length <= 0) {
+                    var bestMarker = markers[bestMarkerIndex];
+                    bestMarker.setIcon({
+                        path: google.maps.SymbolPath.CIRCLE,
+                        fillColor: 'yellow',
+                        fillOpacity: 1.0,
+                        scale: 4.5,
+                        strokeColor: 'yellow',
+                        strokeWeight: 0.5
+                    });
+                    bestMarker.infoWindowData = [
+                        {
+                            date: bestDate,
+                            title: title
+                        }
+                    ];
+                    bestMarkers.push(bestMarker);
+
+                    bestMarker.addListener('click', function() {
+                        openNewInfoWindow(this);
+                    });
+                } else {
+                    bestMarker.infoWindowData.push({
+                        date: bestDate,
+                        title: title
+                    });
+                }
+            }
+        }
+
+        function closeInfoWindow() {
+            if ( infoWindow && infoWindow.getMap() ) {
+                infoWindow.close();
+            }
+        }
+
+        function openNewInfoWindow(marker) {
+            this.closeInfoWindow();
+            var content = '';
+            var data = marker.infoWindowData;
+            var dataLength = data.length;
+            for(var i=0; i<dataLength; i++) {
+                var date = data[i].date;
+                var formatted_date = date.getFullYear() + "-" +
+                    (date.getMonth() + 1) + "-" +
+                    date.getDate() + " " +
+                    date.getHours() + ":" +
+                    date.getMinutes() + ":" +
+                    date.getSeconds();
+                content += '{{ trans('pages.manage.game.player-summary.answered') }} "' +
+                    data[i].title +
+                    '" {{ trans('pages.manage.game.player-summary.at') }} ' +
+                    formatted_date +
+                    "\n<br />";
+                infoWindow.setContent(content);
+            }
+            infoWindow.open(map, marker);
+
+            return true;
+        }
+
+        function addLine(marker, lastMarker) {
+            var line = new google.maps.Polyline({
+                path: [
+                    lastMarker.getPosition(),
+                    marker.getPosition()
+                ],
+                strokeColor: 'red',
+                strokeWeight: 2,
+                strokeOpacity: 0.4,
+                icons: [{
+                    icon: {
+                        path: google.maps.SymbolPath.FORWARD_CLOSED_ARROW,
+                        fillColor: 'red',
+                        strokeColor: 'red',
+                        fillOpacity: 1.0,
+                        strokeOpacity: 1.0,
+                        scale: 4
+                    },
+                    offset: '50px',
+                }],
+                geodesic: true,
+                map: map,
+                zIndex: 2
+            });
+            lines.push(line);
+        }
+
+        function getNewMarker(title, latitude, longitude) {
+            var marker = new google.maps.Marker({
+                title: title,
+                position: {
+                    lat: Number(latitude),
+                    lng: Number(longitude)
+                },
+                map: map,
+                animation: google.maps.Animation.DROP
+            });
+
+            marker.setIcon({
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: 'red',
+                fillOpacity: 1.0,
+                scale: 0.5,
+                strokeColor: 'red',
+                strokeWeight: 0.5
+            });
+
+            return marker;
+        }
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 8
+            });
+
+            infoWindow = new google.maps.InfoWindow({
+                disableAutoPan: true
+            });
+        }
+
     </script>
+
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&callback=initMap"
+            async defer
+    ></script>
 @endsection

@@ -9,6 +9,7 @@ use App\HT2Labs\XApi\LrsService;
 use App\HT2Labs\XApi\StatementData;
 use App\Jobs\ProcessLrsRequest;
 use App\Options\QuestionTypeOptions;
+use App\Repository\GameRepository;
 use App\User;
 use Exception;
 use Illuminate\Http\JsonResponse;
@@ -57,7 +58,8 @@ class GameController extends Controller
             'startStopFlashExercise',
             'getActiveFlashExercise',
             'getGameData',
-            'startStopGame'
+            'startStopGame',
+            'getPlayerPositions'
         ]]);
     }
 
@@ -678,5 +680,16 @@ class GameController extends Controller
         }
 
         return response()->json([]);
+    }
+
+    public function getPlayerPositions(Game $game)
+    {
+        $playerPositions = GameRepository::getPlayerPositions($game);
+        $playerAnswers = GameRepository::getPlayerAnswers($game);
+
+        return response()->json([
+            'positions' => $playerPositions,
+            'answers' => $playerAnswers
+        ]);
     }
 }

@@ -123,7 +123,8 @@ return [
                 'nr-exercises' => 'Number ülesandeid',
                 'answered' => 'Vastatud',
                 'graded' => 'Hinnatud',
-                'not-graded' => 'Hindamata'
+                'not-graded' => 'Hindamata',
+                'at' => ''
             ],
             'exercise-summary' => [
                 'title' => 'Ülesannete kokkuvõte',

@@ -182,4 +182,31 @@ class GameRepository
             'activity_item_id' => $activityItemId
         ]);
     }
+
+    public static function getPlayerPositions(Game $game): ?array
+    {
+        return DB::select('
+        SELECT `pp`.`latitude`,
+               `pp`.`longitude`,
+               `pp`.`created_at`
+          FROM `player_positions` AS `pp`
+         WHERE `pp`.`game_id` = :game_id
+        ', [
+            'game_id' => $game->id
+        ]);
+    }
+
+    public static function getPlayerAnswers(Game $game): ?array
+    {
+        return DB::select('
+        SELECT `ga`.`updated_at`,
+               `ga`.`id`,
+               `ai`.`title`
+          FROM `game_answers` AS `ga`
+          JOIN `activity_items` AS `ai` ON `ai`.`id` = `ga`.`activity_item_id`
+         WHERE `ga`.`game_id` = :game_id
+        ', [
+            'game_id' => $game->id
+        ]);
+    }
 }
