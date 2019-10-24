@@ -124,6 +124,8 @@
                                 </tr>
                             </tbody>
                         </table>
+
+                        <div id="map"></div>
                     </div>
 
                     <div>
@@ -154,4 +156,68 @@
         </div>
     </div>
 </div>
+@endsection
+
+@section('header-styles')
+    <style>
+        #map {
+            height: 500px;
+        }
+    </style>
+@endsection
+
+@section('footer-scripts')
+    <script>
+        var map;
+        var markers = [];
+
+
+        function initMap() {
+            map = new google.maps.Map(document.getElementById('map'), {
+                center: {lat: -34.397, lng: 150.644},
+                zoom: 8
+            });
+
+            var averagePositionsOfGames = {!! $averagePositionsOfGames !!};
+            var averagePositionsOfGamesLength = averagePositionsOfGames.length;
+            for (var i=0; i<averagePositionsOfGamesLength; i++) {
+                var averagePositionsOfGame = averagePositionsOfGames[i];
+                var marker = getNewMarker(
+                    averagePositionsOfGame.title,
+                    averagePositionsOfGame.latitude,
+                    averagePositionsOfGame.longitude
+                )
+                markers.push(marker);
+            }
+        }
+
+        function getNewMarker(title, latitude, longitude) {
+            var marker = new google.maps.Marker({
+                title: title,
+                position: {
+                    lat: Number(latitude),
+                    lng: Number(longitude)
+                },
+                map: map,
+                animation: google.maps.Animation.DROP
+            });
+
+            marker.setIcon({
+                path: google.maps.SymbolPath.CIRCLE,
+                fillColor: 'red',
+                fillOpacity: 1.0,
+                scale: 4.5,
+                strokeColor: 'red',
+                strokeWeight: 0.5
+            });
+
+            return marker;
+        }
+
+    </script>
+
+    <script
+            src="https://maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&callback=initMap"
+            async defer
+    ></script>
 @endsection

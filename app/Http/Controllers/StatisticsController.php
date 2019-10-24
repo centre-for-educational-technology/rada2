@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Repository\GameRepository;
 use Illuminate\Support\Facades\DB;
 use App\User;
 use App\Activity;
@@ -66,6 +67,7 @@ class StatisticsController extends Controller
             'discountVouchers' => DiscountVoucher::count(),
             'discountVouchersByStatus' => $discountVouchersByStatus,
             'discountVouchersRedeemed' => $discountVouchersRedeemed,
+            'averagePositionsOfGames' => json_encode(GameRepository::getAveragePositionsOfGames())
         ]);
     }
 }
