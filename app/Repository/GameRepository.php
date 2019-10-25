@@ -209,4 +209,17 @@ class GameRepository
             'game_id' => $game->id
         ]);
     }
+
+    public static function getAveragePositionsOfGames()
+    {
+        return DB::select('
+        SELECT AVG(`ai`.`latitude`) AS latitude,
+               AVG(`ai`.`longitude`) AS longitude,
+               `a`.`title`
+          FROM `activities` AS `a`
+          JOIN `activity_activity_item` AS `aai` ON `aai`.`activity_id` = `a`.`id`
+          JOIN `activity_items` AS `ai` ON `ai`.`id` = `aai`.`activity_item_id`
+         GROUP BY `a`.`id`
+        ');
+    }
 }
