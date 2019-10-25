@@ -151,6 +151,11 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <section id="auth-button"></section>
+                    <section id="view-selector"></section>
+                    <section id="timeline"></section>
+
                 </div>
             </div>
         </div>
@@ -175,7 +180,7 @@
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: -34.397, lng: 150.644},
-                zoom: 8
+                zoom: 10
             });
 
             var averagePositionsOfGames = {!! $averagePositionsOfGames !!};
@@ -188,6 +193,10 @@
                     averagePositionsOfGame.longitude
                 )
                 markers.push(marker);
+                map.setCenter(new google.maps.LatLng(
+                    averagePositionsOfGame.latitude,
+                    averagePositionsOfGame.longitude
+                ));
             }
         }
 
