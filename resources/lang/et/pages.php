@@ -99,6 +99,9 @@ return [
             'blocked-users' => 'Blokeeritud',
             'unverified-users' => 'Kinnitamata',
             'download-csv' => 'Eksprodi mänguandmed',
+            'last-week' => 'Eelmine nädal',
+            'last-month' => 'Eelmine kuu',
+            'max' => 'Maksimum',
             'captions' => [
                 'activities-by-zoo' => 'Mändug loomaaedade kaupa',
                 'activities-by-language' => 'Mängud keele alusel',

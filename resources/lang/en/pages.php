@@ -99,6 +99,9 @@ return [
             'blocked-users' => 'Blocked',
             'unverified-users' => 'Unverified',
             'download-csv' => 'Export playing data',
+            'last-week' => 'Last week',
+            'last-month' => 'Last month',
+            'max' => 'Max',
             'captions' => [
                 'activities-by-zoo' => 'Games by Zoo',
                 'activities-by-language' => 'Games by Language',

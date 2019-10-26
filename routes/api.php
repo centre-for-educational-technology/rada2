@@ -43,6 +43,7 @@ Route::group(['prefix' => 'tasks'], static function () {
 Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], static function ()
 {
     Route::delete('users/{user}/roles/{role}', 'UserController@removeRole');
+    Route::get('google-analytics-rows', 'StatisticsController@getGaRows');
 });
 
 Route::group(['prefix' => 'badges'], static function ()
