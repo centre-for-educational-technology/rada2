@@ -233,6 +233,7 @@ class GameRepository
           JOIN `game_answers` AS `ga` ON `ga`.`game_id` = `g`.`id`
          GROUP BY `a`.`id`
          ORDER BY rnk DESC
+         LIMIT 10
         ');
     }
 }
