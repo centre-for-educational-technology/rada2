@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container" id="monitoring-vue-container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
@@ -15,19 +15,39 @@
                         <h2>
                             {{ trans('pages.manage.statistics.activity-items') }}
                             <span class="badge">{{ $activityItems }}</span>
+                            <a href="#" id="toggle-tasks">
+                                <span class="name show-pie hidden">Show pie</span>
+                                <span class="name show-table">Show table</span>
+                            </a>
                         </h2>
 
-                        <table class="table table-striped table-hover table-condensed">
+                        <table id="tasks-table" class="table table-striped table-hover table-condensed hidden">
                             <caption>{{ trans('pages.manage.statistics.captions.activity-items-by-question-type') }}</caption>
                             <tbody>
+                                @php
+                                    $tasksPieChartData = [];
+                                    $tasksPieChartLabels = [];
+                                @endphp
                                 @foreach ($questionTypeOptions as $key => $title)
+                                    @php
+                                        $count = $activityItemsByType->has($key) ? $activityItemsByType->get($key)->count : 0;
+                                        $tasksPieChartData[] = $count;
+                                        $tasksPieChartLabels[] = $title;
+                                    @endphp
                                     <tr>
                                         <td>{{ $title }}</td>
-                                        <td>{{ $activityItemsByType->has($key) ? $activityItemsByType->get($key)->count : 0 }}</td>
+                                        <td>{{ $count }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>
                         </table>
+
+                        <div id="tasks-pie-chart-container">
+                            <pie-chart class="tasks-pie-chart"
+                                       labels='{!! json_encode($tasksPieChartLabels) !!}'
+                                       data="{!! json_encode($tasksPieChartData) !!}"
+                            ></pie-chart>
+                        </div>
 
                         <table class="table table-striped table-hover table-condensed">
                             <caption>{{ trans('pages.manage.statistics.captions.activity-items-by-language') }}</caption>
@@ -109,6 +129,15 @@
             position: absolute;
             top: 40px;
         }
+        #toggle-tasks {
+            font-size: 14px;
+            color: #FFFFFF;
+            background: #3097D1;
+            padding: 4px 10px;
+            border-radius: 6px;
+            float: right;
+            text-decoration: none;
+        }
     </style>
 @endsection
 
@@ -163,6 +192,31 @@
 
             return marker;
         }
+
+        setTimeout(function () {
+            $('#toggle-tasks').on('click', function (e) {
+
+                e.preventDefault();
+                console.log('olemas');
+                $(this).find('.name').each(function () {
+                    console.log('leitud');
+                    if ($(this).hasClass('hidden')) {
+                        $(this).removeClass('hidden');
+                    } else {
+                        $(this).addClass('hidden');
+                        if ($(this).hasClass('show-pie')) {
+                            $('#tasks-pie-chart-container').removeClass('hidden');
+                            $('#tasks-table').addClass('hidden');
+                        } else {
+                            $('#tasks-table').removeClass('hidden');
+                            $('#tasks-pie-chart-container').addClass('hidden');
+                        }
+                    }
+                });
+
+                return false;
+            });
+        }, 500);
 
     </script>
 

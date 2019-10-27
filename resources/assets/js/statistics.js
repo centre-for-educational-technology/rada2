@@ -46,12 +46,44 @@ Vue.component('line-chart', {
 
         });
     }
-})
+});
+
+Vue.component('pie-chart', {
+    extends: VueChartJs.Pie,
+    props: ['data', 'labels'],
+    mounted () {
+
+        this.renderChart({
+            labels: JSON.parse(this.labels),
+            datasets: [
+                {
+                    backgroundColor: [
+                        "#3e95cd",
+                        "#8e5ea2",
+                        "#3cba9f",
+                        "#e8c3b9",
+                        "#c45850",
+                        "#3e9",
+                        "#8e5",
+                        "#3cb"],
+                    data: JSON.parse(this.data)
+                }
+            ]
+        }, {
+            responsive: true,
+            maintainAspectRatio: false
+        });
+
+    }
+});
 
 const monitoringGameApp = new Vue({
-    el: '#google-analytics-line-graph',
+    el: '#monitoring-vue-container',
     created: function () {
 
+    },
+    data() {
+        return {}
     },
     methods: {
         onTypeChange(e) {
