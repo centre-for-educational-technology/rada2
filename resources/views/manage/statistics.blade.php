@@ -18,18 +18,6 @@
                         </h2>
 
                         <table class="table table-striped table-hover table-condensed">
-                            <caption>{{ trans('pages.manage.statistics.captions.activity-items-by-language') }}</caption>
-                            <tbody>
-                                @foreach ($zooOptions as $key => $title)
-                                    <tr>
-                                        <td>{{ $title }}</td>
-                                        <td>{{ $activityItemsByZoo->has($key) ? $activityItemsByZoo->get($key)->count : 0 }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                        <table class="table table-striped table-hover table-condensed">
                             <caption>{{ trans('pages.manage.statistics.captions.activity-items-by-question-type') }}</caption>
                             <tbody>
                                 @foreach ($questionTypeOptions as $key => $title)
