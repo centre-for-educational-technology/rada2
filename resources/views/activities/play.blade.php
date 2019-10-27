@@ -87,6 +87,7 @@
                     'flash-exercise-has-been-deactivated' => trans('pages.play.game.flash-exercise-has-been-deactivated'),
                     'start' => trans('general.actions.start'),
                     'stop' => trans('general.actions.stop'),
+                    'rating-heading' => trans('pages.play.game.rating-title'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),
@@ -163,6 +164,7 @@
         <game-information-modal ref="informationModal" v-if="game" v-bind:activity="game.activity"></game-information-modal>
         <game-image-dialog ref="imageDialog" v-bind:base-url="baseUrl" v-bind:image="'game_complete.png'" v-bind:in-animation-class="'jackInTheBox'" v-bind:out-animation-class="'fadeOutDownBig'"></game-image-dialog>
         <game-results-modal ref="resultsModal" v-if="isGameComplete()" v-bind:game="game" v-bind:base-url="baseUrl"></game-results-modal>
+        <game-rating-modal ref="ratingModal" v-if="isGameComplete()" v-bind:game="game" v-bind:base-url="baseUrl"></game-rating-modal>
         <game-map v-if="!isLoading()" v-bind:latitude="latitude" v-bind:longitude="longitude" v-bind:game="game" v-bind:base-url="baseUrl"></game-map>
     </div>
 

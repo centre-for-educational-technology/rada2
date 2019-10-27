@@ -188,6 +188,8 @@ return [
             'remaining_time' => 'Remaining time',
             'flash-exercises-list-modal-title' => 'Flash exercises',
             'flash-exercise-has-been-deactivated' => 'Flash exercise has been deactivated. It is not possible to submit an answer anymore.',
+            'rating-title' => 'Rate this game',
+            'rating-label' => 'Average rating',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',

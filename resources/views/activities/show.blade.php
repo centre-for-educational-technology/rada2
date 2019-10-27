@@ -40,6 +40,8 @@
                     @endif
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
+                    <h3>{{ trans('pages.play.game.rating-label') }}</h3>
+                    <p>{{ $activity->getAverageRating() }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>
                     <p>{{ $activity->playing_time}} {{ trans('general.minutes')}}</p>
                     <h3>{{ trans('general.language') }}</h3>

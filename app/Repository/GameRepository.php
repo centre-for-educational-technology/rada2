@@ -236,4 +236,23 @@ class GameRepository
          LIMIT 10
         ');
     }
+
+    public static function getAverageRating(int $activityId)
+    {
+        $data = DB::select('
+        SELECT ROUND(AVG(`g`.`rating`)) as avg_rating
+          FROM `games` AS `g`
+         WHERE `g`.`activity_id` = :activity_id
+         GROUP BY `g`.`activity_id`
+        ', [
+            'activity_id' => $activityId
+        ]);
+
+        if(count($data) > 0) {
+            $item = $data[0];
+            return $item->avg_rating ?? 0;
+        }
+
+        return 0;
+    }
 }

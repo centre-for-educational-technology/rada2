@@ -73,6 +73,9 @@
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                                         {{ $activity->playing_time}} {{ trans('general.minutes')}}
                                     </div>
+                                    <div class="sz-metadata">
+                                        {{ trans('pages.play.game.rating-label') }} : {{ $activity->getAverageRating() }}
+                                    </div>
                                 </div>
                                 @if ( !$loop->last)
                                     <hr>
