@@ -5,6 +5,10 @@
                 v-bind:game_id="game.id"
                 ref="flashExercisesListModal"
         ></flash-exercises-list-modal>
+        <game-messages-list-modal
+                v-bind:game_id="game.id"
+                ref="gameMessagesListModal"
+        ></game-messages-list-modal>
         <notification-modal
                 v-bind:title="notificationTitle"
                 v-bind:message="notificationMessage"
@@ -137,7 +141,7 @@
         // ------------- FLASH EXERCISE ---------------------
 
         const flashExerciseAdminControlItem = document.createElement('i');
-        flashExerciseAdminControlItem.className = 'mdi mdi-flash hidden';
+        flashExerciseAdminControlItem.className = 'mdi mdi-email-outline hidden';
         flashExerciseAdminControlItem.id = 'admin-flash-exercises-control-item';
         adminControls.appendChild(flashExerciseAdminControlItem);
 
@@ -150,6 +154,10 @@
         const messagingControlItem = document.createElement('i');
         messagingControlItem.className = 'mdi mdi-message-text-outline';
         adminControls.appendChild(messagingControlItem);
+
+        messagingControlItem.addEventListener('click', function () {
+            vm.$refs.gameMessagesListModal.open();
+        });
 
         // ------------- GRADING ----------------------------
 
@@ -227,6 +235,7 @@
     export default {
         components: {
             'flash-exercises-list-modal': require('./FlashExercisesListModal.vue'),
+            'game-messages-list-modal': require('./GameMessagesListModal.vue'),
             'notification-modal': require('./NotificationModal.vue'),
             'player-info-modal': require('./PlayerInfoModal.vue'),
             'task-info-modal': require('./TaskInfoModal.vue')

@@ -7,7 +7,9 @@
 
 namespace App\Repository;
 
+use App\Activity;
 use App\Game;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class GameRepository
@@ -254,5 +256,31 @@ class GameRepository
         }
 
         return 0;
+    }
+
+    public static function getMessages(Activity $activity): array
+    {
+        /** @var Collection $messages */
+        $messages = DB::table('game_messages')
+            ->select(['id', 'message'])
+            ->where('activity_id', '=', $activity->id)
+            ->orderBy('id', 'desc')
+            ->get();
+        return $messages->toArray();
+    }
+
+    public static function addNewMessage(Activity $activity, string $message): void
+    {
+        DB::table('game_messages')->insert([
+            'activity_id' => $activity->id,
+            'message' => $message
+        ]);
+    }
+
+    public static function deleteMessage(int $messageId): void
+    {
+        DB::table('game_messages')
+            ->where('id', $messageId)
+            ->delete();
     }
 }
