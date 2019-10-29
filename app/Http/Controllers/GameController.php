@@ -60,7 +60,10 @@ class GameController extends Controller
             'getGameData',
             'startStopGame',
             'getPlayerPositions',
-            'addRating'
+            'addRating',
+            'getAllMessages',
+            'addNewMessage',
+            'deleteMessage'
         ]]);
     }
 
@@ -645,7 +648,8 @@ class GameController extends Controller
             'flash_exercise' => $this->getFlashExerciseData($game),
             'start_stop' => [
                 'started' => $this->isGameStarted($game)
-            ]
+            ],
+            'messages' => GameRepository::getNewMessages($game->activity)
         ]);
     }
 
@@ -698,5 +702,21 @@ class GameController extends Controller
         $game->save();
 
         return response()->json([]);
+    }
+
+    public function getAllMessages(Game $game)
+    {
+        return GameRepository::getMessages($game->activity);
+    }
+
+    public function addNewMessage(Request $request, Game $game)
+    {
+        $message = $request->get('message');
+        GameRepository::addNewMessage($game->activity, $message);
+    }
+
+    public function deleteMessage(Request $request, Game $game, int $id)
+    {
+        GameRepository::deleteMessage($id);
     }
 }

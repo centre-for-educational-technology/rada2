@@ -7,7 +7,10 @@
 
 namespace App\Repository;
 
+use App\Activity;
 use App\Game;
+use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
 class GameRepository
@@ -227,7 +230,7 @@ class GameRepository
     {
         return DB::select('
         SELECT `a`.`title` AS title,
-               COUNT(`ga`.`id`) AS rnk
+               ROUND(AVG(`g`.`rating`), 2) AS rnk
           FROM `activities` AS `a`
           JOIN `games` AS `g` ON `g`.`activity_id` = `a`.`id`
           JOIN `game_answers` AS `ga` ON `ga`.`game_id` = `g`.`id`
@@ -254,5 +257,45 @@ class GameRepository
         }
 
         return 0;
+    }
+
+    public static function getMessages(Activity $activity): array
+    {
+        /** @var Collection $messages */
+        $messages = DB::table('game_messages')
+            ->select(['id', 'message', 'created_at'])
+            ->where('activity_id', '=', $activity->id)
+            ->orderBy('id', 'desc')
+            ->get();
+        return $messages->toArray();
+    }
+
+    public static function getNewMessages(Activity $activity): array
+    {
+        $fiveSeconds = (new Carbon('now'))->subSeconds(6);
+        /** @var Collection $messages */
+        $messages = DB::table('game_messages')
+            ->select(['id', 'message', 'created_at'])
+            ->where('activity_id', '=', $activity->id)
+            ->where('created_at', '>', $fiveSeconds)
+            ->orderBy('id', 'asc')
+            ->get();
+        return $messages->toArray();
+    }
+
+    public static function addNewMessage(Activity $activity, string $message): void
+    {
+        DB::table('game_messages')->insert([
+            'activity_id' => $activity->id,
+            'message' => $message,
+            'created_at' => new Carbon()
+        ]);
+    }
+
+    public static function deleteMessage(int $messageId): void
+    {
+        DB::table('game_messages')
+            ->where('id', $messageId)
+            ->delete();
     }
 }
