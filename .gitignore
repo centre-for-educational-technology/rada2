@@ -7,3 +7,4 @@ Homestead.yaml
 .env
 .DS_Store
 /public/build
+/service-account-credentials.json
