@@ -129,6 +129,8 @@ class GradingController extends Controller
                 ->where('game_answers.is_answered', '=', 1)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::EMBEDDED_CONTENT)
+                ->where('activity_items.type', '!=', QuestionTypeOptions::MATCH_PAIRS)
+                ->where('activity_items.type', '!=', QuestionTypeOptions::ONE_CORRECT_ANSWER)
             ;
             if ($showGradedAnswers === false) {
                 $query->where('game_answers.answer', 'is', 'NULL');
