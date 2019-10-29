@@ -520,7 +520,7 @@
                                                                 <tr>
                                                                     <td>{{ $question->option }}</td>
                                                                     <td>
-                                                                        @if($question->correct == 1)
+                                                                        @if($question->correct == 1 && $points !== null && count($points) > 0)
                                                                             {{ array_shift($points) }}
                                                                         @endif
                                                                     </td>

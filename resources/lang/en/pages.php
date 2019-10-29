@@ -190,6 +190,10 @@ return [
             'flash-exercise-has-been-deactivated' => 'Flash exercise has been deactivated. It is not possible to submit an answer anymore.',
             'rating-title' => 'Rate this game',
             'rating-label' => 'Average rating',
+            'game-messages' => 'Messages',
+            'delete-message' => 'Delete',
+            'add-new-message' => 'Add new',
+            'new-message' => 'New message',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',

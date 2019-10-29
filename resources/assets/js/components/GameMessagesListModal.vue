@@ -10,20 +10,29 @@
                 </div>
                 <div class="modal-body">
 
-                    <table class="messages-container">
-                        <tr class="message" v-for="message in messages">
-                            <td style="white-space: pre-line;">{{ message.message }}</td>
-                            <td>
-                                <a v-on:click="deleteMessage(event, message.id)" class="pull-right">
+                    <table class="messages-container table">
+                        <tr :class="{'message': isManager() === true}" v-for="message in messages">
+                            <td v-if="isManager() === false">
+                                <div class="panel panel-default">
+                                    <div class="panel-body">
+                                        <p style="white-space: pre-line;">{{ message.message }}</p>
+                                        <small>{{ message.created_at }}</small>
+                                    </div>
+                                </div>
+                            </td>
+                            <td v-if="isManager() === true" style="white-space: pre-line;">{{ message.message }}</td>
+                            <td v-if="isManager() === true">{{ message.created_at }}</td>
+                            <td v-if="isManager() === true">
+                                <button v-on:click="deleteMessage(event, message.id)" class="pull-right btn btn-danger">
                                     {{ $t('delete-message') }}
-                                </a>
+                                </button>
                             </td>
                         </tr>
                     </table>
 
-                    <div class="add-message-container">
-                        <textarea v-model="newMessage" ref="newMessageInput"></textarea>
-                        <button type="button" v-on:click="addNewMessage">
+                    <div class="add-message-container" v-if="isManager() === true">
+                        <textarea v-model="newMessage" ref="newMessageInput" class="form-control"></textarea>
+                        <button type="button" v-on:click="addNewMessage" class="btn btn-success">
                             {{ $t('add-new-message') }}
                         </button>
                     </div>
@@ -36,7 +45,7 @@
 
 <script>
     export default {
-        props: ['game_id'],
+        props: ['game_id', 'type'],
         mixins: [],
         mounted() {
             this.$nextTick(() => {
@@ -50,6 +59,9 @@
             }
         },
         methods: {
+            isManager() {
+                return this.type === 'monitoring';
+            },
             deleteMessage(e, id) {
                 this.$http.get('/api/games/' + this.game_id + '/delete-message/' + id).then(response => {
                     this.getMessages();
@@ -60,7 +72,7 @@
                     this.$http.post('/api/games/' + this.game_id + '/add-new-message', {
                         message: this.newMessage
                     }).then(response => {
-                        this.$refs.newMessageInput.innerHTML = '';
+                        this.newMessage = '';
                         this.getMessages();
                     })
                 }
@@ -73,6 +85,7 @@
             open() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
+                    this.getMessages();
                 });
                 return $(this.$refs.modal);
             },
@@ -93,5 +106,14 @@
     }
     .flash-exercise .name {
         padding-left: 15px;
+    }
+    textarea {
+        margin-bottom: 10px;
+    }
+    .message {
+        border-bottom: 1px dotted #ccc;
+    }
+    .message td {
+        padding: 10px;
     }
 </style>

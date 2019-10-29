@@ -28,7 +28,13 @@
                 v-bind:message="notificationMessage"
                 ref="notificationModal"
         ></notification-modal>
+        <game-messages-list-modal
+                v-bind:game_id="game.id"
+                type="play"
+                ref="gameMessagesListModal"
+        ></game-messages-list-modal>
         <div id="map"></div>
+        <div id="messages-container"></div>
     </div>
 </template>
 
@@ -53,6 +59,16 @@
 
         vm.$watch('game.answers', function() {
             completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
+        });
+
+        // ------------- MESSAGING --------------------------
+
+        const messagingControlItem = document.createElement('i');
+        messagingControlItem.className = 'mdi mdi-email-outline';
+        controlUI.appendChild(messagingControlItem);
+
+        messagingControlItem.addEventListener('click', function () {
+            vm.$refs.gameMessagesListModal.open();
         });
 
         const flashExerciseControlItem = document.createElement('i');
@@ -190,6 +206,7 @@
             'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
             'game-access-code-modal': require('./GameAccessCodeModal.vue'),
             'game-image-dialog': require('./GameImageDialog.vue'),
+            'game-messages-list-modal': require('./GameMessagesListModal.vue'),
             'notification-modal': require('./NotificationModal.vue')
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
@@ -427,11 +444,35 @@
                         let data = response.body;
                         this.showHideFlashExercises(data.flash_exercise);
                         this.showHideGameIsStopped(data.start_stop);
+                        this.showNewMessages(data.messages);
                     }
                 });
                 setTimeout(() => {
                     this.getGameData();
                 }, 5000);
+            },
+            showNewMessages(messages) {
+                this.showNextMessage(messages, 0);
+            },
+            showNextMessage(messages, index) {
+                let length = messages.length;
+                if (index < length) {
+                    setTimeout(() => {
+                        let message = messages[index];
+                        this.openNewMessageModal(message);
+
+                        if (index + 1 < length) {
+                            setTimeout(() => {
+                                this.showNextMessage(messages, index + 1);
+                            }, 5000);
+                        }
+                    }, 5000);
+                }
+            },
+            openNewMessageModal(message) {
+                this.notificationTitle = this.$t('new-message');
+                this.notificationMessage = message.message;
+                this.$refs.notificationModal.open();
             },
             showHideFlashExercises(data) {
                 if (typeof data.id !== 'undefined') {
@@ -462,9 +503,11 @@
             },
             showNotification(title, message) {
                 this.$refs.notificationModal.close();
-                this.notificationTitle = title;
-                this.notificationMessage = message;
-                this.$refs.notificationModal.open();
+                this.$nextTick(() => {
+                    this.notificationTitle = title;
+                    this.notificationMessage = message;
+                    this.$refs.notificationModal.open();
+                });
             },
             initGroundOverlays() {
                 this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay(this.baseUrl + '/img/map/overlays/skansen.png',{

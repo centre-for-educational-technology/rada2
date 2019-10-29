@@ -648,7 +648,8 @@ class GameController extends Controller
             'flash_exercise' => $this->getFlashExerciseData($game),
             'start_stop' => [
                 'started' => $this->isGameStarted($game)
-            ]
+            ],
+            'messages' => GameRepository::getNewMessages($game->activity)
         ]);
     }
 
@@ -714,9 +715,8 @@ class GameController extends Controller
         GameRepository::addNewMessage($game->activity, $message);
     }
 
-    public function deleteMessage(Request $request)
+    public function deleteMessage(Request $request, Game $game, int $id)
     {
-        $messageId = (int) $request->get('messageId');
-        GameRepository::deleteMessage($messageId);
+        GameRepository::deleteMessage($id);
     }
 }

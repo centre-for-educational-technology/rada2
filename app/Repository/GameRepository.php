@@ -9,6 +9,7 @@ namespace App\Repository;
 
 use App\Activity;
 use App\Game;
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\DB;
 
@@ -262,9 +263,22 @@ class GameRepository
     {
         /** @var Collection $messages */
         $messages = DB::table('game_messages')
-            ->select(['id', 'message'])
+            ->select(['id', 'message', 'created_at'])
             ->where('activity_id', '=', $activity->id)
             ->orderBy('id', 'desc')
+            ->get();
+        return $messages->toArray();
+    }
+
+    public static function getNewMessages(Activity $activity): array
+    {
+        $fiveSeconds = (new Carbon('now'))->subSeconds(6);
+        /** @var Collection $messages */
+        $messages = DB::table('game_messages')
+            ->select(['id', 'message', 'created_at'])
+            ->where('activity_id', '=', $activity->id)
+            ->where('created_at', '>', $fiveSeconds)
+            ->orderBy('id', 'asc')
             ->get();
         return $messages->toArray();
     }
@@ -273,7 +287,8 @@ class GameRepository
     {
         DB::table('game_messages')->insert([
             'activity_id' => $activity->id,
-            'message' => $message
+            'message' => $message,
+            'created_at' => new Carbon()
         ]);
     }
 

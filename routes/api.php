@@ -36,7 +36,7 @@ Route::group(['prefix' => 'games'], static function ()
     Route::get('{game}/add-rating/{rating}', 'GameController@addRating');
     Route::get('{game}/get-all-messages', 'GameController@getAllMessages');
     Route::post('{game}/add-new-message', 'GameController@addNewMessage');
-    Route::get('{game}/delete-message/{messageId}', 'GameController@deleteMessage');
+    Route::get('{game}/delete-message/{id}', 'GameController@deleteMessage');
 });
 
 Route::group(['prefix' => 'tasks'], static function () {

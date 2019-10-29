@@ -90,6 +90,9 @@
                     'stop' => trans('general.actions.stop'),
                     'completed-tasks' => trans('general.forms.labels.completed-tasks'),
                     'users-who-have-completed-the-task' => trans('general.forms.labels.users-who-have-completed-the-task'),
+                    'game-messages' => trans('pages.play.game.game-messages'),
+                    'delete-message' => trans('pages.play.game.delete-message'),
+                    'add-new-message' => trans('pages.play.game.add-new-message'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),

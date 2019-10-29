@@ -190,6 +190,10 @@ return [
             'flash-exercise-has-been-deactivated' => 'Ülesanne on deaktiveeritud. Enam ei ole võimalik küsimusele vastata.',
             'rating-title' => 'Hinda seda mängu',
             'rating-label' => 'Keskmine hinne',
+            'game-messages' => 'Teated',
+            'delete-message' => 'Kustuta',
+            'add-new-message' => 'Lisa uus',
+            'new-message' => 'Uus teade',
             'icons' => [
                 'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
                 'active' => 'Vastamata',

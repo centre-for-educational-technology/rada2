@@ -7,6 +7,7 @@
         ></flash-exercises-list-modal>
         <game-messages-list-modal
                 v-bind:game_id="game.id"
+                type="monitoring"
                 ref="gameMessagesListModal"
         ></game-messages-list-modal>
         <notification-modal
@@ -152,7 +153,7 @@
         // ------------- MESSAGING --------------------------
 
         const messagingControlItem = document.createElement('i');
-        messagingControlItem.className = 'mdi mdi-message-text-outline';
+        messagingControlItem.className = 'mdi mdi-email-outline';
         adminControls.appendChild(messagingControlItem);
 
         messagingControlItem.addEventListener('click', function () {
