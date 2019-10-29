@@ -20,6 +20,7 @@ Vue.component('game-map', require('./components/GameMap.vue'));
 Vue.component('game-tutorial-modal', require('./components/GameTutorialModal.vue'));
 Vue.component('game-information-modal', require('./components/GameInformationModal.vue'));
 Vue.component('game-results-modal', require('./components/GameResultsModal.vue'));
+Vue.component('game-rating-modal', require('./components/GameRatingModal.vue'));
 Vue.component('game-image-dialog', require('./components/GameImageDialog.vue'));
 
 const playGameApp = new Vue({
@@ -71,11 +72,17 @@ const playGameApp = new Vue({
                     this.$refs.imageDialog.open();
                     this.$refs.imageDialog.$once('hidden:image:dialog', () => {
                         this.$refs.resultsModal.open();
+                        if(this.game.rating === null) {
+                            this.$refs.ratingModal.open();
+                        }
                     });
                 }
             });
         } else {
             this.$refs.resultsModal.open();
+            if(this.game.rating === null) {
+                this.$refs.ratingModal.open();
+            }
         }
     },
     data() {

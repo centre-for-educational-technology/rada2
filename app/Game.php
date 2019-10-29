@@ -114,6 +114,7 @@ class Game extends Model
             'id' => $this->id,
             'complete' => (bool)$this->complete,
             'answers' => [],
+            'rating' => $this->rating,
             'player' => [
                 'id' => $this->user_id,
                 'is_admin' => Auth::check() && auth()->user()->isAdmin(),

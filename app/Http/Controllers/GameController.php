@@ -59,7 +59,8 @@ class GameController extends Controller
             'getActiveFlashExercise',
             'getGameData',
             'startStopGame',
-            'getPlayerPositions'
+            'getPlayerPositions',
+            'addRating'
         ]]);
     }
 
@@ -67,25 +68,24 @@ class GameController extends Controller
      * Display game page for the specified activity.
      *
      * @param \App\Activity
+     *
      * @return \Illuminate\Http\Response
      */
     public function play(Request $request, Game $game)
     {
-        if ( !$game->activity ) {
+        if (!$game->activity) {
             abort(404);
         }
 
-        if ( $game->user_id ) {
-            if ( !( Auth::check() && Auth::user()->id === $game->user_id ) ) {
+        if ($game->user_id) {
+            if (!(Auth::check() && Auth::user()->id === $game->user_id)) {
                 abort(403);
             }
         }
 
         $exitUrl = route('activity.index');
-        if ( $request->has('exit_url') )
-        {
-            if ( Str::startsWith( $request->get('exit_url'), url('/') ) )
-            {
+        if ($request->has('exit_url')) {
+            if (Str::startsWith($request->get('exit_url'), url('/'))) {
                 $exitUrl = $request->get('exit_url');
             }
         }
@@ -102,8 +102,8 @@ class GameController extends Controller
             abort(404);
         }
 
-        if ( $game->user_id ) {
-            if ( !( Auth::check() && Auth::user()->id === $game->user_id ) ) {
+        if ($game->user_id) {
+            if (!(Auth::check() && Auth::user()->id === $game->user_id)) {
                 abort(403);
             }
         }
@@ -118,9 +118,11 @@ class GameController extends Controller
 
     /**
      * Answer a question
-     * @param  \Illuminate\Http\Request   $request      Request object
-     * @param  \App\Services\ImageService $imageService ImageService instance
-     * @param  \App\Game                  $game         Game object
+     *
+     * @param \Illuminate\Http\Request   $request      Request object
+     * @param \App\Services\ImageService $imageService ImageService instance
+     * @param \App\Game                  $game         Game object
+     *
      * @return \Illuminate\Http\Response
      */
     public function answer(Request $request, ImageService $imageService, Game $game)
@@ -135,31 +137,28 @@ class GameController extends Controller
         if (!$answer) {
             $answer = new GameAnswer();
 
-            $answer->game()->associate( $game );
-            $answer->activityItem()->associate( $item );
+            $answer->game()->associate($game);
+            $answer->activityItem()->associate($item);
         }
         $answer->correct = true;
         $answer->is_answered = true;
 
-        if ( $item->type === QuestionTypeOptions::ONE_CORRECT_ANSWER || $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS )
-        {
+        if ($item->type === QuestionTypeOptions::ONE_CORRECT_ANSWER || $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS) {
             $chosenOptionIds = $request->get('options');
-            if ( !is_array($chosenOptionIds) ) {
+            if (!is_array($chosenOptionIds)) {
                 $chosenOptionIds = [$chosenOptionIds];
             }
             $answer->answer = json_encode([
                 'options' => $chosenOptionIds,
             ]);
             $correctOptionIds = [];
-            foreach ( $item->options as $option ) {
-                if ( $option->correct ) {
+            foreach ($item->options as $option) {
+                if ($option->correct) {
                     $correctOptionIds[] = $option->id;
                 }
             }
-            $answer->correct = ( count($correctOptionIds) === count($chosenOptionIds) && count( array_intersect($correctOptionIds, $chosenOptionIds) ) === count($correctOptionIds) );
-        }
-        else if ( $item->type === QuestionTypeOptions::FREEFORM_ANSWER || $item->type === QuestionTypeOptions::EMBEDDED_CONTENT || $item->type === QuestionTypeOptions::MISSING_WORD )
-        {
+            $answer->correct = (count($correctOptionIds) === count($chosenOptionIds) && count(array_intersect($correctOptionIds, $chosenOptionIds)) === count($correctOptionIds));
+        } else if ($item->type === QuestionTypeOptions::FREEFORM_ANSWER || $item->type === QuestionTypeOptions::EMBEDDED_CONTENT || $item->type === QuestionTypeOptions::MISSING_WORD) {
             $answer->answer = json_encode([
                 'text' => $request->get('text'),
             ]);
@@ -167,9 +166,7 @@ class GameController extends Controller
             if ($item->type === QuestionTypeOptions::MISSING_WORD) {
                 $answer->correct = \mb_strtoupper(\preg_replace('/\s+/', '', $request->get('text'))) === \mb_strtoupper(\preg_replace('/\s+/', '', $item->missing_word));
             }
-        }
-        else if ( $item->type === QuestionTypeOptions::PHOTO )
-        {
+        } else if ($item->type === QuestionTypeOptions::PHOTO) {
             $validator = Validator::make(
                 [
                     'file' => $request->file('image')
@@ -179,7 +176,7 @@ class GameController extends Controller
                 ]
             );
 
-            if ( $validator->fails() ) {
+            if ($validator->fails()) {
                 return response()->json(['error' => 'Missing or wrong image type.'], 403);
             }
 
@@ -192,7 +189,7 @@ class GameController extends Controller
             $answer->image = $fileName;
         }
 
-        if (($answer->correct ||  $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS) && $item->points !== null) {
+        if (($answer->correct || $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS) && $item->points !== null) {
             $points = $item->calculateTotalPoints($answer);
             if ($points !== false) {
                 $answer->grade = $points;
@@ -205,12 +202,12 @@ class GameController extends Controller
         $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
         $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
         $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
-        if ( count($unansweredItemIds) === 0 ) {
+        if (count($unansweredItemIds) === 0) {
             $game->complete = true;
             $game->save();
         }
 
-        $this->sendQuestionAnswerToLrs($game,$item);
+        $this->sendQuestionAnswerToLrs($game, $item);
 
         return $answer->getGameData();
     }
@@ -235,12 +232,12 @@ class GameController extends Controller
         }
         $raw = $answer->grade ?? 0;
         $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
-        $result = new StatementData\Result(true, $answer->correct, new StatementData\Score(0, (int) $max, (int) $raw, $scaled));
+        $result = new StatementData\Result(true, $answer->correct, new StatementData\Score(0, (int)$max, (int)$raw, $scaled));
         $statementData = new StatementData($actor, $verb, $object, null, $context, $result);
 
         ProcessLrsRequest::dispatch($statementData);
 
-        if($game->complete === true) {
+        if ($game->complete === true) {
             $this->sendGameCompletedToLrs($game);
         }
 
@@ -263,19 +260,19 @@ class GameController extends Controller
         foreach ($activity->activityItems()->getResults() as $_item) {
             $points = $_item->points !== null ? json_decode($_item->points, true) : 0;
             if (is_array($points)) {
-                $max += (int) array_sum($points);
+                $max += (int)array_sum($points);
             } else {
-                $max += (int) $points;
+                $max += (int)$points;
             }
         }
         $raw = 0;
         $success = true;
         /** @var GameAnswer $_answer */
-        foreach($game->answers()->getResults() as $_answer) {
+        foreach ($game->answers()->getResults() as $_answer) {
             if (!$_answer->correct) {
                 $success = false;
             }
-            $raw += (int) ($_answer->grade ?? 0);
+            $raw += (int)($_answer->grade ?? 0);
         }
         $scaled = $raw > 0 && $max > 0 ? $raw / $max : 0;
         $result = new StatementData\Result(true, $success, new StatementData\Score(0, $max, $raw, $scaled));
@@ -288,7 +285,8 @@ class GameController extends Controller
 
     /**
      * @param Request $request
-     * @param Game $game
+     * @param Game    $game
+     *
      * @return array
      */
     public function startAnsweringTimer(Request $request, Game $game)
@@ -303,13 +301,13 @@ class GameController extends Controller
         if (!$answer->id) {
             /** @var ActivityItem $activityItem */
             $activityItem = $activity->activityItems()->where('id', $request->get('question_id'))->first();
-            $answer->game()->associate( $game );
-            $answer->activityItem()->associate( $activityItem );
+            $answer->game()->associate($game);
+            $answer->activityItem()->associate($activityItem);
         }
         $answer->correct = false;
         $answer->is_answered = false;
         $answer->answering_start_time = $date;
-        if($answer->answer === null || empty($answer->answer)) {
+        if ($answer->answer === null || empty($answer->answer)) {
             $answer->answer = '';
         }
 
@@ -328,7 +326,7 @@ class GameController extends Controller
         $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
         $answer->correct = false;
         $answer->is_answered = true;
-        if($answer->answer === null || empty($answer->answer)) {
+        if ($answer->answer === null || empty($answer->answer)) {
             $answer->answer = '';
         }
         $answer->save();
@@ -337,7 +335,7 @@ class GameController extends Controller
         $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
         $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
         $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
-        if ( count($unansweredItemIds) === 0 ) {
+        if (count($unansweredItemIds) === 0) {
             $game->complete = true;
             $game->save();
         }
@@ -403,16 +401,17 @@ class GameController extends Controller
 
     /**
      * Log player position
-     * @param  \Illuminate\Http\Request $request Request object
-     * @param  \App\Game                $game    Game object
+     *
+     * @param \Illuminate\Http\Request $request Request object
+     * @param \App\Game                $game    Game object
+     *
      * @return \Illuminate\Http\Response
      */
     public function logPlayerPosition(Request $request, Game $game)
     {
         $position = $request->get('position');
 
-        if ( !$position )
-        {
+        if (!$position) {
             return response()->json(['error' => 'Position data is missing.'], 400);
         }
 
@@ -420,11 +419,9 @@ class GameController extends Controller
         $playerPosition->game()->associate($game);
         $playerPosition->latitude = $position['coords']['latitude'];
         $playerPosition->longitude = $position['coords']['longitude'];
-        if ( isset($position['coords']['heading']) )
-        {
+        if (isset($position['coords']['heading'])) {
             $heading = (int)$position['coords']['heading'];
-            if ( $heading >= 0 && $heading < 360 )
-            {
+            if ($heading >= 0 && $heading < 360) {
                 $playerPosition->heading = $heading;
             }
         }
@@ -437,20 +434,21 @@ class GameController extends Controller
 
     /**
      * Answer a question
-     * @param  \Illuminate\Http\Request   $request      Request object
-     * @param  \App\Game                  $game         Game object
+     *
+     * @param \Illuminate\Http\Request $request Request object
+     * @param \App\Game                $game    Game object
+     *
      * @return \Illuminate\Http\Response
      */
     public function voucher(Request $request, Game $game)
     {
-        if ( $game->user_id ) {
-            if ( !( Auth::check() && Auth::user()->id === $game->user_id ) ) {
+        if ($game->user_id) {
+            if (!(Auth::check() && Auth::user()->id === $game->user_id)) {
                 return response()->json(['error' => 'Forbidden.'], 403);
             }
         }
 
-        if ( !$game->user )
-        {
+        if (!$game->user) {
             return response()->json(['error' => 'Forbidden.'], 403);
         }
 
@@ -461,8 +459,7 @@ class GameController extends Controller
             ->where('game_id', '=', $game->id)
             ->first();
 
-        if ( $discountVoucher )
-        {
+        if ($discountVoucher) {
             $responseData['hasVoucher'] = true;
             $responseData['voucher'] = [
                 'title' => $discountVoucher->title,
@@ -474,7 +471,9 @@ class GameController extends Controller
 
     /**
      * Trigger download of CSV file with player positions
-     * @param  \App\Game   $game Game object
+     *
+     * @param \App\Game $game Game object
+     *
      * @return \Illuminate\Http\Response
      */
     public function downloadPlayerPositions(Game $game)
@@ -490,19 +489,16 @@ class GameController extends Controller
         ];
         $columns = ['Latitude', 'Longitude', 'Heading', 'Timestamp',];
         $playerPositions = DB::table('player_positions')
-                               ->select('latitude', 'longitude', 'heading', 'timestamp')
-                               ->where('game_id', $game->id)
-                               ->orderBy('timestamp', 'asc')
-                               ->get();
-        $callback = function() use ($playerPositions, $columns)
-        {
+            ->select('latitude', 'longitude', 'heading', 'timestamp')
+            ->where('game_id', $game->id)
+            ->orderBy('timestamp', 'asc')
+            ->get();
+        $callback = function () use ($playerPositions, $columns) {
             $handle = fopen('php://output', 'w');
             fputcsv($handle, $columns);
 
-            if ( $playerPositions->count() > 0 )
-            {
-                foreach ($playerPositions as $position)
-                {
+            if ($playerPositions->count() > 0) {
+                foreach ($playerPositions as $position) {
                     fputcsv($handle, [$position->latitude, $position->longitude, $position->heading, $position->timestamp,]);
                 }
             }
@@ -515,7 +511,8 @@ class GameController extends Controller
 
     /**
      * @param Request $request
-     * @param Game $game
+     * @param Game    $game
+     *
      * @return JsonResponse|Collection|null
      */
     public function getCountOfUngradedAnswers(Request $request, Game $game)
@@ -544,8 +541,7 @@ class GameController extends Controller
                 ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::EMBEDDED_CONTENT)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::MATCH_PAIRS)
-                ->where('activity_items.type', '!=', QuestionTypeOptions::ONE_CORRECT_ANSWER)
-            ;
+                ->where('activity_items.type', '!=', QuestionTypeOptions::ONE_CORRECT_ANSWER);
             $count = $query->count();
         }
 
@@ -556,7 +552,8 @@ class GameController extends Controller
 
     /**
      * @param Request $request
-     * @param Game $game
+     * @param Game    $game
+     *
      * @return JsonResponse
      */
     public function startStopFlashExercise(Request $request, Game $game)
@@ -565,7 +562,7 @@ class GameController extends Controller
         $activityItemId = $request->get('questionId');
         $active = $request->get('active');
 
-        if ((int) $activityId <= 0 || (int) $activityItemId <= 0) {
+        if ((int)$activityId <= 0 || (int)$activityItemId <= 0) {
             return response()->json([
                 'error' => 'Invalid data'
             ]);
@@ -573,10 +570,9 @@ class GameController extends Controller
 
         $query = DB::table(ActivityFlashExercise::TABLE_NAME)
             ->select(['id'])
-            ->where('activity_id','=', $activityId)
+            ->where('activity_id', '=', $activityId)
             ->where('activity_item_id', '=', $activityItemId)
-            ->where('active', '=', 1)
-        ;
+            ->where('active', '=', 1);
         $data = $query->get();
         if ($data->count() > 0) {
             $activityFlashExercise = ActivityFlashExercise::find($data->first()->id);
@@ -599,6 +595,7 @@ class GameController extends Controller
 
     /**
      * @param Game $game
+     *
      * @return array
      * @return JsonResponse
      */
@@ -611,7 +608,7 @@ class GameController extends Controller
     {
         $activityId = $game->activity_id;
 
-        if ((int) $activityId <= 0) {
+        if ((int)$activityId <= 0) {
             return response()->json([
                 'error' => 'Invalid data'
             ]);
@@ -619,9 +616,8 @@ class GameController extends Controller
 
         $query = DB::table(ActivityFlashExercise::TABLE_NAME)
             ->select(['activity_item_id'])
-            ->where('activity_id','=', $activityId)
-            ->where('active', '=', 1)
-        ;
+            ->where('activity_id', '=', $activityId)
+            ->where('active', '=', 1);
         $data = $query->get();
         if ($data->count() > 0) {
             return ['id' => $data->first()->activity_item_id];
@@ -640,6 +636,7 @@ class GameController extends Controller
 
     /**
      * @param Game $game
+     *
      * @return JsonResponse
      */
     public function getGameData(Game $game)
@@ -654,7 +651,7 @@ class GameController extends Controller
 
     public function monitoring(Request $request, Game $game)
     {
-        if ( !$game->activity ) {
+        if (!$game->activity) {
             abort(404);
         }
 
@@ -693,5 +690,13 @@ class GameController extends Controller
             'positions' => $playerPositions,
             'answers' => $playerAnswers
         ]);
+    }
+
+    public function addRating(Game $game, int $rating)
+    {
+        $game->rating = $rating;
+        $game->save();
+
+        return response()->json([]);
     }
 }
