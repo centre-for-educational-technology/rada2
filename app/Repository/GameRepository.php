@@ -230,7 +230,7 @@ class GameRepository
     {
         return DB::select('
         SELECT `a`.`title` AS title,
-               COUNT(`ga`.`id`) AS rnk
+               ROUND(AVG(`g`.`rating`), 2) AS rnk
           FROM `activities` AS `a`
           JOIN `games` AS `g` ON `g`.`activity_id` = `a`.`id`
           JOIN `game_answers` AS `ga` ON `ga`.`game_id` = `g`.`id`
