@@ -817,6 +817,11 @@
                     addLine(marker, lastMarker);
                 }
                 lastMarker = marker;
+
+                map.setCenter(new google.maps.LatLng(
+                    position.latitude,
+                    position.longitude
+                ));
             }
             for(var i=0; i<answersLength; i++) {
                 var answer = answers[i];

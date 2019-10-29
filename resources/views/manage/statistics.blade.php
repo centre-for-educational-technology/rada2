@@ -151,6 +151,18 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <div id="google-analytics-line-graph">
+                        <select class="form-control" v-on:change="onTypeChange">
+                            <option value="last-week">{{ trans('pages.manage.statistics.last-week') }}</option>
+                            <option value="last-month">{{ trans('pages.manage.statistics.last-month') }}</option>
+                            <option value="max">{{ trans('pages.manage.statistics.max') }}</option>
+                        </select>
+                        <line-chart class="line-chart line-chart-max" type="max"></line-chart>
+                        <line-chart class="line-chart line-chart-last-month" type="last-month"></line-chart>
+                        <line-chart class="line-chart line-chart-last-week" type="last-week"></line-chart>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -162,6 +174,19 @@
     <style>
         #map {
             height: 500px;
+        }
+        #google-analytics-line-graph {
+            position: relative;
+            display: block;
+            overflow: hidden;
+            height: 440px;
+            background-color: #ffffff;
+        }
+        #google-analytics-line-graph .line-chart {
+            height: 400px;
+            width: 100%;
+            position: absolute;
+            top: 40px;
         }
     </style>
 @endsection
@@ -175,7 +200,7 @@
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: -34.397, lng: 150.644},
-                zoom: 8
+                zoom: 10
             });
 
             var averagePositionsOfGames = {!! $averagePositionsOfGames !!};
@@ -188,6 +213,10 @@
                     averagePositionsOfGame.longitude
                 )
                 markers.push(marker);
+                map.setCenter(new google.maps.LatLng(
+                    averagePositionsOfGame.latitude,
+                    averagePositionsOfGame.longitude
+                ));
             }
         }
 
@@ -215,6 +244,8 @@
         }
 
     </script>
+
+    <script src="{{ elixir('js/statistics.js') }}"></script>
 
     <script
             src="https://maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&callback=initMap"

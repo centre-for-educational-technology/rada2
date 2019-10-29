@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Google\Analytics;
 use App\Repository\GameRepository;
 use Illuminate\Support\Facades\DB;
 use App\User;
@@ -12,6 +13,7 @@ use App\DiscountVoucher;
 use App\Options\ZooOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\LanguageOptions;
+use Symfony\Component\HttpFoundation\Request;
 
 class StatisticsController extends Controller
 {
@@ -29,7 +31,9 @@ class StatisticsController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth.admin');
+        $this->middleware('auth.admin', ['except' => [
+            'getGaRows'
+        ]]);
     }
 
     /**
@@ -68,6 +72,17 @@ class StatisticsController extends Controller
             'discountVouchersByStatus' => $discountVouchersByStatus,
             'discountVouchersRedeemed' => $discountVouchersRedeemed,
             'averagePositionsOfGames' => json_encode(GameRepository::getAveragePositionsOfGames())
+        ]);
+    }
+
+    public function getGaRows(Request $request)
+    {
+        $type = $request->get('type');
+        $analytics = new Analytics();
+
+        return response()->json([
+            'name' => trans('pages.manage.statistics.'.$type),
+            'rows' => $analytics->getRows($type)
         ]);
     }
 }
