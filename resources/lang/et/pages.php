@@ -102,6 +102,7 @@ return [
             'last-week' => 'Eelmine nädal',
             'last-month' => 'Eelmine kuu',
             'max' => 'Maksimum',
+            'top-games' => 'Top 10 mängu',
             'captions' => [
                 'activities-by-zoo' => 'Mändug loomaaedade kaupa',
                 'activities-by-language' => 'Mängud keele alusel',

@@ -102,6 +102,7 @@ return [
             'last-week' => 'Last week',
             'last-month' => 'Last month',
             'max' => 'Max',
+            'top-games' => 'Top 10 games',
             'captions' => [
                 'activities-by-zoo' => 'Games by Zoo',
                 'activities-by-language' => 'Games by Language',

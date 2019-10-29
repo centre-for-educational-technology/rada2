@@ -87,6 +87,23 @@
 
                     <div>
                         <h2>
+                            {{ trans('pages.manage.statistics.top-games') }}
+                        </h2>
+
+                        <table class="table table-striped table-hover table-condensed">
+                            <tbody>
+                                @foreach($topGames as $game)
+                                    <tr>
+                                        <td>{{ $game->rnk }}</td>
+                                        <td>{{ $game->title }}</td>
+                                    </tr>
+                                @endforeach
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div>
+                        <h2>
                             {{ trans('pages.manage.statistics.users') }}
                         </h2>
 

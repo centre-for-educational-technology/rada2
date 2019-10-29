@@ -71,7 +71,8 @@ class StatisticsController extends Controller
             'discountVouchers' => DiscountVoucher::count(),
             'discountVouchersByStatus' => $discountVouchersByStatus,
             'discountVouchersRedeemed' => $discountVouchersRedeemed,
-            'averagePositionsOfGames' => json_encode(GameRepository::getAveragePositionsOfGames())
+            'averagePositionsOfGames' => json_encode(GameRepository::getAveragePositionsOfGames()),
+            'topGames' => GameRepository::getTopGames()
         ]);
     }
 
