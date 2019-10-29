@@ -10,57 +10,6 @@
                 </div>
 
                 <div class="panel-body">
-                    <div>
-                        <h2>
-                            {{ trans('pages.manage.statistics.users') }}
-                            <span class="badge">{{ $users }}</span>
-                        </h2>
-
-                        <table class="table table-striped table-hover table-condensed">
-                            <caption></caption>
-                            <tbody>
-                                <tr>
-                                    <td>{{ trans('pages.manage.statistics.blocked-users') }}</td>
-                                    <td>{{ $blockedUsers }}</td>
-                                </tr>
-                                <tr>
-                                    <td>{{ trans('pages.manage.statistics.unverified-users') }}</td>
-                                    <td>{{ $unverifiedUsers }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-
-                    <div>
-                        <h2>
-                            {{ trans('pages.manage.statistics.activities') }}
-                            <span class="badge">{{ $activities }}</span>
-                        </h2>
-
-                        <table class="table table-striped table-hover table-condensed">
-                            <caption>{{ trans('pages.manage.statistics.captions.activities-by-zoo') }}</caption>
-                            <tbody>
-                                @foreach ($zooOptions as $key => $title)
-                                    <tr>
-                                        <td>{{ $title }}</td>
-                                        <td>{{ $activitiesByZoo->has($key) ? $activitiesByZoo->get($key)->count : 0 }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-
-                        <table class="table table-striped table-hover table-condensed">
-                            <caption>{{ trans('pages.manage.statistics.captions.activities-by-language') }}</caption>
-                            <tbody>
-                                @foreach ($languageOptions as $key => $title)
-                                    <tr>
-                                        <td>{{ $title }}</td>
-                                        <td>{{ $activitiesByLanguage->has($key) ? $activitiesByLanguage->get($key)->count : 0 }}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                    </div>
 
                     <div>
                         <h2>
@@ -130,37 +79,21 @@
 
                     <div>
                         <h2>
-                            {{ trans('pages.manage.statistics.discount-vouchers') }}
-                            <span class="badge">{{ $discountVouchers }}</span>
+                            {{ trans('pages.manage.statistics.users') }}
                         </h2>
 
-                        <table class="table table-striped table-hover table-condensed">
-                            <tbody>
-                                <tr>
-                                    <th>{{ trans('pages.manage.statistics.columns.discount-vouchers-total') }}</th>
-                                    <th>{{ trans('general.discount-voucher-status.active') }}</th>
-                                    <th>{{ trans('general.discount-voucher-status.inactive') }}</th>
-                                    <th>{{ trans('pages.manage.statistics.columns.discount-vouchers-redeemed') }}</th>
-                                </tr>
-                                <tr>
-                                    <td>{{ $discountVouchers }}</td>
-                                    <td>{{ $discountVouchersByStatus->has(1) ? $discountVouchersByStatus->get(1)->count : 0 }}</td>
-                                    <td>{{ $discountVouchersByStatus->has(0) ? $discountVouchersByStatus->get(0)->count : 0 }}</td>
-                                    <td>{{ $discountVouchersRedeemed }}</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                        <div id="google-analytics-line-graph">
 
-                    <div id="google-analytics-line-graph">
-                        <select class="form-control" v-on:change="onTypeChange">
-                            <option value="last-week">{{ trans('pages.manage.statistics.last-week') }}</option>
-                            <option value="last-month">{{ trans('pages.manage.statistics.last-month') }}</option>
-                            <option value="max">{{ trans('pages.manage.statistics.max') }}</option>
-                        </select>
-                        <line-chart class="line-chart line-chart-max" type="max"></line-chart>
-                        <line-chart class="line-chart line-chart-last-month" type="last-month"></line-chart>
-                        <line-chart class="line-chart line-chart-last-week" type="last-week"></line-chart>
+                            <select class="form-control" v-on:change="onTypeChange">
+                                <option value="last-week">{{ trans('pages.manage.statistics.last-week') }}</option>
+                                <option value="last-month">{{ trans('pages.manage.statistics.last-month') }}</option>
+                                <option value="max">{{ trans('pages.manage.statistics.max') }}</option>
+                            </select>
+                            <line-chart class="line-chart line-chart-max" type="max"></line-chart>
+                            <line-chart class="line-chart line-chart-last-month" type="last-month"></line-chart>
+                            <line-chart class="line-chart line-chart-last-week" type="last-week"></line-chart>
+
+                        </div>
                     </div>
 
                 </div>
