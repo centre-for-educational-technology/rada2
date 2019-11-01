@@ -65,12 +65,12 @@ class AwardBadges extends Command
             $usersChecked++;
 
             // Register badge to any user
-            $user->awardBadge( $this->badges->get('register') );
+//            $user->awardBadge( $this->badges->get('register') );
 
             // Social Login badge to any user wth Social Accounts connected
             if ( count($user->social_accounts) )
             {
-                $user->awardBadge( $this->badges->get('social') );
+//                $user->awardBadge( $this->badges->get('social') );
             }
 
             // Award Gamer badges based on completed Games count
@@ -78,19 +78,19 @@ class AwardBadges extends Command
 
             if ( $completeGamesCount >= 1 )
             {
-                $user->awardBadge( $this->badges->get('novice_gamer') );
+//                $user->awardBadge( $this->badges->get('novice_gamer') );
             }
             if ( $completeGamesCount >= 5 )
             {
-                $user->awardBadge( $this->badges->get('seasoned_gamer') );
+//                $user->awardBadge( $this->badges->get('seasoned_gamer') );
             }
             if ( $completeGamesCount >= 10)
             {
-                $user->awardBadge( $this->badges->get('veteran_gamer') );
+//                $user->awardBadge( $this->badges->get('veteran_gamer') );
             }
             if ( $completeGamesCount >= 25)
             {
-                $user->awardBadge( $this->badges->get('pro_gamer') );
+//                $user->awardBadge( $this->badges->get('pro_gamer') );
             }
 
             // Award Creator badges based on created Activities count
@@ -98,19 +98,19 @@ class AwardBadges extends Command
 
             if ( $activitiesCount >= 1 )
             {
-                $user->awardBadge( $this->badges->get('novice_creator') );
+//                $user->awardBadge( $this->badges->get('novice_creator') );
             }
             if ( $activitiesCount >= 5 )
             {
-                $user->awardBadge( $this->badges->get('seasoned_creator') );
+//                $user->awardBadge( $this->badges->get('seasoned_creator') );
             }
             if ( $activitiesCount >= 10)
             {
-                $user->awardBadge( $this->badges->get('veteran_creator') );
+//                $user->awardBadge( $this->badges->get('veteran_creator') );
             }
             if ( $activitiesCount >= 25)
             {
-                $user->awardBadge( $this->badges->get('pro_creator') );
+//                $user->awardBadge( $this->badges->get('pro_creator') );
             }
         }
 
