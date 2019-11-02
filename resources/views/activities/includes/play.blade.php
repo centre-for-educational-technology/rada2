@@ -1,3 +1,21 @@
+@can('startMonitoring', $activity)
+    @if ($activity->is_template == false)
+        <form class="sz-play-action-form">
+            <button type="button" class="btn btn-play btn-sm" id="start-monitoring-button">
+                <i class="mdi mdi-magnify"></i>
+            </button>
+            <script>
+                window.document.getElementById('start-monitoring-button').addEventListener('click', function (e) {
+                    e.preventDefault();
+                    window.location.href = "{!! route('activity.start-monitoring', [
+                        'id' => $activity->id
+                    ]) !!}";
+                    return false;
+                });
+            </script>
+        </form>
+    @endif
+@else
 <form class="sz-play-action-form" action="{{ route('activity.start', ['id' => $activity->id]) }}" method="POST">
     {{ csrf_field() }}
     {!! Form::hidden('exit_url', url()->full(), []) !!}
@@ -6,3 +24,4 @@
       <i class="mdi mdi-play-circle-outline"></i>
     </button>
 </form>
+@endcan
