@@ -162,12 +162,16 @@
     <script>
         var map;
         var markers = [];
+        var infoWindow = null;
 
 
         function initMap() {
             map = new google.maps.Map(document.getElementById('map'), {
                 center: {lat: -34.397, lng: 150.644},
                 zoom: 10
+            });
+            infoWindow = new google.maps.InfoWindow({
+                disableAutoPan: true
             });
 
             var averagePositionsOfGames = {!! $averagePositionsOfGames !!};
@@ -179,6 +183,13 @@
                     averagePositionsOfGame.latitude,
                     averagePositionsOfGame.longitude
                 )
+                marker.addListener('click', function () {
+                    if ( infoWindow && infoWindow.getMap() ) {
+                        infoWindow.close();
+                    }
+                    infoWindow.setContent(this.title);
+                    infoWindow.open(map, this);
+                });
                 markers.push(marker);
                 map.setCenter(new google.maps.LatLng(
                     averagePositionsOfGame.latitude,
@@ -202,8 +213,8 @@
                 path: google.maps.SymbolPath.CIRCLE,
                 fillColor: 'red',
                 fillOpacity: 1.0,
-                scale: 4.5,
-                strokeColor: 'red',
+                scale: 8.5,
+                strokeColor: 'black',
                 strokeWeight: 0.5
             });
 
