@@ -142,7 +142,7 @@
         // ------------- FLASH EXERCISE ---------------------
 
         const flashExerciseAdminControlItem = document.createElement('i');
-        flashExerciseAdminControlItem.className = 'mdi mdi-email-outline hidden';
+        flashExerciseAdminControlItem.className = 'mdi mdi-flash hidden';
         flashExerciseAdminControlItem.id = 'admin-flash-exercises-control-item';
         adminControls.appendChild(flashExerciseAdminControlItem);
 
