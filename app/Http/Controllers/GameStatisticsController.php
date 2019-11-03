@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Support\Facades\DB;
 use PhpOffice\PhpSpreadsheet\Exception;
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
-use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
+use PhpOffice\PhpSpreadsheet\Writer\Csv;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -262,7 +262,7 @@ class GameStatisticsController extends Controller
         $streamedResponse = new StreamedResponse();
         $streamedResponse->setCallback(static function () use ($spreadsheet) {
 
-            $writer = new Xlsx($spreadsheet);
+            $writer = new Csv($spreadsheet);
             $writer->save('php://output');
 
         });
@@ -272,7 +272,7 @@ class GameStatisticsController extends Controller
         $activityName = $activity->title;
         $now = new Carbon('NOW');
         $timestamp = $now->getTimestamp();
-        $fileName = $activityName . '_' . $timestamp . '.xlsx';
+        $fileName = $activityName . '_' . $timestamp . '.csv';
 
         $streamedResponse->setStatusCode(Response::HTTP_OK);
         $streamedResponse->headers->set('Content-Type', 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
