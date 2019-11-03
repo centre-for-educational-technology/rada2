@@ -473,7 +473,7 @@
                                     @endforeach
                                 </select>
                                 <select id="task-select" class="form-control">
-                                    <option value="0">{{ trans('pages.manage.game.tasks.select-all-tasks') }}</option>
+                                    <option value="">{{ trans('pages.manage.game.tasks.select-all-tasks') }}</option>
                                     @foreach($exercises as $exercise)
                                         <option value="{{ $exercise->id }}">{{ $exercise->exercise }}</option>
                                     @endforeach
@@ -583,7 +583,7 @@
                                                             <div>{{ trans('pages.manage.game.tasks.answer-from') }} {{ $gameData->user_name }}</div>
                                                             <div>{{ $gameData->answer_time }}</div>
                                                             <div>
-                                                                @if($gameData->grade > 0)
+                                                                @if($gameData->grade !== null)
                                                                     <i class="mdi mdi-check-circle-outline"></i>
                                                                     {{ trans('pages.manage.game.tasks.graded') }}
                                                                 @else
@@ -738,25 +738,46 @@
             });
         });
 
-        $('#task-select').on('change', function () {
-            var val = $(this).val();
-            if (val > 0) {
-                $('.exercise').addClass('hidden');
-                $('#exercise-' + val).removeClass('hidden');
-            } else {
-                $('.exercise').removeClass('hidden');
+        function onTasksFilter() {
+            var $answerItem =  $('.answer-item');
+            var gameId = $('#players-select').val();
+            var taskId = $('#task-select').val();
+            var hideGames = gameId.length > 0;
+            var hideTasks = taskId.length > 0;
+
+            $answerItem.removeClass('hidden');
+            if (hideGames) {
+                $answerItem.addClass('hidden');
+                $('.game-' + gameId).removeClass('hidden');
             }
-            $('.exercise .collapse').removeClass('in');
+
+            $('.exercise').each(function () {
+
+                $(this).removeClass('hidden');
+                if (hideTasks) {
+                    $(this).addClass('hidden');
+                    if ($(this).attr('id') === 'exercise-' + taskId) {
+                        var found = false;
+                        $(this).find('.answer-container .answer-item').each(function () {
+                            if ($(this).hasClass('hidden') === false) {
+                                found = true;
+                            }
+                        });
+                        if (found === true) {
+                            $(this).removeClass('hidden');
+                        }
+                    }
+                }
+
+            });
+        }
+
+        $('#task-select').on('change', function () {
+            onTasksFilter();
         });
 
         $('#players-select').on('change', function () {
-            var val = $(this).val();
-            if (val.length > 0) {
-                $('.answer-item').addClass('hidden');
-                $('.game-' + val).removeClass('hidden');
-            } else {
-                $('.answer-item').removeClass('hidden');
-            }
+            onTasksFilter();
         });
 
         var map;
