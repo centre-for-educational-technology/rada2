@@ -171,7 +171,7 @@
         adminControls.appendChild(gradingControlItem);
 
         gradingControlItem.addEventListener('click', function() {
-            window.open('/grading/', '_blank');
+            window.open('/grading/' + vm.game.activity.id, '_blank');
         });
 
         function getCountOfUngradedAnswers() {

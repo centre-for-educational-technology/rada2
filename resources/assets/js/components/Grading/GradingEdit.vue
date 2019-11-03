@@ -62,7 +62,7 @@
                             <span class="previous-grade-user">{{ otherAnswer.user_name }}</span>
                         </div>
                         <div class="previous-grade-actions">
-                            <a :href="'/grading/'+otherAnswer.id+'/edit'"
+                            <a :href="'/grading/'+answer.activity_id+'/'+otherAnswer.id+'/edit'"
                                v-on:click="openOtherAnswerDetail(otherAnswer.id, this.event)"
                                class="btn btn-default">{{ $t('pages.grading.index.details-btn')}}</a>
                         </div>
@@ -101,7 +101,7 @@
                 baseUrl: '',
                 answer: null,
                 alertSuccessMessage: null,
-                otherAnswers: []
+                otherAnswers: [],
             }
         },
         computed: {

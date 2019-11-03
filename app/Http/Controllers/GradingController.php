@@ -36,11 +36,13 @@ class GradingController extends Controller
      *
      * @param QuestionTypeOptions $questionTypeOptions
      *
+     * @param int $activity
      * @param int $page
      * @return Factory|View
      */
-    public function index(Request $request, QuestionTypeOptions $questionTypeOptions, int $page = 0)
+    public function index(Request $request, QuestionTypeOptions $questionTypeOptions, int $activity, int $page = 0)
     {
+        $request->request->set('activity', $activity);
         return view('grading/index')->with([
             'answers' => $this->getAnswers($request),
             'questionTypes' => $questionTypeOptions->options(),
@@ -84,10 +86,11 @@ class GradingController extends Controller
 
     /**
      * @param Request $request
+     * @param int $activity
      * @param GameAnswer $answer
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
-    public function update(Request $request, GameAnswer $answer)
+    public function update(Request $request, int $activity, GameAnswer $answer)
     {
         $grade = $request->get('grade', null);
         if ($grade !== null) {
@@ -96,7 +99,9 @@ class GradingController extends Controller
         }
         return response()->json([
             'message' => trans('pages.grading.index.success'),
-            'redirect' => url( route('grading.index'))
+            'redirect' => url( route('grading.index', [
+                'activity' => $activity
+            ]))
         ]);
     }
 
@@ -108,6 +113,7 @@ class GradingController extends Controller
     public function getAnswers(Request $request)
     {
         $showGradedAnswers = (int) $request->get('show_graded', 1) > 0;
+        $activityId = (int) $request->get('activity');
         /** @var User $user */
         $user = Auth::user();
         $answers = [];
@@ -117,8 +123,8 @@ class GradingController extends Controller
             if (Auth::user()->isAdmin() === false) {
                 $query->leftJoin('activity_instructors', 'games.activity_id', '=', 'activity_instructors.activity_id');
             }
-            $query->leftJoin('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
-                ->leftJoin('activities', 'activities.id', '=', 'games.activity_id')
+            $query->join('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
+                ->join('activities', 'activities.id', '=', 'games.activity_id')
                 ->leftJoin('users', 'users.id', '=', 'games.user_id')
                 ->where(static function(Builder $query) use ($user) {
                     if (Auth::user()->isAdmin() === false) {
@@ -126,6 +132,7 @@ class GradingController extends Controller
                             ->orWhere('activities.user_id', '=', $user->id);
                     }
                 })
+                ->where('activities.id', '=', $activityId)
                 ->where('game_answers.is_answered', '=', 1)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::EMBEDDED_CONTENT)

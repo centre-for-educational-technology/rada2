@@ -70,7 +70,7 @@
             this.$nextTick(() => {
                 this.$nextTick(() => {
                     this.baseUrl = window.RADA.config.base_url;
-                    this.href = '/grading/' + this.answer.id + '/edit'
+                    this.href = '/grading/' + this.answer.activity_id + '/' + this.answer.id + '/edit'
                 });
             });
         },
@@ -83,7 +83,7 @@
         methods: {
             onClickOpenEditView(e) {
                 e.preventDefault();
-                let editUrl = '/grading/' + this.answer.id + '/edit';
+                let editUrl = '/grading/' + this.answer.activity_id + '/' + this.answer.id + '/edit';
                 let data = this.$parent.getData();
                 data.currentAnswerId = this.answer.id;
                 data.viewType = 'edit';

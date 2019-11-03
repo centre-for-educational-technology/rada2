@@ -23,7 +23,7 @@ export default {
             let data = {
                 grade: grade
             };
-            let url = '/api/grading/' + this.answerId + '/update';
+            let url = '/api/grading/' + this.activityId + '/' + this.answerId + '/update';
             this.inAjaxCall = true;
             this.$http.post(url, data).then(response => {
                 vm.inAjaxCall = false;

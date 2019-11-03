@@ -73,7 +73,7 @@ Route::group(['prefix' => 'game'], static function ()
 });
 
 Route::group(['prefix' => 'grading'], static function () {
-    Route::post('{answer}/update', 'GradingController@update');
+    Route::post('/{activity}/{answer}/update', 'GradingController@update');
     Route::get('get-question-data/{activityItem}', 'GradingController@getQuestionData');
     Route::get('get-other-graded-answers/{answer}', 'GradingController@getOtherGradedAnswers');
 });

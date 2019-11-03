@@ -59,6 +59,12 @@
 
             this.$nextTick(() => {
                 this.baseUrl = window.RADA.config.base_url;
+
+                if(this.answers.length > 0) {
+                    let firstAnswer = this.answers[0];
+                    this.activityId = firstAnswer.activity_id;
+                }
+
                 if (this.viewType === 'list' && !window.history.state) {
                     this.viewType = window.Laravel.viewType;
                     let currentPage = window.Laravel.currentPage;
@@ -85,6 +91,10 @@
             });
         },
         updated() {
+            if(this.activityId === 0 && this.answers.length > 0) {
+                let firstAnswer = this.answers[0];
+                this.activityId = firstAnswer.activity_id;
+            }
             if (this.viewType === 'edit' && this.currentAnswerId === null) {
                 let currentAnswers = this.answers.filter(answer => {
                     return answer.id === window.Laravel.currentAnswerId;
@@ -101,6 +111,7 @@
         },
         data() {
             return {
+                activityId: 0,
                 itemsPerPage: 5,
                 baseUrl: '',
                 paginationPage: 0,
@@ -201,13 +212,24 @@
                 this.showGraded = isChecked;
             },
             changePage(replaceState) {
+                if(this.activityId === 0) {
+                    if (this.answers.length > 0) {
+                        let firstAnswer = this.answers[0];
+                        this.activityId = firstAnswer.activity_id;
+                    } else {
+                        setTimeout(() => {
+                            this.changePage(replaceState);
+                        }, 1);
+                        return;
+                    }
+                }
                 let name = 'index (' + this.currentPage + ')';
-                let url = '/grading/page/' + this.currentPage;
+                let url = '/grading/' + this.activityId + '/page/' + this.currentPage;
                 if (this.viewType === 'edit' && this.currentAnswerId > 0) {
                     name = this.answers.filter(answer => {
                         return answer.id === this.currentAnswerId;
                     })[0].title;
-                    url = '/grading/' + this.currentAnswerId + '/edit';
+                    url = '/grading/' + this.activityId + '/' + this.currentAnswerId + '/edit';
                 }
                 if (typeof window.history.state !== 'undefined' && window.history.state !== null) {
                     const stateData = window.history.state;
@@ -231,7 +253,7 @@
                 }
             },
             generatePaginationUrl(page) {
-                return '/grading/page/' + page;
+                return '/grading/' + this.activityId + '/page/' + page;
             }
         }
     }

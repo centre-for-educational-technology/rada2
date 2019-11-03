@@ -146,8 +146,8 @@ Route::group(['prefix' => 'legal'], function()
 
 Route::group(['prefix' => 'grading'], static function ()
 {
-    Route::get('/', 'GradingController@index')->name('grading.index');
-    Route::get('/page/{page}', 'GradingController@index')->name('grading.index.page');
-    Route::get('/{answer}/edit', 'GradingController@edit')->name('grading.edit');
-    Route::put('/{answer}', 'GradingController@update')->name('grading.update');
+    Route::get('/{activity}', 'GradingController@index')->name('grading.index');
+    Route::get('/{activity}/page/{page}', 'GradingController@index')->name('grading.index.page');
+    Route::get('/{activity}/{answer}/edit', 'GradingController@edit')->name('grading.edit');
+    Route::put('/{activity}/{answer}', 'GradingController@update')->name('grading.update');
 });

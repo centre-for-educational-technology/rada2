@@ -39,7 +39,8 @@
         mixins: [gradingMixin],
         data() {
             return {
-                inputGrade: 0
+                inputGrade: 0,
+                activityId: 0
             }
         },
         watch: {
@@ -57,6 +58,8 @@
         },
         mounted() {
             this.$nextTick(() => {
+                let answer = this.getAnswer();
+                this.activityId = answer.activity_id;
                 if (this.grade !== null) {
                     this.inputGrade = this.grade;
                 } else {
@@ -65,6 +68,16 @@
             });
         },
         methods: {
+            getAnswer() {
+                const answers = window.Laravel.answers.filter(answer => {
+                    return answer.id === this.answerId;
+                });
+                if (answers.length > 0) {
+                    return answers[0];
+                }
+
+                return null;
+            }
         }
     }
 </script>
