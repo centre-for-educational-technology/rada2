@@ -553,6 +553,8 @@ class ActivityController extends Controller
             $routeParams['exit_url'] = $request->get('exit_url');
         }
 
+        $this->sendGameStartedToLrs($game);
+
         return redirect()->route('game.play', $routeParams);
     }
 
