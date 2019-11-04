@@ -194,6 +194,7 @@ return [
             'delete-message' => 'Delete',
             'add-new-message' => 'Add new',
             'new-message' => 'New message',
+            'show-results' => 'Show results',
             'icons' => [
                 'help' => 'Each icon has a colour code that indicates the state of a question.',
                 'active' => 'Unanswered',

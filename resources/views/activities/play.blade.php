@@ -92,6 +92,7 @@
                     'start' => trans('general.actions.start'),
                     'stop' => trans('general.actions.stop'),
                     'rating-heading' => trans('pages.play.game.rating-title'),
+                    'show-results' => trans('pages.play.game.show-results'),
                     'icons' => [
                         'help' => trans('pages.play.game.icons.help'),
                         'active' => trans('pages.play.game.icons.active'),

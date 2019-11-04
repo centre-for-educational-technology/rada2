@@ -15,6 +15,9 @@
                        v-on:mouseover="mouseOverStar"
                     ></a>
                 </div>
+                <div class="modal-footer">
+                    <button type="button" v-on:click="close()" class="btn btn-primary">{{ $t('show-results')}}</button>
+                </div>
             </div>
         </div>
     </div>
@@ -68,7 +71,7 @@
 </script>
 
 <style>
-    .modal-body {
+    .modal-body, .modal-footer {
         text-align: center;
     }
     .star {

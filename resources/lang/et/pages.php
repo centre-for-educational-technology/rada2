@@ -194,6 +194,7 @@ return [
             'delete-message' => 'Kustuta',
             'add-new-message' => 'Lisa uus',
             'new-message' => 'Uus teade',
+            'show-results' => 'Näita tulemusi',
             'icons' => [
                 'help' => 'Igal ikoonil on värvikood, mis näitab, milline on küsimuse staatus.',
                 'active' => 'Vastamata',
