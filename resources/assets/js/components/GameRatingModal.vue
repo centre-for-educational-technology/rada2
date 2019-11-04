@@ -25,7 +25,8 @@
         props: ['game', 'baseUrl'],
         data() {
             return {
-                stars: [1, 2, 3, 4, 5]
+                stars: [1, 2, 3, 4, 5],
+                callback: null
             }
         },
         methods: {
@@ -50,7 +51,8 @@
                     }
                 }
             },
-            open() {
+            open(callback) {
+                this.callback = callback;
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
                 });
@@ -58,6 +60,7 @@
             close() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('hide');
+                    this.callback();
                 });
             }
         }

@@ -71,17 +71,23 @@ const playGameApp = new Vue({
                 if ( this.isGameComplete() ) {
                     this.$refs.imageDialog.open();
                     this.$refs.imageDialog.$once('hidden:image:dialog', () => {
-                        this.$refs.resultsModal.open();
                         if(this.game.rating === null) {
-                            this.$refs.ratingModal.open();
+                            this.$refs.ratingModal.open(() => {
+                                this.$refs.resultsModal.open();
+                            });
+                        } else {
+                            this.$refs.resultsModal.open();
                         }
                     });
                 }
             });
         } else {
-            this.$refs.resultsModal.open();
             if(this.game.rating === null) {
-                this.$refs.ratingModal.open();
+                this.$refs.ratingModal.open(() => {
+                    this.$refs.resultsModal.open();
+                });
+            } else {
+                this.$refs.resultsModal.open();
             }
         }
     },
