@@ -196,6 +196,8 @@ class GameController extends Controller
             $points = $item->calculateTotalPoints($answer);
             if ($points !== false) {
                 $answer->grade = $points;
+            } else {
+                $answer->grade = 0;
             }
         }
 
