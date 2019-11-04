@@ -68,5 +68,7 @@
 </script>
 
 <style>
-
+    .modal-body {
+        text-align: center;
+    }
 </style>
