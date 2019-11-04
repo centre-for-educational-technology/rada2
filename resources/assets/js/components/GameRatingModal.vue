@@ -71,4 +71,7 @@
     .modal-body {
         text-align: center;
     }
+    .star {
+        font-size: 80px;
+    }
 </style>
