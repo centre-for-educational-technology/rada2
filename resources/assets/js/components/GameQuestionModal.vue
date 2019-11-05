@@ -264,7 +264,8 @@
                 });
             },
             open() {
-                this.$nextTick(() => {
+                let url = '/api/games/' + this.gameId + '/start-question/' + this.question.id;
+                this.$http.get(url).then(response => {
                     this.isOpen = true;
                     this.generateMissingWords();
                     this.calculateRemainingAnsweringTime();

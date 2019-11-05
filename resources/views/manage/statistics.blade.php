@@ -30,13 +30,16 @@
                                 @endphp
                                 @foreach ($questionTypeOptions as $key => $title)
                                     @php
-                                        $count = $activityItemsByType->has($key) ? $activityItemsByType->get($key)->count : 0;
+                                        $activityItem = $activityItemsByType->has($key) ? $activityItemsByType->get($key) : null;
+                                        $count = $activityItem !== null ? $activityItem->count : 0;
+                                        $time = $activityItem !== null ? $activityItem->time : 0;
                                         $tasksPieChartData[] = $count;
                                         $tasksPieChartLabels[] = $title;
                                     @endphp
                                     <tr>
                                         <td>{{ $title }}</td>
                                         <td>{{ $count }}</td>
+                                        <td>{{ $time }}</td>
                                     </tr>
                                 @endforeach
                             </tbody>

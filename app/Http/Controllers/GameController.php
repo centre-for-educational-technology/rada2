@@ -63,7 +63,8 @@ class GameController extends Controller
             'addRating',
             'getAllMessages',
             'addNewMessage',
-            'deleteMessage'
+            'deleteMessage',
+            'startQuestion'
         ]]);
     }
 
@@ -374,6 +375,27 @@ class GameController extends Controller
         }
 
         $this->sendQuestionAnswerToLrs($game, $item);
+
+        return $answer->getGameData();
+    }
+
+    public function startQuestion(Request $request, Game $game, int $id)
+    {
+        $request->request->set('question_id', $id);
+        $answer = GameAnswer::firstOrNew([
+            'game_id' => $game->id,
+            'activity_item_id' => $id
+        ]);
+        if (!$answer->id) {
+            /** @var ActivityItem $activityItem */
+            $activityItem = $game->activity->activityItems()->where('id', $id)->first();
+            $answer->game()->associate($game);
+            $answer->activityItem()->associate($activityItem);
+        }
+        $answer->correct = false;
+        $answer->is_answered = false;
+        $this->setEmptyAnswer($request, $game->activity, $answer);
+        $answer->save();
 
         return $answer->getGameData();
     }
