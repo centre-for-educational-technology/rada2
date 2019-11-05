@@ -564,7 +564,8 @@ class GameController extends Controller
                 ->where('activity_items.type', '!=', QuestionTypeOptions::INFORMATION)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::EMBEDDED_CONTENT)
                 ->where('activity_items.type', '!=', QuestionTypeOptions::MATCH_PAIRS)
-                ->where('activity_items.type', '!=', QuestionTypeOptions::ONE_CORRECT_ANSWER);
+                ->where('activity_items.type', '!=', QuestionTypeOptions::ONE_CORRECT_ANSWER)
+                ->where('activity_items.type', '!=', QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS);
             $count = $query->count();
         }
 
