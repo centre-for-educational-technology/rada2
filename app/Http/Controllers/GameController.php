@@ -312,13 +312,31 @@ class GameController extends Controller
         $answer->correct = false;
         $answer->is_answered = false;
         $answer->answering_start_time = $date;
-        if ($answer->answer === null || empty($answer->answer)) {
-            $answer->answer = '';
-        }
+
+        $this->setEmptyAnswer($request, $activity, $answer);
 
         $answer->save();
 
         return $answer->getGameData();
+    }
+
+    protected function setEmptyAnswer(Request $request, Activity $activity, GameAnswer $answer)
+    {
+        /** @var ActivityItem $item */
+        $item = $activity->activityItems()->where('id', $request->get('question_id'))->first();
+        if ($answer->answer === null || empty($answer->answer)) {
+            if ($item->type === QuestionTypeOptions::ONE_CORRECT_ANSWER || $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS) {
+                $answer->answer = json_encode([
+                    'options' => [],
+                ]);
+            } else if ($item->type === QuestionTypeOptions::FREEFORM_ANSWER || $item->type === QuestionTypeOptions::EMBEDDED_CONTENT || $item->type === QuestionTypeOptions::MISSING_WORD) {
+                $answer->answer = json_encode([
+                    'text' => '',
+                ]);
+            } else {
+                $answer->answer = '';
+            }
+        }
     }
 
     public function closeQuestion(Request $request, Game $game)
@@ -331,9 +349,9 @@ class GameController extends Controller
         $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
         $answer->correct = false;
         $answer->is_answered = true;
-        if ($answer->answer === null || empty($answer->answer)) {
-            $answer->answer = '';
-        }
+
+        $this->setEmptyAnswer($request, $activity, $answer);
+
         $answer->save();
 
         // Determine completion status and mark as completed

@@ -6,7 +6,7 @@
                     <button type="button" class="close" aria-label="Close" v-on:click="close()"><span aria-hidden="true">&times;</span></button>
                     <h4 class="modal-title">{{ $t('rating-heading') }}</h4>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body text-center">
                     <a href="#"
                        class="mdi mdi-star-outline star"
                        v-for="star in stars"
@@ -15,7 +15,7 @@
                        v-on:mouseover="mouseOverStar"
                     ></a>
                 </div>
-                <div class="modal-footer">
+                <div class="modal-footer text-center">
                     <button type="button" v-on:click="close()" class="btn btn-primary">{{ $t('show-results')}}</button>
                 </div>
             </div>
@@ -71,7 +71,7 @@
 </script>
 
 <style>
-    .modal-body, .modal-footer {
+    .modal-body.text-center, .modal-footer.text-center {
         text-align: center;
     }
     .star {

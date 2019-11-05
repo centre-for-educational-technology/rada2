@@ -61,6 +61,7 @@ class GradingController extends Controller
      */
     public function edit(Request $request, QuestionTypeOptions $questionTypeOptions, int $activity, GameAnswer $answer)
     {
+        $request->request->set('activity', $activity);
         return view('grading/index')->with([
             'answers' => $this->getAnswers($request),
             'questionTypes' => $questionTypeOptions->options(),
