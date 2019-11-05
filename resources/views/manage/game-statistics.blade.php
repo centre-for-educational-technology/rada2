@@ -755,10 +755,10 @@
             $('.exercise').each(function () {
 
                 $(this).removeClass('hidden');
+                var found = false;
                 if (hideTasks) {
                     $(this).addClass('hidden');
                     if ($(this).attr('id') === 'exercise-' + taskId) {
-                        var found = false;
                         $(this).find('.answer-container .answer-item').each(function () {
                             if ($(this).hasClass('hidden') === false) {
                                 found = true;
@@ -767,6 +767,15 @@
                         if (found === true) {
                             $(this).removeClass('hidden');
                         }
+                    }
+                } else {
+                    $(this).find('.answer-container .answer-item').each(function () {
+                        if ($(this).hasClass('hidden') === false) {
+                            found = true;
+                        }
+                    });
+                    if (found === false) {
+                        $(this).addClass('hidden');
                     }
                 }
 
