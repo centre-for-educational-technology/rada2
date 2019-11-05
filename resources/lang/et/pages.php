@@ -145,7 +145,8 @@ return [
                 'time-spent' => 'Aega kulutatud',
                 'type-title' => 'Ülesande tüüp',
                 'flash-title' => 'Välk ülesanne',
-                'time-title' => 'Aja piiranguga ülesanne'
+                'time-title' => 'Aja piiranguga ülesanne',
+                'map-title' => 'Visualiseeri mängija tee'
             ],
             'tasks' => [
                 'title' => 'Ülesanded',

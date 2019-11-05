@@ -145,7 +145,8 @@ return [
                 'time-spent' => 'Time spent',
                 'type-title' => 'Task type',
                 'flash-title' => 'Flash task',
-                'time-title' => 'Time pressure task'
+                'time-title' => 'Time pressure task',
+                'map-title' => 'Visualize player’s path'
             ],
             'tasks' => [
                 'title' => 'Tasks',

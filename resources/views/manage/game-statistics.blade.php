@@ -252,6 +252,7 @@
                                     <td>
                                         <a href="#"
                                            class="mdi mdi-google-maps pull-right mdi-18px open-player-map"
+                                           title="{{ trans('pages.manage.game.exercise-summary.map-title') }}"
                                            data-game-id="{{ $player->game_id }}"
                                         ></a>
                                     </td>
