@@ -349,6 +349,7 @@ class GameController extends Controller
         $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
         $answer->correct = false;
         $answer->is_answered = true;
+        $answer->grade = 0;
 
         $this->setEmptyAnswer($request, $activity, $answer);
 
