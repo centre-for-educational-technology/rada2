@@ -364,6 +364,17 @@ class GameController extends Controller
             $game->save();
         }
 
+        // Determine completion status and mark as completed
+        $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
+        $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
+        $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
+        if (count($unansweredItemIds) === 0) {
+            $game->complete = true;
+            $game->save();
+        }
+
+        $this->sendQuestionAnswerToLrs($game, $item);
+
         return $answer->getGameData();
     }
 
