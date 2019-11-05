@@ -55,10 +55,11 @@ class GradingController extends Controller
     /**
      * @param Request $request
      * @param QuestionTypeOptions $questionTypeOptions
+     * @param int $activity
      * @param GameAnswer $answer
      * @return Factory|View
      */
-    public function edit(Request $request, QuestionTypeOptions $questionTypeOptions, GameAnswer $answer)
+    public function edit(Request $request, QuestionTypeOptions $questionTypeOptions, int $activity, GameAnswer $answer)
     {
         return view('grading/index')->with([
             'answers' => $this->getAnswers($request),
