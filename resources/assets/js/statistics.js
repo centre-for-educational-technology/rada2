@@ -37,7 +37,7 @@ Vue.component('line-chart', {
                         data: data
                     }
                 ]
-            }, {responsive: true, maintainAspectRatio: false})
+            }, {responsive: true, maintainAspectRatio: false, legend: { display: false }})
 
             setTimeout(() => {
                 $('#google-analytics-line-graph .line-chart').addClass('hidden');
