@@ -103,6 +103,11 @@ return [
             'last-month' => 'Eelmine kuu',
             'max' => 'Maksimum',
             'top-games' => 'Top 10 mängu',
+            'tasks-header-name' => 'Ülesande tüüp',
+            'tasks-header-count' => 'Kokku',
+            'tasks-header-avg-time' => 'Keskmine vastamise aeg',
+            'tasks-show-chart' => 'Kuva diagramm',
+            'tasks-show-table' => 'Kuva tabel',
             'captions' => [
                 'activities-by-zoo' => 'Mändug loomaaedade kaupa',
                 'activities-by-language' => 'Mängud keele alusel',

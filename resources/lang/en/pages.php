@@ -103,6 +103,11 @@ return [
             'last-month' => 'Last month',
             'max' => 'Max',
             'top-games' => 'Top 10 games',
+            'tasks-header-name' => 'Task type',
+            'tasks-header-count' => 'Count',
+            'tasks-header-avg-time' => 'Average answering time',
+            'tasks-show-chart' => 'Show chart',
+            'tasks-show-table' => 'Show table',
             'captions' => [
                 'activities-by-zoo' => 'Games by Zoo',
                 'activities-by-language' => 'Games by Language',

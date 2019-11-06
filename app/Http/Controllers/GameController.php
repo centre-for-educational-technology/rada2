@@ -146,6 +146,7 @@ class GameController extends Controller
         }
         $answer->correct = true;
         $answer->is_answered = true;
+        $answer->answering_end_time = new Carbon('now');
 
         if ($item->type === QuestionTypeOptions::ONE_CORRECT_ANSWER || $item->type === QuestionTypeOptions::MULTIPLE_CORRECT_ANSWERS) {
             $chosenOptionIds = $request->get('options');
@@ -350,20 +351,12 @@ class GameController extends Controller
         $answer = GameAnswer::where('game_id', $game->id)->where('activity_item_id', $item->id)->first();
         $answer->correct = false;
         $answer->is_answered = true;
+        $answer->answering_end_time = new Carbon('now');
         $answer->grade = 0;
 
         $this->setEmptyAnswer($request, $activity, $answer);
 
         $answer->save();
-
-        // Determine completion status and mark as completed
-        $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
-        $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
-        $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
-        if (count($unansweredItemIds) === 0) {
-            $game->complete = true;
-            $game->save();
-        }
 
         // Determine completion status and mark as completed
         $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');

@@ -16,13 +16,20 @@
                             {{ trans('pages.manage.statistics.activity-items') }}
                             <span class="badge">{{ $activityItems }}</span>
                             <a href="#" id="toggle-tasks">
-                                <span class="name show-pie hidden">Show pie</span>
-                                <span class="name show-table">Show table</span>
+                                <span class="name show-pie hidden">{{ trans('pages.manage.statistics.tasks-show-chart') }}</span>
+                                <span class="name show-table">{{ trans('pages.manage.statistics.tasks-show-table') }}</span>
                             </a>
                         </h2>
 
                         <table id="tasks-table" class="table table-striped table-hover table-condensed hidden">
                             <caption>{{ trans('pages.manage.statistics.captions.activity-items-by-question-type') }}</caption>
+                            <thead>
+                                <tr>
+                                    <th>{{ trans('pages.manage.statistics.tasks-header-name') }}</th>
+                                    <th>{{ trans('pages.manage.statistics.tasks-header-count') }}</th>
+                                    <th>{{ trans('pages.manage.statistics.tasks-header-avg-time') }}</th>
+                                </tr>
+                            </thead>
                             <tbody>
                                 @php
                                     $tasksPieChartData = [];

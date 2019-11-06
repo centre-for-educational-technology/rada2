@@ -45,7 +45,7 @@ class StatisticsController extends Controller
     {
         $activitiesByZoo = Activity::select('zoo', DB::raw('count(*) as count'))->groupBy('zoo')->get()->keyBy('zoo');
         $activitiesByLanguage = Activity::select('language', DB::raw('count(*) as count'))->groupBy('language')->get()->keyBy('language');
-        $activityItemsByType = ActivityItem::select('activity_items.type', DB::raw('count(*) as count, SEC_TO_TIME(ROUND(AVG(TIMEDIFF(game_answers.updated_at, game_answers.created_at)), 0)) as time'))
+        $activityItemsByType = ActivityItem::select('activity_items.type', DB::raw('count(*) as count, SEC_TO_TIME(ROUND(AVG(TIMEDIFF(game_answers.answering_end_time, game_answers.created_at)), 0)) as time'))
             ->join('game_answers', 'game_answers.activity_item_id', '=', 'activity_items.id')
             ->groupBy('type')->get()->keyBy('type');
         $activityItemsByZoo = ActivityItem::select('zoo', DB::raw('count(*) as count'))->groupBy('zoo')->get()->keyBy('zoo');
