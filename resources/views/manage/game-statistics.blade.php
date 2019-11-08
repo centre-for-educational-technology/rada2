@@ -470,13 +470,25 @@
                                 <select id="players-select" class="form-control">
                                     <option value="">{{ trans('pages.manage.game.tasks.select-all-players') }}</option>
                                     @foreach($players as $player)
-                                        <option value="{{ $player->game_id }}">{{ $player->user_name }}</option>
+                                        @php
+                                            $selected = '';
+                                            if ($currentPlayer && $currentPlayer === $player->game_id) {
+                                                $selected = 'selected="selected"';
+                                            }
+                                        @endphp
+                                        <option value="{{ $player->game_id }}" <?= $selected ?> >{{ $player->user_name }}</option>
                                     @endforeach
                                 </select>
                                 <select id="task-select" class="form-control">
                                     <option value="">{{ trans('pages.manage.game.tasks.select-all-tasks') }}</option>
                                     @foreach($exercises as $exercise)
-                                        <option value="{{ $exercise->id }}">{{ $exercise->exercise }}</option>
+                                        @php
+                                            $selected = '';
+                                            if ($currentTask && (int) $currentTask === $exercise->id) {
+                                                $selected = 'selected="selected"';
+                                            }
+                                        @endphp
+                                        <option value="{{ $exercise->id }}" <?= $selected ?> >{{ $exercise->exercise }}</option>
                                     @endforeach
                                 </select>
                             </div>
@@ -789,6 +801,8 @@
         $('#players-select').on('change', function () {
             onTasksFilter();
         });
+
+        onTasksFilter();
 
         var map;
         var markers = [];

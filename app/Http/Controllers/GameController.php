@@ -429,7 +429,12 @@ class GameController extends Controller
                         $completedTasks[] = [
                             'title' => $activityItem->title,
                             'id' => $activityItem->id,
-                            'url' => ''
+                            'url' => route('manage.game-statistics', [
+                                'game' => $game->id,
+                                'segmentType' => 'tasks',
+                                'player' => $answer->game_id,
+                                'task' => $activityItem->id
+                            ])
                         ];
                     }
                     $players[] = [

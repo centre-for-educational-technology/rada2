@@ -90,7 +90,9 @@ class GameStatisticsController extends Controller
             'exerciseSortOrder' => $exerciseSortOrder,
             'exerciseSortOrderDir' => $exerciseSortOrderDir,
             'segmentType' => $segmentType,
-            'gameOptions' => (new QuestionTypeOptions())->options()
+            'gameOptions' => (new QuestionTypeOptions())->options(),
+            'currentPlayer' => $request->request->get('player', null),
+            'currentTask' => $request->request->get('task', null)
         ]);
     }
 
