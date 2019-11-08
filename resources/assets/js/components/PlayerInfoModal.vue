@@ -14,7 +14,13 @@
                         <tr v-for="task in tasks" class="table-row">
                             <td>{{ task.id }}</td>
                             <td>{{ task.title }}</td>
-                            <td><button type="button" class="btn btn-primary btn-sm pull-right">{{ $t('open')}}</button></td>
+                            <td>
+                                <a type="button"
+                                   class="btn btn-primary btn-sm pull-right"
+                                   v-bind:href="task.url"
+                                   target="_blank"
+                                >{{ $t('open')}}</a>
+                            </td>
                         </tr>
                     </table>
                 </div>
