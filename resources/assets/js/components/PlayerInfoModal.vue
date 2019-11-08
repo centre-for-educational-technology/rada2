@@ -36,7 +36,7 @@
 
 <script>
     export default {
-        props: ['tasks', 'title', 'game_id'],
+        props: ['tasks', 'title'],
         methods: {
             open() {
                 this.$nextTick(() => {

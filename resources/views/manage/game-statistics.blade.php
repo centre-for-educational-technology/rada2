@@ -476,7 +476,7 @@
                                                 $selected = 'selected="selected"';
                                             }
                                         @endphp
-                                        <option value="{{ $player->game_id }}" <?= $selected ?> >{{ $player->user_name }}</option>
+                                        <option value="{{ $player->game_id }}" {{ $selected }} >{{ $player->user_name }}</option>
                                     @endforeach
                                 </select>
                                 <select id="task-select" class="form-control">
@@ -488,7 +488,7 @@
                                                 $selected = 'selected="selected"';
                                             }
                                         @endphp
-                                        <option value="{{ $exercise->id }}" <?= $selected ?> >{{ $exercise->exercise }}</option>
+                                        <option value="{{ $exercise->id }}" {{ $selected }} >{{ $exercise->exercise }}</option>
                                     @endforeach
                                 </select>
                             </div>
