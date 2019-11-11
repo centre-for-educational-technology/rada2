@@ -720,7 +720,7 @@
     </div>
 
 
-    <div ref="modal" class="modal fade" tabindex="-1" role="dialog">
+    <div ref="modal" class="modal fade map-modal" tabindex="-1" role="dialog">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -806,7 +806,7 @@
 
         @if ($currentPlayer && $currentTask)
             $('#tasks-' + $('#task-select').val()).addClass('in');
-            $('.modal').modal('show');
+            $('.map-modal').modal('show');
             getPlayerPositions($('#players-select').val());
         @endif
 
@@ -818,11 +818,11 @@
 
         $('.open-player-map').on('click', function () {
             resetMapData();
-            $('.modal').modal('show');
+            $('.map-modal').modal('show');
             getPlayerPositions($(this).data('game-id'));
         });
         $('.close-player-map').on('click', function () {
-            $('.modal').modal('hide');
+            $('.map-modal').modal('hide');
             resetMapData();
         });
 
