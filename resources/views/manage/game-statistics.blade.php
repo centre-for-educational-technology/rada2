@@ -804,6 +804,12 @@
 
         onTasksFilter();
 
+        @if ($currentPlayer && $currentTask)
+            $('#tasks-' + $('#task-select').val()).addClass('in');
+            $('.modal').modal('show');
+            getPlayerPositions($('#players-select').val());
+        @endif
+
         var map;
         var markers = [];
         var lines = [];
