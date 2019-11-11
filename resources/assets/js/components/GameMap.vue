@@ -402,11 +402,13 @@
                     }
 
                     _this.setPosition(position);
+
+                    _this.logPlayerPosition(_this.getPosition());
+                    _this.initPlayerPositionLogging();
+
                 }, true, function(error) {
                     _this.gpsError = true;
                 });
-
-                this.initPlayerPositionLogging();
             },
             initActiveFlashExercise() {
                 this.getActiveFlashExercise();
