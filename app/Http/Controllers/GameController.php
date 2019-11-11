@@ -310,6 +310,7 @@ class GameController extends Controller
             $activityItem = $activity->activityItems()->where('id', $request->get('question_id'))->first();
             $answer->game()->associate($game);
             $answer->activityItem()->associate($activityItem);
+            $answer->grade = 0;
         }
         $answer->correct = false;
         $answer->is_answered = false;
@@ -384,6 +385,7 @@ class GameController extends Controller
             $activityItem = $game->activity->activityItems()->where('id', $id)->first();
             $answer->game()->associate($game);
             $answer->activityItem()->associate($activityItem);
+            $answer->grade = 0;
         }
         $answer->correct = false;
         $answer->is_answered = false;

@@ -157,6 +157,11 @@
             open() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');
+                    setTimeout(() => {
+                        if ($(document).find('body').hasClass('modal-open') === false) {
+                            $(document).find('body').addClass('modal-open');
+                        }
+                    }, 500);
                 });
             },
             exit() {
