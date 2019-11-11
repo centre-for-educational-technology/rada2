@@ -15,6 +15,13 @@
                     <table class="table">
                         <tr v-for="player in players" class="table-row">
                             <td>{{ player.name }}</td>
+                            <td>
+                                <a type="button"
+                                   class="btn btn-primary btn-sm pull-right"
+                                   v-bind:href="getUrl(player)"
+                                   target="_blank"
+                                >{{ $t('open')}}</a>
+                            </td>
                         </tr>
                     </table>
                 </div>
@@ -30,8 +37,19 @@
 
 <script>
     export default {
-        props: ['players', 'title'],
+        props: ['players', 'title', 'task_id'],
         methods: {
+            getUrl(player) {
+                let tasks = player.completed_tasks;
+                let tasksLength = tasks.length;
+                for (let i=0; i<tasksLength; i++) {
+                    let task = tasks[i];
+                    if (task.id === this.task_id) {
+                        return task.url;
+                    }
+                }
+                return null;
+            },
             open() {
                 this.$nextTick(() => {
                     $(this.$refs.modal).modal('show');

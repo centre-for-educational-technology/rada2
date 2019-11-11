@@ -23,6 +23,7 @@
         <task-info-modal
                 v-bind:players="currentTaskCompletedPlayers"
                 v-bind:title="currentTaskName"
+                v-bind:task_id="currentTaskId"
                 ref="taskInfoModal"
         ></task-info-modal>
         <div id="map"></div>
@@ -290,6 +291,7 @@
                 currentPlayerCompletedTasks: [],
                 currentPlayerName: '',
                 currentTaskName: '',
+                currentTaskId: null,
                 currentTaskCompletedPlayers: []
             };
         },
@@ -368,7 +370,8 @@
                         marker.addListener('click', function() {
                             _this.openNewTaskInfoModal({
                                 name: marker.title,
-                                users: marker.users
+                                users: marker.users,
+                                id: marker.questionId
                             });
                         });
                     });
@@ -524,6 +527,7 @@
             },
             openNewTaskInfoModal(data) {
                 this.currentTaskName = data.name;
+                this.currentTaskId = data.id;
                 this.currentTaskCompletedPlayers = data.users;
                 this.$refs.taskInfoModal.open();
             },
@@ -669,6 +673,7 @@
             {
                 this.currentTaskCompletedPlayers = [];
                 this.currentTaskName = null;
+                this.currentTaskId = null;
             }
         }
     }
