@@ -11,8 +11,8 @@ This tool set includes:
 
 ## Requirements
 
-- Requirements are best determined using [Server Requirements page](https://laravel.com/docs/5.3/installation#server-requirements) of corresponding Laravel 5 version
-  - Currently used version is 5.3
+- Requirements are best determined using [Server Requirements page](https://laravel.com/docs/5.8/installation#server-requirements) of corresponding Laravel 5 version
+  - Currently used version is 5.8
 - PHP version 7.1.* (some of the additional modules have strict requirements)
 - SSH access to the server (terminal access)
 - [Composer](https://getcomposer.org/) being installed
@@ -37,9 +37,15 @@ This tool set includes:
 - Configure subject and title from sent email messages
  - Open the `config/mail.php` file and set the needed values within the `from` element
 - Create the database as needed (according to configuration provided)
+- For xAPI integration (step 1)
+  - Make sure you have set the `QUEUE_DRIVER` in the .env file
+    - `QUEUE_DRIVER=database`
+  - Run `php artisan queue:table` from terminal
 - Run `php artisan migrate` from terminal (this should create database and more)
   - Running `php artisan serve` would serve the app in development (or configure the server of your choice)
 - Run `php artisan db:seed` to ensure that database is filled with required information
+- For xAPI integration (step 2)
+  - Run `php artisan queue:work &` from terminal to start the queue worker
 - Add private and public keys to the `storage/app/keys` directory (key length might be different)
 ```
 openssl genrsa -out private-key.pem 2048
@@ -47,7 +53,12 @@ openssl rsa -in private-key.pem -out public-key.pem -outform PEM -pubout
 ```
 - Setup scheduled jobs (Cron)
   - Those jobs should be run from Command-line interface (CLI) as those might require a longer period of time to run
-  - Please check the [documentation](https://laravel.com/docs/5.3/scheduling#introduction) for detailed instructions
+  - Please check the [documentation](https://laravel.com/docs/5.8/scheduling#introduction) for detailed instructions
+
+## Set up Google Analytics integration for active users graph on statistics page
+- Create API Service account which can access desired Google Analytics project. [Documentation](https://cloud.google.com/iam/docs/creating-managing-service-accounts)
+- Add service account json to project
+- Add `GOOGLE_SERVICE_ACCOUNT_KEY_JSON_NAME` to .env file which points to the json file added in the previous step
 
 ## Upgrades
 
