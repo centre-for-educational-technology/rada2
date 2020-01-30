@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('footer-scripts')
-<script src="{{ elixir('js/manage_users.js') }}"></script>
+<script src="{{ asset(mix('js/manage_users.js')) }}"></script>
 @endsection
 
 @section('content')

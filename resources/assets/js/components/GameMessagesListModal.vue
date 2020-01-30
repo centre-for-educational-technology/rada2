@@ -55,7 +55,9 @@
         data() {
             return {
                 messages: [],
-                newMessage: ''
+                newMessage: '',
+                inAjaxCall: false,
+                event: null
             }
         },
         methods: {

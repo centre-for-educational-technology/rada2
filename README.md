@@ -128,6 +128,42 @@ Also check any additional translations within the `vendor` subdirectory. That wo
 
 If you need to be running in production mode, then please use the branch named `production` instead of `master`. That branch might not have all the latest changes, but it should have the JS and CSS assets built for running in production (minified and more).
 
+## Vagrant + Homestead
+
+This is an example `Homestead.yaml` configuration file for running with `Vagrant` on `VirtualBox`. Please modify it to comply with your local system. Read [documentation](https://laravel.com/docs/5.8/homestead) for more information on how to use `Laravel Homestead`.
+
+```
+ip: 192.168.10.10
+memory: 2048
+cpus: 2
+provider: virtualbox
+authorize: ~/.ssh/id_rsa.pub
+keys:
+    - ~/.ssh/id_rsa
+folders:
+    -
+        map: <PATH-TO-REPO>
+        to: /home/vagrant/code
+sites:
+    -
+        map: homestead.test
+        to: /home/vagrant/code/public
+        php: "7.3"
+        type: "apache"
+        schedule: true
+databases:
+    - homestead
+features:
+    -
+        mariadb: false
+    -
+        ohmyzsh: false
+    -
+        webdriver: false
+name: rada
+hostname: rada
+```
+
 ## License
 
 MIT License

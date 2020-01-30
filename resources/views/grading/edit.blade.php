@@ -4,7 +4,7 @@
 <script>
 
 </script>
-<script src="{{ elixir('js/edit_grading.js') }}"></script>
+<script src="{{ asset(mix('js/edit_grading.js')) }}"></script>
 @endsection
 
 @section('content')

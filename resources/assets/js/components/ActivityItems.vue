@@ -137,7 +137,7 @@
                 {{ $t('enforce_items_order') }}
             </label>
         </div>
-    </div>foo 1
+    </div>
 </template>
 
 <script>

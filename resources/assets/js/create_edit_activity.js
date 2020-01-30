@@ -5,10 +5,10 @@ Vue.locale(window.Laravel.locale, _.cloneDeep(window.Laravel.translations));
 
 // import Autocomplete from '@trevoreyre/autocomplete-vue'
 
-Vue.component('activity-items', require('./components/ActivityItems.vue'));
+Vue.component('activity-items', require('./components/ActivityItems.vue').default);
 // Vue.component('autocomplete', Autocomplete);
-Vue.component('autocomplete', require('./components/MultiAutocomplete.vue'));
-Vue.component('instructor-search', require('./components/InstructorSearch.vue'));
+Vue.component('autocomplete', require('./components/MultiAutocomplete.vue').default);
+Vue.component('instructor-search', require('./components/InstructorSearch.vue').default);
 
 const activityApp = new Vue({
     el: 'form.activity-create,form.activity-edit',

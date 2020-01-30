@@ -4,7 +4,7 @@ Vue.use(VueI18n);
 Vue.config.lang = window.RADA.config.locale;
 Vue.locale(window.RADA.config.locale, _.cloneDeep(window.RADA.data.translations));
 
-Vue.component('game-results-modal', require('./components/GameResultsModal.vue'));
+Vue.component('game-results-modal', require('./components/GameResultsModal.vue').default);
 
 const stoppedGameApp = new Vue({
     el: '#sz-play-app',

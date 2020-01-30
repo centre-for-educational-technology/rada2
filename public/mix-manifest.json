@@ -1,0 +1,18 @@
+{
+    "/js/app.js": "/js/app.js",
+    "/css/app.css": "/css/app.css",
+    "/js/create_edit_activity.js": "/js/create_edit_activity.js",
+    "/js/create_edit_activity_item.js": "/js/create_edit_activity_item.js",
+    "/js/discount_vouchers.js": "/js/discount_vouchers.js",
+    "/js/grading.js": "/js/grading.js",
+    "/js/login.js": "/js/login.js",
+    "/js/manage_users.js": "/js/manage_users.js",
+    "/js/monitoring.js": "/js/monitoring.js",
+    "/js/play.js": "/js/play.js",
+    "/js/profile.js": "/js/profile.js",
+    "/js/qr_code_modal.js": "/js/qr_code_modal.js",
+    "/js/search_activities.js": "/js/search_activities.js",
+    "/js/statistics.js": "/js/statistics.js",
+    "/js/stopped.js": "/js/stopped.js",
+    "/js/welcome.js": "/js/welcome.js"
+}

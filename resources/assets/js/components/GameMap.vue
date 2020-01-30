@@ -201,13 +201,13 @@
 
     export default {
         components: {
-            'game-question-modal': require('./GameQuestionModal.vue'),
-            'game-answering-time-modal': require('./GameAnsweringTimeModal.vue'),
-            'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue'),
-            'game-access-code-modal': require('./GameAccessCodeModal.vue'),
-            'game-image-dialog': require('./GameImageDialog.vue'),
-            'game-messages-list-modal': require('./GameMessagesListModal.vue'),
-            'notification-modal': require('./NotificationModal.vue')
+            'game-question-modal': require('./GameQuestionModal.vue').default,
+            'game-answering-time-modal': require('./GameAnsweringTimeModal.vue').default,
+            'game-answering-time-is-up-modal': require('./GameAnsweringTimeIsUpModal.vue').default,
+            'game-access-code-modal': require('./GameAccessCodeModal.vue').default,
+            'game-image-dialog': require('./GameImageDialog.vue').default,
+            'game-messages-list-modal': require('./GameMessagesListModal.vue').default,
+            'notification-modal': require('./NotificationModal.vue').default
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],

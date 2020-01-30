@@ -235,9 +235,7 @@
             $('#toggle-tasks').on('click', function (e) {
 
                 e.preventDefault();
-                console.log('olemas');
                 $(this).find('.name').each(function () {
-                    console.log('leitud');
                     if ($(this).hasClass('hidden')) {
                         $(this).removeClass('hidden');
                     } else {
@@ -258,7 +256,7 @@
 
     </script>
 
-    <script src="{{ elixir('js/statistics.js') }}"></script>
+    <script src="{{ asset(mix('js/statistics.js')) }}"></script>
 
     <script
             src="https://maps.googleapis.com/maps/api/js?key={{ config('services.maps.google.api_key') }}&callback=initMap"

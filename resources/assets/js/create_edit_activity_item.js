@@ -203,9 +203,9 @@ Vue.use(VueI18n);
 Vue.config.lang = window.Laravel.locale;
 Vue.locale(window.Laravel.locale, _.cloneDeep(window.Laravel.translations));
 
-Vue.component('one-correct-answer', require('./components/OneCorrectAnswer.vue'));
-Vue.component('multiple-correct-answers', require('./components/MultipleCorrectAnswers.vue'));
-Vue.component('match-pairs', require('./components/MatchPairs.vue'));
+Vue.component('one-correct-answer', require('./components/OneCorrectAnswer.vue').default);
+Vue.component('multiple-correct-answers', require('./components/MultipleCorrectAnswers.vue').default);
+Vue.component('match-pairs', require('./components/MatchPairs.vue').default);
 
 const addActivityItemApp = new Vue({
     el: 'form#' + window.Laravel.activityItemFormId,

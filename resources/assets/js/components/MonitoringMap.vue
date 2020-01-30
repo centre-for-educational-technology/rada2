@@ -26,6 +26,10 @@
                 v-bind:task_id="currentTaskId"
                 ref="taskInfoModal"
         ></task-info-modal>
+        <game-information-modal
+                v-bind:activity="game.activity"
+                ref="informationModal"
+        ></game-information-modal>
         <div id="map"></div>
     </div>
 </template>
@@ -74,7 +78,7 @@
         controlUI.appendChild(informationControlItem);
 
         informationControlItem.addEventListener('click', function() {
-            vm.$parent.$refs.informationModal.open();
+            vm.$refs.informationModal.open();
         });
 
         const navigationControlItem = document.createElement('i');
@@ -236,11 +240,12 @@
 
     export default {
         components: {
-            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue'),
-            'game-messages-list-modal': require('./GameMessagesListModal.vue'),
-            'notification-modal': require('./NotificationModal.vue'),
-            'player-info-modal': require('./PlayerInfoModal.vue'),
-            'task-info-modal': require('./TaskInfoModal.vue')
+            'flash-exercises-list-modal': require('./FlashExercisesListModal.vue').default,
+            'game-messages-list-modal': require('./GameMessagesListModal.vue').default,
+            'notification-modal': require('./NotificationModal.vue').default,
+            'player-info-modal': require('./PlayerInfoModal.vue').default,
+            'task-info-modal': require('./TaskInfoModal.vue').default,
+            'game-information-modal': require('./GameInformationModal.vue').default
         },
         props: ['latitude', 'longitude', 'game', 'baseUrl'],
         mixins: [MarkerIconMixin],

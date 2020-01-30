@@ -18,7 +18,7 @@
             'enter-your-name' => trans('general.forms.placeholders.enter-your-name')
         ]); ?>
     </script>
-    <script src="{{ elixir('js/welcome.js') }}"></script>
+    <script src="{{ asset(mix('js/welcome.js')) }}"></script>
 @endsection
 
 @section('content')

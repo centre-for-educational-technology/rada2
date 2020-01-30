@@ -16,12 +16,12 @@ if ( RADA.config.sentry && RADA.config.sentry.sdn) {
         .install();
 }
 
-Vue.component('game-map', require('./components/GameMap.vue'));
-Vue.component('game-tutorial-modal', require('./components/GameTutorialModal.vue'));
-Vue.component('game-information-modal', require('./components/GameInformationModal.vue'));
-Vue.component('game-results-modal', require('./components/GameResultsModal.vue'));
-Vue.component('game-rating-modal', require('./components/GameRatingModal.vue'));
-Vue.component('game-image-dialog', require('./components/GameImageDialog.vue'));
+Vue.component('game-map', require('./components/GameMap.vue').default);
+Vue.component('game-tutorial-modal', require('./components/GameTutorialModal.vue').default);
+Vue.component('game-information-modal', require('./components/GameInformationModal.vue').default);
+Vue.component('game-results-modal', require('./components/GameResultsModal.vue').default);
+Vue.component('game-rating-modal', require('./components/GameRatingModal.vue').default);
+Vue.component('game-image-dialog', require('./components/GameImageDialog.vue').default);
 
 const playGameApp = new Vue({
     el: '#sz-play-app',

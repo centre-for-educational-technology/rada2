@@ -1,1 +1,161 @@
-!function(n){function e(o){if(t[o])return t[o].exports;var a=t[o]={i:o,l:!1,exports:{}};return n[o].call(a.exports,a,a.exports,e),a.l=!0,a.exports}var t={};return e.m=n,e.c=t,e.i=function(n){return n},e.d=function(n,e,t){Object.defineProperty(n,e,{configurable:!1,enumerable:!0,get:t})},e.n=function(n){var t=n&&n.__esModule?function(){return n["default"]}:function(){return n};return e.d(t,"a",t),t},e.o=function(n,e){return Object.prototype.hasOwnProperty.call(n,e)},e.p="",e(e.s=0)}([function(n,e){$(function(){function n(){t&&ga.apply(this,arguments)}var e=window.Laravel.apiUrl,t=!!window.ga;$('[data-toggle="popover"]').popover(),$('[data-toggle="tooltip"]').tooltip(),$("button#send-to-backpack").on("click",function(){n("send","event","Badges","click","User initialized sending badges to Backpack"),$.getJSON(e+"/badges/mine",function(t){if(_.size(t)>0){var o=_.map(t,function(n){return n.assertion});OpenBadges.issue(o,function(a,i){if(n("send","event","Badges","issue","User sent badges to Backpack",o.length,{nonInteraction:!0}),i.length>0){n("send","event","Badges","issueSuccesses","Number of badges successfully issued",i.length,{nonInteraction:!0});var s=[];_.each(t,function(n){_.indexOf(i,n.assertion)!==-1&&s.push(n.badge)}),$.post(e+"/badges/mine",{badges:s},null)}})}})}),$("button.openbadge-download").on("click",function(){var n="http://backpack.openbadges.org/baker?assertion="+window.encodeURIComponent($(this).data("assertion-url"));window.open(n,"_blank","",!1)})})}]);
+/******/ (function(modules) { // webpackBootstrap
+/******/ 	// The module cache
+/******/ 	var installedModules = {};
+/******/
+/******/ 	// The require function
+/******/ 	function __webpack_require__(moduleId) {
+/******/
+/******/ 		// Check if module is in cache
+/******/ 		if(installedModules[moduleId]) {
+/******/ 			return installedModules[moduleId].exports;
+/******/ 		}
+/******/ 		// Create a new module (and put it into the cache)
+/******/ 		var module = installedModules[moduleId] = {
+/******/ 			i: moduleId,
+/******/ 			l: false,
+/******/ 			exports: {}
+/******/ 		};
+/******/
+/******/ 		// Execute the module function
+/******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
+/******/
+/******/ 		// Flag the module as loaded
+/******/ 		module.l = true;
+/******/
+/******/ 		// Return the exports of the module
+/******/ 		return module.exports;
+/******/ 	}
+/******/
+/******/
+/******/ 	// expose the modules object (__webpack_modules__)
+/******/ 	__webpack_require__.m = modules;
+/******/
+/******/ 	// expose the module cache
+/******/ 	__webpack_require__.c = installedModules;
+/******/
+/******/ 	// define getter function for harmony exports
+/******/ 	__webpack_require__.d = function(exports, name, getter) {
+/******/ 		if(!__webpack_require__.o(exports, name)) {
+/******/ 			Object.defineProperty(exports, name, { enumerable: true, get: getter });
+/******/ 		}
+/******/ 	};
+/******/
+/******/ 	// define __esModule on exports
+/******/ 	__webpack_require__.r = function(exports) {
+/******/ 		if(typeof Symbol !== 'undefined' && Symbol.toStringTag) {
+/******/ 			Object.defineProperty(exports, Symbol.toStringTag, { value: 'Module' });
+/******/ 		}
+/******/ 		Object.defineProperty(exports, '__esModule', { value: true });
+/******/ 	};
+/******/
+/******/ 	// create a fake namespace object
+/******/ 	// mode & 1: value is a module id, require it
+/******/ 	// mode & 2: merge all properties of value into the ns
+/******/ 	// mode & 4: return value when already ns object
+/******/ 	// mode & 8|1: behave like require
+/******/ 	__webpack_require__.t = function(value, mode) {
+/******/ 		if(mode & 1) value = __webpack_require__(value);
+/******/ 		if(mode & 8) return value;
+/******/ 		if((mode & 4) && typeof value === 'object' && value && value.__esModule) return value;
+/******/ 		var ns = Object.create(null);
+/******/ 		__webpack_require__.r(ns);
+/******/ 		Object.defineProperty(ns, 'default', { enumerable: true, value: value });
+/******/ 		if(mode & 2 && typeof value != 'string') for(var key in value) __webpack_require__.d(ns, key, function(key) { return value[key]; }.bind(null, key));
+/******/ 		return ns;
+/******/ 	};
+/******/
+/******/ 	// getDefaultExport function for compatibility with non-harmony modules
+/******/ 	__webpack_require__.n = function(module) {
+/******/ 		var getter = module && module.__esModule ?
+/******/ 			function getDefault() { return module['default']; } :
+/******/ 			function getModuleExports() { return module; };
+/******/ 		__webpack_require__.d(getter, 'a', getter);
+/******/ 		return getter;
+/******/ 	};
+/******/
+/******/ 	// Object.prototype.hasOwnProperty.call
+/******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
+/******/
+/******/ 	// __webpack_public_path__
+/******/ 	__webpack_require__.p = "/";
+/******/
+/******/
+/******/ 	// Load entry module and return exports
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ })
+/************************************************************************/
+/******/ ({
+
+/***/ "./resources/assets/js/profile.js":
+/*!****************************************!*\
+  !*** ./resources/assets/js/profile.js ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports) {
+
+$(function () {
+  var apiUrl = window.Laravel.apiUrl;
+  var hasAnalytics = !!window.ga;
+
+  function handleGa() {
+    if (hasAnalytics) {
+      ga.apply(this, arguments);
+    }
+  }
+
+  $('[data-toggle="popover"]').popover();
+  $('[data-toggle="tooltip"]').tooltip();
+  $('button#send-to-backpack').on('click', function () {
+    handleGa('send', 'event', 'Badges', 'click', 'User initialized sending badges to Backpack');
+    $.getJSON(apiUrl + '/badges/mine', function (data) {
+      if (_.size(data) > 0) {
+        var assertions = _.map(data, function (single) {
+          return single.assertion;
+        });
+
+        OpenBadges.issue(assertions, function (errors, successes) {
+          handleGa('send', 'event', 'Badges', 'issue', 'User sent badges to Backpack', assertions.length, {
+            nonInteraction: true
+          });
+
+          if (successes.length > 0) {
+            handleGa('send', 'event', 'Badges', 'issueSuccesses', 'Number of badges successfully issued', successes.length, {
+              nonInteraction: true
+            });
+            var badges = [];
+
+            _.each(data, function (single) {
+              if (_.indexOf(successes, single.assertion) !== -1) {
+                badges.push(single.badge);
+              }
+            });
+
+            $.post(apiUrl + '/badges/mine', {
+              badges: badges
+            }, null);
+          }
+        });
+      }
+    });
+  });
+  $('button.openbadge-download').on('click', function () {
+    var url = 'http://backpack.openbadges.org/baker?assertion=' + window.encodeURIComponent($(this).data('assertion-url'));
+    window.open(url, '_blank', '', false);
+  });
+});
+
+/***/ }),
+
+/***/ 8:
+/*!**********************************************!*\
+  !*** multi ./resources/assets/js/profile.js ***!
+  \**********************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports = __webpack_require__(/*! /home/vagrant/code/resources/assets/js/profile.js */"./resources/assets/js/profile.js");
+
+
+/***/ })
+
+/******/ });

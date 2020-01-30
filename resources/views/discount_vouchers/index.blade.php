@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('footer-scripts')
-<script src="{{ elixir('js/discount_vouchers.js') }}"></script>
+<script src="{{ asset(mix('js/discount_vouchers.js')) }}"></script>
 @endsection
 
 @section('content')

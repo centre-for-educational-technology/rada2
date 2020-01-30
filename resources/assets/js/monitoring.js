@@ -6,7 +6,7 @@ Vue.use(VueI18n);
 Vue.config.lang = window.RADA.config.locale;
 Vue.locale(window.RADA.config.locale, _.cloneDeep(window.RADA.data.translations));
 
-Vue.component('game-map', require('./components/MonitoringMap.vue'));
+Vue.component('game-map', require('./components/MonitoringMap.vue').default);
 
 const monitoringGameApp = new Vue({
     el: '#sz-play-app',

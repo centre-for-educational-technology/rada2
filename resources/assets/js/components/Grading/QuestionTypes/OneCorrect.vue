@@ -42,7 +42,7 @@
     export default {
         props: ['answer'],
         components: {
-            'single-grading': require('./Grading/Single.vue')
+            'single-grading': require('./Grading/Single.vue').default
         },
         data() {
             return {

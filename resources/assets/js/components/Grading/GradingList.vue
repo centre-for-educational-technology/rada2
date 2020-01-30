@@ -27,6 +27,7 @@
                             :answer="answer"
                             :isLast="index === (answersPerPage.length - 1)"
                             v-on:setData="setData"
+                            v-bind:key="index"
                     ></grading-list-item>
 
                     <div class="pagination-container" v-if="pages > 1">
@@ -49,10 +50,10 @@
     export default {
         props: ['answers'],
         components: {
-            'grading-list-item': require('./GradingListItem.vue'),
-            'pagination': require('../vue-plain-pagination.vue'),
-            'form-element-switch': require('../FormElementSwitch.vue'),
-            'grading-edit': require('./GradingEdit.vue')
+            'grading-list-item': require('./GradingListItem.vue').default,
+            'pagination': require('../vue-plain-pagination.vue').default,
+            'form-element-switch': require('../FormElementSwitch.vue').default,
+            'grading-edit': require('./GradingEdit.vue').default
         },
         mounted() {
             let vm = this;

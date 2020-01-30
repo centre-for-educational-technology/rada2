@@ -2,7 +2,7 @@
 
 @section('footer-scripts')
 <script src="https://backpack.openbadges.org/issuer.js"></script>
-<script src="{{ elixir('js/profile.js') }}"></script>
+<script src="{{ asset(mix('js/profile.js')) }}"></script>
 @endsection
 
 @section('content')

@@ -29,7 +29,8 @@
         data() {
             return {
                 stars: [1, 2, 3, 4, 5],
-                callback: null
+                callback: null,
+                event: null
             }
         },
         methods: {

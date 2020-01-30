@@ -23,7 +23,7 @@
         'MISSING_WORD' => \App\Options\QuestionTypeOptions::MISSING_WORD
     ]) !!};
 </script>
-<script src="{{ elixir('js/create_edit_activity.js') }}"></script>
+<script src="{{ asset(mix('js/create_edit_activity.js')) }}"></script>
 @endsection
 
 @section('content')

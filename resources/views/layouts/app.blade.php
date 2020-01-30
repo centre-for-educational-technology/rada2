@@ -12,7 +12,7 @@
 
     <!-- Styles -->
     <link href="//cdn.jsdelivr.net/npm/animate.css@3.6.1/animate.min.css" rel="stylesheet">
-    <link href="{{ elixir('css/app.css') }}" rel="stylesheet">
+    <link href="{{ asset(mix('css/app.css')) }}" rel="stylesheet">
 
     @yield('header-styles')
 
@@ -42,7 +42,7 @@
     <footer>
         @include('includes.system-requirements')
         <!-- Scripts -->
-        <script src="{{ elixir('js/app.js') }}"></script>
+        <script src="{{ asset(mix('js/app.js')) }}"></script>
 
         @yield('footer-scripts')
         @include('services.analytics')

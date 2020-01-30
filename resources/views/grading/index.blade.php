@@ -44,7 +44,7 @@
             'MISSING_WORD' => \App\Options\QuestionTypeOptions::MISSING_WORD
         ]) !!};
     </script>
-    <script src="{{ elixir('js/grading.js') }}"></script>
+    <script src="{{ asset(mix('js/grading.js')) }}"></script>
 @endsection
 
 @section('content')

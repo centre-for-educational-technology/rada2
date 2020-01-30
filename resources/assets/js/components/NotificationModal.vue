@@ -22,6 +22,11 @@
 <script>
     export default {
         props: ['title', 'message'],
+        data() {
+            return {
+                inAjaxCall: false
+            }
+        },
         methods: {
             open() {
                 this.$nextTick(() => {

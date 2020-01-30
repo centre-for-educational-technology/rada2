@@ -1,8 +1,8 @@
 @extends('layouts.app')
 
 @section('footer-scripts')
-<script src="{{ elixir('js/search_activities.js') }}"></script>
-<script src="{{ elixir('js/qr_code_modal.js') }}"></script>
+<script src="{{ asset(mix('js/search_activities.js')) }}"></script>
+<script src="{{ asset(mix('js/qr_code_modal.js')) }}"></script>
 @endsection
 
 @section('content')
