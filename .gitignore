@@ -8,3 +8,4 @@ Homestead.yaml
 .DS_Store
 /public/build
 /service-account-credentials.json
+/.vagrant
