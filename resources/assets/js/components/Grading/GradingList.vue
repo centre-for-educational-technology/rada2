@@ -175,7 +175,7 @@
                 }
             },
             markGraded (answerId, grade) {
-                this.$set(this, 'answers', this.answers.map(answer => {
+                this.$emit('update:answers', this.answers.map(answer => {
                     if (answer.id === answerId) {
                         answer.grade = grade;
                     }

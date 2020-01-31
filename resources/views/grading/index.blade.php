@@ -51,7 +51,7 @@
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2" id="grading-list-container">
-            <grading-list :answers="answers"></grading-list>
+            <grading-list :answers.sync="answers"></grading-list>
         </div>
     </div>
 </div>

@@ -11,6 +11,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Sentry DSN -->
+    <meta name="sentry-dsn" content="{{ config('services.sentry.dsn') }}">
+
     <title>{{ config('app.name', 'RADA') }}</title>
 
     <!-- Styles -->
@@ -41,9 +44,6 @@
                     'enableStreetView' => config('services.maps.google.enable_street_view'),
                 ],
                 'locale' => App::getLocale(),
-                'sentry' => [
-                    'sdn' => config('services.sentry.sdn'),
-                ],
             ],
             'data' => [
                 'game' => $game_data,

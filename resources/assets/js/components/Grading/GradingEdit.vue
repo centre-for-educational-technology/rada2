@@ -37,12 +37,12 @@
             </div>
 
             <div>
-                <freeform :answer="answer"></freeform>
-                <photo :answer="answer"></photo>
-                <one-correct :answer="answer" ref="oneCorrectComponent"></one-correct>
-                <missing-word :answer="answer"></missing-word>
-                <multiple-correct :answer="answer" ref="multipleCorrectComponent"></multiple-correct>
-                <match-pairs :answer="answer"></match-pairs>
+                <freeform :answer="answer" v-if="isFreeformAnswer()"></freeform>
+                <photo :answer="answer"v-if="isPhoto()"></photo>
+                <one-correct :answer="answer" ref="oneCorrectComponent" v-if="isOneCorrectAnswer()"></one-correct>
+                <missing-word :answer="answer" v-if="isMissingWord()"></missing-word>
+                <multiple-correct :answer="answer" ref="multipleCorrectComponent"v-if="isMultipleCorrectAnswers()"></multiple-correct>
+                <match-pairs :answer="answer"v-if="isMatchPairs()"></match-pairs>
             </div>
 
             <div v-if="alertSuccessMessage != null" class="alert alert-success pull-left">

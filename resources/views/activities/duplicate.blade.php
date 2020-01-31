@@ -5,6 +5,7 @@
 @include('activities.includes.options')
 <script>
     window.Laravel.activityItems = {!! json_encode($activity_items) !!};
+    window.Laravel.activityItemPositions = {!! json_encode($activity_item_positions) !!};
     window.Laravel.canCreateActivityItem = {!! json_encode(Auth::user()->can('create', 'App\Activity')) !!};
     window.Laravel.hasFeaturedImage = {!! json_encode($activity->hasFeaturedImage()) !!};
     window.Laravel.enforceItemsOrder = {!! $activity->enforce_items_order !!};

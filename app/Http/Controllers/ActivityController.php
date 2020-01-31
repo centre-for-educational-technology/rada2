@@ -405,7 +405,7 @@ class ActivityController extends Controller
         $activity->is_template = (bool) $request->is_template;
 
         $this->saveInstructors($request, $activity);
-        
+
         if ( $request->hasFile('featured_image') ) {
             if ( $activity->hasFeaturedImage() )
             {
@@ -723,6 +723,13 @@ class ActivityController extends Controller
     ) {
         $this->authorize('duplicate', Activity::class);
 
+        $itemPositions = [];
+        /** @var ActivityItem $activityItem */
+        foreach ($activity->activityItems as $activityItem) {
+            $relations = $activityItem->pivot;
+            $itemPositions[] = $relations->getAttribute('position');
+        }
+
         return view('activities/duplicate')->with(
         [
             'activity' => $activity,
@@ -731,6 +738,7 @@ class ActivityController extends Controller
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'activity_items' => old('activity_items') ? ActivityItem::find(old('activity_items')) : $activity->activityItems,
+            'activity_item_positions' => $itemPositions,
             'discountVoucherOptions' => $this->getDiscountVoucherOptions(false),
             'subjectOptions' => $subjectOptions->options(),
             'ageOfParticipantsOptions' => $ageOfParticipantsOptions->options()

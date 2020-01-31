@@ -252,6 +252,7 @@
         <div class="col-md-6">
             <autocomplete
                     name="subject"
+                    default-value=""
                     :search="subjectSearch"
                     base-class="form-control input-group col-xs-12">
             </autocomplete>

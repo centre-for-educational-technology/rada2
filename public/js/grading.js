@@ -614,7 +614,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     markGraded: function markGraded(answerId, grade) {
-      this.$set(this, 'answers', this.answers.map(function (answer) {
+      this.$emit('update:answers', this.answers.map(function (answer) {
         if (answer.id === answerId) {
           answer.grade = grade;
         }
@@ -2187,23 +2187,35 @@ var render = function() {
           _c(
             "div",
             [
-              _c("freeform", { attrs: { answer: _vm.answer } }),
+              _vm.isFreeformAnswer()
+                ? _c("freeform", { attrs: { answer: _vm.answer } })
+                : _vm._e(),
               _vm._v(" "),
-              _c("photo", { attrs: { answer: _vm.answer } }),
+              _vm.isPhoto()
+                ? _c("photo", { attrs: { answer: _vm.answer } })
+                : _vm._e(),
               _vm._v(" "),
-              _c("one-correct", {
-                ref: "oneCorrectComponent",
-                attrs: { answer: _vm.answer }
-              }),
+              _vm.isOneCorrectAnswer()
+                ? _c("one-correct", {
+                    ref: "oneCorrectComponent",
+                    attrs: { answer: _vm.answer }
+                  })
+                : _vm._e(),
               _vm._v(" "),
-              _c("missing-word", { attrs: { answer: _vm.answer } }),
+              _vm.isMissingWord()
+                ? _c("missing-word", { attrs: { answer: _vm.answer } })
+                : _vm._e(),
               _vm._v(" "),
-              _c("multiple-correct", {
-                ref: "multipleCorrectComponent",
-                attrs: { answer: _vm.answer }
-              }),
+              _vm.isMultipleCorrectAnswers()
+                ? _c("multiple-correct", {
+                    ref: "multipleCorrectComponent",
+                    attrs: { answer: _vm.answer }
+                  })
+                : _vm._e(),
               _vm._v(" "),
-              _c("match-pairs", { attrs: { answer: _vm.answer } })
+              _vm.isMatchPairs()
+                ? _c("match-pairs", { attrs: { answer: _vm.answer } })
+                : _vm._e()
             ],
             1
           ),

@@ -57,7 +57,7 @@ return [
         'key' => env('USERREPORT_KEY', null),
     ],
     'sentry' => [
-        'sdn' => env('SENTRY_SDN', null),
+        'dsn' => env('SENTRY_DSN', null),
     ],
     'activity' => [
         'pin_length' => env('ACTIVITY_PIN_LENGTH', 5)

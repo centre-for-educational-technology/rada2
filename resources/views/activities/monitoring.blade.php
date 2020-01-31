@@ -11,6 +11,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
+    <!-- Sentry DSN -->
+    <meta name="sentry-dsn" content="{{ config('services.sentry.dsn') }}">
+
     <title>{{ config('app.name', 'RADA') }}</title>
 
     <!-- Styles -->

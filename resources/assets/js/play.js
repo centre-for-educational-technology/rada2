@@ -1,20 +1,11 @@
 //"use strict";
 
 const VueI18n = require('vue-i18n');
-import Raven from 'raven-js';
-import RavenVue from 'raven-js/plugins/vue';
 import Hammer from 'hammerjs';
 
 Vue.use(VueI18n);
 Vue.config.lang = window.RADA.config.locale;
 Vue.locale(window.RADA.config.locale, _.cloneDeep(window.RADA.data.translations));
-
-if ( RADA.config.sentry && RADA.config.sentry.sdn) {
-    Raven
-        .config(RADA.config.sentry.sdn)
-        .addPlugin(RavenVue, Vue)
-        .install();
-}
 
 Vue.component('game-map', require('./components/GameMap.vue').default);
 Vue.component('game-tutorial-modal', require('./components/GameTutorialModal.vue').default);

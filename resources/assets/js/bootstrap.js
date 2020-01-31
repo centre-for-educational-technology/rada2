@@ -43,3 +43,15 @@ Vue.http.interceptors.push((request, next) => {
 //     broadcaster: 'pusher',
 //     key: 'your-pusher-key'
 // });
+
+import * as Sentry from '@sentry/browser';
+import * as Integrations from '@sentry/integrations';
+
+let dsn = document.head.querySelector('meta[name="sentry-dsn"]');
+
+if (dsn && dsn.content) {
+    Sentry.init({
+        dsn: dsn.content,
+        integrations: [new Integrations.Vue({attachProps: true, logErrors: true})],
+    });
+}
