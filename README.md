@@ -13,7 +13,7 @@ This tool set includes:
 
 - Requirements are best determined using [Server Requirements page](https://laravel.com/docs/5.8/installation#server-requirements) of corresponding Laravel 5 version
   - Currently used version is 5.8
-- PHP version 7.1.* (some of the additional modules have strict requirements)
+- PHP version 7.3 (some of the additional modules have strict requirements)
 - SSH access to the server (terminal access)
 - [Composer](https://getcomposer.org/) being installed
 
