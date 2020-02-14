@@ -8,7 +8,7 @@
                 window.document.getElementById('start-monitoring-button').addEventListener('click', function (e) {
                     e.preventDefault();
                     window.location.href = "{!! route('activity.start-monitoring', [
-                        'id' => $activity->id
+                        'activity' => $activity->id
                     ]) !!}";
                     return false;
                 });

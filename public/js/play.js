@@ -947,7 +947,7 @@ var enableStreetView = window.RADA.config.map.enableStreetView || false;
     getActiveFlashExercise: function getActiveFlashExercise() {
       var _this3 = this;
 
-      this.$http.get('/api/games/' + this.game.id + '/get-active-flash-exercise').then(function (response) {
+      this.$http.get(this.baseUrl + '/api/games/' + this.game.id + '/get-active-flash-exercise').then(function (response) {
         if (typeof response.body.id !== 'undefined') {
           $('#user-flash-exercise-control-item').removeClass('hidden');
 
@@ -973,7 +973,7 @@ var enableStreetView = window.RADA.config.map.enableStreetView || false;
     getGameData: function getGameData() {
       var _this4 = this;
 
-      this.$http.get('/api/games/' + this.game.id + '/get-game-data').then(function (response) {
+      this.$http.get(this.baseUrl + '/api/games/' + this.game.id + '/get-game-data').then(function (response) {
         if (typeof response.body !== 'undefined') {
           var data = response.body;
 
@@ -1035,7 +1035,7 @@ var enableStreetView = window.RADA.config.map.enableStreetView || false;
     showHideGameIsStopped: function showHideGameIsStopped(data) {
       if ((typeof data.started !== 'undefined' && data.started === 1) === false) {
         this.$parent.checkUnload = false;
-        window.location.href = '/games/' + this.game.id + '/stopped';
+        window.location.href = this.baseUrl + '/games/' + this.game.id + '/stopped';
       }
     },
     showNotification: function showNotification(title, message) {
@@ -1604,7 +1604,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteMessage: function deleteMessage(e, id) {
       var _this2 = this;
 
-      this.$http.get('/api/games/' + this.game_id + '/delete-message/' + id).then(function (response) {
+      this.$http.get(window.RADA.config.base_url + '/api/games/' + this.game_id + '/delete-message/' + id).then(function (response) {
         _this2.getMessages();
       });
     },
@@ -1612,7 +1612,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       if (this.newMessage.length > 0) {
-        this.$http.post('/api/games/' + this.game_id + '/add-new-message', {
+        this.$http.post(window.RADA.config.base_url + '/api/games/' + this.game_id + '/add-new-message', {
           message: this.newMessage
         }).then(function (response) {
           _this3.newMessage = '';
@@ -1624,7 +1624,7 @@ __webpack_require__.r(__webpack_exports__);
     getMessages: function getMessages() {
       var _this4 = this;
 
-      this.$http.get('/api/games/' + this.game_id + '/get-all-messages').then(function (response) {
+      this.$http.get(window.RADA.config.base_url + '/api/games/' + this.game_id + '/get-all-messages').then(function (response) {
         _this4.messages = response.body || [];
       });
     },
@@ -1935,7 +1935,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     open: function open() {
       var _this3 = this;
 
-      var url = '/api/games/' + this.gameId + '/start-question/' + this.question.id;
+      var url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
       this.$http.get(url).then(function (response) {
         _this3.isOpen = true;
 
@@ -2340,7 +2340,7 @@ __webpack_require__.r(__webpack_exports__);
     addRating: function addRating(e, star) {
       var _this = this;
 
-      this.$http.get('/api/games/' + this.game.id + '/add-rating/' + star).then(function (response) {
+      this.$http.get(this.baseUrl + '/api/games/' + this.game.id + '/add-rating/' + star).then(function (response) {
         _this.close();
       });
     },
@@ -2496,34 +2496,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['game', 'baseUrl'],
   mixins: [_mixins_MissingWord_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  mounted: function mounted() {
-    var vm = this;
-    this.$http.get(vm.baseUrl + '/api/games/' + vm.game.id + '/voucher', {}).then(function (response) {
-      if (response.body.hasVoucher) {
-        vm.voucher = response.body.voucher;
-      }
-    }, function (response) {//console.error('Error', response);
-    });
-  },
-  data: function data() {
-    return {
-      voucher: false
-    };
-  },
   computed: {
     totalQuestionsCount: function totalQuestionsCount() {
       return this.game.activity.questions.length;
@@ -2707,18 +2683,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     showResults: function showResults() {
       this.resultsShown = !this.resultsShown;
-    },
-    getVoucherImageUrl: function getVoucherImageUrl() {
-      return this.baseUrl + '/img/vouchers/voucher.png';
-    },
-    getVoucherUrl: function getVoucherUrl() {
-      return this.baseUrl + '/discount_vouchers';
-    },
-    gotVoucher: function gotVoucher() {
-      return !!this.voucher;
-    },
-    voucherTitle: function voucherTitle() {
-      return this.gotVoucher() ? this.voucher.title : '';
     }
   }
 });
@@ -7714,42 +7678,6 @@ var render = function() {
                     )
                   ])
                 ]),
-                _vm._v(" "),
-                _vm.gotVoucher()
-                  ? _c("div", { staticClass: "sz-game-voucher" }, [
-                      _c("h2", [_vm._v(_vm._s(_vm.$t("vouchers.heading")))]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.voucherTitle()))]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "sz-voucher-image",
-                          attrs: { href: _vm.getVoucherUrl(), target: "_blank" }
-                        },
-                        [
-                          _c("img", {
-                            staticClass: "img-responsive",
-                            attrs: {
-                              src: _vm.getVoucherImageUrl(),
-                              alt: "voucher"
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.$t("vouchers.details")))]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: { href: _vm.getVoucherUrl(), target: "_blank" }
-                        },
-                        [_vm._v(_vm._s(_vm.$t("vouchers.button")))]
-                      )
-                    ])
-                  : _vm._e(),
                 _vm._v(" "),
                 _c("h2", { staticClass: "text-center" }, [
                   _vm._v(_vm._s(_vm.$t("results-heading")))

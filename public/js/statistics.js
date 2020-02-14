@@ -48245,7 +48245,7 @@ Vue.component('line-chart', {
   mounted: function mounted() {
     var _this = this;
 
-    this.$http.get('/api/manage/google-analytics-rows?type=' + this.type).then(function (response) {
+    this.$http.get(window.Laravel.apiUrl + '/manage/google-analytics-rows?type=' + this.type).then(function (response) {
       var name = response.body.name;
       var rows = response.body.rows;
       var rowsLength = rows.length;

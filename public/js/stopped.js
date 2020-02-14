@@ -198,34 +198,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: ['game', 'baseUrl'],
   mixins: [_mixins_MissingWord_js__WEBPACK_IMPORTED_MODULE_0__["default"]],
-  mounted: function mounted() {
-    var vm = this;
-    this.$http.get(vm.baseUrl + '/api/games/' + vm.game.id + '/voucher', {}).then(function (response) {
-      if (response.body.hasVoucher) {
-        vm.voucher = response.body.voucher;
-      }
-    }, function (response) {//console.error('Error', response);
-    });
-  },
-  data: function data() {
-    return {
-      voucher: false
-    };
-  },
   computed: {
     totalQuestionsCount: function totalQuestionsCount() {
       return this.game.activity.questions.length;
@@ -409,18 +385,6 @@ __webpack_require__.r(__webpack_exports__);
     },
     showResults: function showResults() {
       this.resultsShown = !this.resultsShown;
-    },
-    getVoucherImageUrl: function getVoucherImageUrl() {
-      return this.baseUrl + '/img/vouchers/voucher.png';
-    },
-    getVoucherUrl: function getVoucherUrl() {
-      return this.baseUrl + '/discount_vouchers';
-    },
-    gotVoucher: function gotVoucher() {
-      return !!this.voucher;
-    },
-    voucherTitle: function voucherTitle() {
-      return this.gotVoucher() ? this.voucher.title : '';
     }
   }
 });
@@ -615,42 +579,6 @@ var render = function() {
                     )
                   ])
                 ]),
-                _vm._v(" "),
-                _vm.gotVoucher()
-                  ? _c("div", { staticClass: "sz-game-voucher" }, [
-                      _c("h2", [_vm._v(_vm._s(_vm.$t("vouchers.heading")))]),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.voucherTitle()))]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "sz-voucher-image",
-                          attrs: { href: _vm.getVoucherUrl(), target: "_blank" }
-                        },
-                        [
-                          _c("img", {
-                            staticClass: "img-responsive",
-                            attrs: {
-                              src: _vm.getVoucherImageUrl(),
-                              alt: "voucher"
-                            }
-                          })
-                        ]
-                      ),
-                      _vm._v(" "),
-                      _c("p", [_vm._v(_vm._s(_vm.$t("vouchers.details")))]),
-                      _vm._v(" "),
-                      _c(
-                        "a",
-                        {
-                          staticClass: "btn btn-default",
-                          attrs: { href: _vm.getVoucherUrl(), target: "_blank" }
-                        },
-                        [_vm._v(_vm._s(_vm.$t("vouchers.button")))]
-                      )
-                    ])
-                  : _vm._e(),
                 _vm._v(" "),
                 _c("h2", { staticClass: "text-center" }, [
                   _vm._v(_vm._s(_vm.$t("results-heading")))
@@ -2807,7 +2735,7 @@ var stoppedGameApp = new Vue({
     getGameData: function getGameData() {
       var _this2 = this;
 
-      this.$http.get('/api/games/' + this.game.id + '/get-game-data').then(function (response) {
+      this.$http.get(this.baseUrl + '/api/games/' + this.game.id + '/get-game-data').then(function (response) {
         if (typeof response.body !== 'undefined') {
           var data = response.body;
 
@@ -2821,7 +2749,7 @@ var stoppedGameApp = new Vue({
     },
     continueGame: function continueGame(data) {
       if (typeof data.started !== 'undefined' && data.started === 1) {
-        window.location.href = '/games/' + this.game.id + '/play';
+        window.location.href = this.baseUrl + '/games/' + this.game.id + '/play';
       }
     }
   }

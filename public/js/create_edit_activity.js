@@ -251,7 +251,7 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
     draggable: vuedraggable__WEBPACK_IMPORTED_MODULE_0___default.a,
-    'game-question-modal': __webpack_require__(/*! ./GameQuestionModal.vue */ "./resources/assets/js/components/GameQuestionModal.vue")
+    'game-question-modal': __webpack_require__(/*! ./GameQuestionModal.vue */ "./resources/assets/js/components/GameQuestionModal.vue")["default"]
   },
   props: ['baseUrl', 'apiUrl', 'canCreateActivityItem'],
   mounted: function mounted() {
@@ -924,7 +924,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     open: function open() {
       var _this3 = this;
 
-      var url = '/api/games/' + this.gameId + '/start-question/' + this.question.id;
+      var url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
       this.$http.get(url).then(function (response) {
         _this3.isOpen = true;
 

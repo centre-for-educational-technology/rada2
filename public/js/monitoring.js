@@ -178,7 +178,7 @@ __webpack_require__.r(__webpack_exports__);
       this.startStopExercise(id, false);
     },
     startStopExercise: function startStopExercise(id, active) {
-      this.$http.post('/api/games/' + this.game_id + '/start-stop-flash-exercise', {
+      this.$http.post(window.RADA.config.base_url + '/api/games/' + this.game_id + '/start-stop-flash-exercise', {
         questionId: id,
         active: active
       }).then(function (response) {}, function (error) {
@@ -186,7 +186,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     getActiveFlashExercise: function getActiveFlashExercise(callback) {
-      this.$http.get('/api/games/' + this.game_id + '/get-active-flash-exercise').then(function (response) {
+      this.$http.get(window.RADA.config.base_url + '/api/games/' + this.game_id + '/get-active-flash-exercise').then(function (response) {
         if (typeof response.body.id !== 'undefined') {
           callback(response.body.id);
         } else {
@@ -416,7 +416,7 @@ __webpack_require__.r(__webpack_exports__);
     deleteMessage: function deleteMessage(e, id) {
       var _this2 = this;
 
-      this.$http.get('/api/games/' + this.game_id + '/delete-message/' + id).then(function (response) {
+      this.$http.get(window.RADA.config.base_url + '/api/games/' + this.game_id + '/delete-message/' + id).then(function (response) {
         _this2.getMessages();
       });
     },
@@ -424,7 +424,7 @@ __webpack_require__.r(__webpack_exports__);
       var _this3 = this;
 
       if (this.newMessage.length > 0) {
-        this.$http.post('/api/games/' + this.game_id + '/add-new-message', {
+        this.$http.post(window.RADA.config.base_url + '/api/games/' + this.game_id + '/add-new-message', {
           message: this.newMessage
         }).then(function (response) {
           _this3.newMessage = '';
@@ -436,7 +436,7 @@ __webpack_require__.r(__webpack_exports__);
     getMessages: function getMessages() {
       var _this4 = this;
 
-      this.$http.get('/api/games/' + this.game_id + '/get-all-messages').then(function (response) {
+      this.$http.get(window.RADA.config.base_url + '/api/games/' + this.game_id + '/get-all-messages').then(function (response) {
         _this4.messages = response.body || [];
       });
     },
@@ -626,11 +626,11 @@ function GameControls(controlDiv, map, playerMarker, vm) {
   gradingControlItem.appendChild(gradingControlItemBadge);
   adminControls.appendChild(gradingControlItem);
   gradingControlItem.addEventListener('click', function () {
-    window.open('/grading/' + vm.game.activity.id, '_blank');
+    window.open(vm.baseUrl + '/grading/' + vm.game.activity.id, '_blank');
   });
 
   function getCountOfUngradedAnswers() {
-    vm.$http.get('/api/games/' + vm.game.id + '/get-count-of-ungraded-answers').then(function (response) {
+    vm.$http.get(vm.baseUrl + '/api/games/' + vm.game.id + '/get-count-of-ungraded-answers').then(function (response) {
       gradingControlItemBadge.innerText = response.body.count;
 
       if (response.body.count !== null) {
@@ -657,7 +657,7 @@ function GameControls(controlDiv, map, playerMarker, vm) {
   statisticsControlItem.className = 'mdi mdi-chart-line';
   adminControls.appendChild(statisticsControlItem);
   statisticsControlItem.addEventListener('click', function () {
-    window.open('/manage/game-statistics/' + vm.game.id, '_blank');
+    window.open(vm.baseUrl + '/manage/game-statistics/' + vm.game.id, '_blank');
   }); // -------------- START STOP --------------------------
 
   var startStopControlItem = document.createElement('i');
@@ -671,7 +671,7 @@ function GameControls(controlDiv, map, playerMarker, vm) {
   adminControls.appendChild(startStopControlItem);
   startStopControlItem.addEventListener('click', function () {
     var start = vm.game.activity.started === 1 ? 0 : 1;
-    vm.$http.get('/api/games/' + vm.game.id + '/start-stop-game?start=' + start).then(function (response) {
+    vm.$http.get(vm.baseUrl + '/api/games/' + vm.game.id + '/start-stop-game?start=' + start).then(function (response) {
       vm.game.activity.started = start;
 
       if (vm.game.activity.started === 1) {
