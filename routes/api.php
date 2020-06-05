@@ -78,3 +78,11 @@ Route::group(['prefix' => 'grading'], static function () {
     Route::get('get-question-data/{activityItem}', 'GradingController@getQuestionData');
     Route::get('get-other-graded-answers/{answer}', 'GradingController@getOtherGradedAnswers');
 });
+
+Route::group(['prefix' => 'dashboard'], static function() {
+  Route::get('/user', static function (Request $request) {
+      // TODO It might make sense to only return limited data set
+      return $request->user();
+  })->middleware('auth:tokenapi');
+  Route::get('/all', 'DashboardApiController@all');
+});

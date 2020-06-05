@@ -4,6 +4,7 @@
     "/js/create_edit_activity.js": "/js/create_edit_activity.js",
     "/js/create_edit_activity_item.js": "/js/create_edit_activity_item.js",
     "/js/discount_vouchers.js": "/js/discount_vouchers.js",
+    "/js/edit_profile.js": "/js/edit_profile.js",
     "/js/grading.js": "/js/grading.js",
     "/js/login.js": "/js/login.js",
     "/js/manage_users.js": "/js/manage_users.js",
