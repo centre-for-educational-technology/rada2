@@ -258,6 +258,8 @@
 
 <script>
     export default {
+        props: ['baseUrl'],
+
         /*
          * The component's data.
          */
@@ -316,7 +318,7 @@
              * Get all of the OAuth clients for the user.
              */
             getClients() {
-                axios.get('/oauth/clients')
+                axios.get(this.baseUrl + '/oauth/clients')
                         .then(response => {
                             this.clients = response.data;
                         });
@@ -335,7 +337,7 @@
             store() {
                 this.persistClient(
                     'post',
-                    '/oauth/clients',
+                    this.baseUrl + '/oauth/clients',
                     this.createForm,
                     '#modal-create-client'
                 );
@@ -358,7 +360,7 @@
             update() {
                 this.persistClient(
                     'put',
-                    '/oauth/clients/' + this.editForm.id,
+                    this.baseUrl + '/oauth/clients/' + this.editForm.id,
                     this.editForm,
                     '#modal-edit-client'
                 );
@@ -406,7 +408,7 @@
              * Destroy the given client.
              */
             destroy(client) {
-                axios.delete('/oauth/clients/' + client.id)
+                axios.delete(this.baseUrl + '/oauth/clients/' + client.id)
                         .then(response => {
                             this.getClients();
                         });

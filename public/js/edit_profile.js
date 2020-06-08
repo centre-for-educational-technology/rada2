@@ -1961,6 +1961,8 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['baseUrl'],
+
   /*
    * The component's data.
    */
@@ -1997,7 +1999,7 @@ __webpack_require__.r(__webpack_exports__);
     getTokens: function getTokens() {
       var _this = this;
 
-      axios.get('/oauth/tokens').then(function (response) {
+      axios.get(this.baseUrl + '/oauth/tokens').then(function (response) {
         _this.tokens = response.data;
       });
     },
@@ -2008,7 +2010,7 @@ __webpack_require__.r(__webpack_exports__);
     revoke: function revoke(token) {
       var _this2 = this;
 
-      axios["delete"]('/oauth/tokens/' + token.id).then(function (response) {
+      axios["delete"](this.baseUrl + '/oauth/tokens/' + token.id).then(function (response) {
         _this2.getTokens();
       });
     }
@@ -2287,6 +2289,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['baseUrl'],
+
   /*
    * The component's data.
    */
@@ -2341,7 +2345,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     getClients: function getClients() {
       var _this = this;
 
-      axios.get('/oauth/clients').then(function (response) {
+      axios.get(this.baseUrl + '/oauth/clients').then(function (response) {
         _this.clients = response.data;
       });
     },
@@ -2357,7 +2361,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      * Create a new OAuth client for the user.
      */
     store: function store() {
-      this.persistClient('post', '/oauth/clients', this.createForm, '#modal-create-client');
+      this.persistClient('post', this.baseUrl + '/oauth/clients', this.createForm, '#modal-create-client');
     },
 
     /**
@@ -2374,7 +2378,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
      * Update the client being edited.
      */
     update: function update() {
-      this.persistClient('put', '/oauth/clients/' + this.editForm.id, this.editForm, '#modal-edit-client');
+      this.persistClient('put', this.baseUrl + '/oauth/clients/' + this.editForm.id, this.editForm, '#modal-edit-client');
     },
 
     /**
@@ -2418,7 +2422,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     destroy: function destroy(client) {
       var _this3 = this;
 
-      axios["delete"]('/oauth/clients/' + client.id).then(function (response) {
+      axios["delete"](this.baseUrl + '/oauth/clients/' + client.id).then(function (response) {
         _this3.getClients();
       });
     }
@@ -2595,6 +2599,8 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 //
 //
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: ['baseUrl'],
+
   /*
    * The component's data.
    */
@@ -2642,7 +2648,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     getTokens: function getTokens() {
       var _this = this;
 
-      axios.get('/oauth/personal-access-tokens').then(function (response) {
+      axios.get(this.baseUrl + '/oauth/personal-access-tokens').then(function (response) {
         _this.tokens = response.data;
       });
     },
@@ -2653,7 +2659,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     getScopes: function getScopes() {
       var _this2 = this;
 
-      axios.get('/oauth/scopes').then(function (response) {
+      axios.get(this.baseUrl + '/oauth/scopes').then(function (response) {
         _this2.scopes = response.data;
       });
     },
@@ -2673,7 +2679,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
 
       this.accessToken = null;
       this.form.errors = [];
-      axios.post('/oauth/personal-access-tokens', this.form).then(function (response) {
+      axios.post(this.baseUrl + '/oauth/personal-access-tokens', this.form).then(function (response) {
         _this3.form.name = '';
         _this3.form.scopes = [];
         _this3.form.errors = [];
@@ -2725,7 +2731,7 @@ function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterat
     revoke: function revoke(token) {
       var _this4 = this;
 
-      axios["delete"]('/oauth/personal-access-tokens/' + token.id).then(function (response) {
+      axios["delete"](this.baseUrl + '/oauth/personal-access-tokens/' + token.id).then(function (response) {
         _this4.getTokens();
       });
     }
@@ -5308,7 +5314,15 @@ Vue.component('passport-clients', __webpack_require__(/*! ./components/passport/
 Vue.component('passport-authorized-clients', __webpack_require__(/*! ./components/passport/AuthorizedClients.vue */ "./resources/assets/js/components/passport/AuthorizedClients.vue")["default"]);
 Vue.component('passport-personal-access-tokens', __webpack_require__(/*! ./components/passport/PersonalAccessTokens.vue */ "./resources/assets/js/components/passport/PersonalAccessTokens.vue")["default"]);
 var app = new Vue({
-  el: '#app'
+  el: '#app',
+  created: function created() {
+    this.baseUrl = window.Laravel.baseUrl;
+  },
+  data: function data() {
+    return {
+      baseUrl: ''
+    };
+  }
 });
 
 /***/ }),

@@ -41,4 +41,12 @@ Vue.component(
 
 const app = new Vue({
     el: '#app',
+    created: function() {
+        this.baseUrl = window.Laravel.baseUrl;
+    },
+    data() {
+        return {
+            baseUrl: ''
+        };
+    }
 });
