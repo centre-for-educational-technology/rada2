@@ -285,7 +285,12 @@ class User extends Authenticatable
      */
     public function canMakeApiCalls()
     {
-        // XXX Need to create some kind of check
-        return true;
+        $identifiers = config('auth.api_access.user_identifiers') ?? [];
+
+        if (!is_array($identifiers)) {
+            $identifiers = explode(',', $identifiers);
+        }
+
+        return in_array($this->id, $identifiers);
     }
 }

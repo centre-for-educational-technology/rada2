@@ -104,4 +104,9 @@ return [
         ],
     ],
 
+    // API access configuration
+    'api_access' => [
+        'user_identifiers' => env('API_ACCESS_USER_IDENTIFIERS', null),
+    ],
+
 ];
