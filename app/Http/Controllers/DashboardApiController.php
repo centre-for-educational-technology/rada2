@@ -6,6 +6,9 @@ use Illuminate\Http\Request;
 use App\Activity;
 use App\Game;
 use App\GameAnswer;
+use App\Http\Resources\Activity as ActivityResource;
+use App\Http\Resources\Game as GameResource;
+use App\Http\Resources\Answer as AnswerResource;
 
 class DashboardApiController extends Controller
 {
@@ -20,6 +23,17 @@ class DashboardApiController extends Controller
       $this->middleware('api.access.verify');
   }
 
+  /**
+   * Returns current page number or aborts execution.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @throws HttpException if page param is less than zero
+   *
+   * @return int
+   *   Current page number
+   */
   private function getPage(Request $request) : int
   {
       $page = (int)$request->get('page');
@@ -32,6 +46,17 @@ class DashboardApiController extends Controller
       return $page;
   }
 
+  /**
+   * Returns current limit value, defaults to 50 or aborts execution.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @throws HttpException if provided limit param is not between 1 and 500
+   *
+   * @return int
+   *   Current limit value
+   */
   private function getLimit(Request $request) : int
   {
       $limit = (int)$request->get('limit', 50);
@@ -44,26 +69,72 @@ class DashboardApiController extends Controller
       return $limit;
   }
 
+  /**
+   * Determines if request has from value set.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @return boolean
+   *   TRUE or FALSE
+   */
   private function hasFrom(Request $request)
   {
       return $request->has('from');
   }
 
+  /**
+   * Determines if request has until value set.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @return boolean
+   *   TRUE or FALSE
+   */
   private function hasUntil(Request $request)
   {
       return $request->has('until');
   }
 
+  /**
+   * Returns from value converted to timestamp.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @return int
+   *  From timestamp value
+   */
   private function getFromTimestamp(Request $request) : int
   {
       return strtotime($request->get('from'));
   }
 
+  /**
+   * Returns until value converted to timestamp.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @return int
+   *   Until timestamp value
+   */
   private function getUntilTimestamp(Request $request) : int
   {
       return strtotime($request->get('until'));
   }
 
+  /**
+   * Validates presence of from and until and their values. Aborts execution if
+   * an issue is found.
+   *
+   * @param Request $request
+   *   Request object
+   *
+   * @throws HttpException if from or until is not a valid timestamp or from
+   * is greater than until
+   */
   private function validateFromAndUntil(Request $request) : void
   {
       if ($this->hasFrom($request))
@@ -90,11 +161,20 @@ class DashboardApiController extends Controller
       {
           if ($from > $until)
           {
-              abort(400, 'From parameter value is less than until!');
+              abort(400, 'From parameter value is greater than until!');
           }
       }
   }
 
+  /**
+   * Returns range start value based on current page.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @return int
+   *   Current range start
+   */
   private function getRangeStart(Request $request) : int
   {
       if ($request->has('page'))
@@ -105,6 +185,17 @@ class DashboardApiController extends Controller
       return 0;
   }
 
+  /**
+   * Generates links to previous, current and next pages.
+   *
+   * @param  Request $request
+   *   Request object
+   * @param  int     $total_pages
+   *   Total number of pages
+   *
+   * @return array
+   *   An array with self, prev and next links
+   */
   private function generateLinks(Request $request, int $total_pages) : array
   {
       $links = [];
@@ -126,6 +217,15 @@ class DashboardApiController extends Controller
       return $links;
   }
 
+  /**
+   * Returns all the data based on provided filter values.
+   *
+   * @param  Request $request
+   *   Request object
+   *
+   * @return array
+   *   Resonse structure that would later be converted to JSON
+   */
   public function all(Request $request)
   {
       $this->validateFromAndUntil($request);
@@ -156,7 +256,11 @@ class DashboardApiController extends Controller
       $activity_count_query = clone $activity_query;
       $counts[] = $activity_count_query->count();
 
-      $activities = $activity_query->orderBy('id', 'asc')->skip($range_start)->take($range_length)->get();
+      $activities = $activity_query
+          ->orderBy('id', 'asc')
+          ->skip($range_start)
+          ->take($range_length)
+          ->get();
 
       // Games
       $game_query = Game::query();
@@ -179,7 +283,11 @@ class DashboardApiController extends Controller
       $game_count_query = clone $game_query;
       $counts[] = $game_count_query->count();
 
-      $games = $game_query->orderBy('created_at', 'asc')->skip($range_start)->take($range_length)->get();
+      $games = $game_query
+          ->orderBy('created_at', 'asc')
+          ->skip($range_start)
+          ->take($range_length)
+          ->get();
 
       // Answers
       $answer_query = GameAnswer::query();
@@ -187,6 +295,7 @@ class DashboardApiController extends Controller
       if ($request->has('user_id'))
       {
           $answer_query->join('games', 'game_answers.game_id', '=', 'games.id');
+          $answer_query->select('game_answers.*');
           $answer_query->where('games.user_id', '=', (int)$request->get('user_id'));
       }
 
@@ -203,7 +312,11 @@ class DashboardApiController extends Controller
       $answer_count_query = clone $answer_query;
       $counts[] = $answer_count_query->count();
 
-      $answers = $answer_query->orderBy('game_answers.created_at', 'asc')->skip($range_start)->take($range_length)->get();
+      $answers = $answer_query
+          ->orderBy('game_answers.created_at', 'asc')
+          ->skip($range_start)
+          ->take($range_length)
+          ->get();
 
       $total_pages = ceil(max($counts) / $range_length);
 
@@ -211,9 +324,9 @@ class DashboardApiController extends Controller
           'meta' => [
               'totalPages' => $total_pages,
           ],
-          'activities' => $activities,
-          'games' => $games,
-          'answers' => $answers,
+          'activities' => ActivityResource::collection($activities),
+          'games' => GameResource::collection($games),
+          'answers' => AnswerResource::collection($answers),
           'links' => $this->generateLinks($request, $total_pages),
       ];
   }

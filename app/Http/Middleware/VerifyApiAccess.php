@@ -17,7 +17,7 @@ class VerifyApiAccess
     public function handle($request, Closure $next)
     {
         if (!(Auth::check() && Auth::user()->canMakeApiCalls())) {
-            return response()->json(['error' => 'User is not allowed to make any API calls.'], 403);
+            abort(403, 'User is not allowed to make any API calls.');
         }
 
         return $next($request);
