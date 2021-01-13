@@ -33,7 +33,7 @@
         "vuedraggable": "^2.23.2"
     },
     "dependencies": {
-        "axios": "^0.19.2",
+        "axios": "^0.21.1",
         "css-loader": "^3.5.3",
         "file-loader": "^5.1.0",
         "vue-loader": "^15.9.1",
