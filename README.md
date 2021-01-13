@@ -15,7 +15,7 @@ This tool set includes:
 
 ## Requirements
 
-- Requirements are best determined using [Server Requirements page](https://laravel.com/docs/6.x/installation#server-requirements) of corresponding Laravel 5 version
+- Requirements are best determined using [Server Requirements page](https://laravel.com/docs/6.x/installation#server-requirements) of corresponding Laravel 6 version
   - Currently used version is 6.x
 - PHP version 7.3 (some of the additional modules have strict requirements)
 - SSH access to the server (terminal access)
@@ -173,7 +173,7 @@ hostname: rada
 
 MIT License
 
-Copyright (c) 2018 RADA Project
+Copyright (c) 2021 RADA Project
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
