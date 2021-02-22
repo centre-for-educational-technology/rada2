@@ -1866,8 +1866,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     open: function open() {
       var _this3 = this;
 
-      var url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
-      this.$http.get(url).then(function (response) {
+      var cb = function cb(response) {
         _this3.isOpen = true;
 
         _this3.generateMissingWords();
@@ -1910,7 +1909,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
         }
 
         $(_this3.$refs.modal).modal('show');
-      });
+      }; // Only call the startQuestion endpoint if running within a game context
+
+
+      if (!!this.gameId) {
+        var url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
+        this.$http.get(url).then(cb);
+      } else {
+        cb(null);
+      }
+
       return $(this.$refs.modal);
     },
     close: function close() {
