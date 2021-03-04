@@ -17,7 +17,7 @@ This tool set includes:
 
 - Requirements are best determined using [Server Requirements page](https://laravel.com/docs/8.x/installation#server-requirements) of corresponding Laravel 8 version
   - Currently used version is 8.x
-- PHP version 7.3 (some of the additional modules have strict requirements)
+- PHP version 7.4 (some of the additional modules have strict requirements)
 - SSH access to the server (terminal access)
 - [Composer](https://getcomposer.org/) being installed
 
@@ -27,7 +27,7 @@ This tool set includes:
 - Clone the repository
   - Please make sure to switch to `production` branch if you are running on production server
   - In case of development instance, please make sure to build the static assets. Refer to [working with compiled assets](#working-with-compiled-assets) for more information
-- Move into the directory (`cd RADA`)
+- Move into the directory (`cd rada2`)
 - Install the dependencies `composer install`
 - Make sure that .env file is present and configured as needed (copy .env.example to .env and fill in with data)
   - Either create application key manually or do that with a command `php artisan key:generate`
@@ -45,7 +45,7 @@ This tool set includes:
   - Make sure you have set the `QUEUE_DRIVER` in the .env file
     - `QUEUE_DRIVER=database`
   - Run `php artisan queue:table` from terminal
-- Run `php artisan migrate` from terminal (this should create database and more)
+- Run `php artisan migrate` from terminal (this should create the database structure and more)
   - Running `php artisan serve` would serve the app in development (or configure the server of your choice)
 - Run `php artisan db:seed` to ensure that database is filled with required information
 - For xAPI integration (step 2)
@@ -53,7 +53,7 @@ This tool set includes:
 - Add private and public keys to the `storage/app/keys` directory (key length might be different)
 - Make sure to deploy Passport as described in the [documentation](https://laravel.com/docs/8.x/passport#deploying-passport)
   - Only keys would be needed by default
-  - Make sure to define API access in the `.env` file by specifying user identifiers
+  - Make sure to define API access permissions in the `.env` file by specifying user identifiers
 ```
 openssl genrsa -out private-key.pem 2048
 openssl rsa -in private-key.pem -out public-key.pem -outform PEM -pubout
@@ -71,7 +71,7 @@ openssl rsa -in private-key.pem -out public-key.pem -outform PEM -pubout
 
 Upgrade procedure is generally simple enough, but could also involve some additional steps to be taken. This could be the case if some of the application logic aspects have changed. An example could be the storage logic structural change, in that particular case the migration has to be applied manually by running `php artisan storage:public:migrate`. Another case would be some additions to configurations. Most of those are well described within the commit messages.
 
-The common septs for the process are as follows:
+The common steps for the process are as follows:
 
 - Log into the server terminal with `ssh` command
 - Navigate to the service directory (not to be mistaken with the `public` subdirectory)
@@ -79,7 +79,7 @@ The common septs for the process are as follows:
 - Consider creating a backup of database and current service files
 - Run `git pull` to get the latest code from the `production` branch (or use any other means to get the latest code and replace the current one)
 - Run `php artisan migrate:status` to determine if migrations are required
-  - If there are any unapplied migrations, run `php artisan migrate` command
+  - If there are any not yet applied migrations, run `php artisan migrate` command
   - You can check the state of migrations at any time by running the initial command
 - Run `php artisan view:clear`, to clear any view caches
 - Check if any additional migrations/configurations are required
@@ -107,11 +107,11 @@ If all the dependencies are installed (`npm install`), then one would only need 
 
 ### Merging into production
 
-Once the code has reached a stable point and is ready to me run in production, there is a need to merge `master` branch into one called `production`. The process requires a few steps to be taken:
+Once the code has reached a stable point and is ready to me run in production, there is a need to merge `main` branch into one called `production`. The process requires a few steps to be taken:
 
   - Switch to local branch that is tracking upstream `production`
     - [This](https://stackoverflow.com/questions/520650/make-an-existing-git-branch-track-a-remote-branch#answer-2286030) should have enough instruction to setup the branch from the terminal
-  - Merge the code from `master` by running `git merge --strategy-option=theirs master`
+  - Merge the code from `main` by running `git merge --strategy-option=theirs main`
     - The strategy is needed to make sure that no conflicts arise. The strategy does not matter too much as any of the static assets would be rebuilt. It is solely needed because generated/built files for static assets (JS and CSS) would have conflicts, as both branches are building their own versions of those files. The ones in production are minified and made ready for production use
   - Make sure to build the production assets by running `npm run prod`, which should add new files to the `public` directory and its subdirectories. Versioning information is kept with in `mix-manifest.json`
     - In case no changes were made to the base files for JS or CSS, there could be no changes to the static assets. Although, running the process just in case would be a good idea (unless one is absolutely sure that it is not necessary)
@@ -131,82 +131,11 @@ Also check any additional translations within the `vendor` subdirectory. That wo
 
 ## Production
 
-If you need to be running in production mode, then please use the branch named `production` instead of `master`. That branch might not have all the latest changes, but it should have the JS and CSS assets built for running in production (minified and more).
-
-## Laradock
-
-[Laradock](https://laradock.io/) could be used to run in development.
-
-Below is a simple control script that could be added to the laradock directory (currently used with standalone instance per project, not running multiple different ones on the same set of containers).
-
-Please do check which containers are being used by default. It assumes that session condifuration is using filesystem and does not create a redis container and provide required configuration. Bash script is only meant to save time spent on typing commands for starting, stopping and creating a set of containers. Please note that you should also configure your instance to use mailhog instead of really sending any email messages.
-
-You are able and encouraged to extend the set of containers to your liking or to fit your requirements, just make sure that required configurations are being made to the `.env` file.
-
-Do note that **zsh** is set to be the defalt linux shell. Do change that to **bash** if you are not going to enable the other one.
-
-```
-#!/bin/sh
-
-commands=(up start stop ssh)
-base_containers=(workspace php-fpm docker-in-docker)
-containers=(mysql apache2 mailhog)
-user="laradock"
-shell="zsh"
-
-function print_supported_commands() {
-  local output="$1"
-  output+=" Supported commands are:"
-  last="${commands[@]: -1}"
-
-  for command in "${commands[@]}"
-  do
-    if [[ $command == $last ]] ; then
-      output+=" and"
-    fi
-
-    output+=" $command"
-
-    if [[ $command != $last ]] ; then
-      output+=","
-    fi
-  done
-
-  echo "$output"
-}
-
-if [[ $# -eq 0 ]] ; then
-  print_supported_commands "No command provided!"
-  exit 1
-fi
-
-case $1 in
-"up")
-  docker-compose up -d ${containers[@]}
-  ;;
-"start")
-  extended=(${base_containers[@]})
-  extended+=(${containers[@]})
-
-  docker-compose start ${extended[@]}
-  ;;
-"stop")
-  docker-compose stop
-  ;;
-"ssh")
-  docker-compose exec --user=$user workspace $shell
-  ;;
-*)
-  print_supported_commands "No supported commands given!"
-  ;;
-esac
-
-exit 0
-```
+If you need to be running in production mode, then please use the branch named `production` instead of `main`. That branch might not have all the latest changes, but it should have the JS and CSS assets built for running in production (minified and more).
 
 ## Laravel Sail
 
-You can easily use [Sail](https://laravel.com/docs/8.x/sail) instad of [Laradock](https://laradock.io/) with simplified configuration and time to get it up and running.
+You can easily use [Sail](https://laravel.com/docs/8.x/sail) or [Docker Compose](https://docs.docker.com/compose/) in development. Corresponding `docker-compose.yml` is included.
 
 ## License
 
