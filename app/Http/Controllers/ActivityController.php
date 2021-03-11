@@ -165,7 +165,6 @@ class ActivityController extends Controller
      * Display a listing of activities.
      *
      * @param Request                $request
-     * @param ZooOptions             $zooOptions
      * @param LanguageOptions        $languageOptions
      * @param DifficultyLevelOptions $difficultyLevelOptions
      *
@@ -173,14 +172,12 @@ class ActivityController extends Controller
      */
     public function index(
         Request $request,
-        ZooOptions $zooOptions,
         LanguageOptions $languageOptions,
         DifficultyLevelOptions $difficultyLevelOptions
     ) {
         $search = [
             'search-text' => $request->has('search-text') ? $request->get('search-text') : '',
             'difficulty-level' => $request->has('difficulty-level') ? $request->get('difficulty-level') : '',
-            'zoo' => $request->has('zoo') ? $request->get('zoo') : '',
             'language' => $request->has('language') ? $request->get('language') : '',
             'search-submitted' => $request->has('search-submitted') && (int)$request->get('search-submitted') === 1,
         ];
@@ -194,11 +191,6 @@ class ActivityController extends Controller
                 $query->where('activities.title', 'like', '%' . trim($request->get('search-text')) . '%')
                     ->orWhere('activities.description', 'like', '%' . trim($request->get('search-text')) . '%');
             });
-        }
-
-        if ( $request->has('zoo') && (int)$request->get('zoo') !== 0 )
-        {
-            $query->where('activities.zoo', '=', (int)$request->get('zoo'));
         }
 
         if ( $request->has('language') && $request->get('language') !== '0' )
@@ -255,7 +247,6 @@ class ActivityController extends Controller
         return view('activities/index')->with([
             'activities' => $activities,
             'templates' => $templates,
-            'zooOptions' => $zooOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
             'search' => $search,
@@ -264,19 +255,17 @@ class ActivityController extends Controller
 
     public function promotedIndex(
         Request $request,
-        ZooOptions $zooOptions,
         LanguageOptions $languageOptions,
         DifficultyLevelOptions $difficultyLevelOptions
     ) {
         $request->request->set('promoted-index', true);
 
-        return $this->index($request, $zooOptions, $languageOptions, $difficultyLevelOptions);
+        return $this->index($request, $languageOptions, $difficultyLevelOptions);
     }
 
     /**
      * Show the form for creating a new activity.
      *
-     * @param ZooOptions               $zooOptions
      * @param LanguageOptions          $languageOptions
      * @param QuestionTypeOptions      $questionTypeOptions
      * @param DifficultyLevelOptions   $difficultyLevelOptions
@@ -287,7 +276,6 @@ class ActivityController extends Controller
      * @throws \Illuminate\Auth\Access\AuthorizationException
      */
     public function create(
-        ZooOptions $zooOptions,
         LanguageOptions $languageOptions,
         QuestionTypeOptions $questionTypeOptions,
         DifficultyLevelOptions $difficultyLevelOptions,
@@ -297,7 +285,6 @@ class ActivityController extends Controller
         $this->authorize('create', Activity::class);
 
         return view('activities/create')->with([
-            'zooOptions' => $zooOptions->options(),
             'languageOptions' => array_merge(['' => '-'], $languageOptions->options()),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
@@ -340,7 +327,6 @@ class ActivityController extends Controller
      * Show the form for editing the specified activity.
      *
      * @param \App\Activity
-     * @param ZooOptions               $zooOptions
      * @param LanguageOptions          $languageOptions
      * @param QuestionTypeOptions      $questionTypeOptions
      * @param DifficultyLevelOptions   $difficultyLevelOptions
@@ -353,7 +339,6 @@ class ActivityController extends Controller
      */
     public function edit(
         Activity $activity,
-        ZooOptions $zooOptions,
         LanguageOptions $languageOptions,
         QuestionTypeOptions $questionTypeOptions,
         DifficultyLevelOptions $difficultyLevelOptions,
@@ -371,7 +356,6 @@ class ActivityController extends Controller
 
         return view('activities/edit')->with([
             'activity' => $activity,
-            'zooOptions' => $zooOptions->options(),
             'languageOptions' => array_merge(['' => '-'], $languageOptions->options()),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
@@ -421,6 +405,7 @@ class ActivityController extends Controller
             $activity->deleteFeaturedImage();
             $activity->featured_image = null;
         }
+        // TODO Zoo is no longer needed and should be removed
         if ( auth()->user()->can('changeZoo', $activity) )
         {
             $activity->zoo = ZooOptions::DEFAULT_OPTION;
@@ -702,7 +687,6 @@ class ActivityController extends Controller
 
     /**
      * @param Activity                 $activity
-     * @param ZooOptions               $zooOptions
      * @param LanguageOptions          $languageOptions
      * @param QuestionTypeOptions      $questionTypeOptions
      * @param DifficultyLevelOptions   $difficultyLevelOptions
@@ -714,7 +698,6 @@ class ActivityController extends Controller
      */
     public function duplicate(
         Activity $activity,
-        ZooOptions $zooOptions,
         LanguageOptions $languageOptions,
         QuestionTypeOptions $questionTypeOptions,
         DifficultyLevelOptions $difficultyLevelOptions,
@@ -733,7 +716,6 @@ class ActivityController extends Controller
         return view('activities/duplicate')->with(
         [
             'activity' => $activity,
-            'zooOptions' => $zooOptions->options(),
             'languageOptions' => array_merge(['' => '-'], $languageOptions->options()),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'difficultyLevelOptions' => $difficultyLevelOptions->options(),
@@ -901,6 +883,7 @@ class ActivityController extends Controller
         $response = [];
         $query = $request->get('query');
         if ($query && trim($query) !== '') {
+            // TODO Allow partial searches
             $users = User::where('name', $query)->orWhere('email', $query)->get();
             /** @var User $user */
             foreach ($users as $user) {

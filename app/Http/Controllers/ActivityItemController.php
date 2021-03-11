@@ -111,25 +111,65 @@ class ActivityItemController extends Controller
     /**
      * Display a listing of ActivityItems.
      *
+     * @param Request             $request
+     * @param QuestionTypeOptions $questionTypeOptions
+     * @param LanguageOptions     $languageOptions
+     *
      * @return Response
      */
-  public function index()
-  {
-      // Hide activity items list and redirect to activities list
-      return redirect(route('activity.index'));
-  }
+    public function index(Request $request, QuestionTypeOptions $questionTypeOptions, LanguageOptions $languageOptions)
+    {
+        $search = [
+            'search-text' => $request->has('search-text') ? $request->get('search-text') : '',
+            'question-type' => $request->has('question-type') ? $request->get('question-type') : '',
+            'language' => $request->has('language') ? $request->get('language') : '',
+            'search-submitted' => ( $request->has('search-submitted') && (int) $request->get('search-submitted') === 1 ) ? true : false,
+        ];
+
+        $query = ActivityItem::orderBy('id', 'desc')->with('user');
+
+        if ( $request->has('search-text') && trim($request->get('search-text')) )
+        {
+            $query->where(function($query) use ($request) {
+                $query->where('title', 'like', '%' . trim($request->get('search-text')) . '%')->orWhere('description', 'like', '%' . trim($request->get('search-text')) . '%');
+            });
+        }
+
+        if ( $request->has('question-type') && (int)$request->get('question-type') !== 0 )
+        {
+            $query->where('type', '=', (int)$request->get('question-type'));
+        }
+
+        if ( $request->has('language') && $request->get('language') !== '0' )
+        {
+            $query->where('language', '=', $request->get('language'));
+        }
+
+        $items = $query->paginate( config('paginate.limit') );
+
+        if ( $search['search-submitted'] ) {
+            $items->appends($search);
+            $items->fragment('search-results');
+        }
+
+        return view('activity_items/index')->with([
+            'activity_items' => $items,
+            'questionTypeOptions' => $questionTypeOptions->options(),
+            'languageOptions' => $languageOptions->options(),
+            'search' => $search,
+        ]);
+    }
 
     /**
      * Show the form for creating a new ActivityItem.
      *
      * @param ZooGeolocationOptions $zooGeolocationOptions
      * @param QuestionTypeOptions $questionTypeOptions
-     * @param ZooOptions $zooOptions
      * @param LanguageOptions $languageOptions
      * @return Response
      * @throws AuthorizationException
      */
-  public function create(ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, ZooOptions $zooOptions, LanguageOptions $languageOptions)
+  public function create(ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, LanguageOptions $languageOptions)
   {
       $this->authorize('create', ActivityItem::class);
 
@@ -165,7 +205,6 @@ class ActivityItemController extends Controller
       return view('activity_items/create')->with([
           'zooGeolocationOptions' => $zooGeolocationOptions->options(),
           'questionTypeOptions' => $questionTypeOptions->options(),
-          'zooOptions' => $zooOptions->options(),
           'languageOptions' => $languageOptions->options(),
           'questionData' => $questionData,
       ]);
@@ -346,7 +385,6 @@ class ActivityItemController extends Controller
      * @param ActivityItem $activity_item
      * @param ZooGeolocationOptions $zooGeolocationOptions
      * @param QuestionTypeOptions $questionTypeOptions
-     * @param ZooOptions $zooOptions
      * @param LanguageOptions $languageOptions
      * @return Response
      * @throws AuthorizationException
@@ -355,7 +393,6 @@ class ActivityItemController extends Controller
       ActivityItem $activity_item,
       ZooGeolocationOptions $zooGeolocationOptions,
       QuestionTypeOptions $questionTypeOptions,
-      ZooOptions $zooOptions,
       LanguageOptions $languageOptions
   )
   {
@@ -367,7 +404,6 @@ class ActivityItemController extends Controller
           'activity_item' => $activity_item,
           'zooGeolocationOptions' => $zooGeolocationOptions->options(),
           'questionTypeOptions' => $questionTypeOptions->options(),
-          'zooOptions' => $zooOptions->options(),
           'languageOptions' => $languageOptions->options(),
           'questionData' => $questionData ? $questionData : $activity_item->getQuestionData(),
       ]);
@@ -715,9 +751,6 @@ class ActivityItemController extends Controller
               $query->where('title', 'like', '%' . trim($request->get('keywords')) . '%')
                     ->orWhere('description', 'like', '%' . trim($request->get('keywords')) . '%');
           });
-      }
-      if ( $request->has('zoo') && (int)$request->get('zoo') !== 0 ) {
-          $query->where('zoo', '=', (int)$request->get('zoo'));
       }
       if ( $request->has('questionType') && (int)$request->get('questionType') !== 0 ) {
           $query->where('type', '=', (int)$request->get('questionType'));

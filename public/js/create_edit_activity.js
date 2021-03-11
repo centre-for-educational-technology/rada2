@@ -165,9 +165,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
-//
-//
-//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -189,16 +186,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       }
     }
 
-    if (window.Laravel.zooOptions) {
-      this.zooOptions = _.merge(window.Laravel.zooOptions, this.zooOptions);
-    }
-
     if (window.Laravel.questionTypeOptions) {
       this.questionTypeOptions = _.merge(window.Laravel.questionTypeOptions, this.questionTypeOptions);
     }
 
     if (window.Laravel.languageOptions) {
-      this.languageOptions = _.merge(window.Laravel.languageOptions, this.languageOptions);
+      var languageOptions = _.clone(window.Laravel.languageOptions); // This is a temporary fix to remove the "" option that is not relevant for tasks
+
+
+      if (languageOptions.hasOwnProperty('')) {
+        delete languageOptions[''];
+      }
+
+      this.languageOptions = _.merge(languageOptions, this.languageOptions);
     }
 
     if (window.Laravel.enforceItemsOrder) {
@@ -239,9 +239,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
           direction: null
         }
       },
-      zooOptions: {
-        0: this.$t('any')
-      },
       questionTypeOptions: {
         0: this.$t('any')
       },
@@ -250,7 +247,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       },
       searchForm: {
         keywords: '',
-        zoo: '0',
         questionType: '0',
         language: '0'
       },
@@ -438,7 +434,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       var vm = this;
       var params = {
         keywords: vm.searchForm.keywords,
-        zoo: vm.searchForm.zoo,
         questionType: vm.searchForm.questionType,
         language: vm.searchForm.language
       };
@@ -505,9 +500,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     getOptionValueFromId: function getOptionValueFromId(options, id) {
       var option = options[id];
       return option ? option : id;
-    },
-    getZooFromId: function getZooFromId(id) {
-      return this.getOptionValueFromId(this.zooOptions, id);
     },
     getQuestionTypeFromId: function getQuestionTypeFromId(id) {
       return this.getOptionValueFromId(this.questionTypeOptions, id);
@@ -8913,9 +8905,9 @@ var render = function() {
                             attrs: { "aria-hidden": "true" }
                           }),
                           _vm._v(
-                            "\n                                    " +
+                            "\n                                " +
                               _vm._s(_vm.$t("search")) +
-                              "\n                                "
+                              "\n                            "
                           )
                         ]
                       )
@@ -8967,33 +8959,9 @@ var render = function() {
                                           "mdi mdi-sort-alphabetical pull-right"
                                       }),
                                       _vm._v(
-                                        "\n                                                " +
+                                        "\n                                            " +
                                           _vm._s(_vm.$t("title")) +
-                                          "\n                                            "
-                                      )
-                                    ]
-                                  ),
-                                  _vm._v(" "),
-                                  _c(
-                                    "th",
-                                    {
-                                      staticClass: "sortable hidden-xs",
-                                      class: { active: _vm.isOrderedBy("zoo") },
-                                      on: {
-                                        click: function($event) {
-                                          return _vm.sortSearchResults("zoo")
-                                        }
-                                      }
-                                    },
-                                    [
-                                      _c("i", {
-                                        staticClass:
-                                          "mdi mdi-sort-numeric pull-right"
-                                      }),
-                                      _vm._v(
-                                        "\n                                                " +
-                                          _vm._s(_vm.$t("zoo")) +
-                                          "\n                                            "
+                                          "\n                                        "
                                       )
                                     ]
                                   ),
@@ -9019,9 +8987,9 @@ var render = function() {
                                       _vm._v(" "),
                                       _c("span", { staticClass: "hidden-xs" }, [
                                         _vm._v(
-                                          "\n                                                " +
+                                          "\n                                            " +
                                             _vm._s(_vm.$t("question-type")) +
-                                            "\n                                                "
+                                            "\n                                            "
                                         )
                                       ])
                                     ]
@@ -9048,9 +9016,9 @@ var render = function() {
                                           "mdi mdi-sort-numeric pull-right"
                                       }),
                                       _vm._v(
-                                        "\n                                                " +
+                                        "\n                                            " +
                                           _vm._s(_vm.$t("language")) +
-                                          "\n                                            "
+                                          "\n                                        "
                                       )
                                     ]
                                   ),
@@ -9082,12 +9050,6 @@ var render = function() {
                                         { attrs: { title: item.description } },
                                         [_vm._v(_vm._s(item.title))]
                                       ),
-                                      _vm._v(" "),
-                                      _c("td", { staticClass: "hidden-xs" }, [
-                                        _vm._v(
-                                          _vm._s(_vm.getZooFromId(item.zoo))
-                                        )
-                                      ]),
                                       _vm._v(" "),
                                       _c("td", [
                                         _c("img", {
@@ -9277,31 +9239,64 @@ var render = function() {
           })
         : _vm._e(),
       _vm._v(" "),
-      _vm.canCreateActivityItem
-        ? _c(
+      _c(
+        "div",
+        {
+          staticClass: "btn-group",
+          attrs: { role: "group", "aria-label": "List actions" }
+        },
+        [
+          _c(
             "button",
             {
-              staticClass: "btn btn-success",
+              staticClass: "btn btn-primary",
               attrs: { type: "button" },
-              on: { click: _vm.createNewActivityItem }
+              on: {
+                click: function($event) {
+                  return _vm.openDialog()
+                }
+              }
             },
             [
               _c("i", {
-                staticClass: "mdi mdi-plus",
+                staticClass: "mdi mdi-search-web",
                 attrs: { "aria-hidden": "true" }
               }),
               _vm._v(
                 "\n            " +
-                  _vm._s(_vm.$t("create-new-activity-item")) +
-                  "\n            "
-              ),
-              _c("i", {
-                staticClass: "mdi mdi-open-in-new",
-                attrs: { "aria-hidden": "true" }
-              })
+                  _vm._s(_vm.$t("search-activity-items")) +
+                  "\n        "
+              )
             ]
-          )
-        : _vm._e(),
+          ),
+          _vm._v(" "),
+          _vm.canCreateActivityItem
+            ? _c(
+                "button",
+                {
+                  staticClass: "btn btn-success",
+                  attrs: { type: "button" },
+                  on: { click: _vm.createNewActivityItem }
+                },
+                [
+                  _c("i", {
+                    staticClass: "mdi mdi-plus",
+                    attrs: { "aria-hidden": "true" }
+                  }),
+                  _vm._v(
+                    "\n            " +
+                      _vm._s(_vm.$t("create-new-activity-item")) +
+                      "\n            "
+                  ),
+                  _c("i", {
+                    staticClass: "mdi mdi-open-in-new",
+                    attrs: { "aria-hidden": "true" }
+                  })
+                ]
+              )
+            : _vm._e()
+        ]
+      ),
       _vm._v(" "),
       _c(
         "ul",
@@ -9393,12 +9388,12 @@ var render = function() {
                     staticClass: "sz-img-w30",
                     attrs: { src: item.icon_url, alt: "icon" }
                   }),
-                  _vm._v("\n                     \n                    "),
+                  _vm._v("\n                 \n                "),
                   _c("span", [
                     _vm._v(
-                      "\n                        " +
+                      "\n                    " +
                         _vm._s(item.title) +
-                        "\n                    "
+                        "\n                "
                     )
                   ])
                 ]
@@ -9456,9 +9451,9 @@ var render = function() {
             }
           }),
           _vm._v(
-            "\n                " +
+            "\n            " +
               _vm._s(_vm.$t("enforce_items_order")) +
-              "\n            "
+              "\n        "
           )
         ])
       ])

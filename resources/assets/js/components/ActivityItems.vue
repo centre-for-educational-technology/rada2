@@ -43,10 +43,6 @@
                                                 <i class="mdi mdi-sort-alphabetical pull-right"></i>
                                                 {{ $t('title') }}
                                             </th>
-                                            <th class="sortable hidden-xs" v-bind:class="{ active: isOrderedBy('zoo') }" v-on:click="sortSearchResults('zoo')">
-                                                <i class="mdi mdi-sort-numeric pull-right"></i>
-                                                {{ $t('zoo') }}
-                                            </th>
                                             <th class="sortable" v-bind:class="{ active: isOrderedBy('type') }" v-on:click="sortSearchResults('type')">
                                                 <i class="mdi mdi-sort-numeric pull-right hidden-xs"></i>
                                                 <span class="hidden-xs">
@@ -63,7 +59,6 @@
                                     <tbody>
                                         <tr v-for="item in sortedSearchResults" ref="searchResult" v-on:click="showQuestionPreview(item, true)">
                                             <td v-bind:title="item.description">{{ item.title }}</td>
-                                            <td class="hidden-xs">{{ getZooFromId(item.zoo) }}</td>
                                             <td>
                                                 <img class="sz-img-w30" v-bind:src="item.icon_url" alt="icon">
                                                 <span class="hidden-xs">&nbsp;{{ getQuestionTypeFromId(item.type) }}</span>
@@ -95,15 +90,17 @@
 
         <game-question-modal v-bind:question="previewItem" v-bind:game-id="fakeGameId" v-bind:base-url="baseUrl" v-bind:is-preview="true" v-if="previewItem" ref="questionModal"></game-question-modal>
 
-<!--        <button type="button" class="btn btn-success" v-on:click="openDialog()">-->
-<!--            <i class="mdi mdi-search-web" aria-hidden="true"></i>-->
-<!--            {{ $t('search-activity-items') }}-->
-<!--        </button>-->
-        <button type="button" class="btn btn-success" v-if="canCreateActivityItem" v-on:click="createNewActivityItem">
-            <i class="mdi mdi-plus" aria-hidden="true"></i>
-            {{ $t('create-new-activity-item') }}
-            <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
-        </button>
+        <div class="btn-group" role="group" aria-label="List actions">
+            <button type="button" class="btn btn-primary" v-on:click="openDialog()">
+                <i class="mdi mdi-search-web" aria-hidden="true"></i>
+                {{ $t('search-activity-items') }}
+            </button>
+            <button type="button" class="btn btn-success" v-if="canCreateActivityItem" v-on:click="createNewActivityItem">
+                <i class="mdi mdi-plus" aria-hidden="true"></i>
+                {{ $t('create-new-activity-item') }}
+                <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
+            </button>
+        </div>
         <ul class="list-group sz-sortable-list">
             <draggable :list="items" :options="options" @change="onChange">
                 <li class="list-group-item" v-for="(item, index) in items" v-bind:title="item.description">
@@ -160,14 +157,18 @@
                     this.items[i].order = parseInt(positions[i]) || (i+1);
                 }
             }
-            if ( window.Laravel.zooOptions ) {
-                this.zooOptions = _.merge(window.Laravel.zooOptions, this.zooOptions);
-            }
             if ( window.Laravel.questionTypeOptions ) {
                 this.questionTypeOptions = _.merge(window.Laravel.questionTypeOptions, this.questionTypeOptions);
             }
             if ( window.Laravel.languageOptions ) {
-                this.languageOptions = _.merge(window.Laravel.languageOptions, this.languageOptions);
+                const languageOptions = _.clone(window.Laravel.languageOptions);
+
+                // This is a temporary fix to remove the "" option that is not relevant for tasks
+                if (languageOptions.hasOwnProperty('')) {
+                    delete languageOptions[''];
+                }
+
+                this.languageOptions = _.merge(languageOptions, this.languageOptions);
             }
             if (window.Laravel.enforceItemsOrder) {
                 this.enforceItemsOrder = window.Laravel.enforceItemsOrder;
@@ -208,9 +209,6 @@
                         direction: null
                     }
                 },
-                zooOptions: {
-                    0: this.$t('any')
-                },
                 questionTypeOptions: {
                     0: this.$t('any')
                 },
@@ -219,7 +217,6 @@
                 },
                 searchForm: {
                     keywords: '',
-                    zoo: '0',
                     questionType: '0',
                     language: '0'
                 },
@@ -398,7 +395,6 @@
                 const vm = this;
                 let params = {
                     keywords: vm.searchForm.keywords,
-                    zoo: vm.searchForm.zoo,
                     questionType: vm.searchForm.questionType,
                     language: vm.searchForm.language
                 };
@@ -454,9 +450,6 @@
             getOptionValueFromId(options, id) {
                 const option = options[id];
                 return option ? option : id;
-            },
-            getZooFromId(id) {
-                return this.getOptionValueFromId(this.zooOptions, id);
             },
             getQuestionTypeFromId(id) {
                 return this.getOptionValueFromId(this.questionTypeOptions, id);
