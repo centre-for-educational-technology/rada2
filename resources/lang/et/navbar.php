@@ -13,7 +13,7 @@ return [
 
     'home' => 'Algus',
     'activities'     => 'Rajad',
-    'activity-items' => 'Rajapunktid',
+    'tasks' => 'Rajapunktid',
     'badges' => 'Õpimärgid',
     'discount_vouchers' => 'Kupongid',
     'grading' => 'Hindamine',

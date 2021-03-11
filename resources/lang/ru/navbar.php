@@ -13,7 +13,7 @@ return [
 
     'home' => 'Домой',
     'activities'     => 'Тропы',
-    'activity-items' => 'Пункты троп',
+    'tasks' => 'Пункты троп',
     'badges' => 'Значки',
     'discount_vouchers' => 'Ваучеры на скидку',
 ];

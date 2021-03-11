@@ -13,7 +13,7 @@ return [
 
     'home' => 'Home',
     'activities'     => 'Games',
-    'activity-items' => 'Tasks',
+    'tasks' => 'Tasks',
     'badges' => 'Badges',
     'discount_vouchers' => 'Discount Vouchers',
     'grading' => 'Grading',

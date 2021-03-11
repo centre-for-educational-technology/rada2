@@ -13,7 +13,7 @@ return [
 
     'home' => 'Koti',
     'activities'     => 'Toiminnat',
-    'activity-items' => 'Tehtävät',
+    'tasks' => 'Tehtävät',
     'badges' => 'Arvomerkit',
     'discount_vouchers' => 'Alennuskupongit',
 ];

@@ -35,6 +35,9 @@
                 <li class="{{ (Request::is('activities', 'game/promoted')) ? 'active': '' }}">
                     <a href="{{ url('/game/promoted') }}">{{ trans('navbar.promoted') }}</a>
                 </li>
+                <li class="{{ Request::is('tasks', 'tasks/*')? 'active': '' }}">
+                    <a href="{{ url('/tasks') }}">{{ trans('navbar.tasks') }}</a>
+                </li>
 {{--                @can('addGrades', \App\Activity::class)--}}
 {{--                    <li class="{{ (Request::is('grading', 'grading') || Request::is('grading', 'grading/*')) ? 'active' : '' }}">--}}
 {{--                        <a href="{{ url('/grading') }}">{{ trans('navbar.grading') }}</a>--}}

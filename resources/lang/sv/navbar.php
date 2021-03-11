@@ -13,7 +13,7 @@ return [
 
     'home' => 'Hem',
     'activities'     => 'Aktiviteter',
-    'activity-items' => 'Uppgifter',
+    'tasks' => 'Uppgifter',
     'badges' => 'Märken',
     'discount_vouchers' => 'Rabattkuponger',
 ];

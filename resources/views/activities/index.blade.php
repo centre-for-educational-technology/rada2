@@ -24,16 +24,18 @@
 
                         <div class="col-xs-2 col-md-4">
                             <div class="pull-right">
-                                @can('create', 'App\Activity')
-                                    @if ($templates !== null)
-                                    <a href="{!! route('activity.create') !!}" class="btn btn-primary" title="{{ trans('general.actions.create') }}">
-                                        <i class="mdi mdi-plus" aria-hidden="true"></i>
+                                <div class="btn-group" role="group" aria-label="Main actions">
+                                    @can('create', 'App\Activity')
+                                        @if ($templates !== null)
+                                        <a href="{!! route('activity.create') !!}" class="btn btn-success" title="{{ trans('general.actions.create') }}">
+                                            <i class="mdi mdi-plus" aria-hidden="true"></i>
+                                        </a>
+                                        @endif
+                                    @endcan
+                                    <a class="btn btn-primary" role="button" data-toggle="collapse" href="#search-form" aria-expanded="false" aria-controls="search-form" title="{{ trans('general.forms.buttons.search') }}">
+                                        <i class="mdi mdi-search-web" aria-hidden="true"></i>
                                     </a>
-                                    @endif
-                                @endcan
-                                <a class="btn btn-primary" role="button" data-toggle="collapse" href="#search-form" aria-expanded="false" aria-controls="search-form" title="{{ trans('general.forms.buttons.search') }}">
-                                    <i class="mdi mdi-search-web" aria-hidden="true"></i>
-                                </a>
+                                </div>
                             </div>
                         </div>
                     </div>
