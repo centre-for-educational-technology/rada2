@@ -51,16 +51,6 @@ Route::group(['prefix' => 'manage', 'middleware' => 'auth.admin'], static functi
     Route::get('google-analytics-rows', 'StatisticsController@getGaRows');
 });
 
-Route::group(['prefix' => 'badges'], static function ()
-{
-    Route::get('issuer', 'BadgeController@issuer')->name('api.badge.issuer');
-    Route::get('key', 'BadgeController@publicKey')->name('api.badge.key');
-    Route::get('mine', 'BadgeController@mine')->name('api.badge.mine');
-    Route::post('mine', 'BadgeController@sent');
-    Route::get('{badge}', 'BadgeController@badge')->name('api.badge.show');
-    Route::get('{badge}/user/{user}', 'BadgeController@assertion')->name('api.badge.assertion');
-});
-
 Route::group(['prefix' => 'vouchers'], static function ()
 {
     Route::delete('{voucher}', 'UserController@spendDiscountVoucher');

@@ -189,7 +189,6 @@ return [
         'title' => 'Profiili',
         'heading' => ':name n profiili',
         'labels' => [
-            'badges-earned' => 'Ansaitut arvomerkit',
             'discount-vouchers-earned' => 'Ansaitut kupongit',
             'valid-until' => 'Voimassa kunnes ',
         ],
@@ -205,13 +204,6 @@ return [
         'help' => [
             'password' => 'Jätä salasanakenttä tyhjäksi jos et aio vaihtaa salasanaa.',
         ]
-    ],
-    'badges' => [
-        'introduction' => [
-            'general' => 'Suorittamalla tiettyjä tehtäviä RADAsa, saat arvomerkkejä.',
-            'authenticated' => 'Keräämäsi arvomerkit näkyvät  <a href=":profileUrl">profiilissasi</a>.',
-            'guest' => 'Kerätääksen arvomerkkejä sinun täytyy  <a href=":loginUrl">kirjautua sisään</a>.',
-        ],
     ],
 
 ];

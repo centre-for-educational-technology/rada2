@@ -189,7 +189,6 @@ return [
         'title' => 'Profil',
         'heading' => ':name s profil',
         'labels' => [
-            'badges-earned' => 'Vunna märken',
             'discount-vouchers-earned' => 'Vunna rabattkuponger',
             'valid-until' => 'Gäller till',
         ],
@@ -205,13 +204,6 @@ return [
         'help' => [
             'password' => 'Lämna lösenordfältet tomt om du inte vill ändra det.',
         ]
-    ],
-    'badges' => [
-        'introduction' => [
-            'general' => 'Genom att klara av vissa uppgifter i RADA, får du belöningsmärken.',
-            'authenticated' => 'Märkena du samlat kan du se i din  <a href=":profileUrl">profil</a>.',
-            'guest' => 'För att kunna samla märken måste du <a href=":loginUrl">logga in</a>.',
-        ],
     ],
 
 ];

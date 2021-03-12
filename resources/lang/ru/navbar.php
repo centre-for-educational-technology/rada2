@@ -14,6 +14,5 @@ return [
     'home' => 'Домой',
     'activities'     => 'Тропы',
     'tasks' => 'Пункты троп',
-    'badges' => 'Значки',
     'discount_vouchers' => 'Ваучеры на скидку',
 ];

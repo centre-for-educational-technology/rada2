@@ -14,6 +14,5 @@ return [
     'home' => 'Hem',
     'activities'     => 'Aktiviteter',
     'tasks' => 'Uppgifter',
-    'badges' => 'Märken',
     'discount_vouchers' => 'Rabattkuponger',
 ];

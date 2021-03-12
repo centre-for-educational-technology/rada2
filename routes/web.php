@@ -111,12 +111,6 @@ Route::group(['prefix' => 'manage'], function()
     Route::get('game-statistics/{game}', 'GameStatisticsController@index')->name('manage.game-statistics');
 });
 
-// Badges
-Route::group(['prefix' => 'badges'], function()
-{
-    Route::get('/', 'BadgeController@index')->name('badge.index');
-});
-
 // DiscountVoucher routes
 Route::group(['prefix' => 'discount_vouchers'], function()
 {

@@ -268,7 +268,6 @@ return [
         'title' => 'Profiil',
         'heading' => 'Kasutaja: :name',
         'labels' => [
-            'badges-earned' => 'õpimärki omandatud',
             'discount-vouchers-earned' => 'Teenitud kupongid',
             'valid-until' => 'Kehtib kuni',
         ],
@@ -284,13 +283,6 @@ return [
         'help' => [
             'password' => 'Kui sa ei soovi salasõna muuta, jäta palun salasõna väli tühjaks.',
         ]
-    ],
-    'badges' => [
-        'introduction' => [
-            'general' => 'Täites kindlaid ülesandeid, omistatakse Sulle õpimärke.',
-            'authenticated' => 'Kogutud õpimärke näed oma <a href=":profileUrl">profiili all</a>.',
-            'guest' => 'Õpimärkide kogumiseks tuleb <a href=":loginUrl">sisse logida</a>.',
-        ],
     ],
     'grading' => [
         'index' => [

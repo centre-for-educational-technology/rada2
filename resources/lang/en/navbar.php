@@ -14,7 +14,6 @@ return [
     'home' => 'Home',
     'activities'     => 'Games',
     'tasks' => 'Tasks',
-    'badges' => 'Badges',
     'discount_vouchers' => 'Discount Vouchers',
     'grading' => 'Grading',
     'promoted' => 'Open Games'

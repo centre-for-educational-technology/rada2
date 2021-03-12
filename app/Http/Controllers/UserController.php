@@ -16,8 +16,6 @@ use Auth;
 
 use App\Options\ZooOptions;
 
-use App\Services\OpenBadgesService;
-
 use App\DiscountVoucher;
 
 use Illuminate\Support\Facades\DB;
@@ -84,13 +82,12 @@ class UserController extends Controller
      * @param  App\User $user User object
      * @return [type]         Profile view
      */
-    public function show(OpenBadgesService $openBadgesService, User $user)
+    public function show(User $user)
     {
         $this->authorize('view', $user);
 
         return view('profile/show')->with([
             'user' => $user,
-            'openBadgesService' => $openBadgesService,
             'isCurrentUser' => Auth::check() && Auth::user()->id === $user->id,
         ]);
     }

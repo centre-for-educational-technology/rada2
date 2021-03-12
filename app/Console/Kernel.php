@@ -16,7 +16,6 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
-        Commands\AwardBadges::class,
         Commands\MigratePublicStorage::class,
         Commands\ExportActivity::class,
     ];

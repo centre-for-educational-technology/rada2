@@ -14,7 +14,6 @@ return [
     'home' => 'Algus',
     'activities'     => 'Rajad',
     'tasks' => 'Rajapunktid',
-    'badges' => 'Õpimärgid',
     'discount_vouchers' => 'Kupongid',
     'grading' => 'Hindamine',
     'promoted' => 'Avalikud mängud'
