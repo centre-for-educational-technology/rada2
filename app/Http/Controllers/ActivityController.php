@@ -835,8 +835,7 @@ class ActivityController extends Controller
         $response = [];
         $query = $request->get('query');
         if ($query && trim($query) !== '') {
-            // TODO Allow partial searches
-            $users = User::where('name', $query)->orWhere('email', $query)->get();
+            $users = User::where('name', 'like', '%' . $query . '%')->orWhere('email', 'like', '%' . $query . '%')->get();
             /** @var User $user */
             foreach ($users as $user) {
                 $response[] = [
