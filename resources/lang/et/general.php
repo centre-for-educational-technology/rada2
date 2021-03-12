@@ -170,7 +170,6 @@ return [
        'download-baked-badge' => 'Lae alla õpimärgi pildifail',
        'assertion-open' => 'Open badge-i tõendi URL',
        'discount-voucher-spend' => 'Kuluta kupong',
-       'get-qr-code' => 'Näita QR-koodi',
        'reveal-discount' => 'Näita kupongi',
        'mark-started' => 'Märgi mäng alustatuks',
        'mark-stopped' => 'Märgi mäng lõppenuks',

@@ -2,12 +2,10 @@
 
 @section('footer-scripts')
 <script src="{{ asset(mix('js/search_activities.js')) }}"></script>
-<script src="{{ asset(mix('js/qr_code_modal.js')) }}"></script>
 @endsection
 
 @section('content')
 <div class="container">
-    @include('activities.includes.qrcode_modal')
     @include('activities.includes.play_modal')
     <div class="row">
         <div class="col-md-8 col-md-offset-2">

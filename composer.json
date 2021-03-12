@@ -15,7 +15,6 @@
         "anhskohbo/no-captcha": "^3.0",
         "firebase/php-jwt": "^5.0",
         "spatie/laravel-activitylog": "^3.0",
-        "simplesoftwareio/simple-qrcode": "^4.0",
         "jrean/laravel-user-verification": "^9.0",
         "ext-json": "*",
         "phpoffice/phpspreadsheet": "^1.9",

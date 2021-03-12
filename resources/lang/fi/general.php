@@ -140,7 +140,6 @@ return [
        'download-baked-badge' => 'Hae arvomerkkikuva',
        'assertion-open' => 'Aukaise arvomerkkilinkki',
        'discount-voucher-spend' => 'Käytä alennuskuponkia',
-       'get-qr-code' => 'Hae QR-koodi',
        'reveal-discount' => 'Näytä alennus',
    ],
    'minutes' => 'minuuttia',

@@ -140,7 +140,6 @@ return [
        'download-baked-badge' => 'Hämta ditt märke',
        'assertion-open' => 'URL till märken',
        'discount-voucher-spend' => 'Använda rabattkupong',
-       'get-qr-code' => 'Hämta QR-kod',
        'reveal-discount' => 'Visa rabatt',
    ],
    'minutes' => 'minuter',

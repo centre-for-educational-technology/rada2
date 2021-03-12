@@ -61,7 +61,6 @@ Route::group(['prefix' => 'game'], function()
     Route::put('{activity}/duplicate', 'ActivityController@storeDuplication')->name('activity.store.duplication');
 
     Route::get('{activity}', 'ActivityController@show')->name('activity.show');
-    Route::get('{activity}/qrcode', 'ActivityController@qrCodeDownload')->name('activity.qrcode.download');
 
     Route::get('{activity}/edit', 'ActivityController@edit')->name('activity.edit');
     Route::put('{activity}', 'ActivityController@update');

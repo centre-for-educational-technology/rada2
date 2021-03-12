@@ -140,7 +140,6 @@ return [
        'download-baked-badge' => 'Загрузить изображение встроенным в значок',
        'assertion-open' => 'Открыть URL-адрес подтверждения значка',
        'discount-voucher-spend' => 'Использовать ваучер на скидку',
-       'get-qr-code' => 'Получить QR-код',
        'reveal-discount' => 'Показать скидку',
    ],
    'minutes' => 'Минуты',

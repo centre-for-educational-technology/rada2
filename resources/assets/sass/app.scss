@@ -454,7 +454,7 @@ form.sz-action-form-inline {
             }
 
             .btn {
-                @include button-variant($btn-qr-code-color, $btn-qr-code-bg, $btn-qr-code-border);
+                @include button-variant($btn-voucher-color, $btn-voucher-bg, $btn-voucher-border);
             }
         }
 
@@ -705,17 +705,8 @@ img.sz-uploaded-image-preview {
     }
 }
 
-#qr-code-modal {
-    .modal-body {
-        svg {
-            width: 100%;
-            height: auto;
-        }
-    }
-}
-
-.btn-qr-code, .btn-discount-voucher, .btn-discount-voucher-spend {
-    @include button-variant($btn-qr-code-color, $btn-qr-code-bg, $btn-qr-code-border);
+.btn-discount-voucher, .btn-discount-voucher-spend {
+    @include button-variant($btn-voucher-color, $btn-voucher-bg, $btn-voucher-border);
 }
 
 .btn-play {

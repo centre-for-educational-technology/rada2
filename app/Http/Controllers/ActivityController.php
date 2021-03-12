@@ -30,8 +30,6 @@ use App\Options\QuestionTypeOptions;
 use App\Options\DifficultyLevelOptions;
 use App\Services\ImageService;
 
-use SimpleSoftwareIO\QrCode\Facades\QrCode;
-
 use Carbon\Carbon;
 
 use Illuminate\Support\Facades\DB;
@@ -59,8 +57,6 @@ class ActivityController extends Controller
                 'promotedIndex',
                 'show',
                 'start',
-                'qrCode',
-                'qrCodeDownload',
                 'findGame',
                 'sendGameStartedToLrs'
             ]
@@ -639,50 +635,6 @@ class ActivityController extends Controller
             'games' => $games,
             'filters' => $search,
         ]);
-    }
-
-    /**
-     * Responds with activity QR Code formatted as SVG.
-     * @param  \App\Activity $activity Activity model
-     * @return \Illuminate\Http\Response
-     */
-    public function qrCode(Activity $activity)
-    {
-        $url = route('activity.show', ['activity' => $activity->id]);
-        $qrCode = QrCode::size(500)->errorCorrection('H')->generate($url);
-
-        return [
-            'qrcode' => $qrCode,
-        ];
-    }
-
-    /**
-     * Responds with activity QR Code image formatted as PNG.
-     * @param  \Appp\Activity $activity Activity model object
-     * @return \Illuminate\Http\Response
-     */
-    public function qrCodeDownload(Activity $activity)
-    {
-        $headers = [
-            'Content-type' => 'image/png',
-            'Content-Disposition' => 'attachment; filename=activity-' . $activity->id . '-qr-code.png',
-            'Pragma' => 'no-cache',
-            'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-            'Expires' => '0',
-        ];
-
-        $callback = function() use ($activity)
-        {
-            $handle = fopen('php://output', 'w');
-
-            $url = route('activity.show', ['activity' => $activity->id]);
-            $qrCode = QrCode::format('png')->size(500)->errorCorrection('H')->generate($url);
-
-            fwrite($handle, $qrCode);
-            fclose($handle);
-        };
-
-        return response()->stream($callback, 200, $headers);
     }
 
     /**
