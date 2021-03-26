@@ -122,6 +122,9 @@ return [
            'search-activity-items' => 'Search Tasks',
            'create-new-activity-item' => 'Create new Task',
            'login-or-register' => 'Login/Register',
+           'add' => 'Add',
+           'details' => 'Details',
+           'remove-selected-image' => 'Remove selected image',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Type a keyword or title',
@@ -251,5 +254,17 @@ return [
             'psychology' => 'Psychology',
             'spanish' => 'Spanish'
         ]
-    ]
+    ],
+    'components' => [
+        'image-upload' => [
+            'input-text' => 'Upload or add an image from registries',
+            'tabs' => [
+                'upload' => 'Upload',
+                'cultural-monuments-registry' => 'National registry of cultural monuments',
+            ],
+            'ajapaik' => [
+                'results' => 'Results:',
+            ],
+        ],
+    ],
 ];

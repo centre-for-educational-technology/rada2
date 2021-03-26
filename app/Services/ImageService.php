@@ -2,9 +2,9 @@
 
 namespace App\Services;
 
+use App\Services\Exceptions\UnreachableUrl;
 use Intervention\Image\Facades\Image;
 use Illuminate\Support\Facades\File;
-use Webpatser\Uuid\Uuid;
 
 class ImageService
 {
@@ -14,17 +14,17 @@ class ImageService
      * @param  string $originalExtension File original extension
      * @return string                    Image unique name with extension
      */
-    public function generateUniqueFileName(string $prefix, string $originalExtension)
+    public function generateUniqueFileName(string $prefix, string $originalExtension): string
     {
         return sha1( uniqid( $prefix, true ) ) . '.' . $originalExtension;
     }
 
     /**
-     * Returns full path fr a ralative one given.
+     * Returns full path for a relative one given.
      * @param  string $path Relative path or image name
      * @return string       Full path
      */
-    public function getStoragePath(string $path)
+    public function getStoragePath(string $path): string
     {
         return public_path('uploads/images/' . $path);
     }
@@ -53,7 +53,7 @@ class ImageService
      * @param  int    $constraint Witdth and Height counstraint to be applied
      * @return void
      */
-    public function process(string $sourcePath, $path, string $fileName, int $constraint )
+    public function process(string $sourcePath, string $path, string $fileName, int $constraint )
     {
         $imagePath = $path ? $path . $fileName : $fileName;
         $image = Image::make($sourcePath);
@@ -99,5 +99,27 @@ class ImageService
     public function delete(string $path)
     {
         File::delete($this->getStoragePath($path));
+    }
+
+    /**
+     * Download an image from url and save it to a temporary file.
+     *
+     * @param string $url URL of an image to download
+     *
+     * @return false|string
+     *
+     * @throws UnreachableUrl
+     */
+    public function downloadImageFromUrl(string $url)
+    {
+        if (!$stream = @fopen($url, 'r')) {
+            throw new UnreachableUrl();
+        }
+
+        $temporaryFile = tempnam(sys_get_temp_dir(), 'downloaded-external-images');
+
+        file_put_contents($temporaryFile, $stream);
+
+        return $temporaryFile;
     }
 }

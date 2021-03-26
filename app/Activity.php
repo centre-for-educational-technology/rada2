@@ -17,6 +17,7 @@ use Illuminate\Support\Facades\DB;
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use App\Options\DifficultyLevelOptions;
+use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * Class Activity
@@ -28,7 +29,6 @@ use App\Options\DifficultyLevelOptions;
  * @property $playing_time
  * @property $language
  * @property $contact_information
- * @property $featured_image
  * @property $zoo
  * @property $proximity_check
  * @property $proximity_radius
@@ -89,7 +89,7 @@ class Activity extends Model
      * Delete storage if one exists
      * @return boolean
      */
-    public function deleteFileStorage()
+    public function deleteFileStorage(): bool
     {
         $fullPath = public_path('uploads/images/' . $this->getStoragePath());
 
@@ -169,24 +169,32 @@ class Activity extends Model
         return $this->belongsToMany(ActivityItem::class)->count();
     }
 
+    public function image(): MorphOne
+    {
+        return $this->morphOne(Image::class, 'model');
+    }
+
     /**
      * Determines if activity has own Featured Image
      * @return boolean
      */
-    public function hasFeaturedImage()
+    public function hasFeaturedImage(): bool
     {
-        return !!$this->featured_image;
+        return !!$this->image;
     }
 
     /**
      * Get full URL for featured image from public storage or default one
+     * @param bool $use_default
      * @return string Full public URL to image file
      */
-    public function getFeaturedImageUrl()
+    public function getFeaturedImageUrl(bool $use_default = true): string
     {
         if ( $this->hasFeaturedImage() ) {
-            return asset('uploads/images/' . $this->getStoragePath() . $this->featured_image);
+            return $this->image->getUrl();
         }
+
+        if (!$use_default) return '';
 
         return asset('img/logos/logo-square.png');
     }
@@ -196,10 +204,10 @@ class Activity extends Model
      * Does not set the corresponding attribute to an empty value.
      * @return boolean
      */
-    public function deleteFeaturedImage()
+    public function deleteFeaturedImage(): bool
     {
         if ( $this->hasFeaturedImage() ) {
-            return File::delete( public_path('uploads/images/' . $this->getStoragePath() . $this->featured_image) );
+            return $this->image->delete();
         }
 
         return false;

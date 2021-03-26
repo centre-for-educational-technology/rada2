@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Controllers\AjapaikController;
 
 /*
 |--------------------------------------------------------------------------
@@ -79,4 +80,8 @@ Route::group(['prefix' => 'dashboard'], static function() {
       ];
   })->middleware('auth:tokenapi');
   Route::get('/all', 'DashboardApiController@all');
+});
+
+Route::group(['prefix' => 'ajapaik'], static function() {
+    Route::get('photos', [AjapaikController::class, 'photos']);
 });

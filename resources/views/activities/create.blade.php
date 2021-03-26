@@ -147,7 +147,7 @@
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
                     <span class="input-group-addon">
-                        <i class="mdi mdi-contact-mail" aria-hidden="true"></i>
+                        <i class="mdi mdi-card-account-mail" aria-hidden="true"></i>
                     </span>
                     {!! Form::text('contact_information', null, [
                         'class' => 'form-control',
@@ -168,24 +168,8 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <span class="input-group-addon">
-                        <i class="mdi mdi-image" aria-hidden="true"></i>
-                    </span>
-                    {!! Form::file('featured_image', [
-                        'class' => 'form-control',
-                        'ref' => 'featuredImage',
-                        'accept' => 'image/jpeg, image/png',
-                    ]) !!}
-                    <span class="input-group-addon">
-                        <a href="#" class="btn btn-warning btn-xs" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
-                            <i class="mdi mdi-delete" aria-hidden="true"></i>
-                        </a>
-                    </span>
+                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="featured_image"></image-upload>
                 </div>
-
-                <p class="help-block" data-loading-text="{{ trans('general.forms.alerts.image-loading-text') }}">
-                    {{ trans('general.forms.help.image') }}
-                </p>
 
                 @if ($errors->has('featured_image'))
                     <span class="help-block">

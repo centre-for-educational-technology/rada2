@@ -21,6 +21,22 @@
         'textual-answer-placeholder' => trans('pages.play.game.textual-answer-placeholder'),
         'image-format-hint' => trans('pages.play.game.image-format-hint'),
         'enforce_items_order' => trans('general.forms.labels.enforce_items_order'),
-        'no_results_found' => trans('general.forms.warnings.no_results_found')
+        'no_results_found' => trans('general.forms.warnings.no_results_found'),
+        'image-upload' => [
+            'input-text' => trans('general.components.image-upload.input-text'),
+            'tabs' => [
+                'upload' => trans('general.components.image-upload.tabs.upload'),
+                'cultural-monuments-registry' => trans('general.components.image-upload.tabs.cultural-monuments-registry'),
+            ],
+            'help' => trans('general.forms.help.image'),
+            'results' => trans('general.components.image-upload.ajapaik.results'),
+            'search-text' => trans('general.forms.placeholders.search-text'),
+            'buttons' => [
+                'add' => trans('general.forms.buttons.add'),
+                'details' => trans('general.forms.buttons.details'),
+                'remove-selected-image' => trans('general.forms.buttons.remove-selected-image'),
+            ],
+            'remove-image' => trans('general.forms.tooltips.remove-image'),
+        ],
     ]); ?>
 </script>

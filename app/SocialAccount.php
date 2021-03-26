@@ -37,7 +37,8 @@ class SocialAccount extends Model
      * @param  string $provider [description]
      * @return [type]           [description]
      */
-    private function checkProvider(string $provider) {
+    private function checkProvider(string $provider): bool
+    {
         return $this->provider === $provider;
     }
 
@@ -45,7 +46,8 @@ class SocialAccount extends Model
      * [isGoogle description]
      * @return boolean [description]
      */
-    public function isGoogle() {
+    public function isGoogle(): bool
+    {
         return $this->checkProvider('GoogleProvider');
     }
 
@@ -53,7 +55,8 @@ class SocialAccount extends Model
      * [isFacebook description]
      * @return boolean [description]
      */
-    public function isFacebook() {
+    public function isFacebook(): bool
+    {
         return $this->checkProvider('FacebookProvider');
     }
 }

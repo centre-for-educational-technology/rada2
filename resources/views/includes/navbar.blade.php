@@ -26,7 +26,7 @@
                 (
                     Request::is('activities', 'game/*') ||
                     Request::is('activities', 'game') ||
-                    Request::is('activity_items', 'tasks/*')
+                    Request::is('activity_items')
                 ) &&
                 !Request::is('activities', 'game/promoted')
                 )? 'active': '' }}">

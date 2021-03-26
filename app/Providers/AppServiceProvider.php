@@ -2,6 +2,7 @@
 
 namespace App\Providers;
 
+use App\Services\AjapaikService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\ImageService;
 use App\Services\SocialAccountService;
@@ -34,6 +35,10 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(SocialAccountService::class, function()
         {
             return new SocialAccountService();
+        });
+
+        $this->app->singleton(AjapaikService::class, function() {
+            return new AjapaikService();
         });
     }
 }

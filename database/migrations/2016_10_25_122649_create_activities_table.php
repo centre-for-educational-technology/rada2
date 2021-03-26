@@ -23,7 +23,6 @@ class CreateActivitiesTable extends Migration
             $table->unsignedSmallInteger('playing_time');
             $table->string('language');
             $table->string('contact_information');
-            $table->string('featured_image')->nullable();
             $table->unsignedTinyInteger('zoo');
             $table->unsignedInteger('user_id');
             $table->timestamps();

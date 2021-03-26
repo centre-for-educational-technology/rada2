@@ -7,7 +7,6 @@
     window.Laravel.activityItems = {!! json_encode($activity_items) !!};
     window.Laravel.activityItemPositions = {!! json_encode($activity_item_positions) !!};
     window.Laravel.canCreateActivityItem = {!! json_encode(Auth::user()->can('create', 'App\Activity')) !!};
-    window.Laravel.hasFeaturedImage = {!! json_encode($activity->hasFeaturedImage()) !!};
     window.Laravel.enforceItemsOrder = {!! $activity->enforce_items_order !!};
     window.Laravel.subjects = {!! json_encode(array_values($subjectOptions)) !!};
     window.RADA = {!! json_encode([
@@ -174,33 +173,8 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <span class="input-group-addon">
-                        <i class="mdi mdi-image" aria-hidden="true"></i>
-                    </span>
-                    {!! Form::file('featured_image', [
-                        'class' => 'form-control',
-                        'ref' => 'featuredImage',
-                        'accept' => 'image/jpeg, image/png',
-                    ]) !!}
-                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" data-container="body" title="{{ trans('general.forms.tooltips.remove-image') }}">
-                        {!! Form::checkbox('remove_featured_image', 1, false, [
-                            'ref' => 'removeFeaturedImage',
-                            'v-bind:disabled' => 'canRemoveFeaturedImage()',
-                        ]) !!}
-                    </span>
-                    <span class="input-group-addon">
-                        <a href="#" class="btn btn-warning btn-xs" v-on:click="resetFeaturedImage" ref="removeFeaturedImage" v-on:click="resetFeaturedImage" v-bind:disabled="!canResetFeaturedImage">
-                            <i class="mdi mdi-delete" aria-hidden="true"></i>
-                        </a>
-                    </span>
+                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="featured_image" :image="{{ $activity->hasFeaturedImage() ? $activity->image : '{}' }}"></image-upload>
                 </div>
-
-                <p class="help-block" data-loading-text="{{ trans('general.forms.alerts.image-loading-text') }}">
-                    @if ($activity->hasFeaturedImage())
-                        <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded pull-left sz-uploaded-image-preview">
-                    @endif
-                    {{ trans('general.forms.help.image') }}
-                </p>
 
                 @if ($errors->has('featured_image'))
                     <span class="help-block">

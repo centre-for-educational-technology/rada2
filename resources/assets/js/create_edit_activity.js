@@ -14,6 +14,7 @@ Vue.component('activity-items', require('./components/ActivityItems.vue').defaul
 // Vue.component('autocomplete', Autocomplete);
 Vue.component('autocomplete', require('./components/MultiAutocomplete.vue').default);
 Vue.component('instructor-search', require('./components/InstructorSearch.vue').default);
+Vue.component('image-upload', require('./components/ImageUpload/Dialog.vue').default);
 
 const activityApp = new Vue({
     i18n,
@@ -24,9 +25,6 @@ const activityApp = new Vue({
         vm.baseUrl = window.Laravel.baseUrl;
         vm.apiUrl = window.Laravel.apiUrl;
         vm.canCreateActivityItem = window.Laravel.canCreateActivityItem;
-        if ( window.Laravel.hasFeaturedImage ) {
-            vm.hasFeaturedImage = true;
-        }
 
         if (window.Laravel.subjects) {
             vm.subjects = window.Laravel.subjects;
@@ -42,19 +40,13 @@ const activityApp = new Vue({
         if ( !$(vm.$refs.proximityCheck).prop('checked') ) {
             $(vm.$refs.proximityRadius).prop('disabled', true);
         }
-
-        $(vm.$refs.featuredImage).on('change', (e) => {
-            this.canResetFeaturedImage = true;
-        });
     },
     data() {
         return {
             baseUrl: '/',
             apiUrl: '/api',
-            canCreateActivityItem: false,
-            canResetFeaturedImage: false,
-            hasFeaturedImage: false,
-            subjects: []
+            subjects: [],
+            canCreateActivityItem: false
         };
     },
     methods: {
@@ -64,43 +56,7 @@ const activityApp = new Vue({
                 return subject.toLowerCase()
                     .startsWith(input.toLowerCase())
             })
-        },
-        resetFeaturedImage(e) {
-            e.preventDefault();
-
-            if ( !$(this.$refs.featuredImage).val() ) return;
-
-            this.canResetFeaturedImage = false;
-            $(this.$refs.featuredImage).val('');
-        },
-        canRemoveFeaturedImage() {
-            return !this.hasFeaturedImage || this.canResetFeaturedImage;
         }
-    }
-});
-
-$('[name="featured_image"]').on('change', function () {
-    var self = $(this);
-    var input = self.get(0);
-    if (input.files && input.files[0]) {
-        if (self.parent().parent().find('.help-block').length > 0) {
-            var loadingText = self.parent().parent().find('.help-block').data('loading-text');
-            self.parent().parent().find('.help-block').prepend(
-                $('<div>').addClass('alert alert-info loading-text').html(loadingText)
-            );
-        }
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            if (self.parent().parent().find('.help-block .sz-uploaded-image-preview').length <= 0) {
-                self.parent().parent().find('.help-block').prepend(
-                    $('<img>').addClass('img-rounded pull-left sz-uploaded-image-preview').attr('alt', 'image')
-                );
-            }
-            self.parent().parent().find('.help-block .sz-uploaded-image-preview').attr('src', e.target.result);
-            self.parent().parent().find('.help-block .alert.loading-text').remove();
-        }
-
-        reader.readAsDataURL(input.files[0]);
     }
 });
 

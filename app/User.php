@@ -72,7 +72,8 @@ class User extends Authenticatable
      * Returns roles data
      * @return array An array of roles data with id and zoo keys
      */
-    public function getRolesData() {
+    public function getRolesData(): array
+    {
         $rolesData = [];
 
         if ( $this->roles ) {
@@ -101,7 +102,8 @@ class User extends Authenticatable
      * @param  int     $zoo  Zoo identifier, default to NULL
      * @return boolean
      */
-    public function hasRole(string $name, int $zoo = null) {
+    public function hasRole(string $name, int $zoo = null): bool
+    {
         $rolesByName = $this->roles->keyBy('name');
 
         if ( $rolesByName->has($name) ) {
@@ -119,7 +121,8 @@ class User extends Authenticatable
      * Determines if current user has role of an administrator
      * @return boolean
      */
-    public function isAdmin() {
+    public function isAdmin(): bool
+    {
         return $this->hasRole('admin');
     }
 
@@ -129,7 +132,8 @@ class User extends Authenticatable
      * @param  int     $zoo Zoo identifier, defaults to NULL
      * @return boolean
      */
-    public function isZooAdmin(int $zoo = null) {
+    public function isZooAdmin(int $zoo = null): bool
+    {
         return $this->hasRole('zooAdmin', $zoo);
     }
 
@@ -138,7 +142,8 @@ class User extends Authenticatable
      * @param  int     $zoo Zoo identifier, defaults to NULL
      * @return boolean
      */
-    public function isZooMember(int $zoo = null) {
+    public function isZooMember(int $zoo = null): bool
+    {
         return $this->hasRole('zooMember', $zoo);
     }
 
@@ -158,7 +163,7 @@ class User extends Authenticatable
      * Returns number of DiscountVoucher objects user currently has
      * @return integer Number of discount vouchers
      */
-    public function getDiscountVouchersCount()
+    public function getDiscountVouchersCount(): int
     {
         return $this->belongsToMany(DiscountVoucher::class)
             ->count();
@@ -168,7 +173,7 @@ class User extends Authenticatable
      * Returns number of unspent and valid DiscountVoucher objects user currently has
      * @return integer Number of discount vouchers
      */
-    public function getUnspentAndValidDiscountVouchersCount()
+    public function getUnspentAndValidDiscountVouchersCount(): int
     {
         return $this->belongsToMany(DiscountVoucher::class)
             ->wherePivot('spent', 0)
@@ -206,7 +211,7 @@ class User extends Authenticatable
      * @param  App\DiscountVoucher $voucher DiscountVoucher object
      * @return boolean
      */
-    public function hasDiscountVoucher(DiscountVoucher $voucher)
+    public function hasDiscountVoucher(DiscountVoucher $voucher): bool
     {
         $count = $this->belongsToMany(DiscountVoucher::class)
             ->wherePivot('discount_voucher_id', $voucher->id)
@@ -221,7 +226,7 @@ class User extends Authenticatable
      * Determine if the user has been blocked.
      * @return [type] [description]
      */
-    public function blocked()
+    public function blocked(): bool
     {
         return ! is_null($this->blocked_at);
     }

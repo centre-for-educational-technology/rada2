@@ -49,8 +49,13 @@
                         @foreach($activities as $activity)
                             <div class="media">
                                 <div class="media-left">
-                                    <a href="{!! route('activity.show', [ 'activity' => $activity->id ]) !!}">
+                                    <a href="{!! route('activity.show', [ 'activity' => $activity->id ]) !!}" style="display:inline !important;">
                                         <img class="media-object img-rounded sz-img-64x64" src="{{ $activity->getFeaturedImageUrl() }}" alt="featured-image">
+                                        @if ($activity && $activity->image && $activity->image->isFromExternalProvider('ajapaik'))
+                                            <a href="{!! 'https://ajapaik.ee/photo/' . $activity->image->getExternalProvider()['id'] !!}" target="_blank" class="provider-logo" style="position:relative;left:0;top:-22px;">
+                                                <img src="https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png" alt="ajapaik-logo" style="width:32px;">
+                                            </a>
+                                        @endif
                                     </a>
                                 </div>
                                 <div class="media-body">

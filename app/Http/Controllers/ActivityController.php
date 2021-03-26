@@ -5,9 +5,12 @@ namespace App\Http\Controllers;
 use App\ActivityInstructor;
 use App\HT2Labs\XApi\LrsService;
 use App\HT2Labs\XApi\StatementData;
+use App\Image;
 use App\Jobs\ProcessLrsRequest;
 use App\Options\AgeOfParticipantsOptions;
 use App\Options\SubjectOptions;
+use App\Services\AjapaikService;
+use App\Services\Exceptions\PhotoDataNotLoaded;
 use App\User;
 use App\Utils\RandomStringGenerator;
 use App\Utils\RandomUniqueNumberGenerator;
@@ -36,6 +39,8 @@ use Illuminate\Support\Facades\DB;
 
 use Illuminate\Support\Facades\Log;
 
+use Illuminate\Support\Facades\File;
+
 class ActivityController extends Controller
 {
     /**
@@ -46,11 +51,18 @@ class ActivityController extends Controller
     protected $redirectTo = '/login';
 
     /**
+     * ImageService instance
+     *
+     * @var ImageService
+     */
+    protected $imageService;
+
+    /**
      * Create a new controller instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(ImageService $imageService)
     {
         $this->middleware('auth', [
             'except' => [
@@ -61,22 +73,92 @@ class ActivityController extends Controller
                 'sendGameStartedToLrs'
             ]
         ]);
+        $this->imageService = $imageService;
     }
 
     /**
      * Process uploaded image as needed and move to a correct location.
-     * @param  \App\Services\ImageService       $imageService
-     * @param  \App\Http\Requests\StoreActivity $request
-     * @param  string                           $path
-     * @return string                                         Image file name
+     *
+     * @param Request $request
+     * @param Activity $activity
+     *
+     * @return Image
      */
-    private function processFeaturedImage(&$imageService, &$request, $path) {
-        $originalExtension = $request->file('featured_image')->getClientOriginalExtension();
-        $fileName = $imageService->generateUniqueFileName('featured_image_', $originalExtension);
+    private function processFeaturedImage(Request &$request, Activity &$activity): Image
+    {
+        $path = $activity->getStoragePath();
+        $file = $request->file('featured_image');
 
-        $imageService->process($request->file('featured_image')->getRealPath(), $path, $fileName, 800);
+        $originalExtension = $file->getClientOriginalExtension();
+        $fileName = $this->imageService->generateUniqueFileName('featured_image_', $originalExtension);
 
-        return $fileName;
+        $this->imageService->process($file->getRealPath(), $path, $fileName, 800);
+
+        $image = Image::create([
+            'file_name' => $fileName,
+            'path' => $path,
+            'mime_type' => $file->getClientMimeType(),
+            'size' => $file->getSize(),
+        ]);
+        $image->model()->associate($activity)->save();
+
+        return $image;
+    }
+
+    /**
+     * Download and process external image as needed and move to a correct location.
+     *
+     * @param Request $request
+     * @param Activity $activity
+     *
+     * @return Image|null
+     */
+    private function processExternalFeaturedImage(Request &$request, Activity $activity): ?Image
+    {
+        // TODO
+        // 1. ImageService should not be passed as a parameter, this does not make any sense at all
+        // 2. Image should be created in one go, without setting all the required values.
+        $path = $activity->getStoragePath();
+        // TODO Need to use switch with exception for unknown services
+        if ($request->get('featured_image_provider') === 'ajapaik') {
+            $ajapaikService = app(AjapaikService::class);
+            $photoData = null;
+
+            try {
+                $photoData = $ajapaikService->getPhotoJson($request->get('featured_image_id'));
+            } catch (PhotoDataNotLoaded $e) {
+                // TODO See if there is a need to handle this exception
+            }
+
+            if ($photoData) {
+                $temporaryFile = $this->imageService->downloadImageFromUrl($photoData['image']);
+
+                $originalExtension = explode('/', mime_content_type($temporaryFile))[1];
+                $fileName = $this->imageService->generateUniqueFileName('featured_image_', $originalExtension);
+
+                $this->imageService->process($temporaryFile, $path, $fileName, 800);
+
+                $image = Image::create([
+                    'file_name' => $fileName,
+                    'path' => $path,
+                    'mime_type' => mime_content_type($temporaryFile),
+                    'size' => filesize($temporaryFile),
+                    'custom_properties' => [
+                        'provider' => [
+                            'name' => $request->get('featured_image_provider'),
+                            'id' => $photoData['id'],
+                            'imageUrl' => $photoData['image'],
+                        ],
+                    ],
+                ]);
+                $image->model()->associate($activity)->save();
+
+                return $image;
+            }
+        }
+
+        // TODO See if tis is needed or would it be better to use exceptions instead
+        return NULL;
     }
 
     /**
@@ -179,7 +261,7 @@ class ActivityController extends Controller
         ];
 
         /** @var Builder $query */
-        $query = Activity::orderBy('promoted', 'desc')->orderBy('activities.id', 'desc')->with(['user', 'discountVoucher',]);
+        $query = Activity::orderBy('promoted', 'desc')->orderBy('activities.id', 'desc')->with(['user', 'discountVoucher', 'image']);
 
         if ( $request->has('search-text') && trim($request->get('search-text')) )
         {
@@ -295,12 +377,11 @@ class ActivityController extends Controller
      * Store newly created activity in database.
      *
      * @param \App\Http\Requests\StoreActivity
-     * @param \App\Services\ImageService
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreActivity $request, ImageService $imageService)
+    public function store(StoreActivity $request)
     {
-        $activity = $this->storeActivity($request, $imageService);
+        $activity = $this->storeActivity($request);
 
         return redirect()->route('activity.show', [ 'activity' => $activity->id ]);
     }
@@ -368,10 +449,9 @@ class ActivityController extends Controller
      *
      * @param \App\Http\Requests\StoreActivity
      * @param \App\Activity
-     * @param \App\Services\ImageService
      * @return \Illuminate\Http\Response
      */
-    public function update(StoreActivity $request, Activity $activity, ImageService $imageService)
+    public function update(StoreActivity $request, Activity $activity)
     {
         $activity->title = $request->title;
         $activity->description = $request->description;
@@ -390,16 +470,21 @@ class ActivityController extends Controller
             if ( $activity->hasFeaturedImage() )
             {
                 $activity->deleteFeaturedImage();
-                $activity->featured_image = null;
             }
 
-            $fileName = $this->processFeaturedImage($imageService, $request, $activity->getStoragePath());
-            $activity->featured_image = $fileName;
+            $this->processFeaturedImage($request, $activity);
         }
-        else if ( $request->remove_featured_image && $activity->hasFeaturedImage() )
+        else if ( $request->has('featured_image_id') && $request->has('featured_image_provider')) {
+            if ( $activity->hasFeaturedImage() )
+            {
+                $activity->deleteFeaturedImage();
+            }
+
+            $this->processExternalFeaturedImage( $request, $activity);
+        }
+        else if ( $request->has('remove_featured_image') && $request->get('remove_featured_image') && $activity->hasFeaturedImage() )
         {
             $activity->deleteFeaturedImage();
-            $activity->featured_image = null;
         }
         // TODO Zoo is no longer needed and should be removed
         if ( auth()->user()->can('changeZoo', $activity) )
@@ -486,6 +571,9 @@ class ActivityController extends Controller
         {
             $activity->delete();
         } else {
+            if ($activity->hasFeaturedImage()) {
+                $activity->deleteFeaturedImage();
+            }
             $activity->forceDelete();
             $activity->deleteFileStorage();
         }
@@ -679,16 +767,15 @@ class ActivityController extends Controller
         ]);
     }
 
-    public function storeDuplication(Activity $activity, Request $request, ImageService $imageService)
+    public function storeDuplication(Activity $activity, Request $request)
     {
-        $newActivity = $this->storeActivity($request, $imageService);
+        $newActivity = $this->storeActivity($request);
         $newActivity->parent_id = $activity->id;
         $newActivity->is_template = false;
 
-        if ( $request->hasFile('featured_image') === false && $request->remove_featured_image && $newActivity->hasFeaturedImage() )
+        if ( $request->hasFile('featured_image') === false && $request->has('remove_featured_image') && $request->get('remove_featured_image') && $newActivity->hasFeaturedImage() )
         {
             $newActivity->deleteFeaturedImage();
-            $newActivity->featured_image = null;
         }
 
         $newActivity->save();
@@ -696,7 +783,7 @@ class ActivityController extends Controller
         return redirect()->route('activity.show', [ 'activity' => $newActivity->id ]);
     }
 
-    protected function storeActivity(Request $request, ImageService $imageService)
+    protected function storeActivity(Request $request)
     {
         $activity = new Activity;
         $randomStringGenerator = new RandomStringGenerator(implode(range('A', 'Z')) . implode(range(0, 9)));
@@ -759,10 +846,12 @@ class ActivityController extends Controller
 
         if ( $request->hasFile('featured_image') )
         {
-            $fileName = $this->processFeaturedImage($imageService, $request, $activity->getStoragePath());
-            DB::table('activities')
-                ->where('id', $activity->id)
-                ->update(['featured_image' => $fileName]);
+            $this->processFeaturedImage($request, $activity);
+        }
+
+        if ( $request->has('featured_image_id') && $request->has('featured_image_provider')) {
+
+            $this->processExternalFeaturedImage($request, $activity);
         }
 
         if ( $request->has('activity_items') ) {
