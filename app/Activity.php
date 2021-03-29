@@ -370,4 +370,15 @@ class Activity extends Model
     {
         return GameRepository::getAverageRating($this->id);
     }
+
+    /**
+     * Determines if activity is marked as started or not.
+     * Only started activities can be played.
+     *
+     * @return bool
+     */
+    public function isStarted(): bool
+    {
+        return (bool)$this->started;
+    }
 }

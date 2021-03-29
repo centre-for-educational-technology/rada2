@@ -1,5 +1,13 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+    <script type="text/javascript">
+        $(function () {
+            $('[data-toggle="tooltip"]').tooltip()
+        })
+    </script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -30,13 +38,19 @@
                             <div class="col-xs-3 col-sm-2">
                                 @php ( $gameUrl = route('game.play', ['game' => $game->id, 'exit_url' => $gameExitUrl,]) )
                                 @if ( $game->isComplete() )
-                                    <a href="{!! $gameUrl !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.view-results' )}}">
+                                    <a href="{!! $gameUrl !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.view-results' )}}" data-toggle="tooltip" data-placement="top">
                                         <i class="mdi mdi-map-marker-circle"></i>
                                     </a>
                                 @else
-                                    <a href="{!! $gameUrl !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.continue' )}}">
-                                        <i class="mdi mdi-play-circle-outline"></i>
-                                    </a>
+                                    @if ($game->activity->isStarted())
+                                        <a href="{!! $gameUrl !!}" class="btn btn-success btn-sm pull-right" title="{{ trans('pages.dashboard.btn.continue' )}}" data-toggle="tooltip" data-placement="top">
+                                            <i class="mdi mdi-play-circle-outline"></i>
+                                        </a>
+                                    @else
+                                        <a href="{!! $gameUrl !!}" class="btn btn-warning btn-sm pull-right" title="{{ trans('pages.play.game.stopped-heading' )}}" data-toggle="tooltip" data-placement="top" disabled="disabled">
+                                            <i class="mdi mdi-pause-circle-outline"></i>
+                                        </a>
+                                    @endif
                                 @endif
                             </div>
                         </div>
