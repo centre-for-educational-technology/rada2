@@ -13,17 +13,11 @@
             class="img-rounded sz-uploaded-image-preview"
             alt="image-preview"
             v-if="imageUrl || previewUrl">
-        <a
-            :href="'https://ajapaik.ee/photo/' + (photoData.id ? photoData.id : image.custom_properties.provider.id)"
-            target="_blank"
-            class="provider-logo"
+        <provider-logo
+            :id="photoData.id ? photoData.id : image.custom_properties.provider.id"
+            :provider="photoData.provider ? photoData.provider : image.custom_properties.provider.name"
             v-if="showAjapaikLogo()"
-        >
-          <img
-              src="https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png"
-              alt="ajapaik-logo"
-          >
-        </a>
+        ></provider-logo>
         <input type="checkbox"
                :name="removeInputName"
                data-toggle="tooltip"
@@ -115,7 +109,8 @@ export default {
   name: 'Dialog',
   components: {
     'upload-image-select': require('./Tabs/Upload.vue').default,
-    'ajapaik-image-select': require('./Tabs/Ajapaik.vue').default
+    'ajapaik-image-select': require('./Tabs/Ajapaik.vue').default,
+    'provider-logo': require('./ProviderLogo.vue').default
   },
   props: ['apiUrl', 'locale', 'inputName', 'image'],
   mounted() {
@@ -250,10 +245,6 @@ export default {
   position: absolute;
   left: 0;
   bottom: 0;
-}
-
-.image-upload-input a.provider-logo > img {
-  width: 32px;
 }
 
 .remove-existing-image {

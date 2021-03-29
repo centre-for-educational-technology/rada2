@@ -55,14 +55,12 @@
                     <p>{{ $activity->getAgeOfParticipantsString() }}</p>
                     @if ($activity->hasFeaturedImage())
                         <h3>{{ trans('general.forms.labels.featured-image') }}</h3>
-                        <p style="position:relative;">
-                            <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded" style="height:64px;width:64px;">
-                            @if ($activity && $activity->image && $activity->image->isFromExternalProvider('ajapaik'))
-                                <a href="{!! 'https://ajapaik.ee/photo/' . $activity->image->getExternalProvider()['id'] !!}" target="_blank" class="provider-logo" style="position:absolute;left:0;bottom:0;">
-                                    <img src="https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png" alt="ajapaik-logo" style="width:32px;">
-                                </a>
+                        <div class="image-holder-with-relative-position">
+                            <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded sz-img-64x64">
+                            @if ($activity && $activity->image && $activity->image->hasExternalProvider())
+                                @include('includes.external-provider-logo', ['image' => $activity->image, 'absolute' => TRUE])
                             @endif
-                        </p>
+                        </div>
                     @endif
                     <h3>{{ trans('general.forms.labels.activity-items') }}</h3>
                     @if ( count($activity->activityItems) === 0 )

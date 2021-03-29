@@ -15,7 +15,7 @@
                             <p class="help-block">{{ $t('icons.help') }}</p>
                             <div class="media"  v-for="icon in icons">
                                 <div class="media-left media-middle">
-                                    <img class="media-object" alt="icon" style="width:30px;height:30px;" v-bind:src="getIconUrl(icon)">
+                                    <img class="media-object" alt="icon" v-bind:src="getIconUrl(icon)">
                                 </div>
                                 <div class="media-body">
                                     <p>{{ getIconText(icon) }}</p>
@@ -56,8 +56,14 @@
                     <!--
                     <h3>{{ $t('featured-image') }}</h3>
                     -->
-                    <p>
-                        <img v-bind:src="activity.featured_image" alt="featured-image" class="img-responsive center-block">
+                    <p class="text-center">
+                        <img v-bind:src="activity.featured_image_url" alt="featured-image" class="img-responsive center-block">
+                        <provider-logo
+                            :id="activity.featured_image.custom_properties.provider.id"
+                            :provider="activity.featured_image.custom_properties.provider.name"
+                            :image-width="64"
+                            v-if="activity.featured_image && activity.featured_image.custom_properties && activity.featured_image.custom_properties.provider"
+                        ></provider-logo>
                     </p>
                     <!--
                     <h3>{{ $t('zoo') }}</h3>
@@ -78,6 +84,9 @@
     import MarkerIconMixin from './../mixins/MarkerIcon.js';
 
     export default {
+        components: {
+            'provider-logo': require('./ImageUpload/ProviderLogo.vue').default
+        },
         props: ['activity'],
         mixins: [MarkerIconMixin],
         mounted() {
@@ -106,3 +115,15 @@
         }
     }
 </script>
+
+<style scoped>
+a.provider-logo {
+  margin-top: 0.25em;
+  display: inline-block;
+}
+
+img.media-object {
+  height: 30px;
+  width: 30px;
+}
+</style>

@@ -793,3 +793,19 @@ img.sz-uploaded-image-preview {
         line-height: 36px;
     }
 }
+
+.image-holder-with-relative-position {
+    position: relative;
+}
+
+a.provider-logo {
+    img {
+        width: 32px;
+    }
+
+    &.provider-logo-absolute {
+        position: absolute;
+        left: 0;
+        bottom: 0;
+    }
+}
