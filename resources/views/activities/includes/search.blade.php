@@ -25,7 +25,7 @@
             <i class="mdi mdi-search-web" aria-hidden="true"></i>
             {{ trans('general.forms.buttons.search') }}
         </button>
-        <a href="{!! route('activity.index') !!}" class="btn btn-default{{ !$search['search-submitted'] ? ' disabled' : '' }}">
+        <a href="{!! url()->current() !!}" class="btn btn-default{{ !$search['search-submitted'] ? ' disabled' : '' }}">
             <i class="mdi mdi-refresh" aria-hidden="true"></i>
             {{ trans('general.forms.buttons.reset') }}
         </a>
