@@ -70,10 +70,12 @@
                                         </a>
                                     </h4>
                                     <p class="sz-display-new-lines">{{$activity->description}}</p>
-                                    <div class="sz-metadata">
-                                        <i class="mdi mdi-translate" aria-hidden="true"></i>
-                                        {{ $activity->getLanguage() }}
-                                    </div>
+                                    @if ($activity->getlanguage())
+                                        <div class="sz-metadata">
+                                            <i class="mdi mdi-translate" aria-hidden="true"></i>
+                                            {{ $activity->getLanguage() }}
+                                        </div>
+                                    @endif
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                                         {{ $activity->playing_time}} {{ trans('general.minutes')}}
@@ -138,10 +140,12 @@
                                         </a>
                                     </h4>
                                     <p class="sz-display-new-lines">{{$activity->description}}</p>
-                                    <div class="sz-metadata">
-                                        <i class="mdi mdi-translate" aria-hidden="true"></i>
-                                        {{ $activity->getLanguage() }}
-                                    </div>
+                                    @if ($activity->getLanguage())
+                                        <div class="sz-metadata">
+                                            <i class="mdi mdi-translate" aria-hidden="true"></i>
+                                            {{ $activity->getLanguage() }}
+                                        </div>
+                                    @endif
                                     <div class="sz-metadata">
                                         <i class="mdi mdi-timer" aria-hidden="true"></i>
                                         {{ $activity->playing_time}} {{ trans('general.minutes')}}
