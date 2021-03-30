@@ -2,9 +2,10 @@
 
 namespace App;
 
+use App\Interfaces\HasImage;
 use App\Options\AgeOfParticipantsOptions;
-use App\Options\SubjectOptions;
 use App\Repository\GameRepository;
+use App\Traits\InteractsWithImage;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -17,7 +18,6 @@ use Illuminate\Support\Facades\DB;
 use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use App\Options\DifficultyLevelOptions;
-use Illuminate\Database\Eloquent\Relations\MorphOne;
 
 /**
  * Class Activity
@@ -46,10 +46,14 @@ use Illuminate\Database\Eloquent\Relations\MorphOne;
  * @property $age_of_participants
  * @property $started
  */
-class Activity extends Model
+class Activity extends Model implements HasImage
 {
+    const STORAGE_PATH_FORMAT = 'activities/%d/';
+    const FILE_NAME_PREFIX = 'featured_image_';
+
     use SoftDeletes;
     use LogsActivity;
+    use InteractsWithImage;
 
     /**
      * The attributes that are mass assignable.
@@ -65,25 +69,6 @@ class Activity extends Model
      * @var array
      */
     protected static $logAttributes = ['title',];
-
-    /**
-     * Return storage path for Activity
-     * @return string Path to directory
-     */
-    public function getStoragePath()
-    {
-        return self::getStoragePathForId($this->id);
-    }
-
-    /**
-     * Return storage path for given Activity id
-     * @param  int    $id Activity id
-     * @return string Path to directory
-     */
-    public static function getStoragePathForId(int $id)
-    {
-        return 'activities/' . $id . '/';
-    }
 
     /**
      * Delete storage if one exists
@@ -105,7 +90,7 @@ class Activity extends Model
      * Returns Zoo title
      * @return string Zoo title or key
      */
-    public function getZoo()
+    public function getZoo(): string
     {
         return resolve(ZooOptions::class)->value($this->zoo);
     }
@@ -114,7 +99,7 @@ class Activity extends Model
      * Returns Language title or key
      * @return string Language title or key
      */
-    public function getLanguage()
+    public function getLanguage(): string
     {
         return resolve(LanguageOptions::class)->value($this->language);
     }
@@ -169,10 +154,6 @@ class Activity extends Model
         return $this->belongsToMany(ActivityItem::class)->count();
     }
 
-    public function image(): MorphOne
-    {
-        return $this->morphOne(Image::class, 'model');
-    }
 
     /**
      * Determines if activity has own Featured Image
@@ -180,7 +161,7 @@ class Activity extends Model
      */
     public function hasFeaturedImage(): bool
     {
-        return !!$this->image;
+        return $this->hasImage();
     }
 
     /**
@@ -191,7 +172,7 @@ class Activity extends Model
     public function getFeaturedImageUrl(bool $use_default = true): string
     {
         if ( $this->hasFeaturedImage() ) {
-            return $this->image->getUrl();
+            return $this->getImage()->getUrl();
         }
 
         if (!$use_default) return '';
@@ -202,12 +183,13 @@ class Activity extends Model
     /**
      * Deleted a featured image from storage if there is one.
      * Does not set the corresponding attribute to an empty value.
-     * @return boolean
+     * @return boolean|null
+     * @throws \Exception
      */
-    public function deleteFeaturedImage(): bool
+    public function deleteFeaturedImage(): ?bool
     {
         if ( $this->hasFeaturedImage() ) {
-            return $this->image->delete();
+            return $this->deleteImage();
         }
 
         return false;
