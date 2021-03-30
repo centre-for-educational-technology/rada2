@@ -124,8 +124,10 @@ trait InteractsWithImage
     public function deleteImage(): ?bool
     {
         if ($this->hasImage()) {
-            // TODO Make sure to indicate and exception being thrown
-            return $this->getImage()->delete();
+            $result = $this->getImage()->delete();
+            $this->load('image');
+
+            return $result;
         }
 
         return FALSE;

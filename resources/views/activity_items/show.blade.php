@@ -35,7 +35,12 @@
                     </div>
                     @if ( $activity_item->hasImage() )
                         <h3>{{ trans('general.forms.labels.image') }}</h3>
-                        <img src="{!! $activity_item->getImageUrl() !!}" alt="image" class="img-responsive">
+                        <div class="image-holder-with-relative-position">
+                            <img src="{!! $activity_item->getImageUrl() !!}" alt="image" class="img-responsive">
+                            @if ($activity_item->getImage()->hasExternalProvider())
+                                @include('includes.external-provider-logo', ['image' => $activity_item->getImage(), 'absolute' => TRUE, 'size' => '64px'])
+                            @endif
+                        </div>
                     @endif
                     <h3>{{ trans('general.forms.labels.question-type') }}</h3>
                     <p>{{ $activity_item->getQuestionType() }}</p>

@@ -52,8 +52,8 @@
                                     <div class="image-holder-with-relative-position">
                                         <a href="{!! route('activity.show', [ 'activity' => $activity->id ]) !!}">
                                             <img class="media-object img-rounded sz-img-64x64" src="{{ $activity->getFeaturedImageUrl() }}" alt="featured-image">
-                                            @if ($activity && $activity->image && $activity->image->hasExternalProvider())
-                                                @include('includes.external-provider-logo', ['image' => $activity->image, 'absolute' => TRUE])
+                                            @if ($activity->getImage() && $activity->getImage()->hasExternalProvider())
+                                                @include('includes.external-provider-logo', ['image' => $activity->getImage(), 'absolute' => TRUE])
                                             @endif
                                         </a>
                                     </div>

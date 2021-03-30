@@ -211,6 +211,7 @@ const i18n = new VueI18n({
 Vue.component('one-correct-answer', require('./components/OneCorrectAnswer.vue').default);
 Vue.component('multiple-correct-answers', require('./components/MultipleCorrectAnswers.vue').default);
 Vue.component('match-pairs', require('./components/MatchPairs.vue').default);
+Vue.component('image-upload', require('./components/ImageUpload/Dialog.vue').default);
 
 const addActivityItemApp = new Vue({
     i18n,
@@ -219,14 +220,6 @@ const addActivityItemApp = new Vue({
         const vm = this;
 
         $('[data-toggle="tooltip"]').tooltip();
-
-        if ( window.Laravel.hasImage ) {
-            vm.hasImage = true;
-        }
-
-        $(vm.$refs.image).on('change', (e) => {
-            this.canResetImage = true;
-        });
 
         $(vm.$refs.answeringTimeCheck).on('change', (e) => {
             const isChecked = $(vm.$refs.answeringTimeCheck).prop('checked');
@@ -301,9 +294,7 @@ const addActivityItemApp = new Vue({
     },
     data() {
         return {
-            questionType: $('select[name="type"]').val(),
-            canResetImage: false,
-            hasImage: false
+            questionType: $('select[name="type"]').val()
         };
     },
     methods: {
@@ -400,17 +391,6 @@ const addActivityItemApp = new Vue({
 
             return false;
         },
-        resetImage(e) {
-            e.preventDefault();
-
-            if ( !$(this.$refs.image).val() ) return;
-
-            this.canResetImage = false;
-            $(this.$refs.image).val('');
-        },
-        canRemoveImage() {
-            return !this.hasImage || this.canResetImage;
-        },
         hasRemovedImagesData() {
             return window.Laravel.removedImages && window.Laravel.removedImages.length > 0;
         },
@@ -423,31 +403,6 @@ const addActivityItemApp = new Vue({
         getRemovedImageMatchesData() {
             return window.Laravel.removedImageMatches;
         }
-    }
-});
-
-$('[name="image"]').on('change', function () {
-    var self = $(this);
-    var input = self.get(0);
-    if (input.files && input.files[0]) {
-        if (self.parent().parent().find('.help-block').length > 0) {
-            var loadingText = self.parent().parent().find('.help-block').data('loading-text');
-            self.parent().parent().find('.help-block').prepend(
-                $('<div>').addClass('alert alert-info loading-text').html(loadingText)
-            );
-        }
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            if (self.parent().parent().find('.help-block .sz-uploaded-image-preview').length <= 0) {
-                self.parent().parent().find('.help-block').prepend(
-                    $('<img>').addClass('img-rounded pull-left sz-uploaded-image-preview').attr('alt', 'image')
-                );
-            }
-            self.parent().parent().find('.help-block .sz-uploaded-image-preview').attr('src', e.target.result);
-            self.parent().parent().find('.help-block .alert.loading-text').remove();
-        }
-
-        reader.readAsDataURL(input.files[0]);
     }
 });
 

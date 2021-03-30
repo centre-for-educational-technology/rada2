@@ -9,5 +9,21 @@
         'mark-option-as-correct' => trans('general.forms.tooltips.mark-option-as-correct'),
         'remove-existing-image' => trans('general.forms.tooltips.remove-image'),
         'remove-selected-image' => trans('general.forms.tooltips.remove-selected-image'),
+        'image-upload' => [
+            'input-text' => trans('general.components.image-upload.input-text'),
+            'tabs' => [
+                'upload' => trans('general.components.image-upload.tabs.upload'),
+                'cultural-monuments-registry' => trans('general.components.image-upload.tabs.cultural-monuments-registry'),
+            ],
+            'help' => trans('general.forms.help.image'),
+            'results' => trans('general.components.image-upload.ajapaik.results'),
+            'search-text' => trans('general.forms.placeholders.search-text'),
+            'buttons' => [
+                'add' => trans('general.forms.buttons.add'),
+                'details' => trans('general.forms.buttons.details'),
+                'remove-selected-image' => trans('general.forms.buttons.remove-selected-image'),
+            ],
+            'remove-image' => trans('general.forms.tooltips.remove-image'),
+        ],
     ]); ?>
 </script>

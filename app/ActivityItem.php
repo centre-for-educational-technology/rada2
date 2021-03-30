@@ -2,6 +2,8 @@
 
 namespace App;
 
+use App\Interfaces\HasImage;
+use App\Traits\InteractsWithImage;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
@@ -13,9 +15,13 @@ use App\Options\LanguageOptions;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Auth;
 
-class ActivityItem extends Model
+class ActivityItem extends Model implements HasImage
 {
+    const STORAGE_PATH_FORMAT = 'activity_items/%d/';
+    const FILE_NAME_PREFIX = 'image_';
+
     use LogsActivity;
+    use InteractsWithImage;
 
     /**
      * The attributes that are mass assignable.
@@ -225,25 +231,6 @@ class ActivityItem extends Model
     }
 
     /**
-     * Returns storage path hash for the ActivityItem
-     * @return string SHA1 hash used for storage path
-     */
-    public function getStoragePath()
-    {
-        return self::getStoragePathForId($this->id);
-    }
-
-    /**
-     * [getStoragePathForId description]
-     * @param  int    $id [description]
-     * @return [type]     [description]
-     */
-    public static function getStoragePathForId(int $id)
-    {
-        return 'activity_items/' . $id . '/';
-    }
-
-    /**
      * Delete storage if one exists
      * @return boolean
      */
@@ -357,37 +344,15 @@ class ActivityItem extends Model
     }
 
     /**
-     * Determines if Activity Item has an Image
-     * @return boolean
-     */
-    public function hasImage() {
-        return !!$this->image;
-    }
-
-    /**
      * Get full URL for image from public storage or respond with NULL
      * @return mixed Full public URL to image file or NULL
      */
     public function getImageUrl() {
         if ( $this->hasImage() ) {
-            return asset('uploads/images/' . $this->getStoragePath() . $this->image);
+            return $this->getImage()->getUrl();
         }
 
         return NULL;
-    }
-
-    /**
-     * Deletes an image from storage if there is one.
-     * Does not set the corresponding attribute to an empty value.
-     * @return boolean
-     */
-    public function deleteImage()
-    {
-        if ( $this->hasImage() ) {
-            return File::delete( public_path('uploads/images/' . $this->getStoragePath() . $this->image) );
-        }
-
-        return false;
     }
 
     /**

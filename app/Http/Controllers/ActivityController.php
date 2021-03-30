@@ -68,6 +68,8 @@ class ActivityController extends Controller
      * @param Activity $activity
      *
      * @return Image
+     *
+     * @throws Exception
      */
     private function processFeaturedImage(Request &$request, Activity &$activity): Image
     {
@@ -81,6 +83,8 @@ class ActivityController extends Controller
      * @param Activity $activity
      *
      * @return Image|null
+     *
+     * @throws Exception
      */
     private function processExternalFeaturedImage(Request &$request, Activity &$activity): ?Image
     {

@@ -65,19 +65,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <span class="input-group-addon">
-                        <i class="mdi mdi-image" aria-hidden="true"></i>
-                    </span>
-                    {!! Form::file('image', [
-                        'class' => 'form-control',
-                        'accept' => 'image/jpeg, image/png',
-                        'ref' => 'image',
-                    ]) !!}
-                    <span class="input-group-addon">
-                        <a href="#" class="btn btn-warning btn-xs" ref="removeImage" v-on:click="resetImage" v-bind:disabled="!canResetImage">
-                            <i class="mdi mdi-delete" aria-hidden="true"></i>
-                        </a>
-                    </span>
+                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image"></image-upload>
                 </div>
 
                 <p class="help-block" data-loading-text="{{ trans('general.forms.alerts.image-loading-text') }}">

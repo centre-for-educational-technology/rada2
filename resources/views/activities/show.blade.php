@@ -57,8 +57,8 @@
                         <h3>{{ trans('general.forms.labels.featured-image') }}</h3>
                         <div class="image-holder-with-relative-position">
                             <img src="{!! $activity->getFeaturedImageUrl() !!}" alt="featured_image" class="img-rounded sz-img-64x64">
-                            @if ($activity && $activity->image && $activity->image->hasExternalProvider())
-                                @include('includes.external-provider-logo', ['image' => $activity->image, 'absolute' => TRUE])
+                            @if ($activity->getImage()->hasExternalProvider())
+                                @include('includes.external-provider-logo', ['image' => $activity->getImage(), 'absolute' => TRUE])
                             @endif
                         </div>
                     @endif

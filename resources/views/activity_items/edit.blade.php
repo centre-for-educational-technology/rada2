@@ -70,33 +70,8 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <span class="input-group-addon">
-                        <i class="mdi mdi-image" aria-hidden="true"></i>
-                    </span>
-                    {!! Form::file('image', [
-                        'class' => 'form-control',
-                        'accept' => 'image/jpeg, image/png',
-                        'ref' => 'image',
-                    ]) !!}
-                    <span class="input-group-addon" data-toggle="tooltip" data-placement="left" data-trigger="hover" data-container="body" title="{{ trans('general.forms.tooltips.remove-image') }}">
-                        {!! Form::checkbox('remove_image', 1, false, [
-                            'ref' => 'removeImage',
-                            'v-bind:disabled' => 'canRemoveImage()',
-                        ]) !!}
-                    </span>
-                    <span class="input-group-addon">
-                        <a href="#" class="btn btn-warning btn-xs" v-on:click="resetImage" ref="removeImage" v-on:click="resetImage" v-bind:disabled="!canResetImage">
-                            <i class="mdi mdi-delete" aria-hidden="true"></i>
-                        </a>
-                    </span>
+                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image" :image="{{ $activity_item->hasImage() ? $activity_item->getImage() : '{}' }}"></image-upload>
                 </div>
-
-                <p class="help-block" data-loading-text="{{ trans('general.forms.alerts.image-loading-text') }}">
-                    @if ($activity_item->hasImage())
-                        <img src="{!! $activity_item->getImageUrl() !!}" alt="image" class="img-rounded pull-left sz-uploaded-image-preview">
-                    @endif
-                    {{ trans('general.forms.help.image') }}
-                </p>
 
                 @if ($errors->has('image'))
                     <span class="help-block">

@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Image;
 use Illuminate\Auth\Access\AuthorizationException;
 use Illuminate\Http\Request;
-
-use App\Http\Requests;
 
 use App\ActivityItem;
 
@@ -61,20 +60,33 @@ class ActivityItemController extends Controller
       return $fileName;
   }
 
-  /**
-   * Process uploaded image as needed and move to a correct location.
-   * @param  \App\Services\ImageService           $imageService
-   * @param  \App\Http\Requests\StoreActivityItem $request
-   * @param  string                               $path         Directory path
-   * @return string                               Image file name
-   */
-  private function processUploadedImage(&$imageService, &$request, $path) {
-      $originalExtension = $request->file('image')->getClientOriginalExtension();
-      $fileName = $imageService->generateUniqueFileName('image_', $originalExtension);
+    /**
+     * Process uploaded image as needed and move to a correct location.
+     *
+     * @param Request $request
+     * @param ActivityItem $activityItem
+     *
+     * @return Image
+     *
+     * @throws \Exception
+     */
+  private function processUploadedImage(Request &$request, ActivityItem &$activityItem): Image {
+      return $activityItem->addImage($request->file('image'), 800);
+  }
 
-      $imageService->process($request->file('image')->getRealPath(), $path, $fileName, 800);
-
-      return $fileName;
+    /**
+     * Download and process external image as needed and move to a correct location.
+     *
+     * @param Request $request
+     * @param ActivityItem $activityItem
+     *
+     * @return Image|null
+     *
+     * @throws \Exception
+     */
+  private function processExternalImage(Request &$request, ActivityItem &$activityItem): ?Image
+  {
+      return $activityItem->addImageFromExternalProvider($request->get('image_provider'), $request->get('image_id'), 800);
   }
 
   /**
@@ -274,14 +286,12 @@ class ActivityItemController extends Controller
 
       $item->save();
 
-      $path = $item->getStoragePath();
+      if ( $request->hasFile('image') ) {
+          $this->processUploadedImage($request, $item);
+      }
+      else if ( $request->has('image_id') && $request->has('image_provider')) {
 
-      if ( $request->hasFile('image') )
-      {
-          $fileName = $this->processUploadedImage($imageService, $request, $path);
-          DB::table('activity_items')
-              ->where('id', $item->id)
-              ->update(['image' => $fileName]);
+          $this->processExternalImage($request, $item);
       }
 
       // TODO It might make sense to move contents of these blocks to standalone
@@ -503,19 +513,24 @@ class ActivityItemController extends Controller
       }
 
       if ( $request->hasFile('image') ) {
+          if ($activity_item->hasImage())
+          {
+              $activity_item->deleteImage();
+          }
+
+          $this->processUploadedImage($request, $activity_item);
+      }
+      else if ( $request->has('image_id') && $request->has('image_provider')) {
           if ( $activity_item->hasImage() )
           {
               $activity_item->deleteImage();
-              $activity_item->image = null;
           }
 
-          $fileName = $this->processUploadedImage($imageService, $request, $path);
-          $activity_item->image = $fileName;
+          $this->processExternalImage( $request, $activity_item);
       }
       else if ( $request->remove_image && $activity_item->hasImage() )
       {
           $activity_item->deleteImage();
-          $activity_item->image = null;
       }
 
       if ( $activity_item->isEmbeddedContent() ) {
@@ -730,6 +745,10 @@ class ActivityItemController extends Controller
   public function destroy(ActivityItem $activity_item)
   {
       $this->authorize('delete', $activity_item);
+
+      if ($activity_item->hasImage()) {
+          $activity_item->deleteImage();
+      }
 
       $activity_item->delete();
       $activity_item->deleteFileStorage();
