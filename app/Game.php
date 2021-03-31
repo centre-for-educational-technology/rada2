@@ -169,7 +169,7 @@ class Game extends Model
                     'id' => $item->id,
                     'title' => $item->title,
                     'description' => $item->description,
-                    'image_url' => $item->getImageUrl(),
+                    'image' => $item->getImage(),
                     'embedded_content' => $item->embedded_content,
                     'missing_word' => $item->missing_word,
                     'type' => $item->type,

@@ -39,7 +39,6 @@ class ActivityItem extends Model implements HasImage
      */
     protected $appends = [
         'icon_url',
-        'image_url',
         'current_user_can_edit',
     ];
 
@@ -86,15 +85,6 @@ class ActivityItem extends Model implements HasImage
         }
 
         return $this->attributes['icon_url'] = $iconUrl;
-    }
-
-    /**
-     * Sets image_url attribute based on image value.
-     * @return string Image URL
-     */
-    public function getImageUrlAttribute()
-    {
-        return $this->attributes['image_url'] = $this->getImageUrl();
     }
 
     /**

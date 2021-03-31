@@ -10,8 +10,14 @@
                     </h4>
                 </div>
                 <div class="modal-body">
-                    <div v-if="hasImage()">
-                        <img src="" class="img-responsive" alt="image" v-bind:src="image()">
+                    <div class="text-center" v-if="hasImage()">
+                        <img src="" class="img-responsive center-block" alt="image" v-bind:src="image()">
+                        <provider-logo
+                            :id="question.image.custom_properties.provider.id"
+                            :provider="question.image.custom_properties.provider.name"
+                            :image-width="64"
+                            v-if="question.image && question.image.custom_properties && question.image.custom_properties.provider"
+                        ></provider-logo>
                     </div>
                     <p class="sz-display-new-lines">{{ description() }}</p>
 
@@ -160,6 +166,9 @@
     import debounce from '../debounce';
 
     export default {
+        components: {
+          'provider-logo': require('./ImageUpload/ProviderLogo.vue').default
+        },
         props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview'],
         mixins: [ImageMixin, MissingWordMixin],
         mounted() {
@@ -392,10 +401,10 @@
                 return this.question ? this.question.description : '';
             },
             hasImage() {
-                return this.question && this.question.image_url;
+                return this.question && this.question.image;
             },
             image() {
-                return this.question ? this.question.image_url : '';
+                return this.hasImage() ? this.question.image.url : '';
             },
             embeddedContent() {
                 return this.question ? this.question.embedded_content : '';
@@ -647,5 +656,10 @@
         color: green;
         font-weight: bold;
         padding: 0 5px;
+    }
+    a.provider-logo {
+      margin-top: 0.25em;
+      margin-bottom: 0.25em;
+      display: inline-block;
     }
 </style>
