@@ -122,6 +122,9 @@ return [
            'search-activity-items' => 'Otsi rajapunkte',
            'create-new-activity-item' => 'Loo uus rajapunkt',
            'login-or-register' => 'Logi sisse/registreeru',
+           'add' => 'Lisa',
+           'details' => 'Üksikasjad',
+           'remove-selected-image' => 'Eemalda valitud pilt',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Märksõna või pealkiri',
@@ -251,5 +254,17 @@ return [
             'psychology' => 'Psühholoogia',
             'spanish' => 'Hispaania keel'
         ]
-    ]
+    ],
+    'components' => [
+        'image-upload' => [
+            'input-text' => 'Lae pilt ülesse või kasuta mõnda olemasolevat registritest',
+            'tabs' => [
+                'upload' => 'Üleslaadimine',
+                'cultural-monuments-registry' => 'Kultuurimälestiste register',
+            ],
+            'ajapaik' => [
+                'results' => 'Tulemused:',
+            ],
+        ],
+    ],
 ];

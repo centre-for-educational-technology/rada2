@@ -9,6 +9,7 @@
         'mark-option-as-correct' => trans('general.forms.tooltips.mark-option-as-correct'),
         'remove-existing-image' => trans('general.forms.tooltips.remove-image'),
         'remove-selected-image' => trans('general.forms.tooltips.remove-selected-image'),
+        'load-more' => trans('general.forms.buttons.load-more'),
         'image-upload' => [
             'input-text' => trans('general.components.image-upload.input-text'),
             'tabs' => [
