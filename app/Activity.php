@@ -105,8 +105,9 @@ class Activity extends Model implements HasImage
     }
 
     /**
-     * Get user account current social one belongs to.
-     * @return User Application local user account
+     * Returns BelongsTo relationship for creator
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
      */
     public function user()
     {
@@ -114,8 +115,9 @@ class Activity extends Model implements HasImage
     }
 
     /**
-     * [activityItems description]
-     * @return [type] [description]
+     * Returns BelongsToMany relationship for tasks
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
      */
     public function activityItems()
     {
@@ -123,6 +125,7 @@ class Activity extends Model implements HasImage
             ->withPivot('position')
             ->with('options') // XXX Too eager
             ->with('pairs') // XXX Too eager
+            ->with('image')
             ->withTimestamps()
             ->orderBy('position', 'asc');
     }
@@ -157,6 +160,7 @@ class Activity extends Model implements HasImage
 
     /**
      * Determines if activity has own Featured Image
+     *
      * @return boolean
      */
     public function hasFeaturedImage(): bool
@@ -166,7 +170,9 @@ class Activity extends Model implements HasImage
 
     /**
      * Get full URL for featured image from public storage or default one
+     *
      * @param bool $use_default
+     *
      * @return string Full public URL to image file
      */
     public function getFeaturedImageUrl(bool $use_default = true): string
@@ -182,7 +188,8 @@ class Activity extends Model implements HasImage
 
     /**
      * Deleted a featured image from storage if there is one.
-     * Does not set the corresponding attribute to an empty value.
+     * Does not set the corresponding attribute to an empty value
+     * .
      * @return boolean|null
      * @throws \Exception
      */

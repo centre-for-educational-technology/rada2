@@ -28,7 +28,7 @@ This tool set includes:
   - Please make sure to switch to `production` branch if you are running on production server
   - In case of development instance, please make sure to build the static assets. Refer to [working with compiled assets](#working-with-compiled-assets) for more information
 - Move into the directory (`cd rada2`)
-- Install the dependencies `composer install`
+- Install the dependencies `composer install`, add `--no-dev` in production
 - Make sure that .env file is present and configured as needed (copy .env.example to .env and fill in with data)
   - Either create application key manually or do that with a command `php artisan key:generate`
   - Make sure that `APP_ENV=production` and `APP_DEBUG=false` for production environments (this should prevent unneeded error detailed data exposure)
@@ -38,8 +38,6 @@ This tool set includes:
     - The redirect URL addresses are in the form `BASE-URL/auth/PROVIDER-name/callback`
   - Create reCaptcha(V2) keys and fill in the configurations in `.env` file. Constants to look for are `NOCAPTCHA_SECRET` and `NOCAPTCHA_SITEKEY`
   - Create and configure Google Analytics and UserReport services. Configuration constant names are `GOOGLE_ANALYTICS_KEY` and `USERREPORT_KEY`
-- Configure subject and title from sent email messages
- - Open the `config/mail.php` file and set the needed values within the `from` element
 - Create the database as needed (according to configuration provided)
 - For xAPI integration (step 1)
   - Make sure you have set the `QUEUE_DRIVER` in the .env file
