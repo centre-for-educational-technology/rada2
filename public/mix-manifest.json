@@ -9,7 +9,6 @@
     "/js/profile.js": "/js/profile.js",
     "/js/welcome.js": "/js/welcome.js",
     "/js/search_activities.js": "/js/search_activities.js",
-    "/js/qr_code_modal.js": "/js/qr_code_modal.js",
     "/js/login.js": "/js/login.js",
     "/js/discount_vouchers.js": "/js/discount_vouchers.js",
     "/js/manage_users.js": "/js/manage_users.js",
@@ -17,7 +16,6 @@
     "/js/edit_profile.js": "/js/edit_profile.js",
     "/css/app.css": "/css/app.css",
     "/build/fonts/materialdesignicons-webfont.eot": "/build/fonts/materialdesignicons-webfont.eot",
-    "/build/fonts/materialdesignicons-webfont.svg": "/build/fonts/materialdesignicons-webfont.svg",
     "/build/fonts/materialdesignicons-webfont.ttf": "/build/fonts/materialdesignicons-webfont.ttf",
     "/build/fonts/materialdesignicons-webfont.woff": "/build/fonts/materialdesignicons-webfont.woff",
     "/build/fonts/materialdesignicons-webfont.woff2": "/build/fonts/materialdesignicons-webfont.woff2"

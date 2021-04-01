@@ -429,8 +429,17 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    'provider-logo': __webpack_require__(/*! ./ImageUpload/ProviderLogo.vue */ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue").default
+  },
   props: ['activity'],
   mixins: [_mixins_MarkerIcon_js__WEBPACK_IMPORTED_MODULE_0__.default],
   mounted: function mounted() {
@@ -1752,10 +1761,19 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
+//
+//
+//
+//
+//
+//
 
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  components: {
+    'provider-logo': __webpack_require__(/*! ./ImageUpload/ProviderLogo.vue */ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue").default
+  },
   props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview'],
   mixins: [_mixins_Image_js__WEBPACK_IMPORTED_MODULE_0__.default, _mixins_MissingWord_js__WEBPACK_IMPORTED_MODULE_1__.default],
   mounted: function mounted() {
@@ -1992,10 +2010,10 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return this.question ? this.question.description : '';
     },
     hasImage: function hasImage() {
-      return this.question && this.question.image_url;
+      return this.question && this.question.image;
     },
     image: function image() {
-      return this.question ? this.question.image_url : '';
+      return this.hasImage() ? this.question.image.url : '';
     },
     embeddedContent: function embeddedContent() {
       return this.question ? this.question.embedded_content : '';
@@ -2804,6 +2822,39 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=script&lang=js&":
+/*!**************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=script&lang=js& ***!
+  \**************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
+  name: "ProviderLogo",
+  props: ['id', 'provider', 'imageWidth']
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/NotificationModal.vue?vue&type=script&lang=js&":
 /*!*******************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/NotificationModal.vue?vue&type=script&lang=js& ***!
@@ -3023,175 +3074,27 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/js/play.js":
-/*!*************************************!*\
-  !*** ./resources/assets/js/play.js ***!
-  \*************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css&":
+/*!******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css& ***!
+  \******************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
-/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
-//"use strict";
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../../../../node_modules/css-loader/dist/runtime/api.js */ "./node_modules/css-loader/dist/runtime/api.js");
+/* harmony import */ var _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0__);
+// Imports
 
+var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
+// Module
+___CSS_LOADER_EXPORT___.push([module.id, "\na.provider-logo[data-v-2a6a2e2a] {\n  margin-top: 0.25em;\n  display: inline-block;\n}\nimg.media-object[data-v-2a6a2e2a] {\n  height: 30px;\n  width: 30px;\n}\n", ""]);
+// Exports
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
-var messages = {};
-messages[window.RADA.config.locale] = _.cloneDeep(window.RADA.data.translations);
-var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__.default({
-  locale: window.RADA.config.locale,
-  messages: messages
-});
-Vue.component('game-map', __webpack_require__(/*! ./components/GameMap.vue */ "./resources/assets/js/components/GameMap.vue").default);
-Vue.component('game-tutorial-modal', __webpack_require__(/*! ./components/GameTutorialModal.vue */ "./resources/assets/js/components/GameTutorialModal.vue").default);
-Vue.component('game-information-modal', __webpack_require__(/*! ./components/GameInformationModal.vue */ "./resources/assets/js/components/GameInformationModal.vue").default);
-Vue.component('game-results-modal', __webpack_require__(/*! ./components/GameResultsModal.vue */ "./resources/assets/js/components/GameResultsModal.vue").default);
-Vue.component('game-rating-modal', __webpack_require__(/*! ./components/GameRatingModal.vue */ "./resources/assets/js/components/GameRatingModal.vue").default);
-Vue.component('game-image-dialog', __webpack_require__(/*! ./components/GameImageDialog.vue */ "./resources/assets/js/components/GameImageDialog.vue").default);
-var playGameApp = new Vue({
-  i18n: i18n,
-  el: '#sz-play-app',
-  created: function created() {
-    var vm = this;
-    vm.baseUrl = window.RADA.config.base_url;
-    vm.exitUrl = window.RADA.config.exit_url;
-    vm.isLoggedIn = window.Laravel.isLoggedIn;
-    vm.userName = window.Laravel.userName;
-    vm.game = window.RADA.data.game;
-    window.addEventListener('beforeunload', vm.leaving);
-    vm.$on('dialog:tutorial:close', function () {
-      vm.setHasSeenTotorial();
-    });
-
-    if (!vm.isGameComplete()) {
-      window.initMap = function () {
-        vm.mapInitialised = true;
-      };
-
-      vm.getGeoLocation(function (position) {
-        vm.latitude = position.coords.latitude;
-        vm.longitude = position.coords.longitude;
-      }, false, function (error) {
-        vm.geoLocationErrorMessage = error.message;
-      });
-      var script = document.createElement('script');
-      script.type = 'text/javascript';
-      script.src = '//maps.googleapis.com/maps/api/js?key=' + window.RADA.config.map.key + '&callback=initMap&libraries=geometry';
-      document.body.appendChild(script);
-    }
-  },
-  mounted: function mounted() {
-    var _this = this;
-
-    if (!this.isGameComplete()) {
-      if (!this.hasSeenTutorial()) {
-        this.$refs.tutorialModal.open();
-      } else {
-        this.$refs.informationModal.open();
-      }
-
-      this.$watch('game.complete', function () {
-        if (_this.isGameComplete()) {
-          _this.$refs.imageDialog.open();
-
-          _this.$refs.imageDialog.$once('hidden:image:dialog', function () {
-            if (_this.game.rating === null) {
-              _this.$refs.ratingModal.open(function () {
-                _this.$refs.resultsModal.open();
-              });
-            } else {
-              _this.$refs.resultsModal.open();
-            }
-          });
-        }
-      });
-    } else {
-      if (this.game.rating === null) {
-        this.$refs.ratingModal.open(function () {
-          _this.$refs.resultsModal.open();
-        });
-      } else {
-        this.$refs.resultsModal.open();
-      }
-    }
-  },
-  data: function data() {
-    return {
-      baseUrl: '',
-      exitUrl: '',
-      mapInitialised: false,
-      latitude: undefined,
-      longitude: undefined,
-      geoLocationErrorMessage: null,
-      checkUnload: true,
-      game: null,
-      isLoggedIn: false,
-      userName: ''
-    };
-  },
-  methods: {
-    isLoading: function isLoading() {
-      return !(this.mapInitialised && this.latitude && this.longitude);
-    },
-    isGameComplete: function isGameComplete() {
-      return this.game && this.game.complete;
-    },
-    getGeoLocation: function getGeoLocation(callback, watch, handleError) {
-      if (typeof handleError !== 'function') {
-        handleError = function handleError(error) {
-          if (window.console && window.console.error && typeof window.console.error === 'function') {
-            window.console.error('Geolocation error', error); // TODO Consider making traslatable
-          }
-        };
-      }
-
-      if (window.navigator.geolocation) {
-        var geolocationOptions = {
-          enableHighAccuracy: true
-        };
-
-        if (watch === true) {
-          window.navigator.geolocation.watchPosition(callback, handleError, geolocationOptions);
-        } else {
-          window.navigator.geolocation.getCurrentPosition(callback, handleError, geolocationOptions);
-        }
-      } else {
-        throw 'Geolocation is unavailable!'; // TODO Consider making translatable
-      }
-    },
-    hasGeoLocationError: function hasGeoLocationError() {
-      return !!this.geoLocationErrorMessage;
-    },
-    leaving: function leaving(event) {
-      if (!this.checkUnload) return false;
-      var message = this.$t('exit-confirmation');
-      event.returnValue = message;
-      return message;
-    },
-    exit: function exit() {
-      var confirmation = confirm(this.$t('exit-confirmation'));
-
-      if (confirmation) {
-        // Prevent unload check from being applied
-        this.checkUnload = false;
-        window.location = this.exitUrl;
-      }
-    },
-    hasSeenTutorial: function hasSeenTutorial() {
-      if (!window.sessionStorage) return false;
-      return window.sessionStorage.getItem('seen:game:tutorial') === 'true';
-    },
-    setHasSeenTotorial: function setHasSeenTotorial() {
-      if (window.sessionStorage) {
-        try {
-          window.sessionStorage.setItem('seen:game:tutorial', 'true');
-        } catch (err) {// Handles the QuotaExceededError in some versions of Safari on iOS
-        }
-      }
-    }
-  }
-});
 
 /***/ }),
 
@@ -3260,7 +3163,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.missing-word-container span[data-v-673a7024] {\n    line-height: 24px;\n    height: 34px;\n    display: inline;\n    white-space: pre-line;\n}\n.missing-word-container input[data-v-673a7024] {\n    margin: 0 10px;\n    padding: 0 10px;\n}\n.missing-word-container .incorrect[data-v-673a7024] {\n    color: red;\n    font-weight: bold;\n    padding: 0 5px;\n}\n.missing-word-container .correct[data-v-673a7024] {\n    color: green;\n    font-weight: bold;\n    padding: 0 5px;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.missing-word-container span[data-v-673a7024] {\n    line-height: 24px;\n    height: 34px;\n    display: inline;\n    white-space: pre-line;\n}\n.missing-word-container input[data-v-673a7024] {\n    margin: 0 10px;\n    padding: 0 10px;\n}\n.missing-word-container .incorrect[data-v-673a7024] {\n    color: red;\n    font-weight: bold;\n    padding: 0 5px;\n}\n.missing-word-container .correct[data-v-673a7024] {\n    color: green;\n    font-weight: bold;\n    padding: 0 5px;\n}\na.provider-logo[data-v-673a7024] {\n  margin-top: 0.25em;\n  margin-bottom: 0.25em;\n  display: inline-block;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -3342,15 +3245,15 @@ module.exports = function (cssWithMappingToString) {
       }
 
       return content;
-    }).join('');
+    }).join("");
   }; // import a list of modules into the list
   // eslint-disable-next-line func-names
 
 
   list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === 'string') {
+    if (typeof modules === "string") {
       // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, '']];
+      modules = [[null, modules, ""]];
     }
 
     var alreadyImportedModules = {};
@@ -6041,6 +5944,36 @@ if (true) {
 
 /***/ }),
 
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css&":
+/*!**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css& ***!
+  \**********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
+/* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_style_index_0_id_2a6a2e2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css&");
+
+            
+
+var options = {};
+
+options.insert = "head";
+options.singleton = false;
+
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_style_index_0_id_2a6a2e2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+
+
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_style_index_0_id_2a6a2e2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+
+/***/ }),
+
 /***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameMap.vue?vue&type=style&index=0&lang=css&":
 /*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameMap.vue?vue&type=style&index=0&lang=css& ***!
@@ -6482,7 +6415,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /*!
- * vue-i18n v8.22.4 
+ * vue-i18n v8.24.2 
  * (c) 2021 kazuya kawaguchi
  * Released under the MIT License.
  */
@@ -6787,6 +6720,16 @@ var mixin = {
           options.i18n.silentFallbackWarn = rootI18n.silentFallbackWarn;
           options.i18n.pluralizationRules = rootI18n.pluralizationRules;
           options.i18n.preserveDirectiveContent = rootI18n.preserveDirectiveContent;
+          this.$root.$once('hook:beforeDestroy', function () {
+            options.i18n.root = null;
+            options.i18n.formatter = null;
+            options.i18n.fallbackLocale = null;
+            options.i18n.formatFallbackMessages = null;
+            options.i18n.silentTranslationWarn = null;
+            options.i18n.silentFallbackWarn = null;
+            options.i18n.pluralizationRules = null;
+            options.i18n.preserveDirectiveContent = null;
+          });
         }
 
         // init locale messages via custom blocks
@@ -6857,6 +6800,12 @@ var mixin = {
     } else if (options.parent && options.parent.$i18n && options.parent.$i18n instanceof VueI18n) {
       this._i18n.subscribeDataChanging(this);
       this._subscribing = true;
+    }
+  },
+
+  mounted: function mounted () {
+    if (this !== this.$root && this.$options.__INTLIFY_META__ && this.$el) {
+      this.$el.setAttribute('data-intlify', this.$options.__INTLIFY_META__);
     }
   },
 
@@ -7611,7 +7560,7 @@ I18nPath.prototype.getPathValue = function getPathValue (obj, path) {
     var i = 0;
     while (i < length) {
       var value = last[paths[i]];
-      if (value === undefined) {
+      if (value === undefined || value === null) {
         return null
       }
       last = value;
@@ -8674,7 +8623,7 @@ Object.defineProperty(VueI18n, 'availabilities', {
 });
 
 VueI18n.install = install;
-VueI18n.version = '8.22.4';
+VueI18n.version = '8.24.2';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VueI18n);
 
@@ -8848,23 +8797,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _GameInformationModal_vue_vue_type_template_id_2a6a2e2a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GameInformationModal.vue?vue&type=template&id=2a6a2e2a& */ "./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&");
+/* harmony import */ var _GameInformationModal_vue_vue_type_template_id_2a6a2e2a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true& */ "./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true&");
 /* harmony import */ var _GameInformationModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./GameInformationModal.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/GameInformationModal.vue?vue&type=script&lang=js&");
-/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+/* harmony import */ var _GameInformationModal_vue_vue_type_style_index_0_id_2a6a2e2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css& */ "./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
 
+;
 
 
 /* normalize component */
-;
-var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
   _GameInformationModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _GameInformationModal_vue_vue_type_template_id_2a6a2e2a___WEBPACK_IMPORTED_MODULE_0__.render,
-  _GameInformationModal_vue_vue_type_template_id_2a6a2e2a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _GameInformationModal_vue_vue_type_template_id_2a6a2e2a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _GameInformationModal_vue_vue_type_template_id_2a6a2e2a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  null,
+  "2a6a2e2a",
   null
   
 )
@@ -9120,6 +9071,45 @@ component.options.__file = "resources/assets/js/components/GameTutorialModal.vue
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue":
+/*!*********************************************************************!*\
+  !*** ./resources/assets/js/components/ImageUpload/ProviderLogo.vue ***!
+  \*********************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _ProviderLogo_vue_vue_type_template_id_6ffaaf06___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./ProviderLogo.vue?vue&type=template&id=6ffaaf06& */ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=template&id=6ffaaf06&");
+/* harmony import */ var _ProviderLogo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./ProviderLogo.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=script&lang=js&");
+/* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! !../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+;
+var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__.default)(
+  _ProviderLogo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _ProviderLogo_vue_vue_type_template_id_6ffaaf06___WEBPACK_IMPORTED_MODULE_0__.render,
+  _ProviderLogo_vue_vue_type_template_id_6ffaaf06___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/assets/js/components/ImageUpload/ProviderLogo.vue"
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/NotificationModal.vue":
 /*!**************************************************************!*\
   !*** ./resources/assets/js/components/NotificationModal.vue ***!
@@ -9335,6 +9325,22 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=script&lang=js&":
+/*!**********************************************************************************************!*\
+  !*** ./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=script&lang=js& ***!
+  \**********************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProviderLogo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ProviderLogo.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_ProviderLogo_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
 /***/ "./resources/assets/js/components/NotificationModal.vue?vue&type=script&lang=js&":
 /*!***************************************************************************************!*\
   !*** ./resources/assets/js/components/NotificationModal.vue?vue&type=script&lang=js& ***!
@@ -9348,6 +9354,19 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./NotificationModal.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/NotificationModal.vue?vue&type=script&lang=js&");
  /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_NotificationModal_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css&":
+/*!**************************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css& ***!
+  \**************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_style_index_0_id_2a6a2e2a_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/style-loader/dist/cjs.js!../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=style&index=0&id=2a6a2e2a&scoped=true&lang=css&");
+
 
 /***/ }),
 
@@ -9484,19 +9503,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&":
-/*!************************************************************************************************!*\
-  !*** ./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a& ***!
-  \************************************************************************************************/
+/***/ "./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true&":
+/*!************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true& ***!
+  \************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_template_id_2a6a2e2a___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_template_id_2a6a2e2a___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_template_id_2a6a2e2a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_template_id_2a6a2e2a_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_template_id_2a6a2e2a___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GameInformationModal.vue?vue&type=template&id=2a6a2e2a& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameInformationModal_vue_vue_type_template_id_2a6a2e2a_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true&");
 
 
 /***/ }),
@@ -9599,6 +9618,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameTutorialModal_vue_vue_type_template_id_deac8114___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
 /* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_GameTutorialModal_vue_vue_type_template_id_deac8114___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./GameTutorialModal.vue?vue&type=template&id=deac8114& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameTutorialModal.vue?vue&type=template&id=deac8114&");
+
+
+/***/ }),
+
+/***/ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=template&id=6ffaaf06&":
+/*!****************************************************************************************************!*\
+  !*** ./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=template&id=6ffaaf06& ***!
+  \****************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProviderLogo_vue_vue_type_template_id_6ffaaf06___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProviderLogo_vue_vue_type_template_id_6ffaaf06___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */ });
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_ProviderLogo_vue_vue_type_template_id_6ffaaf06___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./ProviderLogo.vue?vue&type=template&id=6ffaaf06& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=template&id=6ffaaf06&");
 
 
 /***/ }),
@@ -10067,10 +10103,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&":
-/*!***************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a& ***!
-  \***************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true&":
+/*!***************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/GameInformationModal.vue?vue&type=template&id=2a6a2e2a&scoped=true& ***!
+  \***************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -10160,7 +10196,6 @@ var render = function() {
                             [
                               _c("img", {
                                 staticClass: "media-object",
-                                staticStyle: { width: "30px", height: "30px" },
                                 attrs: {
                                   alt: "icon",
                                   src: _vm.getIconUrl(icon)
@@ -10206,15 +10241,36 @@ var render = function() {
                 )
               ]),
               _vm._v(" "),
-              _c("p", [
-                _c("img", {
-                  staticClass: "img-responsive center-block",
-                  attrs: {
-                    src: _vm.activity.featured_image,
-                    alt: "featured-image"
-                  }
-                })
-              ])
+              _c(
+                "p",
+                { staticClass: "text-center" },
+                [
+                  _c("img", {
+                    staticClass: "img-responsive center-block",
+                    attrs: {
+                      src: _vm.activity.featured_image_url,
+                      alt: "featured-image"
+                    }
+                  }),
+                  _vm._v(" "),
+                  _vm.activity.featured_image &&
+                  _vm.activity.featured_image.custom_properties &&
+                  _vm.activity.featured_image.custom_properties.provider
+                    ? _c("provider-logo", {
+                        attrs: {
+                          id:
+                            _vm.activity.featured_image.custom_properties
+                              .provider.id,
+                          provider:
+                            _vm.activity.featured_image.custom_properties
+                              .provider.name,
+                          "image-width": 64
+                        }
+                      })
+                    : _vm._e()
+                ],
+                1
+              )
             ]),
             _vm._v(" "),
             _c("div", { staticClass: "modal-footer" }, [
@@ -10675,12 +10731,33 @@ var render = function() {
             _vm._v(" "),
             _c("div", { staticClass: "modal-body" }, [
               _vm.hasImage()
-                ? _c("div", [
-                    _c("img", {
-                      staticClass: "img-responsive",
-                      attrs: { src: "", alt: "image", src: _vm.image() }
-                    })
-                  ])
+                ? _c(
+                    "div",
+                    { staticClass: "text-center" },
+                    [
+                      _c("img", {
+                        staticClass: "img-responsive center-block",
+                        attrs: { src: "", alt: "image", src: _vm.image() }
+                      }),
+                      _vm._v(" "),
+                      _vm.question.image &&
+                      _vm.question.image.custom_properties &&
+                      _vm.question.image.custom_properties.provider
+                        ? _c("provider-logo", {
+                            attrs: {
+                              id:
+                                _vm.question.image.custom_properties.provider
+                                  .id,
+                              provider:
+                                _vm.question.image.custom_properties.provider
+                                  .name,
+                              "image-width": 64
+                            }
+                          })
+                        : _vm._e()
+                    ],
+                    1
+                  )
                 : _vm._e(),
               _vm._v(" "),
               _c("p", { staticClass: "sz-display-new-lines" }, [
@@ -12147,6 +12224,52 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=template&id=6ffaaf06&":
+/*!*******************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/ProviderLogo.vue?vue&type=template&id=6ffaaf06& ***!
+  \*******************************************************************************************************************************************************************************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "render": () => (/* binding */ render),
+/* harmony export */   "staticRenderFns": () => (/* binding */ staticRenderFns)
+/* harmony export */ });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _vm.provider === "ajapaik"
+    ? _c(
+        "a",
+        {
+          staticClass: "provider-logo",
+          attrs: {
+            href: "https://ajapaik.ee/photo/" + _vm.id,
+            target: "_blank"
+          }
+        },
+        [
+          _c("img", {
+            style: { width: _vm.imageWidth ? _vm.imageWidth + "px" : "32px" },
+            attrs: {
+              src:
+                "https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png",
+              alt: "ajapaik-logo"
+            }
+          })
+        ]
+      )
+    : _vm._e()
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/NotificationModal.vue?vue&type=template&id=11b58b4a&scoped=true&":
 /*!************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/NotificationModal.vue?vue&type=template&id=11b58b4a&scoped=true& ***!
@@ -12375,8 +12498,9 @@ function normalizeComponent (
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -12434,9 +12558,176 @@ function normalizeComponent (
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__("./resources/assets/js/play.js");
-/******/ 	// This entry module used 'exports' so it can't be inlined
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be in strict mode.
+(() => {
+"use strict";
+/*!*************************************!*\
+  !*** ./resources/assets/js/play.js ***!
+  \*************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! hammerjs */ "./node_modules/hammerjs/hammer.js");
+/* harmony import */ var hammerjs__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(hammerjs__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
+//"use strict";
+
+
+var messages = {};
+messages[window.RADA.config.locale] = _.cloneDeep(window.RADA.data.translations);
+var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_1__.default({
+  locale: window.RADA.config.locale,
+  messages: messages
+});
+Vue.component('game-map', __webpack_require__(/*! ./components/GameMap.vue */ "./resources/assets/js/components/GameMap.vue").default);
+Vue.component('game-tutorial-modal', __webpack_require__(/*! ./components/GameTutorialModal.vue */ "./resources/assets/js/components/GameTutorialModal.vue").default);
+Vue.component('game-information-modal', __webpack_require__(/*! ./components/GameInformationModal.vue */ "./resources/assets/js/components/GameInformationModal.vue").default);
+Vue.component('game-results-modal', __webpack_require__(/*! ./components/GameResultsModal.vue */ "./resources/assets/js/components/GameResultsModal.vue").default);
+Vue.component('game-rating-modal', __webpack_require__(/*! ./components/GameRatingModal.vue */ "./resources/assets/js/components/GameRatingModal.vue").default);
+Vue.component('game-image-dialog', __webpack_require__(/*! ./components/GameImageDialog.vue */ "./resources/assets/js/components/GameImageDialog.vue").default);
+var playGameApp = new Vue({
+  i18n: i18n,
+  el: '#sz-play-app',
+  created: function created() {
+    var vm = this;
+    vm.baseUrl = window.RADA.config.base_url;
+    vm.exitUrl = window.RADA.config.exit_url;
+    vm.isLoggedIn = window.Laravel.isLoggedIn;
+    vm.userName = window.Laravel.userName;
+    vm.game = window.RADA.data.game;
+    window.addEventListener('beforeunload', vm.leaving);
+    vm.$on('dialog:tutorial:close', function () {
+      vm.setHasSeenTotorial();
+    });
+
+    if (!vm.isGameComplete()) {
+      window.initMap = function () {
+        vm.mapInitialised = true;
+      };
+
+      vm.getGeoLocation(function (position) {
+        vm.latitude = position.coords.latitude;
+        vm.longitude = position.coords.longitude;
+      }, false, function (error) {
+        vm.geoLocationErrorMessage = error.message;
+      });
+      var script = document.createElement('script');
+      script.type = 'text/javascript';
+      script.src = '//maps.googleapis.com/maps/api/js?key=' + window.RADA.config.map.key + '&callback=initMap&libraries=geometry';
+      document.body.appendChild(script);
+    }
+  },
+  mounted: function mounted() {
+    var _this = this;
+
+    if (!this.isGameComplete()) {
+      if (!this.hasSeenTutorial()) {
+        this.$refs.tutorialModal.open();
+      } else {
+        this.$refs.informationModal.open();
+      }
+
+      this.$watch('game.complete', function () {
+        if (_this.isGameComplete()) {
+          _this.$refs.imageDialog.open();
+
+          _this.$refs.imageDialog.$once('hidden:image:dialog', function () {
+            if (_this.game.rating === null) {
+              _this.$refs.ratingModal.open(function () {
+                _this.$refs.resultsModal.open();
+              });
+            } else {
+              _this.$refs.resultsModal.open();
+            }
+          });
+        }
+      });
+    } else {
+      if (this.game.rating === null) {
+        this.$refs.ratingModal.open(function () {
+          _this.$refs.resultsModal.open();
+        });
+      } else {
+        this.$refs.resultsModal.open();
+      }
+    }
+  },
+  data: function data() {
+    return {
+      baseUrl: '',
+      exitUrl: '',
+      mapInitialised: false,
+      latitude: undefined,
+      longitude: undefined,
+      geoLocationErrorMessage: null,
+      checkUnload: true,
+      game: null,
+      isLoggedIn: false,
+      userName: ''
+    };
+  },
+  methods: {
+    isLoading: function isLoading() {
+      return !(this.mapInitialised && this.latitude && this.longitude);
+    },
+    isGameComplete: function isGameComplete() {
+      return this.game && this.game.complete;
+    },
+    getGeoLocation: function getGeoLocation(callback, watch, handleError) {
+      if (typeof handleError !== 'function') {
+        handleError = function handleError(error) {
+          if (window.console && window.console.error && typeof window.console.error === 'function') {
+            window.console.error('Geolocation error', error); // TODO Consider making traslatable
+          }
+        };
+      }
+
+      if (window.navigator.geolocation) {
+        var geolocationOptions = {
+          enableHighAccuracy: true
+        };
+
+        if (watch === true) {
+          window.navigator.geolocation.watchPosition(callback, handleError, geolocationOptions);
+        } else {
+          window.navigator.geolocation.getCurrentPosition(callback, handleError, geolocationOptions);
+        }
+      } else {
+        throw 'Geolocation is unavailable!'; // TODO Consider making translatable
+      }
+    },
+    hasGeoLocationError: function hasGeoLocationError() {
+      return !!this.geoLocationErrorMessage;
+    },
+    leaving: function leaving(event) {
+      if (!this.checkUnload) return false;
+      var message = this.$t('exit-confirmation');
+      event.returnValue = message;
+      return message;
+    },
+    exit: function exit() {
+      var confirmation = confirm(this.$t('exit-confirmation'));
+
+      if (confirmation) {
+        // Prevent unload check from being applied
+        this.checkUnload = false;
+        window.location = this.exitUrl;
+      }
+    },
+    hasSeenTutorial: function hasSeenTutorial() {
+      if (!window.sessionStorage) return false;
+      return window.sessionStorage.getItem('seen:game:tutorial') === 'true';
+    },
+    setHasSeenTotorial: function setHasSeenTotorial() {
+      if (window.sessionStorage) {
+        try {
+          window.sessionStorage.setItem('seen:game:tutorial', 'true');
+        } catch (err) {// Handles the QuotaExceededError in some versions of Safari on iOS
+        }
+      }
+    }
+  }
+});
+})();
+
 /******/ })()
 ;

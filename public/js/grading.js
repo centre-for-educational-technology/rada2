@@ -1769,39 +1769,6 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/js/grading.js":
-/*!****************************************!*\
-  !*** ./resources/assets/js/grading.js ***!
-  \****************************************/
-/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
-
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
-
-var messages = {};
-messages[window.Laravel.locale] = _.cloneDeep(window.Laravel.translations);
-var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_0__.default({
-  locale: window.Laravel.locale,
-  messages: messages
-});
-Vue.component('grading-list', __webpack_require__(/*! ./components/Grading/GradingList.vue */ "./resources/assets/js/components/Grading/GradingList.vue").default);
-var activityApp = new Vue({
-  i18n: i18n,
-  el: '#grading-list-container',
-  mounted: function mounted() {
-    this.answers = window.Laravel.answers;
-  },
-  data: function data() {
-    return {
-      baseUrl: '/',
-      answers: []
-    };
-  },
-  methods: {}
-});
-
-/***/ }),
-
 /***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/FormElementSwitch.vue?vue&type=style&index=0&id=19482fc5&scoped=true&lang=css&":
 /*!***************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/FormElementSwitch.vue?vue&type=style&index=0&id=19482fc5&scoped=true&lang=css& ***!
@@ -2035,15 +2002,15 @@ module.exports = function (cssWithMappingToString) {
       }
 
       return content;
-    }).join('');
+    }).join("");
   }; // import a list of modules into the list
   // eslint-disable-next-line func-names
 
 
   list.i = function (modules, mediaQuery, dedupe) {
-    if (typeof modules === 'string') {
+    if (typeof modules === "string") {
       // eslint-disable-next-line no-param-reassign
-      modules = [[null, modules, '']];
+      modules = [[null, modules, ""]];
     }
 
     var alreadyImportedModules = {};
@@ -2634,7 +2601,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /*!
- * vue-i18n v8.22.4 
+ * vue-i18n v8.24.2 
  * (c) 2021 kazuya kawaguchi
  * Released under the MIT License.
  */
@@ -2939,6 +2906,16 @@ var mixin = {
           options.i18n.silentFallbackWarn = rootI18n.silentFallbackWarn;
           options.i18n.pluralizationRules = rootI18n.pluralizationRules;
           options.i18n.preserveDirectiveContent = rootI18n.preserveDirectiveContent;
+          this.$root.$once('hook:beforeDestroy', function () {
+            options.i18n.root = null;
+            options.i18n.formatter = null;
+            options.i18n.fallbackLocale = null;
+            options.i18n.formatFallbackMessages = null;
+            options.i18n.silentTranslationWarn = null;
+            options.i18n.silentFallbackWarn = null;
+            options.i18n.pluralizationRules = null;
+            options.i18n.preserveDirectiveContent = null;
+          });
         }
 
         // init locale messages via custom blocks
@@ -3009,6 +2986,12 @@ var mixin = {
     } else if (options.parent && options.parent.$i18n && options.parent.$i18n instanceof VueI18n) {
       this._i18n.subscribeDataChanging(this);
       this._subscribing = true;
+    }
+  },
+
+  mounted: function mounted () {
+    if (this !== this.$root && this.$options.__INTLIFY_META__ && this.$el) {
+      this.$el.setAttribute('data-intlify', this.$options.__INTLIFY_META__);
     }
   },
 
@@ -3763,7 +3746,7 @@ I18nPath.prototype.getPathValue = function getPathValue (obj, path) {
     var i = 0;
     while (i < length) {
       var value = last[paths[i]];
-      if (value === undefined) {
+      if (value === undefined || value === null) {
         return null
       }
       last = value;
@@ -4826,7 +4809,7 @@ Object.defineProperty(VueI18n, 'availabilities', {
 });
 
 VueI18n.install = install;
-VueI18n.version = '8.22.4';
+VueI18n.version = '8.24.2';
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (VueI18n);
 
@@ -7199,8 +7182,9 @@ function normalizeComponent (
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
 /******/ 		// Check if module is in cache
-/******/ 		if(__webpack_module_cache__[moduleId]) {
-/******/ 			return __webpack_module_cache__[moduleId].exports;
+/******/ 		var cachedModule = __webpack_module_cache__[moduleId];
+/******/ 		if (cachedModule !== undefined) {
+/******/ 			return cachedModule.exports;
 /******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = __webpack_module_cache__[moduleId] = {
@@ -7258,9 +7242,37 @@ function normalizeComponent (
 /******/ 	})();
 /******/ 	
 /************************************************************************/
-/******/ 	// startup
-/******/ 	// Load entry module
-/******/ 	__webpack_require__("./resources/assets/js/grading.js");
-/******/ 	// This entry module used 'exports' so it can't be inlined
+var __webpack_exports__ = {};
+// This entry need to be wrapped in an IIFE because it need to be isolated against other modules in the chunk.
+(() => {
+/*!****************************************!*\
+  !*** ./resources/assets/js/grading.js ***!
+  \****************************************/
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var vue_i18n__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! vue-i18n */ "./node_modules/vue-i18n/dist/vue-i18n.esm.js");
+
+var messages = {};
+messages[window.Laravel.locale] = _.cloneDeep(window.Laravel.translations);
+var i18n = new vue_i18n__WEBPACK_IMPORTED_MODULE_0__.default({
+  locale: window.Laravel.locale,
+  messages: messages
+});
+Vue.component('grading-list', __webpack_require__(/*! ./components/Grading/GradingList.vue */ "./resources/assets/js/components/Grading/GradingList.vue").default);
+var activityApp = new Vue({
+  i18n: i18n,
+  el: '#grading-list-container',
+  mounted: function mounted() {
+    this.answers = window.Laravel.answers;
+  },
+  data: function data() {
+    return {
+      baseUrl: '/',
+      answers: []
+    };
+  },
+  methods: {}
+});
+})();
+
 /******/ })()
 ;
