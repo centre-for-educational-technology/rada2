@@ -33,7 +33,7 @@ class Image extends Model
         parent::boot();
 
         static::deleted(function($item) {
-            $path = public_path('uploads/images/' . $item->path . $item->file_name);
+            $path = self::getFullPath($item->path . $item->file_name);
 
             if ( File::exists($path) ) {
                 File::delete($path);
@@ -54,7 +54,7 @@ class Image extends Model
 
     public function getUrl(): string
     {
-        return asset('uploads/images/' . $this->path . $this->file_name);
+        return self::getAssetUrl($this->path . $this->file_name);
     }
 
     public function hasCustomProperty(string $propertyName): bool
@@ -80,5 +80,29 @@ class Image extends Model
     public function getExternalProvider(): array
     {
         return $this->getCustomProperty('provider', []);
+    }
+
+    /**
+     * Returns full path to an image file, prepending general image storage directory
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public static function getFullPath(string $path): string
+    {
+        return public_path('uploads/images/' . $path);
+    }
+
+    /**
+     * Returns asset URL for an image path, prepending general image storage directory
+     *
+     * @param string $path
+     *
+     * @return string
+     */
+    public static function getAssetUrl(string $path): string
+    {
+        return asset('uploads/images/' . $path);
     }
 }
