@@ -16,7 +16,7 @@
         <provider-logo
             :id="photoData.id ? photoData.id : image.custom_properties.provider.id"
             :provider="photoData.provider ? photoData.provider : image.custom_properties.provider.name"
-            v-if="showAjapaikLogo()"
+            v-if="showAjapaikLogo() || showCulturalMonumentsRegistryLogo()"
         ></provider-logo>
         <input type="checkbox"
                :name="removeInputName"
@@ -95,6 +95,12 @@
                   :locale="locale"
                   v-if="currentTab === 'ajapaik'"
               ></ajapaik-image-select>
+              <cultural-monuments-image-select
+                  :api-url="apiUrl"
+                  :base-url="baseUrl"
+                  v-if="currentTab === 'cultural-monuments-registry'"
+              >
+              </cultural-monuments-image-select>
             </div>
           </div>
         </div>
@@ -110,9 +116,10 @@ export default {
   components: {
     'upload-image-select': require('./Tabs/Upload.vue').default,
     'ajapaik-image-select': require('./Tabs/Ajapaik.vue').default,
+    'cultural-monuments-image-select': require('./Tabs/CulturalMonuments').default,
     'provider-logo': require('./ProviderLogo.vue').default
   },
-  props: ['apiUrl', 'locale', 'inputName', 'image'],
+  props: ['apiUrl', 'locale', 'inputName', 'image', 'baseUrl'],
   mounted() {
     const vm = this;
 
@@ -129,6 +136,14 @@ export default {
       this.previewUrl = imageUrl;
       this.photoData.id = id;
       this.photoData.provider = 'ajapaik';
+      this.$refs.imageUpload.$emit('remove-selected-image');
+    })
+
+    this.$on('cultural-monuments-image-selected', (id, imageUrl) => {
+      this.close();
+      this.previewUrl = imageUrl;
+      this.photoData.id = id;
+      this.photoData.provider = 'cultural-monuments-registry';
       this.$refs.imageUpload.$emit('remove-selected-image');
     });
 
@@ -207,6 +222,15 @@ export default {
       if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'ajapaik') {
         return true;
       } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'ajapaik') {
+        return true;
+      }
+
+      return false;
+    },
+    showCulturalMonumentsRegistryLogo() {
+      if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'cultural-monuments-registry') {
+        return true;
+      } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'cultural-monuments-registry') {
         return true;
       }
 

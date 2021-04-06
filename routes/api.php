@@ -2,6 +2,8 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AjapaikController;
+use App\Http\Controllers\CulturalMonumentController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -84,4 +86,8 @@ Route::group(['prefix' => 'dashboard'], static function() {
 
 Route::group(['prefix' => 'ajapaik'], static function() {
     Route::get('photos', [AjapaikController::class, 'photos']);
+});
+
+Route::group(['prefix' => 'cultural_monuments'], static function() {
+    Route::get('photos', [CulturalMonumentController::class, 'photos']);
 });

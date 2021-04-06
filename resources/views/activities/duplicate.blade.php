@@ -173,7 +173,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="featured_image"></image-upload>
+                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="featured_image" base-url="{{ url('/') }}"></image-upload>
                 </div>
 
                 @if ($errors->has('featured_image'))

@@ -414,10 +414,30 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProviderLogo",
-  props: ['id', 'provider', 'imageWidth']
+  props: ['id', 'provider', 'imageWidth'],
+  computed: {
+    pageUrl: function pageUrl() {
+      if (this.provider === 'ajapaik') {
+        return 'https://ajapaik.ee/photo/' + this.id;
+      } else if (this.provider === 'cultural-monuments-registry') {
+        // TODO This has to be changed
+        return window.Laravel.baseUrl + '/img/logos/cultural-monuments-registry.png';
+      }
+
+      return '';
+    },
+    logoUrl: function logoUrl() {
+      if (this.provider === 'ajapaik') {
+        return 'https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png';
+      } else if (this.provider === 'cultural-monuments-registry') {
+        return window.Laravel.baseUrl + '/img/logos/cultural-monuments-registry.png';
+      }
+
+      return '';
+    }
+  }
 });
 
 /***/ }),
@@ -5452,28 +5472,19 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm.provider === "ajapaik"
-    ? _c(
-        "a",
-        {
-          staticClass: "provider-logo",
-          attrs: {
-            href: "https://ajapaik.ee/photo/" + _vm.id,
-            target: "_blank"
-          }
-        },
-        [
-          _c("img", {
-            style: { width: _vm.imageWidth ? _vm.imageWidth + "px" : "32px" },
-            attrs: {
-              src:
-                "https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png",
-              alt: "ajapaik-logo"
-            }
-          })
-        ]
-      )
-    : _vm._e()
+  return _c(
+    "a",
+    {
+      staticClass: "provider-logo",
+      attrs: { href: _vm.pageUrl, target: "_blank" }
+    },
+    [
+      _c("img", {
+        style: { width: _vm.imageWidth ? _vm.imageWidth + "px" : "32px" },
+        attrs: { src: _vm.logoUrl, alt: "provider-logo" }
+      })
+    ]
+  )
 }
 var staticRenderFns = []
 render._withStripped = true

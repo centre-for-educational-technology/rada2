@@ -4,6 +4,7 @@
 namespace App\Traits;
 
 
+use App\ExternalImageResource;
 use App\Image;
 use App\Services\AjapaikService;
 use App\Services\Exceptions\PhotoDataNotLoaded;
@@ -86,6 +87,34 @@ trait InteractsWithImage
                 } catch (PhotoDataNotLoaded $e) {
                     // TODO See if there is a need to handle this exception
                 }
+                break;
+            case 'cultural-monuments-registry':
+                $imageService = app(ImageService::class);
+                $resource = ExternalImageResource::find($imageId);
+                // TODO Handle image not found case
+                $temporaryFile = $imageService->downloadImageFromUrl($resource->image_url);
+
+                $originalExtension = explode('/', mime_content_type($temporaryFile))[1];
+                $fileName = $imageService->generateUniqueFileName(self::FILE_NAME_PREFIX, $originalExtension);
+
+                $imageService->process($temporaryFile, $path, $fileName, $dimensionsConstraint);
+
+                $image = Image::create([
+                    'file_name' => $fileName,
+                    'path' => $path,
+                    'mime_type' => mime_content_type($temporaryFile),
+                    'size' => filesize($temporaryFile),
+                    'custom_properties' => [
+                        'provider' => [
+                            'name' => $provider,
+                            'id' => (int)$resource->external_data['id'],
+                            'imageUrl' => $resource->image_url,
+                        ],
+                    ],
+                ]);
+                $image->model()->associate($this)->save();
+
+                return $image;
                 break;
             default:
                 throw new \Exception('Unknown external image provider ' . $provider);

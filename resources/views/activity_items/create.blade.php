@@ -65,7 +65,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image"></image-upload>
+                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image" base-url="{{ url('/') }}"></image-upload>
                 </div>
 
                 <p class="help-block" data-loading-text="{{ trans('general.forms.alerts.image-loading-text') }}">

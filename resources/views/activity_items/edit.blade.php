@@ -70,7 +70,7 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image" :image="{{ $activity_item->hasImage() ? $activity_item->getImage() : '{}' }}"></image-upload>
+                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image" :image="{{ $activity_item->hasImage() ? $activity_item->getImage() : '{}' }}" base-url="{{ url('/') }}"></image-upload>
                 </div>
 
                 @if ($errors->has('image'))
