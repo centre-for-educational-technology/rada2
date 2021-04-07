@@ -68,7 +68,7 @@ class ImportMuinasData extends Command
 
             $this->withProgressBar($data, function($item) use (&$importedImagesCount) {
                 $itemData = $this->muinasService->getPhotoJson((int)$item['id']);
-                $importedImagesCount = count(ExternalImageResource::createFromMuinas($itemData));
+                $importedImagesCount += count(ExternalImageResource::createFromMuinas($itemData));
             });
             $this->newLine();
         }

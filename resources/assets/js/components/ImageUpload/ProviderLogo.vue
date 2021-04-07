@@ -15,22 +15,22 @@
 <script>
 export default {
   name: "ProviderLogo",
-  props: ['id', 'provider', 'imageWidth'],
+  props: ['id', 'provider', 'imageWidth', 'externalPageUrl'],
   computed: {
     pageUrl() {
-      if (this.provider === 'ajapaik') {
+      if (this.externalPageUrl) {
+        return this.externalPageUrl;
+      } else if (this.provider === 'ajapaik') {
         return 'https://ajapaik.ee/photo/' + this.id;
       } else if (this.provider === 'muinas') {
-        // TODO This has to be changed
-        // `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${this.id}&page=1&filter%5Bcmtype%5D=46`
-        return window.Laravel.baseUrl + '/img/logos/muinas.png';
+        return `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${this.id}&page=1&filter%5Bcmtype%5D=46`
       }
 
       return '';
     },
     logoUrl() {
       if (this.provider === 'ajapaik' || this.provider === 'muinas') {
-        return `${window.Laravel.baseUrl}/img/logos/${this.provider}.png`;
+        return `${window.Laravel.baseUrl ? window.Laravel.baseUrl : window.RADA.config.base_url}/img/logos/${this.provider}.png`;
       }
 
       return '';

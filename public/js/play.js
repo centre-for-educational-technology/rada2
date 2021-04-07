@@ -2849,22 +2849,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProviderLogo",
-  props: ['id', 'provider', 'imageWidth'],
+  props: ['id', 'provider', 'imageWidth', 'externalPageUrl'],
   computed: {
     pageUrl: function pageUrl() {
-      if (this.provider === 'ajapaik') {
+      if (this.externalPageUrl) {
+        return this.externalPageUrl;
+      } else if (this.provider === 'ajapaik') {
         return 'https://ajapaik.ee/photo/' + this.id;
       } else if (this.provider === 'muinas') {
-        // TODO This has to be changed
-        // `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${this.id}&page=1&filter%5Bcmtype%5D=46`
-        return window.Laravel.baseUrl + '/img/logos/muinas.png';
+        return "https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=".concat(this.id, "&page=1&filter%5Bcmtype%5D=46");
       }
 
       return '';
     },
     logoUrl: function logoUrl() {
       if (this.provider === 'ajapaik' || this.provider === 'muinas') {
-        return "".concat(window.Laravel.baseUrl, "/img/logos/").concat(this.provider, ".png");
+        return "".concat(window.Laravel.baseUrl ? window.Laravel.baseUrl : window.RADA.config.base_url, "/img/logos/").concat(this.provider, ".png");
       }
 
       return '';

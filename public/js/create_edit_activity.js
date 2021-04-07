@@ -1337,6 +1337,7 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Dialog',
   components: {
@@ -1361,15 +1362,17 @@ __webpack_require__.r(__webpack_exports__);
       _this.close();
 
       _this.previewUrl = imageUrl;
+      _this.externalPageUrl = null;
       _this.photoData.id = id;
       _this.photoData.provider = 'ajapaik';
 
       _this.$refs.imageUpload.$emit('remove-selected-image');
     });
-    this.$on('muinas-image-selected', function (id, imageUrl) {
+    this.$on('muinas-image-selected', function (id, imageUrl, externalPageUrl) {
       _this.close();
 
       _this.previewUrl = imageUrl;
+      _this.externalPageUrl = externalPageUrl;
       _this.photoData.id = id;
       _this.photoData.provider = 'muinas';
 
@@ -1377,6 +1380,7 @@ __webpack_require__.r(__webpack_exports__);
     });
     this.$on('image-upload-selected', function (imageDataUrl) {
       _this.previewUrl = imageDataUrl;
+      _this.externalPageUrl = null;
 
       if (_this.photoData.id && _this.photoData.provider) {
         _this.photoData.id = null;
@@ -1403,6 +1407,7 @@ __webpack_require__.r(__webpack_exports__);
       }],
       currentTab: 'upload',
       previewUrl: null,
+      externalPageUrl: null,
       photoData: {
         id: null,
         provider: null
@@ -1464,6 +1469,7 @@ __webpack_require__.r(__webpack_exports__);
     },
     onRemoveSelectedImage: function onRemoveSelectedImage() {
       this.previewUrl = null;
+      this.externalPageUrl = null;
 
       if (this.photoData.id && this.photoData.provider) {
         this.photoData.id = null;
@@ -1472,7 +1478,14 @@ __webpack_require__.r(__webpack_exports__);
 
       this.$refs.imageUpload.$emit('remove-selected-image');
     },
-    onRemoveUploadedImage: function onRemoveUploadedImage() {// TODO Implement me
+    getExternalPageUrl: function getExternalPageUrl() {
+      if (this.externalPageUrl) {
+        return this.externalPageUrl;
+      } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'muinas') {
+        return "https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=".concat(this.image.custom_properties.provider.id, "&page=1&filter%5Bcmtype%5D=46");
+      }
+
+      return null;
     }
   }
 });
@@ -1506,22 +1519,22 @@ __webpack_require__.r(__webpack_exports__);
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "ProviderLogo",
-  props: ['id', 'provider', 'imageWidth'],
+  props: ['id', 'provider', 'imageWidth', 'externalPageUrl'],
   computed: {
     pageUrl: function pageUrl() {
-      if (this.provider === 'ajapaik') {
+      if (this.externalPageUrl) {
+        return this.externalPageUrl;
+      } else if (this.provider === 'ajapaik') {
         return 'https://ajapaik.ee/photo/' + this.id;
       } else if (this.provider === 'muinas') {
-        // TODO This has to be changed
-        // `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${this.id}&page=1&filter%5Bcmtype%5D=46`
-        return window.Laravel.baseUrl + '/img/logos/muinas.png';
+        return "https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=".concat(this.id, "&page=1&filter%5Bcmtype%5D=46");
       }
 
       return '';
     },
     logoUrl: function logoUrl() {
       if (this.provider === 'ajapaik' || this.provider === 'muinas') {
-        return "".concat(window.Laravel.baseUrl, "/img/logos/").concat(this.provider, ".png");
+        return "".concat(window.Laravel.baseUrl ? window.Laravel.baseUrl : window.RADA.config.base_url, "/img/logos/").concat(this.provider, ".png");
       }
 
       return '';
@@ -1890,11 +1903,14 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
         vm.inAjaxCall = false;
       });
     },
+    getExternalPageUrl: function getExternalPageUrl(result) {
+      return "https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=".concat(result.external_data.id, "&page=1&filter%5Bcmtype%5D=46");
+    },
     onAddClicked: function onAddClicked(result) {
-      this.$parent.$emit('muinas-image-selected', result.id, result.image_url);
+      this.$parent.$emit('muinas-image-selected', result.id, result.image_url, this.getExternalPageUrl(result));
     },
     onDetailsClicked: function onDetailsClicked(result) {
-      window.open("https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=".concat(result.external_data.id, "&page=1&filter%5Bcmtype%5D=46"), '_blank');
+      window.open(this.getExternalPageUrl(result), '_blank');
     },
     onSearch: function onSearch() {
       this.loadPhotos({
@@ -11572,7 +11588,8 @@ var render = function() {
                     : _vm.image.custom_properties.provider.id,
                   provider: _vm.photoData.provider
                     ? _vm.photoData.provider
-                    : _vm.image.custom_properties.provider.name
+                    : _vm.image.custom_properties.provider.name,
+                  "external-page-url": _vm.getExternalPageUrl()
                 }
               })
             : _vm._e(),

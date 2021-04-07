@@ -24,9 +24,11 @@ class CreateExternalImageResourcesTable extends Migration
             $table->timestamps();
 
             $table->index('provider');
-
-            DB::statement('ALTER TABLE external_image_resources ADD FULLTEXT (title, description)');
+            $table->index('created_at');
+            $table->index('updated_at');
         });
+
+        DB::statement('ALTER TABLE external_image_resources ADD FULLTEXT (title, description)');
     }
 
     /**

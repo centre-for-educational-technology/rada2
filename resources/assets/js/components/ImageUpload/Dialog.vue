@@ -16,6 +16,7 @@
         <provider-logo
             :id="photoData.id ? photoData.id : image.custom_properties.provider.id"
             :provider="photoData.provider ? photoData.provider : image.custom_properties.provider.name"
+            :external-page-url="getExternalPageUrl()"
             v-if="showAjapaikLogo() || showMuinasLogo()"
         ></provider-logo>
         <input type="checkbox"
@@ -135,14 +136,16 @@ export default {
     this.$on('ajapaik-image-selected', (id, imageUrl) => {
       this.close();
       this.previewUrl = imageUrl;
+      this.externalPageUrl = null;
       this.photoData.id = id;
       this.photoData.provider = 'ajapaik';
       this.$refs.imageUpload.$emit('remove-selected-image');
     })
 
-    this.$on('muinas-image-selected', (id, imageUrl) => {
+    this.$on('muinas-image-selected', (id, imageUrl, externalPageUrl) => {
       this.close();
       this.previewUrl = imageUrl;
+      this.externalPageUrl = externalPageUrl;
       this.photoData.id = id;
       this.photoData.provider = 'muinas';
       this.$refs.imageUpload.$emit('remove-selected-image');
@@ -150,6 +153,7 @@ export default {
 
     this.$on('image-upload-selected', imageDataUrl => {
       this.previewUrl = imageDataUrl;
+      this.externalPageUrl = null;
 
       if (this.photoData.id && this.photoData.provider) {
         this.photoData.id = null;
@@ -181,6 +185,7 @@ export default {
       ],
       currentTab: 'upload',
       previewUrl: null,
+      externalPageUrl: null,
       photoData: {
         id: null,
         provider: null
@@ -242,6 +247,7 @@ export default {
     },
     onRemoveSelectedImage() {
       this.previewUrl = null;
+      this.externalPageUrl = null;
 
       if (this.photoData.id && this.photoData.provider) {
         this.photoData.id = null;
@@ -250,8 +256,14 @@ export default {
 
       this.$refs.imageUpload.$emit('remove-selected-image');
     },
-    onRemoveUploadedImage() {
-      // TODO Implement me
+    getExternalPageUrl() {
+      if (this.externalPageUrl) {
+        return this.externalPageUrl;
+      } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'muinas') {
+        return `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${this.image.custom_properties.provider.id}&page=1&filter%5Bcmtype%5D=46`;
+      }
+
+      return null;
     }
   }
 }
