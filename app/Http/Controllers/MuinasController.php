@@ -20,7 +20,7 @@ class MuinasController extends Controller
         if ($request->has('search')) {
             $search = trim($request->get('search'));
 
-            $query->where('title', 'like', '%' . $search . '%');
+            $query->whereRaw('MATCH (title, description) AGAINST (? IN NATURAL LANGUAGE MODE)', [$search]);
         }
 
         $result = $query->paginate(config('paginate.limit'));

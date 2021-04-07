@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Schema;
 
 class CreateExternalImageResourcesTable extends Migration
@@ -23,7 +24,8 @@ class CreateExternalImageResourcesTable extends Migration
             $table->timestamps();
 
             $table->index('provider');
-            // TODO Add FULLTEXT search logic
+
+            DB::statement('ALTER TABLE external_image_resources ADD FULLTEXT (title, description)');
         });
     }
 

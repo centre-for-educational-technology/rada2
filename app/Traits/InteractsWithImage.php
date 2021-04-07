@@ -22,8 +22,7 @@ trait InteractsWithImage
     public function addImage(UploadedFile $file, int $dimensionsConstraint = null): Image
     {
         if ($this->hasImage()) {
-            // TODO Need a special excpetion for this
-            throw new \Exception();
+            throw new \Exception('Model already has an image attached!');
         }
 
         $imageService = app(ImageService::class);
@@ -47,8 +46,12 @@ trait InteractsWithImage
 
     public function addImageFromExternalProvider(string $provider, int $imageId, int $dimensionsConstraint = null): ?Image
     {
+        if ($this->hasImage()) {
+            throw new \Exception('Model already has an image attached!');
+        }
+
         $path = $this->getStoragePath();
-        // TODO Need to use switch with exception for unknown services
+
         switch($provider) {
             case 'ajapaik':
                 $ajapaikService = app(AjapaikService::class);
