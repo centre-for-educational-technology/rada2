@@ -35,23 +35,19 @@ window.initMap = function() {
         controlUI.appendChild(navigationControlItem);
 
         var inGeoposition = false;
-        var zooSelect = document.getElementById('zoo');
         navigationControlItem.addEventListener('click', function() {
             if ( inGeoposition ) return;
             inGeoposition = true;
-            zooSelect.disabled = true;
 
             navigationControlItem.style.color = '#cccccc';
             navigator.geolocation.getCurrentPosition(
                 function(position) {
                     navigationControlItem.style.color = null;
-                    zooSelect.disabled = false;
                     inGeoposition = false;
                     cb(position);
                 },
                 function(error) {
                     navigationControlItem.style.color = null;
-                    zooSelect.disabled = false;
                     inGeoposition = false;
                     alert($t('geolocation-error'));
                     console.error('Geolocation error', error);
@@ -61,21 +57,6 @@ window.initMap = function() {
         });
 
         map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControls);
-    }
-
-    // TODO This code is a repatition of one from GameMap component
-    // It might make sense to rewrite it into a mixin
-    // This would require using a component for the map instead
-    function initGroundOverlays(map) {
-        return new google.maps.GroundOverlay(window.Laravel.baseUrl + '/img/map/overlays/skansen.png',{
-            north: 59.329167,
-            south: 59.324011,
-            east: 18.111242,
-            west: 18.099022
-        }, {
-            clickable: false,
-            map: map
-        });
     }
 
     function setLatAndLngValues(latLng) {
@@ -123,9 +104,17 @@ window.initMap = function() {
             };
         }
 
-        var defaultZoo = 3;
-        // return window.Laravel.zooGeolocationOptions[$(document).find('select[name="zoo"]').val()];
-        return window.Laravel.zooGeolocationOptions[defaultZoo];
+        return {
+            lat: Number(window.Laravel.map.latitude),
+            lng: Number(window.Laravel.map.longitude)
+        };
+    }
+
+    function getInitialZoomLevel() {
+        const latitude = document.getElementById('latitude').value,
+            longitude = document.getElementById('longitude').value;
+
+        return (latitude && longitude) ? 18 : 6;
     }
 
     var mapOptions, map, marker;
@@ -134,7 +123,7 @@ window.initMap = function() {
 
     mapOptions = {
         center: currentLatLng,
-        zoom: 18,
+        zoom: getInitialZoomLevel(),
         mapTypeId: google.maps.MapTypeId.HYBRID,
         disableDefaultUI: true,
         zoomControl: true,
@@ -163,15 +152,6 @@ window.initMap = function() {
             lat: position.coords.latitude,
             lng: position.coords.longitude
         };
-
-        repositionMarker(latLng, marker, map);
-    });
-
-    initGroundOverlays(map);
-
-    $(document).find('select[name="zoo"]').on('change', function() {
-        var value = $(this).val(),
-            latLng = window.Laravel.zooGeolocationOptions[value];
 
         repositionMarker(latLng, marker, map);
     });

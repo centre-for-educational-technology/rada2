@@ -2,7 +2,6 @@
 
 @section('header-scripts')
 <script>
-    window.Laravel.zooGeolocationOptions = <?php echo json_encode($zooGeolocationOptions); ?>;
     window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'edit-activity-item';
     window.Laravel.activityItemAssetsBaseUrl = '<?php echo asset( 'uploads/images/' . $activity_item->getStoragePath() ); ?>';
@@ -23,6 +22,10 @@
     window.Laravel.translations = <?php echo json_encode([
         'pts' => trans('general.forms.placeholders.pts')
     ]); ?>;
+    window.Laravel.map = <?php echo json_encode([
+        'latitude' => config('services.maps.default_geolocation.latitude'),
+        'longitude' => config('services.maps.default_geolocation.longitude'),
+    ]); ?>
 </script>
 @endsection
 

@@ -2,7 +2,6 @@
 
 @section('header-scripts')
 <script>
-    window.Laravel.zooGeolocationOptions = <?php echo json_encode($zooGeolocationOptions); ?>;
     window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'create-activity-item';
     window.Laravel.map = <?php echo json_encode(['enableStreetView' => config('services.maps.google.enable_street_view'),]); ?>;
@@ -19,6 +18,10 @@
     window.Laravel.translations = <?php echo json_encode([
         'pts' => trans('general.forms.placeholders.pts')
     ]); ?>;
+    window.Laravel.map = <?php echo json_encode([
+        'latitude' => config('services.maps.default_geolocation.latitude'),
+        'longitude' => config('services.maps.default_geolocation.longitude'),
+    ]); ?>
 </script>
 @endsection
 

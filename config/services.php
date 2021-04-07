@@ -52,6 +52,10 @@ return [
             'enable_street_view' => env('MAPS_ENABLE_STREET_VIEW', false),
         ],
         'allowed_distance' => env('MAPS_ALLOWED_DISTANCE', 25), // Allowed distance radius value, used within a Game
+        'default_geolocation' => [
+            'latitude' => env('MAPS_DEFAULT_LATITUDE', 58.595272),
+            'longitude' => env('MAPS_DEFAULT_LONGITUDE', 25.013607),
+        ],
     ],
     'userreport' => [
         'key' => env('USERREPORT_KEY', null),
