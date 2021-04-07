@@ -3,43 +3,43 @@
 namespace App\Console\Commands;
 
 use App\ExternalImageResource;
-use App\Services\CulturalMonumentsService;
+use App\Services\MuinasService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Http;
 
-class ImportCulturalMonumentsData extends Command
+class ImportMuinasData extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:cultural:monuments:data';
+    protected $signature = 'import:muinas:data';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import cultural monuments data';
+    protected $description = 'Import image data from register.muinas.ee';
 
     /**
-     * Cultural monuments service instance.
+     * Muinas service instance.
      *
-     * @var CulturalMonumentsService
+     * @var MuinasService
      */
-    protected $culturalMonumentsService;
+    protected $muinasService;
 
     /**
      * Create a new command instance.
      *
-     * @return void
+     * @param MuinasService $muinasService
      */
-    public function __construct(CulturalMonumentsService $culturalMonumentsService)
+    public function __construct(MuinasService $muinasService)
     {
         parent::__construct();
 
-        $this->culturalMonumentsService = $culturalMonumentsService;
+        $this->muinasService = $muinasService;
     }
 
     /**
@@ -67,8 +67,8 @@ class ImportCulturalMonumentsData extends Command
             $this->line(sprintf('Processing %d items, with total processed of %d.', $dataCount, $handledCount));
 
             $this->withProgressBar($data, function($item) use (&$importedImagesCount) {
-                $itemData = $this->culturalMonumentsService->getPhotoJson((int)$item['id']);
-                $importedImagesCount = count(ExternalImageResource::createFromCulturalMonument($itemData));
+                $itemData = $this->muinasService->getPhotoJson((int)$item['id']);
+                $importedImagesCount = count(ExternalImageResource::createFromMuinas($itemData));
             });
             $this->newLine();
         }
@@ -80,7 +80,7 @@ class ImportCulturalMonumentsData extends Command
 
     private function loadPhotoLibraryData(int $limit, int $offset): array
     {
-        $photoLibraryApiUrl = $this->culturalMonumentsService::photosApiUrl();
+        $photoLibraryApiUrl = $this->muinasService::photosApiUrl();
 
         $response = Http::get($photoLibraryApiUrl, [
             'limit' => $limit,

@@ -16,7 +16,7 @@
         <provider-logo
             :id="photoData.id ? photoData.id : image.custom_properties.provider.id"
             :provider="photoData.provider ? photoData.provider : image.custom_properties.provider.name"
-            v-if="showAjapaikLogo() || showCulturalMonumentsRegistryLogo()"
+            v-if="showAjapaikLogo() || showMuinasLogo()"
         ></provider-logo>
         <input type="checkbox"
                :name="removeInputName"
@@ -93,14 +93,15 @@
               <ajapaik-image-select
                   :api-url="apiUrl"
                   :locale="locale"
+                  :base-url="baseUrl"
                   v-if="currentTab === 'ajapaik'"
               ></ajapaik-image-select>
-              <cultural-monuments-image-select
+              <muinas-image-select
                   :api-url="apiUrl"
                   :base-url="baseUrl"
-                  v-if="currentTab === 'cultural-monuments-registry'"
+                  v-if="currentTab === 'muinas'"
               >
-              </cultural-monuments-image-select>
+              </muinas-image-select>
             </div>
           </div>
         </div>
@@ -116,7 +117,7 @@ export default {
   components: {
     'upload-image-select': require('./Tabs/Upload.vue').default,
     'ajapaik-image-select': require('./Tabs/Ajapaik.vue').default,
-    'cultural-monuments-image-select': require('./Tabs/CulturalMonuments').default,
+    'muinas-image-select': require('./Tabs/Muinas').default,
     'provider-logo': require('./ProviderLogo.vue').default
   },
   props: ['apiUrl', 'locale', 'inputName', 'image', 'baseUrl'],
@@ -139,11 +140,11 @@ export default {
       this.$refs.imageUpload.$emit('remove-selected-image');
     })
 
-    this.$on('cultural-monuments-image-selected', (id, imageUrl) => {
+    this.$on('muinas-image-selected', (id, imageUrl) => {
       this.close();
       this.previewUrl = imageUrl;
       this.photoData.id = id;
-      this.photoData.provider = 'cultural-monuments-registry';
+      this.photoData.provider = 'muinas';
       this.$refs.imageUpload.$emit('remove-selected-image');
     });
 
@@ -174,7 +175,7 @@ export default {
           name: 'Ajapaik'
         },
         {
-          key: 'cultural-monuments-registry',
+          key: 'muinas',
           name: this.$t('image-upload.tabs.cultural-monuments-registry')
         }
       ],
@@ -227,10 +228,10 @@ export default {
 
       return false;
     },
-    showCulturalMonumentsRegistryLogo() {
-      if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'cultural-monuments-registry') {
+    showMuinasLogo() {
+      if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'muinas') {
         return true;
-      } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'cultural-monuments-registry') {
+      } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'muinas') {
         return true;
       }
 

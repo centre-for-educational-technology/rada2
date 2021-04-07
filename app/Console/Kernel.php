@@ -18,7 +18,7 @@ class Kernel extends ConsoleKernel
     protected $commands = [
         Commands\MigratePublicStorage::class,
         Commands\ExportActivity::class,
-        Commands\ImportCulturalMonumentsData::class,
+        Commands\ImportMuinasData::class,
     ];
 
     /**

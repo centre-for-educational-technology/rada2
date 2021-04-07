@@ -20,18 +20,17 @@ export default {
     pageUrl() {
       if (this.provider === 'ajapaik') {
         return 'https://ajapaik.ee/photo/' + this.id;
-      } else if (this.provider === 'cultural-monuments-registry') {
+      } else if (this.provider === 'muinas') {
         // TODO This has to be changed
-        return window.Laravel.baseUrl + '/img/logos/cultural-monuments-registry.png';
+        // `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${this.id}&page=1&filter%5Bcmtype%5D=46`
+        return window.Laravel.baseUrl + '/img/logos/muinas.png';
       }
 
       return '';
     },
     logoUrl() {
-      if (this.provider === 'ajapaik') {
-        return 'https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png';
-      } else if (this.provider === 'cultural-monuments-registry') {
-        return window.Laravel.baseUrl + '/img/logos/cultural-monuments-registry.png';
+      if (this.provider === 'ajapaik' || this.provider === 'muinas') {
+        return `${window.Laravel.baseUrl}/img/logos/${this.provider}.png`;
       }
 
       return '';

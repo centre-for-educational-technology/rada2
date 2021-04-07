@@ -6,7 +6,7 @@ use App\ExternalImageResource;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
-class CulturalMonumentController extends Controller
+class MuinasController extends Controller
 {
     public function photos(Request $request): JsonResponse
     {
@@ -15,13 +15,15 @@ class CulturalMonumentController extends Controller
             'results' => [],
         ];
 
+        $query = ExternalImageResource::where('provider', '=', 'muinas');
+
         if ($request->has('search')) {
             $search = trim($request->get('search'));
 
-            $result = ExternalImageResource::where('title', 'like', '%' . $search . '%')->paginate(config('paginate.limit'));
-        } else {
-            $result = ExternalImageResource::paginate(config('paginate.limit'));
+            $query->where('title', 'like', '%' . $search . '%');
         }
+
+        $result = $query->paginate(config('paginate.limit'));
 
         $data['results'] = $result->items();
         $data['total'] = $result->total();

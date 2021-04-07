@@ -1,9 +1,14 @@
 <template>
-  <div class="cultural-monuments">
-    <img
-        :src="logoUrl"
-        alt="cultural-monuments-registry-logo"
-        class="icon">
+  <div class="muinas">
+    <a
+        href="https://register.muinas.ee/public.php?menuID=photolibraryinfo&action=view&page=fotokogu_info"
+        target="_blank"
+    >
+      <img
+          :src="logoUrl"
+          alt="muinas-logo"
+          class="icon">
+    </a>
 
     <div class="form-group">
       <div class="input-group">
@@ -81,7 +86,7 @@
 
 <script>
 export default {
-  name: 'CulturalMonuments',
+  name: 'Muinas',
   props: ['apiUrl', 'baseUrl'],
   mounted() {
     const vm = this;
@@ -90,7 +95,7 @@ export default {
   },
   computed: {
     logoUrl() {
-      return this.baseUrl + '/img/logos/cultural-monuments-registry.png';
+      return this.baseUrl + '/img/logos/muinas.png';
     }
   },
   data() {
@@ -106,7 +111,7 @@ export default {
     loadPhotos(params, append) {
       const vm = this;
       const data = {};
-      let url = this.apiUrl + '/cultural_monuments/photos';
+      let url = this.apiUrl + '/muinas/photos';
 
       if (params) {
         data.params = params;
@@ -133,7 +138,7 @@ export default {
       });
     },
     onAddClicked(result) {
-      this.$parent.$emit('cultural-monuments-image-selected', result.id, result.image_url);
+      this.$parent.$emit('muinas-image-selected', result.id, result.image_url);
     },
     onDetailsClicked(result) {
       window.open(`https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${result.external_data.id}&page=1&filter%5Bcmtype%5D=46`, '_blank');
@@ -151,17 +156,17 @@ export default {
 </script>
 
 <style scoped>
-.cultural-monuments .icon {
-  max-width: 240px;
+.muinas .icon {
+  max-width: 120px;
   margin-bottom: 1em;
 }
 
-.cultural-monuments .form-group {
+.muinas .form-group {
   margin-left: 0;
   margin-right: 0;
 }
 
-.cultural-monuments .badge {
+.muinas .badge {
   margin-bottom: 1em;
 }
 

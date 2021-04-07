@@ -88,7 +88,7 @@ trait InteractsWithImage
                     // TODO See if there is a need to handle this exception
                 }
                 break;
-            case 'cultural-monuments-registry':
+            case 'muinas':
                 $imageService = app(ImageService::class);
                 $resource = ExternalImageResource::find($imageId);
                 // TODO Handle image not found case

@@ -1336,12 +1336,13 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Dialog',
   components: {
     'upload-image-select': __webpack_require__(/*! ./Tabs/Upload.vue */ "./resources/assets/js/components/ImageUpload/Tabs/Upload.vue").default,
     'ajapaik-image-select': __webpack_require__(/*! ./Tabs/Ajapaik.vue */ "./resources/assets/js/components/ImageUpload/Tabs/Ajapaik.vue").default,
-    'cultural-monuments-image-select': __webpack_require__(/*! ./Tabs/CulturalMonuments */ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue").default,
+    'muinas-image-select': __webpack_require__(/*! ./Tabs/Muinas */ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue").default,
     'provider-logo': __webpack_require__(/*! ./ProviderLogo.vue */ "./resources/assets/js/components/ImageUpload/ProviderLogo.vue").default
   },
   props: ['apiUrl', 'locale', 'inputName', 'image', 'baseUrl'],
@@ -1365,12 +1366,12 @@ __webpack_require__.r(__webpack_exports__);
 
       _this.$refs.imageUpload.$emit('remove-selected-image');
     });
-    this.$on('cultural-monuments-image-selected', function (id, imageUrl) {
+    this.$on('muinas-image-selected', function (id, imageUrl) {
       _this.close();
 
       _this.previewUrl = imageUrl;
       _this.photoData.id = id;
-      _this.photoData.provider = 'cultural-monuments-registry';
+      _this.photoData.provider = 'muinas';
 
       _this.$refs.imageUpload.$emit('remove-selected-image');
     });
@@ -1397,7 +1398,7 @@ __webpack_require__.r(__webpack_exports__);
         key: 'ajapaik',
         name: 'Ajapaik'
       }, {
-        key: 'cultural-monuments-registry',
+        key: 'muinas',
         name: this.$t('image-upload.tabs.cultural-monuments-registry')
       }],
       currentTab: 'upload',
@@ -1449,10 +1450,10 @@ __webpack_require__.r(__webpack_exports__);
 
       return false;
     },
-    showCulturalMonumentsRegistryLogo: function showCulturalMonumentsRegistryLogo() {
-      if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'cultural-monuments-registry') {
+    showMuinasLogo: function showMuinasLogo() {
+      if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'muinas') {
         return true;
-      } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'cultural-monuments-registry') {
+      } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'muinas') {
         return true;
       }
 
@@ -1510,18 +1511,17 @@ __webpack_require__.r(__webpack_exports__);
     pageUrl: function pageUrl() {
       if (this.provider === 'ajapaik') {
         return 'https://ajapaik.ee/photo/' + this.id;
-      } else if (this.provider === 'cultural-monuments-registry') {
+      } else if (this.provider === 'muinas') {
         // TODO This has to be changed
-        return window.Laravel.baseUrl + '/img/logos/cultural-monuments-registry.png';
+        // `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${this.id}&page=1&filter%5Bcmtype%5D=46`
+        return window.Laravel.baseUrl + '/img/logos/muinas.png';
       }
 
       return '';
     },
     logoUrl: function logoUrl() {
-      if (this.provider === 'ajapaik') {
-        return 'https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png';
-      } else if (this.provider === 'cultural-monuments-registry') {
-        return window.Laravel.baseUrl + '/img/logos/cultural-monuments-registry.png';
+      if (this.provider === 'ajapaik' || this.provider === 'muinas') {
+        return "".concat(window.Laravel.baseUrl, "/img/logos/").concat(this.provider, ".png");
       }
 
       return '';
@@ -1635,9 +1635,19 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: 'Ajapaik',
-  props: ['apiUrl', 'locale'],
+  props: ['apiUrl', 'locale', 'baseUrl'],
+  computed: {
+    logoUrl: function logoUrl() {
+      return this.baseUrl + '/img/logos/ajapaik.png';
+    }
+  },
   mounted: function mounted() {
     var vm = this;
     this.loadPhotos(null, false);
@@ -1719,10 +1729,10 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 
 /***/ }),
 
-/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=script&lang=js&":
-/*!************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=script&lang=js& ***!
-  \************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=script&lang=js&":
+/*!*************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -1823,8 +1833,13 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
-  name: 'CulturalMonuments',
+  name: 'Muinas',
   props: ['apiUrl', 'baseUrl'],
   mounted: function mounted() {
     var vm = this;
@@ -1832,7 +1847,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   computed: {
     logoUrl: function logoUrl() {
-      return this.baseUrl + '/img/logos/cultural-monuments-registry.png';
+      return this.baseUrl + '/img/logos/muinas.png';
     }
   },
   data: function data() {
@@ -1848,7 +1863,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     loadPhotos: function loadPhotos(params, append) {
       var vm = this;
       var data = {};
-      var url = this.apiUrl + '/cultural_monuments/photos';
+      var url = this.apiUrl + '/muinas/photos';
 
       if (params) {
         data.params = params;
@@ -1876,7 +1891,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       });
     },
     onAddClicked: function onAddClicked(result) {
-      this.$parent.$emit('cultural-monuments-image-selected', result.id, result.image_url);
+      this.$parent.$emit('muinas-image-selected', result.id, result.image_url);
     },
     onDetailsClicked: function onDetailsClicked(result) {
       window.open("https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=".concat(result.external_data.id, "&page=1&filter%5Bcmtype%5D=46"), '_blank');
@@ -2567,10 +2582,10 @@ ___CSS_LOADER_EXPORT___.push([module.id, "\n.ajapaik .icon[data-v-48881b44] {\n 
 
 /***/ }),
 
-/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css&":
-/*!********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css& ***!
-  \********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css&":
+/*!*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css& ***!
+  \*********************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -2584,7 +2599,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.cultural-monuments .icon[data-v-71266e03] {\n  max-width: 240px;\n  margin-bottom: 1em;\n}\n.cultural-monuments .form-group[data-v-71266e03] {\n  margin-left: 0;\n  margin-right: 0;\n}\n.cultural-monuments .badge[data-v-71266e03] {\n  margin-bottom: 1em;\n}\n\n/* This one is needed for meaningful distribution. Source: https://stackoverflow.com/a/45435596/2704169*/\n.row[data-v-71266e03]{\n  display: flex;\n  flex-wrap: wrap;\n}\n.row>[class=\"col-sm-6 col-md-4\"][data-v-71266e03]{\n  display: flex;\n  flex-direction: column;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.muinas .icon[data-v-168a6294] {\n  max-width: 120px;\n  margin-bottom: 1em;\n}\n.muinas .form-group[data-v-168a6294] {\n  margin-left: 0;\n  margin-right: 0;\n}\n.muinas .badge[data-v-168a6294] {\n  margin-bottom: 1em;\n}\n\n/* This one is needed for meaningful distribution. Source: https://stackoverflow.com/a/45435596/2704169*/\n.row[data-v-168a6294]{\n  display: flex;\n  flex-wrap: wrap;\n}\n.row>[class=\"col-sm-6 col-md-4\"][data-v-168a6294]{\n  display: flex;\n  flex-direction: column;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -6522,10 +6537,10 @@ var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js
 
 /***/ }),
 
-/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css&":
-/*!************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css& ***!
-  \************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css&":
+/*!*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css& ***!
+  \*************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -6535,7 +6550,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! !../../../../../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js */ "./node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js");
 /* harmony import */ var _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_style_index_0_id_71266e03_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_style_index_0_id_168a6294_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! !!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css& */ "./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css&");
 
             
 
@@ -6544,11 +6559,11 @@ var options = {};
 options.insert = "head";
 options.singleton = false;
 
-var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_style_index_0_id_71266e03_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
+var update = _node_modules_style_loader_dist_runtime_injectStylesIntoStyleTag_js__WEBPACK_IMPORTED_MODULE_0___default()(_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_style_index_0_id_168a6294_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default, options);
 
 
 
-/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_style_index_0_id_71266e03_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_style_index_0_id_168a6294_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_1__.default.locals || {});
 
 /***/ }),
 
@@ -9319,10 +9334,10 @@ component.options.__file = "resources/assets/js/components/ImageUpload/Tabs/Ajap
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue":
-/*!*******************************************************************************!*\
-  !*** ./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue ***!
-  \*******************************************************************************/
+/***/ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue":
+/*!********************************************************************!*\
+  !*** ./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue ***!
+  \********************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9330,9 +9345,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _CulturalMonuments_vue_vue_type_template_id_71266e03_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true& */ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true&");
-/* harmony import */ var _CulturalMonuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./CulturalMonuments.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=script&lang=js&");
-/* harmony import */ var _CulturalMonuments_vue_vue_type_style_index_0_id_71266e03_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css& */ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css&");
+/* harmony import */ var _Muinas_vue_vue_type_template_id_168a6294_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Muinas.vue?vue&type=template&id=168a6294&scoped=true& */ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=template&id=168a6294&scoped=true&");
+/* harmony import */ var _Muinas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Muinas.vue?vue&type=script&lang=js& */ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=script&lang=js&");
+/* harmony import */ var _Muinas_vue_vue_type_style_index_0_id_168a6294_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css& */ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css&");
 /* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! !../../../../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
 
 
@@ -9343,19 +9358,19 @@ __webpack_require__.r(__webpack_exports__);
 /* normalize component */
 
 var component = (0,_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_3__.default)(
-  _CulturalMonuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
-  _CulturalMonuments_vue_vue_type_template_id_71266e03_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
-  _CulturalMonuments_vue_vue_type_template_id_71266e03_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
+  _Muinas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__.default,
+  _Muinas_vue_vue_type_template_id_168a6294_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render,
+  _Muinas_vue_vue_type_template_id_168a6294_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns,
   false,
   null,
-  "71266e03",
+  "168a6294",
   null
   
 )
 
 /* hot reload */
 if (false) { var api; }
-component.options.__file = "resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue"
+component.options.__file = "resources/assets/js/components/ImageUpload/Tabs/Muinas.vue"
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (component.exports);
 
 /***/ }),
@@ -9561,10 +9576,10 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=script&lang=js&":
-/*!********************************************************************************************************!*\
-  !*** ./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=script&lang=js& ***!
-  \********************************************************************************************************/
+/***/ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************!*\
+  !*** ./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -9572,8 +9587,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CulturalMonuments.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=script&lang=js&");
- /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Muinas.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js??clonedRuleSet-5[0].rules[0].use[0]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=script&lang=js&");
+ /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (_node_modules_babel_loader_lib_index_js_clonedRuleSet_5_0_rules_0_use_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__.default); 
 
 /***/ }),
 
@@ -9664,15 +9679,15 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css&":
-/*!****************************************************************************************************************************************!*\
-  !*** ./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css& ***!
-  \****************************************************************************************************************************************/
+/***/ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css&":
+/*!*****************************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css& ***!
+  \*****************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_style_index_0_id_71266e03_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=style&index=0&id=71266e03&scoped=true&lang=css&");
+/* harmony import */ var _node_modules_style_loader_dist_cjs_js_node_modules_css_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_1_node_modules_vue_loader_lib_loaders_stylePostLoader_js_node_modules_postcss_loader_dist_cjs_js_clonedRuleSet_9_0_rules_0_use_2_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_style_index_0_id_168a6294_scoped_true_lang_css___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/style-loader/dist/cjs.js!../../../../../../node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!../../../../../../node_modules/vue-loader/lib/loaders/stylePostLoader.js!../../../../../../node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css& */ "./node_modules/style-loader/dist/cjs.js!./node_modules/css-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[1]!./node_modules/vue-loader/lib/loaders/stylePostLoader.js!./node_modules/postcss-loader/dist/cjs.js??clonedRuleSet-9[0].rules[0].use[2]!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=style&index=0&id=168a6294&scoped=true&lang=css&");
 
 
 /***/ }),
@@ -9788,19 +9803,19 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
-/***/ "./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true&":
-/*!**************************************************************************************************************************!*\
-  !*** ./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true& ***!
-  \**************************************************************************************************************************/
+/***/ "./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=template&id=168a6294&scoped=true&":
+/*!***************************************************************************************************************!*\
+  !*** ./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=template&id=168a6294&scoped=true& ***!
+  \***************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_template_id_71266e03_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
-/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_template_id_71266e03_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
+/* harmony export */   "render": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_template_id_168a6294_scoped_true___WEBPACK_IMPORTED_MODULE_0__.render),
+/* harmony export */   "staticRenderFns": () => (/* reexport safe */ _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_template_id_168a6294_scoped_true___WEBPACK_IMPORTED_MODULE_0__.staticRenderFns)
 /* harmony export */ });
-/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_CulturalMonuments_vue_vue_type_template_id_71266e03_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true&");
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Muinas_vue_vue_type_template_id_168a6294_scoped_true___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../../../../node_modules/vue-loader/lib/index.js??vue-loader-options!./Muinas.vue?vue&type=template&id=168a6294&scoped=true& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=template&id=168a6294&scoped=true&");
 
 
 /***/ }),
@@ -11549,7 +11564,7 @@ var render = function() {
               })
             : _vm._e(),
           _vm._v(" "),
-          _vm.showAjapaikLogo() || _vm.showCulturalMonumentsRegistryLogo()
+          _vm.showAjapaikLogo() || _vm.showMuinasLogo()
             ? _c("provider-logo", {
                 attrs: {
                   id: _vm.photoData.id
@@ -11728,12 +11743,16 @@ var render = function() {
                     _vm._v(" "),
                     _vm.currentTab === "ajapaik"
                       ? _c("ajapaik-image-select", {
-                          attrs: { "api-url": _vm.apiUrl, locale: _vm.locale }
+                          attrs: {
+                            "api-url": _vm.apiUrl,
+                            locale: _vm.locale,
+                            "base-url": _vm.baseUrl
+                          }
                         })
                       : _vm._e(),
                     _vm._v(" "),
-                    _vm.currentTab === "cultural-monuments-registry"
-                      ? _c("cultural-monuments-image-select", {
+                    _vm.currentTab === "muinas"
+                      ? _c("muinas-image-select", {
                           attrs: {
                             "api-url": _vm.apiUrl,
                             "base-url": _vm.baseUrl
@@ -11812,13 +11831,12 @@ var render = function() {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "ajapaik" }, [
-    _c("img", {
-      staticClass: "icon",
-      attrs: {
-        src: "https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png",
-        alt: "ajapaik-logo"
-      }
-    }),
+    _c("a", { attrs: { href: "https://ajapaik.ee", target: "_blank" } }, [
+      _c("img", {
+        staticClass: "icon",
+        attrs: { src: _vm.logoUrl, alt: "ajapaik-logo" }
+      })
+    ]),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("div", { staticClass: "input-group" }, [
@@ -11984,10 +12002,10 @@ render._withStripped = true
 
 /***/ }),
 
-/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true&":
-/*!*****************************************************************************************************************************************************************************************************************************************************************!*\
-  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/CulturalMonuments.vue?vue&type=template&id=71266e03&scoped=true& ***!
-  \*****************************************************************************************************************************************************************************************************************************************************************/
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=template&id=168a6294&scoped=true&":
+/*!******************************************************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib/index.js??vue-loader-options!./resources/assets/js/components/ImageUpload/Tabs/Muinas.vue?vue&type=template&id=168a6294&scoped=true& ***!
+  \******************************************************************************************************************************************************************************************************************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
@@ -12000,11 +12018,23 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "cultural-monuments" }, [
-    _c("img", {
-      staticClass: "icon",
-      attrs: { src: _vm.logoUrl, alt: "cultural-monuments-registry-logo" }
-    }),
+  return _c("div", { staticClass: "muinas" }, [
+    _c(
+      "a",
+      {
+        attrs: {
+          href:
+            "https://register.muinas.ee/public.php?menuID=photolibraryinfo&action=view&page=fotokogu_info",
+          target: "_blank"
+        }
+      },
+      [
+        _c("img", {
+          staticClass: "icon",
+          attrs: { src: _vm.logoUrl, alt: "muinas-logo" }
+        })
+      ]
+    ),
     _vm._v(" "),
     _c("div", { staticClass: "form-group" }, [
       _c("div", { staticClass: "input-group" }, [

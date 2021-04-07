@@ -1,9 +1,14 @@
 <template>
   <div class="ajapaik">
-    <img
-        src="https://ajapaik.ee/static/images/ajapaik_266px.7d65ad54a95f.png"
-        alt="ajapaik-logo"
-        class="icon">
+    <a
+        href="https://ajapaik.ee"
+        target="_blank"
+    >
+      <img
+          :src="logoUrl"
+          alt="ajapaik-logo"
+          class="icon">
+    </a>
 
     <div class="form-group">
       <div class="input-group">
@@ -82,7 +87,12 @@
 <script>
 export default {
   name: 'Ajapaik',
-  props: ['apiUrl', 'locale'],
+  props: ['apiUrl', 'locale', 'baseUrl'],
+  computed: {
+    logoUrl() {
+      return this.baseUrl + '/img/logos/ajapaik.png';
+    }
+  },
   mounted() {
     const vm = this;
 

@@ -5,7 +5,7 @@ namespace App\Services;
 use App\Services\Exceptions\PhotoDataNotLoaded;
 use Illuminate\Support\Facades\Http;
 
-class CulturalMonumentsService
+class MuinasService
 {
     CONST OPEN_DATA_BASE_URL = 'https://register.muinas.ee/rest/v1';
 
@@ -30,7 +30,6 @@ class CulturalMonumentsService
      */
     public function getPhotoJson(int $id): array
     {
-        // TODO We might need two different methods for call with retries and without them
         $response = Http::retry(5, 500)->get(self::photoApiUrl($id));
 
         if (!$response->ok()) {

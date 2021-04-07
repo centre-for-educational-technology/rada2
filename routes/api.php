@@ -2,7 +2,7 @@
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\AjapaikController;
-use App\Http\Controllers\CulturalMonumentController;
+use App\Http\Controllers\MuinasController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -88,6 +88,6 @@ Route::group(['prefix' => 'ajapaik'], static function() {
     Route::get('photos', [AjapaikController::class, 'photos']);
 });
 
-Route::group(['prefix' => 'cultural_monuments'], static function() {
-    Route::get('photos', [CulturalMonumentController::class, 'photos']);
+Route::group(['prefix' => 'muinas'], static function() {
+    Route::get('photos', [MuinasController::class, 'photos']);
 });

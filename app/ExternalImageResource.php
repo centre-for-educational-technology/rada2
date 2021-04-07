@@ -13,7 +13,7 @@ class ExternalImageResource extends Model
 
     use HasFactory;
 
-    public static function createFromCulturalMonument(array $data): array
+    public static function createFromMuinas(array $data): array
     {
         $resources = [];
 
@@ -22,7 +22,7 @@ class ExternalImageResource extends Model
             $resource = new self;
             $resource->title = $data['title'];
             $resource->description = '';
-            $resource->provider = 'cultural_monuments';
+            $resource->provider = 'muinas';
             $resource->image_url = $image['file'];
             $resource->external_data = $data;
             $resource->save();
