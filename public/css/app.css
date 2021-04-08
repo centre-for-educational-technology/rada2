@@ -32282,3 +32282,8 @@ a.provider-logo.provider-logo-absolute {
   left: 0;
   bottom: 0;
 }
+
+i.mdi.help-icon-with-tooltip {
+  cursor: pointer;
+  vertical-align: text-top;
+}

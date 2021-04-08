@@ -155,7 +155,8 @@ class Game extends Model
             'proximity_radius' => $activity->proximity_radius ? $activity->proximity_radius : (int)config('services.maps.allowed_distance'),
             'questions' => [],
             'enforce_items_order' => (int) $activity->enforce_items_order > 0 ? 1 : 0,
-            'started' => $activity->started
+            'started' => $activity->started,
+            'public_path' => $activity->isPublicPath(),
         ];
 
         if ( $activity->activityItems ) {

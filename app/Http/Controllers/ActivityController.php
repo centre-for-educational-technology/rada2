@@ -393,6 +393,7 @@ class ActivityController extends Controller
         $activity->subject = $request->subject ? $request->subject : '';
         $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
         $activity->is_template = (bool) $request->is_template;
+        $activity->public_path = (bool)$request->get('public_path');
 
         $this->saveInstructors($request, $activity);
 
@@ -724,6 +725,7 @@ class ActivityController extends Controller
         $activity->subject = $request->subject ? $request->subject : '';
         $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';
         $activity->is_template = (bool) $request->is_template;
+        $activity->public_path = (bool) $request->get('public_path');
 
         if ( $request->has('proximity_check') )
         {

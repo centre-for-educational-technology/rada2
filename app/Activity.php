@@ -370,4 +370,14 @@ class Activity extends Model implements HasImage
     {
         return (bool)$this->started;
     }
+
+    /**
+     * Determines if current activity is a public path
+     *
+     * @return bool
+     */
+    public function isPublicPath(): bool
+    {
+        return !!$this->public_path;
+    }
 }

@@ -91,6 +91,24 @@
         </div>
     @endcan
 
+        <div class="form-group">
+            <div class="checkbox col-md-6 col-md-offset-4">
+                <label>
+                    {!! Form::checkbox('public_path', 1, false) !!}
+                    {{ trans('general.forms.labels.public-path') }}
+                </label>
+
+                <i
+                        class="mdi mdi-help-circle-outline help-icon-with-tooltip"
+                        aria-hidden="true"
+                        data-toggle="tooltip"
+                        data-placement="right"
+                        data-trigger="hover"
+                        title="{{ trans('general.forms.tooltips.public-path') }}"
+                ></i>
+            </div>
+        </div>
+
         <div class="form-group{{ $errors->has('playing_time') ? ' has-error' : '' }}">
             {!! Form::label('playing_time', trans('general.forms.labels.playing-time'), [
                 'class' => 'col-md-4 control-label',

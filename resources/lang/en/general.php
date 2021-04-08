@@ -91,7 +91,8 @@ return [
                'hour' => 'H',
                'minute' => 'm',
                'second' => 's'
-           ]
+           ],
+           'public-path' => 'Public path',
        ],
        'help' => [
            'playing-time' => 'Games time in minutes',
@@ -153,6 +154,7 @@ return [
            'remove-image' => 'Check to remove an existing image',
            'remove-selected-image' => 'Remove currently selected image',
            'mark-option-as-correct' => 'Check to mark option as correct',
+           'public-path' => 'All results will be public during and after the gameplay',
        ],
        'warnings' => [
            'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',
