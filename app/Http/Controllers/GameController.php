@@ -64,7 +64,7 @@ class GameController extends Controller
             'getAllMessages',
             'addNewMessage',
             'deleteMessage',
-            'startQuestion'
+            'startQuestion',
         ]]);
     }
 

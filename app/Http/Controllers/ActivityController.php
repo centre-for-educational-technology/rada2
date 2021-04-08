@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\ActivityInstructor;
+use App\GameAnswer;
 use App\HT2Labs\XApi\LrsService;
 use App\HT2Labs\XApi\StatementData;
+use App\Http\Resources\PublicAnswerResource;
 use App\Image;
 use App\Jobs\ProcessLrsRequest;
 use App\Options\AgeOfParticipantsOptions;
@@ -14,6 +16,7 @@ use App\Utils\RandomStringGenerator;
 use App\Utils\RandomUniqueNumberGenerator;
 use Exception;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreActivity;
@@ -973,5 +976,45 @@ class ActivityController extends Controller
         return redirect()->route('activity.show', [
             'activity' => $activity->id
         ]);
+    }
+
+    public function apiPublicAnswers(Activity $activity): JsonResponse
+    {
+        if (!$activity->isStarted() || !$activity->isPublicPath()) {
+            return response()->json([], 403);
+        }
+
+        $data = [
+            'total' => 0,
+            'results' => [],
+        ];
+
+        $result = GameAnswer::select('game_answers.*')
+            ->join('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
+            ->join('activity_activity_item', 'activity_activity_item.activity_item_id', '=', 'activity_items.id')
+            ->where('activity_activity_item.activity_id', '=', $activity->id)
+            ->where(function($query) {
+                $query->where('activity_items.type', '=', QuestionTypeOptions::FREEFORM_ANSWER)
+                    ->orWhere('activity_items.type', '=', QuestiontypeOptions::PHOTO);
+            })
+            ->with(['game.user'])
+            ->orderBy('game_answers.created_at', 'desc')
+            ->paginate(config('paginate.limit'));
+
+        $data['results'] = PublicAnswerResource::collection($result->items());
+        $data['total'] = $result->total();
+
+        $previousPageUrl = $result->previousPageUrl();
+        $nextPageUrl = $result->nextPageUrl();
+
+        if ($previousPageUrl) {
+            $data['previous'] = $previousPageUrl;
+        }
+
+        if ($nextPageUrl) {
+            $data['next'] = $nextPageUrl;
+        }
+
+        return response()->json($data);
     }
 }

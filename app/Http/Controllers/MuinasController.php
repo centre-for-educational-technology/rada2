@@ -27,8 +27,17 @@ class MuinasController extends Controller
 
         $data['results'] = $result->items();
         $data['total'] = $result->total();
-        $data['previous'] = $result->previousPageUrl();
-        $data['next'] = $result->nextPageUrl();
+
+        $previousPageUrl = $result->previousPageUrl();
+        $nextPageUrl = $result->nextPageUrl();
+
+        if ($previousPageUrl) {
+            $data['previous'] = $previousPageUrl;
+        }
+
+        if ($nextPageUrl) {
+            $data['next'] = $nextPageUrl;
+        }
 
         return response()->json($data);
     }
