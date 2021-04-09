@@ -94,8 +94,6 @@ export default {
     }
   },
   mounted() {
-    const vm = this;
-
     this.loadPhotos(null, false);
   },
   data() {

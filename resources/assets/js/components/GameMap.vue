@@ -8,6 +8,7 @@
                 v-bind:answer="answer"
                 v-bind:game-id="game.id"
                 v-bind:base-url="baseUrl"
+                v-bind:activity="game.activity"
                 v-if="question"
                 ref="questionModal">
         </game-question-modal>

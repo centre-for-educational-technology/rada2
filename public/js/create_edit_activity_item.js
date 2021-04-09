@@ -447,7 +447,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     }
   },
   mounted: function mounted() {
-    var vm = this;
     this.loadPhotos(null, false);
   },
   data: function data() {
@@ -639,7 +638,6 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   name: 'Muinas',
   props: ['apiUrl', 'baseUrl'],
   mounted: function mounted() {
-    var vm = this;
     this.loadPhotos(null, false);
   },
   computed: {

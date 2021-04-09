@@ -59,7 +59,8 @@ class ActivityController extends Controller
                 'show',
                 'start',
                 'findGame',
-                'sendGameStartedToLrs'
+                'sendGameStartedToLrs',
+                'apiPublicAnswers',
             ]
         ]);
     }
@@ -997,6 +998,7 @@ class ActivityController extends Controller
                 $query->where('activity_items.type', '=', QuestionTypeOptions::FREEFORM_ANSWER)
                     ->orWhere('activity_items.type', '=', QuestiontypeOptions::PHOTO);
             })
+            ->whereNotNull('game_answers.answering_end_time')
             ->with(['game.user'])
             ->orderBy('game_answers.created_at', 'desc')
             ->paginate(config('paginate.limit'));

@@ -5,6 +5,7 @@ use App\Http\Controllers\AjapaikController;
 use App\Http\Controllers\MuinasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ActivityController;
+use App\Http\Controllers\GameController;
 
 /*
 |--------------------------------------------------------------------------
@@ -42,6 +43,7 @@ Route::group(['prefix' => 'games'], static function ()
     Route::post('{game}/add-new-message', 'GameController@addNewMessage');
     Route::get('{game}/delete-message/{id}', 'GameController@deleteMessage');
     Route::get('{game}/start-question/{id}', 'GameController@startQuestion');
+    Route::get('{game}/{activity_item}/public_answers', [GameController::class, 'apiPublicAnswers']);
 });
 
 Route::group(['prefix' => 'tasks'], static function () {

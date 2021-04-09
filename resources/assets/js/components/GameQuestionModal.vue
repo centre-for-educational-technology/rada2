@@ -1,4 +1,14 @@
 <template>
+    <div>
+    <previous-answers-modal
+        v-if="activity && activity.public_path"
+        :question="question"
+        :activity="activity"
+        :base-url="baseUrl"
+        :game-id="gameId"
+        ref="previousAnswersModal"
+    ></previous-answers-modal>
+
     <div ref="modal" class="modal fade" tabindex="-1" role="dialog" v-on:click.self="close()" @keyup.esc="close()">
         <div class="modal-dialog modal-lg sz-game-question" role="document">
             <div class="modal-content">
@@ -144,6 +154,15 @@
                 </div>
 
                 <div class="modal-footer">
+                    <button
+                        type="button"
+                        class="btn btn-default"
+                        @click="showPreviousAnswers()"
+                        v-bind:disabled="inAjaxCall"
+                        v-if="activity && activity.public_path === true"
+                    >
+                        {{ $t('previous-answers')}}
+                    </button>
                     <a href="" v-bind:href="readMore()" target="_blank" class="btn btn-default" v-if="hasReadMore()">
                         <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
                         {{ $t('read-more-about') }}
@@ -158,6 +177,7 @@
             </div>
         </div>
     </div>
+    </div>
 </template>
 
 <script>
@@ -167,9 +187,10 @@
 
     export default {
         components: {
-          'provider-logo': require('./ImageUpload/ProviderLogo.vue').default
+          'provider-logo': require('./ImageUpload/ProviderLogo.vue').default,
+          'previous-answers-modal': require('./PreviousAnswersModal.vue').default
         },
-        props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview'],
+        props: ['question', 'answer', 'gameId', 'baseUrl', 'isPreview', 'activity'],
         mixins: [ImageMixin, MissingWordMixin],
         mounted() {
             var vm = this;
@@ -180,6 +201,10 @@
                         e.preventDefault();
                     }
                 });
+            });
+
+            this.$on('previous-answers-modal-closed', () => {
+              $(this.$refs.modal).modal('show');
             });
         },
         data() {
@@ -632,6 +657,12 @@
                 }
 
                 return classes;
+            },
+            showPreviousAnswers() {
+                $(this.$refs.modal).one('hidden.bs.modal', () => {
+                    this.$refs.previousAnswersModal.open();
+                });
+                $(this.$refs.modal).modal('hide');
             }
         }
     }

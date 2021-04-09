@@ -763,7 +763,7 @@ class ActivityItemController extends Controller
    */
   public function search(Request $request)
   {
-      $query = ActivityItem::with(['options', 'pairs'])->select();
+      $query = ActivityItem::with(['options', 'pairs', 'image'])->select();
 
       if ( $request->has('keywords') && trim($request->get('keywords')) ) {
           $query->where(function($query) use ($request) {

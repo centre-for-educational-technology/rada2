@@ -89,8 +89,6 @@ export default {
   name: 'Muinas',
   props: ['apiUrl', 'baseUrl'],
   mounted() {
-    const vm = this;
-
     this.loadPhotos(null, false);
   },
   computed: {

@@ -17,8 +17,9 @@ class PublicAnswerResource extends JsonResource
         return [
             'name' => $this->game->getUserName(),
             'answer' => json_decode($this->answer, true),
-            'image' => $this->getImageUrl(),
+            'image_url' => $this->getImageUrl(),
             'created_at' => $this->created_at->toRfc3339String(),
+            'updated_at' => $this->updated_at->toRfc3339String(),
         ];
     }
 }
