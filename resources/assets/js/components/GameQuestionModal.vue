@@ -1,7 +1,7 @@
 <template>
     <div>
     <previous-answers-modal
-        v-if="activity && activity.public_path"
+        v-if="activity && activity.public_path === true"
         :question="question"
         :activity="activity"
         :base-url="baseUrl"
@@ -159,9 +159,9 @@
                         class="btn btn-default"
                         @click="showPreviousAnswers()"
                         v-bind:disabled="inAjaxCall"
-                        v-if="activity && activity.public_path === true"
+                        v-if="activity && activity.public_path === true && (isFreeformAnswer() || isPhoto())"
                     >
-                        {{ $t('previous-answers')}}
+                        {{ $t('buttons.previous-answers')}}
                     </button>
                     <a href="" v-bind:href="readMore()" target="_blank" class="btn btn-default" v-if="hasReadMore()">
                         <i class="mdi mdi-open-in-new" aria-hidden="true"></i>
@@ -340,6 +340,9 @@
 
                 // Only call the startQuestion endpoint if running within a game context
                 if (!!this.gameId) {
+                    // TODO XXX This one is to blame for all of the issues
+                    // It should probably not be called once the question receives a final answer
+                    // TODO XXX Need to check how it worked before the fix
                     let url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
                     this.$http.get(url).then(cb);
                 } else {

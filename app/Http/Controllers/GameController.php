@@ -208,6 +208,7 @@ class GameController extends Controller
         $answer->save();
 
         // Determine completion status and mark as completed
+        // TODO Make sure to ignore automatically generated empty answers
         $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
         $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
         $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
@@ -362,6 +363,7 @@ class GameController extends Controller
         $answer->save();
 
         // Determine completion status and mark as completed
+        // TODO Need to change the logic of determining when the game is complete
         $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
         $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
         $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
@@ -382,6 +384,12 @@ class GameController extends Controller
             'game_id' => $game->id,
             'activity_item_id' => $id
         ]);
+
+        // This prevents already existing answers from being reset
+        if ($answer->id && $answer->isAnswered()) {
+            return $answer->getGameData();
+        }
+
         if (!$answer->id) {
             /** @var ActivityItem $activityItem */
             $activityItem = $game->activity->activityItems()->where('id', $id)->first();
@@ -800,9 +808,9 @@ class GameController extends Controller
                 $query->where('activity_items.type', '=', QuestionTypeOptions::FREEFORM_ANSWER)
                     ->orWhere('activity_items.type', '=', QuestiontypeOptions::PHOTO);
             })
-            ->whereNotNull('game_answers.answering_end_time')
+            ->where('game_answers.is_answered', '<>', 0)
             ->with(['game.user'])
-            ->orderBy('game_answers.created_at', 'desc')
+            ->orderBy('game_answers.created_at', 'asc')
             ->paginate(config('paginate.limit'));
 
         $data['results'] = PublicAnswerResource::collection($result->items());

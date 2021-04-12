@@ -5,12 +5,23 @@
         <div class="modal-header">
           <button type="button" class="close" aria-label="Close" v-on:click="close()" v-bind:diabled="inAjaxCall"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">
+            {{ question.title }}
           </h4>
         </div>
         <div class="modal-body">
+          <div>
+            <span
+                :class="{ badge: true, 'animated infinite flash': inAjaxCall }"
+            >
+            {{ totalResults }}
+          </span>
+          </div>
+
           <div v-for="result in results">
             <div class="response-info">
-              <i class="mdi mdi-account-box-outline response-user-image" aria-hidden="true"></i>
+              <div class="response-user-image">
+                <i class="mdi mdi-account-box-outline" aria-hidden="true"></i>
+              </div>
               <div class="response-data">
                 <div class="response-user-name">
                   <strong>{{ result.name }}</strong>
@@ -30,7 +41,7 @@
                 @click="onLoadMoreClicked()"
                 v-bind:disabled="inAjaxCall"
             >
-              {{ $t('load-more') }}
+              {{ $t('buttons.load-more') }}
             </button>
           </div>
         </div>
@@ -52,7 +63,6 @@ export default {
   data() {
     return {
       inAjaxCall: false,
-      search: '',
       totalResults: 0,
       results: [],
       nextUrl: ''
@@ -61,7 +71,6 @@ export default {
   methods: {
     open() {
       $(this.$refs.modal).modal('show');
-      // TODO Need to start loading with a callback
       this.loadData(false);
     },
     close() {
@@ -73,6 +82,12 @@ export default {
     loadData(append) {
       const vm = this;
       let url = `${this.baseUrl}/api/games/${this.gameId}/${this.question.id}/public_answers`;
+
+      if (!append) {
+        this.totalResults = 0;
+        this.results = [];
+        this.nextUrl = '';
+      }
 
       if (append) {
         url = this.nextUrl;
@@ -107,12 +122,18 @@ export default {
 </script>
 
 <style scoped>
+.badge {
+  display:inline-block;
+  margin-bottom: 1em;
+}
+
 .textual-answer {
   white-space: pre-line;
 }
 
 .response-info {
   display: table-row;
+  margin-top: 0.5em;
 }
 
 .response-info .response-user-image,
@@ -121,7 +142,12 @@ export default {
   vertical-align: middle;
 }
 
-.response-info .response-user-image::before {
+.response-info .response-user-image i.mdi::before {
   font-size: 400%;
+  vertical-align: middle;
+}
+
+.well {
+  margin-top: 1em;
 }
 </style>

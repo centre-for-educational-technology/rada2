@@ -60,7 +60,6 @@ class ActivityController extends Controller
                 'start',
                 'findGame',
                 'sendGameStartedToLrs',
-                'apiPublicAnswers',
             ]
         ]);
     }
@@ -977,46 +976,5 @@ class ActivityController extends Controller
         return redirect()->route('activity.show', [
             'activity' => $activity->id
         ]);
-    }
-
-    public function apiPublicAnswers(Activity $activity): JsonResponse
-    {
-        if (!$activity->isStarted() || !$activity->isPublicPath()) {
-            return response()->json([], 403);
-        }
-
-        $data = [
-            'total' => 0,
-            'results' => [],
-        ];
-
-        $result = GameAnswer::select('game_answers.*')
-            ->join('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
-            ->join('activity_activity_item', 'activity_activity_item.activity_item_id', '=', 'activity_items.id')
-            ->where('activity_activity_item.activity_id', '=', $activity->id)
-            ->where(function($query) {
-                $query->where('activity_items.type', '=', QuestionTypeOptions::FREEFORM_ANSWER)
-                    ->orWhere('activity_items.type', '=', QuestiontypeOptions::PHOTO);
-            })
-            ->whereNotNull('game_answers.answering_end_time')
-            ->with(['game.user'])
-            ->orderBy('game_answers.created_at', 'desc')
-            ->paginate(config('paginate.limit'));
-
-        $data['results'] = PublicAnswerResource::collection($result->items());
-        $data['total'] = $result->total();
-
-        $previousPageUrl = $result->previousPageUrl();
-        $nextPageUrl = $result->nextPageUrl();
-
-        if ($previousPageUrl) {
-            $data['previous'] = $previousPageUrl;
-        }
-
-        if ($nextPageUrl) {
-            $data['next'] = $nextPageUrl;
-        }
-
-        return response()->json($data);
     }
 }

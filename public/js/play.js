@@ -1278,7 +1278,8 @@ var enableStreetView = window.RADA.config.map.enableStreetView || false;
       });
 
       var answered = _.filter(this.game.answers, function (answer) {
-        return questionIds.indexOf(answer.question) !== -1;
+        // Only answers marked as answered are considered, eliminating automatically generated ones
+        return questionIds.indexOf(answer.question) !== -1 && !!answer.is_answered;
       });
 
       return _.size(answered);
@@ -1956,6 +1957,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
       if (!!this.gameId) {
+        // TODO XXX This one is to blame for all of the issues
+        // It should probably not be called once the question receives a final answer
+        // TODO XXX Need to check how it worked before the fix
         var url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
         this.$http.get(url).then(cb);
       } else {
@@ -3037,13 +3041,23 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PreviousAnswersModal",
   props: ['baseUrl', 'question', 'activity', 'gameId'],
   data: function data() {
     return {
       inAjaxCall: false,
-      search: '',
       totalResults: 0,
       results: [],
       nextUrl: ''
@@ -3051,8 +3065,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
   },
   methods: {
     open: function open() {
-      $(this.$refs.modal).modal('show'); // TODO Need to start loading with a callback
-
+      $(this.$refs.modal).modal('show');
       this.loadData(false);
     },
     close: function close() {
@@ -3066,6 +3079,12 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     loadData: function loadData(append) {
       var vm = this;
       var url = "".concat(this.baseUrl, "/api/games/").concat(this.gameId, "/").concat(this.question.id, "/public_answers");
+
+      if (!append) {
+        this.totalResults = 0;
+        this.results = [];
+        this.nextUrl = '';
+      }
 
       if (append) {
         url = this.nextUrl;
@@ -3420,7 +3439,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.textual-answer[data-v-5e3eab06] {\n  white-space: pre-line;\n}\n.response-info[data-v-5e3eab06] {\n  display: table-row;\n}\n.response-info .response-user-image[data-v-5e3eab06],\n.response-info .response-data[data-v-5e3eab06] {\n  display: table-cell;\n  vertical-align: middle;\n}\n.response-info .response-user-image[data-v-5e3eab06]::before {\n  font-size: 400%;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.badge[data-v-5e3eab06] {\n  display:inline-block;\n  margin-bottom: 1em;\n}\n.textual-answer[data-v-5e3eab06] {\n  white-space: pre-line;\n}\n.response-info[data-v-5e3eab06] {\n  display: table-row;\n  margin-top: 0.5em;\n}\n.response-info .response-user-image[data-v-5e3eab06],\n.response-info .response-data[data-v-5e3eab06] {\n  display: table-cell;\n  vertical-align: middle;\n}\n.response-info .response-user-image i.mdi[data-v-5e3eab06]::before {\n  font-size: 400%;\n  vertical-align: middle;\n}\n.well[data-v-5e3eab06] {\n  margin-top: 1em;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -10978,7 +10997,7 @@ var render = function() {
   return _c(
     "div",
     [
-      _vm.activity && _vm.activity.public_path
+      _vm.activity && _vm.activity.public_path === true
         ? _c("previous-answers-modal", {
             ref: "previousAnswersModal",
             attrs: {
@@ -11746,7 +11765,9 @@ var render = function() {
                 ]),
                 _vm._v(" "),
                 _c("div", { staticClass: "modal-footer" }, [
-                  _vm.activity && _vm.activity.public_path === true
+                  _vm.activity &&
+                  _vm.activity.public_path === true &&
+                  (_vm.isFreeformAnswer() || _vm.isPhoto())
                     ? _c(
                         "button",
                         {
@@ -11761,7 +11782,7 @@ var render = function() {
                         [
                           _vm._v(
                             "\n                    " +
-                              _vm._s(_vm.$t("previous-answers")) +
+                              _vm._s(_vm.$t("buttons.previous-answers")) +
                               "\n                "
                           )
                         ]
@@ -12835,21 +12856,38 @@ var render = function() {
                 ]
               ),
               _vm._v(" "),
-              _c("h4", { staticClass: "modal-title" })
+              _c("h4", { staticClass: "modal-title" }, [
+                _vm._v(
+                  "\n          " + _vm._s(_vm.question.title) + "\n        "
+                )
+              ])
             ]),
             _vm._v(" "),
             _c(
               "div",
               { staticClass: "modal-body" },
               [
+                _c("div", [
+                  _c(
+                    "span",
+                    {
+                      class: {
+                        badge: true,
+                        "animated infinite flash": _vm.inAjaxCall
+                      }
+                    },
+                    [
+                      _vm._v(
+                        "\n          " + _vm._s(_vm.totalResults) + "\n        "
+                      )
+                    ]
+                  )
+                ]),
+                _vm._v(" "),
                 _vm._l(_vm.results, function(result) {
                   return _c("div", [
                     _c("div", { staticClass: "response-info" }, [
-                      _c("i", {
-                        staticClass:
-                          "mdi mdi-account-box-outline response-user-image",
-                        attrs: { "aria-hidden": "true" }
-                      }),
+                      _vm._m(0, true),
                       _vm._v(" "),
                       _c("div", { staticClass: "response-data" }, [
                         _c("div", { staticClass: "response-user-name" }, [
@@ -12901,7 +12939,7 @@ var render = function() {
                         [
                           _vm._v(
                             "\n            " +
-                              _vm._s(_vm.$t("load-more")) +
+                              _vm._s(_vm.$t("buttons.load-more")) +
                               "\n          "
                           )
                         ]
@@ -12937,7 +12975,19 @@ var render = function() {
     ]
   )
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "response-user-image" }, [
+      _c("i", {
+        staticClass: "mdi mdi-account-box-outline",
+        attrs: { "aria-hidden": "true" }
+      })
+    ])
+  }
+]
 render._withStripped = true
 
 

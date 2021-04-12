@@ -132,6 +132,10 @@
                         'details' => trans('pages.play.game.vouchers.details'),
                         'button' => trans('navbar.discount_vouchers'),
                     ],
+                    'buttons' => [
+                        'load-more' => trans('general.forms.buttons.load-more'),
+                        'previous-answers' => trans('general.forms.buttons.previous-answers'),
+                    ],
                 ]
             ],
         ]);

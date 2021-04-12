@@ -50,6 +50,11 @@ class GameAnswer extends Model
         return null;
     }
 
+    public function isAnswered(): bool
+    {
+        return !!$this->is_answered;
+    }
+
     /**
      * [getGameData description]
      * @return [type] [description]

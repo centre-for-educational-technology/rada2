@@ -125,6 +125,7 @@ return [
            'add' => 'Lisa',
            'details' => 'Üksikasjad',
            'remove-selected-image' => 'Eemalda valitud pilt',
+           'previous-answers' => 'Eelnevad vastused',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Märksõna või pealkiri',

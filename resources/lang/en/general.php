@@ -126,6 +126,7 @@ return [
            'add' => 'Add',
            'details' => 'Details',
            'remove-selected-image' => 'Remove selected image',
+           'previous-answers' => 'Previous answers',
        ],
        'placeholders' => [
            'keyword-or-title' => 'Type a keyword or title',

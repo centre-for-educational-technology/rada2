@@ -791,12 +791,13 @@
             getAnsweredQuestionsCount() {
                 if ( _.size(this.game.activity.questions) === 0 || _.size(this.game.answers) === 0 ) return 0;
 
-                var questionIds = _.map(this.game.activity.questions, question => {
+                const questionIds = _.map(this.game.activity.questions, question => {
                     return question.id;
                 });
 
-                var answered = _.filter(this.game.answers, answer => {
-                    return questionIds.indexOf(answer.question) !== -1;
+                const answered = _.filter(this.game.answers, answer => {
+                    // Only answers marked as answered are considered, eliminating automatically generated ones
+                    return questionIds.indexOf(answer.question) !== -1 && !!answer.is_answered;
                 });
 
                 return _.size(answered);
