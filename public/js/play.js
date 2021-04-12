@@ -549,6 +549,8 @@ function GameControls(controlDiv, map, playerMarker, vm) {
   controlUI.appendChild(completionControlItem);
   vm.$watch('game.answers', function () {
     completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
+  }, {
+    deep: true
   }); // ------------- MESSAGING --------------------------
 
   var messagingControlItem = document.createElement('i');
@@ -1112,8 +1114,12 @@ var enableStreetView = window.RADA.config.map.enableStreetView || false;
         this.detectAndSetMarkerIcon(marker);
       }
 
-      var answerIds = _.keys(this.game.answers).map(function (id) {
-        return _.toNumber(id);
+      var filteredAnswers = _.filter(this.game.answers, function (answer) {
+        return !!answer.is_answered;
+      });
+
+      var answerIds = _.map(filteredAnswers, function (answer) {
+        return _.toNumber(answer.question);
       });
 
       var questionIds = _.map(this.game.activity.questions, function (question) {
@@ -1965,9 +1971,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
       if (!!this.gameId) {
-        // TODO XXX This one is to blame for all of the issues
-        // It should probably not be called once the question receives a final answer
-        // TODO XXX Need to check how it worked before the fix
+        // TODO There is no need to call this one after an answer has already been created
         var url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
         this.$http.get(url).then(cb);
       } else {

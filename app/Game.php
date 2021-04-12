@@ -221,7 +221,7 @@ class Game extends Model
 
     /**
      * Get game completion percentage.
-     * @return bool
+     * @return int|float
      */
     public function getCompletionPercentage() {
         if ( $this->isComplete() )
@@ -236,7 +236,7 @@ class Game extends Model
             return 0;
         }
 
-        $answersCount = $this->answers()->whereIn('activity_item_id', $itemIds)->count();
+        $answersCount = $this->answers()->whereIn('activity_item_id', $itemIds)->where('is_answered', '<>', 0)->count();
 
         return round($answersCount / count($itemIds) * 100, 0, PHP_ROUND_HALF_UP);
     }

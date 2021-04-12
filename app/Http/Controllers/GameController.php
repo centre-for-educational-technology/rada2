@@ -208,9 +208,8 @@ class GameController extends Controller
         $answer->save();
 
         // Determine completion status and mark as completed
-        // TODO Make sure to ignore automatically generated empty answers
         $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
-        $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
+        $answeredItemIds = $game->answers()->where('is_answered', '<>', 0)->select('activity_item_id')->pluck('activity_item_id');
         $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
         if (count($unansweredItemIds) === 0) {
             $game->complete = true;
@@ -363,9 +362,8 @@ class GameController extends Controller
         $answer->save();
 
         // Determine completion status and mark as completed
-        // TODO Need to change the logic of determining when the game is complete
         $itemIds = $activity->belongsToMany(ActivityItem::class)->select('id')->pluck('id');
-        $answeredItemIds = $game->answers()->select('activity_item_id')->pluck('activity_item_id');
+        $answeredItemIds = $game->answers()->where('is_answered', '<>', 0)->select('activity_item_id')->pluck('activity_item_id');
         $unansweredItemIds = array_diff($itemIds->toArray(), $answeredItemIds->toArray());
         if (count($unansweredItemIds) === 0) {
             $game->complete = true;

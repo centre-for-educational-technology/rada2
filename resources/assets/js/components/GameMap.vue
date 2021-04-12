@@ -60,6 +60,8 @@
 
         vm.$watch('game.answers', function() {
             completionControlItem.textContent = vm.getAnsweredQuestionsCount() + '/' + _.size(vm.game.activity.questions);
+        }, {
+          deep: true
         });
 
         // ------------- MESSAGING --------------------------
@@ -626,16 +628,19 @@
                 this.$set(this.game.answers, id, answer);
 
                 // TODO Might make sense to raise an error if marker can not be found
-                var marker = _.find(this.mapData.markers, function(marker) { return marker.questionId === id; });
+                const marker = _.find(this.mapData.markers, function(marker) { return marker.questionId === id; });
 
                 if ( marker ) {
                     this.detectAndSetMarkerIcon(marker);
                 }
 
-                var answerIds = _.keys(this.game.answers).map(id => {
-                    return _.toNumber(id);
+                const filteredAnswers = _.filter(this.game.answers, answer => {
+                  return !!answer.is_answered;
                 });
-                var questionIds = _.map(this.game.activity.questions, question => {
+                const answerIds = _.map(filteredAnswers, answer => {
+                    return _.toNumber(answer.question);
+                });
+                const questionIds = _.map(this.game.activity.questions, question => {
                     return question.id;
                 });
 

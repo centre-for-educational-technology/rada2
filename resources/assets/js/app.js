@@ -78,12 +78,19 @@ $(document).ready(function() {
     const playModal = $('#play-modal');
     if ( playModal.length > 0 && !window.Laravel.isLoggedIn ) {
         playModal.on('hidden.bs.modal', function() {
+            $(this).find('input[type="text"]').off('keypress');
             $(this).find('button.btn-play').off('click');
         });
 
         $('form.sz-play-action-form button.btn-play').on('click', function(event) {
             event.preventDefault();
             const self = this;
+
+            playModal.find('input[type="text"]').on('keypress', function(e) {
+                if (e.which === 13) {
+                    playModal.find('button.btn-play').trigger('click');
+                }
+            });
 
             playModal.find('button.btn-play').on('click', function() {
                 $('#hidden-nickname').val($('#nickname').val());

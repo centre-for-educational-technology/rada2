@@ -340,9 +340,7 @@
 
                 // Only call the startQuestion endpoint if running within a game context
                 if (!!this.gameId) {
-                    // TODO XXX This one is to blame for all of the issues
-                    // It should probably not be called once the question receives a final answer
-                    // TODO XXX Need to check how it worked before the fix
+                    // TODO There is no need to call this one after an answer has already been created
                     let url = this.baseUrl + '/api/games/' + this.gameId + '/start-question/' + this.question.id;
                     this.$http.get(url).then(cb);
                 } else {
