@@ -83,6 +83,12 @@
                                     <div class="sz-metadata">
                                         {{ trans('pages.play.game.rating-label') }} : {{ $activity->getAverageRating() }}
                                     </div>
+                                    @if($activity->isPublicPath())
+                                        <div class="sz-metadata">
+                                            <i class="mdi mdi-earth" aria-hidden="true"></i>
+                                            {{ trans('general.forms.labels.public-path') }} ({{ trans('general.forms.tooltips.public-path') }})
+                                        </div>
+                                    @endif
                                 </div>
                                 @if ( !$loop->last)
                                     <hr>

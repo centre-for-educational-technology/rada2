@@ -136,6 +136,8 @@
                         'load-more' => trans('general.forms.buttons.load-more'),
                         'previous-answers' => trans('general.forms.buttons.previous-answers'),
                     ],
+                    'public-path-label' => trans('general.forms.labels.public-path'),
+                    'public-path-tooltip' => trans('general.forms.tooltips.public-path'),
                 ]
             ],
         ]);

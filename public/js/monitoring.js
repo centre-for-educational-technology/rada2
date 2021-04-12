@@ -229,6 +229,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   components: {
@@ -244,6 +247,11 @@ __webpack_require__.r(__webpack_exports__);
       icons: ['active', 'inactive', 'correct', 'incorrect'],
       baseUrl: ''
     };
+  },
+  computed: {
+    isPublicPath: function isPublicPath() {
+      return !!this.activity.public_path;
+    }
   },
   methods: {
     open: function open() {
@@ -5156,6 +5164,18 @@ var render = function() {
                       "\n                    " +
                         _vm._s(_vm.activity.description) +
                         "\n                "
+                    )
+                  ])
+                : _vm._e(),
+              _vm._v(" "),
+              _vm.isPublicPath
+                ? _c("p", [
+                    _vm._v(
+                      "\n                  " +
+                        _vm._s(_vm.$t("public-path-label")) +
+                        " (" +
+                        _vm._s(_vm.$t("public-path-tooltip")) +
+                        ")\n                "
                     )
                   ])
                 : _vm._e(),

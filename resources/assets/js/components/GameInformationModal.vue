@@ -29,6 +29,9 @@
                     <p class="sz-display-new-lines text-center" v-if="activity.description">
                         {{ activity.description }}
                     </p>
+                    <p v-if="isPublicPath">
+                      {{ $t('public-path-label') }} ({{ $t('public-path-tooltip') }})
+                    </p>
                     <!--
                     <h3>{{ $t('activity-type') }}</h3>
                     <p>
@@ -97,6 +100,11 @@
                 icons: ['active', 'inactive', 'correct', 'incorrect'],
                 baseUrl: ''
             };
+        },
+        computed: {
+            isPublicPath() {
+                return !!this.activity.public_path;
+            }
         },
         methods: {
             open() {

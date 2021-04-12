@@ -35,6 +35,10 @@
                     @endif
                     <h3>{{ trans('general.forms.labels.description') }}</h3>
                     <p class="sz-display-new-lines">{{ $activity->description }}</p>
+                    @if ($activity->isPublicPath())
+                        <h3>{{ trans('general.forms.labels.public-path') }}</h3>
+                        <p>{{ trans('general.forms.tooltips.public-path') }}</p>
+                    @endif
                     <h3>{{ trans('pages.play.game.rating-label') }}</h3>
                     <p>{{ $activity->getAverageRating() }}</p>
                     <h3>{{ trans('general.forms.labels.playing-time') }}</h3>

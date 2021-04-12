@@ -135,7 +135,9 @@
                         'details' => trans('pages.play.game.vouchers.details'),
                         'button' => trans('navbar.discount_vouchers'),
                     ],
-                ]
+                    'public-path-label' => trans('general.forms.labels.public-path'),
+                    'public-path-tooltip' => trans('general.forms.tooltips.public-path'),
+                ],
             ],
         ]);
         ?>;
