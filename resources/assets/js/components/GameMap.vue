@@ -294,8 +294,6 @@
                     disableAutoPan: true
                 });
 
-                this.initGroundOverlays();
-
                 this.initPlayerMarker();
 
                 this.initGameControls();
@@ -514,24 +512,13 @@
                     this.$refs.notificationModal.open();
                 });
             },
-            initGroundOverlays() {
-                this.mapData.skansenGroundOverlay = new google.maps.GroundOverlay(this.baseUrl + '/img/map/overlays/skansen.png',{
-                    north: 59.329167,
-                    south: 59.324011,
-                    east: 18.111242,
-                    west: 18.099022
-                }, {
-                    clickable: false,
-                    map: this.mapData.map
-                });
-            },
             initGameControls() {
                 var map = this.mapData.map,
                     playerMarker = this.mapData.playerMarker,
                     gameControlsDiv = document.createElement('div'),
                     gameControls = new GameControls(gameControlsDiv, map, playerMarker, this);
 
-                // XXX This is a strange code pience that sends index without a reason
+                // XXX This is a strange code piece that sets index without a reason
                 gameControls.index = 1;
                 map.controls[google.maps.ControlPosition.TOP_RIGHT].push(gameControlsDiv);
             },
