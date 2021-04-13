@@ -40,7 +40,7 @@
             <a
                     v-else
                     :href="getHref(page.label)"
-                    @click="goto(page.label, this.event)"
+                    @click="goto(page.label, $event)"
                     :class="`${paginationClasses.button} ${page.active ? paginationClasses.buttonActive : ''}`"
             >
                 {{ page.label }}

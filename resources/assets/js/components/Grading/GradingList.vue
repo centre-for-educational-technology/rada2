@@ -36,7 +36,6 @@
                                 :page-count="pages"
                                 :generateUrl="generatePaginationUrl"
                                 :classes="bootstrapPaginationClasses"
-                                :labels="paginationAnchorTexts"
                         ></pagination>
                     </div>
 

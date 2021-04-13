@@ -63,7 +63,7 @@
                         </div>
                         <div class="previous-grade-actions">
                             <a :href="'/grading/'+answer.activity_id+'/'+otherAnswer.id+'/edit'"
-                               v-on:click="openOtherAnswerDetail(otherAnswer.id, this.event)"
+                               v-on:click="openOtherAnswerDetail(otherAnswer.id, $event)"
                                class="btn btn-default">{{ $t('pages.grading.index.details-btn')}}</a>
                         </div>
                     </div>
@@ -150,7 +150,7 @@
                 }
             },
             getOtherAnswerAnswer(answer) {
-                const json = JSON.parse(answer.answer);
+                const json = answer.answer ? JSON.parse(answer.answer) : null;
                 const type = answer.type;
                 let response = '-';
                 switch (type) {

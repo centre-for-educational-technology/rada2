@@ -76,7 +76,7 @@ class GameRepository
                `ai`.`description` AS question,
                `aai`.`activity_id`,
                `aai`.`activity_item_id` AS id,
-               `ai`.`image` AS question_image,
+               (SELECT `aim`.`file_name` FROM `images` AS `aim` WHERE `aim`.`model_id` = `aai`.`activity_item_id` AND `aim`.`model_type` = \'App\\ActivityItem\') AS question_image,
                `ai`.`missing_word`,
                `ai`.`embedded_content`,
                IF(`ai`.`answering_time` IS NOT NULL AND `ai`.`answering_time` > 0, 1, 0) AS time_limit,

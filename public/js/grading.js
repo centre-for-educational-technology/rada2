@@ -217,7 +217,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     getOtherAnswerAnswer: function getOtherAnswerAnswer(answer) {
-      var json = JSON.parse(answer.answer);
+      var json = answer.answer ? JSON.parse(answer.answer) : null;
       var type = answer.type;
       var response = '-';
 
@@ -341,7 +341,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
-//
 //
 //
 //
@@ -6015,7 +6014,7 @@ var render = function() {
                           click: function($event) {
                             return _vm.openOtherAnswerDetail(
                               otherAnswer.id,
-                              this.event
+                              $event
                             )
                           }
                         }
@@ -6138,8 +6137,7 @@ var render = function() {
                                   attrs: {
                                     "page-count": _vm.pages,
                                     generateUrl: _vm.generatePaginationUrl,
-                                    classes: _vm.bootstrapPaginationClasses,
-                                    labels: _vm.paginationAnchorTexts
+                                    classes: _vm.bootstrapPaginationClasses
                                   },
                                   model: {
                                     value: _vm.paginationPage,
@@ -6985,7 +6983,7 @@ var render = function() {
                         attrs: { href: _vm.getHref(page.label) },
                         on: {
                           click: function($event) {
-                            return _vm.goto(page.label, this.event)
+                            return _vm.goto(page.label, $event)
                           }
                         }
                       },

@@ -128,6 +128,10 @@ class GradingController extends Controller
             $query->join('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
                 ->join('activities', 'activities.id', '=', 'games.activity_id')
                 ->leftJoin('users', 'users.id', '=', 'games.user_id')
+                ->leftJoin('images', function($query) {
+                    $query->on('activity_items.id', '=', 'images.model_id')
+                        ->where('images.model_type', '=', ActivityItem::class);
+                })
                 ->where(static function(Builder $query) use ($user) {
                     if (Auth::user()->isAdmin() === false) {
                         $query->where('activity_instructors.user_id', '=', $user->id)
@@ -156,7 +160,7 @@ class GradingController extends Controller
                 'activity_items.title',
                 'activity_items.description',
                 'activity_items.type',
-                'activity_items.image',
+                'images.file_name AS image',
                 'activity_items.id AS activity_item_id',
                 'activity_items.points AS max_points',
                 'activity_items.missing_word',
