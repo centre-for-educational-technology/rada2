@@ -112,7 +112,7 @@ Once the code has reached a stable point and is ready to me run in production, t
 
 ## Localisation
 
-All translations are placed under `ROOT/resources/lang/LANGUAGE`, where `LANGUAGE` is one of the following `en`, `et`, `ru`, `fi`, `sv`.
+All translations are placed under `ROOT/resources/lang/LANGUAGE`, where `LANGUAGE` is one of the following `en`, `et` and `ru`.
 
 I order to create a new translation, please copy all the files from `ROOT/resources/lang/en` to newly created directory. **NB! Please make sure that the system would need to be configured to recognise that newly added translation.**
 
