@@ -58,7 +58,7 @@ class ActivityPolicy
      */
     public function update(User $user, Activity $activity)
     {
-        return $user->id === $activity->user_id || $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
+        return $user->id === $activity->user_id || $user->isEditor();
     }
 
     /**
@@ -70,7 +70,7 @@ class ActivityPolicy
      */
     public function delete(User $user, Activity $activity)
     {
-        return $user->id === $activity->user_id || $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
+        return $user->id === $activity->user_id || $user->isEditor();
     }
 
     /**
@@ -106,12 +106,12 @@ class ActivityPolicy
      */
     public function playGame(User $user, Activity $activity)
     {
-        return $user->isZooAdmin() || $activity->user->id === $user->id || $activity->started;
+        return $user->isEditor() || $activity->user->id === $user->id || $activity->started;
     }
 
     public function setAsTemplate(User $user)
     {
-        return $user->isZooAdmin();
+        return $user->isEditor();
     }
 
     /**
@@ -122,7 +122,7 @@ class ActivityPolicy
      */
     public function viewResultsList(User $user)
     {
-        return $user->isZooAdmin() || $user->isZooMember();
+        return $user->isEditor();
     }
 
     /**
@@ -134,7 +134,7 @@ class ActivityPolicy
      */
     public function viewResults(User $user, Activity $activity)
     {
-        return $user->isZooAdmin($activity->zoo) || $user->isZooMember($activity->zoo);
+        return $user->isEditor();
     }
 
     /**
@@ -147,17 +147,6 @@ class ActivityPolicy
     public function downloadPlayerPositions(User $user, Activity $activity)
     {
         return $this->viewResults($user, $activity);
-    }
-
-    /**
-     * Determines if the user is allowed to change Zoo value.
-     * @param  App\User     $user     User object
-     * @param  App\Activity $activity Activity object
-     * @return boolean
-     */
-    public function changeZoo(User $user, Activity $activity)
-    {
-        return $user->id === $activity->user_id;
     }
 
     /**
@@ -187,7 +176,7 @@ class ActivityPolicy
      */
     public function addPromoted(User $user)
     {
-        return $user->isZooAdmin();
+        return $user->isEditor();
     }
 
     /**
@@ -198,7 +187,7 @@ class ActivityPolicy
      */
     public function changePromoted(User $user, Activity $activity)
     {
-        return $user->isAdmin();
+        return $user->isEditor();
     }
 
     /**

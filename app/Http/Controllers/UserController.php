@@ -14,8 +14,6 @@ use App\Activity;
 
 use Auth;
 
-use App\Options\ZooOptions;
-
 use App\DiscountVoucher;
 
 use Illuminate\Support\Facades\DB;
@@ -47,7 +45,7 @@ class UserController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Request $request, ZooOptions $zooOptions)
+    public function index(Request $request)
     {
         $q = $request->has('q') ? trim($request->get('q')) : NULL;
         $query = User::with(['social_accounts', 'roles']);
@@ -72,7 +70,6 @@ class UserController extends Controller
         return view('manage/users/index')->with([
             'users' => $users,
             'roles' => Role::all(),
-            'zooOptions' => $zooOptions->options(),
             'q' => $q,
         ]);
     }
@@ -171,14 +168,14 @@ class UserController extends Controller
 
         if ( $roles ) {
             foreach ( $roles as $role ) {
-                $syncableRoles[$role] = [ 'zoo' => $request->get('role_' . $role . '_zoo') ];
+                $syncableRoles[$role] = [];
             }
         }
 
         // Prevent removing Administrator role from self
         if ( $user->isAdmin() && $user->id === Auth::user()->id ) {
             $adminRole = Role::getAdminRole();
-            $syncableRoles[$adminRole->id] = ['zoo' => null];
+            $syncableRoles[$adminRole->id] = [];
         }
 
         $user->roles()->sync($syncableRoles);

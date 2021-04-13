@@ -55,7 +55,7 @@ class ActivityItemPolicy
      */
     public function update(User $user, ActivityItem $item)
     {
-        return $user->id === $item->user_id || $user->isZooAdmin($item->zoo) || $user->isZooMember($item->zoo);
+        return $user->id === $item->user_id || $user->isEditor();
     }
 
     /**
@@ -67,18 +67,7 @@ class ActivityItemPolicy
      */
     public function delete(User $user, ActivityItem $item)
     {
-        return $user->id === $item->user_id || $user->isZooAdmin($item->zoo) || $user->isZooMember($item->zoo);
-    }
-
-    /**
-     * Determines if the user can change Zoo value.
-     * @param  App\User         $user User object
-     * @param  App\ActivityItem $item ActivityItem object
-     * @return boolean
-     */
-    public function changeZoo(User $user, ActivityItem $item)
-    {
-        return $user->id === $item->user_id;
+        return $user->id === $item->user_id || $user->isEditor();
     }
 
     /**
@@ -89,7 +78,7 @@ class ActivityItemPolicy
      */
     public function viewCorrectAnswer(User $user, ActivityItem $item)
     {
-        return $user->id === $item->user_id || $user->isZooAdmin() || $user->isZooMember();
+        return $user->id === $item->user_id || $user->isEditor();
     }
 
     /**

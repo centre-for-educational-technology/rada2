@@ -197,8 +197,7 @@ return [
    ],
    'roles' => [
        'admin' => 'Administraator',
-       'zooAdmin' => 'Administraator',
-       'zooMember' => 'Liige',
+       'editor' => 'Toimetaja',
    ],
    'difficulty-level' => [
      'easy' => 'Lihtne',

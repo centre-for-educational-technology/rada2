@@ -24,12 +24,7 @@ class RolesTableSeeder extends Seeder
                 'updated_at' => $now,
             ],
             [
-                'name' => 'zooAdmin',
-                'created_at' => $now,
-                'updated_at' => $now,
-            ],
-            [
-                'name' => 'zooMember',
+                'name' => 'editor',
                 'created_at' => $now,
                 'updated_at' => $now,
             ],

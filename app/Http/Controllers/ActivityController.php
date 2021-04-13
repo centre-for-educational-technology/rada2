@@ -420,11 +420,6 @@ class ActivityController extends Controller
         {
             $activity->deleteFeaturedImage();
         }
-        // TODO Zoo is no longer needed and should be removed
-        if ( auth()->user()->can('changeZoo', $activity) )
-        {
-            $activity->zoo = ZooOptions::DEFAULT_OPTION;
-        }
 
         if ( $request->has('proximity_check') )
         {

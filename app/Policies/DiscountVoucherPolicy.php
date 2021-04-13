@@ -42,7 +42,7 @@ class DiscountVoucherPolicy
      */
     public function create(User $user)
     {
-        return $user->isAdmin() || $user->isZooAdmin();
+        return $user->isEditor();
     }
 
     /**
@@ -53,7 +53,7 @@ class DiscountVoucherPolicy
      */
     public function update(User $user, DiscountVoucher $voucher)
     {
-        return $user->isAdmin() || $user->isZooAdmin();
+        return $user->isEditor();
     }
 
     /**
@@ -64,6 +64,6 @@ class DiscountVoucherPolicy
      */
     public function delete(User $user, DiscountVoucher $voucher)
     {
-        return $user->isAdmin() || $user->isZooAdmin();
+        return $user->isEditor();
     }
 }

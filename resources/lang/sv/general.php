@@ -159,8 +159,6 @@ return [
    ],
    'roles' => [
        'admin' => 'Administratör',
-       'zooAdmin' => 'Administratör',
-       'zooMember' => 'Medlem',
    ],
    'difficulty-level' => [
      'easy' => 'Lätt',

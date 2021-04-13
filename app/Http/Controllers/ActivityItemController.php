@@ -539,10 +539,6 @@ class ActivityItemController extends Controller
           $activity_item->missing_word = trim(preg_replace('/[^\S\r\n]+/', ' ',$request->input('missing-word', '')));
       }
 
-      if ( auth()->user()->can('changeZoo', $activity_item) ) {
-          $activity_item->zoo = ZooOptions::DEFAULT_OPTION;
-      }
-
       $activity_item->language = $request->language;
       $activity_item->latitude = $request->latitude;
       $activity_item->longitude = $request->longitude;

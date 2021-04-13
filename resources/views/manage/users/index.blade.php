@@ -24,22 +24,13 @@
                         <div class="form-group">
                             @foreach($roles as $role)
                                 <div class="row">
-                                    <div class="col-xs-6">
+                                    <div class="col-xs-12">
                                         <div class="checkbox">
                                             <label>
                                                 <input type="checkbox" name="roles[]" value="{{ $role->id }}">
                                                 {{ trans( 'general.roles.' . $role->name ) }}
                                             </label>
                                         </div>
-                                    </div>
-                                    <div class="col-xs-6">
-                                        @if ( $role->name !== 'admin' )
-                                        <select name="role_{{ $role->id }}_zoo">
-                                            @foreach($zooOptions as $id => $title)
-                                                <option value="{{ $id }}">{{ $title }}</option>
-                                            @endforeach
-                                        </select>
-                                        @endif
                                     </div>
                                 </div>
                             @endforeach
@@ -128,9 +119,6 @@
                                                     @foreach ( $user->roles as $role)
                                                         <span class="badge sz-role-badge">
                                                             {{ trans('general.roles.' . $role->name) }}
-                                                            @if ( $role->hasZoo() )
-                                                                ({{ $role->pivot->zoo ? $role->getZoo() : '' }})
-                                                            @endif
                                                             <i class="mdi mdi-close-circle-outline" title="{{ trans('pages.manage.users.index.remove-role') }}" data-role-id="{{ $role->id }}" data-user-id="{{ $user->id }}" data-confirm="{{ trans("pages.manage.users.index.confirmations.role") }}"></i>
                                                         </span>
                                                     @endforeach

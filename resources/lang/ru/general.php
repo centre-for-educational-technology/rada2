@@ -159,8 +159,7 @@ return [
    ],
    'roles' => [
        'admin' => 'Администратор',
-       'zooAdmin' => 'Администратор',
-       'zooMember' => 'Член',
+       'editor' => 'Редактор',
    ],
    'difficulty-level' => [
      'easy' => 'Простой',
