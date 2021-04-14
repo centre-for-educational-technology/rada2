@@ -26,27 +26,4 @@ class Role extends Model
     {
         return self::getRoleByName('admin');
     }
-
-    /**
-     * Determines if role has zoo attached
-     * @return boolean
-     */
-    public function hasZoo()
-    {
-        return (bool)$this->pivot->zoo;
-    }
-
-    /**
-     * Returns zoo lable if exists or null
-     * @return mixed
-     */
-    public function getZoo()
-    {
-        if ( $this->hasZoo() )
-        {
-            return resolve(ZooOptions::class)->value($this->pivot->zoo);
-        }
-
-        return null;
-    }
 }
