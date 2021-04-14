@@ -90,9 +90,7 @@ return [
             'blocked-users' => 'Estetty',
             'unverified-users' => 'Todennematon',
             'captions' => [
-                'activities-by-zoo' => 'Toiminnat eläintarhaa kohti',
                 'activities-by-language' => 'Toiminnat kieltä kohti',
-                'activity-items-by-zoo' => 'Tehtävät eläintarhaa kohti',
                 'activity-items-by-question-type' => 'Tehtävät kysymyslajia kohti',
                 'activity-items-by-language' => 'Tehtävät kieltä kohti',
                 'games-by-status' => 'Pelit tilaa kohti',
@@ -177,7 +175,6 @@ return [
     'activity-results-index' => [
         'title' => 'Toiminnat',
         'heading' => 'Toimintojen tulokset',
-        'zoos' => 'Näytetyt toiminnat kuuluvat seuraaviin eläintarhoihin:',
     ],
     'activity-results' => [
         'heading' => '<strong>:title</strong> n tulokset',

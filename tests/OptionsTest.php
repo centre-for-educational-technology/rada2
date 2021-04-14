@@ -6,10 +6,8 @@ use Illuminate\Foundation\Testing\DatabaseTransactions;
 
 use App\Options\Interfaces\Options as OptionsInterface;
 use App\Options\OptionsBase;
-use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
-use App\Options\ZooGeolocationOptions;
 
 class OptionsTest extends TestCase
 {
@@ -29,19 +27,6 @@ class OptionsTest extends TestCase
         $this->assertCount(0, $instance->options());
         $this->assertSame(1, $instance->value(1));
     }
-    /**
-     * Test ZooOptions class.
-     *
-     * @return void
-     */
-    public function testZooOptions()
-    {
-        $instance = $this->app->make(ZooOptions::class);
-
-        $this->assertInstanceOf(OptionsInterface::class, $instance);
-        $this->assertInstanceOf(OptionsBase::class, $instance);
-        $this->assertCount(3, $instance->options());
-    }
 
     /**
      * Test LanguageOptions class.
@@ -54,7 +39,7 @@ class OptionsTest extends TestCase
 
         $this->assertInstanceOf(OptionsInterface::class, $instance);
         $this->assertInstanceOf(OptionsBase::class, $instance);
-        $this->assertCount(5, $instance->options());
+        $this->assertCount(3, $instance->options());
     }
 
     /**
@@ -68,24 +53,6 @@ class OptionsTest extends TestCase
 
         $this->assertInstanceOf(OptionsInterface::class, $instance);
         $this->assertInstanceOf(OptionsBase::class, $instance);
-        $this->assertCount(7, $instance->options());
-    }
-
-    /**
-     * Test ZooGeolocationOptions class.
-     *
-     * @expectedException              Exception
-     * @expectedExceptionMessageRegExp /No Geolocation for key:? \w+/
-     *
-     * @return void
-     */
-    public function testZooGeolocationOptions()
-    {
-        $instance = $this->app->make(ZooGeolocationOptions::class);
-
-        $this->assertInstanceOf(OptionsInterface::class, $instance);
-        $this->assertInstanceOf(OptionsBase::class, $instance);
-        $this->assertCount(3, $instance->options());
-        $instance->value('does-not-exist');
+        $this->assertCount(8, $instance->options());
     }
 }

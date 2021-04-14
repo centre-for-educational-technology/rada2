@@ -109,9 +109,7 @@ return [
             'tasks-show-chart' => 'Show chart',
             'tasks-show-table' => 'Show table',
             'captions' => [
-                'activities-by-zoo' => 'Games by Zoo',
                 'activities-by-language' => 'Games by Language',
-                'activity-items-by-zoo' => 'Tasks by Zoo',
                 'activity-items-by-question-type' => 'Tasks by Question Type',
                 'activity-items-by-language' => 'Tasks by Language',
                 'games-by-status' => 'Games by Status',
@@ -256,7 +254,6 @@ return [
     'activity-results-index' => [
         'title' => 'Games',
         'heading' => 'Results of Games',
-        'zoos' => 'Displayed activities belong to these Zoos',
     ],
     'activity-results' => [
         'heading' => 'Results of <strong>:title</strong>',

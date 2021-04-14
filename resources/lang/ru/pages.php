@@ -90,9 +90,7 @@ return [
             'blocked-users' => 'Заблокированный',
             'unverified-users' => 'Непроверенный',
             'captions' => [
-                'activities-by-zoo' => 'Тропы зоопарка',
                 'activities-by-language' => 'Тропы по языку',
-                'activity-items-by-zoo' => 'Пункты тропы зоопарка',
                 'activity-items-by-question-type' => 'Пункты тропы по типу вопроса',
                 'activity-items-by-language' => 'Пункты тропы по языку',
                 'games-by-status' => 'Игры по статусу',
@@ -177,7 +175,6 @@ return [
     'activity-results-index' => [
         'title' => 'Тропы',
         'heading' => 'Результаты прохождения троп',
-        'zoos' => 'Отображённые тропы относятся к этим зоопаркам',
     ],
     'activity-results' => [
         'heading' => 'Результаты <strong>:title</strong>',

@@ -109,9 +109,7 @@ return [
             'tasks-show-chart' => 'Kuva diagramm',
             'tasks-show-table' => 'Kuva tabel',
             'captions' => [
-                'activities-by-zoo' => 'Mändug loomaaedade kaupa',
                 'activities-by-language' => 'Mängud keele alusel',
-                'activity-items-by-zoo' => 'Rajapunktid loomaaedade järgi',
                 'activity-items-by-question-type' => 'Rajapunktid küsimuse tüübi alusel',
                 'activity-items-by-language' => 'Rajapunktid keele alusel',
                 'games-by-status' => 'Mängud staatuse järgi',
@@ -256,7 +254,6 @@ return [
     'activity-results-index' => [
         'title' => 'Mängud',
         'heading' => 'Mängude tulemused',
-        'zoos' => 'Kuvatavad mängud kuuluvad järgmiste loomaaedade juurde',
     ],
     'activity-results' => [
         'heading' => 'Mängu <strong>:title</strong> tulemused',

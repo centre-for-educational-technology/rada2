@@ -37,7 +37,7 @@ class EventServiceProvider extends ServiceProvider
             // Assign administrator role to initial user account
             if ( $user->id === 1 ) {
                 $adminRole = Role::getAdminRole();
-                $user->roles()->attach($adminRole->id,['zoo' => null]);
+                $user->roles()->attach($adminRole->id);
             }
         });
 

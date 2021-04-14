@@ -33,7 +33,7 @@
                             {!! trans('pages.activity-results.heading', [ 'title' => $activity->title ]) !!}
                         </div>
 
-                        <form name="filters" action="{!! route('activity.results', ['id' => $activity->id]) !!}" class="form-inline col-xs-12">
+                        <form name="filters" action="{!! route('activity.results', ['activity' => $activity->id]) !!}" class="form-inline col-xs-12">
                             <div class="row">
                                 <div class="col-xs-12">
                                     <div class="pull-right">
@@ -129,7 +129,7 @@
                                     @foreach($games as $game)
                                     <tr>
                                         <td class="text-center {{ !$game->isComplete() ? 'warning' : '' }}">
-                                            <a class="btn btn-primary btn-xs pull-right" href="{!! route('game.positions', ['id' => $game->id]) !!}" target="_blank" title="{{ trans('pages.activity-results.btn.download-player-positions') }}">
+                                            <a class="btn btn-primary btn-xs pull-right" href="{!! route('game.positions', ['game' => $game->id]) !!}" target="_blank" title="{{ trans('pages.activity-results.btn.download-player-positions') }}">
                                                 <i class="mdi mdi-download" aria-hidden="true"></i>
                                             </a>
                                             @if( $game->user )

@@ -68,12 +68,6 @@
                             v-if="activity.featured_image && activity.featured_image.custom_properties && activity.featured_image.custom_properties.provider"
                         ></provider-logo>
                     </p>
-                    <!--
-                    <h3>{{ $t('zoo') }}</h3>
-                    <p>
-                        {{ activity.zoo }}
-                    </p>
-                    -->
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-lg center-block sz-go-btn" v-on:click="close()">{{ $t('go')}}</button>

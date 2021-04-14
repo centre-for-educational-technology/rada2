@@ -29,11 +29,6 @@ return [
        'fi' => 'Suomi',
        'sv' => 'Svenska',
    ],
-   'zoos' => [
-     'skansen' => 'Skansen',
-     'korkeasaari' => 'Högholmen',
-     'tallinn' => 'Tallinn Zoo',
-   ],
    'question-types' => [
      'one-correct-answer' => 'Endast ett korrekt svar',
      'multiple-correct-answers' => 'Flera korrekta svar',
@@ -52,7 +47,6 @@ return [
            'playing-time' => 'Speltid',
            'contact-information' => 'Kontaktinformation',
            'featured-image' => 'Rubrikbild',
-           'zoo' => 'Zoo',
            'question-type' => 'Frågetyp',
            'location' => 'Plats',
            'activity-items' => 'Uppgift',

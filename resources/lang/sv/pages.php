@@ -90,9 +90,7 @@ return [
             'blocked-users' => 'Blockerad',
             'unverified-users' => 'Obekräftad',
             'captions' => [
-                'activities-by-zoo' => 'Sorterade per djurpark',
                 'activities-by-language' => 'Sorterade per språk',
-                'activity-items-by-zoo' => 'Uppgifter sorterade per djurpark',
                 'activity-items-by-question-type' => 'Uppgifter sorterade per frågetyp',
                 'activity-items-by-language' => 'Uppgifter sorterade per språk',
                 'games-by-status' => 'Spel sorterade per tillstånd.',
@@ -177,7 +175,6 @@ return [
     'activity-results-index' => [
         'title' => 'Aktiviteter',
         'heading' => 'Aktiviteternas resultat',
-        'zoos' => 'Aktiviteterna nedan hör till följande djurparker',
     ],
     'activity-results' => [
         'heading' => '<strong>:title</strong>, resultat',

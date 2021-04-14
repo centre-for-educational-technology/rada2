@@ -10,7 +10,6 @@ use App\Activity;
 use App\ActivityItem;
 use App\Game;
 use App\DiscountVoucher;
-use App\Options\ZooOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\LanguageOptions;
 use Symfony\Component\HttpFoundation\Request;
@@ -41,14 +40,12 @@ class StatisticsController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(ZooOptions $zooOptions, QuestionTypeOptions $questionTypeOptions, LanguageOptions $languageOptions)
+    public function index(QuestionTypeOptions $questionTypeOptions, LanguageOptions $languageOptions)
     {
-        $activitiesByZoo = Activity::select('zoo', DB::raw('count(*) as count'))->groupBy('zoo')->get()->keyBy('zoo');
         $activitiesByLanguage = Activity::select('language', DB::raw('count(*) as count'))->groupBy('language')->get()->keyBy('language');
         $activityItemsByType = ActivityItem::select('activity_items.type', DB::raw('count(*) as count, SEC_TO_TIME(ROUND(AVG(TIMEDIFF(game_answers.answering_end_time, game_answers.created_at)), 0)) as time'))
             ->join('game_answers', 'game_answers.activity_item_id', '=', 'activity_items.id')
             ->groupBy('type')->get()->keyBy('type');
-        $activityItemsByZoo = ActivityItem::select('zoo', DB::raw('count(*) as count'))->groupBy('zoo')->get()->keyBy('zoo');
         $activityItemsByLanguage = ActivityItem::select('language', DB::raw('count(*) as count'))->groupBy('language')->get()->keyBy('language');
         $gamesByStatus = Game::select('complete', DB::raw('count(*) as count'))->groupBy('complete')->get()->keyBy('complete');
         $discountVouchersByStatus = DiscountVoucher::select('status', DB::raw('count(*) as count'))->groupBy('status')->get()->keyBy('status');
@@ -59,15 +56,12 @@ class StatisticsController extends Controller
             'blockedUsers' => User::whereNotNull('blocked_at')->count(),
             'unverifiedUsers' => User::where('verified', 0)->count(),
             'activities' => Activity::count(),
-            'activitiesByZoo' => $activitiesByZoo,
             'activitiesByLanguage' => $activitiesByLanguage,
             'activityItems' => ActivityItem::count(),
             'activityItemsByType' => $activityItemsByType,
-            'activityItemsByZoo' => $activityItemsByZoo,
             'activityItemsByLanguage' => $activityItemsByLanguage,
             'games' => Game::count(),
             'gamesByStatus' => $gamesByStatus,
-            'zooOptions' => $zooOptions->options(),
             'questionTypeOptions' => $questionTypeOptions->options(),
             'languageOptions' => $languageOptions->options(),
             'discountVouchers' => DiscountVoucher::count(),

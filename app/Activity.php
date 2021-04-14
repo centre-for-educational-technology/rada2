@@ -15,7 +15,6 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\DB;
 
-use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use App\Options\DifficultyLevelOptions;
 
@@ -29,7 +28,6 @@ use App\Options\DifficultyLevelOptions;
  * @property $playing_time
  * @property $language
  * @property $contact_information
- * @property $zoo
  * @property $proximity_check
  * @property $proximity_radius
  * @property $user_id
@@ -84,15 +82,6 @@ class Activity extends Model implements HasImage
         }
 
         return false;
-    }
-
-    /**
-     * Returns Zoo title
-     * @return string Zoo title or key
-     */
-    public function getZoo(): string
-    {
-        return resolve(ZooOptions::class)->value($this->zoo);
     }
 
     /**

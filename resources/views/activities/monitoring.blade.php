@@ -59,7 +59,6 @@
                     'language' => trans('general.language'),
                     'contact-information' => trans('general.forms.labels.contact-information'),
                     'featured-image' => trans('general.forms.labels.featured-image'),
-                    'zoo' => trans('general.forms.labels.zoo'),
                     'close' => trans('general.forms.buttons.close'),
                     'open' => trans('general.forms.buttons.open'),
                     'submit' => trans('general.forms.buttons.submit'),

@@ -30,11 +30,6 @@ return [
        'fi' => 'Finnish',
        'sv' => 'Swedish',
    ],
-   'zoos' => [
-     'skansen' => 'Skansen',
-     'korkeasaari' => 'Korkeasaari',
-     'tallinn' => 'Tallinn Zoo',
-   ],
    'question-types' => [
      'one-correct-answer' => 'One correct answer',
      'multiple-correct-answers' => 'Multiple correct answers',
@@ -54,7 +49,6 @@ return [
            'playing-time' => 'Playing Time',
            'contact-information' => 'Contact Information',
            'featured-image' => 'Featured Image',
-           'zoo' => 'Zoo',
            'question-type' => 'Question Type',
            'location' => 'Location',
            'activity-items' => 'Tasks',

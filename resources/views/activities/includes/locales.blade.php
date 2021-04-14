@@ -5,7 +5,6 @@
         'search-activity-items' => trans('general.forms.buttons.search-activity-items'),
         'create-new-activity-item' => trans('general.forms.buttons.create-new-activity-item'),
         'keywords' => trans('pages.activities.create-or-edit.keywords'),
-        'zoo' => trans('general.forms.labels.zoo'),
         'question-type' => trans('general.forms.labels.question-type'),
         'language' => trans('general.language'),
         'difficulty-level' => trans('general.forms.labels.difficulty-level'),

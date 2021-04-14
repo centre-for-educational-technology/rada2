@@ -9,15 +9,6 @@
                 <div class="panel-heading">{{ trans('pages.activity-results-index.heading') }}</div>
 
                 <div class="panel-body">
-                    @if ( count($zoos) > 0 )
-                        <h4>{{ trans('pages.activity-results-index.zoos') }}</h4>
-                        <p>
-                            @foreach($zoos as $zoo)
-                                <span class="badge">{{ $zoo }}</span>
-                            @endforeach
-                        </p>
-                    @endif
-
                     @if ( count($activities) === 0 )
                         <div class="well">{{ trans('pages.dashboard.none-found') }}</div>
                     @else
@@ -26,7 +17,6 @@
                                 <thead>
                                     <tr>
                                         <th>{{ trans('general.forms.labels.title')}}</th>
-                                        <th>{{ trans('general.forms.labels.zoo') }}</th>
                                         <th>#</th>
                                     </tr>
                                 </thead>
@@ -34,11 +24,10 @@
                                     @foreach($activities as $activity)
                                     <tr>
                                         <td>
-                                            <a href="{!! route('activity.results', ['id' => $activity->id]) !!}">
+                                            <a href="{!! route('activity.results', ['activity' => $activity->id]) !!}">
                                                 {{ $activity->title }}
                                             </a>
                                         </td>
-                                        <td>{{ $activity->getZoo() }}</td>
                                         <td>{{ $activity->games()->count() }}</td>
                                     </tr>
                                     @endforeach

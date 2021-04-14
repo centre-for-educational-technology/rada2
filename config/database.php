@@ -1,5 +1,7 @@
 <?php
 
+use App\Database\DBAL\TinyIntegerType;
+
 return [
 
     /*
@@ -116,6 +118,12 @@ return [
             'database' => 0,
         ],
 
+    ],
+
+    'dbal' => [
+        'types' => [
+            'tinyinteger' => TinyIntegerType::class,
+        ],
     ],
 
 ];

@@ -30,11 +30,6 @@ return [
        'fi' => 'Soome',
        'sv' => 'Rootsi',
    ],
-   'zoos' => [
-     'skansen' => 'Skansen',
-     'korkeasaari' => 'Korkeasaari',
-     'tallinn' => 'Tallinna Loomaaed',
-   ],
    'question-types' => [
      'one-correct-answer' => 'Üks õige vastus',
      'multiple-correct-answers' => 'Mitu õiget vastust',
@@ -54,7 +49,6 @@ return [
            'playing-time' => 'Raja läbimiseks kuluv aeg',
            'contact-information' => 'Kontakt',
            'featured-image' => 'Kaanepilt',
-           'zoo' => 'Loomaaed',
            'question-type' => 'Küsimuse tüüp',
            'location' => 'Asukoht',
            'activity-items' => 'Rajapunktid',

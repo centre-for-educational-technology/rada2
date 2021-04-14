@@ -28,7 +28,6 @@ use App\DiscountVoucher;
 
 use Auth;
 
-use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\DifficultyLevelOptions;
@@ -248,11 +247,6 @@ class ActivityController extends Controller
         {
             $activities->appends($search);
             $activities->fragment('search-results');
-        } else if ( $request->has('zoo') && $request->get('zoo') )
-        {
-            $activities->appends([
-                'zoo' => $request->get('zoo'),
-            ]);
         }
 
         return view('activities/index')->with([
@@ -561,27 +555,12 @@ class ActivityController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function resultsIndex(ZooOptions $zooOptions)
+    public function resultsIndex()
     {
         $this->authorize('viewResultsList', Activity::class);
 
-        $zooIds = [];
-        if ( Auth::user()->isAdmin() )
-        {
-            $zooIds = array_keys($zooOptions->options());
-        }
-        else if ( Auth::user()->roles )
-        {
-            foreach ( Auth::user()->roles as $role ) {
-                if ( $role->pivot->zoo && !in_array( $role->pivot->zoo, $zooIds ) ) {
-                    $zooIds[] = (int)$role->pivot->zoo;
-                }
-            }
-        }
-
         return view('activities/results-index')->with([
-            'activities' => Activity::whereIn('zoo', $zooIds)->orderBy('id', 'desc')->paginate( config('paginate.limit') ),
-            'zoos' => array_map(function($id) use ($zooOptions) { return $zooOptions->value($id); }, $zooIds),
+            'activities' => Activity::orderBy('id', 'desc')->paginate( config('paginate.limit') ),
         ]);
     }
 
@@ -718,7 +697,6 @@ class ActivityController extends Controller
         $activity->playing_time = $request->playing_time;
         $activity->language = $request->language;
         $activity->contact_information = $request->contact_information;
-        $activity->zoo = ZooOptions::DEFAULT_OPTION;
         $activity->keywords = $request->keywords ? $request->keywords : '';
         $activity->subject = $request->subject ? $request->subject : '';
         $activity->age_of_participants = $request->age_of_participants ? json_encode($request->age_of_participants) : '';

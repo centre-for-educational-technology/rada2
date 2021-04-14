@@ -51,9 +51,6 @@
                             @foreach ( $user->roles as $role)
                                 <span class="badge sz-role-badge">
                                     {{ trans('general.roles.' . $role->name) }}
-                                    @if ( $role->hasZoo() )
-                                        ({{ $role->pivot->zoo ? $role->getZoo() : '' }})
-                                    @endif
                                 </span>
                             @endforeach
                         @endif

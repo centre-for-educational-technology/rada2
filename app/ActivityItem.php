@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 use Spatie\Activitylog\Traits\LogsActivity;
 
-use App\Options\ZooOptions;
 use App\Options\QuestionTypeOptions;
 use App\Options\LanguageOptions;
 
@@ -105,15 +104,6 @@ class ActivityItem extends Model implements HasImage
     {
         return resolve(QuestionTypeOptions::class)->value($this->type);
 
-    }
-
-    /**
-     * Returns Zoo title
-     * @return string Zoo title or key
-     */
-    public function getZoo()
-    {
-        return resolve(ZooOptions::class)->value($this->zoo);
     }
 
     /**

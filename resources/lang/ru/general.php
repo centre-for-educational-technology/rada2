@@ -29,11 +29,6 @@ return [
        'fi' => 'Финский',
        'sv' => 'Шведский',
    ],
-   'zoos' => [
-     'skansen' => 'Скансен',
-     'korkeasaari' => ' Зоопарк Хельсинки Korkeasaari',
-     'tallinn' => 'Таллиннский зоопарк',
-   ],
    'question-types' => [
      'one-correct-answer' => 'Один верный ответ',
      'multiple-correct-answers' => 'Несколько верных ответов',
@@ -52,7 +47,6 @@ return [
            'playing-time' => 'Время прохождения тропы',
            'contact-information' => 'Контакт',
            'featured-image' => 'Изображение обложки',
-           'zoo' => 'Зоопарк',
            'question-type' => 'Тип вопроса',
            'location' => 'Расположение',
            'activity-items' => 'Пункты тропы',

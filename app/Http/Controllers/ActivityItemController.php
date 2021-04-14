@@ -14,9 +14,7 @@ use App\ActivityItemOption;
 
 use App\ActivityItemPair;
 
-use App\Options\ZooGeolocationOptions;
 use App\Options\QuestionTypeOptions;
-use App\Options\ZooOptions;
 use App\Options\LanguageOptions;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
@@ -175,13 +173,12 @@ class ActivityItemController extends Controller
     /**
      * Show the form for creating a new ActivityItem.
      *
-     * @param ZooGeolocationOptions $zooGeolocationOptions
      * @param QuestionTypeOptions $questionTypeOptions
      * @param LanguageOptions $languageOptions
      * @return Response
      * @throws AuthorizationException
      */
-  public function create(ZooGeolocationOptions $zooGeolocationOptions, QuestionTypeOptions $questionTypeOptions, LanguageOptions $languageOptions)
+  public function create(QuestionTypeOptions $questionTypeOptions, LanguageOptions $languageOptions)
   {
       $this->authorize('create', ActivityItem::class);
 
@@ -215,7 +212,6 @@ class ActivityItemController extends Controller
       }
 
       return view('activity_items/create')->with([
-          'zooGeolocationOptions' => $zooGeolocationOptions->options(),
           'questionTypeOptions' => $questionTypeOptions->options(),
           'languageOptions' => $languageOptions->options(),
           'questionData' => $questionData,
@@ -260,7 +256,6 @@ class ActivityItemController extends Controller
           $item->missing_word = trim(preg_replace('/[^\S\r\n]+/', ' ',$request->{'missing-word'}));
       }
 
-      $item->zoo = ZooOptions::DEFAULT_OPTION;
       $item->language = $request->language;
       $item->latitude = $request->latitude;
       $item->longitude = $request->longitude;
@@ -393,7 +388,6 @@ class ActivityItemController extends Controller
      * Show the form for editing the specified activity.
      *
      * @param ActivityItem $activity_item
-     * @param ZooGeolocationOptions $zooGeolocationOptions
      * @param QuestionTypeOptions $questionTypeOptions
      * @param LanguageOptions $languageOptions
      * @return Response
@@ -401,7 +395,6 @@ class ActivityItemController extends Controller
      */
   public function edit(
       ActivityItem $activity_item,
-      ZooGeolocationOptions $zooGeolocationOptions,
       QuestionTypeOptions $questionTypeOptions,
       LanguageOptions $languageOptions
   )
@@ -412,7 +405,6 @@ class ActivityItemController extends Controller
 
       return view('activity_items/edit')->with([
           'activity_item' => $activity_item,
-          'zooGeolocationOptions' => $zooGeolocationOptions->options(),
           'questionTypeOptions' => $questionTypeOptions->options(),
           'languageOptions' => $languageOptions->options(),
           'questionData' => $questionData ? $questionData : $activity_item->getQuestionData(),

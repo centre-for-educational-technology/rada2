@@ -29,11 +29,6 @@ return [
        'fi' => 'Suomi',
        'sv' => 'Svenska',
    ],
-   'zoos' => [
-     'skansen' => 'Skansen',
-     'korkeasaari' => 'Korkeasaari',
-     'tallinn' => 'Tallinn Zoo',
-   ],
    'question-types' => [
      'one-correct-answer' => 'Vain yksi oikea vastaus',
      'multiple-correct-answers' => 'Useampi oikea vastaus',
@@ -52,7 +47,6 @@ return [
            'playing-time' => 'Peliaika',
            'contact-information' => 'Yhteystiedot',
            'featured-image' => 'Otsikkokuva',
-           'zoo' => 'Eläintarha',
            'question-type' => 'Kysymyslaji',
            'location' => 'Paikka',
            'activity-items' => 'Tehtävä',

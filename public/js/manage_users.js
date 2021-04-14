@@ -47,10 +47,6 @@ $(function () {
     if (userRoles) {
       _.each(userRoles, function (role) {
         form.find('input[type="checkbox"][name="roles[]"][value="' + role.id + '"]').prop('checked', true);
-
-        if (role.zoo) {
-          form.find('select[name="role_' + role.id + '_zoo"]').val(role.zoo);
-        }
       });
     }
   });
