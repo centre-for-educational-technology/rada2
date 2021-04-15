@@ -163,7 +163,7 @@ return [
        'text' => 'Denna webbplats använder kakor för att du ska få en så bra upplevelse som möjligt. <a href=":policy" target="_blank">Genom att fortsätta godkänder du användandet av kakor.</a>',
        'button-agree' => 'Jag godkänner',
    ],
-   'system-requirements' => 'Systemkrav: iOS (version 10) eller Android 7. 3G-förbindelse till Internet och fungerande GPS.',
+   'system-requirements' => 'Systemkrav: iOS (version 14) eller Android 8.1. 4G-förbindelse till Internet och fungerande GPS.',
    'messages' => [
        'warnings' => [
            'account-blocked' => 'Detta konto har stängts av.  Var vänlig kontakta administratören för mer information.',

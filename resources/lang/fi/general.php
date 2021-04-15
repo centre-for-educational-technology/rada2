@@ -163,7 +163,7 @@ return [
        'text' => 'Tämä sivusto käyttää evästeitä antaaksen sinulle parhaan mahdollisimman elämyksen,.  Jatkaen käyttää sivustoamme  <a href=":policy" target="_blank">hyväksyt evästeiden käyttöä</a>.',
        'button-agree' => 'Hyväksyn',
    ],
-   'system-requirements' => 'Laitevaatimukset: käyttöjärjestelmä iOS (versio 10) tai Android 7. Vähintään 3G Internetyhteys sekä toimiva GPS vaaditaan.',
+   'system-requirements' => 'Laitevaatimukset: käyttöjärjestelmä iOS (versio 14) tai Android 8.1. Vähintään 4G Internetyhteys sekä toimiva GPS vaaditaan.',
    'messages' => [
        'warnings' => [
            'account-blocked' => 'Tämä tili on pidätetty. Ota yhteys ylläpitäjälle lisätietoja varten.',

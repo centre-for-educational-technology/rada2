@@ -202,7 +202,7 @@ return [
        'text' => 'See veebileht kasutab küpsiseid Sinu mugavamaks teenindamiseks. Veebilehe kasutamiseks palun  <a href=":policy" target="_blank">nõustu küpsiste kasutamisega</a>.',
        'button-agree' => 'Nõustun',
    ],
-   'system-requirements' => 'Miinimumnõuded: operatsioonisüsteem iOS (versioon 10) või Android 7. Vähemalt 3G kiirusega internetiühendus ja toimib GPS moodul on vajalik.',
+   'system-requirements' => 'Miinimumnõuded: operatsioonisüsteem iOS (versioon 14) või Android 8.1. Vähemalt 4G kiirusega internetiühendus ja toimib GPS moodul on vajalik.',
    'structural-aid' => 'Ellu viidud projekti Mobilitas Pluss MOBEC001 "Piireületav haridusuuendus tehnoloogiapõhiste teadusuuringute toel" tegevuskava raames.',
    'messages' => [
        'warnings' => [

@@ -204,7 +204,7 @@ return [
        'text' => 'This website uses cookies to ensure you get the best possible online experience. By continuing to use our website, you <a href=":policy" target="_blank">agree to the use of cookies</a>.',
        'button-agree' => 'Agree',
    ],
-   'system-requirements' => 'Minimum requirements: operating system iOS (version 10) or Android 7. At least 3G internet connection and working GPS module is needed.',
+   'system-requirements' => 'Minimum requirements: operating system iOS (version 14) or Android 8.1. At least 4G internet connection and working GPS module is needed.',
    'structural-aid' => 'This project has been supported through and according to Mobilitas Plus MOBEC001 "Cross-Border Educational Innovation thru Technology-Enhanced Research" action plan.',
    'messages' => [
        'warnings' => [
