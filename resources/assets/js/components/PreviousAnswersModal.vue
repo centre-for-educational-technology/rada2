@@ -5,7 +5,7 @@
         <div class="modal-header">
           <button type="button" class="close" aria-label="Close" v-on:click="close()" v-bind:diabled="inAjaxCall"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">
-            {{ question.title }}
+            {{ title }}
           </h4>
         </div>
         <div class="modal-body">
@@ -13,7 +13,7 @@
             <span
                 :class="{ badge: true, 'animated infinite flash': inAjaxCall }"
             >
-            {{ totalResults }}
+            {{ resultsBadgeText }}
           </span>
           </div>
 
@@ -59,7 +59,7 @@
 <script>
 export default {
   name: "PreviousAnswersModal",
-  props: ['baseUrl', 'question', 'activity', 'gameId'],
+  props: ['endpointUrl', 'title'],
   data() {
     return {
       inAjaxCall: false,
@@ -67,6 +67,15 @@ export default {
       results: [],
       nextUrl: ''
     };
+  },
+  computed: {
+    resultsBadgeText() {
+      if (this.results.length > 0) {
+        return `${this.results.length} / ${this.totalResults}`;
+      }
+
+      return this.totalResults;
+    }
   },
   methods: {
     open() {
@@ -81,7 +90,7 @@ export default {
     },
     loadData(append) {
       const vm = this;
-      let url = `${this.baseUrl}/api/games/${this.gameId}/${this.question.id}/public_answers`;
+      let url = this.endpointUrl;
 
       if (!append) {
         this.totalResults = 0;
@@ -115,7 +124,7 @@ export default {
     formatDate(dateTime) {
       const date = new Date(dateTime);
 
-      return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`;
+      return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()} ${date.getHours().toString().padStart(2, '0')}:${date.getMinutes().toString().padStart(2, '0')}`;
     }
   }
 }

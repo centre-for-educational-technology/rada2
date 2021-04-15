@@ -150,6 +150,7 @@ return [
            'remove-selected-image' => 'Remove currently selected image',
            'mark-option-as-correct' => 'Check to mark option as correct',
            'public-path' => 'All results will be public during and after the gameplay',
+           'public-path-answers' => 'Public answers for current task',
        ],
        'warnings' => [
            'readd-pictures' => 'If you had added any pictures, you have to add them again. Sorry.',

@@ -1,6 +1,8 @@
 @extends('layouts.app')
 
 @section('footer-scripts')
+    @include('activity_items.includes.locales')
+    <script src="{{ asset(mix('js/show_single_or_list_activity_items.js')) }}"></script>
 @if ( Session::has('activityItemCreated') )
 <script>
     $(document).ready(function() {
@@ -24,7 +26,9 @@
                     {{ $activity_item->title }}
                 </div>
 
-                <div class="panel-body">
+                <div class="panel-body" id="show-single-or-list-activity-items">
+                    <previous-answers-modal v-if="question" :endpoint-url="endpointUrl" :title="question.title" ref="previousAnswersModal"></previous-answers-modal>
+
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             @include('includes.author', ['author' => $activity_item->user, 'date' => $activity_item->created_at])

@@ -223,12 +223,14 @@ class ActivityController extends Controller
             $query->where('promoted', 1);
         }
 
+        $paginateLimit = config('paginate.limit');
+
         if ($request->request->has('promoted-index')) {
             $promotedQuery = clone $query;
             $activities = $promotedQuery
                 ->where('promoted', 1)
                 ->where('is_template', 0)
-                ->paginate(5);
+                ->paginate($paginateLimit);
             $templates = null;
         } else {
             $templatesQuery = clone $query;

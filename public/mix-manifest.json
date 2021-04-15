@@ -14,6 +14,7 @@
     "/js/manage_users.js": "/js/manage_users.js",
     "/js/grading.js": "/js/grading.js",
     "/js/edit_profile.js": "/js/edit_profile.js",
+    "/js/show_single_or_list_activity_items.js": "/js/show_single_or_list_activity_items.js",
     "/css/app.css": "/css/app.css",
     "/build/fonts/materialdesignicons-webfont.eot": "/build/fonts/materialdesignicons-webfont.eot",
     "/build/fonts/materialdesignicons-webfont.ttf": "/build/fonts/materialdesignicons-webfont.ttf",

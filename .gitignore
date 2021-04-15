@@ -9,3 +9,4 @@ Homestead.yaml
 /public/build
 /service-account-credentials.json
 /.vagrant
+/.phpunit.result.cache

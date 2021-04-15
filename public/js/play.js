@@ -1783,8 +1783,6 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 //
 //
 //
-//
-//
 
 
 
@@ -1809,6 +1807,11 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     this.$on('previous-answers-modal-closed', function () {
       $(_this.$refs.modal).modal('show');
     });
+  },
+  computed: {
+    endpointUrl: function endpointUrl() {
+      return "".concat(this.baseUrl, "/api/games/").concat(this.gameId, "/").concat(this.question.id, "/public_answers");
+    }
   },
   data: function data() {
     return {
@@ -3048,7 +3051,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
 //
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "PreviousAnswersModal",
-  props: ['baseUrl', 'question', 'activity', 'gameId'],
+  props: ['endpointUrl', 'title'],
   data: function data() {
     return {
       inAjaxCall: false,
@@ -3056,6 +3059,15 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
       results: [],
       nextUrl: ''
     };
+  },
+  computed: {
+    resultsBadgeText: function resultsBadgeText() {
+      if (this.results.length > 0) {
+        return "".concat(this.results.length, " / ").concat(this.totalResults);
+      }
+
+      return this.totalResults;
+    }
   },
   methods: {
     open: function open() {
@@ -3072,7 +3084,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     loadData: function loadData(append) {
       var vm = this;
-      var url = "".concat(this.baseUrl, "/api/games/").concat(this.gameId, "/").concat(this.question.id, "/public_answers");
+      var url = this.endpointUrl;
 
       if (!append) {
         this.totalResults = 0;
@@ -3106,7 +3118,7 @@ function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len 
     },
     formatDate: function formatDate(dateTime) {
       var date = new Date(dateTime);
-      return "".concat(date.getDate().toString().padStart(2, '0'), "/").concat((date.getMonth() + 1).toString().padStart(2, '0'), "/").concat(date.getFullYear());
+      return "".concat(date.getDate().toString().padStart(2, '0'), "/").concat((date.getMonth() + 1).toString().padStart(2, '0'), "/").concat(date.getFullYear(), " ").concat(date.getHours().toString().padStart(2, '0'), ":").concat(date.getMinutes().toString().padStart(2, '0'));
     }
   }
 });
@@ -11007,10 +11019,8 @@ var render = function() {
         ? _c("previous-answers-modal", {
             ref: "previousAnswersModal",
             attrs: {
-              question: _vm.question,
-              activity: _vm.activity,
-              "base-url": _vm.baseUrl,
-              "game-id": _vm.gameId
+              title: _vm.question.title,
+              "endpoint-url": _vm.endpointUrl
             }
           })
         : _vm._e(),
@@ -12863,9 +12873,7 @@ var render = function() {
               ),
               _vm._v(" "),
               _c("h4", { staticClass: "modal-title" }, [
-                _vm._v(
-                  "\n          " + _vm._s(_vm.question.title) + "\n        "
-                )
+                _vm._v("\n          " + _vm._s(_vm.title) + "\n        ")
               ])
             ]),
             _vm._v(" "),
@@ -12884,7 +12892,9 @@ var render = function() {
                     },
                     [
                       _vm._v(
-                        "\n          " + _vm._s(_vm.totalResults) + "\n        "
+                        "\n          " +
+                          _vm._s(_vm.resultsBadgeText) +
+                          "\n        "
                       )
                     ]
                   )

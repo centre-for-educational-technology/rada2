@@ -808,7 +808,7 @@ class GameController extends Controller
             })
             ->where('game_answers.is_answered', '<>', 0)
             ->with(['game.user'])
-            ->orderBy('game_answers.created_at', 'asc')
+            ->orderBy('game_answers.updated_at', 'asc')
             ->paginate(config('paginate.limit'));
 
         $data['results'] = PublicAnswerResource::collection($result->items());

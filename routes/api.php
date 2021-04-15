@@ -5,6 +5,7 @@ use App\Http\Controllers\AjapaikController;
 use App\Http\Controllers\MuinasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
+use App\Http\Controllers\ActivityItemController;
 
 /*
 |--------------------------------------------------------------------------
@@ -92,4 +93,8 @@ Route::group(['prefix' => 'ajapaik'], static function() {
 
 Route::group(['prefix' => 'muinas'], static function() {
     Route::get('photos', [MuinasController::class, 'photos']);
+});
+
+Route::group(['prefix' => 'activity_items'], static function() {
+    Route::get('{activity_item}/public_answers', [ActivityItemController::class, 'apiPublicAnswers']);
 });

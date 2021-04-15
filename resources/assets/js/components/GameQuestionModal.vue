@@ -2,10 +2,8 @@
     <div>
     <previous-answers-modal
         v-if="activity && activity.public_path === true"
-        :question="question"
-        :activity="activity"
-        :base-url="baseUrl"
-        :game-id="gameId"
+        :title="question.title"
+        :endpoint-url="endpointUrl"
         ref="previousAnswersModal"
     ></previous-answers-modal>
 
@@ -206,6 +204,11 @@
             this.$on('previous-answers-modal-closed', () => {
               $(this.$refs.modal).modal('show');
             });
+        },
+        computed: {
+            endpointUrl() {
+                return `${this.baseUrl}/api/games/${this.gameId}/${this.question.id}/public_answers`;
+            }
         },
         data() {
             return {

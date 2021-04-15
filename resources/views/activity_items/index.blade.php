@@ -1,5 +1,10 @@
 @extends('layouts.app')
 
+@section('footer-scripts')
+    @include('activity_items.includes.locales')
+    <script src="{{ asset(mix('js/show_single_or_list_activity_items.js')) }}"></script>
+@endsection
+
 @section('content')
 <div class="container">
     <div class="row">
@@ -30,7 +35,9 @@
                     @include('activity_items.includes.search')
                 </div>
 
-                <div class="panel-body" id="search-results">
+                <div class="panel-body" id="show-single-or-list-activity-items">
+                    <previous-answers-modal v-if="question" :endpoint-url="endpointUrl" :title="question.title" ref="previousAnswersModal"></previous-answers-modal>
+
                     @if ( count($activity_items) === 0 )
                         <div class="well">{{ trans('pages.activity-items.index.none-found') }}</div>
                     @else

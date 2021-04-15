@@ -5554,7 +5554,11 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n      " + _vm._s(_vm.$t("load-more")) + "\n    ")]
+            [
+              _vm._v(
+                "\n      " + _vm._s(_vm.$t("buttons.load-more")) + "\n    "
+              )
+            ]
           )
         ])
       : _vm._e()
@@ -5753,7 +5757,11 @@ var render = function() {
                 }
               }
             },
-            [_vm._v("\n      " + _vm._s(_vm.$t("load-more")) + "\n    ")]
+            [
+              _vm._v(
+                "\n      " + _vm._s(_vm.$t("buttons.load-more")) + "\n    "
+              )
+            ]
           )
         ])
       : _vm._e()

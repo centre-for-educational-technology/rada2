@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Game;
+use App\GameAnswer;
+use App\Http\Resources\PublicAnswerResource;
 use App\Image;
 use Illuminate\Auth\Access\AuthorizationException;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 
 use App\ActivityItem;
@@ -38,7 +42,7 @@ class ActivityItemController extends Controller
    */
   public function __construct()
   {
-      $this->middleware('auth', ['except' => ['index', 'show']]);
+      $this->middleware('auth', ['except' => ['index', 'show', 'apiPublicAnswers',]]);
   }
 
   /**
@@ -159,7 +163,7 @@ class ActivityItemController extends Controller
 
         if ( $search['search-submitted'] ) {
             $items->appends($search);
-            $items->fragment('search-results');
+            $items->fragment('show-single-or-list-activity-items');
         }
 
         return view('activity_items/index')->with([
@@ -768,4 +772,44 @@ class ActivityItemController extends Controller
 
       return $query->paginate( config('paginate.limit') );
   }
+
+    public function apiPublicAnswers(ActivityItem $activityItem): JsonResponse
+    {
+        $data = [
+            'total' => 0,
+            'results' => [],
+        ];
+
+        $result = GameAnswer::select('game_answers.*')
+            ->join('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
+            ->join('games', 'game_answers.game_id', '=', 'games.id')
+            ->join('activities', 'games.activity_id', '=', 'activities.id')
+            ->where('activity_items.id', '=', $activityItem->id)
+            ->where(function($query) {
+                $query->where('activity_items.type', '=', QuestionTypeOptions::FREEFORM_ANSWER)
+                    ->orWhere('activity_items.type', '=', QuestiontypeOptions::PHOTO);
+            })
+            ->where('game_answers.is_answered', '<>', 0)
+            ->where('activities.public_path', '<>', 0)
+            ->whereNull('activities.deleted_at')
+            ->with(['game.user'])
+            ->orderBy('game_answers.updated_at', 'asc')
+            ->paginate(config('paginate.limit'));
+
+        $data['results'] = PublicAnswerResource::collection($result->items());
+        $data['total'] = $result->total();
+
+        $previousPageUrl = $result->previousPageUrl();
+        $nextPageUrl = $result->nextPageUrl();
+
+        if ($previousPageUrl) {
+            $data['previous'] = $previousPageUrl;
+        }
+
+        if ($nextPageUrl) {
+            $data['next'] = $nextPageUrl;
+        }
+
+        return response()->json($data);
+    }
 }

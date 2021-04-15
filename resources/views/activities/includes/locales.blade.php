@@ -10,11 +10,9 @@
         'difficulty-level' => trans('general.forms.labels.difficulty-level'),
         'search' => trans('general.forms.buttons.search'),
         'close' => trans('general.forms.buttons.close'),
-        'difficulty-level' => trans('general.forms.labels.difficulty-level'),
         'keyword-or-title' => trans('general.forms.placeholders.keyword-or-title'),
         'title' => trans('general.forms.labels.title'),
         'items-found' => trans('pages.activities.create-or-edit.items-found'),
-        'load-more' => trans('general.forms.buttons.load-more'),
         'none-found' => trans('pages.activity-items.index.none-found'),
         'read-more-about' => trans('pages.play.game.read-more-about'),
         'textual-answer-placeholder' => trans('pages.play.game.textual-answer-placeholder'),
@@ -36,6 +34,9 @@
                 'remove-selected-image' => trans('general.forms.buttons.remove-selected-image'),
             ],
             'remove-image' => trans('general.forms.tooltips.remove-image'),
+        ],
+        'buttons' => [
+            'load-more' => trans('general.forms.buttons.load-more'),
         ],
     ]); ?>
 </script>

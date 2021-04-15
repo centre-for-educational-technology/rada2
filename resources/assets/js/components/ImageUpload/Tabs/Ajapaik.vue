@@ -78,7 +78,7 @@
           @click.prevent="onLoadMoreClicked()"
           :disabled="inAjaxCall"
       >
-        {{ $t('load-more')}}
+        {{ $t('buttons.load-more')}}
       </a>
     </div>
   </div>

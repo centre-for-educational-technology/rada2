@@ -26,6 +26,7 @@ mix.js('resources/assets/js/app.js', 'public/js').vue()
     .js('resources/assets/js/manage_users.js', 'public/js').vue()
     .js('resources/assets/js/grading.js', 'public/js').vue()
     .js('resources/assets/js/edit_profile.js', 'public/js').vue()
+    .js('resources/assets/js/show_single_or_list_activity_items.js', 'public/js').vue()
     .sass('resources/assets/sass/app.scss', 'public/css')
     .copy('node_modules/bootstrap-sass/assets/fonts', 'public/build/fonts')
     .copy('node_modules/@mdi/font/fonts', 'public/build/fonts');
