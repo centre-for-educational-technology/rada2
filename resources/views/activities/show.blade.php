@@ -7,8 +7,8 @@
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">
-                    @if ( $activity->isPromoted() )
-                        <i class="mdi mdi-star-circle promoted-activity" aria-hidden="true"></i>
+                    @if ( $activity->isOpenGame() )
+                        <i class="mdi mdi-earth open-game" aria-hidden="true"></i>
                     @endif
                     {{ $activity->title }}
                 </div>

@@ -61,8 +61,8 @@
                                 <div class="media-body">
                                     @include('activities.includes.actions')
                                     <h4 class="media-heading">
-                                        @if ( $activity->isPromoted() )
-                                            <i class="mdi mdi-star-circle promoted-activity" aria-hidden="true"></i>
+                                        @if ( $activity->isOpenGame() )
+                                            <i class="mdi mdi-earth open-game" aria-hidden="true"></i>
                                         @endif
 
                                         <a href="{!! route('activity.show', ['activity' => $activity->id]) !!}">
@@ -137,8 +137,8 @@
                                 <div class="media-body">
                                     @include('activities.includes.actions')
                                     <h4 class="media-heading">
-                                        @if ( $activity->isPromoted() )
-                                            <i class="mdi mdi-star-circle promoted-activity" aria-hidden="true"></i>
+                                        @if ( $activity->isOpenGame() )
+                                            <i class="mdi mdi-earth open-game" aria-hidden="true"></i>
                                         @endif
 
                                         <a href="{!! route('activity.show', ['activity' => $activity->id]) !!}">

@@ -369,4 +369,14 @@ class Activity extends Model implements HasImage
     {
         return !!$this->public_path;
     }
+
+    /**
+     * Determines if current activity is an open game
+     *
+     * @return bool
+     */
+    public function isOpenGame(): bool
+    {
+        return !!$this->promoted;
+    }
 }

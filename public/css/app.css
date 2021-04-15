@@ -32205,8 +32205,8 @@ img.sz-uploaded-image-preview {
   background-color: #777777;
 }
 
-.mdi.promoted-activity {
-  line-height: 25px;
+.mdi.open-game::before {
+  vertical-align: middle;
 }
 
 .badge.sz-orange-badge {
