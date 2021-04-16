@@ -773,13 +773,15 @@ class ActivityItemController extends Controller
       return $query->paginate( config('paginate.limit') );
   }
 
+    /**
+     * Returns JsonResponse with previous public answers data for a single task.
+     *
+     * @param ActivityItem $activityItem
+     *
+     * @return JsonResponse
+     */
     public function apiPublicAnswers(ActivityItem $activityItem): JsonResponse
     {
-        $data = [
-            'total' => 0,
-            'results' => [],
-        ];
-
         $result = GameAnswer::select('game_answers.*')
             ->join('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
             ->join('games', 'game_answers.game_id', '=', 'games.id')
@@ -796,20 +798,6 @@ class ActivityItemController extends Controller
             ->orderBy('game_answers.updated_at', 'asc')
             ->paginate(config('paginate.limit'));
 
-        $data['results'] = PublicAnswerResource::collection($result->items());
-        $data['total'] = $result->total();
-
-        $previousPageUrl = $result->previousPageUrl();
-        $nextPageUrl = $result->nextPageUrl();
-
-        if ($previousPageUrl) {
-            $data['previous'] = $previousPageUrl;
-        }
-
-        if ($nextPageUrl) {
-            $data['next'] = $nextPageUrl;
-        }
-
-        return response()->json($data);
+        return self::jsonResponseWithPagination($result, PublicAnswerResource::class);
     }
 }

@@ -783,6 +783,15 @@ class GameController extends Controller
         GameRepository::deleteMessage($id);
     }
 
+    /**
+     * Returns JsonResponse with previous public answers data for a single task.
+     * Checks if game is currently running, being a public path and provided task belonging to a game.
+     *
+     * @param Game $game
+     * @param ActivityItem $activityItem
+     *
+     * @return JsonResponse
+     */
     public function apiPublicAnswers(Game $game, ActivityItem $activityItem): JsonResponse
     {
         $activity = $game->activity;
@@ -793,11 +802,6 @@ class GameController extends Controller
         if (!$activity->isStarted() || !$activity->isPublicPath() || !$hasActivityItem) {
             return response()->json([], 403);
         }
-
-        $data = [
-            'total' => 0,
-            'results' => [],
-        ];
 
         $result = GameAnswer::select('game_answers.*')
             ->join('activity_items', 'game_answers.activity_item_id', '=', 'activity_items.id')
@@ -811,20 +815,6 @@ class GameController extends Controller
             ->orderBy('game_answers.updated_at', 'asc')
             ->paginate(config('paginate.limit'));
 
-        $data['results'] = PublicAnswerResource::collection($result->items());
-        $data['total'] = $result->total();
-
-        $previousPageUrl = $result->previousPageUrl();
-        $nextPageUrl = $result->nextPageUrl();
-
-        if ($previousPageUrl) {
-            $data['previous'] = $previousPageUrl;
-        }
-
-        if ($nextPageUrl) {
-            $data['next'] = $nextPageUrl;
-        }
-
-        return response()->json($data);
+        return self::jsonResponseWithPagination($result, PublicAnswerResource::class);
     }
 }
