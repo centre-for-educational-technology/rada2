@@ -36,7 +36,7 @@
 
     <span :class="{ badge: true, 'animated infinite flash': inAjaxCall }">{{ $t('image-upload.results')}} {{ totalPhotos }}</span>
 
-    <div class="row">
+    <div class="image-search-result-columns">
       <div
           v-for="(result, index) in photos"
           :key="index"
@@ -184,15 +184,5 @@ export default {
 
 .ajapaik .badge {
   margin-bottom: 1em;
-}
-
-/* This one is needed for meaningful distribution. Source: https://stackoverflow.com/a/45435596/2704169*/
-.row{
-  display: flex;
-  flex-wrap: wrap;
-}
-.row>[class="col-sm-6 col-md-4"]{
-  display: flex;
-  flex-direction: column;
 }
 </style>

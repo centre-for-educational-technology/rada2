@@ -68,12 +68,15 @@ class ActivityItemController extends Controller
      * @param Request $request
      * @param ActivityItem $activityItem
      *
-     * @return Image
-     *
-     * @throws \Exception
+     * @return void
      */
-  private function processUploadedImage(Request &$request, ActivityItem &$activityItem): Image {
-      return $activityItem->addImage($request->file('image'), 800);
+  private function processUploadedImage(Request &$request, ActivityItem &$activityItem): void
+  {
+      try {
+          $activityItem->addImage($request->file('image'), 800);
+      } catch (\Exception $e) {
+          $request->session()->flash('image_upload_processing_error', __('general.messages.error.image-upload-processing-error'));
+      }
   }
 
     /**
@@ -82,13 +85,15 @@ class ActivityItemController extends Controller
      * @param Request $request
      * @param ActivityItem $activityItem
      *
-     * @return Image|null
-     *
-     * @throws \Exception
+     * @return void
      */
-  private function processExternalImage(Request &$request, ActivityItem &$activityItem): ?Image
+  private function processExternalImage(Request &$request, ActivityItem &$activityItem): void
   {
-      return $activityItem->addImageFromExternalProvider($request->get('image_provider'), $request->get('image_id'), 800);
+      try {
+          $activityItem->addImageFromExternalProvider($request->get('image_provider'), $request->get('image_id'), 800);
+      } catch (\Exception $e) {
+          $request->session()->flash('image_upload_processing_error', __('general.messages.error.image-upload-processing-error'));
+      }
   }
 
   /**
@@ -289,7 +294,6 @@ class ActivityItemController extends Controller
           $this->processUploadedImage($request, $item);
       }
       else if ( $request->has('image_id') && $request->has('image_provider')) {
-
           $this->processExternalImage($request, $item);
       }
 
@@ -509,19 +513,9 @@ class ActivityItemController extends Controller
       }
 
       if ( $request->hasFile('image') ) {
-          if ($activity_item->hasImage())
-          {
-              $activity_item->deleteImage();
-          }
-
           $this->processUploadedImage($request, $activity_item);
       }
       else if ( $request->has('image_id') && $request->has('image_provider')) {
-          if ( $activity_item->hasImage() )
-          {
-              $activity_item->deleteImage();
-          }
-
           $this->processExternalImage( $request, $activity_item);
       }
       else if ( $request->remove_image && $activity_item->hasImage() )

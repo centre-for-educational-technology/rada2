@@ -29,6 +29,8 @@
                 <div class="panel-body" id="show-single-or-list-activity-items">
                     <previous-answers-modal v-if="question" :endpoint-url="endpointUrl" :title="question.title" ref="previousAnswersModal"></previous-answers-modal>
 
+                    @include('includes.image-upload-processing-error')
+
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">
                             @include('includes.author', ['author' => $activity_item->user, 'date' => $activity_item->created_at])

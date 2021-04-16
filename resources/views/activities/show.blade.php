@@ -14,6 +14,7 @@
                 </div>
 
                 <div class="panel-body">
+                    @include('includes.image-upload-processing-error')
                     @include('activities.includes.game-status', ['activity' => $activity])
                     <div class="row">
                         <div class="col-xs-12 col-sm-6">

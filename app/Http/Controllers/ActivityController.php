@@ -69,13 +69,15 @@ class ActivityController extends Controller
      * @param Request $request
      * @param Activity $activity
      *
-     * @return Image
-     *
-     * @throws Exception
+     * @return void
      */
-    private function processFeaturedImage(Request &$request, Activity &$activity): Image
+    private function processFeaturedImage(Request &$request, Activity &$activity): void
     {
-        return $activity->addImage($request->file('featured_image'), 800);
+        try {
+            $activity->addImage($request->file('featured_image'), 800);
+        } catch (\Exception $e) {
+            $request->session()->flash('image_upload_processing_error', __('general.messages.error.image-upload-processing-error'));
+        }
     }
 
     /**
@@ -84,13 +86,15 @@ class ActivityController extends Controller
      * @param Request $request
      * @param Activity $activity
      *
-     * @return Image|null
-     *
-     * @throws Exception
+     * @return void
      */
-    private function processExternalFeaturedImage(Request &$request, Activity &$activity): ?Image
+    private function processExternalFeaturedImage(Request &$request, Activity &$activity): void
     {
-        return $activity->addImageFromExternalProvider($request->get('featured_image_provider'), $request->get('featured_image_id'), 800);
+        try {
+            $activity->addImageFromExternalProvider($request->get('featured_image_provider'), $request->get('featured_image_id'), 800);
+        } catch (\Exception $e) {
+            $request->session()->flash('image_upload_processing_error', __('general.messages.error.image-upload-processing-error'));
+        }
     }
 
     /**
@@ -397,19 +401,9 @@ class ActivityController extends Controller
         $this->saveInstructors($request, $activity);
 
         if ( $request->hasFile('featured_image') ) {
-            if ( $activity->hasFeaturedImage() )
-            {
-                $activity->deleteFeaturedImage();
-            }
-
             $this->processFeaturedImage($request, $activity);
         }
         else if ( $request->has('featured_image_id') && $request->has('featured_image_provider')) {
-            if ( $activity->hasFeaturedImage() )
-            {
-                $activity->deleteFeaturedImage();
-            }
-
             $this->processExternalFeaturedImage( $request, $activity);
         }
         else if ( $request->has('remove_featured_image') && $request->get('remove_featured_image') && $activity->hasFeaturedImage() )

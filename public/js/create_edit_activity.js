@@ -2782,7 +2782,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.ajapaik .icon[data-v-48881b44] {\n  max-width: 120px;\n  margin-bottom: 1em;\n}\n.ajapaik .form-group[data-v-48881b44] {\n  margin-left: 0;\n  margin-right: 0;\n}\n.ajapaik .badge[data-v-48881b44] {\n  margin-bottom: 1em;\n}\n\n/* This one is needed for meaningful distribution. Source: https://stackoverflow.com/a/45435596/2704169*/\n.row[data-v-48881b44]{\n  display: flex;\n  flex-wrap: wrap;\n}\n.row>[class=\"col-sm-6 col-md-4\"][data-v-48881b44]{\n  display: flex;\n  flex-direction: column;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.ajapaik .icon[data-v-48881b44] {\n  max-width: 120px;\n  margin-bottom: 1em;\n}\n.ajapaik .form-group[data-v-48881b44] {\n  margin-left: 0;\n  margin-right: 0;\n}\n.ajapaik .badge[data-v-48881b44] {\n  margin-bottom: 1em;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -2806,7 +2806,7 @@ __webpack_require__.r(__webpack_exports__);
 
 var ___CSS_LOADER_EXPORT___ = _node_modules_css_loader_dist_runtime_api_js__WEBPACK_IMPORTED_MODULE_0___default()(function(i){return i[1]});
 // Module
-___CSS_LOADER_EXPORT___.push([module.id, "\n.muinas .icon[data-v-168a6294] {\n  max-width: 120px;\n  margin-bottom: 1em;\n}\n.muinas .form-group[data-v-168a6294] {\n  margin-left: 0;\n  margin-right: 0;\n}\n.muinas .badge[data-v-168a6294] {\n  margin-bottom: 1em;\n}\n\n/* This one is needed for meaningful distribution. Source: https://stackoverflow.com/a/45435596/2704169*/\n.row[data-v-168a6294]{\n  display: flex;\n  flex-wrap: wrap;\n}\n.row>[class=\"col-sm-6 col-md-4\"][data-v-168a6294]{\n  display: flex;\n  flex-direction: column;\n}\n", ""]);
+___CSS_LOADER_EXPORT___.push([module.id, "\n.muinas .icon[data-v-168a6294] {\n  max-width: 120px;\n  margin-bottom: 1em;\n}\n.muinas .form-group[data-v-168a6294] {\n  margin-left: 0;\n  margin-right: 0;\n}\n.muinas .badge[data-v-168a6294] {\n  margin-bottom: 1em;\n}\n", ""]);
 // Exports
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (___CSS_LOADER_EXPORT___);
 
@@ -12331,7 +12331,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "row" },
+      { staticClass: "image-search-result-columns" },
       _vm._l(_vm.photos, function(result, index) {
         return _c("div", { key: index, staticClass: "col-sm-6 col-md-4" }, [
           _c("div", { staticClass: "thumbnail" }, [
@@ -12533,7 +12533,7 @@ var render = function() {
     _vm._v(" "),
     _c(
       "div",
-      { staticClass: "row" },
+      { staticClass: "image-search-result-columns" },
       _vm._l(_vm.photos, function(result, index) {
         return _c("div", { key: index, staticClass: "col-sm-6 col-md-4" }, [
           _c("div", { staticClass: "thumbnail" }, [

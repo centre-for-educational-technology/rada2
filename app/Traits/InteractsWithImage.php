@@ -4,11 +4,14 @@
 namespace App\Traits;
 
 
+use App\Exceptions\UnknownExternalImageProvider;
 use App\ExternalImageResource;
 use App\Image;
 use App\Services\AjapaikService;
 use App\Services\Exceptions\PhotoDataNotLoaded;
+use App\Services\Exceptions\UnreachableUrl;
 use App\Services\ImageService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
 use Illuminate\Http\UploadedFile;
 
@@ -19,13 +22,20 @@ trait InteractsWithImage
         return $this->morphOne(Image::class, 'model');
     }
 
+    /**
+     * Add uploaded image to an existing model. Existing image will be removed.
+     *
+     * @param UploadedFile $file
+     * @param int|null $dimensionsConstraint
+     *
+     * @return Image
+     *
+     * @throws \Exception
+     */
     public function addImage(UploadedFile $file, int $dimensionsConstraint = null): Image
     {
-        if ($this->hasImage()) {
-            throw new \Exception('Model already has an image attached!');
-        }
-
         $imageService = app(ImageService::class);
+        $previousImage = $this->getImage();
 
         $path = $this->getStoragePath();
         $originalExtension = $file->getClientOriginalExtension();
@@ -41,63 +51,68 @@ trait InteractsWithImage
         ]);
         $image->model()->associate($this)->save();
 
+        if ($previousImage) {
+            $previousImage->delete();
+            $this->load('image');
+        }
+
         return $image;
     }
 
+    /**
+     * @param string $provider
+     * @param int $imageId
+     * @param int|null $dimensionsConstraint
+     *
+     * @return Image|null
+     *
+     * @throws PhotoDataNotLoaded
+     * @throws UnreachableUrl
+     * @throws UnknownExternalImageProvider
+     * @throws ModelNotFoundException
+     */
     public function addImageFromExternalProvider(string $provider, int $imageId, int $dimensionsConstraint = null): ?Image
     {
-        if ($this->hasImage()) {
-            throw new \Exception('Model already has an image attached!');
-        }
+        $image = NULL;
+        $previousImage = $this->getImage();
 
         $path = $this->getStoragePath();
 
         switch($provider) {
             case 'ajapaik':
                 $ajapaikService = app(AjapaikService::class);
+                $imageService = app(ImageService::class);
 
-                try {
-                    $photoData = $ajapaikService->getPhotoJson($imageId);
+                $photoData = $ajapaikService->getPhotoJson($imageId);
 
-                    if ($photoData) {
-                        $imageService = app(ImageService::class);
+                $temporaryFile = $imageService->downloadImageFromUrl($photoData['image']);
+                $originalExtension = $imageService::getFileExtension($temporaryFile);
+                $fileName = $imageService->generateUniqueFileName(self::FILE_NAME_PREFIX, $originalExtension);
 
-                        $temporaryFile = $imageService->downloadImageFromUrl($photoData['image']);
+                $imageService->process($temporaryFile, $path, $fileName, $dimensionsConstraint);
 
-                        $originalExtension = explode('/', mime_content_type($temporaryFile))[1];
-                        $fileName = $imageService->generateUniqueFileName(self::FILE_NAME_PREFIX, $originalExtension);
-
-                        $imageService->process($temporaryFile, $path, $fileName, $dimensionsConstraint);
-
-                        $image = Image::create([
-                            'file_name' => $fileName,
-                            'path' => $path,
-                            'mime_type' => mime_content_type($temporaryFile),
-                            'size' => filesize($temporaryFile),
-                            'custom_properties' => [
-                                'provider' => [
-                                    'name' => $provider,
-                                    'id' => $photoData['id'],
-                                    'imageUrl' => $photoData['image'],
-                                ],
-                            ],
-                        ]);
-                        $image->model()->associate($this)->save();
-
-                        return $image;
-                    }
-
-                } catch (PhotoDataNotLoaded $e) {
-                    // TODO See if there is a need to handle this exception
-                }
+                $image = Image::create([
+                    'file_name' => $fileName,
+                    'path' => $path,
+                    'mime_type' => mime_content_type($temporaryFile),
+                    'size' => filesize($temporaryFile),
+                    'custom_properties' => [
+                        'provider' => [
+                            'name' => $provider,
+                            'id' => $photoData['id'],
+                            'imageUrl' => $photoData['image'],
+                        ],
+                    ],
+                ]);
+                $image->model()->associate($this)->save();
                 break;
             case 'muinas':
                 $imageService = app(ImageService::class);
-                $resource = ExternalImageResource::find($imageId);
-                // TODO Handle image not found case
-                $temporaryFile = $imageService->downloadImageFromUrl($resource->image_url);
 
-                $originalExtension = explode('/', mime_content_type($temporaryFile))[1];
+                // TODO Need to load with exception and handle one
+                $resource = ExternalImageResource::findOrFail($imageId);
+                $temporaryFile = $imageService->downloadImageFromUrl($resource->image_url);
+                $originalExtension = $imageService::getFileExtension($temporaryFile);
                 $fileName = $imageService->generateUniqueFileName(self::FILE_NAME_PREFIX, $originalExtension);
 
                 $imageService->process($temporaryFile, $path, $fileName, $dimensionsConstraint);
@@ -116,14 +131,17 @@ trait InteractsWithImage
                     ],
                 ]);
                 $image->model()->associate($this)->save();
-
-                return $image;
                 break;
             default:
-                throw new \Exception('Unknown external image provider ' . $provider);
+                throw new UnknownExternalImageProvider($provider);
         }
 
-        return NULL;
+        if ($image && $previousImage) {
+            $previousImage->delete();
+            $this->load('image');
+        }
+
+        return $image;
     }
 
     /**

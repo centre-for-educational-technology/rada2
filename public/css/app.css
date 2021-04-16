@@ -32287,3 +32287,16 @@ i.mdi.help-icon-with-tooltip {
   cursor: pointer;
   vertical-align: text-top;
 }
+
+.image-search-result-columns {
+  display: flex;
+  flex-wrap: wrap;
+}
+.image-search-result-columns .col-sm-6,
+.image-search-result-columns .col-md-4 {
+  padding-left: 5px;
+  padding-right: 5px;
+}
+.image-search-result-columns .thumbnail {
+  margin-bottom: 5px;
+}

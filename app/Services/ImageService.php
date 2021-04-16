@@ -113,7 +113,7 @@ class ImageService
     public function downloadImageFromUrl(string $url)
     {
         if (!$stream = @fopen($url, 'r')) {
-            throw new UnreachableUrl();
+            throw new UnreachableUrl($url);
         }
 
         $temporaryFile = tempnam(sys_get_temp_dir(), 'downloaded-external-images');
@@ -121,5 +121,15 @@ class ImageService
         file_put_contents($temporaryFile, $stream);
 
         return $temporaryFile;
+    }
+
+    /**
+     * Returns ori
+     * @param string $path
+     * @return string
+     */
+    public static function getFileExtension(string $path): string
+    {
+        return explode('/', mime_content_type($path))[1];
     }
 }

@@ -219,7 +219,8 @@ return [
        'error' => [
            'game-not-found' => 'Game not found',
            'invalid-pin-code' => 'Invalid pin code',
-           'missing-word' => 'At least one missing word must be entered.'
+           'missing-word' => 'At least one missing word must be entered.',
+           'image-upload-processing-error' => 'Image could not be uploaded! Please try again.',
        ],
        'notifications' => [
            'new-flash-message' => [
