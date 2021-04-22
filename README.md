@@ -130,6 +130,16 @@ If you need to be running in production mode, then please use the branch named `
 
 You can easily use [Sail](https://laravel.com/docs/8.x/sail) or [Docker Compose](https://docs.docker.com/compose/) in development. Corresponding `docker-compose.yml` is included.
 
+## Commands (External image resources)
+
+A few commands would allow one to import external image data into the system, build local geocoding index and geocode imported data based on that local positioning table.
+
+- `import:muinas:data` - fetches data from [register.muinas.ee](http://register.muinas.ee), processes imported entries, extracts image data and creates local ExternalImageResource entries. Imported entries will still miss positioning data. Command will either truncate the table or delete all entries for this provider. 
+- `build:external:image:data:geocode:index` - builds unique address index based on image data, geocodes using external service and stores local positions on success. Addresses are converted to unique hashes that are later used for lookup. **NB! Please note that each geocoding service request will incur additional cost.**
+- `geocode:muinas:data` - uses local positioning data to set positions to imported external resources that are still missing it.
+
+Please note that it is best to run commands as: import data, build positioning index geocode imported data.
+
 ## License
 
 MIT License

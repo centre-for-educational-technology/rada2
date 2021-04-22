@@ -8,7 +8,6 @@
     window.Laravel.hasImage = <?php echo json_encode($activity_item->hasImage()); ?>;
     window.Laravel.removedImages = <?php echo json_encode(old('removed-option-images') ? old('removed-option-images') : []); ?>;
     window.Laravel.removedImageMatches = <?php echo json_encode(old('removed-option-match-images') ? old('removed-option-match-images') : []); ?>;
-    window.Laravel.map = <?php echo json_encode(['enableStreetView' => config('services.maps.google.enable_street_view'),]); ?>;
     window.Laravel.questionTypeConstants = {!! json_encode([
         'INFORMATION' => \App\Options\QuestionTypeOptions::INFORMATION,
         'ONE_CORRECT_ANSWER' => \App\Options\QuestionTypeOptions::ONE_CORRECT_ANSWER,
@@ -23,6 +22,7 @@
         'pts' => trans('general.forms.placeholders.pts')
     ]); ?>;
     window.Laravel.map = <?php echo json_encode([
+        'enableStreetView' => config('services.maps.google.enable_street_view'),
         'latitude' => config('services.maps.default_geolocation.latitude'),
         'longitude' => config('services.maps.default_geolocation.longitude'),
     ]); ?>
@@ -73,7 +73,16 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image" :image="{{ $activity_item->hasImage() ? $activity_item->getImage() : '{}' }}" base-url="{{ url('/') }}"></image-upload>
+                    <image-upload
+                            api-url="{{ url('api') }}"
+                            locale="{{ App::getLocale() }}"
+                            input-name="image"
+                            :image="{{ $activity_item->hasImage() ? $activity_item->getImage() : '{}' }}"
+                            base-url="{{ url('/') }}"
+                            maps-api-key="{{ config('services.maps.google.api_key') }}"
+                            map-center-latitude="{{ config('services.maps.default_geolocation.latitude') }}"
+                            map-center-longitude="{{ config('services.maps.default_geolocation.longitude') }}"
+                    ></image-upload>
                 </div>
 
                 @if ($errors->has('image'))

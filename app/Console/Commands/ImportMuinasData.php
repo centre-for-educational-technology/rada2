@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\ExternalImageResource;
 use App\Services\MuinasService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
 class ImportMuinasData extends Command
@@ -51,6 +52,12 @@ class ImportMuinasData extends Command
     {
         $this->line('Beginning data import. This is a long running process, so please be patient.');
         $this->newLine(1);
+
+        if ($this->confirm('Would you like to remove existing data by truncating the table? If not, then only data for provider register.muinas.ee will be deleted.')) {
+            DB::table((new ExternalImageResource())->getTable())->truncate();
+        } else {
+            DB::delete(sprintf("DELETE FROM %s WHERE provider = '%s'", (new ExternalImageResource())->getTable(), 'muinas'));
+        }
 
         $handledCount = 0;
         $importedImagesCount = 0;

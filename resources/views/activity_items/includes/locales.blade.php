@@ -14,6 +14,7 @@
             'tabs' => [
                 'upload' => trans('general.components.image-upload.tabs.upload'),
                 'cultural-monuments-registry' => trans('general.components.image-upload.tabs.cultural-monuments-registry'),
+                'location-based' => trans('general.components.image-upload.tabs.location-based'),
             ],
             'help' => trans('general.forms.help.image'),
             'results' => trans('general.components.image-upload.ajapaik.results'),
@@ -24,9 +25,23 @@
                 'remove-selected-image' => trans('general.forms.buttons.remove-selected-image'),
             ],
             'remove-image' => trans('general.forms.tooltips.remove-image'),
+            'distance-units' => [
+                'short' => [
+                    'metres' => trans('general.components.image-upload.distance-units.short.metres'),
+                    'kilometres' => trans('general.components.image-upload.distance-units.short.kilometres'),
+                ],
+            ],
         ],
         'buttons' => [
             'load-more' => trans('general.forms.buttons.load-more'),
         ],
+        'labels' => [
+            'proximity' => trans('general.forms.labels.proximity'),
+        ],
+        'help' => [
+            'proximity' => trans('general.components.image-upload.help.proximity'),
+        ],
+        'set-current-position' => trans('pages.activity-items.create-or-edit.set-current-position'),
+        'geolocation-error' => trans('pages.activity-items.create-or-edit.geolocation-error'),
     ]); ?>
 </script>

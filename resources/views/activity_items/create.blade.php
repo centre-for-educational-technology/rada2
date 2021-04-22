@@ -4,7 +4,6 @@
 <script>
     window.Laravel.activityItemQuestionData = <?php echo json_encode($questionData); ?>;
     window.Laravel.activityItemFormId = 'create-activity-item';
-    window.Laravel.map = <?php echo json_encode(['enableStreetView' => config('services.maps.google.enable_street_view'),]); ?>;
     window.Laravel.questionTypeConstants = {!! json_encode([
         'INFORMATION' => \App\Options\QuestionTypeOptions::INFORMATION,
         'ONE_CORRECT_ANSWER' => \App\Options\QuestionTypeOptions::ONE_CORRECT_ANSWER,
@@ -19,6 +18,7 @@
         'pts' => trans('general.forms.placeholders.pts')
     ]); ?>;
     window.Laravel.map = <?php echo json_encode([
+        'enableStreetView' => config('services.maps.google.enable_street_view'),
         'latitude' => config('services.maps.default_geolocation.latitude'),
         'longitude' => config('services.maps.default_geolocation.longitude'),
     ]); ?>
@@ -68,7 +68,15 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="image" base-url="{{ url('/') }}"></image-upload>
+                    <image-upload
+                            api-url="{{ url('api') }}"
+                            locale="{{ App::getLocale() }}"
+                            input-name="image"
+                            base-url="{{ url('/') }}"
+                            maps-api-key="{{ config('services.maps.google.api_key') }}"
+                            map-center-latitude="{{ config('services.maps.default_geolocation.latitude') }}"
+                            map-center-longitude="{{ config('services.maps.default_geolocation.longitude') }}"
+                    ></image-upload>
                 </div>
 
                 @if ($errors->has('image'))

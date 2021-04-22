@@ -186,7 +186,15 @@
             ]) !!}
             <div class="col-md-6">
                 <div class="input-group col-xs-12">
-                    <image-upload api-url="{{ url('api') }}" locale="{{ App::getLocale() }}" input-name="featured_image" base-url="{{ url('/') }}"></image-upload>
+                    <image-upload
+                            api-url="{{ url('api') }}"
+                            locale="{{ App::getLocale() }}"
+                            input-name="featured_image"
+                            base-url="{{ url('/') }}"
+                            maps-api-key="{{ config('services.maps.google.api_key') }}"
+                            map-center-latitude="{{ config('services.maps.default_geolocation.latitude') }}"
+                            map-center-longitude="{{ config('services.maps.default_geolocation.longitude') }}"
+                    ></image-upload>
                 </div>
 
                 @if ($errors->has('featured_image'))

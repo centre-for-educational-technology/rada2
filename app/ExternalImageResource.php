@@ -7,6 +7,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class ExternalImageResource extends Model
 {
+    use HasFactory;
+
     protected $casts = [
         'external_data' => 'array',
     ];
@@ -16,10 +18,9 @@ class ExternalImageResource extends Model
         'description',
         'provider',
         'image_url',
+        'page_url',
         'external_data',
     ];
-
-    use HasFactory;
 
     /**
      * Processes an image library item data from register.muinas.ee and creates models for all images present.
@@ -38,6 +39,7 @@ class ExternalImageResource extends Model
                 'description' => '',
                 'provider' => 'muinas',
                 'image_url' => $image['file'],
+                'page_url' => "https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id={$data['id']}&page=1&filter%5Bcmtype%5D=46",
                 'external_data' => $data,
             ]);
 
@@ -55,5 +57,35 @@ class ExternalImageResource extends Model
     public function getImageUrl(): string
     {
         return $this->image_url;
+    }
+
+    /**
+     * Returns a latitude.
+     *
+     * @return float|null
+     */
+    public function getLatitude(): ?float
+    {
+        return $this->latitude;
+    }
+
+    /**
+     * Returns a longitude.
+     *
+     * @return float|null
+     */
+    public function getLongitude(): ?float
+    {
+        return $this->longitude;
+    }
+
+    /**
+     * Determines if external image resource has geolocation set.
+     *
+     * @return bool
+     */
+    public function hasGeoLocation(): bool
+    {
+        return $this->getLatitude() && $this->getLongitude();
     }
 }

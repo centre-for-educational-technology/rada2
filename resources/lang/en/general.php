@@ -100,7 +100,7 @@ return [
                'missing-word' => 'Wrap missing words inside curly brackets. E.g. "Capital of Estonia is {Tallinn}".'
            ],
            'keywords' => 'Separate keywords with commas',
-           'instructors' => 'Users can be searched by name and email.'
+           'instructors' => 'Users can be searched by name and email.',
        ],
        'buttons' => [
            'create' => 'Create',
@@ -259,9 +259,19 @@ return [
             'tabs' => [
                 'upload' => 'Upload',
                 'cultural-monuments-registry' => 'National registry of cultural monuments',
+                'location-based' => 'Location-based photos',
             ],
             'ajapaik' => [
                 'results' => 'Results:',
+            ],
+            'help' => [
+                'proximity' => 'Mark your position on a map and define proximity radius (m).'
+            ],
+            'distance-units' => [
+                'short' => [
+                    'metres' => 'm',
+                    'kilometres' => 'km',
+                ],
             ],
         ],
     ],

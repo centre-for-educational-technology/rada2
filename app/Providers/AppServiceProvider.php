@@ -3,6 +3,7 @@
 namespace App\Providers;
 
 use App\Services\AjapaikService;
+use App\Services\GeocodingService;
 use App\Services\MuinasService;
 use Illuminate\Support\ServiceProvider;
 use App\Services\ImageService;
@@ -44,6 +45,10 @@ class AppServiceProvider extends ServiceProvider
 
         $this->app->singleton(MuinasService::class, function() {
             return new MuinasService();
+        });
+
+        $this->app->singleton(GeocodingService::class, function () {
+            return new GeocodingService();
         });
     }
 }

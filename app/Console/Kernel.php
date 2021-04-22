@@ -19,6 +19,8 @@ class Kernel extends ConsoleKernel
         Commands\MigratePublicStorage::class,
         Commands\ExportActivity::class,
         Commands\ImportMuinasData::class,
+        Commands\BuildExternalImageDataGeocodeIndex::class,
+        Commands\GeocodeMuinasData::class,
     ];
 
     /**

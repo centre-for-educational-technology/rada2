@@ -6,6 +6,7 @@ use App\Http\Controllers\MuinasController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\GameController;
 use App\Http\Controllers\ActivityItemController;
+use App\Http\Controllers\ExternalImageController;
 
 /*
 |--------------------------------------------------------------------------
@@ -97,4 +98,8 @@ Route::group(['prefix' => 'muinas'], static function() {
 
 Route::group(['prefix' => 'activity_items'], static function() {
     Route::get('{activity_item}/public_answers', [ActivityItemController::class, 'apiPublicAnswers']);
+});
+
+Route::group(['prefix' => 'location'], static function() {
+    Route::get('photos', [ExternalImageController::class, 'apiLocationBasedSearch']);
 });

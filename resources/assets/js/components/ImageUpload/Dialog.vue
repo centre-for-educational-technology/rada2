@@ -103,6 +103,15 @@
                   v-if="currentTab === 'muinas'"
               >
               </muinas-image-select>
+              <location-based-image-select
+                  :api-url="apiUrl"
+                  :base-url="baseUrl"
+                  :maps-api-key="mapsApiKey"
+                  :map-center-latitude="mapCenterLatitude"
+                  :map-center-longitude="mapCenterLongitude"
+                  v-if="currentTab === 'location-based'"
+              >
+              </location-based-image-select>
             </div>
           </div>
         </div>
@@ -118,10 +127,11 @@ export default {
   components: {
     'upload-image-select': require('./Tabs/Upload.vue').default,
     'ajapaik-image-select': require('./Tabs/Ajapaik.vue').default,
-    'muinas-image-select': require('./Tabs/Muinas').default,
+    'muinas-image-select': require('./Tabs/Muinas.vue').default,
+    'location-based-image-select': require('./Tabs/LocationBased.vue').default,
     'provider-logo': require('./ProviderLogo.vue').default
   },
-  props: ['apiUrl', 'locale', 'inputName', 'image', 'baseUrl'],
+  props: ['apiUrl', 'locale', 'inputName', 'image', 'baseUrl', 'mapsApiKey', 'mapCenterLatitude', 'mapCenterLongitude'],
   mounted() {
     const vm = this;
 
@@ -148,6 +158,15 @@ export default {
       this.externalPageUrl = externalPageUrl;
       this.photoData.id = id;
       this.photoData.provider = 'muinas';
+      this.$refs.imageUpload.$emit('remove-selected-image');
+    });
+
+    this.$on('location-based-image-selected', (id, imageUrl, externalPageUrl, provider) => {
+      this.close();
+      this.previewUrl = imageUrl;
+      this.externalPageUrl = externalPageUrl;
+      this.photoData.id = id;
+      this.photoData.provider = provider;
       this.$refs.imageUpload.$emit('remove-selected-image');
     });
 
@@ -181,6 +200,10 @@ export default {
         {
           key: 'muinas',
           name: this.$t('image-upload.tabs.cultural-monuments-registry')
+        },
+        {
+          key: 'location-based',
+          name: this.$t('image-upload.tabs.location-based')
         }
       ],
       currentTab: 'upload',

@@ -136,7 +136,11 @@ export default {
       });
     },
     getExternalPageUrl(result) {
-      return `https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=${result.external_data.id}&page=1&filter%5Bcmtype%5D=46`;
+      if (result.page_url) {
+        return result.page_url;
+      }
+
+      return result.image_url;
     },
     onAddClicked(result) {
       this.$parent.$emit('muinas-image-selected', result.id, result.image_url, this.getExternalPageUrl(result));

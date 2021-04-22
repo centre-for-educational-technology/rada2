@@ -31791,7 +31791,7 @@ form.sz-action-form-inline {
   height: auto;
 }
 
-#map .map-controls {
+#map .map-controls, .map.google-maps-map .map-controls {
   -webkit-user-select: none;
      -moz-user-select: none;
       -ms-user-select: none;
@@ -31802,25 +31802,25 @@ form.sz-action-form-inline {
   border-radius: 2px;
   text-align: center;
 }
-#map .map-controls i.mdi {
+#map .map-controls i.mdi, .map.google-maps-map .map-controls i.mdi {
   color: #000;
   margin-right: 5px;
   font-size: 36px;
   cursor: pointer;
 }
-#map .map-controls i.mdi::before {
+#map .map-controls i.mdi::before, .map.google-maps-map .map-controls i.mdi::before {
   font-size: 36px;
 }
-#map .map-controls i.mdi-crosshairs, #map .map-controls i.mdi-account-off {
+#map .map-controls i.mdi-crosshairs, #map .map-controls i.mdi-account-off, .map.google-maps-map .map-controls i.mdi-crosshairs, .map.google-maps-map .map-controls i.mdi-account-off {
   color: #777777;
 }
-#map .map-controls i.mdi-layers {
+#map .map-controls i.mdi-layers, .map.google-maps-map .map-controls i.mdi-layers {
   position: fixed;
   left: 10px;
   bottom: 30px;
   margin: 0;
 }
-#map .map-controls i.mdi-layers::before {
+#map .map-controls i.mdi-layers::before, .map.google-maps-map .map-controls i.mdi-layers::before {
   box-shadow: rgba(0, 0, 0, 0.3) 0px 1px 4px -1px;
   background-color: #fff;
   border: 2px solid #fff;
@@ -31828,7 +31828,7 @@ form.sz-action-form-inline {
   padding-top: 10px;
   padding-bottom: 10px;
 }
-#map #sz-gps-error {
+#map #sz-gps-error, .map.google-maps-map #sz-gps-error {
   background-color: red;
   width: 100%;
   height: 42px;
@@ -31838,7 +31838,7 @@ form.sz-action-form-inline {
   opacity: 0.5;
   font-size: 125%;
 }
-#map #sz-gps-error span {
+#map #sz-gps-error span, .map.google-maps-map #sz-gps-error span {
   display: inline-block;
   vertical-align: middle;
 }
