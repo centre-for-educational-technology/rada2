@@ -140,6 +140,10 @@ A few commands would allow one to import external image data into the system, bu
 
 Please note that it is best to run commands as: import data, build positioning index geocode imported data.
 
+## Special considerations
+
+Location-based image search requires `ST_Distance_Sphere` to be defined. If one is not present, then a custom function `Custom_ST_Distance_Sphere` will be defined instead. **This requires permission to create database procedures and functions.**
+
 ## License
 
 MIT License
