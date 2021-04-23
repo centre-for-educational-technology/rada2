@@ -29,9 +29,7 @@ class ExternalImageController extends Controller
 
             return true;
         } catch (\Exception $e) {
-            Cache::put($keyName, false, now()->addHours(1));
-
-            if (empty("SHOW FUNCTION STATUS WHERE name='CUSTOM_ST_Distance_Sphere'")) {
+            if (empty(DB::select("SHOW FUNCTION STATUS WHERE name='CUSTOM_ST_Distance_Sphere'"))) {
                 // Solution source: https://stackoverflow.com/a/60991531/2704169
                 $fnQuery = <<<FNQUERY
 CREATE FUNCTION CUSTOM_ST_Distance_Sphere(pt1 POINT, pt2 POINT)
@@ -48,6 +46,8 @@ RETURN 6371000 * 2 * ASIN(
 FNQUERY;
                 DB::statement($fnQuery);
             }
+
+            Cache::put($keyName, false, now()->addHours(1));
 
             return false;
         }
