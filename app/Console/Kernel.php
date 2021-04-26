@@ -2,6 +2,7 @@
 
 namespace App\Console;
 
+use Egulias\EmailValidator\Exception\CommaInDomain;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 use App\User;
@@ -21,6 +22,7 @@ class Kernel extends ConsoleKernel
         Commands\ImportMuinasData::class,
         Commands\BuildExternalImageDataGeocodeIndex::class,
         Commands\GeocodeMuinasData::class,
+        Commands\ImportAjapaikData::class,
     ];
 
     /**

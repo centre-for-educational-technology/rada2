@@ -3,44 +3,44 @@
 namespace App\Console\Commands;
 
 use App\ExternalImageResource;
-use App\Services\MuinasService;
+use App\Services\AjapaikService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 
-class ImportMuinasData extends Command
+class ImportAjapaikData extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'import:muinas:data';
+    protected $signature = 'import:ajapaik:data';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Import image data from register.muinas.ee';
+    protected $description = 'Import image data from ajapaik.ee';
 
     /**
-     * Muinas service instance.
+     * ajapaik service instance.
      *
-     * @var MuinasService
+     * @var AjapaikService
      */
-    protected $muinasService;
+    protected $ajapaikService;
 
     /**
      * Create a new command instance.
      *
-     * @param MuinasService $muinasService
+     * @param AjapaikService $ajapaikService
      */
-    public function __construct(MuinasService $muinasService)
+    public function __construct(AjapaikService $ajapaikService)
     {
         parent::__construct();
 
-        $this->muinasService = $muinasService;
+        $this->ajapaikService = $ajapaikService;
     }
 
     /**
@@ -56,26 +56,30 @@ class ImportMuinasData extends Command
         if ($this->confirm('Would you like to remove existing data by truncating the table?')) {
             DB::table((new ExternalImageResource())->getTable())->truncate();
         } else {
-            if ($this->confirm('Would you like to delete already existing register.muinas.ee data?')) {
-                DB::delete(sprintf("DELETE FROM %s WHERE provider = '%s'", (new ExternalImageResource())->getTable(), 'muinas'));
+            if ($this->confirm('Would you like to delete already existing ajapaik.ee data?')) {
+                DB::delete(sprintf("DELETE FROM %s WHERE provider = '%s'", (new ExternalImageResource())->getTable(), 'ajapaik'));
             }
         }
 
         $handledCount = 0;
         $importedImagesCount = 0;
-        $limit = 1000;
-        $offset = 0;
+        $nextUrl = null;
 
-        while($data = $this->loadPhotoLibraryData($limit, $offset)) {
-            $dataCount = count($data);
-            $offset += $dataCount;
+        while($response = $this->loadPhotoLibraryData($nextUrl)) {
+            if (!$response['next']) {
+                break;
+            }
+
+            $nextUrl = $response['next'];
+
+            $dataCount = count($response['results']);
             $handledCount += $dataCount;
 
             $this->line(sprintf('Processing %d items, with total processed of %d.', $dataCount, $handledCount));
 
-            $this->withProgressBar($data, function($item) use (&$importedImagesCount) {
-                $itemData = $this->muinasService->getPhotoJson((int)$item['id']);
-                $importedImagesCount += count(ExternalImageResource::createFromMuinas($itemData));
+            $this->withProgressBar($response['results'], function($item) use (&$importedImagesCount) {
+                ExternalImageResource::createFromAjapaik($item);
+                $importedImagesCount++;
             });
             $this->newLine();
         }
@@ -85,14 +89,15 @@ class ImportMuinasData extends Command
         return 0;
     }
 
-    private function loadPhotoLibraryData(int $limit, int $offset): array
+    private function loadPhotoLibraryData(string $nextUrl = null): array
     {
-        $photoLibraryApiUrl = $this->muinasService::photosApiUrl();
-
-        $response = Http::get($photoLibraryApiUrl, [
-            'limit' => $limit,
-            'offset' => $offset,
-        ]);
+        if ($nextUrl) {
+            $response = Http::retry(5, 500)->get($nextUrl);
+        } else {
+            $response = Http::retry(5, 500)->get($this->ajapaikService::photosApiUrl(), [
+                'limit' => 1000,
+            ]);
+        }
 
         if (!$response->ok()) {
             throw new \Exception('Photos library data not loaded');

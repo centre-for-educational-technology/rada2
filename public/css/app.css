@@ -31801,17 +31801,19 @@ form.sz-action-form-inline {
   border: 2px solid #fff;
   border-radius: 2px;
   text-align: center;
+  margin-top: 10px;
+  margin-right: 10px;
 }
 #map .map-controls i.mdi, .map.google-maps-map .map-controls i.mdi {
   color: #000;
-  margin-right: 5px;
+  margin-right: 1px;
   font-size: 36px;
   cursor: pointer;
 }
 #map .map-controls i.mdi::before, .map.google-maps-map .map-controls i.mdi::before {
   font-size: 36px;
 }
-#map .map-controls i.mdi-crosshairs, #map .map-controls i.mdi-account-off, .map.google-maps-map .map-controls i.mdi-crosshairs, .map.google-maps-map .map-controls i.mdi-account-off {
+#map .map-controls i.mdi-crosshairs, #map .map-controls i.mdi-account-off, #map .map-controls i.mdi-target, .map.google-maps-map .map-controls i.mdi-crosshairs, .map.google-maps-map .map-controls i.mdi-account-off, .map.google-maps-map .map-controls i.mdi-target {
   color: #777777;
 }
 #map .map-controls i.mdi-layers, .map.google-maps-map .map-controls i.mdi-layers {

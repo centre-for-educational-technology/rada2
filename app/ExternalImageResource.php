@@ -2,6 +2,7 @@
 
 namespace App;
 
+use App\Services\AjapaikService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -14,6 +15,8 @@ class ExternalImageResource extends Model
     ];
 
     protected $fillable = [
+        'latitude',
+        'longitude',
         'title',
         'description',
         'provider',
@@ -47,6 +50,29 @@ class ExternalImageResource extends Model
         }
 
         return $resources;
+    }
+
+    /**
+     * Processes an image library item data from ajapaik.ee and creates models for all images present.
+     *
+     * @param array $data
+     *
+     * @return ExternalImageResource
+     */
+    public static function createFromAjapaik(array $data): ExternalImageResource
+    {
+        $ajapaikService = app(AjapaikService::class);
+
+        return self::create([
+            'latitude' => $data['lat'],
+            'longitude' => $data['lon'],
+            'title' => $ajapaikService->getResponseTitle($data),
+            'description' => $ajapaikService->getResponseDescription($data),
+            'provider' => 'ajapaik',
+            'image_url' => $data['image'],
+            'page_url' => "https://ajapaik.ee/photo/{$data['id']}",
+            'external_data' => $data,
+        ]);
     }
 
     /**

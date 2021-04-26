@@ -342,11 +342,13 @@ form.sz-action-form-inline {
         border: 2px solid #fff;
         border-radius: 2px;
         text-align: center;
+        margin-top: 10px;
+        margin-right: 10px;
 
         i {
             &.mdi {
                 color: #000;
-                margin-right: 5px;
+                margin-right: 1px;
                 font-size: 36px;
                 cursor: pointer;
 
@@ -355,7 +357,7 @@ form.sz-action-form-inline {
                 }
             }
 
-            &.mdi-crosshairs, &.mdi-account-off {
+            &.mdi-crosshairs, &.mdi-account-off, &.mdi-target {
                 color: $gray-light;
             }
 
