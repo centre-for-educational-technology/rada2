@@ -21,7 +21,7 @@ class Kernel extends ConsoleKernel
         Commands\ExportActivity::class,
         Commands\ImportMuinasData::class,
         Commands\BuildExternalImageDataGeocodeIndex::class,
-        Commands\GeocodeMuinasData::class,
+        Commands\GeocodeExternalImageData::class,
         Commands\ImportAjapaikData::class,
     ];
 

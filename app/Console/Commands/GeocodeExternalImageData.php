@@ -4,24 +4,23 @@ namespace App\Console\Commands;
 
 use App\ExternalImageResource;
 use App\Services\GeocodingService;
-use App\Services\MuinasService;
 use Illuminate\Console\Command;
 
-class GeocodeMuinasData extends Command
+class GeocodeExternalImageData extends Command
 {
     /**
      * The name and signature of the console command.
      *
      * @var string
      */
-    protected $signature = 'geocode:muinas:data';
+    protected $signature = 'geocode:external:image:data';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Goes through all the external images from register.muinas.ee which do not yet have positioning data tries to add that data based on local positioning data.';
+    protected $description = 'Goes through all the external images which do not yet have positioning data, tries to add that based on local positioning data that is available.';
 
     /**
      * Create a new command instance.
@@ -38,27 +37,26 @@ class GeocodeMuinasData extends Command
      *
      * @return int
      */
-    public function handle(GeocodingService $geocodingService, MuinasService $muinasService)
+    public function handle(GeocodingService $geocodingService)
     {
-        $query = ExternalImageResource::query();
-        $progressBar = $this->output->createProgressBar((clone $query)->whereNull('latitude')->whereNull('longitude')->where('provider', '=', 'muinas')->count());
+        $query = ExternalImageResource::query()->whereNull('latitude')->whereNull('longitude');
+        $progressBar = $this->output->createProgressBar((clone $query)->count());
 
-        $this->line('Enriching image data from register.muinas.ee with geographical positions.');
+        $this->line('Enriching image data with geographical positions.');
         $this->warn('Please note that only locally stored locations are being used!');
 
         $successCount = 0;
 
-        (clone $query)->chunk(500, function($resources) use ($progressBar, $geocodingService, $muinasService, &$successCount) {
+        (clone $query)->chunk(500, function($resources) use ($progressBar, $geocodingService, &$successCount) {
             foreach ($resources as $resource) {
-                if ($resource->provider !== 'muinas') {
+                $parts = $resource->getAddressParts();
+
+                if (empty($parts)) {
+                    $progressBar->advance();
                     continue;
                 }
 
-                if ($resource->hasGeoLocation()) {
-                    continue;
-                }
-
-                $addressGeolocation = $geocodingService->getAddressGeocode($muinasService->getAddressParts($resource));
+                $addressGeolocation = $geocodingService->getAddressGeocode($parts);
 
                 if ($addressGeolocation) {
                     $resource->latitude = $addressGeolocation->getLatitude();

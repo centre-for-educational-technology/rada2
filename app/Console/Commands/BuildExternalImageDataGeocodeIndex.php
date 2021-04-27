@@ -4,7 +4,6 @@ namespace App\Console\Commands;
 
 use App\ExternalImageResource;
 use App\Services\GeocodingService;
-use App\Services\MuinasService;
 use Illuminate\Console\Command;
 use Illuminate\Support\Collection;
 
@@ -39,25 +38,22 @@ class BuildExternalImageDataGeocodeIndex extends Command
      *
      * @return int
      */
-    public function handle(GeocodingService $geocodingService, MuinasService $muinasService)
+    public function handle(GeocodingService $geocodingService)
     {
         $uniqueAddresses = new Collection();
-        $query = ExternalImageResource::query();
-        $progressBar = $this->output->createProgressBar((clone $query)->whereNull('latitude')->whereNull('longitude')->where('provider', '=', 'muinas')->count());
+        $query = ExternalImageResource::query()->whereNull('latitude')->whereNull('longitude');
+        $progressBar = $this->output->createProgressBar((clone $query)->count());
 
-        $this->line('Building unique address index where geolocation data is missing.');
+        $this->line('Building unique address index from imported external image resources with missing geolocation data.');
 
-        (clone $query)->chunk(500, function($resources) use ($uniqueAddresses, $progressBar, $geocodingService, $muinasService) {
+        (clone $query)->chunk(500, function($resources) use ($uniqueAddresses, $progressBar, $geocodingService) {
             foreach ($resources as $resource) {
-                if ($resource->provider !== 'muinas') {
+                $parts = $resource->getAddressParts();
+
+                if (empty($parts)) {
+                    $progressBar->advance();
                     continue;
                 }
-
-                if ($resource->hasGeoLocation()) {
-                    continue;
-                }
-
-                $parts = $muinasService->getAddressParts($resource);
 
                 $addressHash = $geocodingService->hashAddressParts($parts);
 

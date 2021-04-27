@@ -3,6 +3,7 @@
 namespace App;
 
 use App\Services\AjapaikService;
+use App\Services\MuinasService;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -113,5 +114,30 @@ class ExternalImageResource extends Model
     public function hasGeoLocation(): bool
     {
         return $this->getLatitude() && $this->getLongitude();
+    }
+
+    /**
+     * Returns address parts parts for address or an empty array.
+     *
+     * @return array
+     */
+    public function getAddressParts(): array
+    {
+        $parts = [];
+
+        switch($this->provider) {
+            case 'muinas':
+                $service = app(MuinasService::class);
+                $parts = $service->getAddressParts($this);
+                break;
+            case 'ajapaik':
+                if (isset($this->external_data['address']) && $this->external_data['address']) {
+                    $parts[] = $this->external_data['address'];
+                }
+                break;
+            default:
+        }
+
+        return $parts;
     }
 }
