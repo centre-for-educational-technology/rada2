@@ -46,10 +46,11 @@ class GeocodeExternalImageData extends Command
         $this->line('Enriching image data with geographical positions.');
         $this->warn('Please note that only locally stored locations are being used!');
 
+        $tableName = (new ExternalImageResource())->getTable();
         $successCount = 0;
-        $geocodedResources = [];
+        $updateQueries = '';
 
-        (clone $query)->chunk(500, function ($resources) use ($progressBar, $geocodingService, &$successCount, &$geocodedResources) {
+        (clone $query)->chunk(500, function ($resources) use ($progressBar, $geocodingService, &$successCount, $tableName, &$updateQueries) {
             foreach ($resources as $resource) {
                 $parts = $resource->getAddressParts();
 
@@ -61,11 +62,7 @@ class GeocodeExternalImageData extends Command
                 $addressGeolocation = $geocodingService->getAddressGeocode($parts);
 
                 if ($addressGeolocation) {
-                    $geocodedResources[] = [
-                        'id' => $addressGeolocation,
-                        'latitude' => $addressGeolocation->getLatitude(),
-                        'longitude' => $addressGeolocation->getLongitude(),
-                    ];
+                    $updateQueries .= sprintf("UPDATE %s SET latitude = %F, longitude = %F WHERE id = %d;", $tableName, $addressGeolocation->getLatitude(), $addressGeolocation->getLongitude(), $resource->id);
                     $successCount++;
                 }
 
@@ -75,17 +72,10 @@ class GeocodeExternalImageData extends Command
 
         $progressBar->finish();
 
-        if ($geocodedResources) {
-            $tableName = (new ExternalImageResource())->getTable();
-
-            $this->withProgressBar($geocodedResources, function ($single) use ($tableName) {
-                DB::update('UPDATE ? SET latitude = ?, longitude = ? WHERE id = ?', [
-                    $tableName,
-                    $single['latitude'],
-                    $single['longitude'],
-                    $single['id'],
-                ]);
-            });
+        if ($updateQueries) {
+            $this->newLine();
+            $this->line('Running update queries, please wait.');
+            DB::unprepared($updateQueries);
         }
 
         $this->newLine();

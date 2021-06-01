@@ -56,7 +56,7 @@ class ImportAjapaikData extends Command
         if ($this->confirm('Would you like to remove existing data by truncating the table?')) {
             DB::table((new ExternalImageResource())->getTable())->truncate();
         } else {
-            if ($this->confirm('Would you like to delete already existing ajapaik.ee data?')) {
+            if ($this->confirm('Would you like to delete already existing ajapaik.ee data?', true)) {
                 DB::delete(sprintf("DELETE FROM %s WHERE provider = '%s'", (new ExternalImageResource())->getTable(), 'ajapaik'));
             }
         }
