@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\ExternalImageResource;
 use App\Services\GeocodingService;
 use Illuminate\Console\Command;
+use Illuminate\Support\Facades\DB;
 
 class GeocodeExternalImageData extends Command
 {
@@ -46,8 +47,9 @@ class GeocodeExternalImageData extends Command
         $this->warn('Please note that only locally stored locations are being used!');
 
         $successCount = 0;
+        $geocodedResources = [];
 
-        (clone $query)->chunk(500, function($resources) use ($progressBar, $geocodingService, &$successCount) {
+        (clone $query)->chunk(500, function ($resources) use ($progressBar, $geocodingService, &$successCount, &$geocodedResources) {
             foreach ($resources as $resource) {
                 $parts = $resource->getAddressParts();
 
@@ -59,9 +61,11 @@ class GeocodeExternalImageData extends Command
                 $addressGeolocation = $geocodingService->getAddressGeocode($parts);
 
                 if ($addressGeolocation) {
-                    $resource->latitude = $addressGeolocation->getLatitude();
-                    $resource->longitude = $addressGeolocation->getLongitude();
-                    $resource->save();
+                    $geocodedResources[] = [
+                        'id' => $addressGeolocation,
+                        'latitude' => $addressGeolocation->getLatitude(),
+                        'longitude' => $addressGeolocation->getLongitude(),
+                    ];
                     $successCount++;
                 }
 
@@ -70,6 +74,19 @@ class GeocodeExternalImageData extends Command
         });
 
         $progressBar->finish();
+
+        if ($geocodedResources) {
+            $tableName = (new ExternalImageResource())->getTable();
+
+            $this->withProgressBar($geocodedResources, function ($single) use ($tableName) {
+                DB::update('UPDATE ? SET latitude = ?, longitude = ? WHERE id = ?', [
+                    $tableName,
+                    $single['latitude'],
+                    $single['longitude'],
+                    $single['id'],
+                ]);
+            });
+        }
 
         $this->newLine();
         $this->line(sprintf('Added positioning data to %d external image resources.', $successCount));
