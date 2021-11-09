@@ -166,7 +166,7 @@ export default {
       this.previewUrl = imageUrl;
       this.externalPageUrl = externalPageUrl;
       this.photoData.id = id;
-      this.photoData.provider = provider;
+      this.photoData.provider = (provider !== 'ajapaik') ? provider : 'ajapaik_local';
       this.$refs.imageUpload.$emit('remove-selected-image');
     });
 
@@ -248,7 +248,7 @@ export default {
       });
     },
     showAjapaikLogo() {
-      if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'ajapaik') {
+      if (this.previewUrl && this.photoData.id && this.photoData.provider && (this.photoData.provider === 'ajapaik' || this.photoData.provider === 'ajapaik_local')) {
         return true;
       } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'ajapaik') {
         return true;

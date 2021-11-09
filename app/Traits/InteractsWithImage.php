@@ -60,6 +60,40 @@ trait InteractsWithImage
     }
 
     /**
+     * Creates an image from an external url, adds provider data to custom properties and applies dimensions constraint
+     * to the downloaded image file.
+     *
+     * @param string $imageUrl               External image URL.
+     * @param array $providerData            Provider data for custom_properties.
+     * @param int|null $dimensionsConstraint Dimensions constraint value.
+     * @return Image                         Image model instance.
+     *
+     * @throws UnreachableUrl
+     */
+    private function createImageFromExternalUrl(string $imageUrl, array $providerData, int $dimensionsConstraint = null): Image
+    {
+        $path = $this->getStoragePath();
+        $imageService = app(ImageService::class);
+        $temporaryFile = $imageService->downloadImageFromUrl($imageUrl);
+        $fileName = $imageService->generateUniqueFileName(self::FILE_NAME_PREFIX, $imageService::getFileExtension($temporaryFile));
+
+        $imageService->process($temporaryFile, $path, $fileName, $dimensionsConstraint);
+
+        $image = Image::create([
+            'file_name' => $fileName,
+            'path' => $path,
+            'mime_type' => mime_content_type($temporaryFile),
+            'size' => filesize($temporaryFile),
+            'custom_properties' => [
+                'provider' => $providerData,
+            ],
+        ]);
+        $image->model()->associate($this)->save();
+
+        return $image;
+    }
+
+    /**
      * @param string $provider
      * @param int $imageId
      * @param int|null $dimensionsConstraint
@@ -70,67 +104,41 @@ trait InteractsWithImage
      * @throws UnreachableUrl
      * @throws UnknownExternalImageProvider
      * @throws ModelNotFoundException
+     * @throws \Exception
      */
     public function addImageFromExternalProvider(string $provider, int $imageId, int $dimensionsConstraint = null): ?Image
     {
-        $image = NULL;
+        $image = null;
         $previousImage = $this->getImage();
 
-        $path = $this->getStoragePath();
+        // Location-based search uses local data and returns identifiers for ExternalImageResource items. Ajapaik
+        // identifier is fetched from the database and provide name is set to the correct one.
+        if ($provider === 'ajapaik_local') {
+            $resource = ExternalImageResource::findOrFail($imageId);
+            $imageId = (int) $resource->external_data['id'];
+            $provider = 'ajapaik';
+        }
 
         switch($provider) {
             case 'ajapaik':
                 $ajapaikService = app(AjapaikService::class);
-                $imageService = app(ImageService::class);
 
                 $photoData = $ajapaikService->getPhotoJson($imageId);
 
-                $temporaryFile = $imageService->downloadImageFromUrl($photoData['image']);
-                $originalExtension = $imageService::getFileExtension($temporaryFile);
-                $fileName = $imageService->generateUniqueFileName(self::FILE_NAME_PREFIX, $originalExtension);
-
-                $imageService->process($temporaryFile, $path, $fileName, $dimensionsConstraint);
-
-                $image = Image::create([
-                    'file_name' => $fileName,
-                    'path' => $path,
-                    'mime_type' => mime_content_type($temporaryFile),
-                    'size' => filesize($temporaryFile),
-                    'custom_properties' => [
-                        'provider' => [
-                            'name' => $provider,
-                            'id' => $photoData['id'],
-                            'imageUrl' => $photoData['image'],
-                        ],
-                    ],
-                ]);
-                $image->model()->associate($this)->save();
+                $image = $this->createImageFromExternalUrl($photoData['image'], [
+                    'name' => $provider,
+                    'id' => $photoData['id'],
+                    'imageUrl' => $photoData['image'],
+                ], $dimensionsConstraint);
                 break;
             case 'muinas':
-                $imageService = app(ImageService::class);
-
-                // TODO Need to load with exception and handle one
                 $resource = ExternalImageResource::findOrFail($imageId);
-                $temporaryFile = $imageService->downloadImageFromUrl($resource->image_url);
-                $originalExtension = $imageService::getFileExtension($temporaryFile);
-                $fileName = $imageService->generateUniqueFileName(self::FILE_NAME_PREFIX, $originalExtension);
 
-                $imageService->process($temporaryFile, $path, $fileName, $dimensionsConstraint);
-
-                $image = Image::create([
-                    'file_name' => $fileName,
-                    'path' => $path,
-                    'mime_type' => mime_content_type($temporaryFile),
-                    'size' => filesize($temporaryFile),
-                    'custom_properties' => [
-                        'provider' => [
-                            'name' => $provider,
-                            'id' => (int)$resource->external_data['id'],
-                            'imageUrl' => $resource->image_url,
-                        ],
-                    ],
-                ]);
-                $image->model()->associate($this)->save();
+                $image = $this->createImageFromExternalUrl($resource->image_url, [
+                    'name' => $provider,
+                    'id' => (int) $resource->external_data['id'],
+                    'imageUrl' => $resource->image_url,
+                ], $dimensionsConstraint);
                 break;
             default:
                 throw new UnknownExternalImageProvider($provider);

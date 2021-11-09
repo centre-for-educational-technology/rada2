@@ -23,7 +23,8 @@
         "laravel/tinker": "^2.0",
         "laravel/ui": "^3.0",
         "fruitcake/laravel-cors": "^2.0",
-        "guzzlehttp/guzzle": "^7.0.1"
+        "guzzlehttp/guzzle": "^7.0.1",
+        "ext-fileinfo": "*"
     },
     "require-dev": {
         "fzaninotto/faker": "^1.8",

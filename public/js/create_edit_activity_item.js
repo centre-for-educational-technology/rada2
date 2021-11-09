@@ -181,7 +181,7 @@ __webpack_require__.r(__webpack_exports__);
       _this.previewUrl = imageUrl;
       _this.externalPageUrl = externalPageUrl;
       _this.photoData.id = id;
-      _this.photoData.provider = provider;
+      _this.photoData.provider = provider !== 'ajapaik' ? provider : 'ajapaik_local';
 
       _this.$refs.imageUpload.$emit('remove-selected-image');
     });
@@ -257,7 +257,7 @@ __webpack_require__.r(__webpack_exports__);
       });
     },
     showAjapaikLogo: function showAjapaikLogo() {
-      if (this.previewUrl && this.photoData.id && this.photoData.provider && this.photoData.provider === 'ajapaik') {
+      if (this.previewUrl && this.photoData.id && this.photoData.provider && (this.photoData.provider === 'ajapaik' || this.photoData.provider === 'ajapaik_local')) {
         return true;
       } else if (!this.previewUrl && this.image && this.image.custom_properties && this.image.custom_properties.provider && this.image.custom_properties.provider.name === 'ajapaik') {
         return true;
@@ -331,20 +331,29 @@ __webpack_require__.r(__webpack_exports__);
   name: "ProviderLogo",
   props: ['id', 'provider', 'imageWidth', 'externalPageUrl'],
   computed: {
+    providerName: function providerName() {
+      var provider = this.provider;
+
+      if (provider === 'ajapaik_local') {
+        provider = 'ajapaik';
+      }
+
+      return provider;
+    },
     pageUrl: function pageUrl() {
       if (this.externalPageUrl) {
         return this.externalPageUrl;
-      } else if (this.provider === 'ajapaik') {
+      } else if (this.providerName === 'ajapaik') {
         return 'https://ajapaik.ee/photo/' + this.id;
-      } else if (this.provider === 'muinas') {
+      } else if (this.providerName === 'muinas') {
         return "https://register.muinas.ee/public.php?menuID=photolibrary-cmtype-46&action=view&id=".concat(this.id, "&page=1&filter%5Bcmtype%5D=46");
       }
 
       return '';
     },
     logoUrl: function logoUrl() {
-      if (this.provider === 'ajapaik' || this.provider === 'muinas') {
-        return "".concat(window.Laravel.baseUrl ? window.Laravel.baseUrl : window.RADA.config.base_url, "/img/logos/").concat(this.provider, ".png");
+      if (this.providerName === 'ajapaik' || this.providerName === 'muinas') {
+        return "".concat(window.Laravel.baseUrl ? window.Laravel.baseUrl : window.RADA.config.base_url, "/img/logos/").concat(this.providerName, ".png");
       }
 
       return '';
