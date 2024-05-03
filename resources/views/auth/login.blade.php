@@ -39,6 +39,7 @@
                             </div>
                         </div>
 
+                        @if( config('services.google.client_id') and config('services.google.client_secret') and config('services.google.redirect') )
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <a class="btn btn-default google-sign-in col-xs-12" href="{{ url('/auth/google') }}">
@@ -47,7 +48,9 @@
                                 </a>
                             </div>
                         </div>
+                        @endif
 
+                        @if( config('services.facebook.client_id') and config('services.facebook.client_secret') and config('services.facebook.redirect') )
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
                                 <a class="btn btn-default facebook-sign-in col-xs-12" href="{{ url('/auth/facebook') }}">
@@ -56,6 +59,7 @@
                                 </a>
                             </div>
                         </div>
+                        @endif
 
                         <div class="form-group">
                             <div class="col-md-8 col-md-offset-4">
