@@ -17,7 +17,7 @@ This tool set includes:
 
 - Requirements are best determined using [Server Requirements page](https://laravel.com/docs/8.x/installation#server-requirements) of corresponding Laravel 8 version
   - Currently used version is 8.x
-- PHP version 7.4 (some of the additional modules have strict requirements)
+- PHP version 8.1 (some of the additional modules have strict requirements)
 - SSH access to the server (terminal access)
 - [Composer](https://getcomposer.org/) being installed
 
